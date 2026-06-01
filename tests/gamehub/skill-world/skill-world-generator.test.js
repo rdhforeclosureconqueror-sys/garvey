@@ -2123,3 +2123,84 @@ const g4EnglishDrillHtml=Renderer.renderSkillWorld(g4AdvancedWordAnalysis,{state
 assert.match(g4EnglishDrillHtml,/Skill Practice Center/,'G4E_RF_001 Practice This Skill route renders Skill Practice Center');
 assert.match(g4EnglishDrillHtml,/Level 1: Syllable Types/,'G4E_RF_001 drill renders Level 1');
 ['syllable_break','word_parts','morpheme_tiles','word_builder'].forEach((visual)=>{const q=g4EnglishQuestions.find((item)=>item.visual_model===visual); assert.ok(q,`G4E_RF_001 includes ${visual} question`); assert.match(VisualRegistry.render(q),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists for G4E_RF_001`);});
+
+const g4EnglishBatchPackages = [
+  {
+    id: 'G4E_FL_001',
+    domain: 'Fluency',
+    skill: 'Reading Fluency, Accuracy, and Expression',
+    labels: ['Level 1: Accuracy', 'Level 2: Phrasing', 'Level 3: Punctuation and Expression', 'Level 4: Repeated Reading', 'Mixed'],
+    visuals: ['sentence_card', 'sentence_highlight', 'phrase_builder', 'fluency_meter'],
+    types: ['multiple_choice', 'short_response', 'sentence_completion'],
+    tags: ['skips_words', 'punctuation_ignored', 'phrase_chunking_error', 'expression_flat_reading'],
+    listenPattern: /sentence_card|sentence_highlight|phrase_builder|fluency_meter/,
+    pkg: load('G4E_FL_001')
+  },
+  {
+    id: 'G4E_VOC_001',
+    domain: 'Vocabulary / Language',
+    skill: 'Vocabulary, Context Clues, and Figurative Language',
+    labels: ['Level 1: Context Clues', 'Level 2: Word Parts and Meanings', 'Level 3: Synonyms, Antonyms, and Shades', 'Level 4: Figurative Language', 'Mixed'],
+    visuals: ['context_sentence', 'vocabulary_match', 'word_scale', 'figurative_language_card'],
+    types: ['multiple_choice', 'short_response', 'vocabulary_match'],
+    tags: ['context_clue_ignored', 'affix_meaning_confusion', 'literal_vs_figurative_confusion', 'shade_of_meaning_confusion'],
+    listenPattern: /context_sentence|vocabulary_match|figurative_language_card/,
+    pkg: load('G4E_VOC_001')
+  },
+  {
+    id: 'G4E_RC_001',
+    domain: 'Reading Comprehension',
+    skill: 'Ask and Answer Questions With Text Evidence',
+    labels: ['Level 1: Literal Questions', 'Level 2: Inferential Questions', 'Level 3: Find Text Evidence', 'Level 4: Explain Your Answer', 'Mixed'],
+    visuals: ['short_passage', 'question_card', 'evidence_highlight', 'text_evidence_builder'],
+    types: ['multiple_choice', 'short_response', 'text_evidence'],
+    tags: ['unsupported_answer', 'inference_without_evidence', 'misses_text_evidence', 'question_word_confusion'],
+    listenPattern: /short_passage|evidence_highlight|text_evidence_builder/,
+    pkg: load('G4E_RC_001')
+  }
+];
+
+const g4EnglishBatchManifest = JSON.parse(fs.readFileSync(path.join(root, 'public/gamehub/skill-world/content/manifest.json'), 'utf8'));
+for (const spec of g4EnglishBatchPackages) {
+  const { id, pkg } = spec;
+  const allQuestions = [...(pkg.guided_practice || []), ...(pkg.adaptive_question_bank || []), ...(pkg.checkpoint || []), ...(pkg.level_banks || []).flatMap((level) => level.questions || [])];
+  assert.equal(Schema.validateSkillPackage(pkg, { allowPlannedLevelBanks: false }).valid, true, `${id} validates in strict production mode`);
+  assert.equal(pkg.grade, 4, `${id} is Grade 4`);
+  assert.equal(pkg.subject, 'English', `${id} is English`);
+  assert.equal(pkg.domain, spec.domain, `${id} domain matches plan`);
+  assert.equal(pkg.skill, spec.skill, `${id} skill title matches plan`);
+  assert.ok(g4EnglishBatchManifest.packages.includes(`${id}.skill-package.v1.json`), `manifest includes ${id}`);
+  assert.equal(Array.isArray(pkg.level_banks), true, `${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4, `${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true, `${id} has Mixed level`);
+  pkg.level_banks.forEach((level) => assert.ok(level.questions.length >= 10 && level.questions.length <= 12, `${id} ${level.level_id} has 10–12 questions`));
+  spec.labels.forEach((label) => assert.ok(pkg.level_banks.some((level) => level.label === label), `${id} includes ${label}`));
+  spec.visuals.forEach((visual) => assert.ok(allQuestions.some((q) => q.visual_model === visual), `${id} includes ${visual}`));
+  spec.types.forEach((type) => assert.ok(allQuestions.some((q) => q.question_type === type), `${id} includes ${type}`));
+  spec.tags.forEach((tag) => assert.ok(pkg.misconception_bank[tag], `${id} includes misconception ${tag}`));
+  assert.ok(allQuestions.filter((q) => q.question_type === 'short_response' || q.question_type === 'sentence_completion' || q.question_type === 'text_evidence' || q.question_type === 'vocabulary_match').every((q) => Array.isArray(q.acceptable_answers) && q.acceptable_answers.length > 0), `${id} constructed-response items have acceptable_answers`);
+  ['story', 'lesson', 'watch', 'demo', 'practice', 'challenge', 'checkpoint', 'badge', 'profile'].forEach((screen) => {
+    const narration = pkg.page_audio?.[screen];
+    assert.ok(narration?.text, `${id} has Read This Page narration for ${screen}`);
+    assert.equal(narration.label, 'Read This Page', `${id} ${screen} uses Read This Page label`);
+    assert.ok(narration.text.split(/[.!?]+/).filter((sentence) => sentence.trim()).length >= 3, `${id} ${screen} narration teaches, not just announces`);
+  });
+  ['practice', 'challenge', 'checkpoint'].forEach((screen) => assert.match(pkg.page_audio[screen].text, /Read Question/, `${id} ${screen} narration references Read Question`));
+  [...(pkg.guided_practice || []), ...(pkg.adaptive_question_bank || []), ...(pkg.checkpoint || [])].forEach((q) => assert.equal(q.question_audio?.label, 'Read Question', `${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level) => level.questions).forEach((q) => assert.equal(q.question_audio?.label, 'Read Question', `${q.question_id} Skill Practice question has Read Question narration`));
+  assert.ok(allQuestions.filter((q) => spec.listenPattern.test(`${q.visual_model} ${q.support_type}`)).every((q) => q.audio?.text), `${id} Listen audio exists where pronunciation, vocabulary, fluency, sentence, or passage reading helps`);
+  const missionHtml = Renderer.renderSkillWorld(pkg, { failClosed: true }).html;
+  ['Story', 'Lesson', 'Watch', 'Demo', 'Practice', 'Challenge', 'Checkpoint', 'Badge', 'Profile'].forEach((label) => assert.match(missionHtml, new RegExp(label), `${id} full mission flow renders ${label}`));
+  assert.match(missionHtml, /Read This Page/, `${id} renders page narration controls`);
+  assert.match(missionHtml, /Read Question/, `${id} renders question narration controls`);
+  assert.match(missionHtml, /Continue to Skill Practice/, `${id} profile links to Skill Practice Center`);
+  const drillHtml = Renderer.renderSkillWorld(pkg, { mode: 'drill', failClosed: true }).html;
+  assert.match(drillHtml, /Skill Practice Center/, `${id} Practice This Skill route renders Skill Practice Center`);
+  assert.match(drillHtml, new RegExp(spec.labels[0]), `${id} drill renders first focused level`);
+}
+
+['figurative_language_card', 'fluency_meter', 'text_evidence_builder'].forEach((visual) => {
+  const question = g4EnglishBatchPackages.flatMap(({ pkg }) => [...(pkg.guided_practice || []), ...(pkg.adaptive_question_bank || []), ...(pkg.checkpoint || []), ...(pkg.level_banks || []).flatMap((level) => level.questions || [])]).find((q) => q.visual_model === visual);
+  assert.ok(question, `${visual} has a Grade 4 English fixture question`);
+  assert.match(VisualRegistry.render(question), new RegExp(`data-renderer="${visual}"`), `${visual} renderer output exists`);
+});

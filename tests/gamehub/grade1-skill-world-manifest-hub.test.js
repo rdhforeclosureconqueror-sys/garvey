@@ -608,3 +608,31 @@ test('Grade 4 English advanced word analysis Skill World package appears from ma
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
+
+test('Grade 4 English fluency vocabulary comprehension packages appear from manifest for the hub', () => {
+  const expected = new Map([
+    ['G4E_FL_001', { domain: 'Fluency', skill: 'Reading Fluency, Accuracy, and Expression' }],
+    ['G4E_VOC_001', { domain: 'Vocabulary / Language', skill: 'Vocabulary, Context Clues, and Figurative Language' }],
+    ['G4E_RC_001', { domain: 'Reading Comprehension', skill: 'Ask and Answer Questions With Text Evidence' }]
+  ]);
+  for (const skillId of expected.keys()) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
+  const packages = [...expected.keys()].map((skillId) => readPackage(`${skillId}.skill-package.v1.json`));
+  for (const pkg of packages) {
+    assert.equal(pkg.grade, 4);
+    assert.equal(pkg.subject, 'English');
+    assert.equal(pkg.domain, expected.get(pkg.skill_id).domain);
+    assert.equal(pkg.skill, expected.get(pkg.skill_id).skill);
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
+    assert.equal(pkg.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${pkg.skill_id} practice questions have Read Question narration`);
+  }
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});

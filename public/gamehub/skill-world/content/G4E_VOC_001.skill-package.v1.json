@@ -1,0 +1,3118 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade4-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade4_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01"
+  },
+  "skill_id": "G4E_VOC_001",
+  "grade": 4,
+  "subject": "English",
+  "domain": "Vocabulary / Language",
+  "skill": "Vocabulary, Context Clues, and Figurative Language",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Enter the Vocabulary Meaning Lab, where words reveal their meanings through context clues, meaningful parts, relationships, and figurative language.",
+    "objective": "I can use context clues, word parts, word relationships, and figurative language to determine meaning.",
+    "key_vocabulary": [
+      "context clue",
+      "prefix",
+      "suffix",
+      "root",
+      "synonym",
+      "antonym",
+      "idiom",
+      "simile",
+      "metaphor",
+      "shade of meaning"
+    ],
+    "concept_explanation": "Strong readers use nearby clues, prefixes, suffixes, roots, synonyms, antonyms, idioms, similes, metaphors, and shades of meaning to choose precise word meanings.",
+    "visual_model": "context_sentence",
+    "common_misconception": "A reader may ignore context, confuse word parts, read figurative language literally, or choose a word with the wrong strength.",
+    "real_world_connection": "Vocabulary strategies help you understand stories, science texts, social studies passages, directions, and conversations.",
+    "lesson_summary": "Use context, word parts, relationships, and figurative clues to explain word meaning.",
+    "mini_lesson": "First read around the word. Then check word parts and relationships. Finally decide whether the language is literal or figurative.",
+    "audio": {
+      "text": "context clue, prefix, suffix, root, synonym, antonym",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "student_prompt": "Listen, then say the important reading words with me."
+    }
+  },
+  "worked_examples": [
+    {
+      "question_id": "G4E_VOC_001_LVL1_Q01",
+      "prompt": "What does arid mean in this context?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "very dry",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "very dry is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "What does arid mean in this context? Choices: very dry, very noisy, full of trees.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "The canyon was arid, with cracked soil and almost no rain.",
+      "context": "The canyon was arid, with cracked soil and almost no rain.",
+      "word": "arid",
+      "target_word": "arid",
+      "figurative_type": null,
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "very dry",
+      "evidence": "The canyon was arid, with cracked soil and almost no rain.",
+      "scale_words": [
+        "very dry",
+        "very noisy",
+        "full of trees"
+      ],
+      "audio": {
+        "text": "The canyon was arid, with cracked soil and almost no rain.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "very dry",
+        "very noisy",
+        "full of trees"
+      ]
+    },
+    {
+      "question_id": "G4E_VOC_001_LVL2_Q01",
+      "prompt": "Match preview to its meaning.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "view before",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "view before is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "Match preview to its meaning. Choices: view before, view again, not view.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "The prefix pre- in preview means before.",
+      "context": "The prefix pre- in preview means before.",
+      "word": "preview",
+      "target_word": "preview",
+      "figurative_type": null,
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "view before",
+      "evidence": "The prefix pre- in preview means before.",
+      "scale_words": [
+        "view before",
+        "view again",
+        "not view"
+      ],
+      "audio": {
+        "text": "The prefix pre- in preview means before.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "view before",
+        "view again",
+        "not view"
+      ]
+    },
+    {
+      "question_id": "G4E_VOC_001_LVL3_Q01",
+      "prompt": "Which word is stronger than big but weaker than gigantic?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_scale",
+      "support_type": "word_scale",
+      "correct_answer": "huge",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "shade_of_meaning_confusion",
+      "explanation": "huge is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "Which word is stronger than big but weaker than gigantic? Choices: huge, tiny, ordinary.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "Which word is stronger than big but weaker than gigantic?",
+      "context": "Which word is stronger than big but weaker than gigantic?",
+      "word": "huge",
+      "target_word": "huge",
+      "figurative_type": null,
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "huge",
+      "evidence": "Which word is stronger than big but weaker than gigantic?",
+      "scale_words": [
+        "huge",
+        "tiny",
+        "ordinary"
+      ],
+      "audio": {
+        "text": "Which word is stronger than big but weaker than gigantic?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "huge",
+        "tiny",
+        "ordinary"
+      ]
+    },
+    {
+      "question_id": "G4E_VOC_001_LVL4_Q01",
+      "prompt": "Explain the figurative meaning of: The classroom was a beehive before the play began.",
+      "question_type": "multiple_choice",
+      "visual_model": "figurative_language_card",
+      "support_type": "figurative_language_card",
+      "correct_answer": "busy and noisy",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "literal_vs_figurative_confusion",
+      "explanation": "busy and noisy is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "Explain the figurative meaning of: The classroom was a beehive before the play began. Choices: busy and noisy, filled with bees, empty and silent.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "The classroom was a beehive before the play began.",
+      "context": "The classroom was a beehive before the play began.",
+      "word": "metaphor",
+      "target_word": "metaphor",
+      "figurative_type": "metaphor",
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "busy and noisy",
+      "evidence": "The classroom was a beehive before the play began.",
+      "scale_words": [
+        "busy and noisy",
+        "filled with bees",
+        "empty and silent"
+      ],
+      "audio": {
+        "text": "The classroom was a beehive before the play began.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "busy and noisy",
+        "filled with bees",
+        "empty and silent"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Reread the important words before answering.",
+    "Use the visual model and the clue in the text.",
+    "Check that your answer is supported by the sentence or passage."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G4E_VOC_001_LVL1_Q02",
+      "prompt": "What does reluctant mean in this context?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "unsure or unwilling",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "unsure or unwilling is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "What does reluctant mean in this context? Choices: unsure or unwilling, eager immediately, already finished.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "Tessa was reluctant to sing at first, but her friends encouraged her.",
+      "context": "Tessa was reluctant to sing at first, but her friends encouraged her.",
+      "word": "reluctant",
+      "target_word": "reluctant",
+      "figurative_type": null,
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "unsure or unwilling",
+      "evidence": "Tessa was reluctant to sing at first, but her friends encouraged her.",
+      "scale_words": [
+        "unsure or unwilling",
+        "eager immediately",
+        "already finished"
+      ],
+      "audio": {
+        "text": "Tessa was reluctant to sing at first, but her friends encouraged her.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "unsure or unwilling",
+        "eager immediately",
+        "already finished"
+      ]
+    },
+    {
+      "question_id": "G4E_VOC_001_LVL2_Q02",
+      "prompt": "Match fearless to its meaning.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "without fear",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "without fear is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "Match fearless to its meaning. Choices: without fear, full of fear, fear again.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "The suffix -less in fearless means without.",
+      "context": "The suffix -less in fearless means without.",
+      "word": "fearless",
+      "target_word": "fearless",
+      "figurative_type": null,
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "without fear",
+      "evidence": "The suffix -less in fearless means without.",
+      "scale_words": [
+        "without fear",
+        "full of fear",
+        "fear again"
+      ],
+      "audio": {
+        "text": "The suffix -less in fearless means without.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "without fear",
+        "full of fear",
+        "fear again"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G4E_VOC_001_LVL1_Q03",
+      "prompt": "What does timid mean in this context?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "shy",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "shy is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "What does timid mean in this context? Choices: shy, brave, sleepy.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "The kitten was timid and hid behind the chair when visitors arrived.",
+      "context": "The kitten was timid and hid behind the chair when visitors arrived.",
+      "word": "timid",
+      "target_word": "timid",
+      "figurative_type": null,
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "shy",
+      "evidence": "The kitten was timid and hid behind the chair when visitors arrived.",
+      "scale_words": [
+        "shy",
+        "brave",
+        "sleepy"
+      ],
+      "audio": {
+        "text": "The kitten was timid and hid behind the chair when visitors arrived.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "shy",
+        "brave",
+        "sleepy"
+      ]
+    },
+    {
+      "question_id": "G4E_VOC_001_LVL4_Q03",
+      "prompt": "Explain the figurative meaning of: After the test, Dad said it was a piece of cake.",
+      "question_type": "short_response",
+      "visual_model": "figurative_language_card",
+      "support_type": "figurative_language_card",
+      "correct_answer": "very easy",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "literal_vs_figurative_confusion",
+      "explanation": "very easy is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "Explain the figurative meaning of: After the test, Dad said it was a piece of cake.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "After the test, Dad said it was a piece of cake.",
+      "context": "After the test, Dad said it was a piece of cake.",
+      "word": "idiom",
+      "target_word": "idiom",
+      "figurative_type": "idiom",
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "very easy",
+      "evidence": "After the test, Dad said it was a piece of cake.",
+      "scale_words": [
+        "mild",
+        "strong",
+        "strongest"
+      ],
+      "audio": {
+        "text": "After the test, Dad said it was a piece of cake.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "very easy",
+        "very easy"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G4E_VOC_001_LVL3_Q02",
+      "prompt": "Choose the antonym of expand.",
+      "question_type": "multiple_choice",
+      "visual_model": "word_scale",
+      "support_type": "word_scale",
+      "correct_answer": "shrink",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "shade_of_meaning_confusion",
+      "explanation": "shrink is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "Choose the antonym of expand. Choices: shrink, grow, stretch.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "Choose the antonym of expand.",
+      "context": "Choose the antonym of expand.",
+      "word": "shrink",
+      "target_word": "shrink",
+      "figurative_type": null,
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "shrink",
+      "evidence": "Choose the antonym of expand.",
+      "scale_words": [
+        "shrink",
+        "grow",
+        "stretch"
+      ],
+      "audio": {
+        "text": "Choose the antonym of expand.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "shrink",
+        "grow",
+        "stretch"
+      ]
+    },
+    {
+      "question_id": "G4E_VOC_001_LVL4_Q02",
+      "prompt": "Explain the figurative meaning of: Mia ran like the wind across the field.",
+      "question_type": "multiple_choice",
+      "visual_model": "figurative_language_card",
+      "support_type": "figurative_language_card",
+      "correct_answer": "ran very fast",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "literal_vs_figurative_confusion",
+      "explanation": "ran very fast is supported by the context, word part, word relationship, or figurative language clue.",
+      "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+      "question_audio": {
+        "text": "Explain the figurative meaning of: Mia ran like the wind across the field. Choices: ran very fast, became wind, walked slowly.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "Mia ran like the wind across the field.",
+      "context": "Mia ran like the wind across the field.",
+      "word": "simile",
+      "target_word": "simile",
+      "figurative_type": "simile",
+      "literal_meaning": "literal picture is not the intended meaning",
+      "figurative_meaning": "ran very fast",
+      "evidence": "Mia ran like the wind across the field.",
+      "scale_words": [
+        "ran very fast",
+        "became wind",
+        "walked slowly"
+      ],
+      "audio": {
+        "text": "Mia ran like the wind across the field.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "ran very fast",
+        "became wind",
+        "walked slowly"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "context_clue_ignored": "The reader chooses a meaning without using clues around the word.",
+    "affix_meaning_confusion": "The reader mixes up prefix, suffix, or root meanings.",
+    "literal_vs_figurative_confusion": "The reader treats an idiom, simile, or metaphor as if it were literal.",
+    "shade_of_meaning_confusion": "The reader chooses a word that is related but not precise enough."
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Vocabulary Meaning Lab",
+    "mission_intro": "Enter the Vocabulary Meaning Lab, where words reveal their meanings through context clues, meaningful parts, relationships, and figurative language.",
+    "badge_name": "Word Detective Badge",
+    "setting": "language lab"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": "G4E_RF_001",
+  "level_banks": [
+    {
+      "level_id": "G4E_VOC_001_LVL1",
+      "label": "Level 1: Context Clues",
+      "focus": "Context Clues",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q01",
+          "prompt": "What does arid mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "very dry",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "very dry is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does arid mean in this context? Choices: very dry, very noisy, full of trees.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The canyon was arid, with cracked soil and almost no rain.",
+          "context": "The canyon was arid, with cracked soil and almost no rain.",
+          "word": "arid",
+          "target_word": "arid",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "very dry",
+          "evidence": "The canyon was arid, with cracked soil and almost no rain.",
+          "scale_words": [
+            "very dry",
+            "very noisy",
+            "full of trees"
+          ],
+          "audio": {
+            "text": "The canyon was arid, with cracked soil and almost no rain.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "very dry",
+            "very noisy",
+            "full of trees"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q02",
+          "prompt": "What does reluctant mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "unsure or unwilling",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "unsure or unwilling is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does reluctant mean in this context? Choices: unsure or unwilling, eager immediately, already finished.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Tessa was reluctant to sing at first, but her friends encouraged her.",
+          "context": "Tessa was reluctant to sing at first, but her friends encouraged her.",
+          "word": "reluctant",
+          "target_word": "reluctant",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "unsure or unwilling",
+          "evidence": "Tessa was reluctant to sing at first, but her friends encouraged her.",
+          "scale_words": [
+            "unsure or unwilling",
+            "eager immediately",
+            "already finished"
+          ],
+          "audio": {
+            "text": "Tessa was reluctant to sing at first, but her friends encouraged her.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "unsure or unwilling",
+            "eager immediately",
+            "already finished"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q03",
+          "prompt": "What does timid mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "shy",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "shy is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does timid mean in this context? Choices: shy, brave, sleepy.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The kitten was timid and hid behind the chair when visitors arrived.",
+          "context": "The kitten was timid and hid behind the chair when visitors arrived.",
+          "word": "timid",
+          "target_word": "timid",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "shy",
+          "evidence": "The kitten was timid and hid behind the chair when visitors arrived.",
+          "scale_words": [
+            "shy",
+            "brave",
+            "sleepy"
+          ],
+          "audio": {
+            "text": "The kitten was timid and hid behind the chair when visitors arrived.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "shy",
+            "brave",
+            "sleepy"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q04",
+          "prompt": "What does illuminated mean in this context?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "lit up",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "lit up is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does illuminated mean in this context?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The lantern illuminated the tent, making every corner bright.",
+          "context": "The lantern illuminated the tent, making every corner bright.",
+          "word": "illuminated",
+          "target_word": "illuminated",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "lit up",
+          "evidence": "The lantern illuminated the tent, making every corner bright.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "The lantern illuminated the tent, making every corner bright.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "lit up",
+            "lit up"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q05",
+          "prompt": "What does silent mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "quiet",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "quiet is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does silent mean in this context? Choices: quiet, crowded, colorful.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The crowd was silent; the room was completely still.",
+          "context": "The crowd was silent; the room was completely still.",
+          "word": "silent",
+          "target_word": "silent",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "quiet",
+          "evidence": "The crowd was silent; the room was completely still.",
+          "scale_words": [
+            "quiet",
+            "crowded",
+            "colorful"
+          ],
+          "audio": {
+            "text": "The crowd was silent; the room was completely still.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "quiet",
+            "crowded",
+            "colorful"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q06",
+          "prompt": "What does bitter mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "not sweet",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "not sweet is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does bitter mean in this context? Choices: not sweet, very loud, easy to carry.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The soup had a bitter taste, unlike the sweet peaches.",
+          "context": "The soup had a bitter taste, unlike the sweet peaches.",
+          "word": "bitter",
+          "target_word": "bitter",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "not sweet",
+          "evidence": "The soup had a bitter taste, unlike the sweet peaches.",
+          "scale_words": [
+            "not sweet",
+            "very loud",
+            "easy to carry"
+          ],
+          "audio": {
+            "text": "The soup had a bitter taste, unlike the sweet peaches.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "not sweet",
+            "very loud",
+            "easy to carry"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q07",
+          "prompt": "What does steep mean in this context?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "rising sharply",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "rising sharply is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does steep mean in this context?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Because the trail was steep, we climbed slowly.",
+          "context": "Because the trail was steep, we climbed slowly.",
+          "word": "steep",
+          "target_word": "steep",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "rising sharply",
+          "evidence": "Because the trail was steep, we climbed slowly.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "Because the trail was steep, we climbed slowly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "rising sharply",
+            "rising sharply"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q08",
+          "prompt": "What does drowsy mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "sleepy",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "sleepy is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does drowsy mean in this context? Choices: sleepy, angry, soaked.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The puppy was drowsy after playing and soon fell asleep.",
+          "context": "The puppy was drowsy after playing and soon fell asleep.",
+          "word": "drowsy",
+          "target_word": "drowsy",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "sleepy",
+          "evidence": "The puppy was drowsy after playing and soon fell asleep.",
+          "scale_words": [
+            "sleepy",
+            "angry",
+            "soaked"
+          ],
+          "audio": {
+            "text": "The puppy was drowsy after playing and soon fell asleep.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "sleepy",
+            "angry",
+            "soaked"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q09",
+          "prompt": "What does fragile mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "breaks easily",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "breaks easily is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does fragile mean in this context? Choices: breaks easily, very heavy, hard to see.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The fragile shell cracked when it fell.",
+          "context": "The fragile shell cracked when it fell.",
+          "word": "fragile",
+          "target_word": "fragile",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "breaks easily",
+          "evidence": "The fragile shell cracked when it fell.",
+          "scale_words": [
+            "breaks easily",
+            "very heavy",
+            "hard to see"
+          ],
+          "audio": {
+            "text": "The fragile shell cracked when it fell.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "breaks easily",
+            "very heavy",
+            "hard to see"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL1_Q10",
+          "prompt": "What does generous mean in this context?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "willing to give",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "willing to give is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does generous mean in this context?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "A generous neighbor shared extra vegetables with everyone.",
+          "context": "A generous neighbor shared extra vegetables with everyone.",
+          "word": "generous",
+          "target_word": "generous",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "willing to give",
+          "evidence": "A generous neighbor shared extra vegetables with everyone.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "A generous neighbor shared extra vegetables with everyone.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "willing to give",
+            "willing to give"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_VOC_001_LVL2",
+      "label": "Level 2: Word Parts and Meanings",
+      "focus": "Word Parts and Meanings",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q01",
+          "prompt": "Match preview to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "view before",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "view before is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match preview to its meaning. Choices: view before, view again, not view.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The prefix pre- in preview means before.",
+          "context": "The prefix pre- in preview means before.",
+          "word": "preview",
+          "target_word": "preview",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "view before",
+          "evidence": "The prefix pre- in preview means before.",
+          "scale_words": [
+            "view before",
+            "view again",
+            "not view"
+          ],
+          "audio": {
+            "text": "The prefix pre- in preview means before.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "view before",
+            "view again",
+            "not view"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q02",
+          "prompt": "Match fearless to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "without fear",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "without fear is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match fearless to its meaning. Choices: without fear, full of fear, fear again.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The suffix -less in fearless means without.",
+          "context": "The suffix -less in fearless means without.",
+          "word": "fearless",
+          "target_word": "fearless",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "without fear",
+          "evidence": "The suffix -less in fearless means without.",
+          "scale_words": [
+            "without fear",
+            "full of fear",
+            "fear again"
+          ],
+          "audio": {
+            "text": "The suffix -less in fearless means without.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "without fear",
+            "full of fear",
+            "fear again"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q03",
+          "prompt": "Match transport to its meaning.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "carry across",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "carry across is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match transport to its meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The root port in transport means carry.",
+          "context": "The root port in transport means carry.",
+          "word": "transport",
+          "target_word": "transport",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "carry across",
+          "evidence": "The root port in transport means carry.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "The root port in transport means carry.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "carry across",
+            "carry across"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q04",
+          "prompt": "Match rebuild to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "build again",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "build again is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match rebuild to its meaning. Choices: build again, not build, before build.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The prefix re- in rebuild means again.",
+          "context": "The prefix re- in rebuild means again.",
+          "word": "rebuild",
+          "target_word": "rebuild",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "build again",
+          "evidence": "The prefix re- in rebuild means again.",
+          "scale_words": [
+            "build again",
+            "not build",
+            "before build"
+          ],
+          "audio": {
+            "text": "The prefix re- in rebuild means again.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "build again",
+            "not build",
+            "before build"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q05",
+          "prompt": "Match hopeful to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "full of hope",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "full of hope is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match hopeful to its meaning. Choices: full of hope, without hope, hope before.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The suffix -ful in hopeful means full of.",
+          "context": "The suffix -ful in hopeful means full of.",
+          "word": "hopeful",
+          "target_word": "hopeful",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "full of hope",
+          "evidence": "The suffix -ful in hopeful means full of.",
+          "scale_words": [
+            "full of hope",
+            "without hope",
+            "hope before"
+          ],
+          "audio": {
+            "text": "The suffix -ful in hopeful means full of.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "full of hope",
+            "without hope",
+            "hope before"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q06",
+          "prompt": "Match autograph to its meaning.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "written name",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "written name is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match autograph to its meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The root graph in autograph means write.",
+          "context": "The root graph in autograph means write.",
+          "word": "autograph",
+          "target_word": "autograph",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "written name",
+          "evidence": "The root graph in autograph means write.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "The root graph in autograph means write.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "written name",
+            "written name"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q07",
+          "prompt": "Match misread to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "read wrongly",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "read wrongly is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match misread to its meaning. Choices: read wrongly, read before, read together.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The prefix mis- in misread means wrongly.",
+          "context": "The prefix mis- in misread means wrongly.",
+          "word": "misread",
+          "target_word": "misread",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "read wrongly",
+          "evidence": "The prefix mis- in misread means wrongly.",
+          "scale_words": [
+            "read wrongly",
+            "read before",
+            "read together"
+          ],
+          "audio": {
+            "text": "The prefix mis- in misread means wrongly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "read wrongly",
+            "read before",
+            "read together"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q08",
+          "prompt": "Match washable to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "able to be washed",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "able to be washed is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match washable to its meaning. Choices: able to be washed, washed before, not washed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The suffix -able in washable means able to be.",
+          "context": "The suffix -able in washable means able to be.",
+          "word": "washable",
+          "target_word": "washable",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "able to be washed",
+          "evidence": "The suffix -able in washable means able to be.",
+          "scale_words": [
+            "able to be washed",
+            "washed before",
+            "not washed"
+          ],
+          "audio": {
+            "text": "The suffix -able in washable means able to be.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "able to be washed",
+            "washed before",
+            "not washed"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q09",
+          "prompt": "Match inspect to its meaning.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "look into",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "look into is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match inspect to its meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The root spect in inspect means look.",
+          "context": "The root spect in inspect means look.",
+          "word": "inspect",
+          "target_word": "inspect",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "look into",
+          "evidence": "The root spect in inspect means look.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "The root spect in inspect means look.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "look into",
+            "look into"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL2_Q10",
+          "prompt": "Match submarine to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "underwater vessel",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "underwater vessel is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match submarine to its meaning. Choices: underwater vessel, above-water bird, beside a road.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The prefix sub- in submarine means under.",
+          "context": "The prefix sub- in submarine means under.",
+          "word": "submarine",
+          "target_word": "submarine",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "underwater vessel",
+          "evidence": "The prefix sub- in submarine means under.",
+          "scale_words": [
+            "underwater vessel",
+            "above-water bird",
+            "beside a road"
+          ],
+          "audio": {
+            "text": "The prefix sub- in submarine means under.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "underwater vessel",
+            "above-water bird",
+            "beside a road"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_VOC_001_LVL3",
+      "label": "Level 3: Synonyms, Antonyms, and Shades",
+      "focus": "Synonyms, Antonyms, and Shades",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q01",
+          "prompt": "Which word is stronger than big but weaker than gigantic?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "huge",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "huge is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Which word is stronger than big but weaker than gigantic? Choices: huge, tiny, ordinary.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Which word is stronger than big but weaker than gigantic?",
+          "context": "Which word is stronger than big but weaker than gigantic?",
+          "word": "huge",
+          "target_word": "huge",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "huge",
+          "evidence": "Which word is stronger than big but weaker than gigantic?",
+          "scale_words": [
+            "huge",
+            "tiny",
+            "ordinary"
+          ],
+          "audio": {
+            "text": "Which word is stronger than big but weaker than gigantic?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "huge",
+            "tiny",
+            "ordinary"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q02",
+          "prompt": "Choose the antonym of expand.",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "shrink",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "shrink is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Choose the antonym of expand. Choices: shrink, grow, stretch.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Choose the antonym of expand.",
+          "context": "Choose the antonym of expand.",
+          "word": "shrink",
+          "target_word": "shrink",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "shrink",
+          "evidence": "Choose the antonym of expand.",
+          "scale_words": [
+            "shrink",
+            "grow",
+            "stretch"
+          ],
+          "audio": {
+            "text": "Choose the antonym of expand.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "shrink",
+            "grow",
+            "stretch"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q03",
+          "prompt": "Which synonym best replaces quick in a formal report?",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "rapid",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "rapid is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Which synonym best replaces quick in a formal report?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Which synonym best replaces quick in a formal report?",
+          "context": "Which synonym best replaces quick in a formal report?",
+          "word": "rapid",
+          "target_word": "rapid",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "rapid",
+          "evidence": "Which synonym best replaces quick in a formal report?",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "Which synonym best replaces quick in a formal report?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "rapid",
+            "rapid"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q04",
+          "prompt": "Which word shows the strongest feeling: pleased, thrilled, okay?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "thrilled",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "thrilled is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Which word shows the strongest feeling: pleased, thrilled, okay? Choices: thrilled, pleased, okay.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Which word shows the strongest feeling: pleased, thrilled, okay?",
+          "context": "Which word shows the strongest feeling: pleased, thrilled, okay?",
+          "word": "thrilled",
+          "target_word": "thrilled",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "thrilled",
+          "evidence": "Which word shows the strongest feeling: pleased, thrilled, okay?",
+          "scale_words": [
+            "thrilled",
+            "pleased",
+            "okay"
+          ],
+          "audio": {
+            "text": "Which word shows the strongest feeling: pleased, thrilled, okay?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "thrilled",
+            "pleased",
+            "okay"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q05",
+          "prompt": "Choose the antonym of cautious.",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "careless",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "careless is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Choose the antonym of cautious. Choices: careless, careful, watchful.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Choose the antonym of cautious.",
+          "context": "Choose the antonym of cautious.",
+          "word": "careless",
+          "target_word": "careless",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "careless",
+          "evidence": "Choose the antonym of cautious.",
+          "scale_words": [
+            "careless",
+            "careful",
+            "watchful"
+          ],
+          "audio": {
+            "text": "Choose the antonym of cautious.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "careless",
+            "careful",
+            "watchful"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q06",
+          "prompt": "Which word is gentler than furious?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "annoyed",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "annoyed is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Which word is gentler than furious? Choices: annoyed, furious, enraged.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Which word is gentler than furious?",
+          "context": "Which word is gentler than furious?",
+          "word": "annoyed",
+          "target_word": "annoyed",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "annoyed",
+          "evidence": "Which word is gentler than furious?",
+          "scale_words": [
+            "annoyed",
+            "furious",
+            "enraged"
+          ],
+          "audio": {
+            "text": "Which word is gentler than furious?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "annoyed",
+            "furious",
+            "enraged"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q07",
+          "prompt": "Which synonym best fits: The scientist examined the sample.",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "studied",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "studied is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Which synonym best fits: The scientist examined the sample.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Which synonym best fits: The scientist examined the sample.",
+          "context": "Which synonym best fits: The scientist examined the sample.",
+          "word": "studied",
+          "target_word": "studied",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "studied",
+          "evidence": "Which synonym best fits: The scientist examined the sample.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "Which synonym best fits: The scientist examined the sample.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "studied",
+            "studied"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q08",
+          "prompt": "Put these in order from weakest to strongest: warm, hot, scorching.",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "warm, hot, scorching",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "warm, hot, scorching is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Put these in order from weakest to strongest: warm, hot, scorching. Choices: warm, hot, scorching, scorching, warm, hot, hot, scorching, warm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Put these in order from weakest to strongest: warm, hot, scorching.",
+          "context": "Put these in order from weakest to strongest: warm, hot, scorching.",
+          "word": "warm, hot, scorching",
+          "target_word": "warm, hot, scorching",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "warm, hot, scorching",
+          "evidence": "Put these in order from weakest to strongest: warm, hot, scorching.",
+          "scale_words": [
+            "warm, hot, scorching",
+            "scorching, warm, hot",
+            "hot, scorching, warm"
+          ],
+          "audio": {
+            "text": "Put these in order from weakest to strongest: warm, hot, scorching.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "warm, hot, scorching",
+            "scorching, warm, hot",
+            "hot, scorching, warm"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q09",
+          "prompt": "Which word is more precise than went?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "strolled",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "strolled is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Which word is more precise than went? Choices: strolled, thing, nice.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Which word is more precise than went?",
+          "context": "Which word is more precise than went?",
+          "word": "strolled",
+          "target_word": "strolled",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "strolled",
+          "evidence": "Which word is more precise than went?",
+          "scale_words": [
+            "strolled",
+            "thing",
+            "nice"
+          ],
+          "audio": {
+            "text": "Which word is more precise than went?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "strolled",
+            "thing",
+            "nice"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL3_Q10",
+          "prompt": "Choose the antonym of scarce.",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "abundant",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "abundant is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Choose the antonym of scarce.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Choose the antonym of scarce.",
+          "context": "Choose the antonym of scarce.",
+          "word": "abundant",
+          "target_word": "abundant",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "abundant",
+          "evidence": "Choose the antonym of scarce.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "Choose the antonym of scarce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "abundant",
+            "abundant"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_VOC_001_LVL4",
+      "label": "Level 4: Figurative Language",
+      "focus": "Figurative Language",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q01",
+          "prompt": "Explain the figurative meaning of: The classroom was a beehive before the play began.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "busy and noisy",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "busy and noisy is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: The classroom was a beehive before the play began. Choices: busy and noisy, filled with bees, empty and silent.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The classroom was a beehive before the play began.",
+          "context": "The classroom was a beehive before the play began.",
+          "word": "metaphor",
+          "target_word": "metaphor",
+          "figurative_type": "metaphor",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "busy and noisy",
+          "evidence": "The classroom was a beehive before the play began.",
+          "scale_words": [
+            "busy and noisy",
+            "filled with bees",
+            "empty and silent"
+          ],
+          "audio": {
+            "text": "The classroom was a beehive before the play began.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "busy and noisy",
+            "filled with bees",
+            "empty and silent"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q02",
+          "prompt": "Explain the figurative meaning of: Mia ran like the wind across the field.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "ran very fast",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "ran very fast is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: Mia ran like the wind across the field. Choices: ran very fast, became wind, walked slowly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Mia ran like the wind across the field.",
+          "context": "Mia ran like the wind across the field.",
+          "word": "simile",
+          "target_word": "simile",
+          "figurative_type": "simile",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "ran very fast",
+          "evidence": "Mia ran like the wind across the field.",
+          "scale_words": [
+            "ran very fast",
+            "became wind",
+            "walked slowly"
+          ],
+          "audio": {
+            "text": "Mia ran like the wind across the field.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "ran very fast",
+            "became wind",
+            "walked slowly"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q03",
+          "prompt": "Explain the figurative meaning of: After the test, Dad said it was a piece of cake.",
+          "question_type": "short_response",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "very easy",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "very easy is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: After the test, Dad said it was a piece of cake.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "After the test, Dad said it was a piece of cake.",
+          "context": "After the test, Dad said it was a piece of cake.",
+          "word": "idiom",
+          "target_word": "idiom",
+          "figurative_type": "idiom",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "very easy",
+          "evidence": "After the test, Dad said it was a piece of cake.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "After the test, Dad said it was a piece of cake.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "very easy",
+            "very easy"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q04",
+          "prompt": "Explain the figurative meaning of: The moon was a silver coin in the dark sky.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "the moon looked round and bright",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "the moon looked round and bright is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: The moon was a silver coin in the dark sky. Choices: the moon looked round and bright, the moon was money, the sky was a store.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The moon was a silver coin in the dark sky.",
+          "context": "The moon was a silver coin in the dark sky.",
+          "word": "metaphor",
+          "target_word": "metaphor",
+          "figurative_type": "metaphor",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "the moon looked round and bright",
+          "evidence": "The moon was a silver coin in the dark sky.",
+          "scale_words": [
+            "the moon looked round and bright",
+            "the moon was money",
+            "the sky was a store"
+          ],
+          "audio": {
+            "text": "The moon was a silver coin in the dark sky.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "the moon looked round and bright",
+            "the moon was money",
+            "the sky was a store"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q05",
+          "prompt": "Explain the figurative meaning of: Her smile was as bright as sunshine.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "very bright and cheerful",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "very bright and cheerful is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: Her smile was as bright as sunshine. Choices: very bright and cheerful, made of sunshine, hard to see.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Her smile was as bright as sunshine.",
+          "context": "Her smile was as bright as sunshine.",
+          "word": "simile",
+          "target_word": "simile",
+          "figurative_type": "simile",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "very bright and cheerful",
+          "evidence": "Her smile was as bright as sunshine.",
+          "scale_words": [
+            "very bright and cheerful",
+            "made of sunshine",
+            "hard to see"
+          ],
+          "audio": {
+            "text": "Her smile was as bright as sunshine.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "very bright and cheerful",
+            "made of sunshine",
+            "hard to see"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q06",
+          "prompt": "Explain the figurative meaning of: When plans changed, Eli had to roll with the punches.",
+          "question_type": "short_response",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "adjust to problems",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "adjust to problems is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: When plans changed, Eli had to roll with the punches.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "When plans changed, Eli had to roll with the punches.",
+          "context": "When plans changed, Eli had to roll with the punches.",
+          "word": "idiom",
+          "target_word": "idiom",
+          "figurative_type": "idiom",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "adjust to problems",
+          "evidence": "When plans changed, Eli had to roll with the punches.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "When plans changed, Eli had to roll with the punches.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "adjust to problems",
+            "adjust to problems"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q07",
+          "prompt": "Explain the figurative meaning of: The news spread like wildfire through the school.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "spread very quickly",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "spread very quickly is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: The news spread like wildfire through the school. Choices: spread very quickly, started a fire, stayed secret.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The news spread like wildfire through the school.",
+          "context": "The news spread like wildfire through the school.",
+          "word": "simile",
+          "target_word": "simile",
+          "figurative_type": "simile",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "spread very quickly",
+          "evidence": "The news spread like wildfire through the school.",
+          "scale_words": [
+            "spread very quickly",
+            "started a fire",
+            "stayed secret"
+          ],
+          "audio": {
+            "text": "The news spread like wildfire through the school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "spread very quickly",
+            "started a fire",
+            "stayed secret"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q08",
+          "prompt": "Explain the figurative meaning of: The old computer was a dinosaur compared with the new tablets.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "very outdated",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "very outdated is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: The old computer was a dinosaur compared with the new tablets. Choices: very outdated, an animal, very hungry.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The old computer was a dinosaur compared with the new tablets.",
+          "context": "The old computer was a dinosaur compared with the new tablets.",
+          "word": "metaphor",
+          "target_word": "metaphor",
+          "figurative_type": "metaphor",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "very outdated",
+          "evidence": "The old computer was a dinosaur compared with the new tablets.",
+          "scale_words": [
+            "very outdated",
+            "an animal",
+            "very hungry"
+          ],
+          "audio": {
+            "text": "The old computer was a dinosaur compared with the new tablets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "very outdated",
+            "an animal",
+            "very hungry"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q09",
+          "prompt": "Explain the figurative meaning of: Grandma told me not to spill the beans about the surprise.",
+          "question_type": "short_response",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "reveal the secret",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "reveal the secret is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: Grandma told me not to spill the beans about the surprise.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Grandma told me not to spill the beans about the surprise.",
+          "context": "Grandma told me not to spill the beans about the surprise.",
+          "word": "idiom",
+          "target_word": "idiom",
+          "figurative_type": "idiom",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "reveal the secret",
+          "evidence": "Grandma told me not to spill the beans about the surprise.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "Grandma told me not to spill the beans about the surprise.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "reveal the secret",
+            "reveal the secret"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_LVL4_Q10",
+          "prompt": "Explain the figurative meaning of: The hallway was a river of students after the bell.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "many students moving together",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "many students moving together is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: The hallway was a river of students after the bell. Choices: many students moving together, water in the hallway, no students at all.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The hallway was a river of students after the bell.",
+          "context": "The hallway was a river of students after the bell.",
+          "word": "metaphor",
+          "target_word": "metaphor",
+          "figurative_type": "metaphor",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "many students moving together",
+          "evidence": "The hallway was a river of students after the bell.",
+          "scale_words": [
+            "many students moving together",
+            "water in the hallway",
+            "no students at all"
+          ],
+          "audio": {
+            "text": "The hallway was a river of students after the bell.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "many students moving together",
+            "water in the hallway",
+            "no students at all"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_VOC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed vocabulary and language review",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q01",
+          "prompt": "What does arid mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "very dry",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "very dry is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does arid mean in this context? Choices: very dry, very noisy, full of trees.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The canyon was arid, with cracked soil and almost no rain.",
+          "context": "The canyon was arid, with cracked soil and almost no rain.",
+          "word": "arid",
+          "target_word": "arid",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "very dry",
+          "evidence": "The canyon was arid, with cracked soil and almost no rain.",
+          "scale_words": [
+            "very dry",
+            "very noisy",
+            "full of trees"
+          ],
+          "audio": {
+            "text": "The canyon was arid, with cracked soil and almost no rain.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "very dry",
+            "very noisy",
+            "full of trees"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q02",
+          "prompt": "Match fearless to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "without fear",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "without fear is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match fearless to its meaning. Choices: without fear, full of fear, fear again.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The suffix -less in fearless means without.",
+          "context": "The suffix -less in fearless means without.",
+          "word": "fearless",
+          "target_word": "fearless",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "without fear",
+          "evidence": "The suffix -less in fearless means without.",
+          "scale_words": [
+            "without fear",
+            "full of fear",
+            "fear again"
+          ],
+          "audio": {
+            "text": "The suffix -less in fearless means without.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "without fear",
+            "full of fear",
+            "fear again"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q03",
+          "prompt": "Which synonym best replaces quick in a formal report?",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "rapid",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "rapid is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Which synonym best replaces quick in a formal report?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Which synonym best replaces quick in a formal report?",
+          "context": "Which synonym best replaces quick in a formal report?",
+          "word": "rapid",
+          "target_word": "rapid",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "rapid",
+          "evidence": "Which synonym best replaces quick in a formal report?",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "Which synonym best replaces quick in a formal report?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "rapid",
+            "rapid"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q04",
+          "prompt": "Explain the figurative meaning of: The moon was a silver coin in the dark sky.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "the moon looked round and bright",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "the moon looked round and bright is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: The moon was a silver coin in the dark sky. Choices: the moon looked round and bright, the moon was money, the sky was a store.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The moon was a silver coin in the dark sky.",
+          "context": "The moon was a silver coin in the dark sky.",
+          "word": "metaphor",
+          "target_word": "metaphor",
+          "figurative_type": "metaphor",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "the moon looked round and bright",
+          "evidence": "The moon was a silver coin in the dark sky.",
+          "scale_words": [
+            "the moon looked round and bright",
+            "the moon was money",
+            "the sky was a store"
+          ],
+          "audio": {
+            "text": "The moon was a silver coin in the dark sky.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "the moon looked round and bright",
+            "the moon was money",
+            "the sky was a store"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q05",
+          "prompt": "What does silent mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "quiet",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "quiet is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does silent mean in this context? Choices: quiet, crowded, colorful.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The crowd was silent; the room was completely still.",
+          "context": "The crowd was silent; the room was completely still.",
+          "word": "silent",
+          "target_word": "silent",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "quiet",
+          "evidence": "The crowd was silent; the room was completely still.",
+          "scale_words": [
+            "quiet",
+            "crowded",
+            "colorful"
+          ],
+          "audio": {
+            "text": "The crowd was silent; the room was completely still.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "quiet",
+            "crowded",
+            "colorful"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q06",
+          "prompt": "Match autograph to its meaning.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "written name",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "written name is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match autograph to its meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The root graph in autograph means write.",
+          "context": "The root graph in autograph means write.",
+          "word": "autograph",
+          "target_word": "autograph",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "written name",
+          "evidence": "The root graph in autograph means write.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "The root graph in autograph means write.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "written name",
+            "written name"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q07",
+          "prompt": "Which synonym best fits: The scientist examined the sample.",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "studied",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "studied is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Which synonym best fits: The scientist examined the sample.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Which synonym best fits: The scientist examined the sample.",
+          "context": "Which synonym best fits: The scientist examined the sample.",
+          "word": "studied",
+          "target_word": "studied",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "studied",
+          "evidence": "Which synonym best fits: The scientist examined the sample.",
+          "scale_words": [
+            "mild",
+            "strong",
+            "strongest"
+          ],
+          "audio": {
+            "text": "Which synonym best fits: The scientist examined the sample.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "studied",
+            "studied"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q08",
+          "prompt": "Explain the figurative meaning of: The old computer was a dinosaur compared with the new tablets.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "very outdated",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "explanation": "very outdated is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Explain the figurative meaning of: The old computer was a dinosaur compared with the new tablets. Choices: very outdated, an animal, very hungry.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The old computer was a dinosaur compared with the new tablets.",
+          "context": "The old computer was a dinosaur compared with the new tablets.",
+          "word": "metaphor",
+          "target_word": "metaphor",
+          "figurative_type": "metaphor",
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "very outdated",
+          "evidence": "The old computer was a dinosaur compared with the new tablets.",
+          "scale_words": [
+            "very outdated",
+            "an animal",
+            "very hungry"
+          ],
+          "audio": {
+            "text": "The old computer was a dinosaur compared with the new tablets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "very outdated",
+            "an animal",
+            "very hungry"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q09",
+          "prompt": "What does fragile mean in this context?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "breaks easily",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "breaks easily is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "What does fragile mean in this context? Choices: breaks easily, very heavy, hard to see.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The fragile shell cracked when it fell.",
+          "context": "The fragile shell cracked when it fell.",
+          "word": "fragile",
+          "target_word": "fragile",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "breaks easily",
+          "evidence": "The fragile shell cracked when it fell.",
+          "scale_words": [
+            "breaks easily",
+            "very heavy",
+            "hard to see"
+          ],
+          "audio": {
+            "text": "The fragile shell cracked when it fell.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "breaks easily",
+            "very heavy",
+            "hard to see"
+          ]
+        },
+        {
+          "question_id": "G4E_VOC_001_MIXED_Q10",
+          "prompt": "Match submarine to its meaning.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "underwater vessel",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "underwater vessel is supported by the context, word part, word relationship, or figurative language clue.",
+          "feedback": "Good vocabulary work. You used the clue instead of guessing.",
+          "question_audio": {
+            "text": "Match submarine to its meaning. Choices: underwater vessel, above-water bird, beside a road.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The prefix sub- in submarine means under.",
+          "context": "The prefix sub- in submarine means under.",
+          "word": "submarine",
+          "target_word": "submarine",
+          "figurative_type": null,
+          "literal_meaning": "literal picture is not the intended meaning",
+          "figurative_meaning": "underwater vessel",
+          "evidence": "The prefix sub- in submarine means under.",
+          "scale_words": [
+            "underwater vessel",
+            "above-water bird",
+            "beside a road"
+          ],
+          "audio": {
+            "text": "The prefix sub- in submarine means under.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "underwater vessel",
+            "above-water bird",
+            "beside a road"
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to this page. In this mission, you enter a Grade 4 reading studio for use context clues, word parts, word relationships, and figurative language to determine meaning. You will learn why the skill matters, watch a model, practice with feedback, and carry your strategy into independent reading. Press Start Mission when you are ready to begin.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This mini lesson teaches use context clues, word parts, word relationships, and figurative language to determine meaning. First, name the reading job. Next, use the model to notice important words and clues. Finally, answer in a way that matches the text instead of guessing. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "This Watch page models the strategy. Listen for the teacher thinking aloud, because strong readers explain what they notice before they answer. Watch how the vocabulary clue is connected to the correct answer. Press Next to see the demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This demo gives you another guided example. Read the sentence or passage, point to the clue, and decide which answer is best supported. The goal is not speed alone; the goal is careful vocabulary thinking. Press Next when you are ready to practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Practice time. Read the item, use the visual model, and press Read Question if you want the exact prompt read aloud. Press Listen when hearing the word, sentence, or passage will help. Choose or write an answer that fits the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Challenge time. These questions ask you to apply use context clues, word parts, word relationships, and figurative language to determine meaning with less help. Press Read Question for narration, use Listen for pronunciation or passage support, and slow down if two answers seem close. Your best answer should match the evidence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Checkpoint time. Show that you can use use context clues, word parts, word relationships, and figurative language to determine meaning independently. Press Read Question if you want the prompt read aloud, and press Listen when audio will help you hear the sentence or passage. Answer carefully, then review your feedback.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "This badge page celebrates your progress. You earned credit for reading closely, using the model, and explaining your vocabulary thinking. Keep using this strategy whenever you meet a challenging text. Press Next to see your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page shows your growth and next steps. Review your accuracy, hints, and level progress. If one level needs more work, choose Practice This Skill and return to that level in the Skill Practice Center.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
