@@ -1,0 +1,2456 @@
+{
+  "skill_id": "G4M_NBT_003",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production",
+    "source_docs": [
+      "docs/grade4_math_completion_plan.md",
+      "curriculum-framework/plans/grade4-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade4-math-completion-plan.v1.json",
+    "readiness_checkpoint": "grade4_operations_base_ten_batch"
+  },
+  "grade": 4,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Multi-Digit Multiplication",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "game_theme": {
+    "title": "Product Port",
+    "badge_name": "Multi-Digit Multiplication Badge",
+    "mission_intro": "Use multi-digit multiplication to help the Skill World crew solve a real Grade 4 math challenge."
+  },
+  "lesson": {
+    "story_mission": "Join the Product Port crew and solve problems about multiply up to four digits by one digit and two digits by two digits using area models, partial products, and algorithms.",
+    "mini_lesson": "In this lesson, you will multiply up to four digits by one digit and two digits by two digits using area models, partial products, and algorithms. Use models to keep the math organized and explain each answer.",
+    "objective": "Multiply up to four digits by one digit and two digits by two digits using area models, partial products, and algorithms.",
+    "key_vocabulary": [
+      "factor",
+      "multiple",
+      "place value",
+      "estimate",
+      "algorithm",
+      "pattern",
+      "product"
+    ],
+    "concept_explanation": "Grade 4 mathematicians use visual models and precise vocabulary to multiply up to four digits by one digit and two digits by two digits using area models, partial products, and algorithms.",
+    "common_misconception": "A common mistake is using the right numbers but the wrong relationship, place value, or rule.",
+    "real_world_connection": "These skills help with planning, checking totals, comparing quantities, and solving multi-step real-world problems.",
+    "lesson_summary": "Read carefully, model the relationship, calculate with place value, and check for reasonableness.",
+    "visual_model": "area_model",
+    "audio": {
+      "text": "In this lesson, we practice Multi-Digit Multiplication. Use the visuals, listen to the page narration, and explain why your answer works.",
+      "label": "Listen to Lesson",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G4M_NBT_003_L1_Q1",
+      "question_id": "G4M_NBT_003_L1_Q1",
+      "question_type": "short_response",
+      "visual_model": "multiplication_model",
+      "prompt": "Multiply 234 × 2.",
+      "answer": "468",
+      "correct_answer": "468",
+      "misconception_tag": "place_value_product_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 468.",
+      "acceptable_answers": [
+        "468",
+        "468"
+      ],
+      "read_aloud_text": "Multiply 234 × 2.",
+      "question_audio": {
+        "text": "Multiply 234 × 2.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "a": 234,
+      "b": 2,
+      "operands": [
+        234,
+        2
+      ],
+      "operation": "×"
+    },
+    {
+      "id": "G4M_NBT_003_L1_Q2",
+      "question_id": "G4M_NBT_003_L1_Q2",
+      "question_type": "multiplication_equation",
+      "visual_model": "multiplication_model",
+      "prompt": "Multiply 271 × 3.",
+      "answer": "813",
+      "correct_answer": "813",
+      "misconception_tag": "place_value_product_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 813.",
+      "acceptable_answers": [
+        "813",
+        "813"
+      ],
+      "read_aloud_text": "Multiply 271 × 3.",
+      "question_audio": {
+        "text": "Multiply 271 × 3.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "a": 271,
+      "b": 3,
+      "operands": [
+        271,
+        3
+      ],
+      "operation": "×"
+    }
+  ],
+  "hint_ladder": [
+    "Underline the math action in the question.",
+    "Use the visual model to organize place value and relationships.",
+    "Check that your answer matches the question and is reasonable."
+  ],
+  "guided_practice": [
+    {
+      "id": "G4M_NBT_003_L1_Q1",
+      "question_id": "G4M_NBT_003_L1_Q1",
+      "question_type": "short_response",
+      "visual_model": "multiplication_model",
+      "prompt": "Multiply 234 × 2.",
+      "answer": "468",
+      "correct_answer": "468",
+      "misconception_tag": "place_value_product_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 468.",
+      "acceptable_answers": [
+        "468",
+        "468"
+      ],
+      "read_aloud_text": "Multiply 234 × 2.",
+      "question_audio": {
+        "text": "Multiply 234 × 2.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "a": 234,
+      "b": 2,
+      "operands": [
+        234,
+        2
+      ],
+      "operation": "×"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G4M_NBT_003_L1_Q5",
+      "question_id": "G4M_NBT_003_L1_Q5",
+      "question_type": "short_response",
+      "visual_model": "multiplication_model",
+      "prompt": "Multiply 382 × 6.",
+      "answer": "2,292",
+      "correct_answer": "2,292",
+      "misconception_tag": "place_value_product_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 2,292.",
+      "acceptable_answers": [
+        "2,292",
+        "2292"
+      ],
+      "read_aloud_text": "Multiply 382 × 6.",
+      "question_audio": {
+        "text": "Multiply 382 × 6.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "a": 382,
+      "b": 6,
+      "operands": [
+        382,
+        6
+      ],
+      "operation": "×"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G4M_NBT_003_L1_Q9",
+      "question_id": "G4M_NBT_003_L1_Q9",
+      "question_type": "short_response",
+      "visual_model": "multiplication_model",
+      "prompt": "Multiply 530 × 2.",
+      "answer": "1,060",
+      "correct_answer": "1,060",
+      "misconception_tag": "place_value_product_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 1,060.",
+      "acceptable_answers": [
+        "1,060",
+        "1060"
+      ],
+      "read_aloud_text": "Multiply 530 × 2.",
+      "question_audio": {
+        "text": "Multiply 530 × 2.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "a": 530,
+      "b": 2,
+      "operands": [
+        530,
+        2
+      ],
+      "operation": "×"
+    }
+  ],
+  "misconception_bank": {
+    "place_value_product_error": {
+      "description": "Watch for place value product error.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "partial_products_confusion": {
+      "description": "Watch for partial products confusion.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "digit_alignment_error": {
+      "description": "Watch for digit alignment error.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "area_model_mismatch": {
+      "description": "Watch for area model mismatch.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G4M_NBT_003_LVL1",
+      "label": "Level 1: Multiply by One Digit",
+      "focus": "Multiply by One Digit",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_003_L1_Q1",
+          "question_id": "G4M_NBT_003_L1_Q1",
+          "question_type": "short_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 234 × 2.",
+          "answer": "468",
+          "correct_answer": "468",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 468.",
+          "acceptable_answers": [
+            "468",
+            "468"
+          ],
+          "read_aloud_text": "Multiply 234 × 2.",
+          "question_audio": {
+            "text": "Multiply 234 × 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 234,
+          "b": 2,
+          "operands": [
+            234,
+            2
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q2",
+          "question_id": "G4M_NBT_003_L1_Q2",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 271 × 3.",
+          "answer": "813",
+          "correct_answer": "813",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 813.",
+          "acceptable_answers": [
+            "813",
+            "813"
+          ],
+          "read_aloud_text": "Multiply 271 × 3.",
+          "question_audio": {
+            "text": "Multiply 271 × 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 271,
+          "b": 3,
+          "operands": [
+            271,
+            3
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q3",
+          "question_id": "G4M_NBT_003_L1_Q3",
+          "question_type": "short_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 308 × 4.",
+          "answer": "1,232",
+          "correct_answer": "1,232",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 1,232.",
+          "acceptable_answers": [
+            "1,232",
+            "1232"
+          ],
+          "read_aloud_text": "Multiply 308 × 4.",
+          "question_audio": {
+            "text": "Multiply 308 × 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 308,
+          "b": 4,
+          "operands": [
+            308,
+            4
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q4",
+          "question_id": "G4M_NBT_003_L1_Q4",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 345 × 5.",
+          "answer": "1,725",
+          "correct_answer": "1,725",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 1,725.",
+          "acceptable_answers": [
+            "1,725",
+            "1725"
+          ],
+          "read_aloud_text": "Multiply 345 × 5.",
+          "question_audio": {
+            "text": "Multiply 345 × 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 345,
+          "b": 5,
+          "operands": [
+            345,
+            5
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q5",
+          "question_id": "G4M_NBT_003_L1_Q5",
+          "question_type": "short_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 382 × 6.",
+          "answer": "2,292",
+          "correct_answer": "2,292",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2,292.",
+          "acceptable_answers": [
+            "2,292",
+            "2292"
+          ],
+          "read_aloud_text": "Multiply 382 × 6.",
+          "question_audio": {
+            "text": "Multiply 382 × 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 382,
+          "b": 6,
+          "operands": [
+            382,
+            6
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q6",
+          "question_id": "G4M_NBT_003_L1_Q6",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 419 × 7.",
+          "answer": "2,933",
+          "correct_answer": "2,933",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2,933.",
+          "acceptable_answers": [
+            "2,933",
+            "2933"
+          ],
+          "read_aloud_text": "Multiply 419 × 7.",
+          "question_audio": {
+            "text": "Multiply 419 × 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 419,
+          "b": 7,
+          "operands": [
+            419,
+            7
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q7",
+          "question_id": "G4M_NBT_003_L1_Q7",
+          "question_type": "short_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 456 × 8.",
+          "answer": "3,648",
+          "correct_answer": "3,648",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3,648.",
+          "acceptable_answers": [
+            "3,648",
+            "3648"
+          ],
+          "read_aloud_text": "Multiply 456 × 8.",
+          "question_audio": {
+            "text": "Multiply 456 × 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 456,
+          "b": 8,
+          "operands": [
+            456,
+            8
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q8",
+          "question_id": "G4M_NBT_003_L1_Q8",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 493 × 9.",
+          "answer": "4,437",
+          "correct_answer": "4,437",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4,437.",
+          "acceptable_answers": [
+            "4,437",
+            "4437"
+          ],
+          "read_aloud_text": "Multiply 493 × 9.",
+          "question_audio": {
+            "text": "Multiply 493 × 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 493,
+          "b": 9,
+          "operands": [
+            493,
+            9
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q9",
+          "question_id": "G4M_NBT_003_L1_Q9",
+          "question_type": "short_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 530 × 2.",
+          "answer": "1,060",
+          "correct_answer": "1,060",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 1,060.",
+          "acceptable_answers": [
+            "1,060",
+            "1060"
+          ],
+          "read_aloud_text": "Multiply 530 × 2.",
+          "question_audio": {
+            "text": "Multiply 530 × 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 530,
+          "b": 2,
+          "operands": [
+            530,
+            2
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_L1_Q10",
+          "question_id": "G4M_NBT_003_L1_Q10",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 567 × 3.",
+          "answer": "1,701",
+          "correct_answer": "1,701",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 1,701.",
+          "acceptable_answers": [
+            "1,701",
+            "1701"
+          ],
+          "read_aloud_text": "Multiply 567 × 3.",
+          "question_audio": {
+            "text": "Multiply 567 × 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 567,
+          "b": 3,
+          "operands": [
+            567,
+            3
+          ],
+          "operation": "×"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_003_LVL2",
+      "label": "Level 2: Area Model Multiplication",
+      "focus": "Area Model Multiplication",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_003_L2_Q1",
+          "question_id": "G4M_NBT_003_L2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 23 × 3.",
+          "answer": "69",
+          "correct_answer": "69",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 69.",
+          "choices": [
+            "69",
+            "26",
+            "72"
+          ],
+          "read_aloud_text": "Use the area model to find 23 × 3.",
+          "question_audio": {
+            "text": "Use the area model to find 23 × 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 23,
+          "height": 3,
+          "rows": 3,
+          "columns": 23
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q2",
+          "question_id": "G4M_NBT_003_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 24 × 4.",
+          "answer": "96",
+          "correct_answer": "96",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 96.",
+          "acceptable_answers": [
+            "96",
+            "96"
+          ],
+          "choices": [
+            "96",
+            "28",
+            "100"
+          ],
+          "read_aloud_text": "Use the area model to find 24 × 4.",
+          "question_audio": {
+            "text": "Use the area model to find 24 × 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 24,
+          "height": 4,
+          "rows": 4,
+          "columns": 24
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q3",
+          "question_id": "G4M_NBT_003_L2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 25 × 5.",
+          "answer": "125",
+          "correct_answer": "125",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 125.",
+          "choices": [
+            "125",
+            "30",
+            "130"
+          ],
+          "read_aloud_text": "Use the area model to find 25 × 5.",
+          "question_audio": {
+            "text": "Use the area model to find 25 × 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 25,
+          "height": 5,
+          "rows": 5,
+          "columns": 25
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q4",
+          "question_id": "G4M_NBT_003_L2_Q4",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 26 × 6.",
+          "answer": "156",
+          "correct_answer": "156",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 156.",
+          "acceptable_answers": [
+            "156",
+            "156"
+          ],
+          "choices": [
+            "156",
+            "32",
+            "162"
+          ],
+          "read_aloud_text": "Use the area model to find 26 × 6.",
+          "question_audio": {
+            "text": "Use the area model to find 26 × 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 26,
+          "height": 6,
+          "rows": 6,
+          "columns": 26
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q5",
+          "question_id": "G4M_NBT_003_L2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 27 × 7.",
+          "answer": "189",
+          "correct_answer": "189",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 189.",
+          "choices": [
+            "189",
+            "34",
+            "196"
+          ],
+          "read_aloud_text": "Use the area model to find 27 × 7.",
+          "question_audio": {
+            "text": "Use the area model to find 27 × 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 27,
+          "height": 7,
+          "rows": 7,
+          "columns": 27
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q6",
+          "question_id": "G4M_NBT_003_L2_Q6",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 28 × 8.",
+          "answer": "224",
+          "correct_answer": "224",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 224.",
+          "acceptable_answers": [
+            "224",
+            "224"
+          ],
+          "choices": [
+            "224",
+            "36",
+            "232"
+          ],
+          "read_aloud_text": "Use the area model to find 28 × 8.",
+          "question_audio": {
+            "text": "Use the area model to find 28 × 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 28,
+          "height": 8,
+          "rows": 8,
+          "columns": 28
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q7",
+          "question_id": "G4M_NBT_003_L2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 29 × 9.",
+          "answer": "261",
+          "correct_answer": "261",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 261.",
+          "choices": [
+            "261",
+            "38",
+            "270"
+          ],
+          "read_aloud_text": "Use the area model to find 29 × 9.",
+          "question_audio": {
+            "text": "Use the area model to find 29 × 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 29,
+          "height": 9,
+          "rows": 9,
+          "columns": 29
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q8",
+          "question_id": "G4M_NBT_003_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 30 × 3.",
+          "answer": "90",
+          "correct_answer": "90",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 90.",
+          "acceptable_answers": [
+            "90",
+            "90"
+          ],
+          "choices": [
+            "90",
+            "33",
+            "93"
+          ],
+          "read_aloud_text": "Use the area model to find 30 × 3.",
+          "question_audio": {
+            "text": "Use the area model to find 30 × 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 30,
+          "height": 3,
+          "rows": 3,
+          "columns": 30
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q9",
+          "question_id": "G4M_NBT_003_L2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 31 × 4.",
+          "answer": "124",
+          "correct_answer": "124",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 124.",
+          "choices": [
+            "124",
+            "35",
+            "128"
+          ],
+          "read_aloud_text": "Use the area model to find 31 × 4.",
+          "question_audio": {
+            "text": "Use the area model to find 31 × 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 31,
+          "height": 4,
+          "rows": 4,
+          "columns": 31
+        },
+        {
+          "id": "G4M_NBT_003_L2_Q10",
+          "question_id": "G4M_NBT_003_L2_Q10",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 32 × 5.",
+          "answer": "160",
+          "correct_answer": "160",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 160.",
+          "acceptable_answers": [
+            "160",
+            "160"
+          ],
+          "choices": [
+            "160",
+            "37",
+            "165"
+          ],
+          "read_aloud_text": "Use the area model to find 32 × 5.",
+          "question_audio": {
+            "text": "Use the area model to find 32 × 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 32,
+          "height": 5,
+          "rows": 5,
+          "columns": 32
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_003_LVL3",
+      "label": "Level 3: Partial Products",
+      "focus": "Partial Products",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_003_L3_Q1",
+          "question_id": "G4M_NBT_003_L3_Q1",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 34 × 6.",
+          "answer": "204",
+          "correct_answer": "204",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 204.",
+          "acceptable_answers": [
+            "204",
+            "204"
+          ],
+          "read_aloud_text": "Use partial products to find 34 × 6.",
+          "question_audio": {
+            "text": "Use partial products to find 34 × 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            180,
+            24
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q2",
+          "question_id": "G4M_NBT_003_L3_Q2",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 35 × 7.",
+          "answer": "245",
+          "correct_answer": "245",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 245.",
+          "acceptable_answers": [
+            "245",
+            "245"
+          ],
+          "read_aloud_text": "Use partial products to find 35 × 7.",
+          "question_audio": {
+            "text": "Use partial products to find 35 × 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            210,
+            35
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q3",
+          "question_id": "G4M_NBT_003_L3_Q3",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 36 × 8.",
+          "answer": "288",
+          "correct_answer": "288",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 288.",
+          "acceptable_answers": [
+            "288",
+            "288"
+          ],
+          "read_aloud_text": "Use partial products to find 36 × 8.",
+          "question_audio": {
+            "text": "Use partial products to find 36 × 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            240,
+            48
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q4",
+          "question_id": "G4M_NBT_003_L3_Q4",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 37 × 9.",
+          "answer": "333",
+          "correct_answer": "333",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 333.",
+          "acceptable_answers": [
+            "333",
+            "333"
+          ],
+          "read_aloud_text": "Use partial products to find 37 × 9.",
+          "question_audio": {
+            "text": "Use partial products to find 37 × 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            270,
+            63
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q5",
+          "question_id": "G4M_NBT_003_L3_Q5",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 38 × 10.",
+          "answer": "380",
+          "correct_answer": "380",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 380.",
+          "acceptable_answers": [
+            "380",
+            "380"
+          ],
+          "read_aloud_text": "Use partial products to find 38 × 10.",
+          "question_audio": {
+            "text": "Use partial products to find 38 × 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            300,
+            80
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q6",
+          "question_id": "G4M_NBT_003_L3_Q6",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 39 × 6.",
+          "answer": "234",
+          "correct_answer": "234",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 234.",
+          "acceptable_answers": [
+            "234",
+            "234"
+          ],
+          "read_aloud_text": "Use partial products to find 39 × 6.",
+          "question_audio": {
+            "text": "Use partial products to find 39 × 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            180,
+            54
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q7",
+          "question_id": "G4M_NBT_003_L3_Q7",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 40 × 7.",
+          "answer": "280",
+          "correct_answer": "280",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 280.",
+          "acceptable_answers": [
+            "280",
+            "280"
+          ],
+          "read_aloud_text": "Use partial products to find 40 × 7.",
+          "question_audio": {
+            "text": "Use partial products to find 40 × 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            280,
+            0
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q8",
+          "question_id": "G4M_NBT_003_L3_Q8",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 41 × 8.",
+          "answer": "328",
+          "correct_answer": "328",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 328.",
+          "acceptable_answers": [
+            "328",
+            "328"
+          ],
+          "read_aloud_text": "Use partial products to find 41 × 8.",
+          "question_audio": {
+            "text": "Use partial products to find 41 × 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            320,
+            8
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q9",
+          "question_id": "G4M_NBT_003_L3_Q9",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 42 × 9.",
+          "answer": "378",
+          "correct_answer": "378",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 378.",
+          "acceptable_answers": [
+            "378",
+            "378"
+          ],
+          "read_aloud_text": "Use partial products to find 42 × 9.",
+          "question_audio": {
+            "text": "Use partial products to find 42 × 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            360,
+            18
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L3_Q10",
+          "question_id": "G4M_NBT_003_L3_Q10",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 43 × 10.",
+          "answer": "430",
+          "correct_answer": "430",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 430.",
+          "acceptable_answers": [
+            "430",
+            "430"
+          ],
+          "read_aloud_text": "Use partial products to find 43 × 10.",
+          "question_audio": {
+            "text": "Use partial products to find 43 × 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            400,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_003_LVL4",
+      "label": "Level 4: Two-Digit by Two-Digit",
+      "focus": "Two-Digit by Two-Digit",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_003_L4_Q1",
+          "question_id": "G4M_NBT_003_L4_Q1",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 21 × 14.",
+          "answer": "294",
+          "correct_answer": "294",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 294.",
+          "acceptable_answers": [
+            "294",
+            "294"
+          ],
+          "read_aloud_text": "Multiply 21 × 14.",
+          "question_audio": {
+            "text": "Multiply 21 × 14.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            21,
+            14
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            84,
+            210
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q2",
+          "question_id": "G4M_NBT_003_L4_Q2",
+          "question_type": "multiplication_equation",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 22 × 15.",
+          "answer": "330",
+          "correct_answer": "330",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 330.",
+          "acceptable_answers": [
+            "330",
+            "330"
+          ],
+          "read_aloud_text": "Multiply 22 × 15.",
+          "question_audio": {
+            "text": "Multiply 22 × 15.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            22,
+            15
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            110,
+            220
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q3",
+          "question_id": "G4M_NBT_003_L4_Q3",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 23 × 16.",
+          "answer": "368",
+          "correct_answer": "368",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 368.",
+          "acceptable_answers": [
+            "368",
+            "368"
+          ],
+          "read_aloud_text": "Multiply 23 × 16.",
+          "question_audio": {
+            "text": "Multiply 23 × 16.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            23,
+            16
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            138,
+            230
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q4",
+          "question_id": "G4M_NBT_003_L4_Q4",
+          "question_type": "multiplication_equation",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 24 × 17.",
+          "answer": "408",
+          "correct_answer": "408",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 408.",
+          "acceptable_answers": [
+            "408",
+            "408"
+          ],
+          "read_aloud_text": "Multiply 24 × 17.",
+          "question_audio": {
+            "text": "Multiply 24 × 17.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            24,
+            17
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            168,
+            240
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q5",
+          "question_id": "G4M_NBT_003_L4_Q5",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 25 × 18.",
+          "answer": "450",
+          "correct_answer": "450",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 450.",
+          "acceptable_answers": [
+            "450",
+            "450"
+          ],
+          "read_aloud_text": "Multiply 25 × 18.",
+          "question_audio": {
+            "text": "Multiply 25 × 18.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            25,
+            18
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            200,
+            250
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q6",
+          "question_id": "G4M_NBT_003_L4_Q6",
+          "question_type": "multiplication_equation",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 26 × 19.",
+          "answer": "494",
+          "correct_answer": "494",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 494.",
+          "acceptable_answers": [
+            "494",
+            "494"
+          ],
+          "read_aloud_text": "Multiply 26 × 19.",
+          "question_audio": {
+            "text": "Multiply 26 × 19.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            26,
+            19
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            234,
+            260
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q7",
+          "question_id": "G4M_NBT_003_L4_Q7",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 27 × 14.",
+          "answer": "378",
+          "correct_answer": "378",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 378.",
+          "acceptable_answers": [
+            "378",
+            "378"
+          ],
+          "read_aloud_text": "Multiply 27 × 14.",
+          "question_audio": {
+            "text": "Multiply 27 × 14.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            27,
+            14
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            108,
+            270
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q8",
+          "question_id": "G4M_NBT_003_L4_Q8",
+          "question_type": "multiplication_equation",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 28 × 15.",
+          "answer": "420",
+          "correct_answer": "420",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 420.",
+          "acceptable_answers": [
+            "420",
+            "420"
+          ],
+          "read_aloud_text": "Multiply 28 × 15.",
+          "question_audio": {
+            "text": "Multiply 28 × 15.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            28,
+            15
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            140,
+            280
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q9",
+          "question_id": "G4M_NBT_003_L4_Q9",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 29 × 16.",
+          "answer": "464",
+          "correct_answer": "464",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 464.",
+          "acceptable_answers": [
+            "464",
+            "464"
+          ],
+          "read_aloud_text": "Multiply 29 × 16.",
+          "question_audio": {
+            "text": "Multiply 29 × 16.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            29,
+            16
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            174,
+            290
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_L4_Q10",
+          "question_id": "G4M_NBT_003_L4_Q10",
+          "question_type": "multiplication_equation",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 30 × 17.",
+          "answer": "510",
+          "correct_answer": "510",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 510.",
+          "acceptable_answers": [
+            "510",
+            "510"
+          ],
+          "read_aloud_text": "Multiply 30 × 17.",
+          "question_audio": {
+            "text": "Multiply 30 × 17.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            30,
+            17
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            210,
+            300
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_003_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed",
+      "difficulty": 6,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_003_MIXED_Q1",
+          "question_id": "G4M_NBT_003_MIXED_Q1",
+          "question_type": "short_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 234 × 2.",
+          "answer": "468",
+          "correct_answer": "468",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 468.",
+          "acceptable_answers": [
+            "468",
+            "468"
+          ],
+          "read_aloud_text": "Multiply 234 × 2.",
+          "question_audio": {
+            "text": "Multiply 234 × 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 234,
+          "b": 2,
+          "operands": [
+            234,
+            2
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q2",
+          "question_id": "G4M_NBT_003_MIXED_Q2",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 271 × 3.",
+          "answer": "813",
+          "correct_answer": "813",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 813.",
+          "acceptable_answers": [
+            "813",
+            "813"
+          ],
+          "read_aloud_text": "Multiply 271 × 3.",
+          "question_audio": {
+            "text": "Multiply 271 × 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 271,
+          "b": 3,
+          "operands": [
+            271,
+            3
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q3",
+          "question_id": "G4M_NBT_003_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 308 × 4.",
+          "answer": "1,232",
+          "correct_answer": "1,232",
+          "misconception_tag": "place_value_product_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 1,232.",
+          "acceptable_answers": [
+            "1,232",
+            "1232"
+          ],
+          "read_aloud_text": "Multiply 308 × 4.",
+          "question_audio": {
+            "text": "Multiply 308 × 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "a": 308,
+          "b": 4,
+          "operands": [
+            308,
+            4
+          ],
+          "operation": "×"
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q4",
+          "question_id": "G4M_NBT_003_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 23 × 3.",
+          "answer": "69",
+          "correct_answer": "69",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 69.",
+          "choices": [
+            "69",
+            "26",
+            "72"
+          ],
+          "read_aloud_text": "Use the area model to find 23 × 3.",
+          "question_audio": {
+            "text": "Use the area model to find 23 × 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 23,
+          "height": 3,
+          "rows": 3,
+          "columns": 23
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q5",
+          "question_id": "G4M_NBT_003_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Use the area model to find 24 × 4.",
+          "answer": "96",
+          "correct_answer": "96",
+          "misconception_tag": "area_model_mismatch",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 96.",
+          "acceptable_answers": [
+            "96",
+            "96"
+          ],
+          "choices": [
+            "96",
+            "28",
+            "100"
+          ],
+          "read_aloud_text": "Use the area model to find 24 × 4.",
+          "question_audio": {
+            "text": "Use the area model to find 24 × 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "width": 24,
+          "height": 4,
+          "rows": 4,
+          "columns": 24
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q6",
+          "question_id": "G4M_NBT_003_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 34 × 6.",
+          "answer": "204",
+          "correct_answer": "204",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 204.",
+          "acceptable_answers": [
+            "204",
+            "204"
+          ],
+          "read_aloud_text": "Use partial products to find 34 × 6.",
+          "question_audio": {
+            "text": "Use partial products to find 34 × 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            180,
+            24
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q7",
+          "question_id": "G4M_NBT_003_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 35 × 7.",
+          "answer": "245",
+          "correct_answer": "245",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 245.",
+          "acceptable_answers": [
+            "245",
+            "245"
+          ],
+          "read_aloud_text": "Use partial products to find 35 × 7.",
+          "question_audio": {
+            "text": "Use partial products to find 35 × 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            210,
+            35
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q8",
+          "question_id": "G4M_NBT_003_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "partial_products_model",
+          "prompt": "Use partial products to find 36 × 8.",
+          "answer": "288",
+          "correct_answer": "288",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 288.",
+          "acceptable_answers": [
+            "288",
+            "288"
+          ],
+          "read_aloud_text": "Use partial products to find 36 × 8.",
+          "question_audio": {
+            "text": "Use partial products to find 36 × 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "partial_products": [
+            240,
+            48
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q9",
+          "question_id": "G4M_NBT_003_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 21 × 14.",
+          "answer": "294",
+          "correct_answer": "294",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 294.",
+          "acceptable_answers": [
+            "294",
+            "294"
+          ],
+          "read_aloud_text": "Multiply 21 × 14.",
+          "question_audio": {
+            "text": "Multiply 21 × 14.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            21,
+            14
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            84,
+            210
+          ]
+        },
+        {
+          "id": "G4M_NBT_003_MIXED_Q10",
+          "question_id": "G4M_NBT_003_MIXED_Q10",
+          "question_type": "multiplication_equation",
+          "visual_model": "algorithm_steps",
+          "prompt": "Multiply 22 × 15.",
+          "answer": "330",
+          "correct_answer": "330",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 330.",
+          "acceptable_answers": [
+            "330",
+            "330"
+          ],
+          "read_aloud_text": "Multiply 22 × 15.",
+          "question_audio": {
+            "text": "Multiply 22 × 15.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "×",
+          "operands": [
+            22,
+            15
+          ],
+          "algorithm_steps": [
+            "Multiply by the ones digit.",
+            "Multiply by the tens digit and shift one place.",
+            "Add the partial products."
+          ],
+          "partial_products": [
+            110,
+            220
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Multi-Digit Multiplication. This mission connects real math to a clear visual model before you solve on your own. Press Start Mission when you are ready to read the problem, notice what the model is showing, and explain your thinking.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This page teaches the main ideas for Multi-Digit Multiplication. Read the objective, vocabulary, misconception warning, and real-world connection so you know what to watch for. Press Next when you can name the strategy you will use.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this example as a tutor would solve it. Step one is to read the question and identify the operation or pattern. Step two is to use the visual model to organize the numbers. Step three is to compute carefully and check that the final answer is reasonable. Press Next when you can explain why the answer is correct.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo gives you support before independent work. Read each part of the model, connect it to the lesson vocabulary, and say what each number means. Press Next when the reasoning feels clear.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Now try a practice question with support. Tap Read Question first, choose your answer or type it carefully, and use the hint if your first idea does not fit the model. Press Next after your answer is complete.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This challenge asks you to use the skill with less help. Tap Read Question, decide which strategy fits, and check your answer against the visual model. Press Next when you can justify your response.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This checkpoint shows what you can do independently. Tap Read Question, answer carefully, and use the model to verify your reasoning before you move on. Press Next after your best work.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Great work completing Multi-Digit Multiplication. This badge celebrates careful math reasoning, clear models, and answers that match the question. Press Save Growth Data to add this skill to your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Your profile summarizes this mission and points you to more practice. Choose Continue to Skill Practice for focused levels and a Mixed level, or go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
