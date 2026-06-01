@@ -1,0 +1,2991 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "status": "production",
+    "source_plan": "curriculum-framework/plans/grade5-math-completion-plan.v1.json",
+    "readiness": [
+      "validated_skill_package",
+      "guided_mission",
+      "skill_practice_center",
+      "manifest_hub_exposure",
+      "voice_standard"
+    ]
+  },
+  "skill_id": "G5M_NBT_001",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Place Value With Decimals",
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "mastery_threshold": 0.8,
+  "lesson": {
+    "objective": "Understand place value from millions to thousandths and powers of 10.",
+    "key_vocabulary": [
+      "millions",
+      "tenths",
+      "hundredths",
+      "thousandths",
+      "powers of ten",
+      "rounding"
+    ],
+    "concept_explanation": "Every place in a base-ten number is ten times the place to its right and one tenth of the place to its left. Decimals use tenths, hundredths, and thousandths to show parts of one whole.",
+    "visual_model": "place_value_chart",
+    "common_misconception": "A common mistake is thinking a longer decimal is always larger. Line up places and add zeros only as placeholders.",
+    "real_world_connection": "Scientists, builders, and athletes use decimals to measure precisely.",
+    "lesson_summary": "Use charts, grids, number lines, and rounding benchmarks to read, compare, shift, and round decimal values."
+  },
+  "worked_examples": [
+    {
+      "title": "Read decimal places",
+      "text": "In 6.482, the 4 is tenths, the 8 is hundredths, and the 2 is thousandths. So 6.482 is six and four hundred eighty-two thousandths.",
+      "visual_model": "place_value_chart",
+      "value": 6.482,
+      "number": 6.482,
+      "millions": 0,
+      "hundred_thousands": 0,
+      "ten_thousands": 0,
+      "thousands": 0,
+      "hundreds": 0,
+      "tens": 0,
+      "ones": 6,
+      "tenths": 4,
+      "hundredths": 8,
+      "thousandths": 2
+    },
+    {
+      "title": "Round a decimal",
+      "text": "To round 3.46 to the nearest tenth, look at the hundredths digit. Since 6 is five or more, 3.46 rounds to 3.5.",
+      "visual_model": "rounding_model",
+      "value": 3.46,
+      "round_to": 0.1,
+      "rounded": 3.5,
+      "min": 3.4,
+      "max": 3.5
+    }
+  ],
+  "hint_ladder": [
+    "Line up the number in the place-value chart and name the place before answering.",
+    "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+    "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+    "When comparing or rounding decimals, write equivalent zeros so the places line up."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_NBT_001_L2_Q1",
+      "question_id": "G5M_NBT_001_L2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "decimal_grid",
+      "prompt": "Which decimal is shown by four tenths?",
+      "answer": "0.4",
+      "correct_answer": "0.4",
+      "misconception_tag": "decimal_place_value_confusion",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 0.4 because each digit has a value based on its place.",
+      "read_aloud_text": "Which decimal is shown by four tenths?",
+      "question_audio": {
+        "text": "Which decimal is shown by four tenths?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 0.4,
+      "number": 0.4,
+      "millions": 0,
+      "hundred_thousands": 0,
+      "ten_thousands": 0,
+      "thousands": 0,
+      "hundreds": 0,
+      "tens": 0,
+      "ones": 0,
+      "tenths": 4,
+      "hundredths": 0,
+      "thousandths": 0,
+      "grid_base": 10,
+      "shaded": 4,
+      "decimal_label": "0.4 = four tenths",
+      "choices": [
+        "0.4",
+        "0.04",
+        "4.0"
+      ]
+    },
+    {
+      "id": "G5M_NBT_001_L3_Q2",
+      "question_id": "G5M_NBT_001_L3_Q2",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "What is 35 ÷ 10?",
+      "answer": "3.5",
+      "correct_answer": "3.5",
+      "misconception_tag": "power_of_ten_shift_error",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 3.5 because each digit has a value based on its place.",
+      "read_aloud_text": "What is thirty-five divided by ten?",
+      "question_audio": {
+        "text": "What is thirty-five divided by ten?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 3.5,
+      "number": 3.5,
+      "millions": 0,
+      "hundred_thousands": 0,
+      "ten_thousands": 0,
+      "thousands": 0,
+      "hundreds": 0,
+      "tens": 0,
+      "ones": 3,
+      "tenths": 5,
+      "hundredths": 0,
+      "thousandths": 0,
+      "acceptable_answers": [
+        "3.5",
+        "three and five tenths"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_NBT_001_L4_Q3",
+      "question_id": "G5M_NBT_001_L4_Q3",
+      "question_type": "rounding",
+      "visual_model": "rounding_model",
+      "prompt": "Round 3.46 to the nearest tenth.",
+      "answer": "3.5",
+      "correct_answer": "3.5",
+      "misconception_tag": "rounding_decimal_error",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 3.5 because each digit has a value based on its place.",
+      "read_aloud_text": "Round three and forty-six hundredths to the nearest tenth.",
+      "question_audio": {
+        "text": "Round three and forty-six hundredths to the nearest tenth.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 3.46,
+      "number": 3.46,
+      "round_to": 0.1,
+      "nearest": 0.1,
+      "rounded": 3.5,
+      "min": 3.4,
+      "max": 3.5,
+      "acceptable_answers": [
+        "3.5"
+      ]
+    },
+    {
+      "id": "G5M_NBT_001_L2_Q4",
+      "question_id": "G5M_NBT_001_L2_Q4",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "In 6.482, what digit is in the hundredths place?",
+      "answer": "8",
+      "correct_answer": "8",
+      "misconception_tag": "decimal_place_value_confusion",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 8 because each digit has a value based on its place.",
+      "read_aloud_text": "In six and four hundred eighty-two thousandths, what digit is in the hundredths place?",
+      "question_audio": {
+        "text": "In six and four hundred eighty-two thousandths, what digit is in the hundredths place?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 6.482,
+      "number": 6.482,
+      "millions": 0,
+      "hundred_thousands": 0,
+      "ten_thousands": 0,
+      "thousands": 0,
+      "hundreds": 0,
+      "tens": 0,
+      "ones": 6,
+      "tenths": 4,
+      "hundredths": 8,
+      "thousandths": 2,
+      "place": "hundredths",
+      "acceptable_answers": [
+        "8",
+        "eight"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_NBT_001_L4_Q1",
+      "question_id": "G5M_NBT_001_L4_Q1",
+      "question_type": "comparison",
+      "visual_model": "number_line",
+      "prompt": "Compare 0.4 and 0.35.",
+      "answer": ">",
+      "correct_answer": ">",
+      "misconception_tag": "decimal_length_error",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is > because each digit has a value based on its place.",
+      "read_aloud_text": "Compare four tenths and thirty-five hundredths.",
+      "question_audio": {
+        "text": "Compare four tenths and thirty-five hundredths.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "left_value": 0.4,
+      "right_value": 0.35,
+      "value": 0.4,
+      "min": 0.3,
+      "max": 0.5,
+      "choices": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G5M_NBT_001_L3_Q8",
+      "question_id": "G5M_NBT_001_L3_Q8",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "What is 0.073 × 100?",
+      "answer": "7.3",
+      "correct_answer": "7.3",
+      "misconception_tag": "power_of_ten_shift_error",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 7.3 because each digit has a value based on its place.",
+      "read_aloud_text": "What is seventy-three thousandths times one hundred?",
+      "question_audio": {
+        "text": "What is seventy-three thousandths times one hundred?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 7.3,
+      "number": 7.3,
+      "millions": 0,
+      "hundred_thousands": 0,
+      "ten_thousands": 0,
+      "thousands": 0,
+      "hundreds": 0,
+      "tens": 0,
+      "ones": 7,
+      "tenths": 3,
+      "hundredths": 0,
+      "thousandths": 0,
+      "acceptable_answers": [
+        "7.3",
+        "seven and three tenths"
+      ]
+    },
+    {
+      "id": "G5M_NBT_001_L4_Q5",
+      "question_id": "G5M_NBT_001_L4_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "number_line",
+      "prompt": "Which decimal is greatest: 0.7, 0.65, or 0.705?",
+      "answer": "0.705",
+      "correct_answer": "0.705",
+      "misconception_tag": "decimal_length_error",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 0.705 because each digit has a value based on its place.",
+      "read_aloud_text": "Which decimal is greatest: seven tenths, sixty-five hundredths, or seven hundred five thousandths?",
+      "question_audio": {
+        "text": "Which decimal is greatest: seven tenths, sixty-five hundredths, or seven hundred five thousandths?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 0.705,
+      "min": 0.6,
+      "max": 0.75,
+      "choices": [
+        "0.705",
+        "0.7",
+        "0.65"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "decimal_place_value_confusion": "The student may be naming the wrong decimal place or overlooking zero placeholders.",
+    "decimal_length_error": "The student may think more digits after the decimal point always means a larger number.",
+    "power_of_ten_shift_error": "The student may move digits the wrong direction when multiplying or dividing by powers of ten.",
+    "rounding_decimal_error": "The student may round using the wrong place or midpoint."
+  },
+  "review_bank": [
+    {
+      "id": "G5M_NBT_001_L1_Q2",
+      "question_id": "G5M_NBT_001_L1_Q2",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "What is the value of the 7 in 7,304,219?",
+      "answer": "7,000,000",
+      "correct_answer": "7,000,000",
+      "misconception_tag": "decimal_place_value_confusion",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 7,000,000 because each digit has a value based on its place.",
+      "read_aloud_text": "What is the value of the 7 in 7,304,219?",
+      "question_audio": {
+        "text": "What is the value of the 7 in 7,304,219?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 7304219,
+      "number": 7304219,
+      "millions": 7,
+      "hundred_thousands": 3,
+      "ten_thousands": 0,
+      "thousands": 4,
+      "hundreds": 2,
+      "tens": 1,
+      "ones": 9,
+      "tenths": 0,
+      "hundredths": 0,
+      "thousandths": 0,
+      "place": "millions",
+      "acceptable_answers": [
+        "7,000,000",
+        "7000000",
+        "seven million"
+      ]
+    },
+    {
+      "id": "G5M_NBT_001_L2_Q5",
+      "question_id": "G5M_NBT_001_L2_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "What is the value of the 7 in 3.075?",
+      "answer": "0.07",
+      "correct_answer": "0.07",
+      "misconception_tag": "decimal_place_value_confusion",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 0.07 because each digit has a value based on its place.",
+      "read_aloud_text": "What is the value of the seven in three and seventy-five thousandths?",
+      "question_audio": {
+        "text": "What is the value of the seven in three and seventy-five thousandths?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 3.075,
+      "number": 3.075,
+      "millions": 0,
+      "hundred_thousands": 0,
+      "ten_thousands": 0,
+      "thousands": 0,
+      "hundreds": 0,
+      "tens": 0,
+      "ones": 3,
+      "tenths": 0,
+      "hundredths": 7,
+      "thousandths": 5,
+      "place": "hundredths",
+      "choices": [
+        "0.07",
+        "0.7",
+        "0.007"
+      ]
+    },
+    {
+      "id": "G5M_NBT_001_L3_Q1",
+      "question_id": "G5M_NBT_001_L3_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "What is 0.4 × 10?",
+      "answer": "4",
+      "correct_answer": "4",
+      "misconception_tag": "power_of_ten_shift_error",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is 4 because each digit has a value based on its place.",
+      "read_aloud_text": "What is four tenths times ten?",
+      "question_audio": {
+        "text": "What is four tenths times ten?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "value": 4,
+      "number": 4,
+      "millions": 0,
+      "hundred_thousands": 0,
+      "ten_thousands": 0,
+      "thousands": 0,
+      "hundreds": 0,
+      "tens": 0,
+      "ones": 4,
+      "tenths": 0,
+      "hundredths": 0,
+      "thousandths": 0,
+      "choices": [
+        "4",
+        "0.04",
+        "40"
+      ]
+    },
+    {
+      "id": "G5M_NBT_001_L4_Q8",
+      "question_id": "G5M_NBT_001_L4_Q8",
+      "question_type": "comparison",
+      "visual_model": "number_line",
+      "prompt": "Compare 5.08 and 5.8.",
+      "answer": "<",
+      "correct_answer": "<",
+      "misconception_tag": "decimal_length_error",
+      "hints": [
+        "Line up the number in the place-value chart and name the place before answering.",
+        "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+        "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+        "When comparing or rounding decimals, write equivalent zeros so the places line up."
+      ],
+      "feedback": {
+        "correct": "Yes! You used place value to reason about decimals.",
+        "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+      },
+      "explanation": "The answer is < because each digit has a value based on its place.",
+      "read_aloud_text": "Compare five and eight hundredths and five and eight tenths.",
+      "question_audio": {
+        "text": "Compare five and eight hundredths and five and eight tenths.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "left_value": 5.08,
+      "right_value": 5.8,
+      "value": 5.08,
+      "min": 5,
+      "max": 6,
+      "choices": [
+        ">",
+        "<",
+        "="
+      ]
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G5M_NBT_001_L1",
+      "label": "Level 1: Whole Number Place Value Review",
+      "focus": "Review millions through ones and zero placeholders.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_001_L1_Q1",
+          "question_id": "G5M_NBT_001_L1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 4,582,106, what digit is in the hundred thousands place?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 5 because each digit has a value based on its place.",
+          "read_aloud_text": "In 4,582,106, what digit is in the hundred thousands place?",
+          "question_audio": {
+            "text": "In 4,582,106, what digit is in the hundred thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 4582106,
+          "number": 4582106,
+          "millions": 4,
+          "hundred_thousands": 5,
+          "ten_thousands": 8,
+          "thousands": 2,
+          "hundreds": 1,
+          "tens": 0,
+          "ones": 6,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "hundred_thousands",
+          "choices": [
+            "5",
+            "4",
+            "8"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q2",
+          "question_id": "G5M_NBT_001_L1_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is the value of the 7 in 7,304,219?",
+          "answer": "7,000,000",
+          "correct_answer": "7,000,000",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 7,000,000 because each digit has a value based on its place.",
+          "read_aloud_text": "What is the value of the 7 in 7,304,219?",
+          "question_audio": {
+            "text": "What is the value of the 7 in 7,304,219?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 7304219,
+          "number": 7304219,
+          "millions": 7,
+          "hundred_thousands": 3,
+          "ten_thousands": 0,
+          "thousands": 4,
+          "hundreds": 2,
+          "tens": 1,
+          "ones": 9,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "millions",
+          "acceptable_answers": [
+            "7,000,000",
+            "7000000",
+            "seven million"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q3",
+          "question_id": "G5M_NBT_001_L1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 902,415, what digit is in the ten thousands place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0 because each digit has a value based on its place.",
+          "read_aloud_text": "In 902,415, what digit is in the ten thousands place?",
+          "question_audio": {
+            "text": "In 902,415, what digit is in the ten thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 902415,
+          "number": 902415,
+          "millions": 0,
+          "hundred_thousands": 9,
+          "ten_thousands": 0,
+          "thousands": 2,
+          "hundreds": 4,
+          "tens": 1,
+          "ones": 5,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "ten_thousands",
+          "choices": [
+            "0",
+            "9",
+            "2"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q4",
+          "question_id": "G5M_NBT_001_L1_Q4",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write the value of the 6 in 368,041.",
+          "answer": "60,000",
+          "correct_answer": "60,000",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 60,000 because each digit has a value based on its place.",
+          "read_aloud_text": "Write the value of the 6 in 368,041.",
+          "question_audio": {
+            "text": "Write the value of the 6 in 368,041.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 368041,
+          "number": 368041,
+          "millions": 0,
+          "hundred_thousands": 3,
+          "ten_thousands": 6,
+          "thousands": 8,
+          "hundreds": 0,
+          "tens": 4,
+          "ones": 1,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "ten_thousands",
+          "acceptable_answers": [
+            "60,000",
+            "60000",
+            "sixty thousand"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q5",
+          "question_id": "G5M_NBT_001_L1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Which place is the 2 in 5,219,008?",
+          "answer": "hundred thousands",
+          "correct_answer": "hundred thousands",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is hundred thousands because each digit has a value based on its place.",
+          "read_aloud_text": "Which place is the 2 in 5,219,008?",
+          "question_audio": {
+            "text": "Which place is the 2 in 5,219,008?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 5219008,
+          "number": 5219008,
+          "millions": 5,
+          "hundred_thousands": 2,
+          "ten_thousands": 1,
+          "thousands": 9,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 8,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "hundred_thousands",
+          "choices": [
+            "hundred thousands",
+            "ten thousands",
+            "millions"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q6",
+          "question_id": "G5M_NBT_001_L1_Q6",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In 1,040,006, what digit is in the thousands place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0 because each digit has a value based on its place.",
+          "read_aloud_text": "In 1,040,006, what digit is in the thousands place?",
+          "question_audio": {
+            "text": "In 1,040,006, what digit is in the thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 1040006,
+          "number": 1040006,
+          "millions": 1,
+          "hundred_thousands": 0,
+          "ten_thousands": 4,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 6,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "thousands",
+          "acceptable_answers": [
+            "0",
+            "zero"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q7",
+          "question_id": "G5M_NBT_001_L1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 3,000,000 + 400,000 + 20,000 + 5?",
+          "answer": "3,420,005",
+          "correct_answer": "3,420,005",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 3,420,005 because each digit has a value based on its place.",
+          "read_aloud_text": "What is 3,000,000 + 400,000 + 20,000 + 5?",
+          "question_audio": {
+            "text": "What is 3,000,000 + 400,000 + 20,000 + 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 3420005,
+          "number": 3420005,
+          "millions": 3,
+          "hundred_thousands": 4,
+          "ten_thousands": 2,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 5,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "choices": [
+            "3,420,005",
+            "3,402,005",
+            "3,420,050"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q8",
+          "question_id": "G5M_NBT_001_L1_Q8",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is the value of the 9 in 9,615,000?",
+          "answer": "9,000,000",
+          "correct_answer": "9,000,000",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 9,000,000 because each digit has a value based on its place.",
+          "read_aloud_text": "What is the value of the 9 in 9,615,000?",
+          "question_audio": {
+            "text": "What is the value of the 9 in 9,615,000?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 9615000,
+          "number": 9615000,
+          "millions": 9,
+          "hundred_thousands": 6,
+          "ten_thousands": 1,
+          "thousands": 5,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "millions",
+          "acceptable_answers": [
+            "9,000,000",
+            "9000000",
+            "nine million"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q9",
+          "question_id": "G5M_NBT_001_L1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Which digit is in the ones place of 640,312?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 2 because each digit has a value based on its place.",
+          "read_aloud_text": "Which digit is in the ones place of 640,312?",
+          "question_audio": {
+            "text": "Which digit is in the ones place of 640,312?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 640312,
+          "number": 640312,
+          "millions": 0,
+          "hundred_thousands": 6,
+          "ten_thousands": 4,
+          "thousands": 0,
+          "hundreds": 3,
+          "tens": 1,
+          "ones": 2,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "ones",
+          "choices": [
+            "2",
+            "1",
+            "3"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L1_Q10",
+          "question_id": "G5M_NBT_001_L1_Q10",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In 8,070,500, what digit is in the millions place?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 8 because each digit has a value based on its place.",
+          "read_aloud_text": "In 8,070,500, what digit is in the millions place?",
+          "question_audio": {
+            "text": "In 8,070,500, what digit is in the millions place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 8070500,
+          "number": 8070500,
+          "millions": 8,
+          "hundred_thousands": 0,
+          "ten_thousands": 7,
+          "thousands": 0,
+          "hundreds": 5,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "millions",
+          "acceptable_answers": [
+            "8",
+            "eight"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_001_L2",
+      "label": "Level 2: Decimal Place Value to Thousandths",
+      "focus": "Name and model tenths, hundredths, and thousandths.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_001_L2_Q1",
+          "question_id": "G5M_NBT_001_L2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Which decimal is shown by four tenths?",
+          "answer": "0.4",
+          "correct_answer": "0.4",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.4 because each digit has a value based on its place.",
+          "read_aloud_text": "Which decimal is shown by four tenths?",
+          "question_audio": {
+            "text": "Which decimal is shown by four tenths?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.4,
+          "number": 0.4,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 4,
+          "hundredths": 0,
+          "thousandths": 0,
+          "grid_base": 10,
+          "shaded": 4,
+          "decimal_label": "0.4 = four tenths",
+          "choices": [
+            "0.4",
+            "0.04",
+            "4.0"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q2",
+          "question_id": "G5M_NBT_001_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "decimal_grid",
+          "prompt": "Write thirty-five hundredths as a decimal.",
+          "answer": "0.35",
+          "correct_answer": "0.35",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.35 because each digit has a value based on its place.",
+          "read_aloud_text": "Write thirty-five hundredths as a decimal.",
+          "question_audio": {
+            "text": "Write thirty-five hundredths as a decimal.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.35,
+          "number": 0.35,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 3,
+          "hundredths": 5,
+          "thousandths": 0,
+          "grid_base": 100,
+          "shaded": 35,
+          "decimal_label": "0.35 = thirty-five hundredths",
+          "acceptable_answers": [
+            "0.35",
+            ".35",
+            "thirty-five hundredths"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q3",
+          "question_id": "G5M_NBT_001_L2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Which decimal is one hundred twenty-five thousandths?",
+          "answer": "0.125",
+          "correct_answer": "0.125",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.125 because each digit has a value based on its place.",
+          "read_aloud_text": "Which decimal is one hundred twenty-five thousandths?",
+          "question_audio": {
+            "text": "Which decimal is one hundred twenty-five thousandths?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.125,
+          "number": 0.125,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 1,
+          "hundredths": 2,
+          "thousandths": 5,
+          "grid_base": 1000,
+          "shaded": 125,
+          "decimal_label": "0.125 = one hundred twenty-five thousandths",
+          "choices": [
+            "0.125",
+            "0.0125",
+            "1.25"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q4",
+          "question_id": "G5M_NBT_001_L2_Q4",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In 6.482, what digit is in the hundredths place?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 8 because each digit has a value based on its place.",
+          "read_aloud_text": "In six and four hundred eighty-two thousandths, what digit is in the hundredths place?",
+          "question_audio": {
+            "text": "In six and four hundred eighty-two thousandths, what digit is in the hundredths place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 6.482,
+          "number": 6.482,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 6,
+          "tenths": 4,
+          "hundredths": 8,
+          "thousandths": 2,
+          "place": "hundredths",
+          "acceptable_answers": [
+            "8",
+            "eight"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q5",
+          "question_id": "G5M_NBT_001_L2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "What is the value of the 7 in 3.075?",
+          "answer": "0.07",
+          "correct_answer": "0.07",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.07 because each digit has a value based on its place.",
+          "read_aloud_text": "What is the value of the seven in three and seventy-five thousandths?",
+          "question_audio": {
+            "text": "What is the value of the seven in three and seventy-five thousandths?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 3.075,
+          "number": 3.075,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 3,
+          "tenths": 0,
+          "hundredths": 7,
+          "thousandths": 5,
+          "place": "hundredths",
+          "choices": [
+            "0.07",
+            "0.7",
+            "0.007"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q6",
+          "question_id": "G5M_NBT_001_L2_Q6",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write 9 tenths + 2 hundredths + 6 thousandths as a decimal.",
+          "answer": "0.926",
+          "correct_answer": "0.926",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.926 because each digit has a value based on its place.",
+          "read_aloud_text": "Write nine tenths plus two hundredths plus six thousandths as a decimal.",
+          "question_audio": {
+            "text": "Write nine tenths plus two hundredths plus six thousandths as a decimal.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.926,
+          "number": 0.926,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 9,
+          "hundredths": 2,
+          "thousandths": 6,
+          "acceptable_answers": [
+            "0.926",
+            ".926",
+            "nine hundred twenty-six thousandths"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q7",
+          "question_id": "G5M_NBT_001_L2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Which decimal equals 50 hundredths?",
+          "answer": "0.50",
+          "correct_answer": "0.50",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.50 because each digit has a value based on its place.",
+          "read_aloud_text": "Which decimal equals fifty hundredths?",
+          "question_audio": {
+            "text": "Which decimal equals fifty hundredths?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.5,
+          "number": 0.5,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 5,
+          "hundredths": 0,
+          "thousandths": 0,
+          "grid_base": 100,
+          "shaded": 50,
+          "decimal_label": "0.50 = fifty hundredths",
+          "choices": [
+            "0.50",
+            "0.05",
+            "5.0"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q8",
+          "question_id": "G5M_NBT_001_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In 12.309, what digit is in the thousandths place?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 9 because each digit has a value based on its place.",
+          "read_aloud_text": "In twelve and three hundred nine thousandths, what digit is in the thousandths place?",
+          "question_audio": {
+            "text": "In twelve and three hundred nine thousandths, what digit is in the thousandths place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 12.309,
+          "number": 12.309,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 1,
+          "ones": 2,
+          "tenths": 3,
+          "hundredths": 0,
+          "thousandths": 9,
+          "place": "thousandths",
+          "acceptable_answers": [
+            "9",
+            "nine"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q9",
+          "question_id": "G5M_NBT_001_L2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Which is the same value as 0.6?",
+          "answer": "0.60",
+          "correct_answer": "0.60",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.60 because each digit has a value based on its place.",
+          "read_aloud_text": "Which is the same value as six tenths?",
+          "question_audio": {
+            "text": "Which is the same value as six tenths?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.6,
+          "number": 0.6,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 6,
+          "hundredths": 0,
+          "thousandths": 0,
+          "grid_base": 100,
+          "shaded": 60,
+          "decimal_label": "0.60 = sixty hundredths = six tenths",
+          "choices": [
+            "0.60",
+            "0.06",
+            "0.006"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L2_Q10",
+          "question_id": "G5M_NBT_001_L2_Q10",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write 4 ones, 3 tenths, and 8 thousandths as a decimal.",
+          "answer": "4.308",
+          "correct_answer": "4.308",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 4.308 because each digit has a value based on its place.",
+          "read_aloud_text": "Write four ones, three tenths, and eight thousandths as a decimal.",
+          "question_audio": {
+            "text": "Write four ones, three tenths, and eight thousandths as a decimal.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 4.308,
+          "number": 4.308,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 4,
+          "tenths": 3,
+          "hundredths": 0,
+          "thousandths": 8,
+          "acceptable_answers": [
+            "4.308",
+            "four and three hundred eight thousandths"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_001_L3",
+      "label": "Level 3: Powers of 10 and Place Value Shifts",
+      "focus": "Use powers of ten to shift digit values.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_001_L3_Q1",
+          "question_id": "G5M_NBT_001_L3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 0.4 × 10?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 4 because each digit has a value based on its place.",
+          "read_aloud_text": "What is four tenths times ten?",
+          "question_audio": {
+            "text": "What is four tenths times ten?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 4,
+          "number": 4,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 4,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "choices": [
+            "4",
+            "0.04",
+            "40"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q2",
+          "question_id": "G5M_NBT_001_L3_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 35 ÷ 10?",
+          "answer": "3.5",
+          "correct_answer": "3.5",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 3.5 because each digit has a value based on its place.",
+          "read_aloud_text": "What is thirty-five divided by ten?",
+          "question_audio": {
+            "text": "What is thirty-five divided by ten?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 3.5,
+          "number": 3.5,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 3,
+          "tenths": 5,
+          "hundredths": 0,
+          "thousandths": 0,
+          "acceptable_answers": [
+            "3.5",
+            "three and five tenths"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q3",
+          "question_id": "G5M_NBT_001_L3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 0.125 × 100?",
+          "answer": "12.5",
+          "correct_answer": "12.5",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 12.5 because each digit has a value based on its place.",
+          "read_aloud_text": "What is one hundred twenty-five thousandths times one hundred?",
+          "question_audio": {
+            "text": "What is one hundred twenty-five thousandths times one hundred?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 12.5,
+          "number": 12.5,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 1,
+          "ones": 2,
+          "tenths": 5,
+          "hundredths": 0,
+          "thousandths": 0,
+          "choices": [
+            "12.5",
+            "1.25",
+            "125"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q4",
+          "question_id": "G5M_NBT_001_L3_Q4",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 482 ÷ 100?",
+          "answer": "4.82",
+          "correct_answer": "4.82",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 4.82 because each digit has a value based on its place.",
+          "read_aloud_text": "What is four hundred eighty-two divided by one hundred?",
+          "question_audio": {
+            "text": "What is four hundred eighty-two divided by one hundred?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 4.82,
+          "number": 4.82,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 4,
+          "tenths": 8,
+          "hundredths": 2,
+          "thousandths": 0,
+          "acceptable_answers": [
+            "4.82",
+            "four and eighty-two hundredths"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q5",
+          "question_id": "G5M_NBT_001_L3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "A digit becomes 10 times as large. Which way does it shift?",
+          "answer": "one place left",
+          "correct_answer": "one place left",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is one place left because each digit has a value based on its place.",
+          "read_aloud_text": "A digit becomes 10 times as large. Which way does it shift?",
+          "question_audio": {
+            "text": "A digit becomes 10 times as large. Which way does it shift?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 10,
+          "number": 10,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 1,
+          "ones": 0,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "choices": [
+            "one place left",
+            "one place right",
+            "it stays still"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q6",
+          "question_id": "G5M_NBT_001_L3_Q6",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 6.7 × 1,000?",
+          "answer": "6,700",
+          "correct_answer": "6,700",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 6,700 because each digit has a value based on its place.",
+          "read_aloud_text": "What is six and seven tenths times one thousand?",
+          "question_audio": {
+            "text": "What is six and seven tenths times one thousand?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 6700,
+          "number": 6700,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 6,
+          "hundreds": 7,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "acceptable_answers": [
+            "6,700",
+            "6700"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q7",
+          "question_id": "G5M_NBT_001_L3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 90.5 ÷ 10?",
+          "answer": "9.05",
+          "correct_answer": "9.05",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 9.05 because each digit has a value based on its place.",
+          "read_aloud_text": "What is ninety and five tenths divided by ten?",
+          "question_audio": {
+            "text": "What is ninety and five tenths divided by ten?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 9.05,
+          "number": 9.05,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 9,
+          "tenths": 0,
+          "hundredths": 5,
+          "thousandths": 0,
+          "choices": [
+            "9.05",
+            "905",
+            "0.905"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q8",
+          "question_id": "G5M_NBT_001_L3_Q8",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 0.073 × 100?",
+          "answer": "7.3",
+          "correct_answer": "7.3",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 7.3 because each digit has a value based on its place.",
+          "read_aloud_text": "What is seventy-three thousandths times one hundred?",
+          "question_audio": {
+            "text": "What is seventy-three thousandths times one hundred?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 7.3,
+          "number": 7.3,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 7,
+          "tenths": 3,
+          "hundredths": 0,
+          "thousandths": 0,
+          "acceptable_answers": [
+            "7.3",
+            "seven and three tenths"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q9",
+          "question_id": "G5M_NBT_001_L3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 5.64 ÷ 100?",
+          "answer": "0.0564",
+          "correct_answer": "0.0564",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.0564 because each digit has a value based on its place.",
+          "read_aloud_text": "What is five and sixty-four hundredths divided by one hundred?",
+          "question_audio": {
+            "text": "What is five and sixty-four hundredths divided by one hundred?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.056,
+          "number": 0.056,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 0,
+          "hundredths": 5,
+          "thousandths": 6,
+          "choices": [
+            "0.0564",
+            "56.4",
+            "0.564"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L3_Q10",
+          "question_id": "G5M_NBT_001_L3_Q10",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 0.9 × 100?",
+          "answer": "90",
+          "correct_answer": "90",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 90 because each digit has a value based on its place.",
+          "read_aloud_text": "What is nine tenths times one hundred?",
+          "question_audio": {
+            "text": "What is nine tenths times one hundred?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 90,
+          "number": 90,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 9,
+          "ones": 0,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "acceptable_answers": [
+            "90",
+            "ninety"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_001_L4",
+      "label": "Level 4: Compare and Round Decimals",
+      "focus": "Compare decimals and round to tenths or hundredths.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_001_L4_Q1",
+          "question_id": "G5M_NBT_001_L4_Q1",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 0.4 and 0.35.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is > because each digit has a value based on its place.",
+          "read_aloud_text": "Compare four tenths and thirty-five hundredths.",
+          "question_audio": {
+            "text": "Compare four tenths and thirty-five hundredths.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "left_value": 0.4,
+          "right_value": 0.35,
+          "value": 0.4,
+          "min": 0.3,
+          "max": 0.5,
+          "choices": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q2",
+          "question_id": "G5M_NBT_001_L4_Q2",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 0.125 and 0.2.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is < because each digit has a value based on its place.",
+          "read_aloud_text": "Compare one hundred twenty-five thousandths and two tenths.",
+          "question_audio": {
+            "text": "Compare one hundred twenty-five thousandths and two tenths.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "left_value": 0.125,
+          "right_value": 0.2,
+          "value": 0.125,
+          "min": 0,
+          "max": 0.25,
+          "choices": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q3",
+          "question_id": "G5M_NBT_001_L4_Q3",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 3.46 to the nearest tenth.",
+          "answer": "3.5",
+          "correct_answer": "3.5",
+          "misconception_tag": "rounding_decimal_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 3.5 because each digit has a value based on its place.",
+          "read_aloud_text": "Round three and forty-six hundredths to the nearest tenth.",
+          "question_audio": {
+            "text": "Round three and forty-six hundredths to the nearest tenth.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 3.46,
+          "number": 3.46,
+          "round_to": 0.1,
+          "nearest": 0.1,
+          "rounded": 3.5,
+          "min": 3.4,
+          "max": 3.5,
+          "acceptable_answers": [
+            "3.5"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q4",
+          "question_id": "G5M_NBT_001_L4_Q4",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 8.125 to the nearest hundredth.",
+          "answer": "8.13",
+          "correct_answer": "8.13",
+          "misconception_tag": "rounding_decimal_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 8.13 because each digit has a value based on its place.",
+          "read_aloud_text": "Round eight and one hundred twenty-five thousandths to the nearest hundredth.",
+          "question_audio": {
+            "text": "Round eight and one hundred twenty-five thousandths to the nearest hundredth.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 8.125,
+          "number": 8.125,
+          "round_to": 0.01,
+          "nearest": 0.01,
+          "rounded": 8.13,
+          "min": 8.12,
+          "max": 8.13,
+          "acceptable_answers": [
+            "8.13"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q5",
+          "question_id": "G5M_NBT_001_L4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Which decimal is greatest: 0.7, 0.65, or 0.705?",
+          "answer": "0.705",
+          "correct_answer": "0.705",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.705 because each digit has a value based on its place.",
+          "read_aloud_text": "Which decimal is greatest: seven tenths, sixty-five hundredths, or seven hundred five thousandths?",
+          "question_audio": {
+            "text": "Which decimal is greatest: seven tenths, sixty-five hundredths, or seven hundred five thousandths?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.705,
+          "min": 0.6,
+          "max": 0.75,
+          "choices": [
+            "0.705",
+            "0.7",
+            "0.65"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q6",
+          "question_id": "G5M_NBT_001_L4_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Write <, >, or =: 2.30 ___ 2.3",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is =  because each digit has a value based on its place.",
+          "read_aloud_text": "Write less than, greater than, or equals: two and thirty hundredths blank two and three tenths.",
+          "question_audio": {
+            "text": "Write less than, greater than, or equals: two and thirty hundredths blank two and three tenths.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "left_value": 2.3,
+          "right_value": 2.3,
+          "value": 2.3,
+          "min": 2.2,
+          "max": 2.4,
+          "acceptable_answers": [
+            "=",
+            "equal",
+            "equals"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q7",
+          "question_id": "G5M_NBT_001_L4_Q7",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 0.749 to the nearest hundredth.",
+          "answer": "0.75",
+          "correct_answer": "0.75",
+          "misconception_tag": "rounding_decimal_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.75 because each digit has a value based on its place.",
+          "read_aloud_text": "Round seven hundred forty-nine thousandths to the nearest hundredth.",
+          "question_audio": {
+            "text": "Round seven hundred forty-nine thousandths to the nearest hundredth.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.749,
+          "number": 0.749,
+          "round_to": 0.01,
+          "nearest": 0.01,
+          "rounded": 0.75,
+          "min": 0.74,
+          "max": 0.75,
+          "acceptable_answers": [
+            "0.75"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q8",
+          "question_id": "G5M_NBT_001_L4_Q8",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 5.08 and 5.8.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is < because each digit has a value based on its place.",
+          "read_aloud_text": "Compare five and eight hundredths and five and eight tenths.",
+          "question_audio": {
+            "text": "Compare five and eight hundredths and five and eight tenths.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "left_value": 5.08,
+          "right_value": 5.8,
+          "value": 5.08,
+          "min": 5,
+          "max": 6,
+          "choices": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q9",
+          "question_id": "G5M_NBT_001_L4_Q9",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 12.999 to the nearest tenth.",
+          "answer": "13.0",
+          "correct_answer": "13.0",
+          "misconception_tag": "rounding_decimal_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 13.0 because each digit has a value based on its place.",
+          "read_aloud_text": "Round twelve and nine hundred ninety-nine thousandths to the nearest tenth.",
+          "question_audio": {
+            "text": "Round twelve and nine hundred ninety-nine thousandths to the nearest tenth.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 12.999,
+          "number": 12.999,
+          "round_to": 0.1,
+          "nearest": 0.1,
+          "rounded": 13,
+          "min": 12.9,
+          "max": 13,
+          "acceptable_answers": [
+            "13.0",
+            "13"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_L4_Q10",
+          "question_id": "G5M_NBT_001_L4_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Which decimal is least: 0.09, 0.109, or 0.9?",
+          "answer": "0.09",
+          "correct_answer": "0.09",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.09 because each digit has a value based on its place.",
+          "read_aloud_text": "Which decimal is least: nine hundredths, one hundred nine thousandths, or nine tenths?",
+          "question_audio": {
+            "text": "Which decimal is least: nine hundredths, one hundred nine thousandths, or nine tenths?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.09,
+          "min": 0,
+          "max": 1,
+          "choices": [
+            "0.09",
+            "0.109",
+            "0.9"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mix whole-number place value, decimals, powers of ten, comparing, and rounding.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_001_MIXED_Q1",
+          "question_id": "G5M_NBT_001_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 4,582,106, what digit is in the hundred thousands place?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 5 because each digit has a value based on its place.",
+          "read_aloud_text": "In 4,582,106, what digit is in the hundred thousands place?",
+          "question_audio": {
+            "text": "In 4,582,106, what digit is in the hundred thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 4582106,
+          "number": 4582106,
+          "millions": 4,
+          "hundred_thousands": 5,
+          "ten_thousands": 8,
+          "thousands": 2,
+          "hundreds": 1,
+          "tens": 0,
+          "ones": 6,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "place": "hundred_thousands",
+          "choices": [
+            "5",
+            "4",
+            "8"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q2",
+          "question_id": "G5M_NBT_001_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "decimal_grid",
+          "prompt": "Write thirty-five hundredths as a decimal.",
+          "answer": "0.35",
+          "correct_answer": "0.35",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.35 because each digit has a value based on its place.",
+          "read_aloud_text": "Write thirty-five hundredths as a decimal.",
+          "question_audio": {
+            "text": "Write thirty-five hundredths as a decimal.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.35,
+          "number": 0.35,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 3,
+          "hundredths": 5,
+          "thousandths": 0,
+          "grid_base": 100,
+          "shaded": 35,
+          "decimal_label": "0.35 = thirty-five hundredths",
+          "acceptable_answers": [
+            "0.35",
+            ".35",
+            "thirty-five hundredths"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q3",
+          "question_id": "G5M_NBT_001_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 0.125 × 100?",
+          "answer": "12.5",
+          "correct_answer": "12.5",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 12.5 because each digit has a value based on its place.",
+          "read_aloud_text": "What is one hundred twenty-five thousandths times one hundred?",
+          "question_audio": {
+            "text": "What is one hundred twenty-five thousandths times one hundred?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 12.5,
+          "number": 12.5,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 1,
+          "ones": 2,
+          "tenths": 5,
+          "hundredths": 0,
+          "thousandths": 0,
+          "choices": [
+            "12.5",
+            "1.25",
+            "125"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q4",
+          "question_id": "G5M_NBT_001_MIXED_Q4",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 0.4 and 0.35.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is > because each digit has a value based on its place.",
+          "read_aloud_text": "Compare four tenths and thirty-five hundredths.",
+          "question_audio": {
+            "text": "Compare four tenths and thirty-five hundredths.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "left_value": 0.4,
+          "right_value": 0.35,
+          "value": 0.4,
+          "min": 0.3,
+          "max": 0.5,
+          "choices": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q5",
+          "question_id": "G5M_NBT_001_MIXED_Q5",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 8.125 to the nearest hundredth.",
+          "answer": "8.13",
+          "correct_answer": "8.13",
+          "misconception_tag": "rounding_decimal_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 8.13 because each digit has a value based on its place.",
+          "read_aloud_text": "Round eight and one hundred twenty-five thousandths to the nearest hundredth.",
+          "question_audio": {
+            "text": "Round eight and one hundred twenty-five thousandths to the nearest hundredth.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 8.125,
+          "number": 8.125,
+          "round_to": 0.01,
+          "nearest": 0.01,
+          "rounded": 8.13,
+          "min": 8.12,
+          "max": 8.13,
+          "acceptable_answers": [
+            "8.13"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q6",
+          "question_id": "G5M_NBT_001_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Which decimal is one hundred twenty-five thousandths?",
+          "answer": "0.125",
+          "correct_answer": "0.125",
+          "misconception_tag": "decimal_length_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.125 because each digit has a value based on its place.",
+          "read_aloud_text": "Which decimal is one hundred twenty-five thousandths?",
+          "question_audio": {
+            "text": "Which decimal is one hundred twenty-five thousandths?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.125,
+          "number": 0.125,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 1,
+          "hundredths": 2,
+          "thousandths": 5,
+          "grid_base": 1000,
+          "shaded": 125,
+          "decimal_label": "0.125 = one hundred twenty-five thousandths",
+          "choices": [
+            "0.125",
+            "0.0125",
+            "1.25"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q7",
+          "question_id": "G5M_NBT_001_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 6.7 × 1,000?",
+          "answer": "6,700",
+          "correct_answer": "6,700",
+          "misconception_tag": "power_of_ten_shift_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 6,700 because each digit has a value based on its place.",
+          "read_aloud_text": "What is six and seven tenths times one thousand?",
+          "question_audio": {
+            "text": "What is six and seven tenths times one thousand?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 6700,
+          "number": 6700,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 6,
+          "hundreds": 7,
+          "tens": 0,
+          "ones": 0,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "acceptable_answers": [
+            "6,700",
+            "6700"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q8",
+          "question_id": "G5M_NBT_001_MIXED_Q8",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 0.749 to the nearest hundredth.",
+          "answer": "0.75",
+          "correct_answer": "0.75",
+          "misconception_tag": "rounding_decimal_error",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 0.75 because each digit has a value based on its place.",
+          "read_aloud_text": "Round seven hundred forty-nine thousandths to the nearest hundredth.",
+          "question_audio": {
+            "text": "Round seven hundred forty-nine thousandths to the nearest hundredth.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 0.749,
+          "number": 0.749,
+          "round_to": 0.01,
+          "nearest": 0.01,
+          "rounded": 0.75,
+          "min": 0.74,
+          "max": 0.75,
+          "acceptable_answers": [
+            "0.75"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q9",
+          "question_id": "G5M_NBT_001_MIXED_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 3,000,000 + 400,000 + 20,000 + 5?",
+          "answer": "3,420,005",
+          "correct_answer": "3,420,005",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 3,420,005 because each digit has a value based on its place.",
+          "read_aloud_text": "What is 3,000,000 + 400,000 + 20,000 + 5?",
+          "question_audio": {
+            "text": "What is 3,000,000 + 400,000 + 20,000 + 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 3420005,
+          "number": 3420005,
+          "millions": 3,
+          "hundred_thousands": 4,
+          "ten_thousands": 2,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 5,
+          "tenths": 0,
+          "hundredths": 0,
+          "thousandths": 0,
+          "choices": [
+            "3,420,005",
+            "3,402,005",
+            "3,420,050"
+          ]
+        },
+        {
+          "id": "G5M_NBT_001_MIXED_Q10",
+          "question_id": "G5M_NBT_001_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write 4 ones, 3 tenths, and 8 thousandths as a decimal.",
+          "answer": "4.308",
+          "correct_answer": "4.308",
+          "misconception_tag": "decimal_place_value_confusion",
+          "hints": [
+            "Line up the number in the place-value chart and name the place before answering.",
+            "For decimals, read the digit by its place: tenths, hundredths, or thousandths.",
+            "When multiplying or dividing by powers of 10, digits shift places while the decimal point marks the ones place.",
+            "When comparing or rounding decimals, write equivalent zeros so the places line up."
+          ],
+          "feedback": {
+            "correct": "Yes! You used place value to reason about decimals.",
+            "incorrect": "Try again by lining up each digit in the correct place and reading the decimal places carefully."
+          },
+          "explanation": "The answer is 4.308 because each digit has a value based on its place.",
+          "read_aloud_text": "Write four ones, three tenths, and eight thousandths as a decimal.",
+          "question_audio": {
+            "text": "Write four ones, three tenths, and eight thousandths as a decimal.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "value": 4.308,
+          "number": 4.308,
+          "millions": 0,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 4,
+          "tenths": 3,
+          "hundredths": 0,
+          "thousandths": 8,
+          "acceptable_answers": [
+            "4.308",
+            "four and three hundred eight thousandths"
+          ]
+        }
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Decimal Observatory",
+    "mission_intro": "Help the observatory crew calibrate place-value lenses from millions to thousandths.",
+    "badge_name": "Decimal Place Value Navigator",
+    "world": "Base-Ten Galaxy"
+  },
+  "next_skill_id": "G5M_NBT_002",
+  "remediation_skill_id": "G4M_NBT_001",
+  "page_audio": {
+    "story": {
+      "text": "Welcome to the Decimal Observatory. Today you will help the crew label numbers from millions all the way to thousandths so every measurement lands in the correct place. Read the chart carefully, then press Start Mission when you are ready to begin.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Place value tells what each digit is worth. To the left, each place is ten times as large; to the right of the decimal point, places are tenths, hundredths, and thousandths. Press Next after you use the model to connect each digit with its value.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch the tutor model decimal place value. Step one, place the decimal point after the ones place. Step two, read zero point three five as thirty-five hundredths and zero point one two five as one hundred twenty-five thousandths. Step three, compare or round by lining up places; press Next when the final answer makes sense.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Now try the guided demo with the place-value tools. Use the decimal grid, number line, and rounding model to explain what each digit means. Press Next when you can say the answer in words and point to the matching model.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Practice is your turn to answer with support. Tap Read Question to hear the decimal spoken naturally, use the hint if you need it, and choose or type the answer carefully. Press Check after you have lined up the places.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Challenge problems mix place value, powers of ten, comparing, and rounding. Tap Read Question first so the decimal is read clearly, then use zeros as placeholders when needed. Press Check when your answer matches the value of the number.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Checkpoint shows what you can do independently. Tap Read Question, think about the decimal places from tenths to thousandths, and answer carefully. This helps decide whether you are ready for your badge.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Great work, decimal explorer. You showed that whole-number places, decimal places, and powers of ten all fit in one base-ten system. Press Next to save your badge and review your growth.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Your profile records this Skill World mission and opens Skill Practice for more fluency. Use the Practice This Skill path when you want more questions by level. You can also go back to the hub to choose another mission and keep building your Grade 5 math map.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
