@@ -1688,3 +1688,49 @@ assert.doesNotMatch(g4FractionCircleHtml.trim(),/^\d{3,4}$/,'fraction_circle doe
   assert.ok(q,`Grade 4 fraction batch includes ${visual}`);
   assert.match(VisualRegistry.render(q),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists`);
 });
+
+const grade5OpsBaseTenDecimalPackages=[
+  {id:'G5M_OA_001',domain:'Operations and Algebraic Thinking / Geometry',skill:'Expressions, Patterns, and the Coordinate Plane',labels:['Level 1: Write Numerical Expressions','Level 2: Evaluate Expressions','Level 3: Generate and Analyze Patterns','Level 4: Coordinate Plane Ordered Pairs','Mixed'],visuals:['expression_builder','pattern_table','coordinate_plane','ordered_pair_plot'],types:['multiple_choice','short_response','expression_response','coordinate_response'],tags:['operation_order_confusion','parentheses_confusion','pattern_rule_error','coordinate_order_reversal']},
+  {id:'G5M_NBT_002',domain:'Number and Operations in Base Ten',skill:'Multi-Digit Whole Number Operations',labels:['Level 1: Multi-Digit Multiplication','Level 2: Partial Products and Area Models','Level 3: Multi-Digit Division','Level 4: Interpret Remainders','Mixed'],visuals:['algorithm_steps','partial_products_model','area_model','division_model','remainder_model'],types:['multiple_choice','short_response','multiplication_equation','division_equation'],tags:['digit_alignment_error','partial_products_confusion','quotient_place_value_error','remainder_interpretation_error']},
+  {id:'G5M_NBT_003',domain:'Number and Operations in Base Ten',skill:'Decimal Operations',labels:['Level 1: Add and Subtract Decimals','Level 2: Multiply Decimals','Level 3: Divide Decimals','Level 4: Decimal Word Problems','Mixed'],visuals:['decimal_grid','place_value_chart','algorithm_steps','word_problem_model'],types:['multiple_choice','decimal_response','word_problem'],tags:['decimal_alignment_error','decimal_product_size_error','decimal_quotient_error','decimal_word_problem_error']}
+].map((spec)=>({...spec,pkg:load(spec.id)}));
+
+grade5OpsBaseTenDecimalPackages.forEach(({id,domain,skill,labels,visuals,types,tags,pkg})=>{
+  const questions=pkg.level_banks.flatMap((level)=>level.questions);
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,5,`${id} is Grade 5`);
+  assert.equal(pkg.subject,'Math',`${id} is Math`);
+  assert.equal(pkg.domain,domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,skill,`${id} title matches plan`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(questions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(Schema.QUESTION_TYPES.includes(type),`schema accepts ${type}`));
+  types.forEach((type)=>assert.ok(questions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(questions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} short-response items have acceptable_answers`);
+  assert.ok(questions.every((q)=>q.question_audio?.label==='Read Question'&&q.question_audio?.text),`${id} Skill Practice Center questions have Read Question narration`);
+  for (const screen of ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile']) {
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${id} ${screen} has Read This Page narration`);
+    assert.ok((pkg.page_audio?.[screen]?.text||'').split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`${id} ${screen} narration teaches the page`);
+  }
+  for (const screen of ['practice','challenge','checkpoint']) assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} mentions Read Question`);
+  for (const q of [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])]) assert.equal(q.question_audio?.label,'Read Question',`${id} mission question has Read Question narration`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} full mission flow renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillState=Renderer.createState();
+  drillState.mode='drill';
+  assert.match(Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+['expression_builder','coordinate_plane','ordered_pair_plot'].forEach((visual)=>{
+  const question=grade5OpsBaseTenDecimalPackages.flatMap(({pkg})=>pkg.level_banks.flatMap((level)=>level.questions)).find((q)=>q.visual_model===visual);
+  assert.ok(question,`Grade 5 batch includes ${visual}`);
+  assert.match(VisualRegistry.render(question),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists`);
+});
+const decimalGridHtml=VisualRegistry.render(grade5OpsBaseTenDecimalPackages.find(({id})=>id==='G5M_NBT_003').pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='decimal_grid'));
+assert.match(decimalGridHtml,/data-renderer="decimal_grid"/,'decimal_grid renderer output exists for Grade 5 decimal operations');
+assert.match(decimalGridHtml,/decimal-grid-cell[^>]+shaded/,'decimal_grid renderer still outputs real shaded cells');

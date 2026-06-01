@@ -1,0 +1,2757 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "production_status": "ready_for_manual_qa",
+    "source_plan": "grade5-math-completion-plan.v1",
+    "voice_standard": "full_voice_standard_cached_ai_audio_optional"
+  },
+  "skill_id": "G5M_NBT_002",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Multi-Digit Whole Number Operations",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "lesson": {
+    "objective": "Fluently multiply and divide multi-digit whole numbers.",
+    "key_vocabulary": [
+      "expression",
+      "pattern",
+      "coordinate",
+      "product",
+      "quotient",
+      "decimal"
+    ],
+    "concept_explanation": "Multi-Digit Whole Number Operations uses models to connect numbers, operations, and meanings before calculating. Careful labels help you choose the right operation and avoid common errors.",
+    "visual_model": "algorithm_steps",
+    "common_misconception": "A common mistake is misaligning digits by place value. Slow down and match each step to the model.",
+    "real_world_connection": "Engineers, scientists, game designers, and community planners use these Grade Five math strategies to make accurate decisions.",
+    "lesson_summary": "Use the model, write the math clearly, and check that the answer fits the question for Multi-Digit Whole Number Operations."
+  },
+  "worked_examples": [
+    {
+      "question_type": "multiplication_equation",
+      "visual_model": "area_model",
+      "prompt": "Find 27 \u00d7 13.",
+      "answer": "351",
+      "correct_answer": "351",
+      "misconception_tag": "partial_products_confusion",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 351.",
+      "read_aloud_text": "Find 27 times 13.",
+      "question_audio": {
+        "text": "Find 27 times 13.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "351",
+        "351",
+        "351"
+      ],
+      "operands": [
+        27,
+        13
+      ],
+      "operation": "\u00d7",
+      "partial_products": [
+        270,
+        81
+      ],
+      "rows": 27,
+      "columns": 13,
+      "area": 351,
+      "algorithm_steps": [
+        "Multiply 27 by each place-value part of 13.",
+        "Add the partial products."
+      ],
+      "id": "G5M_NBT_002_WE1",
+      "question_id": "G5M_NBT_002_WE1",
+      "text": "Watch how the tutor connects the visual model to the answer."
+    },
+    {
+      "question_type": "multiple_choice",
+      "visual_model": "algorithm_steps",
+      "prompt": "Find 31 \u00d7 14.",
+      "answer": "434",
+      "correct_answer": "434",
+      "misconception_tag": "digit_alignment_error",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 434.",
+      "read_aloud_text": "Find 31 times 14.",
+      "question_audio": {
+        "text": "Find 31 times 14.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "434",
+        "465",
+        "420",
+        "45"
+      ],
+      "operands": [
+        31,
+        14
+      ],
+      "operation": "\u00d7",
+      "partial_products": [
+        310,
+        124
+      ],
+      "rows": 31,
+      "columns": 14,
+      "area": 434,
+      "algorithm_steps": [
+        "Multiply 31 by each place-value part of 14.",
+        "Add the partial products."
+      ],
+      "id": "G5M_NBT_002_WE2",
+      "question_id": "G5M_NBT_002_WE2",
+      "text": "Now watch a second guided demo before independent practice."
+    }
+  ],
+  "hint_ladder": [
+    "Name what the visual model shows.",
+    "Write the operation or ordered pair carefully.",
+    "Check the answer with an estimate or inverse step."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_NBT_002_L1_Q1",
+      "question_id": "G5M_NBT_002_L1_Q1",
+      "question_type": "multiplication_equation",
+      "visual_model": "area_model",
+      "prompt": "Find 27 \u00d7 13.",
+      "answer": "351",
+      "correct_answer": "351",
+      "misconception_tag": "partial_products_confusion",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 351.",
+      "read_aloud_text": "Find 27 times 13.",
+      "question_audio": {
+        "text": "Find 27 times 13.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "351",
+        "351",
+        "351"
+      ],
+      "operands": [
+        27,
+        13
+      ],
+      "operation": "\u00d7",
+      "partial_products": [
+        270,
+        81
+      ],
+      "rows": 27,
+      "columns": 13,
+      "area": 351,
+      "algorithm_steps": [
+        "Multiply 27 by each place-value part of 13.",
+        "Add the partial products."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_NBT_002_MIXED_Q1",
+      "question_id": "G5M_NBT_002_MIXED_Q1",
+      "question_type": "multiplication_equation",
+      "visual_model": "area_model",
+      "prompt": "Find 27 \u00d7 13.",
+      "answer": "351",
+      "correct_answer": "351",
+      "misconception_tag": "partial_products_confusion",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 351.",
+      "read_aloud_text": "Find 27 times 13.",
+      "question_audio": {
+        "text": "Find 27 times 13.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "351",
+        "351",
+        "351"
+      ],
+      "operands": [
+        27,
+        13
+      ],
+      "operation": "\u00d7",
+      "partial_products": [
+        270,
+        81
+      ],
+      "rows": 27,
+      "columns": 13,
+      "area": 351,
+      "algorithm_steps": [
+        "Multiply 27 by each place-value part of 13.",
+        "Add the partial products."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_NBT_002_L2_Q1",
+      "question_id": "G5M_NBT_002_L2_Q1",
+      "question_type": "multiplication_equation",
+      "visual_model": "partial_products_model",
+      "prompt": "Find 27 \u00d7 13.",
+      "answer": "351",
+      "correct_answer": "351",
+      "misconception_tag": "partial_products_confusion",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 351.",
+      "read_aloud_text": "Find 27 times 13.",
+      "question_audio": {
+        "text": "Find 27 times 13.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "351",
+        "351",
+        "351"
+      ],
+      "operands": [
+        27,
+        13
+      ],
+      "operation": "\u00d7",
+      "partial_products": [
+        270,
+        81
+      ],
+      "rows": 27,
+      "columns": 13,
+      "area": 351,
+      "algorithm_steps": [
+        "Multiply 27 by each place-value part of 13.",
+        "Add the partial products."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "digit_alignment_error": "misaligning digits by place value.",
+    "partial_products_confusion": "forgetting one or more partial products.",
+    "quotient_place_value_error": "placing quotient digits in the wrong place.",
+    "remainder_interpretation_error": "not interpreting the remainder in context."
+  },
+  "review_bank": [],
+  "level_banks": [
+    {
+      "level_id": "G5M_NBT_002_L1",
+      "label": "Level 1: Multi-Digit Multiplication",
+      "focus": "Use the standard multiplication algorithm.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_002_L1_Q1",
+          "question_id": "G5M_NBT_002_L1_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "area_model",
+          "prompt": "Find 27 \u00d7 13.",
+          "answer": "351",
+          "correct_answer": "351",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 351.",
+          "read_aloud_text": "Find 27 times 13.",
+          "question_audio": {
+            "text": "Find 27 times 13.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "351",
+            "351",
+            "351"
+          ],
+          "operands": [
+            27,
+            13
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            270,
+            81
+          ],
+          "rows": 27,
+          "columns": 13,
+          "area": 351,
+          "algorithm_steps": [
+            "Multiply 27 by each place-value part of 13.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q2",
+          "question_id": "G5M_NBT_002_L1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Find 31 \u00d7 14.",
+          "answer": "434",
+          "correct_answer": "434",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 434.",
+          "read_aloud_text": "Find 31 times 14.",
+          "question_audio": {
+            "text": "Find 31 times 14.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "434",
+            "465",
+            "420",
+            "45"
+          ],
+          "operands": [
+            31,
+            14
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            310,
+            124
+          ],
+          "rows": 31,
+          "columns": 14,
+          "area": 434,
+          "algorithm_steps": [
+            "Multiply 31 by each place-value part of 14.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q3",
+          "question_id": "G5M_NBT_002_L1_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 35 \u00d7 15.",
+          "answer": "525",
+          "correct_answer": "525",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 525.",
+          "read_aloud_text": "Find 35 times 15.",
+          "question_audio": {
+            "text": "Find 35 times 15.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "525",
+            "525",
+            "525"
+          ],
+          "operands": [
+            35,
+            15
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            350,
+            175
+          ],
+          "rows": 35,
+          "columns": 15,
+          "area": 525,
+          "algorithm_steps": [
+            "Multiply 35 by each place-value part of 15.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q4",
+          "question_id": "G5M_NBT_002_L1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Find 39 \u00d7 16.",
+          "answer": "624",
+          "correct_answer": "624",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 624.",
+          "read_aloud_text": "Find 39 times 16.",
+          "question_audio": {
+            "text": "Find 39 times 16.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "624",
+            "663",
+            "608",
+            "55"
+          ],
+          "operands": [
+            39,
+            16
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            390,
+            234
+          ],
+          "rows": 39,
+          "columns": 12,
+          "area": 624,
+          "algorithm_steps": [
+            "Multiply 39 by each place-value part of 16.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q5",
+          "question_id": "G5M_NBT_002_L1_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "algorithm_steps",
+          "prompt": "Find 43 \u00d7 17.",
+          "answer": "731",
+          "correct_answer": "731",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 731.",
+          "read_aloud_text": "Find 43 times 17.",
+          "question_audio": {
+            "text": "Find 43 times 17.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "731",
+            "731",
+            "731"
+          ],
+          "operands": [
+            43,
+            17
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            430,
+            301
+          ],
+          "rows": 43,
+          "columns": 12,
+          "area": 731,
+          "algorithm_steps": [
+            "Multiply 43 by each place-value part of 17.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q6",
+          "question_id": "G5M_NBT_002_L1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 47 \u00d7 18.",
+          "answer": "846",
+          "correct_answer": "846",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 846.",
+          "read_aloud_text": "Find 47 times 18.",
+          "question_audio": {
+            "text": "Find 47 times 18.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "846",
+            "893",
+            "828",
+            "65"
+          ],
+          "operands": [
+            47,
+            18
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            470,
+            376
+          ],
+          "rows": 47,
+          "columns": 12,
+          "area": 846,
+          "algorithm_steps": [
+            "Multiply 47 by each place-value part of 18.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q7",
+          "question_id": "G5M_NBT_002_L1_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "area_model",
+          "prompt": "Find 51 \u00d7 12.",
+          "answer": "612",
+          "correct_answer": "612",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 612.",
+          "read_aloud_text": "Find 51 times 12.",
+          "question_audio": {
+            "text": "Find 51 times 12.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "612",
+            "612",
+            "612"
+          ],
+          "operands": [
+            51,
+            12
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            510,
+            102
+          ],
+          "rows": 51,
+          "columns": 12,
+          "area": 612,
+          "algorithm_steps": [
+            "Multiply 51 by each place-value part of 12.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q8",
+          "question_id": "G5M_NBT_002_L1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Find 55 \u00d7 13.",
+          "answer": "715",
+          "correct_answer": "715",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 715.",
+          "read_aloud_text": "Find 55 times 13.",
+          "question_audio": {
+            "text": "Find 55 times 13.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "715",
+            "770",
+            "702",
+            "68"
+          ],
+          "operands": [
+            55,
+            13
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            550,
+            165
+          ],
+          "rows": 55,
+          "columns": 13,
+          "area": 715,
+          "algorithm_steps": [
+            "Multiply 55 by each place-value part of 13.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q9",
+          "question_id": "G5M_NBT_002_L1_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 59 \u00d7 14.",
+          "answer": "826",
+          "correct_answer": "826",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 826.",
+          "read_aloud_text": "Find 59 times 14.",
+          "question_audio": {
+            "text": "Find 59 times 14.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "826",
+            "826",
+            "826"
+          ],
+          "operands": [
+            59,
+            14
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            590,
+            236
+          ],
+          "rows": 59,
+          "columns": 14,
+          "area": 826,
+          "algorithm_steps": [
+            "Multiply 59 by each place-value part of 14.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L1_Q10",
+          "question_id": "G5M_NBT_002_L1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Find 63 \u00d7 15.",
+          "answer": "945",
+          "correct_answer": "945",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 945.",
+          "read_aloud_text": "Find 63 times 15.",
+          "question_audio": {
+            "text": "Find 63 times 15.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "945",
+            "1008",
+            "930",
+            "78"
+          ],
+          "operands": [
+            63,
+            15
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            630,
+            315
+          ],
+          "rows": 63,
+          "columns": 15,
+          "area": 945,
+          "algorithm_steps": [
+            "Multiply 63 by each place-value part of 15.",
+            "Add the partial products."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_002_L2",
+      "label": "Level 2: Partial Products and Area Models",
+      "focus": "Connect multiplication to partial products.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_002_L2_Q1",
+          "question_id": "G5M_NBT_002_L2_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 27 \u00d7 13.",
+          "answer": "351",
+          "correct_answer": "351",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 351.",
+          "read_aloud_text": "Find 27 times 13.",
+          "question_audio": {
+            "text": "Find 27 times 13.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "351",
+            "351",
+            "351"
+          ],
+          "operands": [
+            27,
+            13
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            270,
+            81
+          ],
+          "rows": 27,
+          "columns": 13,
+          "area": 351,
+          "algorithm_steps": [
+            "Multiply 27 by each place-value part of 13.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q2",
+          "question_id": "G5M_NBT_002_L2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 31 \u00d7 14.",
+          "answer": "434",
+          "correct_answer": "434",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 434.",
+          "read_aloud_text": "Find 31 times 14.",
+          "question_audio": {
+            "text": "Find 31 times 14.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "434",
+            "465",
+            "420",
+            "45"
+          ],
+          "operands": [
+            31,
+            14
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            310,
+            124
+          ],
+          "rows": 31,
+          "columns": 14,
+          "area": 434,
+          "algorithm_steps": [
+            "Multiply 31 by each place-value part of 14.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q3",
+          "question_id": "G5M_NBT_002_L2_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 35 \u00d7 15.",
+          "answer": "525",
+          "correct_answer": "525",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 525.",
+          "read_aloud_text": "Find 35 times 15.",
+          "question_audio": {
+            "text": "Find 35 times 15.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "525",
+            "525",
+            "525"
+          ],
+          "operands": [
+            35,
+            15
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            350,
+            175
+          ],
+          "rows": 35,
+          "columns": 15,
+          "area": 525,
+          "algorithm_steps": [
+            "Multiply 35 by each place-value part of 15.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q4",
+          "question_id": "G5M_NBT_002_L2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 39 \u00d7 16.",
+          "answer": "624",
+          "correct_answer": "624",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 624.",
+          "read_aloud_text": "Find 39 times 16.",
+          "question_audio": {
+            "text": "Find 39 times 16.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "624",
+            "663",
+            "608",
+            "55"
+          ],
+          "operands": [
+            39,
+            16
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            390,
+            234
+          ],
+          "rows": 39,
+          "columns": 12,
+          "area": 624,
+          "algorithm_steps": [
+            "Multiply 39 by each place-value part of 16.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q5",
+          "question_id": "G5M_NBT_002_L2_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 43 \u00d7 17.",
+          "answer": "731",
+          "correct_answer": "731",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 731.",
+          "read_aloud_text": "Find 43 times 17.",
+          "question_audio": {
+            "text": "Find 43 times 17.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "731",
+            "731",
+            "731"
+          ],
+          "operands": [
+            43,
+            17
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            430,
+            301
+          ],
+          "rows": 43,
+          "columns": 12,
+          "area": 731,
+          "algorithm_steps": [
+            "Multiply 43 by each place-value part of 17.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q6",
+          "question_id": "G5M_NBT_002_L2_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 47 \u00d7 18.",
+          "answer": "846",
+          "correct_answer": "846",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 846.",
+          "read_aloud_text": "Find 47 times 18.",
+          "question_audio": {
+            "text": "Find 47 times 18.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "846",
+            "893",
+            "828",
+            "65"
+          ],
+          "operands": [
+            47,
+            18
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            470,
+            376
+          ],
+          "rows": 47,
+          "columns": 12,
+          "area": 846,
+          "algorithm_steps": [
+            "Multiply 47 by each place-value part of 18.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q7",
+          "question_id": "G5M_NBT_002_L2_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 51 \u00d7 12.",
+          "answer": "612",
+          "correct_answer": "612",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 612.",
+          "read_aloud_text": "Find 51 times 12.",
+          "question_audio": {
+            "text": "Find 51 times 12.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "612",
+            "612",
+            "612"
+          ],
+          "operands": [
+            51,
+            12
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            510,
+            102
+          ],
+          "rows": 51,
+          "columns": 12,
+          "area": 612,
+          "algorithm_steps": [
+            "Multiply 51 by each place-value part of 12.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q8",
+          "question_id": "G5M_NBT_002_L2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 55 \u00d7 13.",
+          "answer": "715",
+          "correct_answer": "715",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 715.",
+          "read_aloud_text": "Find 55 times 13.",
+          "question_audio": {
+            "text": "Find 55 times 13.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "715",
+            "770",
+            "702",
+            "68"
+          ],
+          "operands": [
+            55,
+            13
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            550,
+            165
+          ],
+          "rows": 55,
+          "columns": 13,
+          "area": 715,
+          "algorithm_steps": [
+            "Multiply 55 by each place-value part of 13.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q9",
+          "question_id": "G5M_NBT_002_L2_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 59 \u00d7 14.",
+          "answer": "826",
+          "correct_answer": "826",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 826.",
+          "read_aloud_text": "Find 59 times 14.",
+          "question_audio": {
+            "text": "Find 59 times 14.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "826",
+            "826",
+            "826"
+          ],
+          "operands": [
+            59,
+            14
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            590,
+            236
+          ],
+          "rows": 59,
+          "columns": 14,
+          "area": 826,
+          "algorithm_steps": [
+            "Multiply 59 by each place-value part of 14.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L2_Q10",
+          "question_id": "G5M_NBT_002_L2_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 63 \u00d7 15.",
+          "answer": "945",
+          "correct_answer": "945",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 945.",
+          "read_aloud_text": "Find 63 times 15.",
+          "question_audio": {
+            "text": "Find 63 times 15.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "945",
+            "1008",
+            "930",
+            "78"
+          ],
+          "operands": [
+            63,
+            15
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            630,
+            315
+          ],
+          "rows": 63,
+          "columns": 15,
+          "area": 945,
+          "algorithm_steps": [
+            "Multiply 63 by each place-value part of 15.",
+            "Add the partial products."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_002_L3",
+      "label": "Level 3: Multi-Digit Division",
+      "focus": "Find quotients using place value.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_002_L3_Q1",
+          "question_id": "G5M_NBT_002_L3_Q1",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Find 180 \u00f7 4.",
+          "answer": "45",
+          "correct_answer": "45",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 45.",
+          "read_aloud_text": "Find 180 divided by 4.",
+          "question_audio": {
+            "text": "Find 180 divided by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "45",
+            "45",
+            "45"
+          ],
+          "dividend": 180,
+          "divisor": 4,
+          "quotient": 45,
+          "total": 180,
+          "groups": 4,
+          "items_per_group": 45,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q2",
+          "question_id": "G5M_NBT_002_L3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Find 240 \u00f7 5.",
+          "answer": "48",
+          "correct_answer": "48",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 48.",
+          "read_aloud_text": "Find 240 divided by 5.",
+          "question_audio": {
+            "text": "Find 240 divided by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "48",
+            "58",
+            "47",
+            "5"
+          ],
+          "dividend": 240,
+          "divisor": 5,
+          "quotient": 48,
+          "total": 240,
+          "groups": 5,
+          "items_per_group": 48,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q3",
+          "question_id": "G5M_NBT_002_L3_Q3",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Find 306 \u00f7 6.",
+          "answer": "51",
+          "correct_answer": "51",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 51.",
+          "read_aloud_text": "Find 306 divided by 6.",
+          "question_audio": {
+            "text": "Find 306 divided by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "51",
+            "51",
+            "51"
+          ],
+          "dividend": 306,
+          "divisor": 6,
+          "quotient": 51,
+          "total": 306,
+          "groups": 6,
+          "items_per_group": 51,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q4",
+          "question_id": "G5M_NBT_002_L3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Find 378 \u00f7 7.",
+          "answer": "54",
+          "correct_answer": "54",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 54.",
+          "read_aloud_text": "Find 378 divided by 7.",
+          "question_audio": {
+            "text": "Find 378 divided by 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "54",
+            "64",
+            "53",
+            "7"
+          ],
+          "dividend": 378,
+          "divisor": 7,
+          "quotient": 54,
+          "total": 378,
+          "groups": 7,
+          "items_per_group": 54,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q5",
+          "question_id": "G5M_NBT_002_L3_Q5",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Find 456 \u00f7 8.",
+          "answer": "57",
+          "correct_answer": "57",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 57.",
+          "read_aloud_text": "Find 456 divided by 8.",
+          "question_audio": {
+            "text": "Find 456 divided by 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "57",
+            "57",
+            "57"
+          ],
+          "dividend": 456,
+          "divisor": 8,
+          "quotient": 57,
+          "total": 456,
+          "groups": 8,
+          "items_per_group": 57,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q6",
+          "question_id": "G5M_NBT_002_L3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Find 540 \u00f7 9.",
+          "answer": "60",
+          "correct_answer": "60",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 60.",
+          "read_aloud_text": "Find 540 divided by 9.",
+          "question_audio": {
+            "text": "Find 540 divided by 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "60",
+            "70",
+            "59",
+            "9"
+          ],
+          "dividend": 540,
+          "divisor": 9,
+          "quotient": 60,
+          "total": 540,
+          "groups": 9,
+          "items_per_group": 60,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q7",
+          "question_id": "G5M_NBT_002_L3_Q7",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Find 189 \u00f7 3.",
+          "answer": "63",
+          "correct_answer": "63",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 63.",
+          "read_aloud_text": "Find 189 divided by 3.",
+          "question_audio": {
+            "text": "Find 189 divided by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "63",
+            "63",
+            "63"
+          ],
+          "dividend": 189,
+          "divisor": 3,
+          "quotient": 63,
+          "total": 189,
+          "groups": 3,
+          "items_per_group": 63,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q8",
+          "question_id": "G5M_NBT_002_L3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Find 264 \u00f7 4.",
+          "answer": "66",
+          "correct_answer": "66",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 66.",
+          "read_aloud_text": "Find 264 divided by 4.",
+          "question_audio": {
+            "text": "Find 264 divided by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "66",
+            "76",
+            "65",
+            "4"
+          ],
+          "dividend": 264,
+          "divisor": 4,
+          "quotient": 66,
+          "total": 264,
+          "groups": 4,
+          "items_per_group": 66,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q9",
+          "question_id": "G5M_NBT_002_L3_Q9",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Find 345 \u00f7 5.",
+          "answer": "69",
+          "correct_answer": "69",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 69.",
+          "read_aloud_text": "Find 345 divided by 5.",
+          "question_audio": {
+            "text": "Find 345 divided by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "69",
+            "69",
+            "69"
+          ],
+          "dividend": 345,
+          "divisor": 5,
+          "quotient": 69,
+          "total": 345,
+          "groups": 5,
+          "items_per_group": 69,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_L3_Q10",
+          "question_id": "G5M_NBT_002_L3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Find 432 \u00f7 6.",
+          "answer": "72",
+          "correct_answer": "72",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 72.",
+          "read_aloud_text": "Find 432 divided by 6.",
+          "question_audio": {
+            "text": "Find 432 divided by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "72",
+            "82",
+            "71",
+            "6"
+          ],
+          "dividend": 432,
+          "divisor": 6,
+          "quotient": 72,
+          "total": 432,
+          "groups": 6,
+          "items_per_group": 72,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_002_L4",
+      "label": "Level 4: Interpret Remainders",
+      "focus": "Use context to handle leftovers.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_002_L4_Q1",
+          "question_id": "G5M_NBT_002_L4_Q1",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "96 students ride in vans with 5 students per van. How should the remainder be interpreted?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 20.",
+          "read_aloud_text": "96 students ride in vans with 5 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "96 students ride in vans with 5 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "20",
+            "20",
+            "20"
+          ],
+          "dividend": 96,
+          "divisor": 5,
+          "quotient": 19,
+          "remainder": 1,
+          "object": "students",
+          "remainder_interpretation": "need one more bus"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q2",
+          "question_id": "G5M_NBT_002_L4_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "122 students ride in vans with 6 students per van. How should the remainder be interpreted?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "122 students ride in vans with 6 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "122 students ride in vans with 6 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "2",
+            "20",
+            "2",
+            "6"
+          ],
+          "dividend": 122,
+          "divisor": 6,
+          "quotient": 20,
+          "remainder": 2,
+          "object": "students",
+          "remainder_interpretation": "left over"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q3",
+          "question_id": "G5M_NBT_002_L4_Q3",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "150 students ride in vans with 7 students per van. How should the remainder be interpreted?",
+          "answer": "22",
+          "correct_answer": "22",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 22.",
+          "read_aloud_text": "150 students ride in vans with 7 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "150 students ride in vans with 7 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "22",
+            "22",
+            "22"
+          ],
+          "dividend": 150,
+          "divisor": 7,
+          "quotient": 21,
+          "remainder": 3,
+          "object": "students",
+          "remainder_interpretation": "need one more bus"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q4",
+          "question_id": "G5M_NBT_002_L4_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "180 students ride in vans with 8 students per van. How should the remainder be interpreted?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "180 students ride in vans with 8 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "180 students ride in vans with 8 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "4",
+            "22",
+            "4",
+            "8"
+          ],
+          "dividend": 180,
+          "divisor": 8,
+          "quotient": 22,
+          "remainder": 4,
+          "object": "students",
+          "remainder_interpretation": "left over"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q5",
+          "question_id": "G5M_NBT_002_L4_Q5",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "93 students ride in vans with 4 students per van. How should the remainder be interpreted?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 24.",
+          "read_aloud_text": "93 students ride in vans with 4 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "93 students ride in vans with 4 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "24",
+            "24",
+            "24"
+          ],
+          "dividend": 93,
+          "divisor": 4,
+          "quotient": 23,
+          "remainder": 1,
+          "object": "students",
+          "remainder_interpretation": "need one more bus"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q6",
+          "question_id": "G5M_NBT_002_L4_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "121 students ride in vans with 5 students per van. How should the remainder be interpreted?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "121 students ride in vans with 5 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "121 students ride in vans with 5 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "1",
+            "24",
+            "1",
+            "5"
+          ],
+          "dividend": 121,
+          "divisor": 5,
+          "quotient": 24,
+          "remainder": 1,
+          "object": "students",
+          "remainder_interpretation": "left over"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q7",
+          "question_id": "G5M_NBT_002_L4_Q7",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "151 students ride in vans with 6 students per van. How should the remainder be interpreted?",
+          "answer": "26",
+          "correct_answer": "26",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 26.",
+          "read_aloud_text": "151 students ride in vans with 6 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "151 students ride in vans with 6 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "26",
+            "26",
+            "26"
+          ],
+          "dividend": 151,
+          "divisor": 6,
+          "quotient": 25,
+          "remainder": 1,
+          "object": "students",
+          "remainder_interpretation": "need one more bus"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q8",
+          "question_id": "G5M_NBT_002_L4_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "183 students ride in vans with 7 students per van. How should the remainder be interpreted?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "183 students ride in vans with 7 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "183 students ride in vans with 7 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "1",
+            "26",
+            "1",
+            "7"
+          ],
+          "dividend": 183,
+          "divisor": 7,
+          "quotient": 26,
+          "remainder": 1,
+          "object": "students",
+          "remainder_interpretation": "left over"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q9",
+          "question_id": "G5M_NBT_002_L4_Q9",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "217 students ride in vans with 8 students per van. How should the remainder be interpreted?",
+          "answer": "28",
+          "correct_answer": "28",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 28.",
+          "read_aloud_text": "217 students ride in vans with 8 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "217 students ride in vans with 8 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "28",
+            "28",
+            "28"
+          ],
+          "dividend": 217,
+          "divisor": 8,
+          "quotient": 27,
+          "remainder": 1,
+          "object": "students",
+          "remainder_interpretation": "need one more bus"
+        },
+        {
+          "id": "G5M_NBT_002_L4_Q10",
+          "question_id": "G5M_NBT_002_L4_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "114 students ride in vans with 4 students per van. How should the remainder be interpreted?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "114 students ride in vans with 4 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "114 students ride in vans with 4 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "2",
+            "28",
+            "2",
+            "4"
+          ],
+          "dividend": 114,
+          "divisor": 4,
+          "quotient": 28,
+          "remainder": 2,
+          "object": "students",
+          "remainder_interpretation": "left over"
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_002_MIXED",
+      "label": "Mixed",
+      "focus": "Mix whole-number operations.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_002_MIXED_Q1",
+          "question_id": "G5M_NBT_002_MIXED_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "area_model",
+          "prompt": "Find 27 \u00d7 13.",
+          "answer": "351",
+          "correct_answer": "351",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 351.",
+          "read_aloud_text": "Find 27 times 13.",
+          "question_audio": {
+            "text": "Find 27 times 13.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "351",
+            "351",
+            "351"
+          ],
+          "operands": [
+            27,
+            13
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            270,
+            81
+          ],
+          "rows": 27,
+          "columns": 13,
+          "area": 351,
+          "algorithm_steps": [
+            "Multiply 27 by each place-value part of 13.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q2",
+          "question_id": "G5M_NBT_002_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Find 31 \u00d7 14.",
+          "answer": "434",
+          "correct_answer": "434",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 434.",
+          "read_aloud_text": "Find 31 times 14.",
+          "question_audio": {
+            "text": "Find 31 times 14.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "434",
+            "465",
+            "420",
+            "45"
+          ],
+          "operands": [
+            31,
+            14
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            310,
+            124
+          ],
+          "rows": 31,
+          "columns": 14,
+          "area": 434,
+          "algorithm_steps": [
+            "Multiply 31 by each place-value part of 14.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q3",
+          "question_id": "G5M_NBT_002_MIXED_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "partial_products_model",
+          "prompt": "Find 35 \u00d7 15.",
+          "answer": "525",
+          "correct_answer": "525",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 525.",
+          "read_aloud_text": "Find 35 times 15.",
+          "question_audio": {
+            "text": "Find 35 times 15.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "525",
+            "525",
+            "525"
+          ],
+          "operands": [
+            35,
+            15
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            350,
+            175
+          ],
+          "rows": 35,
+          "columns": 15,
+          "area": 525,
+          "algorithm_steps": [
+            "Multiply 35 by each place-value part of 15.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q4",
+          "question_id": "G5M_NBT_002_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "Find 39 \u00d7 16.",
+          "answer": "624",
+          "correct_answer": "624",
+          "misconception_tag": "partial_products_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 624.",
+          "read_aloud_text": "Find 39 times 16.",
+          "question_audio": {
+            "text": "Find 39 times 16.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "624",
+            "663",
+            "608",
+            "55"
+          ],
+          "operands": [
+            39,
+            16
+          ],
+          "operation": "\u00d7",
+          "partial_products": [
+            390,
+            234
+          ],
+          "rows": 39,
+          "columns": 12,
+          "area": 624,
+          "algorithm_steps": [
+            "Multiply 39 by each place-value part of 16.",
+            "Add the partial products."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q5",
+          "question_id": "G5M_NBT_002_MIXED_Q5",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Find 456 \u00f7 8.",
+          "answer": "57",
+          "correct_answer": "57",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 57.",
+          "read_aloud_text": "Find 456 divided by 8.",
+          "question_audio": {
+            "text": "Find 456 divided by 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "57",
+            "57",
+            "57"
+          ],
+          "dividend": 456,
+          "divisor": 8,
+          "quotient": 57,
+          "total": 456,
+          "groups": 8,
+          "items_per_group": 57,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q6",
+          "question_id": "G5M_NBT_002_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Find 540 \u00f7 9.",
+          "answer": "60",
+          "correct_answer": "60",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 60.",
+          "read_aloud_text": "Find 540 divided by 9.",
+          "question_audio": {
+            "text": "Find 540 divided by 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "60",
+            "70",
+            "59",
+            "9"
+          ],
+          "dividend": 540,
+          "divisor": 9,
+          "quotient": 60,
+          "total": 540,
+          "groups": 9,
+          "items_per_group": 60,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q7",
+          "question_id": "G5M_NBT_002_MIXED_Q7",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Find 189 \u00f7 3.",
+          "answer": "63",
+          "correct_answer": "63",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 63.",
+          "read_aloud_text": "Find 189 divided by 3.",
+          "question_audio": {
+            "text": "Find 189 divided by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "63",
+            "63",
+            "63"
+          ],
+          "dividend": 189,
+          "divisor": 3,
+          "quotient": 63,
+          "total": 189,
+          "groups": 3,
+          "items_per_group": 63,
+          "algorithm_steps": [
+            "Estimate the quotient place value.",
+            "Divide, multiply, subtract, and bring down."
+          ]
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q8",
+          "question_id": "G5M_NBT_002_MIXED_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "183 students ride in vans with 7 students per van. How should the remainder be interpreted?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "183 students ride in vans with 7 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "183 students ride in vans with 7 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "1",
+            "26",
+            "1",
+            "7"
+          ],
+          "dividend": 183,
+          "divisor": 7,
+          "quotient": 26,
+          "remainder": 1,
+          "object": "students",
+          "remainder_interpretation": "left over"
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q9",
+          "question_id": "G5M_NBT_002_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "217 students ride in vans with 8 students per van. How should the remainder be interpreted?",
+          "answer": "28",
+          "correct_answer": "28",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 28.",
+          "read_aloud_text": "217 students ride in vans with 8 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "217 students ride in vans with 8 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "28",
+            "28",
+            "28"
+          ],
+          "dividend": 217,
+          "divisor": 8,
+          "quotient": 27,
+          "remainder": 1,
+          "object": "students",
+          "remainder_interpretation": "need one more bus"
+        },
+        {
+          "id": "G5M_NBT_002_MIXED_Q10",
+          "question_id": "G5M_NBT_002_MIXED_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "114 students ride in vans with 4 students per van. How should the remainder be interpreted?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "remainder_interpretation_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "114 students ride in vans with 4 students per van. Decide what the remainder means.",
+          "question_audio": {
+            "text": "114 students ride in vans with 4 students per van. Decide what the remainder means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "2",
+            "28",
+            "2",
+            "4"
+          ],
+          "dividend": 114,
+          "divisor": 4,
+          "quotient": 28,
+          "remainder": 2,
+          "object": "students",
+          "remainder_interpretation": "left over"
+        }
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Multi-Digit Whole Number Operations",
+    "mission_intro": "Join the Skill World crew to master multi-digit whole number operations through models, narration, and practice levels.",
+    "badge_name": "Multi-Digit Whole Number Operations Badge"
+  },
+  "next_skill_id": "",
+  "remediation_skill_id": "G5M_NBT_001",
+  "page_audio": {
+    "story": {
+      "text": "Welcome to the Multi-Digit Whole Number Operations mission. Today you will use models and careful math language to solve fluently multiply and divide multi-digit whole numbers. Read the story, notice what each visual is showing, and press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches the important ideas for Multi-Digit Whole Number Operations. Look for place value, operation order, and labels before you calculate. Press Next after you can explain the model in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch the tutor solve one example. First read the question, then connect each number to the visual model, and finally check whether the answer makes sense. Press Next when you are ready to try a guided demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "In the demo, build the solution one step at a time. Say what the model shows, use precise Grade Five math words, and compare your thinking with the explanation. Press Next to move into independent practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Practice is your first independent try. Use the visual model before answering, then tap Read Question if you want the problem read aloud. Choose or type your answer, and press Next after you check your feedback.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "The challenge asks you to transfer the same skill to a harder problem. Slow down, use Read Question if helpful, and explain the operation or coordinate step before you answer. Press Next after you learn from the feedback.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "The checkpoint shows what you can do on your own. Read the page, tap Read Question for the problem, and solve using the model rather than guessing. Your answer helps build your growth profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge screen for Multi-Digit Whole Number Operations. Celebrate the strategies you practiced, name one misconception you avoided, and get ready to save your progress. Press Save Growth Data when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page summarizes your growth for Multi-Digit Whole Number Operations. Review your stars, notice any misconception tags, and continue to Skill Practice Center for focused levels. Use the practice route when you want more questions.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
