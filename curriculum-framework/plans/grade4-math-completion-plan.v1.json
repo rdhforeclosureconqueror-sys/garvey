@@ -1,0 +1,1072 @@
+{
+  "version": "v1",
+  "grade": "grade4",
+  "subject": "math",
+  "generated_from": "docs/grade4_math_completion_plan.md",
+  "status": "planning_only_no_packages_implemented",
+  "production_standard": {
+    "skill_package_json": true,
+    "skill_world_generator": true,
+    "guided_mission_sequence": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "minimum_levels": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Mixed"
+      ],
+      "questions_per_level": "10-12"
+    },
+    "manifest_hub_exposure": "All packages must appear through manifest/graph-driven discovery, not hardcoded placeholders.",
+    "voice_standard": {
+      "read_this_page_all_guided_screens": true,
+      "read_question_mission_practice_challenge_checkpoint": true,
+      "read_question_all_practice_center_questions": true,
+      "cached_ai_audio_route": "/api/skill-world/audio",
+      "browser_speech_fallback": true,
+      "natural_math_narration": true
+    },
+    "one_off_games_allowed": false,
+    "placeholder_cards_allowed": false
+  },
+  "renderer_assessment": {
+    "supported_or_extendable_from_grades_1_3": [
+      {
+        "model": "number_line",
+        "status": "supported",
+        "notes": "Reusable for Grade 4 whole-number rounding, fraction number lines, and measurement contexts; must support larger labels, fractional ticks, and clearer benchmark labels."
+      },
+      {
+        "model": "comparison",
+        "status": "supported",
+        "notes": "Reusable for whole-number and fraction comparisons; Grade 4 packages should also introduce `comparison_model` when multiplicative comparison requires ratio language or times-as-many visuals."
+      },
+      {
+        "model": "place_value_chart",
+        "status": "extend",
+        "notes": "Existing Grades 1-3 chart concepts are reusable, but Grade 4 needs named places through millions, commas, period grouping, and explicit zero placeholders."
+      },
+      {
+        "model": "expanded_form",
+        "status": "extend",
+        "notes": "Reusable for base-ten decomposition; Grade 4 needs standard, word, expanded, and expanded-notation variants through 1,000,000."
+      },
+      {
+        "model": "rounding_model",
+        "status": "extend",
+        "notes": "Reusable midpoint model; Grade 4 needs nearest ten, hundred, thousand, ten-thousand, and hundred-thousand intervals."
+      },
+      {
+        "model": "area_model",
+        "status": "supported_extend",
+        "notes": "Reusable for multiplication and area/perimeter contexts; Grade 4 multiplication needs multi-digit partitions, labels, and partial products."
+      },
+      {
+        "model": "multiplication_model",
+        "status": "supported_extend",
+        "notes": "Reusable from Grade 3 multiplication foundations; Grade 4 needs up-to-four-digits-by-one-digit and two-digits-by-two-digits metadata."
+      },
+      {
+        "model": "division_model",
+        "status": "supported_extend",
+        "notes": "Reusable from Grade 3 division foundations; Grade 4 needs long-division steps, quotient place value, and remainder display."
+      },
+      {
+        "model": "fact_family_model",
+        "status": "supported",
+        "notes": "Reusable for checking division with multiplication and inverse-operation prompts."
+      },
+      {
+        "model": "fraction_bar",
+        "status": "supported_extend",
+        "notes": "Reusable for equivalent fractions and fraction operations; Grade 4 needs unlike-denominator comparison and whole-number multiples of unit fractions."
+      },
+      {
+        "model": "fraction_circle",
+        "status": "supported",
+        "notes": "Reusable for fraction equivalence and like-denominator operations where circle partitions are appropriate."
+      },
+      {
+        "model": "repeated_addition",
+        "status": "supported_extend",
+        "notes": "Reusable for whole-number multiplication; Grade 4 needs fraction repeated-addition narration and notation."
+      },
+      {
+        "model": "equation_builder",
+        "status": "supported_extend",
+        "notes": "Reusable for fraction operation setup and word-problem equations; needs mixed-number and unit support."
+      },
+      {
+        "model": "word_problem_model",
+        "status": "supported_extend",
+        "notes": "Reusable for multi-step measurement, fraction, and operation contexts; Grade 4 needs units, equations, and answer labels."
+      },
+      {
+        "model": "line_plot",
+        "status": "supported_extend",
+        "notes": "Reusable for data displays; Grade 4 needs fractional measurement labels and fraction-answer normalization."
+      },
+      {
+        "model": "perimeter_path",
+        "status": "supported",
+        "notes": "Reusable for area/perimeter word problems and geometry contexts."
+      },
+      {
+        "model": "shape_identification",
+        "status": "supported_extend",
+        "notes": "Reusable for shape classification; Grade 4 needs lines, angles, symmetry, parallel/perpendicular attributes, and hierarchy metadata."
+      }
+    ],
+    "new_renderers_needed": [
+      {
+        "model": "comparison_model",
+        "need": "Multiplicative comparison visual with groups, times-as-many labels, and additive-vs-multiplicative contrast."
+      },
+      {
+        "model": "factor_pair_model",
+        "need": "Factor-pair tiles/table showing products, missing factors, and factor vs multiple language."
+      },
+      {
+        "model": "multiples_chart",
+        "need": "Highlighted skip-count/multiple chart for factors, multiples, prime/composite reasoning, and common multiples."
+      },
+      {
+        "model": "pattern_table",
+        "need": "Input/output and shape/number pattern table with rule callouts and missing-term slots."
+      },
+      {
+        "model": "algorithm_steps",
+        "need": "Column-aligned standard algorithm renderer for addition, subtraction, multiplication, and division step explanations."
+      },
+      {
+        "model": "regrouping_model",
+        "need": "Explicit trade/regrouping visual for multi-digit subtraction, including regrouping across zeros."
+      },
+      {
+        "model": "estimation_number_line",
+        "need": "Number line for estimate-first and reasonableness checks with rounded addends/subtrahends/products."
+      },
+      {
+        "model": "partial_products_model",
+        "need": "Multi-digit multiplication partial-products grid/table connected to area model and standard algorithm."
+      },
+      {
+        "model": "remainder_model",
+        "need": "Division visual that shows quotient groups, leftovers, and context-specific remainder interpretation."
+      },
+      {
+        "model": "measurement_conversion_table",
+        "need": "Conversion table for larger-to-smaller units with multiplicative scale factors and unit labels."
+      },
+      {
+        "model": "angle_model",
+        "need": "Angle visual with vertex, rays, degree measure labels, and acute/right/obtuse categories."
+      },
+      {
+        "model": "protractor_model",
+        "need": "Interactive/static protractor view with baseline, vertex placement, inner/outer scale reading, and target angle."
+      },
+      {
+        "model": "line_relationships",
+        "need": "Parallel, perpendicular, intersecting, ray, line, and segment relationship visual."
+      },
+      {
+        "model": "symmetry_model",
+        "need": "Shape symmetry visual with candidate fold lines and reflection matching."
+      }
+    ]
+  },
+  "schema_updates_needed": [
+    "Require generator mappings for Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+    "Require Grade 4 Math level_banks with four focused levels plus Mixed and 10-12 questions per level.",
+    "Enumerate or runtime-enforce all Grade 4 Math visual_model and question_type values.",
+    "Add metadata for Grade 4 operands, algorithm steps, fraction forms, measurement units, geometry attributes, acceptable equivalent forms, and voice narration.",
+    "Require manifest/graph/hub metadata and readiness checkpoint metadata."
+  ],
+  "acceptable_answer_needs": [
+    "numeric_normalization",
+    "place_value_forms",
+    "comparison_symbol_word_equivalence",
+    "multiplicative_comparison_direction",
+    "factor_multiple_language",
+    "algorithm_step_validation",
+    "fraction_equivalence_and_mixed_numbers",
+    "measurement_unit_validation",
+    "geometry_vocabulary_and_degree_normalization"
+  ],
+  "skills": [
+    {
+      "skill_id": "G4M_OA_001",
+      "title": "Multiplicative Comparison and Patterns",
+      "domain": "Operations and Algebraic Thinking",
+      "focus": "understand multiplicative comparison, factors, multiples, and shape/number patterns",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Multiplicative Comparison",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Factors and Multiples",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Prime and Composite Numbers",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Number and Shape Patterns",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "comparison_model",
+        "factor_pair_model",
+        "multiples_chart",
+        "pattern_table"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "pattern_response"
+      ],
+      "misconception_tags": [
+        "additive_vs_multiplicative_confusion",
+        "factor_multiple_confusion",
+        "prime_composite_confusion",
+        "pattern_rule_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_NBT_001",
+      "title": "Place Value to 1,000,000",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "read, write, compare, and round multi-digit whole numbers",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Place Value to 1,000,000",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Read and Write Multi-Digit Numbers",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Compare Multi-Digit Numbers",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Round Multi-Digit Numbers",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "place_value_chart",
+        "expanded_form",
+        "number_line",
+        "rounding_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "comparison",
+        "rounding"
+      ],
+      "misconception_tags": [
+        "place_value_shift_error",
+        "zero_placeholder_confusion",
+        "expanded_form_error",
+        "rounding_place_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_NBT_002",
+      "title": "Multi-Digit Addition and Subtraction",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "fluently add and subtract multi-digit whole numbers using standard algorithm and place value",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Add Multi-Digit Numbers",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Subtract Multi-Digit Numbers",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Regrouping Across Zeros",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Estimate and Check",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "place_value_chart",
+        "algorithm_steps",
+        "regrouping_model",
+        "estimation_number_line"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "algorithm_response"
+      ],
+      "misconception_tags": [
+        "regrouping_across_zero_error",
+        "digit_alignment_error",
+        "subtraction_borrowing_error",
+        "estimate_reasonableness_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_NBT_003",
+      "title": "Multi-Digit Multiplication",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "multiply up to four digits by one digit and two digits by two digits",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Multiply by One Digit",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Area Model Multiplication",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Partial Products",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Two-Digit by Two-Digit",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "area_model",
+        "partial_products_model",
+        "multiplication_model",
+        "algorithm_steps"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "multiplication_equation"
+      ],
+      "misconception_tags": [
+        "place_value_product_error",
+        "partial_products_confusion",
+        "digit_alignment_error",
+        "area_model_mismatch"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_NBT_004",
+      "title": "Division With Remainders",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "divide up to four-digit dividends by one-digit divisors, including remainders",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Division Without Remainders",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Division With Remainders",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Interpret Remainders",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Check With Multiplication",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "division_model",
+        "area_model",
+        "remainder_model",
+        "fact_family_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "division_equation"
+      ],
+      "misconception_tags": [
+        "remainder_confusion",
+        "divisor_dividend_confusion",
+        "quotient_place_value_error",
+        "inverse_operation_confusion"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_FR_001",
+      "title": "Fraction Equivalence and Ordering",
+      "domain": "Number and Operations\u2014Fractions",
+      "focus": "generate equivalent fractions and compare fractions with unlike numerators/denominators",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Equivalent Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Compare Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Fraction Number Lines",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Benchmark Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "fraction_circle",
+        "number_line",
+        "comparison"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "fraction_response",
+        "comparison"
+      ],
+      "misconception_tags": [
+        "equivalent_fraction_confusion",
+        "denominator_size_confusion",
+        "benchmark_fraction_error",
+        "fraction_number_line_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_FR_002",
+      "title": "Add and Subtract Fractions",
+      "domain": "Number and Operations\u2014Fractions",
+      "focus": "add and subtract fractions and mixed numbers with like denominators",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Add Like Denominators",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Subtract Like Denominators",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Mixed Numbers",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Word Problems With Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "fraction_circle",
+        "equation_builder",
+        "word_problem_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "fraction_response",
+        "word_problem"
+      ],
+      "misconception_tags": [
+        "denominator_addition_error",
+        "mixed_number_confusion",
+        "improper_fraction_confusion",
+        "fraction_word_problem_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_FR_003",
+      "title": "Multiply Fractions by Whole Numbers",
+      "domain": "Number and Operations\u2014Fractions",
+      "focus": "understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Unit Fractions as Multiples",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Whole Number Times Fraction",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Fraction Times Whole Number",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Fraction Word Problems",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "repeated_addition",
+        "multiplication_model",
+        "word_problem_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "fraction_response",
+        "multiplication_equation"
+      ],
+      "misconception_tags": [
+        "unit_fraction_multiple_confusion",
+        "whole_number_fraction_product_error",
+        "repeated_addition_fraction_error",
+        "fraction_scaling_confusion"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_MD_001",
+      "title": "Measurement Conversion and Data",
+      "domain": "Measurement and Data",
+      "focus": "convert measurements, solve measurement problems, and interpret line plots with fractions",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Convert Larger to Smaller Units",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Measurement Word Problems",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Line Plots With Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Area and Perimeter Word Problems",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "measurement_conversion_table",
+        "word_problem_model",
+        "line_plot",
+        "area_model",
+        "perimeter_path"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "measurement",
+        "data_interpretation"
+      ],
+      "misconception_tags": [
+        "unit_conversion_direction_error",
+        "measurement_unit_confusion",
+        "line_plot_fraction_error",
+        "area_perimeter_confusion"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G4M_GM_001",
+      "title": "Angles, Lines, and Shape Classification",
+      "domain": "Geometry",
+      "focus": "points, lines, rays, angles, perpendicular/parallel lines, symmetry, and classify shapes",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Points, Lines, Rays, and Angles",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Measure and Draw Angles",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Parallel and Perpendicular Lines",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Classify Shapes and Symmetry",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "angle_model",
+        "protractor_model",
+        "line_relationships",
+        "symmetry_model",
+        "shape_identification"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "geometry_response"
+      ],
+      "misconception_tags": [
+        "angle_size_confusion",
+        "protractor_reading_error",
+        "parallel_perpendicular_confusion",
+        "symmetry_line_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 4 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    }
+  ],
+  "backlog": [
+    {
+      "id": "G4M-INF-001",
+      "title": "Finalize Grade 4 Math SkillPackage schema/runtime contract",
+      "priority": "P0",
+      "type": "SCHEMA_UPDATE",
+      "owner": "platform/schema",
+      "depends_on": [],
+      "acceptance_criteria": [
+        "Schema or registry mappings cover every Grade 4 visual_model and question_type in this plan.",
+        "Validation rejects packages without Story through Profile guided mission source data or deterministic generator mappings.",
+        "Validation rejects Practice Center level_banks that do not include four focused levels plus Mixed with 10-12 questions each.",
+        "Grade 4 package metadata includes domain, focus, standards tags, misconception tags, voice metadata, and manifest exposure metadata."
+      ]
+    },
+    {
+      "id": "G4M-INF-002",
+      "title": "Build or extend Grade 4 Math visual renderers",
+      "priority": "P0",
+      "type": "RENDERER_UPDATE",
+      "owner": "skill-world/renderers",
+      "depends_on": [
+        "G4M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Renderer registry covers supported/extended and new Grade 4 visual models without fallback placeholder output.",
+        "Each renderer has a canonical fixture and test asserting data-renderer output.",
+        "Math-specific renderers expose aria labels and speakable descriptions for voice narration."
+      ]
+    },
+    {
+      "id": "G4M-INF-003",
+      "title": "Guarantee Skill Practice Center generation from level_banks",
+      "priority": "P0",
+      "type": "PRACTICE_CENTER_GENERATOR",
+      "owner": "skill-world/generator",
+      "depends_on": [
+        "G4M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Every Grade 4 Math package exposes Level 1, Level 2, Level 3, Level 4, and Mixed from package data.",
+        "Each level renders 10-12 production questions, mastery state, feedback, and Read Question controls.",
+        "No Skill Practice Center cards or questions are hardcoded outside package/manifest data."
+      ]
+    },
+    {
+      "id": "G4M-INF-004",
+      "title": "Wire Grade 4 Math packages through manifest/graph/hub discovery",
+      "priority": "P0",
+      "type": "MANIFEST_HUB_EXPOSURE",
+      "owner": "gamehub/content",
+      "depends_on": [
+        "G4M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Grade 4 Math appears only after packages are listed in the content manifest/graph.",
+        "Hub cards use SkillPackage metadata, not hardcoded placeholders.",
+        "Readiness checkpoints prevent incomplete packages from appearing as production-ready."
+      ]
+    },
+    {
+      "id": "G4M-INF-005",
+      "title": "Implement full Grade 4 Math voice standard",
+      "priority": "P0",
+      "type": "VOICE_AUDIO",
+      "owner": "skill-world/audio",
+      "depends_on": [
+        "G4M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Every guided mission screen includes Read This Page text and label.",
+        "Practice, Challenge, and Checkpoint questions include Read Question text.",
+        "All Practice Center questions include Read Question text.",
+        "Narration routes through /api/skill-world/audio when cached AI audio is available and falls back to browser speech when not available.",
+        "Math symbols, fractions, comparisons, exponents of place value, and units are spoken naturally."
+      ]
+    },
+    {
+      "id": "G4M-INF-006",
+      "title": "Add Grade 4 acceptable-answer normalization",
+      "priority": "P0",
+      "type": "ANSWER_VALIDATION",
+      "owner": "skill-world/runtime",
+      "depends_on": [
+        "G4M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Numeric answers normalize commas, words, equations, and standard notation where appropriate.",
+        "Fraction answers normalize equivalent fractions, mixed numbers, improper fractions, and spacing.",
+        "Comparison answers accept symbols and words.",
+        "Measurement answers validate required units and conversion equivalence.",
+        "Algorithm responses can validate final answer plus step fields when the item requires them."
+      ]
+    }
+  ]
+}
