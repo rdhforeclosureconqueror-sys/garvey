@@ -8,7 +8,7 @@ const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_O
 const grade1Packages=grade1SkillIds.map(load);
 const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
-const grade3SkillIds=['G3E_RF_001','G3E_FL_001','G3E_VOC_001','G3E_RC_001','G3E_RC_002','G3E_RC_003','G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
+const grade3SkillIds=['G3E_RF_001','G3E_FL_001','G3E_VOC_001','G3E_RC_001','G3E_RC_002','G3E_RC_003','G3E_WR_001','G3E_WR_002','G3E_WR_003','G3E_LANG_001','G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
 const grade3Packages=grade3SkillIds.map(load);
 const g3AdvancedPhonics=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RF_001');
 const g3Fluency=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_FL_001');
@@ -16,6 +16,10 @@ const g3Vocabulary=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_VOC_001');
 const g3TextEvidence=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RC_001');
 const g3StoryElements=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RC_002');
 const g3MainIdeaFeatures=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RC_003');
+const g3OpinionWriting=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_WR_001');
+const g3InformativeWriting=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_WR_002');
+const g3NarrativeWriting=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_WR_003');
+const g3LanguageConventions=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_LANG_001');
 const g3MultiplicationFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MUL_001');
 const g3DivisionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_DIV_001');
 const g3FactFluency=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FACT_001');
@@ -423,6 +427,86 @@ assert.ok(g2NarrativeQuestions.filter((q)=>q.question_type==='writing_response')
 assert.equal(Renderer.evaluateAnswer(g2NarrativeQuestions.find((q)=>q.question_type==='writing_response'),'First, I filled a cup with soil. Then, I tucked seeds under the soil. Finally, I watered the cup. It was a day to remember.'),true,'narrative validation accepts child-friendly sample');
 
 
+function assertGrade3FinalEnglishPackage(pkg,expected){
+  assert.ok(pkg,`${expected.id} package loads`);
+  const result=Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false});
+  assert.equal(result.valid,true,`${expected.id} validates in strict production mode: ${result.errors.join('; ')}`);
+  assert.equal(pkg.grade,3,`${expected.id} grade`);
+  assert.equal(pkg.subject,'English',`${expected.id} subject`);
+  assert.equal(pkg.domain,expected.domain,`${expected.id} domain`);
+  assert.equal(pkg.skill,expected.skill,`${expected.id} skill`);
+  ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${expected.id} ${screen} Read This Page narration exists`));
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${expected.id} has four focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),`${expected.id} has Mixed level`);
+  expected.levelLabels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${expected.id} includes ${label}`));
+  pkg.level_banks.forEach((level)=>{
+    assert.ok(level.questions.length>=10&&level.questions.length<=12,`${expected.id} ${level.level_id} has 10–12 questions`);
+    level.questions.forEach((question)=>{
+      assert.ok(question.question_audio?.text,`${question.question_id} Read Question narration exists`);
+      if(['short_response','writing_response','sentence_completion','sequencing','editing'].includes(question.question_type)){
+        assert.ok(Array.isArray(question.acceptable_answers)&&question.acceptable_answers.length>0,`${question.question_id} acceptable sample answers exist`);
+      }
+      if(['short_response','writing_response','sentence_completion','editing'].includes(question.question_type)){
+        assert.ok(question.audio?.text,`${question.question_id} Listen audio exists where sentence reading helps`);
+      }
+      if(question.question_type==='writing_response'){
+        assert.ok(Array.isArray(question.validation_checks)&&question.validation_checks.length>0,`${question.question_id} writing validation checks exist`);
+      }
+    });
+  });
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${expected.id} mission renders ${label}`));
+  const drillHtml=Renderer.renderSkillWorld(pkg,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${expected.id} practice route renders Skill Practice Center`);
+  const visuals=new Set(pkg.level_banks.flatMap((level)=>level.questions.map((question)=>question.visual_model||question.support_type)));
+  expected.visuals.forEach((visual)=>assert.ok(visuals.has(visual),`${expected.id} includes ${visual}`));
+  expected.types.forEach((type)=>assert.ok(pkg.level_banks.flatMap((level)=>level.questions).some((question)=>question.question_type===type),`${expected.id} includes ${type}`));
+  expected.tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${expected.id} includes misconception ${tag}`));
+}
+
+assertGrade3FinalEnglishPackage(g3OpinionWriting,{
+  id:'G3E_WR_001',domain:'Writing / Composition',skill:'Opinion Writing With Reasons',
+  levelLabels:['Level 1: State an Opinion','Level 2: Support With Reasons','Level 3: Linking Words and Conclusion','Level 4: Build Opinion Paragraph','Mixed'],
+  visuals:['opinion_reason_chart','paragraph_builder','writing_checklist','sentence_builder'],types:['multiple_choice','short_response','writing_response','sentence_completion'],
+  tags:['missing_opinion','weak_reason','missing_linking_word','missing_conclusion']
+});
+const g3OpinionQuestions=g3OpinionWriting.level_banks.flatMap((level)=>level.questions);
+assert.ok(g3OpinionQuestions.filter((q)=>q.question_type==='writing_response').every((q)=>q.validation_checks.includes('opinion_present')&&q.validation_checks.includes('reasons_present')&&q.validation_checks.includes('linking_words_present')&&q.validation_checks.includes('conclusion_present')),'G3E_WR_001 opinion validation checks exist');
+assert.equal(Renderer.evaluateAnswer(g3OpinionQuestions.find((q)=>q.question_type==='writing_response'),'I think school gardens are important because students learn about plants. Also, gardens help our school. That is why school gardens matter.'),true,'G3E_WR_001 accepts child-friendly sample');
+
+assertGrade3FinalEnglishPackage(g3InformativeWriting,{
+  id:'G3E_WR_002',domain:'Writing / Composition',skill:'Informative Writing With Facts and Details',
+  levelLabels:['Level 1: Choose a Topic','Level 2: Add Facts and Definitions','Level 3: Add Details and Linking Words','Level 4: Build Informative Paragraph','Mixed'],
+  visuals:['topic_detail_chart','fact_cards','paragraph_builder','writing_checklist'],types:['multiple_choice','short_response','writing_response','sentence_completion'],
+  tags:['missing_topic','unsupported_fact','missing_detail','missing_conclusion']
+});
+const g3InformativeQuestions=g3InformativeWriting.level_banks.flatMap((level)=>level.questions);
+assert.ok(g3InformativeQuestions.filter((q)=>q.question_type==='writing_response').every((q)=>q.validation_checks.includes('topic_present')&&q.validation_checks.includes('facts_details_present')&&q.validation_checks.includes('conclusion_present')),'G3E_WR_002 informative validation checks exist');
+assert.equal(Renderer.evaluateAnswer(g3InformativeQuestions.find((q)=>q.question_type==='writing_response'),'Honeybees are interesting to learn about. First, honeybees visit flowers. Also, they make honey from nectar. Now you know an important fact about honeybees.'),true,'G3E_WR_002 accepts child-friendly sample');
+
+assertGrade3FinalEnglishPackage(g3NarrativeWriting,{
+  id:'G3E_WR_003',domain:'Writing / Composition',skill:'Narrative Writing With Dialogue and Sequence',
+  levelLabels:['Level 1: Sequence Events','Level 2: Add Details','Level 3: Dialogue and Temporal Words','Level 4: Build Narrative','Mixed'],
+  visuals:['story_sequence','event_cards','paragraph_builder','dialogue_builder'],types:['multiple_choice','short_response','writing_response','sequencing'],
+  tags:['event_order_error','missing_details','dialogue_punctuation_error','missing_closure']
+});
+const g3NarrativeQuestions=g3NarrativeWriting.level_banks.flatMap((level)=>level.questions);
+assert.ok(g3NarrativeQuestions.filter((q)=>q.question_type==='writing_response').every((q)=>q.validation_checks.includes('narrative_sequence_present')&&q.validation_checks.includes('dialogue_punctuation')&&q.validation_checks.includes('conclusion_present')),'G3E_WR_003 narrative validation checks exist');
+assert.match(VisualRegistry.render(g3NarrativeQuestions.find((q)=>q.visual_model==='dialogue_builder')),/data-renderer="dialogue_builder"/,'dialogue_builder renderer output exists');
+assert.equal(Renderer.evaluateAnswer(g3NarrativeQuestions.find((q)=>q.question_type==='writing_response'),'First, Maya ran to the park. Then, the kite caught a branch. Maya said, "My kite is stuck!" Finally, Dad helped her tug it free. It was a day to remember.'),true,'G3E_WR_003 accepts child-friendly sample');
+
+assertGrade3FinalEnglishPackage(g3LanguageConventions,{
+  id:'G3E_LANG_001',domain:'Language',skill:'Grammar, Conventions, and Sentence Combining',
+  levelLabels:['Level 1: Capitalization and Punctuation','Level 2: Commas and Quotation Marks','Level 3: Subject-Verb Agreement','Level 4: Sentence Combining','Mixed'],
+  visuals:['sentence_builder','punctuation_marker','grammar_highlight','sentence_combiner'],types:['multiple_choice','short_response','sentence_completion','editing'],
+  tags:['capitalization_error','punctuation_error','agreement_error','sentence_fragment']
+});
+const g3LanguageQuestions=g3LanguageConventions.level_banks.flatMap((level)=>level.questions);
+assert.ok(g3LanguageQuestions.some((q)=>q.validation_checks?.includes('subject_verb_agreement')),'G3E_LANG_001 subject-verb writing validation checks exist');
+assert.match(VisualRegistry.render(g3LanguageQuestions.find((q)=>q.visual_model==='grammar_highlight')),/data-renderer="grammar_highlight"/,'grammar_highlight renderer output exists');
+assert.match(VisualRegistry.render(g3LanguageQuestions.find((q)=>q.visual_model==='sentence_combiner')),/data-renderer="sentence_combiner"/,'sentence_combiner renderer output exists');
+assert.equal(Renderer.evaluateAnswer(g3LanguageQuestions.find((q)=>q.visual_model==='sentence_combiner'),'The wind blew, and the leaves danced.'),true,'G3E_LANG_001 accepts sentence-combining sample');
+
 function assertFullMission(pkg){
   const validation=Schema.validateSkillPackage(pkg);
   assert.equal(validation.valid,true,validation.errors.join('\n'));
@@ -441,6 +525,7 @@ function assertFullMission(pkg){
 
 grade1Packages.forEach(assertFullMission);
 grade2Packages.forEach(assertFullMission);
+grade3Packages.forEach(assertFullMission);
 
 function classContains(html, screenClass, expected){
   const re=new RegExp(`<section class="([^"]*\\b${screenClass}\\b[^"]*)"`);

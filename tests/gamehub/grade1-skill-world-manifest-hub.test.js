@@ -17,7 +17,7 @@ const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G
 const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001', 'G1E_PH_002', 'G1E_SW_001', 'G1E_FL_001', 'G1E_RC_001', 'G1E_RC_002', 'G1E_WR_001', 'G1E_WR_002'];
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
 const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2E_RC_001', 'G2E_RC_002', 'G2E_RC_003', 'G2E_WR_001', 'G2E_WR_002', 'G2E_WR_003', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
-const requiredGrade3EnglishSkillIds = ['G3E_RF_001', 'G3E_FL_001', 'G3E_VOC_001', 'G3E_RC_001', 'G3E_RC_002', 'G3E_RC_003'];
+const requiredGrade3EnglishSkillIds = ['G3E_RF_001', 'G3E_FL_001', 'G3E_VOC_001', 'G3E_RC_001', 'G3E_RC_002', 'G3E_RC_003', 'G3E_WR_001', 'G3E_WR_002', 'G3E_WR_003', 'G3E_LANG_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -240,7 +240,11 @@ test('Grade 3 English Skill World package appears from manifest for the hub', ()
     ['G3E_VOC_001', { domain: 'Vocabulary / Language', skill: 'Vocabulary, Context Clues, and Word Relationships' }],
     ['G3E_RC_001', { domain: 'Reading Comprehension', skill: 'Ask and Answer Questions With Text Evidence' }],
     ['G3E_RC_002', { domain: 'Reading Literature', skill: 'Story Elements, Theme, and Character Response' }],
-    ['G3E_RC_003', { domain: 'Reading Informational Text', skill: 'Main Idea, Key Details, and Text Features' }]
+    ['G3E_RC_003', { domain: 'Reading Informational Text', skill: 'Main Idea, Key Details, and Text Features' }],
+    ['G3E_WR_001', { domain: 'Writing / Composition', skill: 'Opinion Writing With Reasons' }],
+    ['G3E_WR_002', { domain: 'Writing / Composition', skill: 'Informative Writing With Facts and Details' }],
+    ['G3E_WR_003', { domain: 'Writing / Composition', skill: 'Narrative Writing With Dialogue and Sequence' }],
+    ['G3E_LANG_001', { domain: 'Language', skill: 'Grammar, Conventions, and Sentence Combining' }]
   ]);
   for (const [skillId, details] of expected.entries()) {
     const g3e = grade3EnglishPackages.find((pkg) => pkg.skill_id === skillId);
