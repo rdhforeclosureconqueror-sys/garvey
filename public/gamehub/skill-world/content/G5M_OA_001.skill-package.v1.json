@@ -1,0 +1,2620 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "production_status": "ready_for_manual_qa",
+    "source_plan": "grade5-math-completion-plan.v1",
+    "voice_standard": "full_voice_standard_cached_ai_audio_optional"
+  },
+  "skill_id": "G5M_OA_001",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Operations and Algebraic Thinking / Geometry",
+  "skill": "Expressions, Patterns, and the Coordinate Plane",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "lesson": {
+    "objective": "Write and evaluate numerical expressions, analyze patterns, and graph ordered pairs.",
+    "key_vocabulary": [
+      "expression",
+      "pattern",
+      "coordinate",
+      "product",
+      "quotient",
+      "decimal"
+    ],
+    "concept_explanation": "Expressions, Patterns, and the Coordinate Plane uses models to connect numbers, operations, and meanings before calculating. Careful labels help you choose the right operation and avoid common errors.",
+    "visual_model": "expression_builder",
+    "common_misconception": "A common mistake is mixing operation order before reading grouping symbols. Slow down and match each step to the model.",
+    "real_world_connection": "Engineers, scientists, game designers, and community planners use these Grade Five math strategies to make accurate decisions.",
+    "lesson_summary": "Use the model, write the math clearly, and check that the answer fits the question for Expressions, Patterns, and the Coordinate Plane."
+  },
+  "worked_examples": [
+    {
+      "question_type": "expression_response",
+      "visual_model": "expression_builder",
+      "prompt": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+      "answer": "(4 + 3) \u00d7 6",
+      "correct_answer": "(4 + 3) \u00d7 6",
+      "misconception_tag": "parentheses_confusion",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is (4 + 3) \u00d7 6.",
+      "read_aloud_text": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+      "question_audio": {
+        "text": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "(4 + 3) \u00d7 6",
+        "(4+3)\u00d76",
+        "(4 + 3) \u00d7 6"
+      ],
+      "expression": "(4 + 3) \u00d7 6",
+      "expression_parts": [
+        "(",
+        4,
+        "+",
+        3,
+        ")",
+        "\u00d7",
+        6
+      ],
+      "id": "G5M_OA_001_WE1",
+      "question_id": "G5M_OA_001_WE1",
+      "text": "Watch how the tutor connects the visual model to the answer."
+    },
+    {
+      "question_type": "multiple_choice",
+      "visual_model": "expression_builder",
+      "prompt": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+      "answer": "(5 + 4) \u00d7 7",
+      "correct_answer": "(5 + 4) \u00d7 7",
+      "misconception_tag": "operation_order_confusion",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is (5 + 4) \u00d7 7.",
+      "read_aloud_text": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+      "question_audio": {
+        "text": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "(5 + 4) \u00d7 7",
+        "5 + 4 \u00d7 7",
+        "5 \u00d7 4 + 7",
+        "(5 \u00d7 4) + 7"
+      ],
+      "expression": "(5 + 4) \u00d7 7",
+      "expression_parts": [
+        "(",
+        5,
+        "+",
+        4,
+        ")",
+        "\u00d7",
+        7
+      ],
+      "id": "G5M_OA_001_WE2",
+      "question_id": "G5M_OA_001_WE2",
+      "text": "Now watch a second guided demo before independent practice."
+    }
+  ],
+  "hint_ladder": [
+    "Name what the visual model shows.",
+    "Write the operation or ordered pair carefully.",
+    "Check the answer with an estimate or inverse step."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_OA_001_L1_Q1",
+      "question_id": "G5M_OA_001_L1_Q1",
+      "question_type": "expression_response",
+      "visual_model": "expression_builder",
+      "prompt": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+      "answer": "(4 + 3) \u00d7 6",
+      "correct_answer": "(4 + 3) \u00d7 6",
+      "misconception_tag": "parentheses_confusion",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is (4 + 3) \u00d7 6.",
+      "read_aloud_text": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+      "question_audio": {
+        "text": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "(4 + 3) \u00d7 6",
+        "(4+3)\u00d76",
+        "(4 + 3) \u00d7 6"
+      ],
+      "expression": "(4 + 3) \u00d7 6",
+      "expression_parts": [
+        "(",
+        4,
+        "+",
+        3,
+        ")",
+        "\u00d7",
+        6
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_OA_001_MIXED_Q1",
+      "question_id": "G5M_OA_001_MIXED_Q1",
+      "question_type": "coordinate_response",
+      "visual_model": "ordered_pair_plot",
+      "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+      "answer": "(2, 3)",
+      "correct_answer": "(2, 3)",
+      "misconception_tag": "coordinate_order_reversal",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is (2, 3).",
+      "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+      "question_audio": {
+        "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "(2, 3)",
+        "(2,3)",
+        "(2, 3)"
+      ],
+      "x": 2,
+      "y": 3,
+      "max_x": 6,
+      "max_y": 6,
+      "point_label": "(2, 3)"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_OA_001_L2_Q1",
+      "question_id": "G5M_OA_001_L2_Q1",
+      "question_type": "short_response",
+      "visual_model": "expression_builder",
+      "prompt": "Evaluate (5 + 3) \u00d7 4.",
+      "answer": "32",
+      "correct_answer": "32",
+      "misconception_tag": "operation_order_confusion",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 32.",
+      "read_aloud_text": "Evaluate the expression: the quantity 5 plus 3, multiplied by 4.",
+      "question_audio": {
+        "text": "Evaluate the expression: the quantity 5 plus 3, multiplied by 4.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "32",
+        "32",
+        "32"
+      ],
+      "expression": "(5 + 3) \u00d7 4",
+      "expression_parts": [
+        "(",
+        5,
+        "+",
+        3,
+        ")",
+        "\u00d7",
+        4
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "operation_order_confusion": "mixing operation order before reading grouping symbols.",
+    "parentheses_confusion": "ignoring parentheses or brackets in an expression.",
+    "pattern_rule_error": "using a rule on only one row instead of every row.",
+    "coordinate_order_reversal": "reversing x and y in an ordered pair."
+  },
+  "review_bank": [],
+  "level_banks": [
+    {
+      "level_id": "G5M_OA_001_L1",
+      "label": "Level 1: Write Numerical Expressions",
+      "focus": "Translate words into expressions.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_OA_001_L1_Q1",
+          "question_id": "G5M_OA_001_L1_Q1",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+          "answer": "(4 + 3) \u00d7 6",
+          "correct_answer": "(4 + 3) \u00d7 6",
+          "misconception_tag": "parentheses_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (4 + 3) \u00d7 6.",
+          "read_aloud_text": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(4 + 3) \u00d7 6",
+            "(4+3)\u00d76",
+            "(4 + 3) \u00d7 6"
+          ],
+          "expression": "(4 + 3) \u00d7 6",
+          "expression_parts": [
+            "(",
+            4,
+            "+",
+            3,
+            ")",
+            "\u00d7",
+            6
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q2",
+          "question_id": "G5M_OA_001_L1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+          "answer": "(5 + 4) \u00d7 7",
+          "correct_answer": "(5 + 4) \u00d7 7",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (5 + 4) \u00d7 7.",
+          "read_aloud_text": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(5 + 4) \u00d7 7",
+            "5 + 4 \u00d7 7",
+            "5 \u00d7 4 + 7",
+            "(5 \u00d7 4) + 7"
+          ],
+          "expression": "(5 + 4) \u00d7 7",
+          "expression_parts": [
+            "(",
+            5,
+            "+",
+            4,
+            ")",
+            "\u00d7",
+            7
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q3",
+          "question_id": "G5M_OA_001_L1_Q3",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 6 and 5, then multiply by 5.",
+          "answer": "(6 + 5) \u00d7 5",
+          "correct_answer": "(6 + 5) \u00d7 5",
+          "misconception_tag": "parentheses_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (6 + 5) \u00d7 5.",
+          "read_aloud_text": "Write an expression for the sum of 6 and 5, then multiply by 5.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 6 and 5, then multiply by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(6 + 5) \u00d7 5",
+            "(6+5)\u00d75",
+            "(6 + 5) \u00d7 5"
+          ],
+          "expression": "(6 + 5) \u00d7 5",
+          "expression_parts": [
+            "(",
+            6,
+            "+",
+            5,
+            ")",
+            "\u00d7",
+            5
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q4",
+          "question_id": "G5M_OA_001_L1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 7 and 2, then multiply by 6.",
+          "answer": "(7 + 2) \u00d7 6",
+          "correct_answer": "(7 + 2) \u00d7 6",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (7 + 2) \u00d7 6.",
+          "read_aloud_text": "Write an expression for the sum of 7 and 2, then multiply by 6.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 7 and 2, then multiply by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(7 + 2) \u00d7 6",
+            "7 + 2 \u00d7 6",
+            "7 \u00d7 2 + 6",
+            "(7 \u00d7 2) + 6"
+          ],
+          "expression": "(7 + 2) \u00d7 6",
+          "expression_parts": [
+            "(",
+            7,
+            "+",
+            2,
+            ")",
+            "\u00d7",
+            6
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q5",
+          "question_id": "G5M_OA_001_L1_Q5",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 8 and 3, then multiply by 7.",
+          "answer": "(8 + 3) \u00d7 7",
+          "correct_answer": "(8 + 3) \u00d7 7",
+          "misconception_tag": "parentheses_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (8 + 3) \u00d7 7.",
+          "read_aloud_text": "Write an expression for the sum of 8 and 3, then multiply by 7.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 8 and 3, then multiply by 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(8 + 3) \u00d7 7",
+            "(8+3)\u00d77",
+            "(8 + 3) \u00d7 7"
+          ],
+          "expression": "(8 + 3) \u00d7 7",
+          "expression_parts": [
+            "(",
+            8,
+            "+",
+            3,
+            ")",
+            "\u00d7",
+            7
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q6",
+          "question_id": "G5M_OA_001_L1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 9 and 4, then multiply by 5.",
+          "answer": "(9 + 4) \u00d7 5",
+          "correct_answer": "(9 + 4) \u00d7 5",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (9 + 4) \u00d7 5.",
+          "read_aloud_text": "Write an expression for the sum of 9 and 4, then multiply by 5.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 9 and 4, then multiply by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(9 + 4) \u00d7 5",
+            "9 + 4 \u00d7 5",
+            "9 \u00d7 4 + 5",
+            "(9 \u00d7 4) + 5"
+          ],
+          "expression": "(9 + 4) \u00d7 5",
+          "expression_parts": [
+            "(",
+            9,
+            "+",
+            4,
+            ")",
+            "\u00d7",
+            5
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q7",
+          "question_id": "G5M_OA_001_L1_Q7",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 10 and 5, then multiply by 6.",
+          "answer": "(10 + 5) \u00d7 6",
+          "correct_answer": "(10 + 5) \u00d7 6",
+          "misconception_tag": "parentheses_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (10 + 5) \u00d7 6.",
+          "read_aloud_text": "Write an expression for the sum of 10 and 5, then multiply by 6.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 10 and 5, then multiply by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(10 + 5) \u00d7 6",
+            "(10+5)\u00d76",
+            "(10 + 5) \u00d7 6"
+          ],
+          "expression": "(10 + 5) \u00d7 6",
+          "expression_parts": [
+            "(",
+            10,
+            "+",
+            5,
+            ")",
+            "\u00d7",
+            6
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q8",
+          "question_id": "G5M_OA_001_L1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 11 and 2, then multiply by 7.",
+          "answer": "(11 + 2) \u00d7 7",
+          "correct_answer": "(11 + 2) \u00d7 7",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (11 + 2) \u00d7 7.",
+          "read_aloud_text": "Write an expression for the sum of 11 and 2, then multiply by 7.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 11 and 2, then multiply by 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(11 + 2) \u00d7 7",
+            "11 + 2 \u00d7 7",
+            "11 \u00d7 2 + 7",
+            "(11 \u00d7 2) + 7"
+          ],
+          "expression": "(11 + 2) \u00d7 7",
+          "expression_parts": [
+            "(",
+            11,
+            "+",
+            2,
+            ")",
+            "\u00d7",
+            7
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q9",
+          "question_id": "G5M_OA_001_L1_Q9",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 12 and 3, then multiply by 5.",
+          "answer": "(12 + 3) \u00d7 5",
+          "correct_answer": "(12 + 3) \u00d7 5",
+          "misconception_tag": "parentheses_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (12 + 3) \u00d7 5.",
+          "read_aloud_text": "Write an expression for the sum of 12 and 3, then multiply by 5.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 12 and 3, then multiply by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(12 + 3) \u00d7 5",
+            "(12+3)\u00d75",
+            "(12 + 3) \u00d7 5"
+          ],
+          "expression": "(12 + 3) \u00d7 5",
+          "expression_parts": [
+            "(",
+            12,
+            "+",
+            3,
+            ")",
+            "\u00d7",
+            5
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q10",
+          "question_id": "G5M_OA_001_L1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Write an expression for the sum of 13 and 4, then multiply by 6.",
+          "answer": "(13 + 4) \u00d7 6",
+          "correct_answer": "(13 + 4) \u00d7 6",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (13 + 4) \u00d7 6.",
+          "read_aloud_text": "Write an expression for the sum of 13 and 4, then multiply by 6.",
+          "question_audio": {
+            "text": "Write an expression for the sum of 13 and 4, then multiply by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(13 + 4) \u00d7 6",
+            "13 + 4 \u00d7 6",
+            "13 \u00d7 4 + 6",
+            "(13 \u00d7 4) + 6"
+          ],
+          "expression": "(13 + 4) \u00d7 6",
+          "expression_parts": [
+            "(",
+            13,
+            "+",
+            4,
+            ")",
+            "\u00d7",
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_OA_001_L2",
+      "label": "Level 2: Evaluate Expressions",
+      "focus": "Use order of operations.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_OA_001_L2_Q1",
+          "question_id": "G5M_OA_001_L2_Q1",
+          "question_type": "short_response",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (5 + 3) \u00d7 4.",
+          "answer": "32",
+          "correct_answer": "32",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 32.",
+          "read_aloud_text": "Evaluate the expression: the quantity 5 plus 3, multiplied by 4.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 5 plus 3, multiplied by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "32",
+            "32",
+            "32"
+          ],
+          "expression": "(5 + 3) \u00d7 4",
+          "expression_parts": [
+            "(",
+            5,
+            "+",
+            3,
+            ")",
+            "\u00d7",
+            4
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q2",
+          "question_id": "G5M_OA_001_L2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (6 + 4) \u00d7 5.",
+          "answer": "50",
+          "correct_answer": "50",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 50.",
+          "read_aloud_text": "Evaluate the expression: the quantity 6 plus 4, multiplied by 5.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 6 plus 4, multiplied by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "50",
+            "26",
+            "34",
+            "55"
+          ],
+          "expression": "(6 + 4) \u00d7 5",
+          "expression_parts": [
+            "(",
+            6,
+            "+",
+            4,
+            ")",
+            "\u00d7",
+            5
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q3",
+          "question_id": "G5M_OA_001_L2_Q3",
+          "question_type": "short_response",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (7 + 5) \u00d7 6.",
+          "answer": "72",
+          "correct_answer": "72",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 72.",
+          "read_aloud_text": "Evaluate the expression: the quantity 7 plus 5, multiplied by 6.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 7 plus 5, multiplied by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "72",
+            "72",
+            "72"
+          ],
+          "expression": "(7 + 5) \u00d7 6",
+          "expression_parts": [
+            "(",
+            7,
+            "+",
+            5,
+            ")",
+            "\u00d7",
+            6
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q4",
+          "question_id": "G5M_OA_001_L2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (8 + 6) \u00d7 3.",
+          "answer": "42",
+          "correct_answer": "42",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 42.",
+          "read_aloud_text": "Evaluate the expression: the quantity 8 plus 6, multiplied by 3.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 8 plus 6, multiplied by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "42",
+            "26",
+            "30",
+            "45"
+          ],
+          "expression": "(8 + 6) \u00d7 3",
+          "expression_parts": [
+            "(",
+            8,
+            "+",
+            6,
+            ")",
+            "\u00d7",
+            3
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q5",
+          "question_id": "G5M_OA_001_L2_Q5",
+          "question_type": "short_response",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (9 + 2) \u00d7 4.",
+          "answer": "44",
+          "correct_answer": "44",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 44.",
+          "read_aloud_text": "Evaluate the expression: the quantity 9 plus 2, multiplied by 4.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 9 plus 2, multiplied by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "44",
+            "44",
+            "44"
+          ],
+          "expression": "(9 + 2) \u00d7 4",
+          "expression_parts": [
+            "(",
+            9,
+            "+",
+            2,
+            ")",
+            "\u00d7",
+            4
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q6",
+          "question_id": "G5M_OA_001_L2_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (10 + 3) \u00d7 5.",
+          "answer": "65",
+          "correct_answer": "65",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 65.",
+          "read_aloud_text": "Evaluate the expression: the quantity 10 plus 3, multiplied by 5.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 10 plus 3, multiplied by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "65",
+            "25",
+            "53",
+            "70"
+          ],
+          "expression": "(10 + 3) \u00d7 5",
+          "expression_parts": [
+            "(",
+            10,
+            "+",
+            3,
+            ")",
+            "\u00d7",
+            5
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q7",
+          "question_id": "G5M_OA_001_L2_Q7",
+          "question_type": "short_response",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (11 + 4) \u00d7 6.",
+          "answer": "90",
+          "correct_answer": "90",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 90.",
+          "read_aloud_text": "Evaluate the expression: the quantity 11 plus 4, multiplied by 6.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 11 plus 4, multiplied by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "90",
+            "90",
+            "90"
+          ],
+          "expression": "(11 + 4) \u00d7 6",
+          "expression_parts": [
+            "(",
+            11,
+            "+",
+            4,
+            ")",
+            "\u00d7",
+            6
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q8",
+          "question_id": "G5M_OA_001_L2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (12 + 5) \u00d7 3.",
+          "answer": "51",
+          "correct_answer": "51",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 51.",
+          "read_aloud_text": "Evaluate the expression: the quantity 12 plus 5, multiplied by 3.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 12 plus 5, multiplied by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "51",
+            "27",
+            "41",
+            "54"
+          ],
+          "expression": "(12 + 5) \u00d7 3",
+          "expression_parts": [
+            "(",
+            12,
+            "+",
+            5,
+            ")",
+            "\u00d7",
+            3
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q9",
+          "question_id": "G5M_OA_001_L2_Q9",
+          "question_type": "short_response",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (13 + 6) \u00d7 4.",
+          "answer": "76",
+          "correct_answer": "76",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 76.",
+          "read_aloud_text": "Evaluate the expression: the quantity 13 plus 6, multiplied by 4.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 13 plus 6, multiplied by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "76",
+            "76",
+            "76"
+          ],
+          "expression": "(13 + 6) \u00d7 4",
+          "expression_parts": [
+            "(",
+            13,
+            "+",
+            6,
+            ")",
+            "\u00d7",
+            4
+          ]
+        },
+        {
+          "id": "G5M_OA_001_L2_Q10",
+          "question_id": "G5M_OA_001_L2_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (14 + 2) \u00d7 5.",
+          "answer": "80",
+          "correct_answer": "80",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 80.",
+          "read_aloud_text": "Evaluate the expression: the quantity 14 plus 2, multiplied by 5.",
+          "question_audio": {
+            "text": "Evaluate the expression: the quantity 14 plus 2, multiplied by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "80",
+            "24",
+            "72",
+            "85"
+          ],
+          "expression": "(14 + 2) \u00d7 5",
+          "expression_parts": [
+            "(",
+            14,
+            "+",
+            2,
+            ")",
+            "\u00d7",
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_OA_001_L3",
+      "label": "Level 3: Generate and Analyze Patterns",
+      "focus": "Use rules and tables.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_OA_001_L3_Q1",
+          "question_id": "G5M_OA_001_L3_Q1",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 3, then add 1. What is the output when the input is 5?",
+          "answer": "16",
+          "correct_answer": "16",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 16.",
+          "read_aloud_text": "The rule is multiply by 3, then add 1. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 3, then add 1. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "16",
+            "16",
+            "16"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 4
+            },
+            {
+              "input": 2,
+              "output": 7
+            },
+            {
+              "input": 3,
+              "output": 10
+            },
+            {
+              "input": 4,
+              "output": 13
+            }
+          ],
+          "rule": "\u00d7 3, then + 1"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q2",
+          "question_id": "G5M_OA_001_L3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 4, then add 2. What is the output when the input is 5?",
+          "answer": "22",
+          "correct_answer": "22",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 22.",
+          "read_aloud_text": "The rule is multiply by 4, then add 2. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 4, then add 2. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "22",
+            "11",
+            "18",
+            "26"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 6
+            },
+            {
+              "input": 2,
+              "output": 10
+            },
+            {
+              "input": 3,
+              "output": 14
+            },
+            {
+              "input": 4,
+              "output": 18
+            }
+          ],
+          "rule": "\u00d7 4, then + 2"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q3",
+          "question_id": "G5M_OA_001_L3_Q3",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 5, then add 3. What is the output when the input is 5?",
+          "answer": "28",
+          "correct_answer": "28",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 28.",
+          "read_aloud_text": "The rule is multiply by 5, then add 3. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 5, then add 3. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "28",
+            "28",
+            "28"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 8
+            },
+            {
+              "input": 2,
+              "output": 13
+            },
+            {
+              "input": 3,
+              "output": 18
+            },
+            {
+              "input": 4,
+              "output": 23
+            }
+          ],
+          "rule": "\u00d7 5, then + 3"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q4",
+          "question_id": "G5M_OA_001_L3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 2, then add 4. What is the output when the input is 5?",
+          "answer": "14",
+          "correct_answer": "14",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 14.",
+          "read_aloud_text": "The rule is multiply by 2, then add 4. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 2, then add 4. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "14",
+            "11",
+            "12",
+            "16"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 6
+            },
+            {
+              "input": 2,
+              "output": 8
+            },
+            {
+              "input": 3,
+              "output": 10
+            },
+            {
+              "input": 4,
+              "output": 12
+            }
+          ],
+          "rule": "\u00d7 2, then + 4"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q5",
+          "question_id": "G5M_OA_001_L3_Q5",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 3, then add 5. What is the output when the input is 5?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 20.",
+          "read_aloud_text": "The rule is multiply by 3, then add 5. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 3, then add 5. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "20",
+            "20",
+            "20"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 8
+            },
+            {
+              "input": 2,
+              "output": 11
+            },
+            {
+              "input": 3,
+              "output": 14
+            },
+            {
+              "input": 4,
+              "output": 17
+            }
+          ],
+          "rule": "\u00d7 3, then + 5"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q6",
+          "question_id": "G5M_OA_001_L3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 4, then add 6. What is the output when the input is 5?",
+          "answer": "26",
+          "correct_answer": "26",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 26.",
+          "read_aloud_text": "The rule is multiply by 4, then add 6. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 4, then add 6. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "26",
+            "15",
+            "22",
+            "30"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 10
+            },
+            {
+              "input": 2,
+              "output": 14
+            },
+            {
+              "input": 3,
+              "output": 18
+            },
+            {
+              "input": 4,
+              "output": 22
+            }
+          ],
+          "rule": "\u00d7 4, then + 6"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q7",
+          "question_id": "G5M_OA_001_L3_Q7",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 5, then add 7. What is the output when the input is 5?",
+          "answer": "32",
+          "correct_answer": "32",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 32.",
+          "read_aloud_text": "The rule is multiply by 5, then add 7. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 5, then add 7. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "32",
+            "32",
+            "32"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 12
+            },
+            {
+              "input": 2,
+              "output": 17
+            },
+            {
+              "input": 3,
+              "output": 22
+            },
+            {
+              "input": 4,
+              "output": 27
+            }
+          ],
+          "rule": "\u00d7 5, then + 7"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q8",
+          "question_id": "G5M_OA_001_L3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 2, then add 8. What is the output when the input is 5?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 18.",
+          "read_aloud_text": "The rule is multiply by 2, then add 8. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 2, then add 8. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "18",
+            "15",
+            "16",
+            "20"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 10
+            },
+            {
+              "input": 2,
+              "output": 12
+            },
+            {
+              "input": 3,
+              "output": 14
+            },
+            {
+              "input": 4,
+              "output": 16
+            }
+          ],
+          "rule": "\u00d7 2, then + 8"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q9",
+          "question_id": "G5M_OA_001_L3_Q9",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 3, then add 9. What is the output when the input is 5?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 24.",
+          "read_aloud_text": "The rule is multiply by 3, then add 9. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 3, then add 9. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "24",
+            "24",
+            "24"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 12
+            },
+            {
+              "input": 2,
+              "output": 15
+            },
+            {
+              "input": 3,
+              "output": 18
+            },
+            {
+              "input": 4,
+              "output": 21
+            }
+          ],
+          "rule": "\u00d7 3, then + 9"
+        },
+        {
+          "id": "G5M_OA_001_L3_Q10",
+          "question_id": "G5M_OA_001_L3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_table",
+          "prompt": "The rule is multiply by 4, then add 10. What is the output when the input is 5?",
+          "answer": "30",
+          "correct_answer": "30",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 30.",
+          "read_aloud_text": "The rule is multiply by 4, then add 10. What is the output when the input is five?",
+          "question_audio": {
+            "text": "The rule is multiply by 4, then add 10. What is the output when the input is five?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "30",
+            "19",
+            "26",
+            "34"
+          ],
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 14
+            },
+            {
+              "input": 2,
+              "output": 18
+            },
+            {
+              "input": 3,
+              "output": 22
+            },
+            {
+              "input": 4,
+              "output": 26
+            }
+          ],
+          "rule": "\u00d7 4, then + 10"
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_OA_001_L4",
+      "label": "Level 4: Coordinate Plane Ordered Pairs",
+      "focus": "Graph ordered pairs.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_OA_001_L4_Q1",
+          "question_id": "G5M_OA_001_L4_Q1",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "answer": "(2, 3)",
+          "correct_answer": "(2, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (2, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 3)",
+            "(2,3)",
+            "(2, 3)"
+          ],
+          "x": 2,
+          "y": 3,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(2, 3)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q2",
+          "question_id": "G5M_OA_001_L4_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 3 and y = 5?",
+          "answer": "(3, 5)",
+          "correct_answer": "(3, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (3, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(3, 5)",
+            "(5, 3)",
+            "(4, 5)",
+            "(3, 6)"
+          ],
+          "x": 3,
+          "y": 5,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(3, 5)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q3",
+          "question_id": "G5M_OA_001_L4_Q3",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "answer": "(4, 1)",
+          "correct_answer": "(4, 1)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (4, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(4, 1)",
+            "(4,1)",
+            "(4, 1)"
+          ],
+          "x": 4,
+          "y": 1,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(4, 1)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q4",
+          "question_id": "G5M_OA_001_L4_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 3?",
+          "answer": "(5, 3)",
+          "correct_answer": "(5, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (5, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(5, 3)",
+            "(3, 5)",
+            "(6, 3)",
+            "(5, 4)"
+          ],
+          "x": 5,
+          "y": 3,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(5, 3)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q5",
+          "question_id": "G5M_OA_001_L4_Q5",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 6 and y = 5?",
+          "answer": "(6, 5)",
+          "correct_answer": "(6, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (6, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 6 and y equals 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 6 and y equals 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(6, 5)",
+            "(6,5)",
+            "(6, 5)"
+          ],
+          "x": 6,
+          "y": 5,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(6, 5)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q6",
+          "question_id": "G5M_OA_001_L4_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 1 and y = 1?",
+          "answer": "(1, 1)",
+          "correct_answer": "(1, 1)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (1, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 1 and y equals 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 1 and y equals 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(1, 1)",
+            "(1, 1)",
+            "(2, 1)",
+            "(1, 2)"
+          ],
+          "x": 1,
+          "y": 1,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(1, 1)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q7",
+          "question_id": "G5M_OA_001_L4_Q7",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "answer": "(2, 3)",
+          "correct_answer": "(2, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (2, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 3)",
+            "(2,3)",
+            "(2, 3)"
+          ],
+          "x": 2,
+          "y": 3,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(2, 3)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q8",
+          "question_id": "G5M_OA_001_L4_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 3 and y = 5?",
+          "answer": "(3, 5)",
+          "correct_answer": "(3, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (3, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(3, 5)",
+            "(5, 3)",
+            "(4, 5)",
+            "(3, 6)"
+          ],
+          "x": 3,
+          "y": 5,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(3, 5)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q9",
+          "question_id": "G5M_OA_001_L4_Q9",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "answer": "(4, 1)",
+          "correct_answer": "(4, 1)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (4, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(4, 1)",
+            "(4,1)",
+            "(4, 1)"
+          ],
+          "x": 4,
+          "y": 1,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(4, 1)"
+        },
+        {
+          "id": "G5M_OA_001_L4_Q10",
+          "question_id": "G5M_OA_001_L4_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 3?",
+          "answer": "(5, 3)",
+          "correct_answer": "(5, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (5, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(5, 3)",
+            "(3, 5)",
+            "(6, 3)",
+            "(5, 4)"
+          ],
+          "x": 5,
+          "y": 3,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(5, 3)"
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_OA_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mix expressions, patterns, and coordinates.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_OA_001_MIXED_Q1",
+          "question_id": "G5M_OA_001_MIXED_Q1",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "answer": "(2, 3)",
+          "correct_answer": "(2, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (2, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 3)",
+            "(2,3)",
+            "(2, 3)"
+          ],
+          "x": 2,
+          "y": 3,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(2, 3)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q2",
+          "question_id": "G5M_OA_001_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 3 and y = 5?",
+          "answer": "(3, 5)",
+          "correct_answer": "(3, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (3, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(3, 5)",
+            "(5, 3)",
+            "(4, 5)",
+            "(3, 6)"
+          ],
+          "x": 3,
+          "y": 5,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(3, 5)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q3",
+          "question_id": "G5M_OA_001_MIXED_Q3",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "answer": "(4, 1)",
+          "correct_answer": "(4, 1)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (4, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(4, 1)",
+            "(4,1)",
+            "(4, 1)"
+          ],
+          "x": 4,
+          "y": 1,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(4, 1)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q4",
+          "question_id": "G5M_OA_001_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 3?",
+          "answer": "(5, 3)",
+          "correct_answer": "(5, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (5, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(5, 3)",
+            "(3, 5)",
+            "(6, 3)",
+            "(5, 4)"
+          ],
+          "x": 5,
+          "y": 3,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(5, 3)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q5",
+          "question_id": "G5M_OA_001_MIXED_Q5",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 6 and y = 5?",
+          "answer": "(6, 5)",
+          "correct_answer": "(6, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (6, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 6 and y equals 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 6 and y equals 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(6, 5)",
+            "(6,5)",
+            "(6, 5)"
+          ],
+          "x": 6,
+          "y": 5,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(6, 5)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q6",
+          "question_id": "G5M_OA_001_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 1 and y = 1?",
+          "answer": "(1, 1)",
+          "correct_answer": "(1, 1)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (1, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 1 and y equals 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 1 and y equals 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(1, 1)",
+            "(1, 1)",
+            "(2, 1)",
+            "(1, 2)"
+          ],
+          "x": 1,
+          "y": 1,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(1, 1)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q7",
+          "question_id": "G5M_OA_001_MIXED_Q7",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "answer": "(2, 3)",
+          "correct_answer": "(2, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (2, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 3)",
+            "(2,3)",
+            "(2, 3)"
+          ],
+          "x": 2,
+          "y": 3,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(2, 3)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q8",
+          "question_id": "G5M_OA_001_MIXED_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 3 and y = 5?",
+          "answer": "(3, 5)",
+          "correct_answer": "(3, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (3, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(3, 5)",
+            "(5, 3)",
+            "(4, 5)",
+            "(3, 6)"
+          ],
+          "x": 3,
+          "y": 5,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(3, 5)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q9",
+          "question_id": "G5M_OA_001_MIXED_Q9",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "answer": "(4, 1)",
+          "correct_answer": "(4, 1)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (4, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(4, 1)",
+            "(4,1)",
+            "(4, 1)"
+          ],
+          "x": 4,
+          "y": 1,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(4, 1)"
+        },
+        {
+          "id": "G5M_OA_001_MIXED_Q10",
+          "question_id": "G5M_OA_001_MIXED_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 3?",
+          "answer": "(5, 3)",
+          "correct_answer": "(5, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is (5, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "(5, 3)",
+            "(3, 5)",
+            "(6, 3)",
+            "(5, 4)"
+          ],
+          "x": 5,
+          "y": 3,
+          "max_x": 6,
+          "max_y": 6,
+          "point_label": "(5, 3)"
+        }
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Expressions, Patterns, and the Coordinate Plane",
+    "mission_intro": "Join the Skill World crew to master expressions, patterns, and the coordinate plane through models, narration, and practice levels.",
+    "badge_name": "Expressions, Patterns, and the Coordinate Plane Badge"
+  },
+  "next_skill_id": "",
+  "remediation_skill_id": "G5M_NBT_001",
+  "page_audio": {
+    "story": {
+      "text": "Welcome to the Expressions, Patterns, and the Coordinate Plane mission. Today you will use models and careful math language to solve write and evaluate numerical expressions, analyze patterns, and graph ordered pairs. Read the story, notice what each visual is showing, and press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches the important ideas for Expressions, Patterns, and the Coordinate Plane. Look for place value, operation order, and labels before you calculate. Press Next after you can explain the model in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch the tutor solve one example. First read the question, then connect each number to the visual model, and finally check whether the answer makes sense. Press Next when you are ready to try a guided demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "In the demo, build the solution one step at a time. Say what the model shows, use precise Grade Five math words, and compare your thinking with the explanation. Press Next to move into independent practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Practice is your first independent try. Use the visual model before answering, then tap Read Question if you want the problem read aloud. Choose or type your answer, and press Next after you check your feedback.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "The challenge asks you to transfer the same skill to a harder problem. Slow down, use Read Question if helpful, and explain the operation or coordinate step before you answer. Press Next after you learn from the feedback.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "The checkpoint shows what you can do on your own. Read the page, tap Read Question for the problem, and solve using the model rather than guessing. Your answer helps build your growth profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge screen for Expressions, Patterns, and the Coordinate Plane. Celebrate the strategies you practiced, name one misconception you avoided, and get ready to save your progress. Press Save Growth Data when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page summarizes your growth for Expressions, Patterns, and the Coordinate Plane. Review your stars, notice any misconception tags, and continue to Skill Practice Center for focused levels. Use the practice route when you want more questions.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

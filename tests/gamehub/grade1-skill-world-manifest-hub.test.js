@@ -408,3 +408,33 @@ test('Grade 4 division and fractions Skill World packages appear from manifest f
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
+
+test('Grade 5 operations and decimal Skill World packages appear from manifest for the hub', () => {
+  const expectedGrade5 = new Map([
+    ['G5M_OA_001', { skill: 'Expressions, Patterns, and the Coordinate Plane', domain: 'Operations and Algebraic Thinking / Geometry' }],
+    ['G5M_NBT_002', { skill: 'Multi-Digit Whole Number Operations', domain: 'Number and Operations in Base Ten' }],
+    ['G5M_NBT_003', { skill: 'Decimal Operations', domain: 'Number and Operations in Base Ten' }]
+  ]);
+  for (const skillId of expectedGrade5.keys()) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
+  const packages = manifest.packages.map(readPackage);
+  for (const [skillId, expected] of expectedGrade5.entries()) {
+    const g5 = packages.find((pkg) => pkg.skill_id === skillId);
+    assert.ok(g5, `${skillId} package loads from manifest`);
+    assert.equal(g5.grade, 5);
+    assert.equal(g5.subject, 'Math');
+    assert.equal(g5.domain, expected.domain);
+    assert.equal(g5.skill, expected.skill);
+    assert.equal(Array.isArray(g5.level_banks), true);
+    assert.equal(g5.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(g5.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(g5.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(g5.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
+    assert.equal(g5.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
+  }
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});

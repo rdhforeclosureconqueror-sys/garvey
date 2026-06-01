@@ -1,0 +1,2467 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "production_status": "ready_for_manual_qa",
+    "source_plan": "grade5-math-completion-plan.v1",
+    "voice_standard": "full_voice_standard_cached_ai_audio_optional"
+  },
+  "skill_id": "G5M_NBT_003",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Decimal Operations",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "lesson": {
+    "objective": "Add, subtract, multiply, and divide decimals to hundredths.",
+    "key_vocabulary": [
+      "expression",
+      "pattern",
+      "coordinate",
+      "product",
+      "quotient",
+      "decimal"
+    ],
+    "concept_explanation": "Decimal Operations uses models to connect numbers, operations, and meanings before calculating. Careful labels help you choose the right operation and avoid common errors.",
+    "visual_model": "decimal_grid",
+    "common_misconception": "A common mistake is not lining up decimal points for addition or subtraction. Slow down and match each step to the model.",
+    "real_world_connection": "Engineers, scientists, game designers, and community planners use these Grade Five math strategies to make accurate decisions.",
+    "lesson_summary": "Use the model, write the math clearly, and check that the answer fits the question for Decimal Operations."
+  },
+  "worked_examples": [
+    {
+      "question_type": "decimal_response",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 1.30 + 0.16.",
+      "answer": "1.46",
+      "correct_answer": "1.46",
+      "misconception_tag": "decimal_alignment_error",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 1.46.",
+      "read_aloud_text": "Add 1.30 and 0.16, lining up decimal points.",
+      "question_audio": {
+        "text": "Add 1.30 and 0.16, lining up decimal points.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "1.46",
+        "1.46",
+        "1.46"
+      ],
+      "operands": [
+        "1.30",
+        "0.16"
+      ],
+      "operation": "+",
+      "algorithm_steps": [
+        "Line up decimal points.",
+        "Add hundredths, tenths, then ones."
+      ],
+      "id": "G5M_NBT_003_WE1",
+      "question_id": "G5M_NBT_003_WE1",
+      "text": "Watch how the tutor connects the visual model to the answer."
+    },
+    {
+      "question_type": "multiple_choice",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 1.40 + 0.17.",
+      "answer": "1.57",
+      "correct_answer": "1.57",
+      "misconception_tag": "decimal_alignment_error",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 1.57.",
+      "read_aloud_text": "Add 1.40 and 0.17, lining up decimal points.",
+      "question_audio": {
+        "text": "Add 1.40 and 0.17, lining up decimal points.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "1.57",
+        "1.67",
+        "1.23",
+        "1.6"
+      ],
+      "operands": [
+        "1.40",
+        "0.17"
+      ],
+      "operation": "+",
+      "algorithm_steps": [
+        "Line up decimal points.",
+        "Add hundredths, tenths, then ones."
+      ],
+      "id": "G5M_NBT_003_WE2",
+      "question_id": "G5M_NBT_003_WE2",
+      "text": "Now watch a second guided demo before independent practice."
+    }
+  ],
+  "hint_ladder": [
+    "Name what the visual model shows.",
+    "Write the operation or ordered pair carefully.",
+    "Check the answer with an estimate or inverse step."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_NBT_003_L1_Q1",
+      "question_id": "G5M_NBT_003_L1_Q1",
+      "question_type": "decimal_response",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 1.30 + 0.16.",
+      "answer": "1.46",
+      "correct_answer": "1.46",
+      "misconception_tag": "decimal_alignment_error",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 1.46.",
+      "read_aloud_text": "Add 1.30 and 0.16, lining up decimal points.",
+      "question_audio": {
+        "text": "Add 1.30 and 0.16, lining up decimal points.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "1.46",
+        "1.46",
+        "1.46"
+      ],
+      "operands": [
+        "1.30",
+        "0.16"
+      ],
+      "operation": "+",
+      "algorithm_steps": [
+        "Line up decimal points.",
+        "Add hundredths, tenths, then ones."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_NBT_003_MIXED_Q1",
+      "question_id": "G5M_NBT_003_MIXED_Q1",
+      "question_type": "decimal_response",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 1.30 + 0.16.",
+      "answer": "1.46",
+      "correct_answer": "1.46",
+      "misconception_tag": "decimal_alignment_error",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 1.46.",
+      "read_aloud_text": "Add 1.30 and 0.16, lining up decimal points.",
+      "question_audio": {
+        "text": "Add 1.30 and 0.16, lining up decimal points.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "1.46",
+        "1.46",
+        "1.46"
+      ],
+      "operands": [
+        "1.30",
+        "0.16"
+      ],
+      "operation": "+",
+      "algorithm_steps": [
+        "Line up decimal points.",
+        "Add hundredths, tenths, then ones."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_NBT_003_L2_Q1",
+      "question_id": "G5M_NBT_003_L2_Q1",
+      "question_type": "decimal_response",
+      "visual_model": "decimal_grid",
+      "prompt": "Multiply 1.20 \u00d7 0.30.",
+      "answer": "0.36",
+      "correct_answer": "0.36",
+      "misconception_tag": "decimal_product_size_error",
+      "hints": [
+        "Read the question and name the model first.",
+        "Underline the numbers and operation words.",
+        "Check your answer against the visual model."
+      ],
+      "feedback": {
+        "correct": "Correct. Your reasoning matches the model.",
+        "incorrect": "Try again. Rebuild the model and check each place or step."
+      },
+      "explanation": "The answer is 0.36.",
+      "read_aloud_text": "Multiply 1.20 times 0.30. Estimate first to place the decimal point.",
+      "question_audio": {
+        "text": "Multiply 1.20 times 0.30. Estimate first to place the decimal point.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "0.36",
+        "0.36",
+        "0.36"
+      ],
+      "grid_base": 100,
+      "shaded": 4,
+      "decimal_label": "Product about 0.36"
+    }
+  ],
+  "misconception_bank": {
+    "decimal_alignment_error": "not lining up decimal points for addition or subtraction.",
+    "decimal_product_size_error": "placing the decimal point incorrectly in a product.",
+    "decimal_quotient_error": "placing the decimal point incorrectly in a quotient.",
+    "decimal_word_problem_error": "choosing an operation before understanding the story."
+  },
+  "review_bank": [],
+  "level_banks": [
+    {
+      "level_id": "G5M_NBT_003_L1",
+      "label": "Level 1: Add and Subtract Decimals",
+      "focus": "Line up decimal points.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_003_L1_Q1",
+          "question_id": "G5M_NBT_003_L1_Q1",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In the sum 1.30 + 0.16, why should the decimal points line up?",
+          "answer": "same place values line up",
+          "correct_answer": "same place values line up",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.46.",
+          "read_aloud_text": "Explain why the decimal points should line up before adding decimals.",
+          "question_audio": {
+            "text": "Explain why the decimal points should line up before adding decimals.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "same place values line up",
+            "line up same place values",
+            "tenths with tenths and hundredths with hundredths"
+          ],
+          "operands": [
+            "1.30",
+            "0.16"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ],
+          "value": 1.3
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q2",
+          "question_id": "G5M_NBT_003_L1_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In the sum 1.40 + 0.17, why should the decimal points line up?",
+          "answer": "same place values line up",
+          "correct_answer": "same place values line up",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.57.",
+          "read_aloud_text": "Explain why the decimal points should line up before adding decimals.",
+          "question_audio": {
+            "text": "Explain why the decimal points should line up before adding decimals.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "1.57",
+            "1.67",
+            "1.23",
+            "1.6"
+          ],
+          "operands": [
+            "1.40",
+            "0.17"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ],
+          "acceptable_answers": [
+            "same place values line up",
+            "line up same place values",
+            "tenths with tenths and hundredths with hundredths"
+          ],
+          "value": 1.4
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q3",
+          "question_id": "G5M_NBT_003_L1_Q3",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 1.50 + 0.18.",
+          "answer": "1.68",
+          "correct_answer": "1.68",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.68.",
+          "read_aloud_text": "Add 1.50 and 0.18, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 1.50 and 0.18, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1.68",
+            "1.68",
+            "1.68"
+          ],
+          "operands": [
+            "1.50",
+            "0.18"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q4",
+          "question_id": "G5M_NBT_003_L1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 1.60 + 0.19.",
+          "answer": "1.79",
+          "correct_answer": "1.79",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.79.",
+          "read_aloud_text": "Add 1.60 and 0.19, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 1.60 and 0.19, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "1.79",
+            "1.89",
+            "1.41",
+            "1.8"
+          ],
+          "operands": [
+            "1.60",
+            "0.19"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q5",
+          "question_id": "G5M_NBT_003_L1_Q5",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 1.70 + 0.15.",
+          "answer": "1.85",
+          "correct_answer": "1.85",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.85.",
+          "read_aloud_text": "Add 1.70 and 0.15, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 1.70 and 0.15, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1.85",
+            "1.85",
+            "1.85"
+          ],
+          "operands": [
+            "1.70",
+            "0.15"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q6",
+          "question_id": "G5M_NBT_003_L1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 1.80 + 0.16.",
+          "answer": "1.96",
+          "correct_answer": "1.96",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.96.",
+          "read_aloud_text": "Add 1.80 and 0.16, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 1.80 and 0.16, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "1.96",
+            "2.06",
+            "1.64",
+            "2.0"
+          ],
+          "operands": [
+            "1.80",
+            "0.16"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q7",
+          "question_id": "G5M_NBT_003_L1_Q7",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 1.90 + 0.17.",
+          "answer": "2.07",
+          "correct_answer": "2.07",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 2.07.",
+          "read_aloud_text": "Add 1.90 and 0.17, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 1.90 and 0.17, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2.07",
+            "2.07",
+            "2.07"
+          ],
+          "operands": [
+            "1.90",
+            "0.17"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q8",
+          "question_id": "G5M_NBT_003_L1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 2.00 + 0.18.",
+          "answer": "2.18",
+          "correct_answer": "2.18",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 2.18.",
+          "read_aloud_text": "Add 2.00 and 0.18, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 2.00 and 0.18, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "2.18",
+            "2.28",
+            "1.82",
+            "2.2"
+          ],
+          "operands": [
+            "2.00",
+            "0.18"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q9",
+          "question_id": "G5M_NBT_003_L1_Q9",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 2.10 + 0.19.",
+          "answer": "2.29",
+          "correct_answer": "2.29",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 2.29.",
+          "read_aloud_text": "Add 2.10 and 0.19, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 2.10 and 0.19, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2.29",
+            "2.29",
+            "2.29"
+          ],
+          "operands": [
+            "2.10",
+            "0.19"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L1_Q10",
+          "question_id": "G5M_NBT_003_L1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 2.20 + 0.15.",
+          "answer": "2.35",
+          "correct_answer": "2.35",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 2.35.",
+          "read_aloud_text": "Add 2.20 and 0.15, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 2.20 and 0.15, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "2.35",
+            "2.45",
+            "2.05",
+            "2.4"
+          ],
+          "operands": [
+            "2.20",
+            "0.15"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_003_L2",
+      "label": "Level 2: Multiply Decimals",
+      "focus": "Multiply decimals to hundredths.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_003_L2_Q1",
+          "question_id": "G5M_NBT_003_L2_Q1",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.20 \u00d7 0.30.",
+          "answer": "0.36",
+          "correct_answer": "0.36",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.36.",
+          "read_aloud_text": "Multiply 1.20 times 0.30. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.20 times 0.30. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "0.36",
+            "0.36",
+            "0.36"
+          ],
+          "grid_base": 100,
+          "shaded": 4,
+          "decimal_label": "Product about 0.36"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q2",
+          "question_id": "G5M_NBT_003_L2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.30 \u00d7 0.40.",
+          "answer": "0.52",
+          "correct_answer": "0.52",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.52.",
+          "read_aloud_text": "Multiply 1.30 times 0.40. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.30 times 0.40. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "0.52",
+            "5.20",
+            "1.70",
+            "0.05"
+          ],
+          "grid_base": 100,
+          "shaded": 5,
+          "decimal_label": "Product about 0.52"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q3",
+          "question_id": "G5M_NBT_003_L2_Q3",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.40 \u00d7 0.50.",
+          "answer": "0.70",
+          "correct_answer": "0.70",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.70.",
+          "read_aloud_text": "Multiply 1.40 times 0.50. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.40 times 0.50. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "0.70",
+            "0.70",
+            "0.70"
+          ],
+          "grid_base": 100,
+          "shaded": 7,
+          "decimal_label": "Product about 0.70"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q4",
+          "question_id": "G5M_NBT_003_L2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.50 \u00d7 0.20.",
+          "answer": "0.30",
+          "correct_answer": "0.30",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.30.",
+          "read_aloud_text": "Multiply 1.50 times 0.20. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.50 times 0.20. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "0.30",
+            "3.00",
+            "1.70",
+            "0.03"
+          ],
+          "grid_base": 100,
+          "shaded": 3,
+          "decimal_label": "Product about 0.30"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q5",
+          "question_id": "G5M_NBT_003_L2_Q5",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.60 \u00d7 0.30.",
+          "answer": "0.48",
+          "correct_answer": "0.48",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.48.",
+          "read_aloud_text": "Multiply 1.60 times 0.30. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.60 times 0.30. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "0.48",
+            "0.48",
+            "0.48"
+          ],
+          "grid_base": 100,
+          "shaded": 5,
+          "decimal_label": "Product about 0.48"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q6",
+          "question_id": "G5M_NBT_003_L2_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.70 \u00d7 0.40.",
+          "answer": "0.68",
+          "correct_answer": "0.68",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.68.",
+          "read_aloud_text": "Multiply 1.70 times 0.40. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.70 times 0.40. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "0.68",
+            "6.80",
+            "2.10",
+            "0.07"
+          ],
+          "grid_base": 100,
+          "shaded": 7,
+          "decimal_label": "Product about 0.68"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q7",
+          "question_id": "G5M_NBT_003_L2_Q7",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.80 \u00d7 0.50.",
+          "answer": "0.90",
+          "correct_answer": "0.90",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.90.",
+          "read_aloud_text": "Multiply 1.80 times 0.50. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.80 times 0.50. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "0.90",
+            "0.90",
+            "0.90"
+          ],
+          "grid_base": 100,
+          "shaded": 9,
+          "decimal_label": "Product about 0.90"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q8",
+          "question_id": "G5M_NBT_003_L2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.90 \u00d7 0.20.",
+          "answer": "0.38",
+          "correct_answer": "0.38",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.38.",
+          "read_aloud_text": "Multiply 1.90 times 0.20. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.90 times 0.20. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "0.38",
+            "3.80",
+            "2.10",
+            "0.04"
+          ],
+          "grid_base": 100,
+          "shaded": 4,
+          "decimal_label": "Product about 0.38"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q9",
+          "question_id": "G5M_NBT_003_L2_Q9",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 2.00 \u00d7 0.30.",
+          "answer": "0.60",
+          "correct_answer": "0.60",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.60.",
+          "read_aloud_text": "Multiply 2.00 times 0.30. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 2.00 times 0.30. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "0.60",
+            "0.60",
+            "0.60"
+          ],
+          "grid_base": 100,
+          "shaded": 6,
+          "decimal_label": "Product about 0.60"
+        },
+        {
+          "id": "G5M_NBT_003_L2_Q10",
+          "question_id": "G5M_NBT_003_L2_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 2.10 \u00d7 0.40.",
+          "answer": "0.84",
+          "correct_answer": "0.84",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.84.",
+          "read_aloud_text": "Multiply 2.10 times 0.40. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 2.10 times 0.40. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "0.84",
+            "8.40",
+            "2.50",
+            "0.08"
+          ],
+          "grid_base": 100,
+          "shaded": 8,
+          "decimal_label": "Product about 0.84"
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_003_L3",
+      "label": "Level 3: Divide Decimals",
+      "focus": "Divide decimals to hundredths.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_003_L3_Q1",
+          "question_id": "G5M_NBT_003_L3_Q1",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 0.93 \u00f7 0.30.",
+          "answer": "3.10",
+          "correct_answer": "3.10",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.10.",
+          "read_aloud_text": "Divide 0.93 by 0.30. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 0.93 by 0.30. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3.10",
+            "3.10",
+            "3.10"
+          ],
+          "operands": [
+            "0.93",
+            "0.30"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q2",
+          "question_id": "G5M_NBT_003_L3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 1.28 \u00f7 0.40.",
+          "answer": "3.20",
+          "correct_answer": "3.20",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.20.",
+          "read_aloud_text": "Divide 1.28 by 0.40. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 1.28 by 0.40. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "3.20",
+            "32.00",
+            "0.32",
+            "1.68"
+          ],
+          "operands": [
+            "1.28",
+            "0.40"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q3",
+          "question_id": "G5M_NBT_003_L3_Q3",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 1.65 \u00f7 0.50.",
+          "answer": "3.30",
+          "correct_answer": "3.30",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.30.",
+          "read_aloud_text": "Divide 1.65 by 0.50. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 1.65 by 0.50. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3.30",
+            "3.30",
+            "3.30"
+          ],
+          "operands": [
+            "1.65",
+            "0.50"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q4",
+          "question_id": "G5M_NBT_003_L3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 0.68 \u00f7 0.20.",
+          "answer": "3.40",
+          "correct_answer": "3.40",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.40.",
+          "read_aloud_text": "Divide 0.68 by 0.20. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 0.68 by 0.20. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "3.40",
+            "34.00",
+            "0.34",
+            "0.88"
+          ],
+          "operands": [
+            "0.68",
+            "0.20"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q5",
+          "question_id": "G5M_NBT_003_L3_Q5",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 1.05 \u00f7 0.30.",
+          "answer": "3.50",
+          "correct_answer": "3.50",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.50.",
+          "read_aloud_text": "Divide 1.05 by 0.30. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 1.05 by 0.30. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3.50",
+            "3.50",
+            "3.50"
+          ],
+          "operands": [
+            "1.05",
+            "0.30"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q6",
+          "question_id": "G5M_NBT_003_L3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 1.44 \u00f7 0.40.",
+          "answer": "3.60",
+          "correct_answer": "3.60",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.60.",
+          "read_aloud_text": "Divide 1.44 by 0.40. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 1.44 by 0.40. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "3.60",
+            "36.00",
+            "0.36",
+            "1.84"
+          ],
+          "operands": [
+            "1.44",
+            "0.40"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q7",
+          "question_id": "G5M_NBT_003_L3_Q7",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 1.85 \u00f7 0.50.",
+          "answer": "3.70",
+          "correct_answer": "3.70",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.70.",
+          "read_aloud_text": "Divide 1.85 by 0.50. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 1.85 by 0.50. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3.70",
+            "3.70",
+            "3.70"
+          ],
+          "operands": [
+            "1.85",
+            "0.50"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q8",
+          "question_id": "G5M_NBT_003_L3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 0.76 \u00f7 0.20.",
+          "answer": "3.80",
+          "correct_answer": "3.80",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.80.",
+          "read_aloud_text": "Divide 0.76 by 0.20. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 0.76 by 0.20. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "3.80",
+            "38.00",
+            "0.38",
+            "0.96"
+          ],
+          "operands": [
+            "0.76",
+            "0.20"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q9",
+          "question_id": "G5M_NBT_003_L3_Q9",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 1.17 \u00f7 0.30.",
+          "answer": "3.90",
+          "correct_answer": "3.90",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.90.",
+          "read_aloud_text": "Divide 1.17 by 0.30. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 1.17 by 0.30. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3.90",
+            "3.90",
+            "3.90"
+          ],
+          "operands": [
+            "1.17",
+            "0.30"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_L3_Q10",
+          "question_id": "G5M_NBT_003_L3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 1.60 \u00f7 0.40.",
+          "answer": "4.00",
+          "correct_answer": "4.00",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 4.00.",
+          "read_aloud_text": "Divide 1.60 by 0.40. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 1.60 by 0.40. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "4.00",
+            "40.00",
+            "0.40",
+            "2.00"
+          ],
+          "operands": [
+            "1.60",
+            "0.40"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_003_L4",
+      "label": "Level 4: Decimal Word Problems",
+      "focus": "Choose operations from context.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_003_L4_Q1",
+          "question_id": "G5M_NBT_003_L4_Q1",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $1.35. What is the cost of 3 snacks?",
+          "answer": "4.05",
+          "correct_answer": "4.05",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 4.05.",
+          "read_aloud_text": "A snack costs 1.35 dollars. What is the cost of 3 snacks?",
+          "question_audio": {
+            "text": "A snack costs 1.35 dollars. What is the cost of 3 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "4.05",
+            "4.05",
+            "multiply price by number of snacks"
+          ],
+          "knowns": [
+            1.35,
+            3
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q2",
+          "question_id": "G5M_NBT_003_L4_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $1.45. What is the cost of 4 snacks?",
+          "answer": "5.80",
+          "correct_answer": "5.80",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 5.80.",
+          "read_aloud_text": "A snack costs 1.45 dollars. What is the cost of 4 snacks?",
+          "question_audio": {
+            "text": "A snack costs 1.45 dollars. What is the cost of 4 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "5.80",
+            "5.45",
+            "6.80",
+            "1.45"
+          ],
+          "knowns": [
+            1.45,
+            4
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q3",
+          "question_id": "G5M_NBT_003_L4_Q3",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $1.55. What is the cost of 5 snacks?",
+          "answer": "7.75",
+          "correct_answer": "7.75",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 7.75.",
+          "read_aloud_text": "A snack costs 1.55 dollars. What is the cost of 5 snacks?",
+          "question_audio": {
+            "text": "A snack costs 1.55 dollars. What is the cost of 5 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "7.75",
+            "7.75",
+            "7.75"
+          ],
+          "knowns": [
+            1.55,
+            5
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q4",
+          "question_id": "G5M_NBT_003_L4_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $1.65. What is the cost of 2 snacks?",
+          "answer": "3.30",
+          "correct_answer": "3.30",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.30.",
+          "read_aloud_text": "A snack costs 1.65 dollars. What is the cost of 2 snacks?",
+          "question_audio": {
+            "text": "A snack costs 1.65 dollars. What is the cost of 2 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "3.30",
+            "3.65",
+            "4.30",
+            "1.65"
+          ],
+          "knowns": [
+            1.65,
+            2
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q5",
+          "question_id": "G5M_NBT_003_L4_Q5",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $1.75. What is the cost of 3 snacks?",
+          "answer": "5.25",
+          "correct_answer": "5.25",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 5.25.",
+          "read_aloud_text": "A snack costs 1.75 dollars. What is the cost of 3 snacks?",
+          "question_audio": {
+            "text": "A snack costs 1.75 dollars. What is the cost of 3 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "5.25",
+            "5.25",
+            "5.25"
+          ],
+          "knowns": [
+            1.75,
+            3
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q6",
+          "question_id": "G5M_NBT_003_L4_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $1.85. What is the cost of 4 snacks?",
+          "answer": "7.40",
+          "correct_answer": "7.40",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 7.40.",
+          "read_aloud_text": "A snack costs 1.85 dollars. What is the cost of 4 snacks?",
+          "question_audio": {
+            "text": "A snack costs 1.85 dollars. What is the cost of 4 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "7.40",
+            "5.85",
+            "8.40",
+            "1.85"
+          ],
+          "knowns": [
+            1.85,
+            4
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q7",
+          "question_id": "G5M_NBT_003_L4_Q7",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $1.95. What is the cost of 5 snacks?",
+          "answer": "9.75",
+          "correct_answer": "9.75",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 9.75.",
+          "read_aloud_text": "A snack costs 1.95 dollars. What is the cost of 5 snacks?",
+          "question_audio": {
+            "text": "A snack costs 1.95 dollars. What is the cost of 5 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "9.75",
+            "9.75",
+            "9.75"
+          ],
+          "knowns": [
+            1.95,
+            5
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q8",
+          "question_id": "G5M_NBT_003_L4_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $2.05. What is the cost of 2 snacks?",
+          "answer": "4.10",
+          "correct_answer": "4.10",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 4.10.",
+          "read_aloud_text": "A snack costs 2.05 dollars. What is the cost of 2 snacks?",
+          "question_audio": {
+            "text": "A snack costs 2.05 dollars. What is the cost of 2 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "4.10",
+            "4.05",
+            "5.10",
+            "2.05"
+          ],
+          "knowns": [
+            2.05,
+            2
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q9",
+          "question_id": "G5M_NBT_003_L4_Q9",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $2.15. What is the cost of 3 snacks?",
+          "answer": "6.45",
+          "correct_answer": "6.45",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 6.45.",
+          "read_aloud_text": "A snack costs 2.15 dollars. What is the cost of 3 snacks?",
+          "question_audio": {
+            "text": "A snack costs 2.15 dollars. What is the cost of 3 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "6.45",
+            "6.45",
+            "6.45"
+          ],
+          "knowns": [
+            2.15,
+            3
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_L4_Q10",
+          "question_id": "G5M_NBT_003_L4_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $2.25. What is the cost of 4 snacks?",
+          "answer": "9.00",
+          "correct_answer": "9.00",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 9.00.",
+          "read_aloud_text": "A snack costs 2.25 dollars. What is the cost of 4 snacks?",
+          "question_audio": {
+            "text": "A snack costs 2.25 dollars. What is the cost of 4 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "9.00",
+            "6.25",
+            "10.00",
+            "2.25"
+          ],
+          "knowns": [
+            2.25,
+            4
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_NBT_003_MIXED",
+      "label": "Mixed",
+      "focus": "Mix decimal operations.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_NBT_003_MIXED_Q1",
+          "question_id": "G5M_NBT_003_MIXED_Q1",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 1.30 + 0.16.",
+          "answer": "1.46",
+          "correct_answer": "1.46",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.46.",
+          "read_aloud_text": "Add 1.30 and 0.16, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 1.30 and 0.16, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1.46",
+            "1.46",
+            "1.46"
+          ],
+          "operands": [
+            "1.30",
+            "0.16"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q2",
+          "question_id": "G5M_NBT_003_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 1.40 + 0.17.",
+          "answer": "1.57",
+          "correct_answer": "1.57",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.57.",
+          "read_aloud_text": "Add 1.40 and 0.17, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 1.40 and 0.17, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "1.57",
+            "1.67",
+            "1.23",
+            "1.6"
+          ],
+          "operands": [
+            "1.40",
+            "0.17"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q3",
+          "question_id": "G5M_NBT_003_MIXED_Q3",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 1.50 + 0.18.",
+          "answer": "1.68",
+          "correct_answer": "1.68",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 1.68.",
+          "read_aloud_text": "Add 1.50 and 0.18, lining up decimal points.",
+          "question_audio": {
+            "text": "Add 1.50 and 0.18, lining up decimal points.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1.68",
+            "1.68",
+            "1.68"
+          ],
+          "operands": [
+            "1.50",
+            "0.18"
+          ],
+          "operation": "+",
+          "algorithm_steps": [
+            "Line up decimal points.",
+            "Add hundredths, tenths, then ones."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q4",
+          "question_id": "G5M_NBT_003_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.50 \u00d7 0.20.",
+          "answer": "0.30",
+          "correct_answer": "0.30",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.30.",
+          "read_aloud_text": "Multiply 1.50 times 0.20. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.50 times 0.20. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "0.30",
+            "3.00",
+            "1.70",
+            "0.03"
+          ],
+          "grid_base": 100,
+          "shaded": 3,
+          "decimal_label": "Product about 0.30"
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q5",
+          "question_id": "G5M_NBT_003_MIXED_Q5",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.60 \u00d7 0.30.",
+          "answer": "0.48",
+          "correct_answer": "0.48",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.48.",
+          "read_aloud_text": "Multiply 1.60 times 0.30. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.60 times 0.30. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "0.48",
+            "0.48",
+            "0.48"
+          ],
+          "grid_base": 100,
+          "shaded": 5,
+          "decimal_label": "Product about 0.48"
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q6",
+          "question_id": "G5M_NBT_003_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "decimal_grid",
+          "prompt": "Multiply 1.70 \u00d7 0.40.",
+          "answer": "0.68",
+          "correct_answer": "0.68",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 0.68.",
+          "read_aloud_text": "Multiply 1.70 times 0.40. Estimate first to place the decimal point.",
+          "question_audio": {
+            "text": "Multiply 1.70 times 0.40. Estimate first to place the decimal point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "0.68",
+            "6.80",
+            "2.10",
+            "0.07"
+          ],
+          "grid_base": 100,
+          "shaded": 7,
+          "decimal_label": "Product about 0.68"
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q7",
+          "question_id": "G5M_NBT_003_MIXED_Q7",
+          "question_type": "decimal_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 1.85 \u00f7 0.50.",
+          "answer": "3.70",
+          "correct_answer": "3.70",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.70.",
+          "read_aloud_text": "Divide 1.85 by 0.50. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 1.85 by 0.50. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3.70",
+            "3.70",
+            "3.70"
+          ],
+          "operands": [
+            "1.85",
+            "0.50"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q8",
+          "question_id": "G5M_NBT_003_MIXED_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Divide 0.76 \u00f7 0.20.",
+          "answer": "3.80",
+          "correct_answer": "3.80",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 3.80.",
+          "read_aloud_text": "Divide 0.76 by 0.20. Keep decimal places aligned.",
+          "question_audio": {
+            "text": "Divide 0.76 by 0.20. Keep decimal places aligned.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "3.80",
+            "38.00",
+            "0.38",
+            "0.96"
+          ],
+          "operands": [
+            "0.76",
+            "0.20"
+          ],
+          "operation": "\u00f7",
+          "algorithm_steps": [
+            "Use place value to make the divisor a whole number if needed.",
+            "Place the decimal point in the quotient."
+          ]
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q9",
+          "question_id": "G5M_NBT_003_MIXED_Q9",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $2.15. What is the cost of 3 snacks?",
+          "answer": "6.45",
+          "correct_answer": "6.45",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 6.45.",
+          "read_aloud_text": "A snack costs 2.15 dollars. What is the cost of 3 snacks?",
+          "question_audio": {
+            "text": "A snack costs 2.15 dollars. What is the cost of 3 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "6.45",
+            "6.45",
+            "6.45"
+          ],
+          "knowns": [
+            2.15,
+            3
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        },
+        {
+          "id": "G5M_NBT_003_MIXED_Q10",
+          "question_id": "G5M_NBT_003_MIXED_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A snack costs $2.25. What is the cost of 4 snacks?",
+          "answer": "9.00",
+          "correct_answer": "9.00",
+          "misconception_tag": "decimal_word_problem_error",
+          "hints": [
+            "Read the question and name the model first.",
+            "Underline the numbers and operation words.",
+            "Check your answer against the visual model."
+          ],
+          "feedback": {
+            "correct": "Correct. Your reasoning matches the model.",
+            "incorrect": "Try again. Rebuild the model and check each place or step."
+          },
+          "explanation": "The answer is 9.00.",
+          "read_aloud_text": "A snack costs 2.25 dollars. What is the cost of 4 snacks?",
+          "question_audio": {
+            "text": "A snack costs 2.25 dollars. What is the cost of 4 snacks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "9.00",
+            "6.25",
+            "10.00",
+            "2.25"
+          ],
+          "knowns": [
+            2.25,
+            4
+          ],
+          "unknown_label": "total cost",
+          "operation": "multiply"
+        }
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Decimal Operations",
+    "mission_intro": "Join the Skill World crew to master decimal operations through models, narration, and practice levels.",
+    "badge_name": "Decimal Operations Badge"
+  },
+  "next_skill_id": "",
+  "remediation_skill_id": "G5M_NBT_001",
+  "page_audio": {
+    "story": {
+      "text": "Welcome to the Decimal Operations mission. Today you will use models and careful math language to solve add, subtract, multiply, and divide decimals to hundredths. Read the story, notice what each visual is showing, and press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches the important ideas for Decimal Operations. Look for place value, operation order, and labels before you calculate. Press Next after you can explain the model in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch the tutor solve one example. First read the question, then connect each number to the visual model, and finally check whether the answer makes sense. Press Next when you are ready to try a guided demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "In the demo, build the solution one step at a time. Say what the model shows, use precise Grade Five math words, and compare your thinking with the explanation. Press Next to move into independent practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Practice is your first independent try. Use the visual model before answering, then tap Read Question if you want the problem read aloud. Choose or type your answer, and press Next after you check your feedback.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "The challenge asks you to transfer the same skill to a harder problem. Slow down, use Read Question if helpful, and explain the operation or coordinate step before you answer. Press Next after you learn from the feedback.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "The checkpoint shows what you can do on your own. Read the page, tap Read Question for the problem, and solve using the model rather than guessing. Your answer helps build your growth profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge screen for Decimal Operations. Celebrate the strategies you practiced, name one misconception you avoided, and get ready to save your progress. Press Save Growth Data when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page summarizes your growth for Decimal Operations. Review your stars, notice any misconception tags, and continue to Skill Practice Center for focused levels. Use the practice route when you want more questions.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
