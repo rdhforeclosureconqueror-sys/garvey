@@ -586,3 +586,25 @@ test('Final Grade 6 Geometry and Statistics Skill World packages appear from man
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
+
+test('Grade 4 English advanced word analysis Skill World package appears from manifest for the hub', () => {
+  const skillId = 'G4E_RF_001';
+  assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  const packages = manifest.packages.map(readPackage);
+  const g4e = packages.find((pkg) => pkg.skill_id === skillId);
+  assert.ok(g4e, `${skillId} package loads from manifest`);
+  assert.equal(g4e.grade, 4);
+  assert.equal(g4e.subject, 'English');
+  assert.equal(g4e.domain, 'Reading Foundations / Phonics');
+  assert.equal(g4e.skill, 'Advanced Word Analysis and Multisyllable Decoding');
+  assert.equal(Array.isArray(g4e.level_banks), true);
+  assert.equal(g4e.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+  assert.equal(g4e.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+  assert.equal(g4e.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+  assert.equal(`/skill-world/${encodeURIComponent(g4e.skill_id)}/drill`, '/skill-world/G4E_RF_001/drill');
+  assert.equal(g4e.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});
