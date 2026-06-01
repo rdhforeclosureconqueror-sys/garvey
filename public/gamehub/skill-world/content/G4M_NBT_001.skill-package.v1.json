@@ -1,0 +1,2852 @@
+{
+  "skill_id": "G4M_NBT_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_docs": [
+      "docs/grade4_math_completion_plan.md",
+      "curriculum-framework/plans/grade4-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade4-math-completion-plan.v1.json",
+    "readiness_checkpoint": "first_grade4_math_proof_package"
+  },
+  "grade": 4,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Place Value to 1,000,000",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Million Map team to decode city coordinates, compare giant supply totals, and round distances so the crew can plan a safe route.",
+    "mini_lesson": "A digit gets its value from its place. Use commas to read thousands and millions, expand each nonzero digit by its value, compare from the greatest place, and round by checking the digit to the right.",
+    "objective": "Read, write, compare, and round whole numbers from 0 to 1,000,000 using place value.",
+    "key_vocabulary": [
+      "ones",
+      "tens",
+      "hundreds",
+      "thousands",
+      "ten thousands",
+      "hundred thousands",
+      "millions",
+      "standard form",
+      "word form",
+      "expanded form",
+      "compare",
+      "round"
+    ],
+    "concept_explanation": "In Grade 4, numbers can have ones, thousands, and millions periods. Zeros are important placeholders because they keep other digits in the correct place.",
+    "common_misconception": "Learners may shift digits into the wrong place, skip zero placeholders, leave out a place in expanded form, or round to the wrong place.",
+    "real_world_connection": "Place value helps people read population counts, compare distances, round budgets, and understand large numbers in news and science.",
+    "lesson_summary": "Read each period, keep zero placeholders, compare from the left, and round using the digit just to the right of the target place.",
+    "visual_model": "place_value_chart",
+    "audio": {
+      "text": "In this lesson, we use place value to understand numbers as large as one million. Listen for the places, watch zeros carefully, and use the models before you answer.",
+      "label": "Listen to Lesson",
+      "type": "instruction",
+      "repeat_count": 1
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G4M_NBT_001_L1_Q1",
+      "question_id": "G4M_NBT_001_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "In 405,020, what digit is in the ten thousands place?",
+      "answer": "0",
+      "correct_answer": "0",
+      "misconception_tag": "zero_placeholder_confusion",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "The digit in the ten thousands place of 405,020 is 0.",
+      "value": 405020,
+      "number": 405020,
+      "millions": 0,
+      "hundred_thousands": 4,
+      "ten_thousands": 0,
+      "thousands": 5,
+      "hundreds": 0,
+      "tens": 2,
+      "ones": 0,
+      "choices": [
+        "0",
+        "1",
+        "10"
+      ],
+      "place": "ten_thousands",
+      "read_aloud_text": "In 405,020, what digit is in the ten thousands place?",
+      "question_audio": {
+        "text": "In 405,020, what digit is in the ten thousands place?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L4_Q5",
+      "question_id": "G4M_NBT_001_L4_Q5",
+      "question_type": "rounding",
+      "visual_model": "rounding_model",
+      "prompt": "Round 950,000 to the nearest 100,000.",
+      "answer": "1,000,000",
+      "correct_answer": "1,000,000",
+      "misconception_tag": "rounding_place_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "950,000 is between 900,000 and 1,000,000. The midpoint is 950,000, so it rounds to 1,000,000.",
+      "value": 950000,
+      "number": 950000,
+      "round_to": 100000,
+      "nearest": 100000,
+      "rounded": 1000000,
+      "min": 900000,
+      "max": 1000000,
+      "acceptable_answers": [
+        "1,000,000",
+        "1000000"
+      ],
+      "spoken_prompt": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+      "read_aloud_text": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+      "question_audio": {
+        "text": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "First, read the commas as place-value periods: millions, thousands, and ones.",
+    "Next, underline the place the question asks about or the place you are rounding to.",
+    "Then, use the digit to the right when rounding, or compare digits from left to right when comparing numbers.",
+    "Finally, check that zeros are still holding their places in your answer."
+  ],
+  "guided_practice": [
+    {
+      "id": "G4M_NBT_001_L1_Q2",
+      "question_id": "G4M_NBT_001_L1_Q2",
+      "question_type": "short_response",
+      "visual_model": "expanded_form",
+      "prompt": "In 916,384, what digit is in the hundred thousands place?",
+      "answer": "9",
+      "correct_answer": "9",
+      "misconception_tag": "place_value_shift_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "The digit in the hundred thousands place of 916,384 is 9.",
+      "value": 916384,
+      "number": 916384,
+      "millions": 0,
+      "hundred_thousands": 9,
+      "ten_thousands": 1,
+      "thousands": 6,
+      "hundreds": 3,
+      "tens": 8,
+      "ones": 4,
+      "acceptable_answers": [
+        "9"
+      ],
+      "place": "hundred_thousands",
+      "read_aloud_text": "In 916,384, what digit is in the hundred thousands place?",
+      "question_audio": {
+        "text": "In 916,384, what digit is in the hundred thousands place?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L2_Q1",
+      "question_id": "G4M_NBT_001_L2_Q1",
+      "question_type": "short_response",
+      "visual_model": "expanded_form",
+      "prompt": "Write 405,020 in word form.",
+      "answer": "four hundred five thousand twenty",
+      "correct_answer": "four hundred five thousand twenty",
+      "misconception_tag": "zero_placeholder_confusion",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "405,020 is four hundred five thousand twenty in word form.",
+      "value": 405020,
+      "number": 405020,
+      "word_form": "four hundred five thousand twenty",
+      "expanded_form": "400000 + 5000 + 20",
+      "acceptable_answers": [
+        "four hundred five thousand twenty",
+        "Four Hundred Five Thousand Twenty"
+      ],
+      "read_aloud_text": "Write 405,020 in word form.",
+      "question_audio": {
+        "text": "Write 405,020 in word form.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L4_Q2",
+      "question_id": "G4M_NBT_001_L4_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "rounding_model",
+      "prompt": "Round 916,384 to the nearest 100.",
+      "answer": "916,400",
+      "correct_answer": "916,400",
+      "misconception_tag": "rounding_place_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "916,384 is between 916,300 and 916,400. The midpoint is 916,350, so it rounds to 916,400.",
+      "value": 916384,
+      "number": 916384,
+      "round_to": 100,
+      "nearest": 100,
+      "rounded": 916400,
+      "min": 916300,
+      "max": 916400,
+      "acceptable_answers": [
+        "916,400",
+        "916400"
+      ],
+      "choices": [
+        "916,400",
+        "916,300",
+        "916,400"
+      ],
+      "spoken_prompt": "Round nine hundred sixteen thousand three hundred eighty four to the nearest one hundred.",
+      "read_aloud_text": "Round nine hundred sixteen thousand three hundred eighty four to the nearest one hundred.",
+      "question_audio": {
+        "text": "Round nine hundred sixteen thousand three hundred eighty four to the nearest one hundred.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G4M_NBT_001_L3_Q1",
+      "question_id": "G4M_NBT_001_L3_Q1",
+      "question_type": "comparison",
+      "visual_model": "comparison",
+      "prompt": "Compare 405,020 and 450,020 using >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "misconception_tag": "zero_placeholder_confusion",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "Compare from left to right. 405,020 < 450,020.",
+      "left_value": 405020,
+      "right_value": 450020,
+      "left": 405020,
+      "right": 450020,
+      "min": 405020,
+      "max": 450020,
+      "value": 405020,
+      "acceptable_answers": [
+        "<",
+        "less than"
+      ],
+      "spoken_prompt": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+      "read_aloud_text": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+      "question_audio": {
+        "text": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L4_Q4",
+      "question_id": "G4M_NBT_001_L4_Q4",
+      "question_type": "rounding",
+      "visual_model": "rounding_model",
+      "prompt": "Round 630,045 to the nearest 10,000.",
+      "answer": "630,000",
+      "correct_answer": "630,000",
+      "misconception_tag": "rounding_place_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "630,045 is between 630,000 and 640,000. The midpoint is 635,000, so it rounds to 630,000.",
+      "value": 630045,
+      "number": 630045,
+      "round_to": 10000,
+      "nearest": 10000,
+      "rounded": 630000,
+      "min": 630000,
+      "max": 640000,
+      "acceptable_answers": [
+        "630,000",
+        "630000"
+      ],
+      "spoken_prompt": "Round six hundred thirty thousand forty five to the nearest ten thousand.",
+      "read_aloud_text": "Round six hundred thirty thousand forty five to the nearest ten thousand.",
+      "question_audio": {
+        "text": "Round six hundred thirty thousand forty five to the nearest ten thousand.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L2_Q5",
+      "question_id": "G4M_NBT_001_L2_Q5",
+      "question_type": "short_response",
+      "visual_model": "expanded_form",
+      "prompt": "Write 305,901 in expanded form.",
+      "answer": "300000 + 5000 + 900 + 1",
+      "correct_answer": "300000 + 5000 + 900 + 1",
+      "misconception_tag": "expanded_form_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "305,901 is 300000 + 5000 + 900 + 1 in expanded form.",
+      "value": 305901,
+      "number": 305901,
+      "word_form": "three hundred five thousand nine hundred one",
+      "expanded_form": "300000 + 5000 + 900 + 1",
+      "acceptable_answers": [
+        "300000 + 5000 + 900 + 1",
+        "300000 + 5000 + 900 + 1"
+      ],
+      "read_aloud_text": "Write 305,901 in expanded form.",
+      "question_audio": {
+        "text": "Write 305,901 in expanded form.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G4M_NBT_001_L4_Q5",
+      "question_id": "G4M_NBT_001_L4_Q5",
+      "question_type": "rounding",
+      "visual_model": "rounding_model",
+      "prompt": "Round 950,000 to the nearest 100,000.",
+      "answer": "1,000,000",
+      "correct_answer": "1,000,000",
+      "misconception_tag": "rounding_place_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "950,000 is between 900,000 and 1,000,000. The midpoint is 950,000, so it rounds to 1,000,000.",
+      "value": 950000,
+      "number": 950000,
+      "round_to": 100000,
+      "nearest": 100000,
+      "rounded": 1000000,
+      "min": 900000,
+      "max": 1000000,
+      "acceptable_answers": [
+        "1,000,000",
+        "1000000"
+      ],
+      "spoken_prompt": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+      "read_aloud_text": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+      "question_audio": {
+        "text": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L3_Q3",
+      "question_id": "G4M_NBT_001_L3_Q3",
+      "question_type": "comparison",
+      "visual_model": "number_line",
+      "prompt": "Compare 1,000,000 and 999,999 using >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "misconception_tag": "place_value_shift_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "Compare from left to right. 1,000,000 > 999,999.",
+      "left_value": 1000000,
+      "right_value": 999999,
+      "left": 1000000,
+      "right": 999999,
+      "min": 999999,
+      "max": 1000000,
+      "value": 1000000,
+      "acceptable_answers": [
+        ">",
+        "greater than"
+      ],
+      "spoken_prompt": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+      "read_aloud_text": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+      "question_audio": {
+        "text": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "misconception_bank": {
+    "place_value_shift_error": "The digit moved to a neighboring place. Line up the number in a place-value chart before answering.",
+    "zero_placeholder_confusion": "A zero can mean there are none of that place, but it still holds the place for other digits.",
+    "expanded_form_error": "Expanded form should add the value of each nonzero digit, not just list the digits.",
+    "rounding_place_error": "Round to the requested place only. Check the digit immediately to its right."
+  },
+  "review_bank": [
+    {
+      "id": "G4M_NBT_001_L1_Q1",
+      "question_id": "G4M_NBT_001_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "In 405,020, what digit is in the ten thousands place?",
+      "answer": "0",
+      "correct_answer": "0",
+      "misconception_tag": "zero_placeholder_confusion",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "The digit in the ten thousands place of 405,020 is 0.",
+      "value": 405020,
+      "number": 405020,
+      "millions": 0,
+      "hundred_thousands": 4,
+      "ten_thousands": 0,
+      "thousands": 5,
+      "hundreds": 0,
+      "tens": 2,
+      "ones": 0,
+      "choices": [
+        "0",
+        "1",
+        "10"
+      ],
+      "place": "ten_thousands",
+      "read_aloud_text": "In 405,020, what digit is in the ten thousands place?",
+      "question_audio": {
+        "text": "In 405,020, what digit is in the ten thousands place?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L2_Q2",
+      "question_id": "G4M_NBT_001_L2_Q2",
+      "question_type": "short_response",
+      "visual_model": "expanded_form",
+      "prompt": "Write 680,314 in expanded form.",
+      "answer": "600000 + 80000 + 300 + 10 + 4",
+      "correct_answer": "600000 + 80000 + 300 + 10 + 4",
+      "misconception_tag": "expanded_form_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "680,314 is 600000 + 80000 + 300 + 10 + 4 in expanded form.",
+      "value": 680314,
+      "number": 680314,
+      "word_form": "six hundred eighty thousand three hundred fourteen",
+      "expanded_form": "600000 + 80000 + 300 + 10 + 4",
+      "acceptable_answers": [
+        "600000 + 80000 + 300 + 10 + 4",
+        "600000 + 80000 + 300 + 10 + 4"
+      ],
+      "read_aloud_text": "Write 680,314 in expanded form.",
+      "question_audio": {
+        "text": "Write 680,314 in expanded form.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L3_Q2",
+      "question_id": "G4M_NBT_001_L3_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 916,384 and 916,348 using >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "misconception_tag": "zero_placeholder_confusion",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "Compare from left to right. 916,384 > 916,348.",
+      "left_value": 916384,
+      "right_value": 916348,
+      "left": 916384,
+      "right": 916348,
+      "min": 916348,
+      "max": 916384,
+      "value": 916384,
+      "choices": [
+        ">",
+        "<",
+        "="
+      ],
+      "acceptable_answers": [
+        ">",
+        "greater than"
+      ],
+      "spoken_prompt": "Compare nine hundred sixteen thousand three hundred eighty four and nine hundred sixteen thousand three hundred forty eight using greater than, less than, or equal to.",
+      "read_aloud_text": "Compare nine hundred sixteen thousand three hundred eighty four and nine hundred sixteen thousand three hundred forty eight using greater than, less than, or equal to.",
+      "question_audio": {
+        "text": "Compare nine hundred sixteen thousand three hundred eighty four and nine hundred sixteen thousand three hundred forty eight using greater than, less than, or equal to.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G4M_NBT_001_L4_Q3",
+      "question_id": "G4M_NBT_001_L4_Q3",
+      "question_type": "rounding",
+      "visual_model": "rounding_model",
+      "prompt": "Round 780,206 to the nearest 1,000.",
+      "answer": "780,000",
+      "correct_answer": "780,000",
+      "misconception_tag": "rounding_place_error",
+      "hints": [
+        "Name the place or benchmark the question asks for.",
+        "Use commas and place-value periods to keep each digit in the right place.",
+        "Check zeros carefully because they hold places even when their value is zero."
+      ],
+      "feedback": {
+        "correct": "Yes! You used Grade 4 place-value reasoning.",
+        "incorrect": "Try again by lining up the digits by place value."
+      },
+      "explanation": "780,206 is between 780,000 and 781,000. The midpoint is 780,500, so it rounds to 780,000.",
+      "value": 780206,
+      "number": 780206,
+      "round_to": 1000,
+      "nearest": 1000,
+      "rounded": 780000,
+      "min": 780000,
+      "max": 781000,
+      "acceptable_answers": [
+        "780,000",
+        "780000"
+      ],
+      "spoken_prompt": "Round seven hundred eighty thousand two hundred six to the nearest one thousand.",
+      "read_aloud_text": "Round seven hundred eighty thousand two hundred six to the nearest one thousand.",
+      "question_audio": {
+        "text": "Round seven hundred eighty thousand two hundred six to the nearest one thousand.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "game_theme": {
+    "title": "Million Map Quest",
+    "mission_intro": "Decode numbers up to one million to guide the Million Map team.",
+    "badge_name": "Million Map Place-Value Badge",
+    "map_area": "Base-Ten Beacon Tower"
+  },
+  "next_skill_id": "G4M_NBT_002",
+  "remediation_skill_id": "G3M_PV_001",
+  "level_banks": [
+    {
+      "level_id": "G4M_NBT_001_L1",
+      "label": "Level 1: Place Value to 1,000,000",
+      "focus": "Identify digit values and places through 1,000,000, including zero placeholders.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_001_L1_Q1",
+          "question_id": "G4M_NBT_001_L1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 405,020, what digit is in the ten thousands place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the ten thousands place of 405,020 is 0.",
+          "value": 405020,
+          "number": 405020,
+          "millions": 0,
+          "hundred_thousands": 4,
+          "ten_thousands": 0,
+          "thousands": 5,
+          "hundreds": 0,
+          "tens": 2,
+          "ones": 0,
+          "choices": [
+            "0",
+            "1",
+            "10"
+          ],
+          "place": "ten_thousands",
+          "read_aloud_text": "In 405,020, what digit is in the ten thousands place?",
+          "question_audio": {
+            "text": "In 405,020, what digit is in the ten thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q2",
+          "question_id": "G4M_NBT_001_L1_Q2",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 916,384, what digit is in the hundred thousands place?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the hundred thousands place of 916,384 is 9.",
+          "value": 916384,
+          "number": 916384,
+          "millions": 0,
+          "hundred_thousands": 9,
+          "ten_thousands": 1,
+          "thousands": 6,
+          "hundreds": 3,
+          "tens": 8,
+          "ones": 4,
+          "acceptable_answers": [
+            "9"
+          ],
+          "place": "hundred_thousands",
+          "read_aloud_text": "In 916,384, what digit is in the hundred thousands place?",
+          "question_audio": {
+            "text": "In 916,384, what digit is in the hundred thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q3",
+          "question_id": "G4M_NBT_001_L1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 1,000,000, what digit is in the millions place?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the millions place of 1,000,000 is 1.",
+          "value": 1000000,
+          "number": 1000000,
+          "millions": 1,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "choices": [
+            "1",
+            "2",
+            "10"
+          ],
+          "place": "millions",
+          "read_aloud_text": "In 1,000,000, what digit is in the millions place?",
+          "question_audio": {
+            "text": "In 1,000,000, what digit is in the millions place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q4",
+          "question_id": "G4M_NBT_001_L1_Q4",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 780,206, what digit is in the thousands place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the thousands place of 780,206 is 0.",
+          "value": 780206,
+          "number": 780206,
+          "millions": 0,
+          "hundred_thousands": 7,
+          "ten_thousands": 8,
+          "thousands": 0,
+          "hundreds": 2,
+          "tens": 0,
+          "ones": 6,
+          "acceptable_answers": [
+            "0"
+          ],
+          "place": "thousands",
+          "read_aloud_text": "In 780,206, what digit is in the thousands place?",
+          "question_audio": {
+            "text": "In 780,206, what digit is in the thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q5",
+          "question_id": "G4M_NBT_001_L1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 254,731, what digit is in the hundreds place?",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the hundreds place of 254,731 is 7.",
+          "value": 254731,
+          "number": 254731,
+          "millions": 0,
+          "hundred_thousands": 2,
+          "ten_thousands": 5,
+          "thousands": 4,
+          "hundreds": 7,
+          "tens": 3,
+          "ones": 1,
+          "choices": [
+            "7",
+            "8",
+            "70"
+          ],
+          "place": "hundreds",
+          "read_aloud_text": "In 254,731, what digit is in the hundreds place?",
+          "question_audio": {
+            "text": "In 254,731, what digit is in the hundreds place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q6",
+          "question_id": "G4M_NBT_001_L1_Q6",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 630,045, what digit is in the tens place?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the tens place of 630,045 is 4.",
+          "value": 630045,
+          "number": 630045,
+          "millions": 0,
+          "hundred_thousands": 6,
+          "ten_thousands": 3,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 4,
+          "ones": 5,
+          "acceptable_answers": [
+            "4"
+          ],
+          "place": "tens",
+          "read_aloud_text": "In 630,045, what digit is in the tens place?",
+          "question_audio": {
+            "text": "In 630,045, what digit is in the tens place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q7",
+          "question_id": "G4M_NBT_001_L1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 502,019, what digit is in the ones place?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the ones place of 502,019 is 9.",
+          "value": 502019,
+          "number": 502019,
+          "millions": 0,
+          "hundred_thousands": 5,
+          "ten_thousands": 0,
+          "thousands": 2,
+          "hundreds": 0,
+          "tens": 1,
+          "ones": 9,
+          "choices": [
+            "9",
+            "0",
+            "90"
+          ],
+          "place": "ones",
+          "read_aloud_text": "In 502,019, what digit is in the ones place?",
+          "question_audio": {
+            "text": "In 502,019, what digit is in the ones place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q8",
+          "question_id": "G4M_NBT_001_L1_Q8",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 348,000, what digit is in the thousands place?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the thousands place of 348,000 is 8.",
+          "value": 348000,
+          "number": 348000,
+          "millions": 0,
+          "hundred_thousands": 3,
+          "ten_thousands": 4,
+          "thousands": 8,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "acceptable_answers": [
+            "8"
+          ],
+          "place": "thousands",
+          "read_aloud_text": "In 348,000, what digit is in the thousands place?",
+          "question_audio": {
+            "text": "In 348,000, what digit is in the thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q9",
+          "question_id": "G4M_NBT_001_L1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 900,501, what digit is in the hundreds place?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the hundreds place of 900,501 is 5.",
+          "value": 900501,
+          "number": 900501,
+          "millions": 0,
+          "hundred_thousands": 9,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 5,
+          "tens": 0,
+          "ones": 1,
+          "choices": [
+            "5",
+            "6",
+            "50"
+          ],
+          "place": "hundreds",
+          "read_aloud_text": "In 900,501, what digit is in the hundreds place?",
+          "question_audio": {
+            "text": "In 900,501, what digit is in the hundreds place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L1_Q10",
+          "question_id": "G4M_NBT_001_L1_Q10",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 120,090, what digit is in the ten thousands place?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the ten thousands place of 120,090 is 2.",
+          "value": 120090,
+          "number": 120090,
+          "millions": 0,
+          "hundred_thousands": 1,
+          "ten_thousands": 2,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 9,
+          "ones": 0,
+          "acceptable_answers": [
+            "2"
+          ],
+          "place": "ten_thousands",
+          "read_aloud_text": "In 120,090, what digit is in the ten thousands place?",
+          "question_audio": {
+            "text": "In 120,090, what digit is in the ten thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_001_L2",
+      "label": "Level 2: Read and Write Multi-Digit Numbers",
+      "focus": "Translate among standard form, word form, and expanded form.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_001_L2_Q1",
+          "question_id": "G4M_NBT_001_L2_Q1",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 405,020 in word form.",
+          "answer": "four hundred five thousand twenty",
+          "correct_answer": "four hundred five thousand twenty",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "405,020 is four hundred five thousand twenty in word form.",
+          "value": 405020,
+          "number": 405020,
+          "word_form": "four hundred five thousand twenty",
+          "expanded_form": "400000 + 5000 + 20",
+          "acceptable_answers": [
+            "four hundred five thousand twenty",
+            "Four Hundred Five Thousand Twenty"
+          ],
+          "read_aloud_text": "Write 405,020 in word form.",
+          "question_audio": {
+            "text": "Write 405,020 in word form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q2",
+          "question_id": "G4M_NBT_001_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 680,314 in expanded form.",
+          "answer": "600000 + 80000 + 300 + 10 + 4",
+          "correct_answer": "600000 + 80000 + 300 + 10 + 4",
+          "misconception_tag": "expanded_form_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "680,314 is 600000 + 80000 + 300 + 10 + 4 in expanded form.",
+          "value": 680314,
+          "number": 680314,
+          "word_form": "six hundred eighty thousand three hundred fourteen",
+          "expanded_form": "600000 + 80000 + 300 + 10 + 4",
+          "acceptable_answers": [
+            "600000 + 80000 + 300 + 10 + 4",
+            "600000 + 80000 + 300 + 10 + 4"
+          ],
+          "read_aloud_text": "Write 680,314 in expanded form.",
+          "question_audio": {
+            "text": "Write 680,314 in expanded form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q3",
+          "question_id": "G4M_NBT_001_L2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "expanded_form",
+          "prompt": "Write 1,000,000 in word form.",
+          "answer": "one million",
+          "correct_answer": "one million",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "1,000,000 is one million in word form.",
+          "value": 1000000,
+          "number": 1000000,
+          "word_form": "one million",
+          "expanded_form": "1000000",
+          "acceptable_answers": [
+            "one million",
+            "One Million"
+          ],
+          "choices": [
+            "one million",
+            "1000000",
+            "one million"
+          ],
+          "read_aloud_text": "Write 1,000,000 in word form.",
+          "question_audio": {
+            "text": "Write 1,000,000 in word form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q4",
+          "question_id": "G4M_NBT_001_L2_Q4",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 720,006 in standard form.",
+          "answer": "720,006",
+          "correct_answer": "720,006",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "720,006 is 720,006 in standard form.",
+          "value": 720006,
+          "number": 720006,
+          "word_form": "seven hundred twenty thousand six",
+          "expanded_form": "700000 + 20000 + 6",
+          "acceptable_answers": [
+            "720,006",
+            "720006"
+          ],
+          "read_aloud_text": "Write 720,006 in standard form.",
+          "question_audio": {
+            "text": "Write 720,006 in standard form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q5",
+          "question_id": "G4M_NBT_001_L2_Q5",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 305,901 in expanded form.",
+          "answer": "300000 + 5000 + 900 + 1",
+          "correct_answer": "300000 + 5000 + 900 + 1",
+          "misconception_tag": "expanded_form_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "305,901 is 300000 + 5000 + 900 + 1 in expanded form.",
+          "value": 305901,
+          "number": 305901,
+          "word_form": "three hundred five thousand nine hundred one",
+          "expanded_form": "300000 + 5000 + 900 + 1",
+          "acceptable_answers": [
+            "300000 + 5000 + 900 + 1",
+            "300000 + 5000 + 900 + 1"
+          ],
+          "read_aloud_text": "Write 305,901 in expanded form.",
+          "question_audio": {
+            "text": "Write 305,901 in expanded form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q6",
+          "question_id": "G4M_NBT_001_L2_Q6",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 940,080 in word form.",
+          "answer": "nine hundred forty thousand eighty",
+          "correct_answer": "nine hundred forty thousand eighty",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "940,080 is nine hundred forty thousand eighty in word form.",
+          "value": 940080,
+          "number": 940080,
+          "word_form": "nine hundred forty thousand eighty",
+          "expanded_form": "900000 + 40000 + 80",
+          "acceptable_answers": [
+            "nine hundred forty thousand eighty",
+            "Nine Hundred Forty Thousand Eighty"
+          ],
+          "read_aloud_text": "Write 940,080 in word form.",
+          "question_audio": {
+            "text": "Write 940,080 in word form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q7",
+          "question_id": "G4M_NBT_001_L2_Q7",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 812,450 in expanded form.",
+          "answer": "800000 + 10000 + 2000 + 400 + 50",
+          "correct_answer": "800000 + 10000 + 2000 + 400 + 50",
+          "misconception_tag": "expanded_form_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "812,450 is 800000 + 10000 + 2000 + 400 + 50 in expanded form.",
+          "value": 812450,
+          "number": 812450,
+          "word_form": "eight hundred twelve thousand four hundred fifty",
+          "expanded_form": "800000 + 10000 + 2000 + 400 + 50",
+          "acceptable_answers": [
+            "800000 + 10000 + 2000 + 400 + 50",
+            "800000 + 10000 + 2000 + 400 + 50"
+          ],
+          "read_aloud_text": "Write 812,450 in expanded form.",
+          "question_audio": {
+            "text": "Write 812,450 in expanded form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q8",
+          "question_id": "G4M_NBT_001_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 59,000 in standard form.",
+          "answer": "59,000",
+          "correct_answer": "59,000",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "59,000 is 59,000 in standard form.",
+          "value": 59000,
+          "number": 59000,
+          "word_form": "fifty nine thousand",
+          "expanded_form": "50000 + 9000",
+          "acceptable_answers": [
+            "59,000",
+            "59000"
+          ],
+          "read_aloud_text": "Write 59,000 in standard form.",
+          "question_audio": {
+            "text": "Write 59,000 in standard form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q9",
+          "question_id": "G4M_NBT_001_L2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "expanded_form",
+          "prompt": "Write 400,400 in word form.",
+          "answer": "four hundred thousand four hundred",
+          "correct_answer": "four hundred thousand four hundred",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "400,400 is four hundred thousand four hundred in word form.",
+          "value": 400400,
+          "number": 400400,
+          "word_form": "four hundred thousand four hundred",
+          "expanded_form": "400000 + 400",
+          "acceptable_answers": [
+            "four hundred thousand four hundred",
+            "Four Hundred Thousand Four Hundred"
+          ],
+          "choices": [
+            "four hundred thousand four hundred",
+            "400000 + 400",
+            "four hundred thousand four hundred"
+          ],
+          "read_aloud_text": "Write 400,400 in word form.",
+          "question_audio": {
+            "text": "Write 400,400 in word form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L2_Q10",
+          "question_id": "G4M_NBT_001_L2_Q10",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 999,999 in expanded form.",
+          "answer": "900000 + 90000 + 9000 + 900 + 90 + 9",
+          "correct_answer": "900000 + 90000 + 9000 + 900 + 90 + 9",
+          "misconception_tag": "expanded_form_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "999,999 is 900000 + 90000 + 9000 + 900 + 90 + 9 in expanded form.",
+          "value": 999999,
+          "number": 999999,
+          "word_form": "nine hundred ninety nine thousand nine hundred ninety nine",
+          "expanded_form": "900000 + 90000 + 9000 + 900 + 90 + 9",
+          "acceptable_answers": [
+            "900000 + 90000 + 9000 + 900 + 90 + 9",
+            "900000 + 90000 + 9000 + 900 + 90 + 9"
+          ],
+          "read_aloud_text": "Write 999,999 in expanded form.",
+          "question_audio": {
+            "text": "Write 999,999 in expanded form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_001_L3",
+      "label": "Level 3: Compare Multi-Digit Numbers",
+      "focus": "Compare multi-digit whole numbers using place-value reasoning.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_001_L3_Q1",
+          "question_id": "G4M_NBT_001_L3_Q1",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 405,020 and 450,020 using >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 405,020 < 450,020.",
+          "left_value": 405020,
+          "right_value": 450020,
+          "left": 405020,
+          "right": 450020,
+          "min": 405020,
+          "max": 450020,
+          "value": 405020,
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "spoken_prompt": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q2",
+          "question_id": "G4M_NBT_001_L3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 916,384 and 916,348 using >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 916,384 > 916,348.",
+          "left_value": 916384,
+          "right_value": 916348,
+          "left": 916384,
+          "right": 916348,
+          "min": 916348,
+          "max": 916384,
+          "value": 916384,
+          "choices": [
+            ">",
+            "<",
+            "="
+          ],
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "spoken_prompt": "Compare nine hundred sixteen thousand three hundred eighty four and nine hundred sixteen thousand three hundred forty eight using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare nine hundred sixteen thousand three hundred eighty four and nine hundred sixteen thousand three hundred forty eight using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare nine hundred sixteen thousand three hundred eighty four and nine hundred sixteen thousand three hundred forty eight using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q3",
+          "question_id": "G4M_NBT_001_L3_Q3",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 1,000,000 and 999,999 using >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 1,000,000 > 999,999.",
+          "left_value": 1000000,
+          "right_value": 999999,
+          "left": 1000000,
+          "right": 999999,
+          "min": 999999,
+          "max": 1000000,
+          "value": 1000000,
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "spoken_prompt": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q4",
+          "question_id": "G4M_NBT_001_L3_Q4",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 780,206 and 780,206 using >, <, or =.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 780,206 = 780,206.",
+          "left_value": 780206,
+          "right_value": 780206,
+          "left": 780206,
+          "right": 780206,
+          "min": 780206,
+          "max": 780206,
+          "value": 780206,
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ],
+          "spoken_prompt": "Compare seven hundred eighty thousand two hundred six and seven hundred eighty thousand two hundred six using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare seven hundred eighty thousand two hundred six and seven hundred eighty thousand two hundred six using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare seven hundred eighty thousand two hundred six and seven hundred eighty thousand two hundred six using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q5",
+          "question_id": "G4M_NBT_001_L3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 630,045 and 603,045 using >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 630,045 > 603,045.",
+          "left_value": 630045,
+          "right_value": 603045,
+          "left": 630045,
+          "right": 603045,
+          "min": 603045,
+          "max": 630045,
+          "value": 630045,
+          "choices": [
+            ">",
+            "<",
+            "="
+          ],
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "spoken_prompt": "Compare six hundred thirty thousand forty five and six hundred three thousand forty five using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare six hundred thirty thousand forty five and six hundred three thousand forty five using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare six hundred thirty thousand forty five and six hundred three thousand forty five using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q6",
+          "question_id": "G4M_NBT_001_L3_Q6",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 120,090 and 120,900 using >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 120,090 < 120,900.",
+          "left_value": 120090,
+          "right_value": 120900,
+          "left": 120090,
+          "right": 120900,
+          "min": 120090,
+          "max": 120900,
+          "value": 120090,
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "spoken_prompt": "Compare one hundred twenty thousand ninety and one hundred twenty thousand nine hundred using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare one hundred twenty thousand ninety and one hundred twenty thousand nine hundred using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare one hundred twenty thousand ninety and one hundred twenty thousand nine hundred using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q7",
+          "question_id": "G4M_NBT_001_L3_Q7",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 502,019 and 502,109 using >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 502,019 < 502,109.",
+          "left_value": 502019,
+          "right_value": 502109,
+          "left": 502019,
+          "right": 502109,
+          "min": 502019,
+          "max": 502109,
+          "value": 502019,
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "spoken_prompt": "Compare five hundred two thousand nineteen and five hundred two thousand one hundred nine using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare five hundred two thousand nineteen and five hundred two thousand one hundred nine using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare five hundred two thousand nineteen and five hundred two thousand one hundred nine using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q8",
+          "question_id": "G4M_NBT_001_L3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 900,501 and 900,051 using >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 900,501 > 900,051.",
+          "left_value": 900501,
+          "right_value": 900051,
+          "left": 900501,
+          "right": 900051,
+          "min": 900051,
+          "max": 900501,
+          "value": 900501,
+          "choices": [
+            ">",
+            "<",
+            "="
+          ],
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "spoken_prompt": "Compare nine hundred thousand five hundred one and nine hundred thousand fifty one using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare nine hundred thousand five hundred one and nine hundred thousand fifty one using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare nine hundred thousand five hundred one and nine hundred thousand fifty one using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q9",
+          "question_id": "G4M_NBT_001_L3_Q9",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 348,000 and 384,000 using >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 348,000 < 384,000.",
+          "left_value": 348000,
+          "right_value": 384000,
+          "left": 348000,
+          "right": 384000,
+          "min": 348000,
+          "max": 384000,
+          "value": 348000,
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "spoken_prompt": "Compare three hundred forty eight thousand and three hundred eighty four thousand using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare three hundred forty eight thousand and three hundred eighty four thousand using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare three hundred forty eight thousand and three hundred eighty four thousand using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L3_Q10",
+          "question_id": "G4M_NBT_001_L3_Q10",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 812,450 and 812,405 using >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 812,450 > 812,405.",
+          "left_value": 812450,
+          "right_value": 812405,
+          "left": 812450,
+          "right": 812405,
+          "min": 812405,
+          "max": 812450,
+          "value": 812450,
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "spoken_prompt": "Compare eight hundred twelve thousand four hundred fifty and eight hundred twelve thousand four hundred five using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare eight hundred twelve thousand four hundred fifty and eight hundred twelve thousand four hundred five using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare eight hundred twelve thousand four hundred fifty and eight hundred twelve thousand four hundred five using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_001_L4",
+      "label": "Level 4: Round Multi-Digit Numbers",
+      "focus": "Round to the nearest 10, 100, 1,000, 10,000, and 100,000.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_001_L4_Q1",
+          "question_id": "G4M_NBT_001_L4_Q1",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 405,020 to the nearest 10.",
+          "answer": "405,020",
+          "correct_answer": "405,020",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "405,020 is between 405,020 and 405,030. The midpoint is 405,025, so it rounds to 405,020.",
+          "value": 405020,
+          "number": 405020,
+          "round_to": 10,
+          "nearest": 10,
+          "rounded": 405020,
+          "min": 405020,
+          "max": 405030,
+          "acceptable_answers": [
+            "405,020",
+            "405020"
+          ],
+          "spoken_prompt": "Round four hundred five thousand twenty to the nearest ten.",
+          "read_aloud_text": "Round four hundred five thousand twenty to the nearest ten.",
+          "question_audio": {
+            "text": "Round four hundred five thousand twenty to the nearest ten.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q2",
+          "question_id": "G4M_NBT_001_L4_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "rounding_model",
+          "prompt": "Round 916,384 to the nearest 100.",
+          "answer": "916,400",
+          "correct_answer": "916,400",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "916,384 is between 916,300 and 916,400. The midpoint is 916,350, so it rounds to 916,400.",
+          "value": 916384,
+          "number": 916384,
+          "round_to": 100,
+          "nearest": 100,
+          "rounded": 916400,
+          "min": 916300,
+          "max": 916400,
+          "acceptable_answers": [
+            "916,400",
+            "916400"
+          ],
+          "choices": [
+            "916,400",
+            "916,300",
+            "916,400"
+          ],
+          "spoken_prompt": "Round nine hundred sixteen thousand three hundred eighty four to the nearest one hundred.",
+          "read_aloud_text": "Round nine hundred sixteen thousand three hundred eighty four to the nearest one hundred.",
+          "question_audio": {
+            "text": "Round nine hundred sixteen thousand three hundred eighty four to the nearest one hundred.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q3",
+          "question_id": "G4M_NBT_001_L4_Q3",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 780,206 to the nearest 1,000.",
+          "answer": "780,000",
+          "correct_answer": "780,000",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "780,206 is between 780,000 and 781,000. The midpoint is 780,500, so it rounds to 780,000.",
+          "value": 780206,
+          "number": 780206,
+          "round_to": 1000,
+          "nearest": 1000,
+          "rounded": 780000,
+          "min": 780000,
+          "max": 781000,
+          "acceptable_answers": [
+            "780,000",
+            "780000"
+          ],
+          "spoken_prompt": "Round seven hundred eighty thousand two hundred six to the nearest one thousand.",
+          "read_aloud_text": "Round seven hundred eighty thousand two hundred six to the nearest one thousand.",
+          "question_audio": {
+            "text": "Round seven hundred eighty thousand two hundred six to the nearest one thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q4",
+          "question_id": "G4M_NBT_001_L4_Q4",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 630,045 to the nearest 10,000.",
+          "answer": "630,000",
+          "correct_answer": "630,000",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "630,045 is between 630,000 and 640,000. The midpoint is 635,000, so it rounds to 630,000.",
+          "value": 630045,
+          "number": 630045,
+          "round_to": 10000,
+          "nearest": 10000,
+          "rounded": 630000,
+          "min": 630000,
+          "max": 640000,
+          "acceptable_answers": [
+            "630,000",
+            "630000"
+          ],
+          "spoken_prompt": "Round six hundred thirty thousand forty five to the nearest ten thousand.",
+          "read_aloud_text": "Round six hundred thirty thousand forty five to the nearest ten thousand.",
+          "question_audio": {
+            "text": "Round six hundred thirty thousand forty five to the nearest ten thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q5",
+          "question_id": "G4M_NBT_001_L4_Q5",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 950,000 to the nearest 100,000.",
+          "answer": "1,000,000",
+          "correct_answer": "1,000,000",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "950,000 is between 900,000 and 1,000,000. The midpoint is 950,000, so it rounds to 1,000,000.",
+          "value": 950000,
+          "number": 950000,
+          "round_to": 100000,
+          "nearest": 100000,
+          "rounded": 1000000,
+          "min": 900000,
+          "max": 1000000,
+          "acceptable_answers": [
+            "1,000,000",
+            "1000000"
+          ],
+          "spoken_prompt": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+          "read_aloud_text": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+          "question_audio": {
+            "text": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q6",
+          "question_id": "G4M_NBT_001_L4_Q6",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 254,731 to the nearest 10.",
+          "answer": "254,730",
+          "correct_answer": "254,730",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "254,731 is between 254,730 and 254,740. The midpoint is 254,735, so it rounds to 254,730.",
+          "value": 254731,
+          "number": 254731,
+          "round_to": 10,
+          "nearest": 10,
+          "rounded": 254730,
+          "min": 254730,
+          "max": 254740,
+          "acceptable_answers": [
+            "254,730",
+            "254730"
+          ],
+          "spoken_prompt": "Round two hundred fifty four thousand seven hundred thirty one to the nearest ten.",
+          "read_aloud_text": "Round two hundred fifty four thousand seven hundred thirty one to the nearest ten.",
+          "question_audio": {
+            "text": "Round two hundred fifty four thousand seven hundred thirty one to the nearest ten.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q7",
+          "question_id": "G4M_NBT_001_L4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "rounding_model",
+          "prompt": "Round 120,090 to the nearest 1,000.",
+          "answer": "120,000",
+          "correct_answer": "120,000",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "120,090 is between 120,000 and 121,000. The midpoint is 120,500, so it rounds to 120,000.",
+          "value": 120090,
+          "number": 120090,
+          "round_to": 1000,
+          "nearest": 1000,
+          "rounded": 120000,
+          "min": 120000,
+          "max": 121000,
+          "acceptable_answers": [
+            "120,000",
+            "120000"
+          ],
+          "choices": [
+            "120,000",
+            "120,000",
+            "121,000"
+          ],
+          "spoken_prompt": "Round one hundred twenty thousand ninety to the nearest one thousand.",
+          "read_aloud_text": "Round one hundred twenty thousand ninety to the nearest one thousand.",
+          "question_audio": {
+            "text": "Round one hundred twenty thousand ninety to the nearest one thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q8",
+          "question_id": "G4M_NBT_001_L4_Q8",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 502,019 to the nearest 10,000.",
+          "answer": "500,000",
+          "correct_answer": "500,000",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "502,019 is between 500,000 and 510,000. The midpoint is 505,000, so it rounds to 500,000.",
+          "value": 502019,
+          "number": 502019,
+          "round_to": 10000,
+          "nearest": 10000,
+          "rounded": 500000,
+          "min": 500000,
+          "max": 510000,
+          "acceptable_answers": [
+            "500,000",
+            "500000"
+          ],
+          "spoken_prompt": "Round five hundred two thousand nineteen to the nearest ten thousand.",
+          "read_aloud_text": "Round five hundred two thousand nineteen to the nearest ten thousand.",
+          "question_audio": {
+            "text": "Round five hundred two thousand nineteen to the nearest ten thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q9",
+          "question_id": "G4M_NBT_001_L4_Q9",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 999,999 to the nearest 100,000.",
+          "answer": "1,000,000",
+          "correct_answer": "1,000,000",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "999,999 is between 900,000 and 1,000,000. The midpoint is 950,000, so it rounds to 1,000,000.",
+          "value": 999999,
+          "number": 999999,
+          "round_to": 100000,
+          "nearest": 100000,
+          "rounded": 1000000,
+          "min": 900000,
+          "max": 1000000,
+          "acceptable_answers": [
+            "1,000,000",
+            "1000000"
+          ],
+          "spoken_prompt": "Round nine hundred ninety nine thousand nine hundred ninety nine to the nearest one hundred thousand.",
+          "read_aloud_text": "Round nine hundred ninety nine thousand nine hundred ninety nine to the nearest one hundred thousand.",
+          "question_audio": {
+            "text": "Round nine hundred ninety nine thousand nine hundred ninety nine to the nearest one hundred thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_L4_Q10",
+          "question_id": "G4M_NBT_001_L4_Q10",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 348,000 to the nearest 1,000.",
+          "answer": "348,000",
+          "correct_answer": "348,000",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "348,000 is between 348,000 and 349,000. The midpoint is 348,500, so it rounds to 348,000.",
+          "value": 348000,
+          "number": 348000,
+          "round_to": 1000,
+          "nearest": 1000,
+          "rounded": 348000,
+          "min": 348000,
+          "max": 349000,
+          "acceptable_answers": [
+            "348,000",
+            "348000"
+          ],
+          "spoken_prompt": "Round three hundred forty eight thousand to the nearest one thousand.",
+          "read_aloud_text": "Round three hundred forty eight thousand to the nearest one thousand.",
+          "question_audio": {
+            "text": "Round three hundred forty eight thousand to the nearest one thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed place value, forms, comparison, and rounding practice.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_001_MIXED_Q1",
+          "question_id": "G4M_NBT_001_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 405,020, what digit is in the ten thousands place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the ten thousands place of 405,020 is 0.",
+          "value": 405020,
+          "number": 405020,
+          "millions": 0,
+          "hundred_thousands": 4,
+          "ten_thousands": 0,
+          "thousands": 5,
+          "hundreds": 0,
+          "tens": 2,
+          "ones": 0,
+          "choices": [
+            "0",
+            "1",
+            "10"
+          ],
+          "place": "ten_thousands",
+          "read_aloud_text": "In 405,020, what digit is in the ten thousands place?",
+          "question_audio": {
+            "text": "In 405,020, what digit is in the ten thousands place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q2",
+          "question_id": "G4M_NBT_001_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 405,020 in word form.",
+          "answer": "four hundred five thousand twenty",
+          "correct_answer": "four hundred five thousand twenty",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "405,020 is four hundred five thousand twenty in word form.",
+          "value": 405020,
+          "number": 405020,
+          "word_form": "four hundred five thousand twenty",
+          "expanded_form": "400000 + 5000 + 20",
+          "acceptable_answers": [
+            "four hundred five thousand twenty",
+            "Four Hundred Five Thousand Twenty"
+          ],
+          "read_aloud_text": "Write 405,020 in word form.",
+          "question_audio": {
+            "text": "Write 405,020 in word form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q3",
+          "question_id": "G4M_NBT_001_MIXED_Q3",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 405,020 and 450,020 using >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 405,020 < 450,020.",
+          "left_value": 405020,
+          "right_value": 450020,
+          "left": 405020,
+          "right": 450020,
+          "min": 405020,
+          "max": 450020,
+          "value": 405020,
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "spoken_prompt": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare four hundred five thousand twenty and four hundred fifty thousand twenty using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q4",
+          "question_id": "G4M_NBT_001_MIXED_Q4",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 405,020 to the nearest 10.",
+          "answer": "405,020",
+          "correct_answer": "405,020",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "405,020 is between 405,020 and 405,030. The midpoint is 405,025, so it rounds to 405,020.",
+          "value": 405020,
+          "number": 405020,
+          "round_to": 10,
+          "nearest": 10,
+          "rounded": 405020,
+          "min": 405020,
+          "max": 405030,
+          "acceptable_answers": [
+            "405,020",
+            "405020"
+          ],
+          "spoken_prompt": "Round four hundred five thousand twenty to the nearest ten.",
+          "read_aloud_text": "Round four hundred five thousand twenty to the nearest ten.",
+          "question_audio": {
+            "text": "Round four hundred five thousand twenty to the nearest ten.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q5",
+          "question_id": "G4M_NBT_001_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 1,000,000, what digit is in the millions place?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the millions place of 1,000,000 is 1.",
+          "value": 1000000,
+          "number": 1000000,
+          "millions": 1,
+          "hundred_thousands": 0,
+          "ten_thousands": 0,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 0,
+          "ones": 0,
+          "choices": [
+            "1",
+            "2",
+            "10"
+          ],
+          "place": "millions",
+          "read_aloud_text": "In 1,000,000, what digit is in the millions place?",
+          "question_audio": {
+            "text": "In 1,000,000, what digit is in the millions place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q6",
+          "question_id": "G4M_NBT_001_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "expanded_form",
+          "prompt": "Write 1,000,000 in word form.",
+          "answer": "one million",
+          "correct_answer": "one million",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "1,000,000 is one million in word form.",
+          "value": 1000000,
+          "number": 1000000,
+          "word_form": "one million",
+          "expanded_form": "1000000",
+          "acceptable_answers": [
+            "one million",
+            "One Million"
+          ],
+          "choices": [
+            "one million",
+            "1000000",
+            "one million"
+          ],
+          "read_aloud_text": "Write 1,000,000 in word form.",
+          "question_audio": {
+            "text": "Write 1,000,000 in word form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q7",
+          "question_id": "G4M_NBT_001_MIXED_Q7",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 1,000,000 and 999,999 using >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "Compare from left to right. 1,000,000 > 999,999.",
+          "left_value": 1000000,
+          "right_value": 999999,
+          "left": 1000000,
+          "right": 999999,
+          "min": 999999,
+          "max": 1000000,
+          "value": 1000000,
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "spoken_prompt": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+          "read_aloud_text": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+          "question_audio": {
+            "text": "Compare one million and nine hundred ninety nine thousand nine hundred ninety nine using greater than, less than, or equal to.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q8",
+          "question_id": "G4M_NBT_001_MIXED_Q8",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 950,000 to the nearest 100,000.",
+          "answer": "1,000,000",
+          "correct_answer": "1,000,000",
+          "misconception_tag": "rounding_place_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "950,000 is between 900,000 and 1,000,000. The midpoint is 950,000, so it rounds to 1,000,000.",
+          "value": 950000,
+          "number": 950000,
+          "round_to": 100000,
+          "nearest": 100000,
+          "rounded": 1000000,
+          "min": 900000,
+          "max": 1000000,
+          "acceptable_answers": [
+            "1,000,000",
+            "1000000"
+          ],
+          "spoken_prompt": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+          "read_aloud_text": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+          "question_audio": {
+            "text": "Round nine hundred fifty thousand to the nearest one hundred thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q9",
+          "question_id": "G4M_NBT_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 630,045, what digit is in the tens place?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "place_value_shift_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "The digit in the tens place of 630,045 is 4.",
+          "value": 630045,
+          "number": 630045,
+          "millions": 0,
+          "hundred_thousands": 6,
+          "ten_thousands": 3,
+          "thousands": 0,
+          "hundreds": 0,
+          "tens": 4,
+          "ones": 5,
+          "acceptable_answers": [
+            "4"
+          ],
+          "place": "tens",
+          "read_aloud_text": "In 630,045, what digit is in the tens place?",
+          "question_audio": {
+            "text": "In 630,045, what digit is in the tens place?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G4M_NBT_001_MIXED_Q10",
+          "question_id": "G4M_NBT_001_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Write 812,450 in expanded form.",
+          "answer": "800000 + 10000 + 2000 + 400 + 50",
+          "correct_answer": "800000 + 10000 + 2000 + 400 + 50",
+          "misconception_tag": "expanded_form_error",
+          "hints": [
+            "Name the place or benchmark the question asks for.",
+            "Use commas and place-value periods to keep each digit in the right place.",
+            "Check zeros carefully because they hold places even when their value is zero."
+          ],
+          "feedback": {
+            "correct": "Yes! You used Grade 4 place-value reasoning.",
+            "incorrect": "Try again by lining up the digits by place value."
+          },
+          "explanation": "812,450 is 800000 + 10000 + 2000 + 400 + 50 in expanded form.",
+          "value": 812450,
+          "number": 812450,
+          "word_form": "eight hundred twelve thousand four hundred fifty",
+          "expanded_form": "800000 + 10000 + 2000 + 400 + 50",
+          "acceptable_answers": [
+            "800000 + 10000 + 2000 + 400 + 50",
+            "800000 + 10000 + 2000 + 400 + 50"
+          ],
+          "read_aloud_text": "Write 812,450 in expanded form.",
+          "question_audio": {
+            "text": "Write 812,450 in expanded form.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Million Map Quest. You are helping the team read very large map numbers up to one million. Press Start Mission when you are ready to use place value like a math navigator. Watch for commas and zeros because they help every digit stay in the right place.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This page teaches the tools for the mission. Read the objective, vocabulary, concept, watch out, and real-world connection before you press Next. Use the place-value chart to see millions, hundred thousands, ten thousands, thousands, hundreds, tens, and ones.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this worked example before you answer on your own. The model lines up every digit by place, including zeros that hold empty places. Press Next after you can explain why the answer matches the requested place.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo is your supported try. Build it, read it, and check each place before independent practice. Press Next when the model and explanation make sense.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Now try a practice question. Choose your answer or type it carefully, then use the hint if you need support. Read the question aloud and keep commas, zeros, and place names organized.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This challenge asks you to apply place-value thinking with less help. Read the question, compare or round carefully, and check that your answer fits the requested place. Press Next after your answer is complete.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This checkpoint shows what you can do independently. Answer carefully and use the visual model to verify your thinking. When you finish, you will earn your badge and save your growth.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Great work on the Million Map mission. This badge celebrates your ability to read, write, compare, and round numbers up to one million. Press Save Growth Data to move to your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Your profile summarizes the mission and leads to more practice. If you want stronger mastery, choose Continue to Skill Practice and work through the focused levels. You can go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
