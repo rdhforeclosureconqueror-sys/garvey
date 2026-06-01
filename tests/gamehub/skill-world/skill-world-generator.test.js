@@ -1734,3 +1734,63 @@ grade5OpsBaseTenDecimalPackages.forEach(({id,domain,skill,labels,visuals,types,t
 const decimalGridHtml=VisualRegistry.render(grade5OpsBaseTenDecimalPackages.find(({id})=>id==='G5M_NBT_003').pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='decimal_grid'));
 assert.match(decimalGridHtml,/data-renderer="decimal_grid"/,'decimal_grid renderer output exists for Grade 5 decimal operations');
 assert.match(decimalGridHtml,/decimal-grid-cell[^>]+shaded/,'decimal_grid renderer still outputs real shaded cells');
+
+const grade5FractionPackages=[
+  {id:'G5M_FR_001',domain:'Number and Operations—Fractions',skill:'Add and Subtract Fractions With Unlike Denominators',labels:['Level 1: Find Common Denominators','Level 2: Add Unlike Fractions','Level 3: Subtract Unlike Fractions','Level 4: Mixed Number Problems','Mixed'],visuals:['fraction_bar','fraction_circle','equation_builder','word_problem_model'],types:['multiple_choice','short_response','fraction_response','word_problem'],tags:['common_denominator_confusion','denominator_addition_error','mixed_number_regrouping_error','fraction_simplification_gap'],pkg:load('G5M_FR_001')},
+  {id:'G5M_FR_002',domain:'Number and Operations—Fractions',skill:'Multiply Fractions',labels:['Level 1: Whole Number Times Fraction','Level 2: Fraction Times Fraction','Level 3: Area Models for Fraction Products','Level 4: Mixed Number Multiplication','Mixed'],visuals:['fraction_bar','fraction_area_model','multiplication_model','word_problem_model'],types:['multiple_choice','short_response','fraction_response','multiplication_equation'],tags:['fraction_product_size_error','numerator_denominator_multiply_error','mixed_number_conversion_error','area_model_fraction_confusion'],pkg:load('G5M_FR_002')},
+  {id:'G5M_FR_003',domain:'Number and Operations—Fractions',skill:'Divide Unit Fractions and Whole Numbers',labels:['Level 1: Unit Fraction Divided by Whole Number','Level 2: Whole Number Divided by Unit Fraction','Level 3: Visual Fraction Division','Level 4: Fraction Division Word Problems','Mixed'],visuals:['fraction_bar','division_model','fraction_division_model','word_problem_model'],types:['multiple_choice','short_response','fraction_response','division_equation'],tags:['unit_fraction_division_confusion','whole_number_fraction_division_error','reciprocal_overgeneralization','fraction_division_context_error'],pkg:load('G5M_FR_003')}
+];
+
+grade5FractionPackages.forEach(({id,domain,skill,labels,visuals,types,tags,pkg})=>{
+  const allQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])];
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,5,`${id} is Grade 5`);
+  assert.equal(pkg.subject,'Math',`${id} is Math`);
+  assert.equal(pkg.domain,domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,skill,`${id} title matches plan`);
+  assert.deepEqual(Renderer.stepLabels(pkg),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],`${id} full Skill World flow exists`);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(allQuestions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(allQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} short-response items have acceptable_answers`);
+  ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>{const audio=pkg.page_audio?.[screen]; assert.ok(audio?.text,`${id} has Read This Page narration for ${screen}`); assert.equal(audio.label,'Read This Page',`${id} ${screen} uses Read This Page label`); assert.ok(audio.text.split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`${id} ${screen} has tutor-quality narration`);});
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} references Read Question`));
+  [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} Skill Practice question has Read Question narration`));
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} full mission flow renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillState=Renderer.createState(); drillState.mode='drill';
+  assert.match(Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+
+const fractionBarHtml=VisualRegistry.render({visual_model:'fraction_bar',numerator:3,denominator:5});
+assert.match(fractionBarHtml,/data-renderer="fraction_bar"/,'fraction_bar renderer output exists');
+assert.match(fractionBarHtml,/fraction-bar-cell/g,'fraction_bar includes real partition markup');
+assert.match(fractionBarHtml,/fraction-bar-cell filled/,'fraction_bar includes shaded parts');
+const fractionCircleHtml=VisualRegistry.render({visual_model:'fraction_circle',numerator:2,denominator:3});
+assert.match(fractionCircleHtml,/data-renderer="fraction_circle"/,'fraction_circle renderer output exists');
+assert.match(fractionCircleHtml,/fraction-circle-sector/g,'fraction_circle includes real partition markup');
+assert.match(fractionCircleHtml,/fraction-circle-sector filled/,'fraction_circle includes shaded parts');
+const fractionAreaHtml=VisualRegistry.render(grade5FractionPackages.find(({id})=>id==='G5M_FR_002').pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='fraction_area_model'));
+assert.match(fractionAreaHtml,/data-renderer="fraction_area_model"/,'fraction_area_model renderer output exists');
+assert.match(fractionAreaHtml,/fraction-area-cell/g,'fraction_area_model includes grid partition markup');
+assert.match(fractionAreaHtml,/overlap/,'fraction_area_model shows overlapping product parts');
+const fractionDivisionHtml=VisualRegistry.render(grade5FractionPackages.find(({id})=>id==='G5M_FR_003').pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='fraction_division_model'));
+assert.match(fractionDivisionHtml,/data-renderer="fraction_division_model"/,'fraction_division_model renderer output exists');
+assert.match(fractionDivisionHtml,/fraction-division-(cell|piece)/,'fraction_division_model includes real partition markup');
+assert.match(fractionDivisionHtml,/quotient-share|unit-fraction pieces/,'fraction_division_model shows unit fraction division visually');
+[fractionBarHtml,fractionCircleHtml,fractionAreaHtml,fractionDivisionHtml].forEach((html)=>{
+  assert.doesNotMatch(html,/>\s*1234?\s*</,'fraction visual does not render raw placeholder strings like 123 or 1234');
+  assert.doesNotMatch(html,/placeholder|coming soon/i,'fraction visual does not render placeholder text');
+});
+['G5M_FR_001','G5M_FR_002','G5M_FR_003'].forEach((id)=>{
+  assert.ok(g5Manifest.packages.includes(`${id}.skill-package.v1.json`),`manifest includes ${id}`);
+  assert.equal(`/skill-world/${encodeURIComponent(id)}/drill`,`/skill-world/${id}/drill`,`Practice This Skill route exists for ${id}`);
+});

@@ -1,0 +1,2237 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "status": "production",
+    "source_plan": "curriculum-framework/plans/grade5-math-completion-plan.v1.json",
+    "readiness": [
+      "validated_skill_package",
+      "guided_mission",
+      "skill_practice_center",
+      "manifest_hub_exposure",
+      "voice_standard"
+    ]
+  },
+  "skill_id": "G5M_FR_001",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Number and Operations—Fractions",
+  "skill": "Add and Subtract Fractions With Unlike Denominators",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "lesson": {
+    "objective": "Add and subtract fractions and mixed numbers with unlike denominators.",
+    "key_vocabulary": [
+      "unlike denominators",
+      "equivalent fractions",
+      "mixed numbers"
+    ],
+    "concept_explanation": "Fractions name equal parts of a whole. Strong fraction work keeps the whole clear, uses equivalent fractions when parts need to match, and explains whether the answer is reasonable.",
+    "visual_model": "fraction_bar",
+    "common_misconception": "A common mistake is changing numbers without tracking the size of the equal parts. Use a model and say what each numerator and denominator means.",
+    "real_world_connection": "Cooks, builders, artists, and scientists combine, scale, and share fractional amounts every day.",
+    "lesson_summary": "Add and subtract fractions and mixed numbers with unlike denominators."
+  },
+  "worked_examples": [
+    {
+      "title": "Add unlike fractions",
+      "text": "To add 1/3 + 1/6, rename 1/3 as 2/6. Then 2/6 + 1/6 = 3/6 = 1/2.",
+      "visual_model": "fraction_bar",
+      "numerator": 1,
+      "denominator": 2,
+      "answer": "1/2",
+      "page_audio": {
+        "text": "Rename unlike denominators with equivalent fractions. One third is the same size as two sixths, so the sixths can be added. The simplified sum is one half.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "title": "Subtract with regrouping",
+      "text": "To subtract 2 1/4 - 3/4, rename 2 1/4 as 1 5/4. Then 1 5/4 - 3/4 = 1 2/4 = 1 1/2.",
+      "visual_model": "equation_builder",
+      "equation": "2 1/4 - 3/4 = 1 1/2",
+      "answer": "1 1/2",
+      "page_audio": {
+        "text": "Mixed number subtraction may need regrouping. Rename one whole as fourths, subtract the fractions, then simplify the fractional part.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Say what one whole is and what each denominator counts.",
+    "Use equivalent fractions or models so the parts match the operation.",
+    "Compute carefully, then simplify or rename a mixed number when needed.",
+    "Check reasonableness: adding should combine amounts, multiplying by a fraction can make a smaller amount, and division asks how many groups or how much in each share."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_FR_001_LVL2_Q1",
+      "question_id": "G5M_FR_001_LVL2_Q1",
+      "question_type": "fraction_response",
+      "visual_model": "fraction_circle",
+      "prompt": "Add 1/2 + 1/3.",
+      "answer": "5/6",
+      "correct_answer": "5/6",
+      "misconception_tag": "denominator_addition_error",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 5/6.",
+      "read_aloud_text": "Add 1 over 2 + 1 over 3.",
+      "question_audio": {
+        "text": "Add 1 over 2 + 1 over 3.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "equation": "1/2 + 1/3 = ?",
+      "numerator": 1,
+      "denominator": 2,
+      "acceptable_answers": [
+        "5/6",
+        "5/6",
+        "5/6."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_FR_001_LVL4_Q2",
+      "question_id": "G5M_FR_001_LVL4_Q2",
+      "question_type": "fraction_response",
+      "visual_model": "equation_builder",
+      "prompt": "Add 2 1/3 + 1/6.",
+      "answer": "2 1/2",
+      "correct_answer": "2 1/2",
+      "misconception_tag": "mixed_number_regrouping_error",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 2 1/2.",
+      "read_aloud_text": "Add 2 1 over 3 + 1 over 6.",
+      "question_audio": {
+        "text": "Add 2 1 over 3 + 1 over 6.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "operation": "add",
+      "equation": "2 1/3 + 1/6 = ?",
+      "knowns": [
+        "2 1/3",
+        "1/6"
+      ],
+      "unknown_label": "result",
+      "acceptable_answers": [
+        "2 1/2",
+        "21/2",
+        "2 1/2."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_FR_001_MIXED_Q1",
+      "question_id": "G5M_FR_001_MIXED_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "What common denominator can rename 1/2 and 3/6?",
+      "answer": "6",
+      "correct_answer": "6",
+      "misconception_tag": "common_denominator_confusion",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 6.",
+      "read_aloud_text": "What common denominator can rename 1 over 2 and 3 over 6?",
+      "question_audio": {
+        "text": "What common denominator can rename 1 over 2 and 3 over 6?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "equation": "1/2 = ?/6 and 3/6 = ?/6",
+      "numerator": 1,
+      "denominator": 2,
+      "choices": [
+        "6",
+        "8",
+        "6"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "common_denominator_confusion": "Watch for common denominator confusion.",
+    "denominator_addition_error": "Watch for denominator addition error.",
+    "mixed_number_regrouping_error": "Watch for mixed number regrouping error.",
+    "fraction_simplification_gap": "Watch for fraction simplification gap."
+  },
+  "level_banks": [
+    {
+      "level_id": "G5M_FR_001_LVL1",
+      "label": "Level 1: Find Common Denominators",
+      "description": "Level 1: Find Common Denominators",
+      "questions": [
+        {
+          "id": "G5M_FR_001_LVL1_Q1",
+          "question_id": "G5M_FR_001_LVL1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What common denominator can rename 1/2 and 3/6?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "What common denominator can rename 1 over 2 and 3 over 6?",
+          "question_audio": {
+            "text": "What common denominator can rename 1 over 2 and 3 over 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/2 = ?/6 and 3/6 = ?/6",
+          "numerator": 1,
+          "denominator": 2,
+          "choices": [
+            "6",
+            "8",
+            "6"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q2",
+          "question_id": "G5M_FR_001_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "What common denominator can rename 1/4 and 2/8?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "What common denominator can rename 1 over 4 and 2 over 8?",
+          "question_audio": {
+            "text": "What common denominator can rename 1 over 4 and 2 over 8?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/4 = ?/8 and 2/8 = ?/8",
+          "numerator": 1,
+          "denominator": 4,
+          "acceptable_answers": [
+            "8",
+            "8",
+            "8."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q3",
+          "question_id": "G5M_FR_001_LVL1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "What common denominator can rename 2/3 and 1/6?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "What common denominator can rename 2 over 3 and 1 over 6?",
+          "question_audio": {
+            "text": "What common denominator can rename 2 over 3 and 1 over 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "2/3 = ?/6 and 1/6 = ?/6",
+          "numerator": 2,
+          "denominator": 3,
+          "choices": [
+            "6",
+            "9",
+            "6"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q4",
+          "question_id": "G5M_FR_001_LVL1_Q4",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "prompt": "What common denominator can rename 3/5 and 1/10?",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 10.",
+          "read_aloud_text": "What common denominator can rename 3 over 5 and 1 over 10?",
+          "question_audio": {
+            "text": "What common denominator can rename 3 over 5 and 1 over 10?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "3/5 = ?/10 and 1/10 = ?/10",
+          "numerator": 3,
+          "denominator": 5,
+          "acceptable_answers": [
+            "10",
+            "10",
+            "10."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q5",
+          "question_id": "G5M_FR_001_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "What common denominator can rename 1/3 and 1/9?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "What common denominator can rename 1 over 3 and 1 over 9?",
+          "question_audio": {
+            "text": "What common denominator can rename 1 over 3 and 1 over 9?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/3 = ?/9 and 1/9 = ?/9",
+          "numerator": 1,
+          "denominator": 3,
+          "choices": [
+            "9",
+            "12",
+            "9"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q6",
+          "question_id": "G5M_FR_001_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "What common denominator can rename 2/5 and 3/10?",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 10.",
+          "read_aloud_text": "What common denominator can rename 2 over 5 and 3 over 10?",
+          "question_audio": {
+            "text": "What common denominator can rename 2 over 5 and 3 over 10?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "2/5 = ?/10 and 3/10 = ?/10",
+          "numerator": 2,
+          "denominator": 5,
+          "acceptable_answers": [
+            "10",
+            "10",
+            "10."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q7",
+          "question_id": "G5M_FR_001_LVL1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What common denominator can rename 1/6 and 1/12?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "What common denominator can rename 1 over 6 and 1 over 12?",
+          "question_audio": {
+            "text": "What common denominator can rename 1 over 6 and 1 over 12?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/6 = ?/12 and 1/12 = ?/12",
+          "numerator": 1,
+          "denominator": 6,
+          "choices": [
+            "12",
+            "18",
+            "12"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q8",
+          "question_id": "G5M_FR_001_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "What common denominator can rename 3/4 and 1/8?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "What common denominator can rename 3 over 4 and 1 over 8?",
+          "question_audio": {
+            "text": "What common denominator can rename 3 over 4 and 1 over 8?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "3/4 = ?/8 and 1/8 = ?/8",
+          "numerator": 3,
+          "denominator": 4,
+          "acceptable_answers": [
+            "8",
+            "8",
+            "8."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q9",
+          "question_id": "G5M_FR_001_LVL1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "What common denominator can rename 2/7 and 1/14?",
+          "answer": "14",
+          "correct_answer": "14",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 14.",
+          "read_aloud_text": "What common denominator can rename 2 over 7 and 1 over 14?",
+          "question_audio": {
+            "text": "What common denominator can rename 2 over 7 and 1 over 14?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "2/7 = ?/14 and 1/14 = ?/14",
+          "numerator": 2,
+          "denominator": 7,
+          "choices": [
+            "14",
+            "21",
+            "14"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL1_Q10",
+          "question_id": "G5M_FR_001_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "prompt": "What common denominator can rename 5/6 and 1/3?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "What common denominator can rename 5 over 6 and 1 over 3?",
+          "question_audio": {
+            "text": "What common denominator can rename 5 over 6 and 1 over 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "5/6 = ?/6 and 1/3 = ?/6",
+          "numerator": 5,
+          "denominator": 6,
+          "acceptable_answers": [
+            "6",
+            "6",
+            "6."
+          ]
+        }
+      ],
+      "focus": "Level 1: Find Common Denominators",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_001_LVL2",
+      "label": "Level 2: Add Unlike Fractions",
+      "description": "Level 2: Add Unlike Fractions",
+      "questions": [
+        {
+          "id": "G5M_FR_001_LVL2_Q1",
+          "question_id": "G5M_FR_001_LVL2_Q1",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Add 1/2 + 1/3.",
+          "answer": "5/6",
+          "correct_answer": "5/6",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/6.",
+          "read_aloud_text": "Add 1 over 2 + 1 over 3.",
+          "question_audio": {
+            "text": "Add 1 over 2 + 1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/2 + 1/3 = ?",
+          "numerator": 1,
+          "denominator": 2,
+          "acceptable_answers": [
+            "5/6",
+            "5/6",
+            "5/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q2",
+          "question_id": "G5M_FR_001_LVL2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Add 1/4 + 1/6.",
+          "answer": "5/12",
+          "correct_answer": "5/12",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/12.",
+          "read_aloud_text": "Add 1 over 4 + 1 over 6.",
+          "question_audio": {
+            "text": "Add 1 over 4 + 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/4 + 1/6 = ?",
+          "numerator": 1,
+          "denominator": 4,
+          "choices": [
+            "5/12",
+            "2/10",
+            "1/6"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q3",
+          "question_id": "G5M_FR_001_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "Add 2/3 + 1/5.",
+          "answer": "13/15",
+          "correct_answer": "13/15",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 13/15.",
+          "read_aloud_text": "Add 2 over 3 + 1 over 5.",
+          "question_audio": {
+            "text": "Add 2 over 3 + 1 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "2/3 + 1/5 = ?",
+          "numerator": 2,
+          "denominator": 3,
+          "acceptable_answers": [
+            "13/15",
+            "13/15",
+            "13/15."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q4",
+          "question_id": "G5M_FR_001_LVL2_Q4",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Add 3/8 + 1/4.",
+          "answer": "5/8",
+          "correct_answer": "5/8",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/8.",
+          "read_aloud_text": "Add 3 over 8 + 1 over 4.",
+          "question_audio": {
+            "text": "Add 3 over 8 + 1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "3/8 + 1/4 = ?",
+          "numerator": 3,
+          "denominator": 8,
+          "acceptable_answers": [
+            "5/8",
+            "5/8",
+            "5/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q5",
+          "question_id": "G5M_FR_001_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_circle",
+          "prompt": "Add 2/5 + 1/10.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Add 2 over 5 + 1 over 10.",
+          "question_audio": {
+            "text": "Add 2 over 5 + 1 over 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "2/5 + 1/10 = ?",
+          "numerator": 2,
+          "denominator": 5,
+          "choices": [
+            "1/2",
+            "3/15",
+            "3/10"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q6",
+          "question_id": "G5M_FR_001_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "prompt": "Add 1/6 + 3/4.",
+          "answer": "11/12",
+          "correct_answer": "11/12",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 11/12.",
+          "read_aloud_text": "Add 1 over 6 + 3 over 4.",
+          "question_audio": {
+            "text": "Add 1 over 6 + 3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/6 + 3/4 = ?",
+          "numerator": 1,
+          "denominator": 6,
+          "acceptable_answers": [
+            "11/12",
+            "11/12",
+            "11/12."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q7",
+          "question_id": "G5M_FR_001_LVL2_Q7",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Add 5/12 + 1/3.",
+          "answer": "3/4",
+          "correct_answer": "3/4",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 3/4.",
+          "read_aloud_text": "Add 5 over 12 + 1 over 3.",
+          "question_audio": {
+            "text": "Add 5 over 12 + 1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "5/12 + 1/3 = ?",
+          "numerator": 5,
+          "denominator": 12,
+          "acceptable_answers": [
+            "3/4",
+            "3/4",
+            "3/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q8",
+          "question_id": "G5M_FR_001_LVL2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "Add 1/8 + 2/3.",
+          "answer": "19/24",
+          "correct_answer": "19/24",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 19/24.",
+          "read_aloud_text": "Add 1 over 8 + 2 over 3.",
+          "question_audio": {
+            "text": "Add 1 over 8 + 2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/8 + 2/3 = ?",
+          "numerator": 1,
+          "denominator": 8,
+          "choices": [
+            "19/24",
+            "3/11",
+            "1/8"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q9",
+          "question_id": "G5M_FR_001_LVL2_Q9",
+          "question_type": "short_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Add 3/10 + 1/2.",
+          "answer": "4/5",
+          "correct_answer": "4/5",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 4/5.",
+          "read_aloud_text": "Add 3 over 10 + 1 over 2.",
+          "question_audio": {
+            "text": "Add 3 over 10 + 1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "3/10 + 1/2 = ?",
+          "numerator": 3,
+          "denominator": 10,
+          "acceptable_answers": [
+            "4/5",
+            "4/5",
+            "4/5."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL2_Q10",
+          "question_id": "G5M_FR_001_LVL2_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "Add 1/9 + 2/3.",
+          "answer": "7/9",
+          "correct_answer": "7/9",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 7/9.",
+          "read_aloud_text": "Add 1 over 9 + 2 over 3.",
+          "question_audio": {
+            "text": "Add 1 over 9 + 2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/9 + 2/3 = ?",
+          "numerator": 1,
+          "denominator": 9,
+          "acceptable_answers": [
+            "7/9",
+            "7/9",
+            "7/9."
+          ]
+        }
+      ],
+      "focus": "Level 2: Add Unlike Fractions",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_001_LVL3",
+      "label": "Level 3: Subtract Unlike Fractions",
+      "description": "Level 3: Subtract Unlike Fractions",
+      "questions": [
+        {
+          "id": "G5M_FR_001_LVL3_Q1",
+          "question_id": "G5M_FR_001_LVL3_Q1",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Subtract 3/4 - 1/6.",
+          "answer": "7/12",
+          "correct_answer": "7/12",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 7/12.",
+          "read_aloud_text": "Subtract 3 over 4 - 1 over 6.",
+          "question_audio": {
+            "text": "Subtract 3 over 4 - 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "3/4 - 1/6 = ?",
+          "numerator": 3,
+          "denominator": 4,
+          "acceptable_answers": [
+            "7/12",
+            "7/12",
+            "7/12."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q2",
+          "question_id": "G5M_FR_001_LVL3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Subtract 5/6 - 1/3.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Subtract 5 over 6 - 1 over 3.",
+          "question_audio": {
+            "text": "Subtract 5 over 6 - 1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "5/6 - 1/3 = ?",
+          "numerator": 5,
+          "denominator": 6,
+          "choices": [
+            "1/2",
+            "4/9",
+            "1/2"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q3",
+          "question_id": "G5M_FR_001_LVL3_Q3",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 7/8 - 1/4.",
+          "answer": "5/8",
+          "correct_answer": "5/8",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/8.",
+          "read_aloud_text": "Subtract 7 over 8 - 1 over 4.",
+          "question_audio": {
+            "text": "Subtract 7 over 8 - 1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "7/8 - 1/4 = ?",
+          "numerator": 7,
+          "denominator": 8,
+          "acceptable_answers": [
+            "5/8",
+            "5/8",
+            "5/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q4",
+          "question_id": "G5M_FR_001_LVL3_Q4",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 4/5 - 1/10.",
+          "answer": "7/10",
+          "correct_answer": "7/10",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 7/10.",
+          "read_aloud_text": "Subtract 4 over 5 - 1 over 10.",
+          "question_audio": {
+            "text": "Subtract 4 over 5 - 1 over 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "4/5 - 1/10 = ?",
+          "numerator": 4,
+          "denominator": 5,
+          "acceptable_answers": [
+            "7/10",
+            "7/10",
+            "7/10."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q5",
+          "question_id": "G5M_FR_001_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_circle",
+          "prompt": "Subtract 5/6 - 1/2.",
+          "answer": "1/3",
+          "correct_answer": "1/3",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/3.",
+          "read_aloud_text": "Subtract 5 over 6 - 1 over 2.",
+          "question_audio": {
+            "text": "Subtract 5 over 6 - 1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "5/6 - 1/2 = ?",
+          "numerator": 5,
+          "denominator": 6,
+          "choices": [
+            "1/3",
+            "4/8",
+            "1/2"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q6",
+          "question_id": "G5M_FR_001_LVL3_Q6",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "prompt": "Subtract 9/10 - 2/5.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Subtract 9 over 10 - 2 over 5.",
+          "question_audio": {
+            "text": "Subtract 9 over 10 - 2 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "9/10 - 2/5 = ?",
+          "numerator": 9,
+          "denominator": 10,
+          "acceptable_answers": [
+            "1/2",
+            "1/2",
+            "1/2."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q7",
+          "question_id": "G5M_FR_001_LVL3_Q7",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 2/3 - 1/6.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Subtract 2 over 3 - 1 over 6.",
+          "question_audio": {
+            "text": "Subtract 2 over 3 - 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "2/3 - 1/6 = ?",
+          "numerator": 2,
+          "denominator": 3,
+          "acceptable_answers": [
+            "1/2",
+            "1/2",
+            "1/2."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q8",
+          "question_id": "G5M_FR_001_LVL3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 7/12 - 1/4.",
+          "answer": "1/3",
+          "correct_answer": "1/3",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/3.",
+          "read_aloud_text": "Subtract 7 over 12 - 1 over 4.",
+          "question_audio": {
+            "text": "Subtract 7 over 12 - 1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "7/12 - 1/4 = ?",
+          "numerator": 7,
+          "denominator": 12,
+          "choices": [
+            "1/3",
+            "6/16",
+            "1/2"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q9",
+          "question_id": "G5M_FR_001_LVL3_Q9",
+          "question_type": "short_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Subtract 5/8 - 1/2.",
+          "answer": "1/8",
+          "correct_answer": "1/8",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/8.",
+          "read_aloud_text": "Subtract 5 over 8 - 1 over 2.",
+          "question_audio": {
+            "text": "Subtract 5 over 8 - 1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "5/8 - 1/2 = ?",
+          "numerator": 5,
+          "denominator": 8,
+          "acceptable_answers": [
+            "1/8",
+            "1/8",
+            "1/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL3_Q10",
+          "question_id": "G5M_FR_001_LVL3_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "Subtract 11/12 - 1/3.",
+          "answer": "7/12",
+          "correct_answer": "7/12",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 7/12.",
+          "read_aloud_text": "Subtract 11 over 12 - 1 over 3.",
+          "question_audio": {
+            "text": "Subtract 11 over 12 - 1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "11/12 - 1/3 = ?",
+          "numerator": 11,
+          "denominator": 12,
+          "acceptable_answers": [
+            "7/12",
+            "7/12",
+            "7/12."
+          ]
+        }
+      ],
+      "focus": "Level 3: Subtract Unlike Fractions",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_001_LVL4",
+      "label": "Level 4: Mixed Number Problems",
+      "description": "Level 4: Mixed Number Problems",
+      "questions": [
+        {
+          "id": "G5M_FR_001_LVL4_Q1",
+          "question_id": "G5M_FR_001_LVL4_Q1",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "Add 1 1/2 + 1/4.",
+          "answer": "1 3/4",
+          "correct_answer": "1 3/4",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1 3/4.",
+          "read_aloud_text": "Add 1 1 over 2 + 1 over 4.",
+          "question_audio": {
+            "text": "Add 1 1 over 2 + 1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "add",
+          "equation": "1 1/2 + 1/4 = ?",
+          "knowns": [
+            "1 1/2",
+            "1/4"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "1 3/4",
+            "13/4",
+            "1 3/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q2",
+          "question_id": "G5M_FR_001_LVL4_Q2",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Add 2 1/3 + 1/6.",
+          "answer": "2 1/2",
+          "correct_answer": "2 1/2",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 2 1/2.",
+          "read_aloud_text": "Add 2 1 over 3 + 1 over 6.",
+          "question_audio": {
+            "text": "Add 2 1 over 3 + 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "add",
+          "equation": "2 1/3 + 1/6 = ?",
+          "knowns": [
+            "2 1/3",
+            "1/6"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "2 1/2",
+            "21/2",
+            "2 1/2."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q3",
+          "question_id": "G5M_FR_001_LVL4_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 3 3/4 - 1/2.",
+          "answer": "3 1/4",
+          "correct_answer": "3 1/4",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 3 1/4.",
+          "read_aloud_text": "Subtract 3 3 over 4 - 1 over 2.",
+          "question_audio": {
+            "text": "Subtract 3 3 over 4 - 1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "subtract",
+          "equation": "3 3/4 - 1/2 = ?",
+          "knowns": [
+            "3 3/4",
+            "1/2"
+          ],
+          "unknown_label": "result",
+          "choices": [
+            "3 1/4",
+            "2",
+            "1/2"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q4",
+          "question_id": "G5M_FR_001_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Subtract 2 1/4 - 3/4.",
+          "answer": "1 1/2",
+          "correct_answer": "1 1/2",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1 1/2.",
+          "read_aloud_text": "Subtract 2 1 over 4 - 3 over 4.",
+          "question_audio": {
+            "text": "Subtract 2 1 over 4 - 3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "subtract",
+          "equation": "2 1/4 - 3/4 = ?",
+          "knowns": [
+            "2 1/4",
+            "3/4"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "1 1/2",
+            "11/2",
+            "1 1/2."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q5",
+          "question_id": "G5M_FR_001_LVL4_Q5",
+          "question_type": "word_problem",
+          "visual_model": "equation_builder",
+          "prompt": "Add 1 2/5 + 3/10.",
+          "answer": "1 7/10",
+          "correct_answer": "1 7/10",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1 7/10.",
+          "read_aloud_text": "Add 1 2 over 5 + 3 over 10.",
+          "question_audio": {
+            "text": "Add 1 2 over 5 + 3 over 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "add",
+          "equation": "1 2/5 + 3/10 = ?",
+          "knowns": [
+            "1 2/5",
+            "3/10"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "1 7/10",
+            "17/10",
+            "1 7/10."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q6",
+          "question_id": "G5M_FR_001_LVL4_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 4 1/6 - 2/3.",
+          "answer": "3 1/2",
+          "correct_answer": "3 1/2",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 3 1/2.",
+          "read_aloud_text": "Subtract 4 1 over 6 - 2 over 3.",
+          "question_audio": {
+            "text": "Subtract 4 1 over 6 - 2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "subtract",
+          "equation": "4 1/6 - 2/3 = ?",
+          "knowns": [
+            "4 1/6",
+            "2/3"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "3 1/2",
+            "31/2",
+            "3 1/2."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q7",
+          "question_id": "G5M_FR_001_LVL4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "Add 2 5/8 + 1/4.",
+          "answer": "2 7/8",
+          "correct_answer": "2 7/8",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 2 7/8.",
+          "read_aloud_text": "Add 2 5 over 8 + 1 over 4.",
+          "question_audio": {
+            "text": "Add 2 5 over 8 + 1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "add",
+          "equation": "2 5/8 + 1/4 = ?",
+          "knowns": [
+            "2 5/8",
+            "1/4"
+          ],
+          "unknown_label": "result",
+          "choices": [
+            "2 7/8",
+            "2",
+            "1/2"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q8",
+          "question_id": "G5M_FR_001_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 5 1/3 - 5/6.",
+          "answer": "4 1/2",
+          "correct_answer": "4 1/2",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 4 1/2.",
+          "read_aloud_text": "Subtract 5 1 over 3 - 5 over 6.",
+          "question_audio": {
+            "text": "Subtract 5 1 over 3 - 5 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "subtract",
+          "equation": "5 1/3 - 5/6 = ?",
+          "knowns": [
+            "5 1/3",
+            "5/6"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "4 1/2",
+            "41/2",
+            "4 1/2."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q9",
+          "question_id": "G5M_FR_001_LVL4_Q9",
+          "question_type": "word_problem",
+          "visual_model": "equation_builder",
+          "prompt": "Add 3 2/3 + 1/6.",
+          "answer": "3 5/6",
+          "correct_answer": "3 5/6",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 3 5/6.",
+          "read_aloud_text": "Add 3 2 over 3 + 1 over 6.",
+          "question_audio": {
+            "text": "Add 3 2 over 3 + 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "add",
+          "equation": "3 2/3 + 1/6 = ?",
+          "knowns": [
+            "3 2/3",
+            "1/6"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "3 5/6",
+            "35/6",
+            "3 5/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_LVL4_Q10",
+          "question_id": "G5M_FR_001_LVL4_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Subtract 2 1/5 - 7/10.",
+          "answer": "1 1/2",
+          "correct_answer": "1 1/2",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1 1/2.",
+          "read_aloud_text": "Subtract 2 1 over 5 - 7 over 10.",
+          "question_audio": {
+            "text": "Subtract 2 1 over 5 - 7 over 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "subtract",
+          "equation": "2 1/5 - 7/10 = ?",
+          "knowns": [
+            "2 1/5",
+            "7/10"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "1 1/2",
+            "11/2",
+            "1 1/2."
+          ]
+        }
+      ],
+      "focus": "Level 4: Mixed Number Problems",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_001_MIXED",
+      "label": "Mixed",
+      "description": "Mixed",
+      "questions": [
+        {
+          "id": "G5M_FR_001_MIXED_Q1",
+          "question_id": "G5M_FR_001_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What common denominator can rename 1/2 and 3/6?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "What common denominator can rename 1 over 2 and 3 over 6?",
+          "question_audio": {
+            "text": "What common denominator can rename 1 over 2 and 3 over 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/2 = ?/6 and 3/6 = ?/6",
+          "numerator": 1,
+          "denominator": 2,
+          "choices": [
+            "6",
+            "8",
+            "6"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q2",
+          "question_id": "G5M_FR_001_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "What common denominator can rename 1/4 and 2/8?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "common_denominator_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "What common denominator can rename 1 over 4 and 2 over 8?",
+          "question_audio": {
+            "text": "What common denominator can rename 1 over 4 and 2 over 8?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/4 = ?/8 and 2/8 = ?/8",
+          "numerator": 1,
+          "denominator": 4,
+          "acceptable_answers": [
+            "8",
+            "8",
+            "8."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q3",
+          "question_id": "G5M_FR_001_MIXED_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Add 1/2 + 1/3.",
+          "answer": "5/6",
+          "correct_answer": "5/6",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/6.",
+          "read_aloud_text": "Add 1 over 2 + 1 over 3.",
+          "question_audio": {
+            "text": "Add 1 over 2 + 1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/2 + 1/3 = ?",
+          "numerator": 1,
+          "denominator": 2,
+          "acceptable_answers": [
+            "5/6",
+            "5/6",
+            "5/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q4",
+          "question_id": "G5M_FR_001_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Add 1/4 + 1/6.",
+          "answer": "5/12",
+          "correct_answer": "5/12",
+          "misconception_tag": "denominator_addition_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/12.",
+          "read_aloud_text": "Add 1 over 4 + 1 over 6.",
+          "question_audio": {
+            "text": "Add 1 over 4 + 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "1/4 + 1/6 = ?",
+          "numerator": 1,
+          "denominator": 4,
+          "choices": [
+            "5/12",
+            "2/10",
+            "1/6"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q5",
+          "question_id": "G5M_FR_001_MIXED_Q5",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Subtract 3/4 - 1/6.",
+          "answer": "7/12",
+          "correct_answer": "7/12",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 7/12.",
+          "read_aloud_text": "Subtract 3 over 4 - 1 over 6.",
+          "question_audio": {
+            "text": "Subtract 3 over 4 - 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "3/4 - 1/6 = ?",
+          "numerator": 3,
+          "denominator": 4,
+          "acceptable_answers": [
+            "7/12",
+            "7/12",
+            "7/12."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q6",
+          "question_id": "G5M_FR_001_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Subtract 5/6 - 1/3.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Subtract 5 over 6 - 1 over 3.",
+          "question_audio": {
+            "text": "Subtract 5 over 6 - 1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "5/6 - 1/3 = ?",
+          "numerator": 5,
+          "denominator": 6,
+          "choices": [
+            "1/2",
+            "4/9",
+            "1/2"
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q7",
+          "question_id": "G5M_FR_001_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 7/8 - 1/4.",
+          "answer": "5/8",
+          "correct_answer": "5/8",
+          "misconception_tag": "fraction_simplification_gap",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/8.",
+          "read_aloud_text": "Subtract 7 over 8 - 1 over 4.",
+          "question_audio": {
+            "text": "Subtract 7 over 8 - 1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "equation": "7/8 - 1/4 = ?",
+          "numerator": 7,
+          "denominator": 8,
+          "acceptable_answers": [
+            "5/8",
+            "5/8",
+            "5/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q8",
+          "question_id": "G5M_FR_001_MIXED_Q8",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "Add 1 1/2 + 1/4.",
+          "answer": "1 3/4",
+          "correct_answer": "1 3/4",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1 3/4.",
+          "read_aloud_text": "Add 1 1 over 2 + 1 over 4.",
+          "question_audio": {
+            "text": "Add 1 1 over 2 + 1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "add",
+          "equation": "1 1/2 + 1/4 = ?",
+          "knowns": [
+            "1 1/2",
+            "1/4"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "1 3/4",
+            "13/4",
+            "1 3/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q9",
+          "question_id": "G5M_FR_001_MIXED_Q9",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Add 2 1/3 + 1/6.",
+          "answer": "2 1/2",
+          "correct_answer": "2 1/2",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 2 1/2.",
+          "read_aloud_text": "Add 2 1 over 3 + 1 over 6.",
+          "question_audio": {
+            "text": "Add 2 1 over 3 + 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "add",
+          "equation": "2 1/3 + 1/6 = ?",
+          "knowns": [
+            "2 1/3",
+            "1/6"
+          ],
+          "unknown_label": "result",
+          "acceptable_answers": [
+            "2 1/2",
+            "21/2",
+            "2 1/2."
+          ]
+        },
+        {
+          "id": "G5M_FR_001_MIXED_Q10",
+          "question_id": "G5M_FR_001_MIXED_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "Subtract 3 3/4 - 1/2.",
+          "answer": "3 1/4",
+          "correct_answer": "3 1/4",
+          "misconception_tag": "mixed_number_regrouping_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 3 1/4.",
+          "read_aloud_text": "Subtract 3 3 over 4 - 1 over 2.",
+          "question_audio": {
+            "text": "Subtract 3 3 over 4 - 1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "subtract",
+          "equation": "3 3/4 - 1/2 = ?",
+          "knowns": [
+            "3 3/4",
+            "1/2"
+          ],
+          "unknown_label": "result",
+          "choices": [
+            "3 1/4",
+            "2",
+            "1/2"
+          ]
+        }
+      ],
+      "focus": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to the fraction mission for Add and Subtract Fractions With Unlike Denominators. In this story, fractions are useful quantities, not just numbers on a page. Listen for the whole, the equal parts, and the question being asked.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "On this page, learn the main strategy for Add and Subtract Fractions With Unlike Denominators. Use fraction language such as unlike denominators, equivalent fractions, mixed numbers, products, and quotients. A model helps you see why the computation works.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch the example slowly before you calculate. First identify the operation, then connect the numbers to the visual model. Finally, explain the answer in a complete math sentence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "In the guided demo, build the fraction relationship step by step. Say the denominator as equal parts and the numerator as selected parts. Use the model to catch mistakes before answering.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This is the Practice page. Tap Read Question to hear the fraction problem read naturally. Then solve with the model, check equivalent fractions or operations, and choose or enter the answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This is the Challenge page. Tap Read Question before you solve. The problem may include a mixed number, a context, or a visual that asks you to reason beyond a single step.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This is the Checkpoint page. Tap Read Question, solve independently, and use your answer to show what you know. Check that the fraction is simplified and matches the story.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge page. Think about the models that helped most: bars, circles, area grids, equations, or division pictures. Celebrate the strategy you can now use again.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "The profile page saves your growth for this fraction skill. Review any misconception tags, then continue to the Skill Practice Center if you want more focused levels and a Mixed review. Choose a focused level for extra practice, or try Mixed when you are ready to combine strategies.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "badgeName": "Add and Subtract Fractions With Unlike Denominators Badge"
+}

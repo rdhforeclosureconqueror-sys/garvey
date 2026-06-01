@@ -1,0 +1,2307 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "status": "production",
+    "source_plan": "curriculum-framework/plans/grade5-math-completion-plan.v1.json",
+    "readiness": [
+      "validated_skill_package",
+      "guided_mission",
+      "skill_practice_center",
+      "manifest_hub_exposure",
+      "voice_standard"
+    ]
+  },
+  "skill_id": "G5M_FR_002",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Number and Operations—Fractions",
+  "skill": "Multiply Fractions",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "lesson": {
+    "objective": "Multiply fractions by whole numbers, fractions by fractions, and mixed numbers.",
+    "key_vocabulary": [
+      "unlike denominators",
+      "mixed numbers",
+      "fraction product"
+    ],
+    "concept_explanation": "Fractions name equal parts of a whole. Strong fraction work keeps the whole clear, uses equivalent fractions when parts need to match, and explains whether the answer is reasonable.",
+    "visual_model": "fraction_area_model",
+    "common_misconception": "A common mistake is changing numbers without tracking the size of the equal parts. Use a model and say what each numerator and denominator means.",
+    "real_world_connection": "Cooks, builders, artists, and scientists combine, scale, and share fractional amounts every day.",
+    "lesson_summary": "Multiply fractions by whole numbers, fractions by fractions, and mixed numbers."
+  },
+  "worked_examples": [
+    {
+      "title": "Fraction times fraction",
+      "text": "To multiply 2/3 × 3/4, shade two thirds one direction and three fourths the other direction. The overlap is 6 of 12 parts, or 1/2.",
+      "visual_model": "fraction_area_model",
+      "factor_a": "2/3",
+      "factor_b": "3/4",
+      "correct_answer": "1/2",
+      "page_audio": {
+        "text": "The area model partitions the same whole two ways. The overlap shows the product because it is the part that satisfies both factors. Six twelfths simplifies to one half.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "title": "Mixed number product",
+      "text": "Rename 1 1/2 as 3/2 before multiplying. Then 3/2 × 2/3 = 6/6 = 1.",
+      "visual_model": "equation_builder",
+      "equation": "1 1/2 × 2/3 = 1",
+      "answer": "1",
+      "page_audio": {
+        "text": "Mixed number multiplication starts by renaming the mixed number as an improper fraction. Then multiply numerators, multiply denominators, and simplify.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Say what one whole is and what each denominator counts.",
+    "Use equivalent fractions or models so the parts match the operation.",
+    "Compute carefully, then simplify or rename a mixed number when needed.",
+    "Check reasonableness: adding should combine amounts, multiplying by a fraction can make a smaller amount, and division asks how many groups or how much in each share."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_FR_002_LVL1_Q1",
+      "question_id": "G5M_FR_002_LVL1_Q1",
+      "question_type": "multiplication_equation",
+      "visual_model": "fraction_bar",
+      "prompt": "Multiply 3 × 1/4.",
+      "answer": "3/4",
+      "correct_answer": "3/4",
+      "misconception_tag": "fraction_product_size_error",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 3/4.",
+      "read_aloud_text": "Multiply 3  times  1 over 4.",
+      "question_audio": {
+        "text": "Multiply 3  times  1 over 4.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "factor_a": 3,
+      "factor_b": 0.25,
+      "groups": 3,
+      "addend": "1/4",
+      "numerator": 1,
+      "denominator": 4,
+      "equation": "3 × 1/4 = ?",
+      "acceptable_answers": [
+        "3/4",
+        "3/4",
+        "3/4."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_FR_002_LVL2_Q1",
+      "question_id": "G5M_FR_002_LVL2_Q1",
+      "question_type": "fraction_response",
+      "visual_model": "fraction_area_model",
+      "prompt": "Multiply 1/2 × 1/3.",
+      "answer": "1/6",
+      "correct_answer": "1/6",
+      "misconception_tag": "numerator_denominator_multiply_error",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 1/6.",
+      "read_aloud_text": "Multiply 1 over 2  times  1 over 3.",
+      "question_audio": {
+        "text": "Multiply 1 over 2  times  1 over 3.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "factor_a": "1/2",
+      "factor_b": "1/3",
+      "row_fraction": "1/2",
+      "column_fraction": "1/3",
+      "equation": "1/2 × 1/3 = ?",
+      "acceptable_answers": [
+        "1/6",
+        "1/6",
+        "1/6."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_FR_002_MIXED_Q1",
+      "question_id": "G5M_FR_002_MIXED_Q1",
+      "question_type": "multiplication_equation",
+      "visual_model": "fraction_bar",
+      "prompt": "Multiply 3 × 1/4.",
+      "answer": "3/4",
+      "correct_answer": "3/4",
+      "misconception_tag": "fraction_product_size_error",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 3/4.",
+      "read_aloud_text": "Multiply 3  times  1 over 4.",
+      "question_audio": {
+        "text": "Multiply 3  times  1 over 4.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "factor_a": 3,
+      "factor_b": 0.25,
+      "groups": 3,
+      "addend": "1/4",
+      "numerator": 1,
+      "denominator": 4,
+      "equation": "3 × 1/4 = ?",
+      "acceptable_answers": [
+        "3/4",
+        "3/4",
+        "3/4."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "fraction_product_size_error": "Watch for fraction product size error.",
+    "numerator_denominator_multiply_error": "Watch for numerator denominator multiply error.",
+    "mixed_number_conversion_error": "Watch for mixed number conversion error.",
+    "area_model_fraction_confusion": "Watch for area model fraction confusion."
+  },
+  "level_banks": [
+    {
+      "level_id": "G5M_FR_002_LVL1",
+      "label": "Level 1: Whole Number Times Fraction",
+      "description": "Level 1: Whole Number Times Fraction",
+      "questions": [
+        {
+          "id": "G5M_FR_002_LVL1_Q1",
+          "question_id": "G5M_FR_002_LVL1_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_bar",
+          "prompt": "Multiply 3 × 1/4.",
+          "answer": "3/4",
+          "correct_answer": "3/4",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 3/4.",
+          "read_aloud_text": "Multiply 3  times  1 over 4.",
+          "question_audio": {
+            "text": "Multiply 3  times  1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 3,
+          "factor_b": 0.25,
+          "groups": 3,
+          "addend": "1/4",
+          "numerator": 1,
+          "denominator": 4,
+          "equation": "3 × 1/4 = ?",
+          "acceptable_answers": [
+            "3/4",
+            "3/4",
+            "3/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q2",
+          "question_id": "G5M_FR_002_LVL1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 2 × 2/5.",
+          "answer": "4/5",
+          "correct_answer": "4/5",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 4/5.",
+          "read_aloud_text": "Multiply 2  times  2 over 5.",
+          "question_audio": {
+            "text": "Multiply 2  times  2 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 2,
+          "factor_b": 0.4,
+          "groups": 2,
+          "addend": "2/5",
+          "numerator": 2,
+          "denominator": 5,
+          "equation": "2 × 2/5 = ?",
+          "choices": [
+            "4/5",
+            "4/7",
+            "1"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q3",
+          "question_id": "G5M_FR_002_LVL1_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "Multiply 4 × 1/6.",
+          "answer": "2/3",
+          "correct_answer": "2/3",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 2/3.",
+          "read_aloud_text": "Multiply 4  times  1 over 6.",
+          "question_audio": {
+            "text": "Multiply 4  times  1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 4,
+          "factor_b": 0.16666666666666666,
+          "groups": 4,
+          "addend": "1/6",
+          "numerator": 1,
+          "denominator": 6,
+          "equation": "4 × 1/6 = ?",
+          "acceptable_answers": [
+            "2/3",
+            "2/3",
+            "2/3."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q4",
+          "question_id": "G5M_FR_002_LVL1_Q4",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 5 × 2/3.",
+          "answer": "10/3",
+          "correct_answer": "10/3",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 10/3.",
+          "read_aloud_text": "Multiply 5  times  2 over 3.",
+          "question_audio": {
+            "text": "Multiply 5  times  2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 5,
+          "factor_b": 0.6666666666666666,
+          "groups": 5,
+          "addend": "2/3",
+          "numerator": 2,
+          "denominator": 3,
+          "equation": "5 × 2/3 = ?",
+          "acceptable_answers": [
+            "10/3",
+            "10/3",
+            "10/3."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q5",
+          "question_id": "G5M_FR_002_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Multiply 3 × 3/8.",
+          "answer": "9/8",
+          "correct_answer": "9/8",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 9/8.",
+          "read_aloud_text": "Multiply 3  times  3 over 8.",
+          "question_audio": {
+            "text": "Multiply 3  times  3 over 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 3,
+          "factor_b": 0.375,
+          "groups": 3,
+          "addend": "3/8",
+          "numerator": 3,
+          "denominator": 8,
+          "equation": "3 × 3/8 = ?",
+          "choices": [
+            "9/8",
+            "9/11",
+            "1"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q6",
+          "question_id": "G5M_FR_002_LVL1_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 6 × 1/5.",
+          "answer": "6/5",
+          "correct_answer": "6/5",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 6/5.",
+          "read_aloud_text": "Multiply 6  times  1 over 5.",
+          "question_audio": {
+            "text": "Multiply 6  times  1 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 6,
+          "factor_b": 0.2,
+          "groups": 6,
+          "addend": "1/5",
+          "numerator": 1,
+          "denominator": 5,
+          "equation": "6 × 1/5 = ?",
+          "acceptable_answers": [
+            "6/5",
+            "6/5",
+            "6/5."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q7",
+          "question_id": "G5M_FR_002_LVL1_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_bar",
+          "prompt": "Multiply 2 × 3/7.",
+          "answer": "6/7",
+          "correct_answer": "6/7",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 6/7.",
+          "read_aloud_text": "Multiply 2  times  3 over 7.",
+          "question_audio": {
+            "text": "Multiply 2  times  3 over 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 2,
+          "factor_b": 0.42857142857142855,
+          "groups": 2,
+          "addend": "3/7",
+          "numerator": 3,
+          "denominator": 7,
+          "equation": "2 × 3/7 = ?",
+          "acceptable_answers": [
+            "6/7",
+            "6/7",
+            "6/7."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q8",
+          "question_id": "G5M_FR_002_LVL1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 4 × 2/9.",
+          "answer": "8/9",
+          "correct_answer": "8/9",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 8/9.",
+          "read_aloud_text": "Multiply 4  times  2 over 9.",
+          "question_audio": {
+            "text": "Multiply 4  times  2 over 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 4,
+          "factor_b": 0.2222222222222222,
+          "groups": 4,
+          "addend": "2/9",
+          "numerator": 2,
+          "denominator": 9,
+          "equation": "4 × 2/9 = ?",
+          "choices": [
+            "8/9",
+            "8/13",
+            "1"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q9",
+          "question_id": "G5M_FR_002_LVL1_Q9",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "Multiply 7 × 1/3.",
+          "answer": "7/3",
+          "correct_answer": "7/3",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 7/3.",
+          "read_aloud_text": "Multiply 7  times  1 over 3.",
+          "question_audio": {
+            "text": "Multiply 7  times  1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 7,
+          "factor_b": 0.3333333333333333,
+          "groups": 7,
+          "addend": "1/3",
+          "numerator": 1,
+          "denominator": 3,
+          "equation": "7 × 1/3 = ?",
+          "acceptable_answers": [
+            "7/3",
+            "7/3",
+            "7/3."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL1_Q10",
+          "question_id": "G5M_FR_002_LVL1_Q10",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 3 × 5/6.",
+          "answer": "5/2",
+          "correct_answer": "5/2",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/2.",
+          "read_aloud_text": "Multiply 3  times  5 over 6.",
+          "question_audio": {
+            "text": "Multiply 3  times  5 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 3,
+          "factor_b": 0.8333333333333334,
+          "groups": 3,
+          "addend": "5/6",
+          "numerator": 5,
+          "denominator": 6,
+          "equation": "3 × 5/6 = ?",
+          "acceptable_answers": [
+            "5/2",
+            "5/2",
+            "5/2."
+          ]
+        }
+      ],
+      "focus": "Level 1: Whole Number Times Fraction",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_002_LVL2",
+      "label": "Level 2: Fraction Times Fraction",
+      "description": "Level 2: Fraction Times Fraction",
+      "questions": [
+        {
+          "id": "G5M_FR_002_LVL2_Q1",
+          "question_id": "G5M_FR_002_LVL2_Q1",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1/2 × 1/3.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Multiply 1 over 2  times  1 over 3.",
+          "question_audio": {
+            "text": "Multiply 1 over 2  times  1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "1/2",
+          "factor_b": "1/3",
+          "row_fraction": "1/2",
+          "column_fraction": "1/3",
+          "equation": "1/2 × 1/3 = ?",
+          "acceptable_answers": [
+            "1/6",
+            "1/6",
+            "1/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q2",
+          "question_id": "G5M_FR_002_LVL2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 2/3 × 3/4.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Multiply 2 over 3  times  3 over 4.",
+          "question_audio": {
+            "text": "Multiply 2 over 3  times  3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "2/3",
+          "factor_b": "3/4",
+          "row_fraction": "2/3",
+          "column_fraction": "3/4",
+          "equation": "2/3 × 3/4 = ?",
+          "choices": [
+            "1/2",
+            "5/7",
+            "6/7"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q3",
+          "question_id": "G5M_FR_002_LVL2_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 3/5 × 2/3.",
+          "answer": "2/5",
+          "correct_answer": "2/5",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 2/5.",
+          "read_aloud_text": "Multiply 3 over 5  times  2 over 3.",
+          "question_audio": {
+            "text": "Multiply 3 over 5  times  2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "3/5",
+          "factor_b": "2/3",
+          "row_fraction": "3/5",
+          "column_fraction": "2/3",
+          "equation": "3/5 × 2/3 = ?",
+          "acceptable_answers": [
+            "2/5",
+            "2/5",
+            "2/5."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q4",
+          "question_id": "G5M_FR_002_LVL2_Q4",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1/4 × 2/5.",
+          "answer": "1/10",
+          "correct_answer": "1/10",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/10.",
+          "read_aloud_text": "Multiply 1 over 4  times  2 over 5.",
+          "question_audio": {
+            "text": "Multiply 1 over 4  times  2 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "1/4",
+          "factor_b": "2/5",
+          "row_fraction": "1/4",
+          "column_fraction": "2/5",
+          "equation": "1/4 × 2/5 = ?",
+          "acceptable_answers": [
+            "1/10",
+            "1/10",
+            "1/10."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q5",
+          "question_id": "G5M_FR_002_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 5/6 × 3/5.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Multiply 5 over 6  times  3 over 5.",
+          "question_audio": {
+            "text": "Multiply 5 over 6  times  3 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "5/6",
+          "factor_b": "3/5",
+          "row_fraction": "5/6",
+          "column_fraction": "3/5",
+          "equation": "5/6 × 3/5 = ?",
+          "choices": [
+            "1/2",
+            "8/11",
+            "15/11"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q6",
+          "question_id": "G5M_FR_002_LVL2_Q6",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 2/7 × 7/8.",
+          "answer": "1/4",
+          "correct_answer": "1/4",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/4.",
+          "read_aloud_text": "Multiply 2 over 7  times  7 over 8.",
+          "question_audio": {
+            "text": "Multiply 2 over 7  times  7 over 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "2/7",
+          "factor_b": "7/8",
+          "row_fraction": "2/7",
+          "column_fraction": "7/8",
+          "equation": "2/7 × 7/8 = ?",
+          "acceptable_answers": [
+            "1/4",
+            "1/4",
+            "1/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q7",
+          "question_id": "G5M_FR_002_LVL2_Q7",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 3/4 × 2/9.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Multiply 3 over 4  times  2 over 9.",
+          "question_audio": {
+            "text": "Multiply 3 over 4  times  2 over 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "3/4",
+          "factor_b": "2/9",
+          "row_fraction": "3/4",
+          "column_fraction": "2/9",
+          "equation": "3/4 × 2/9 = ?",
+          "acceptable_answers": [
+            "1/6",
+            "1/6",
+            "1/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q8",
+          "question_id": "G5M_FR_002_LVL2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 4/5 × 5/8.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Multiply 4 over 5  times  5 over 8.",
+          "question_audio": {
+            "text": "Multiply 4 over 5  times  5 over 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "4/5",
+          "factor_b": "5/8",
+          "row_fraction": "4/5",
+          "column_fraction": "5/8",
+          "equation": "4/5 × 5/8 = ?",
+          "choices": [
+            "1/2",
+            "9/13",
+            "20/13"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q9",
+          "question_id": "G5M_FR_002_LVL2_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1/6 × 3/4.",
+          "answer": "1/8",
+          "correct_answer": "1/8",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/8.",
+          "read_aloud_text": "Multiply 1 over 6  times  3 over 4.",
+          "question_audio": {
+            "text": "Multiply 1 over 6  times  3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "1/6",
+          "factor_b": "3/4",
+          "row_fraction": "1/6",
+          "column_fraction": "3/4",
+          "equation": "1/6 × 3/4 = ?",
+          "acceptable_answers": [
+            "1/8",
+            "1/8",
+            "1/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL2_Q10",
+          "question_id": "G5M_FR_002_LVL2_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 2/3 × 5/6.",
+          "answer": "5/9",
+          "correct_answer": "5/9",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/9.",
+          "read_aloud_text": "Multiply 2 over 3  times  5 over 6.",
+          "question_audio": {
+            "text": "Multiply 2 over 3  times  5 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "2/3",
+          "factor_b": "5/6",
+          "row_fraction": "2/3",
+          "column_fraction": "5/6",
+          "equation": "2/3 × 5/6 = ?",
+          "acceptable_answers": [
+            "5/9",
+            "5/9",
+            "5/9."
+          ]
+        }
+      ],
+      "focus": "Level 2: Fraction Times Fraction",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_002_LVL3",
+      "label": "Level 3: Area Models for Fraction Products",
+      "description": "Level 3: Area Models for Fraction Products",
+      "questions": [
+        {
+          "id": "G5M_FR_002_LVL3_Q1",
+          "question_id": "G5M_FR_002_LVL3_Q1",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1/2 × 1/3.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Multiply 1 over 2  times  1 over 3.",
+          "question_audio": {
+            "text": "Multiply 1 over 2  times  1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "1/2",
+          "factor_b": "1/3",
+          "row_fraction": "1/2",
+          "column_fraction": "1/3",
+          "equation": "1/2 × 1/3 = ?",
+          "acceptable_answers": [
+            "1/6",
+            "1/6",
+            "1/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q2",
+          "question_id": "G5M_FR_002_LVL3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 2/3 × 3/4.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Multiply 2 over 3  times  3 over 4.",
+          "question_audio": {
+            "text": "Multiply 2 over 3  times  3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "2/3",
+          "factor_b": "3/4",
+          "row_fraction": "2/3",
+          "column_fraction": "3/4",
+          "equation": "2/3 × 3/4 = ?",
+          "choices": [
+            "1/2",
+            "5/7",
+            "6/7"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q3",
+          "question_id": "G5M_FR_002_LVL3_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 3/5 × 2/3.",
+          "answer": "2/5",
+          "correct_answer": "2/5",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 2/5.",
+          "read_aloud_text": "Multiply 3 over 5  times  2 over 3.",
+          "question_audio": {
+            "text": "Multiply 3 over 5  times  2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "3/5",
+          "factor_b": "2/3",
+          "row_fraction": "3/5",
+          "column_fraction": "2/3",
+          "equation": "3/5 × 2/3 = ?",
+          "acceptable_answers": [
+            "2/5",
+            "2/5",
+            "2/5."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q4",
+          "question_id": "G5M_FR_002_LVL3_Q4",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1/4 × 2/5.",
+          "answer": "1/10",
+          "correct_answer": "1/10",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/10.",
+          "read_aloud_text": "Multiply 1 over 4  times  2 over 5.",
+          "question_audio": {
+            "text": "Multiply 1 over 4  times  2 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "1/4",
+          "factor_b": "2/5",
+          "row_fraction": "1/4",
+          "column_fraction": "2/5",
+          "equation": "1/4 × 2/5 = ?",
+          "acceptable_answers": [
+            "1/10",
+            "1/10",
+            "1/10."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q5",
+          "question_id": "G5M_FR_002_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 5/6 × 3/5.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Multiply 5 over 6  times  3 over 5.",
+          "question_audio": {
+            "text": "Multiply 5 over 6  times  3 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "5/6",
+          "factor_b": "3/5",
+          "row_fraction": "5/6",
+          "column_fraction": "3/5",
+          "equation": "5/6 × 3/5 = ?",
+          "choices": [
+            "1/2",
+            "8/11",
+            "15/11"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q6",
+          "question_id": "G5M_FR_002_LVL3_Q6",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 2/7 × 7/8.",
+          "answer": "1/4",
+          "correct_answer": "1/4",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/4.",
+          "read_aloud_text": "Multiply 2 over 7  times  7 over 8.",
+          "question_audio": {
+            "text": "Multiply 2 over 7  times  7 over 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "2/7",
+          "factor_b": "7/8",
+          "row_fraction": "2/7",
+          "column_fraction": "7/8",
+          "equation": "2/7 × 7/8 = ?",
+          "acceptable_answers": [
+            "1/4",
+            "1/4",
+            "1/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q7",
+          "question_id": "G5M_FR_002_LVL3_Q7",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 3/4 × 2/9.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Multiply 3 over 4  times  2 over 9.",
+          "question_audio": {
+            "text": "Multiply 3 over 4  times  2 over 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "3/4",
+          "factor_b": "2/9",
+          "row_fraction": "3/4",
+          "column_fraction": "2/9",
+          "equation": "3/4 × 2/9 = ?",
+          "acceptable_answers": [
+            "1/6",
+            "1/6",
+            "1/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q8",
+          "question_id": "G5M_FR_002_LVL3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 4/5 × 5/8.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Multiply 4 over 5  times  5 over 8.",
+          "question_audio": {
+            "text": "Multiply 4 over 5  times  5 over 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "4/5",
+          "factor_b": "5/8",
+          "row_fraction": "4/5",
+          "column_fraction": "5/8",
+          "equation": "4/5 × 5/8 = ?",
+          "choices": [
+            "1/2",
+            "9/13",
+            "20/13"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q9",
+          "question_id": "G5M_FR_002_LVL3_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1/6 × 3/4.",
+          "answer": "1/8",
+          "correct_answer": "1/8",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/8.",
+          "read_aloud_text": "Multiply 1 over 6  times  3 over 4.",
+          "question_audio": {
+            "text": "Multiply 1 over 6  times  3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "1/6",
+          "factor_b": "3/4",
+          "row_fraction": "1/6",
+          "column_fraction": "3/4",
+          "equation": "1/6 × 3/4 = ?",
+          "acceptable_answers": [
+            "1/8",
+            "1/8",
+            "1/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL3_Q10",
+          "question_id": "G5M_FR_002_LVL3_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 2/3 × 5/6.",
+          "answer": "5/9",
+          "correct_answer": "5/9",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 5/9.",
+          "read_aloud_text": "Multiply 2 over 3  times  5 over 6.",
+          "question_audio": {
+            "text": "Multiply 2 over 3  times  5 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "2/3",
+          "factor_b": "5/6",
+          "row_fraction": "2/3",
+          "column_fraction": "5/6",
+          "equation": "2/3 × 5/6 = ?",
+          "acceptable_answers": [
+            "5/9",
+            "5/9",
+            "5/9."
+          ]
+        }
+      ],
+      "focus": "Level 3: Area Models for Fraction Products",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_002_LVL4",
+      "label": "Level 4: Mixed Number Multiplication",
+      "description": "Level 4: Mixed Number Multiplication",
+      "questions": [
+        {
+          "id": "G5M_FR_002_LVL4_Q1",
+          "question_id": "G5M_FR_002_LVL4_Q1",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "Multiply 1 1/2 × 2/3.",
+          "answer": "1/1",
+          "correct_answer": "1/1",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/1.",
+          "read_aloud_text": "Multiply 1 1 over 2  times  2 over 3.",
+          "question_audio": {
+            "text": "Multiply 1 1 over 2  times  2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "3/2",
+          "factor_b": "2/3",
+          "equation": "1 1/2 × 2/3 = ?",
+          "acceptable_answers": [
+            "1/1",
+            "1/1",
+            "1/1."
+          ],
+          "operation": "multiply",
+          "knowns": [
+            "3/2",
+            "2/3"
+          ],
+          "unknown_label": "product"
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q2",
+          "question_id": "G5M_FR_002_LVL4_Q2",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Multiply 2 1/4 × 1/2.",
+          "answer": "9/8",
+          "correct_answer": "9/8",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 9/8.",
+          "read_aloud_text": "Multiply 2 1 over 4  times  1 over 2.",
+          "question_audio": {
+            "text": "Multiply 2 1 over 4  times  1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "9/4",
+          "factor_b": "1/2",
+          "equation": "2 1/4 × 1/2 = ?",
+          "acceptable_answers": [
+            "9/8",
+            "9/8",
+            "9/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q3",
+          "question_id": "G5M_FR_002_LVL4_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1 2/3 × 3/5.",
+          "answer": "1/1",
+          "correct_answer": "1/1",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/1.",
+          "read_aloud_text": "Multiply 1 2 over 3  times  3 over 5.",
+          "question_audio": {
+            "text": "Multiply 1 2 over 3  times  3 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "5/3",
+          "factor_b": "3/5",
+          "equation": "1 2/3 × 3/5 = ?",
+          "choices": [
+            "1/1",
+            "3/5",
+            "1"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q4",
+          "question_id": "G5M_FR_002_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "Multiply 3 1/3 × 2/3.",
+          "answer": "20/9",
+          "correct_answer": "20/9",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 20/9.",
+          "read_aloud_text": "Multiply 3 1 over 3  times  2 over 3.",
+          "question_audio": {
+            "text": "Multiply 3 1 over 3  times  2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "10/3",
+          "factor_b": "2/3",
+          "equation": "3 1/3 × 2/3 = ?",
+          "acceptable_answers": [
+            "20/9",
+            "20/9",
+            "20/9."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q5",
+          "question_id": "G5M_FR_002_LVL4_Q5",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "Multiply 1 3/4 × 4/5.",
+          "answer": "7/5",
+          "correct_answer": "7/5",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 7/5.",
+          "read_aloud_text": "Multiply 1 3 over 4  times  4 over 5.",
+          "question_audio": {
+            "text": "Multiply 1 3 over 4  times  4 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "7/4",
+          "factor_b": "4/5",
+          "equation": "1 3/4 × 4/5 = ?",
+          "acceptable_answers": [
+            "7/5",
+            "7/5",
+            "7/5."
+          ],
+          "operation": "multiply",
+          "knowns": [
+            "7/4",
+            "4/5"
+          ],
+          "unknown_label": "product"
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q6",
+          "question_id": "G5M_FR_002_LVL4_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Multiply 2 1/2 × 3/4.",
+          "answer": "15/8",
+          "correct_answer": "15/8",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 15/8.",
+          "read_aloud_text": "Multiply 2 1 over 2  times  3 over 4.",
+          "question_audio": {
+            "text": "Multiply 2 1 over 2  times  3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "5/2",
+          "factor_b": "3/4",
+          "equation": "2 1/2 × 3/4 = ?",
+          "acceptable_answers": [
+            "15/8",
+            "15/8",
+            "15/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q7",
+          "question_id": "G5M_FR_002_LVL4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1 1/5 × 5/6.",
+          "answer": "1/1",
+          "correct_answer": "1/1",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/1.",
+          "read_aloud_text": "Multiply 1 1 over 5  times  5 over 6.",
+          "question_audio": {
+            "text": "Multiply 1 1 over 5  times  5 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "6/5",
+          "factor_b": "5/6",
+          "equation": "1 1/5 × 5/6 = ?",
+          "choices": [
+            "1/1",
+            "5/6",
+            "1"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q8",
+          "question_id": "G5M_FR_002_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "Multiply 2 2/3 × 1/4.",
+          "answer": "2/3",
+          "correct_answer": "2/3",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 2/3.",
+          "read_aloud_text": "Multiply 2 2 over 3  times  1 over 4.",
+          "question_audio": {
+            "text": "Multiply 2 2 over 3  times  1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "8/3",
+          "factor_b": "1/4",
+          "equation": "2 2/3 × 1/4 = ?",
+          "acceptable_answers": [
+            "2/3",
+            "2/3",
+            "2/3."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q9",
+          "question_id": "G5M_FR_002_LVL4_Q9",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "Multiply 3 1/2 × 2/5.",
+          "answer": "7/5",
+          "correct_answer": "7/5",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 7/5.",
+          "read_aloud_text": "Multiply 3 1 over 2  times  2 over 5.",
+          "question_audio": {
+            "text": "Multiply 3 1 over 2  times  2 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "7/2",
+          "factor_b": "2/5",
+          "equation": "3 1/2 × 2/5 = ?",
+          "acceptable_answers": [
+            "7/5",
+            "7/5",
+            "7/5."
+          ],
+          "operation": "multiply",
+          "knowns": [
+            "7/2",
+            "2/5"
+          ],
+          "unknown_label": "product"
+        },
+        {
+          "id": "G5M_FR_002_LVL4_Q10",
+          "question_id": "G5M_FR_002_LVL4_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Multiply 1 5/6 × 3/7.",
+          "answer": "11/14",
+          "correct_answer": "11/14",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 11/14.",
+          "read_aloud_text": "Multiply 1 5 over 6  times  3 over 7.",
+          "question_audio": {
+            "text": "Multiply 1 5 over 6  times  3 over 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "11/6",
+          "factor_b": "3/7",
+          "equation": "1 5/6 × 3/7 = ?",
+          "acceptable_answers": [
+            "11/14",
+            "11/14",
+            "11/14."
+          ]
+        }
+      ],
+      "focus": "Level 4: Mixed Number Multiplication",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_002_MIXED",
+      "label": "Mixed",
+      "description": "Mixed",
+      "questions": [
+        {
+          "id": "G5M_FR_002_MIXED_Q1",
+          "question_id": "G5M_FR_002_MIXED_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_bar",
+          "prompt": "Multiply 3 × 1/4.",
+          "answer": "3/4",
+          "correct_answer": "3/4",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 3/4.",
+          "read_aloud_text": "Multiply 3  times  1 over 4.",
+          "question_audio": {
+            "text": "Multiply 3  times  1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 3,
+          "factor_b": 0.25,
+          "groups": 3,
+          "addend": "1/4",
+          "numerator": 1,
+          "denominator": 4,
+          "equation": "3 × 1/4 = ?",
+          "acceptable_answers": [
+            "3/4",
+            "3/4",
+            "3/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q2",
+          "question_id": "G5M_FR_002_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 2 × 2/5.",
+          "answer": "4/5",
+          "correct_answer": "4/5",
+          "misconception_tag": "fraction_product_size_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 4/5.",
+          "read_aloud_text": "Multiply 2  times  2 over 5.",
+          "question_audio": {
+            "text": "Multiply 2  times  2 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 2,
+          "factor_b": 0.4,
+          "groups": 2,
+          "addend": "2/5",
+          "numerator": 2,
+          "denominator": 5,
+          "equation": "2 × 2/5 = ?",
+          "choices": [
+            "4/5",
+            "4/7",
+            "1"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q3",
+          "question_id": "G5M_FR_002_MIXED_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1/2 × 1/3.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Multiply 1 over 2  times  1 over 3.",
+          "question_audio": {
+            "text": "Multiply 1 over 2  times  1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "1/2",
+          "factor_b": "1/3",
+          "row_fraction": "1/2",
+          "column_fraction": "1/3",
+          "equation": "1/2 × 1/3 = ?",
+          "acceptable_answers": [
+            "1/6",
+            "1/6",
+            "1/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q4",
+          "question_id": "G5M_FR_002_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 2/3 × 3/4.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Multiply 2 over 3  times  3 over 4.",
+          "question_audio": {
+            "text": "Multiply 2 over 3  times  3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "2/3",
+          "factor_b": "3/4",
+          "row_fraction": "2/3",
+          "column_fraction": "3/4",
+          "equation": "2/3 × 3/4 = ?",
+          "choices": [
+            "1/2",
+            "5/7",
+            "6/7"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q5",
+          "question_id": "G5M_FR_002_MIXED_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 3/5 × 2/3.",
+          "answer": "2/5",
+          "correct_answer": "2/5",
+          "misconception_tag": "numerator_denominator_multiply_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 2/5.",
+          "read_aloud_text": "Multiply 3 over 5  times  2 over 3.",
+          "question_audio": {
+            "text": "Multiply 3 over 5  times  2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "3/5",
+          "factor_b": "2/3",
+          "row_fraction": "3/5",
+          "column_fraction": "2/3",
+          "equation": "3/5 × 2/3 = ?",
+          "acceptable_answers": [
+            "2/5",
+            "2/5",
+            "2/5."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q6",
+          "question_id": "G5M_FR_002_MIXED_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1/2 × 1/3.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Multiply 1 over 2  times  1 over 3.",
+          "question_audio": {
+            "text": "Multiply 1 over 2  times  1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "1/2",
+          "factor_b": "1/3",
+          "row_fraction": "1/2",
+          "column_fraction": "1/3",
+          "equation": "1/2 × 1/3 = ?",
+          "acceptable_answers": [
+            "1/6",
+            "1/6",
+            "1/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q7",
+          "question_id": "G5M_FR_002_MIXED_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 2/3 × 3/4.",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "area_model_fraction_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Multiply 2 over 3  times  3 over 4.",
+          "question_audio": {
+            "text": "Multiply 2 over 3  times  3 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "2/3",
+          "factor_b": "3/4",
+          "row_fraction": "2/3",
+          "column_fraction": "3/4",
+          "equation": "2/3 × 3/4 = ?",
+          "choices": [
+            "1/2",
+            "5/7",
+            "6/7"
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q8",
+          "question_id": "G5M_FR_002_MIXED_Q8",
+          "question_type": "word_problem",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1 1/2 × 2/3.",
+          "answer": "1/1",
+          "correct_answer": "1/1",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/1.",
+          "read_aloud_text": "Multiply 1 1 over 2  times  2 over 3.",
+          "question_audio": {
+            "text": "Multiply 1 1 over 2  times  2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "3/2",
+          "factor_b": "2/3",
+          "equation": "1 1/2 × 2/3 = ?",
+          "acceptable_answers": [
+            "1/1",
+            "1/1",
+            "1/1."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q9",
+          "question_id": "G5M_FR_002_MIXED_Q9",
+          "question_type": "fraction_response",
+          "visual_model": "equation_builder",
+          "prompt": "Multiply 2 1/4 × 1/2.",
+          "answer": "9/8",
+          "correct_answer": "9/8",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 9/8.",
+          "read_aloud_text": "Multiply 2 1 over 4  times  1 over 2.",
+          "question_audio": {
+            "text": "Multiply 2 1 over 4  times  1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "9/4",
+          "factor_b": "1/2",
+          "equation": "2 1/4 × 1/2 = ?",
+          "acceptable_answers": [
+            "9/8",
+            "9/8",
+            "9/8."
+          ]
+        },
+        {
+          "id": "G5M_FR_002_MIXED_Q10",
+          "question_id": "G5M_FR_002_MIXED_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_area_model",
+          "prompt": "Multiply 1 2/3 × 3/5.",
+          "answer": "1/1",
+          "correct_answer": "1/1",
+          "misconception_tag": "mixed_number_conversion_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/1.",
+          "read_aloud_text": "Multiply 1 2 over 3  times  3 over 5.",
+          "question_audio": {
+            "text": "Multiply 1 2 over 3  times  3 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": "5/3",
+          "factor_b": "3/5",
+          "equation": "1 2/3 × 3/5 = ?",
+          "choices": [
+            "1/1",
+            "3/5",
+            "1"
+          ]
+        }
+      ],
+      "focus": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to the fraction mission for Multiply Fractions. In this story, fractions are useful quantities, not just numbers on a page. Listen for the whole, the equal parts, and the question being asked.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "On this page, learn the main strategy for Multiply Fractions. Use fraction language such as unlike denominators, equivalent fractions, mixed numbers, products, and quotients. A model helps you see why the computation works.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch the example slowly before you calculate. First identify the operation, then connect the numbers to the visual model. Finally, explain the answer in a complete math sentence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "In the guided demo, build the fraction relationship step by step. Say the denominator as equal parts and the numerator as selected parts. Use the model to catch mistakes before answering.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This is the Practice page. Tap Read Question to hear the fraction problem read naturally. Then solve with the model, check equivalent fractions or operations, and choose or enter the answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This is the Challenge page. Tap Read Question before you solve. The problem may include a mixed number, a context, or a visual that asks you to reason beyond a single step.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This is the Checkpoint page. Tap Read Question, solve independently, and use your answer to show what you know. Check that the fraction is simplified and matches the story.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge page. Think about the models that helped most: bars, circles, area grids, equations, or division pictures. Celebrate the strategy you can now use again.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "The profile page saves your growth for this fraction skill. Review any misconception tags, then continue to the Skill Practice Center if you want more focused levels and a Mixed review. Choose a focused level for extra practice, or try Mixed when you are ready to combine strategies.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "badgeName": "Multiply Fractions Badge"
+}
