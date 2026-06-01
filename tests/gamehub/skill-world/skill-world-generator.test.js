@@ -1476,3 +1476,55 @@ const g4Manifest=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill
 assert.ok(g4Manifest.packages.includes('G4M_NBT_001.skill-package.v1.json'),'manifest includes G4M_NBT_001');
 assert.equal(`/skill-world/${encodeURIComponent('G4M_NBT_001')}/drill`,'/skill-world/G4M_NBT_001/drill','Practice This Skill route exists for G4M_NBT_001');
 console.log('skill-world-generator tests passed');
+
+const grade4BatchIds=['G4M_OA_001','G4M_NBT_002','G4M_NBT_003'];
+const grade4BatchPackages=grade4BatchIds.map(load);
+function assertGrade4BatchPackage(pkg,expected){
+  assert.ok(pkg,`${expected.id} package loads`);
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${expected.id} validates in strict production mode`);
+  assert.equal(pkg.grade,4,`${expected.id} is Grade 4`);
+  assert.equal(pkg.subject,'Math',`${expected.id} is Math`);
+  assert.equal(pkg.domain,expected.domain,`${expected.id} domain matches`);
+  assert.equal(pkg.skill,expected.skill,`${expected.id} skill matches`);
+  assert.deepEqual(Renderer.stepLabels(pkg),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],`${expected.id} mission flow is complete`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${expected.id} mission renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${expected.id} profile links to Skill Practice Center`);
+  const drillHtml=Renderer.renderSkillWorld(pkg,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${expected.id} practice route renders Skill Practice Center`);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${expected.id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${expected.id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${expected.id} has Mixed level`);
+  expected.levelLabels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${expected.id} includes ${label}`));
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${expected.id} ${level.level_id} has 10–12 questions`));
+  ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>{
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${expected.id} ${screen} has Read This Page narration`);
+    assert.ok((pkg.page_audio?.[screen]?.text||'').length>=140,`${expected.id} ${screen} narration teaches the page`);
+  });
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`${expected.id} ${screen} page narration references Read Question`));
+  [...pkg.guided_practice,...pkg.adaptive_question_bank,...pkg.checkpoint].forEach((question)=>{
+    assert.equal(question.question_audio?.label,'Read Question',`${question.question_id} mission question has Read Question narration`);
+    assert.ok(question.question_audio?.text,`${question.question_id} question narration has text`);
+  });
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((question)=>{
+    assert.equal(question.question_audio?.label,'Read Question',`${question.question_id} practice question has Read Question narration`);
+    assert.ok(question.question_audio?.text,`${question.question_id} practice question narration has text`);
+    if(question.question_type==='short_response'||question.question_type==='pattern_response'||question.question_type==='algorithm_response'||question.question_type==='multiplication_equation'){
+      assert.ok(Array.isArray(question.acceptable_answers)&&question.acceptable_answers.length>0,`${question.question_id} acceptable_answers exist`);
+    }
+  });
+  expected.visuals.forEach((visual)=>assert.ok(pkg.level_banks.flatMap((level)=>level.questions).some((q)=>q.visual_model===visual),`${expected.id} includes visual ${visual}`));
+  expected.types.forEach((type)=>assert.ok(pkg.level_banks.flatMap((level)=>level.questions).some((q)=>q.question_type===type),`${expected.id} includes question type ${type}`));
+  expected.tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${expected.id} includes misconception ${tag}`));
+}
+assertGrade4BatchPackage(grade4BatchPackages[0],{id:'G4M_OA_001',domain:'Operations and Algebraic Thinking',skill:'Multiplicative Comparison and Patterns',levelLabels:['Level 1: Multiplicative Comparison','Level 2: Factors and Multiples','Level 3: Prime and Composite Numbers','Level 4: Number and Shape Patterns','Mixed'],visuals:['comparison_model','factor_pair_model','multiples_chart','pattern_table'],types:['multiple_choice','short_response','pattern_response'],tags:['additive_vs_multiplicative_confusion','factor_multiple_confusion','prime_composite_confusion','pattern_rule_error']});
+assertGrade4BatchPackage(grade4BatchPackages[1],{id:'G4M_NBT_002',domain:'Number and Operations in Base Ten',skill:'Multi-Digit Addition and Subtraction',levelLabels:['Level 1: Add Multi-Digit Numbers','Level 2: Subtract Multi-Digit Numbers','Level 3: Regrouping Across Zeros','Level 4: Estimate and Check','Mixed'],visuals:['algorithm_steps','regrouping_model','estimation_number_line'],types:['multiple_choice','short_response','algorithm_response'],tags:['regrouping_across_zero_error','digit_alignment_error','subtraction_borrowing_error','estimate_reasonableness_error']});
+assertGrade4BatchPackage(grade4BatchPackages[2],{id:'G4M_NBT_003',domain:'Number and Operations in Base Ten',skill:'Multi-Digit Multiplication',levelLabels:['Level 1: Multiply by One Digit','Level 2: Area Model Multiplication','Level 3: Partial Products','Level 4: Two-Digit by Two-Digit','Mixed'],visuals:['area_model','partial_products_model','multiplication_model','algorithm_steps'],types:['multiple_choice','short_response','multiplication_equation'],tags:['place_value_product_error','partial_products_confusion','digit_alignment_error','area_model_mismatch']});
+assert.match(VisualRegistry.render({visual_model:'comparison_model',base_value:4,factor:3,compared_value:12}),/data-renderer="comparison_model"/,'comparison_model renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'factor_pair_model',number:24}),/data-renderer="factor_pair_model"/,'factor_pair_model renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'multiples_chart',multiple_of:6,limit:30}),/data-renderer="multiples_chart"/,'multiples_chart renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'pattern_table',rule:'add 4',pattern_rows:[{input:1,output:5}]}),/data-renderer="pattern_table"/,'pattern_table renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'algorithm_steps',operation:'+',operands:[1234,5678],correct_answer:'6,912'}),/data-renderer="algorithm_steps"/,'algorithm_steps renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'regrouping_model',trades:['trade one thousand']}),/data-renderer="regrouping_model"/,'regrouping_model renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'estimation_number_line',exact:5791,estimate:6000}),/data-renderer="estimation_number_line"/,'estimation_number_line renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'partial_products_model',partial_products:[180,24],correct_answer:204}),/data-renderer="partial_products_model"/,'partial_products_model renderer output exists');

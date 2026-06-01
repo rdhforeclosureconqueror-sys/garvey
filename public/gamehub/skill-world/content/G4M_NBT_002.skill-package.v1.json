@@ -1,0 +1,2416 @@
+{
+  "skill_id": "G4M_NBT_002",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production",
+    "source_docs": [
+      "docs/grade4_math_completion_plan.md",
+      "curriculum-framework/plans/grade4-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade4-math-completion-plan.v1.json",
+    "readiness_checkpoint": "grade4_operations_base_ten_batch"
+  },
+  "grade": 4,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Multi-Digit Addition and Subtraction",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "game_theme": {
+    "title": "Algorithm Airlift",
+    "badge_name": "Multi-Digit Addition and Subtraction Badge",
+    "mission_intro": "Use multi-digit addition and subtraction to help the Skill World crew solve a real Grade 4 math challenge."
+  },
+  "lesson": {
+    "story_mission": "Join the Algorithm Airlift crew and solve problems about fluently add and subtract multi-digit whole numbers using the standard algorithm and place value.",
+    "mini_lesson": "In this lesson, you will fluently add and subtract multi-digit whole numbers using the standard algorithm and place value. Use models to keep the math organized and explain each answer.",
+    "objective": "Fluently add and subtract multi-digit whole numbers using the standard algorithm and place value.",
+    "key_vocabulary": [
+      "factor",
+      "multiple",
+      "place value",
+      "estimate",
+      "algorithm",
+      "pattern",
+      "product"
+    ],
+    "concept_explanation": "Grade 4 mathematicians use visual models and precise vocabulary to fluently add and subtract multi-digit whole numbers using the standard algorithm and place value.",
+    "common_misconception": "A common mistake is using the right numbers but the wrong relationship, place value, or rule.",
+    "real_world_connection": "These skills help with planning, checking totals, comparing quantities, and solving multi-step real-world problems.",
+    "lesson_summary": "Read carefully, model the relationship, calculate with place value, and check for reasonableness.",
+    "visual_model": "place_value_chart",
+    "audio": {
+      "text": "In this lesson, we practice Multi-Digit Addition and Subtraction. Use the visuals, listen to the page narration, and explain why your answer works.",
+      "label": "Listen to Lesson",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G4M_NBT_002_L1_Q1",
+      "question_id": "G4M_NBT_002_L1_Q1",
+      "question_type": "algorithm_response",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 2,345 + 1,678.",
+      "answer": "4,023",
+      "correct_answer": "4,023",
+      "misconception_tag": "digit_alignment_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 4,023.",
+      "acceptable_answers": [
+        "4,023",
+        "4023"
+      ],
+      "read_aloud_text": "Add 2,345 + 1,678.",
+      "question_audio": {
+        "text": "Add 2,345 + 1,678.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "operation": "+",
+      "operands": [
+        2345,
+        1678
+      ],
+      "algorithm_steps": [
+        "Line up ones, tens, hundreds, and thousands.",
+        "Add each column from right to left.",
+        "Regroup when a column makes ten or more."
+      ]
+    },
+    {
+      "id": "G4M_NBT_002_L1_Q2",
+      "question_id": "G4M_NBT_002_L1_Q2",
+      "question_type": "short_response",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 3,456 + 1,900.",
+      "answer": "5,356",
+      "correct_answer": "5,356",
+      "misconception_tag": "digit_alignment_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 5,356.",
+      "acceptable_answers": [
+        "5,356",
+        "5356"
+      ],
+      "read_aloud_text": "Add 3,456 + 1,900.",
+      "question_audio": {
+        "text": "Add 3,456 + 1,900.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "operation": "+",
+      "operands": [
+        3456,
+        1900
+      ],
+      "algorithm_steps": [
+        "Line up ones, tens, hundreds, and thousands.",
+        "Add each column from right to left.",
+        "Regroup when a column makes ten or more."
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Underline the math action in the question.",
+    "Use the visual model to organize place value and relationships.",
+    "Check that your answer matches the question and is reasonable."
+  ],
+  "guided_practice": [
+    {
+      "id": "G4M_NBT_002_L1_Q1",
+      "question_id": "G4M_NBT_002_L1_Q1",
+      "question_type": "algorithm_response",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 2,345 + 1,678.",
+      "answer": "4,023",
+      "correct_answer": "4,023",
+      "misconception_tag": "digit_alignment_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 4,023.",
+      "acceptable_answers": [
+        "4,023",
+        "4023"
+      ],
+      "read_aloud_text": "Add 2,345 + 1,678.",
+      "question_audio": {
+        "text": "Add 2,345 + 1,678.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "operation": "+",
+      "operands": [
+        2345,
+        1678
+      ],
+      "algorithm_steps": [
+        "Line up ones, tens, hundreds, and thousands.",
+        "Add each column from right to left.",
+        "Regroup when a column makes ten or more."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G4M_NBT_002_L1_Q5",
+      "question_id": "G4M_NBT_002_L1_Q5",
+      "question_type": "short_response",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 6,789 + 2,566.",
+      "answer": "9,355",
+      "correct_answer": "9,355",
+      "misconception_tag": "digit_alignment_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 9,355.",
+      "acceptable_answers": [
+        "9,355",
+        "9355"
+      ],
+      "read_aloud_text": "Add 6,789 + 2,566.",
+      "question_audio": {
+        "text": "Add 6,789 + 2,566.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "operation": "+",
+      "operands": [
+        6789,
+        2566
+      ],
+      "algorithm_steps": [
+        "Line up ones, tens, hundreds, and thousands.",
+        "Add each column from right to left.",
+        "Regroup when a column makes ten or more."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G4M_NBT_002_L1_Q9",
+      "question_id": "G4M_NBT_002_L1_Q9",
+      "question_type": "short_response",
+      "visual_model": "algorithm_steps",
+      "prompt": "Add 11,233 + 3,454.",
+      "answer": "14,687",
+      "correct_answer": "14,687",
+      "misconception_tag": "digit_alignment_error",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 14,687.",
+      "acceptable_answers": [
+        "14,687",
+        "14687"
+      ],
+      "read_aloud_text": "Add 11,233 + 3,454.",
+      "question_audio": {
+        "text": "Add 11,233 + 3,454.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "operation": "+",
+      "operands": [
+        11233,
+        3454
+      ],
+      "algorithm_steps": [
+        "Line up ones, tens, hundreds, and thousands.",
+        "Add each column from right to left.",
+        "Regroup when a column makes ten or more."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "regrouping_across_zero_error": {
+      "description": "Watch for regrouping across zero error.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "digit_alignment_error": {
+      "description": "Watch for digit alignment error.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "subtraction_borrowing_error": {
+      "description": "Watch for subtraction borrowing error.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "estimate_reasonableness_error": {
+      "description": "Watch for estimate reasonableness error.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G4M_NBT_002_LVL1",
+      "label": "Level 1: Add Multi-Digit Numbers",
+      "focus": "Add Multi-Digit Numbers",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_002_L1_Q1",
+          "question_id": "G4M_NBT_002_L1_Q1",
+          "question_type": "algorithm_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 2,345 + 1,678.",
+          "answer": "4,023",
+          "correct_answer": "4,023",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4,023.",
+          "acceptable_answers": [
+            "4,023",
+            "4023"
+          ],
+          "read_aloud_text": "Add 2,345 + 1,678.",
+          "question_audio": {
+            "text": "Add 2,345 + 1,678.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            2345,
+            1678
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q2",
+          "question_id": "G4M_NBT_002_L1_Q2",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 3,456 + 1,900.",
+          "answer": "5,356",
+          "correct_answer": "5,356",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 5,356.",
+          "acceptable_answers": [
+            "5,356",
+            "5356"
+          ],
+          "read_aloud_text": "Add 3,456 + 1,900.",
+          "question_audio": {
+            "text": "Add 3,456 + 1,900.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            3456,
+            1900
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q3",
+          "question_id": "G4M_NBT_002_L1_Q3",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 4,567 + 2,122.",
+          "answer": "6,689",
+          "correct_answer": "6,689",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,689.",
+          "acceptable_answers": [
+            "6,689",
+            "6689"
+          ],
+          "read_aloud_text": "Add 4,567 + 2,122.",
+          "question_audio": {
+            "text": "Add 4,567 + 2,122.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            4567,
+            2122
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q4",
+          "question_id": "G4M_NBT_002_L1_Q4",
+          "question_type": "algorithm_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 5,678 + 2,344.",
+          "answer": "8,022",
+          "correct_answer": "8,022",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 8,022.",
+          "acceptable_answers": [
+            "8,022",
+            "8022"
+          ],
+          "read_aloud_text": "Add 5,678 + 2,344.",
+          "question_audio": {
+            "text": "Add 5,678 + 2,344.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            5678,
+            2344
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q5",
+          "question_id": "G4M_NBT_002_L1_Q5",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 6,789 + 2,566.",
+          "answer": "9,355",
+          "correct_answer": "9,355",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 9,355.",
+          "acceptable_answers": [
+            "9,355",
+            "9355"
+          ],
+          "read_aloud_text": "Add 6,789 + 2,566.",
+          "question_audio": {
+            "text": "Add 6,789 + 2,566.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            6789,
+            2566
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q6",
+          "question_id": "G4M_NBT_002_L1_Q6",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 7,900 + 2,788.",
+          "answer": "10,688",
+          "correct_answer": "10,688",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 10,688.",
+          "acceptable_answers": [
+            "10,688",
+            "10688"
+          ],
+          "read_aloud_text": "Add 7,900 + 2,788.",
+          "question_audio": {
+            "text": "Add 7,900 + 2,788.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            7900,
+            2788
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q7",
+          "question_id": "G4M_NBT_002_L1_Q7",
+          "question_type": "algorithm_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 9,011 + 3,010.",
+          "answer": "12,021",
+          "correct_answer": "12,021",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 12,021.",
+          "acceptable_answers": [
+            "12,021",
+            "12021"
+          ],
+          "read_aloud_text": "Add 9,011 + 3,010.",
+          "question_audio": {
+            "text": "Add 9,011 + 3,010.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            9011,
+            3010
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q8",
+          "question_id": "G4M_NBT_002_L1_Q8",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 10,122 + 3,232.",
+          "answer": "13,354",
+          "correct_answer": "13,354",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 13,354.",
+          "acceptable_answers": [
+            "13,354",
+            "13354"
+          ],
+          "read_aloud_text": "Add 10,122 + 3,232.",
+          "question_audio": {
+            "text": "Add 10,122 + 3,232.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            10122,
+            3232
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q9",
+          "question_id": "G4M_NBT_002_L1_Q9",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 11,233 + 3,454.",
+          "answer": "14,687",
+          "correct_answer": "14,687",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 14,687.",
+          "acceptable_answers": [
+            "14,687",
+            "14687"
+          ],
+          "read_aloud_text": "Add 11,233 + 3,454.",
+          "question_audio": {
+            "text": "Add 11,233 + 3,454.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            11233,
+            3454
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L1_Q10",
+          "question_id": "G4M_NBT_002_L1_Q10",
+          "question_type": "algorithm_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 12,344 + 3,676.",
+          "answer": "16,020",
+          "correct_answer": "16,020",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 16,020.",
+          "acceptable_answers": [
+            "16,020",
+            "16020"
+          ],
+          "read_aloud_text": "Add 12,344 + 3,676.",
+          "question_audio": {
+            "text": "Add 12,344 + 3,676.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            12344,
+            3676
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_002_LVL2",
+      "label": "Level 2: Subtract Multi-Digit Numbers",
+      "focus": "Subtract Multi-Digit Numbers",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_002_L2_Q1",
+          "question_id": "G4M_NBT_002_L2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 9,000 - 2,456.",
+          "answer": "6,544",
+          "correct_answer": "6,544",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,544.",
+          "choices": [
+            "6,544",
+            "6,644",
+            "11,456"
+          ],
+          "read_aloud_text": "Subtract 9,000 - 2,456.",
+          "question_audio": {
+            "text": "Subtract 9,000 - 2,456.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            9000,
+            2456
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q2",
+          "question_id": "G4M_NBT_002_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 9,321 - 2,567.",
+          "answer": "6,754",
+          "correct_answer": "6,754",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,754.",
+          "acceptable_answers": [
+            "6,754",
+            "6754"
+          ],
+          "choices": [
+            "6,754",
+            "6,854",
+            "11,888"
+          ],
+          "read_aloud_text": "Subtract 9,321 - 2,567.",
+          "question_audio": {
+            "text": "Subtract 9,321 - 2,567.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            9321,
+            2567
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q3",
+          "question_id": "G4M_NBT_002_L2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 9,642 - 2,678.",
+          "answer": "6,964",
+          "correct_answer": "6,964",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,964.",
+          "choices": [
+            "6,964",
+            "7,064",
+            "12,320"
+          ],
+          "read_aloud_text": "Subtract 9,642 - 2,678.",
+          "question_audio": {
+            "text": "Subtract 9,642 - 2,678.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            9642,
+            2678
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q4",
+          "question_id": "G4M_NBT_002_L2_Q4",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 9,963 - 2,789.",
+          "answer": "7,174",
+          "correct_answer": "7,174",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 7,174.",
+          "acceptable_answers": [
+            "7,174",
+            "7174"
+          ],
+          "choices": [
+            "7,174",
+            "7,274",
+            "12,752"
+          ],
+          "read_aloud_text": "Subtract 9,963 - 2,789.",
+          "question_audio": {
+            "text": "Subtract 9,963 - 2,789.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            9963,
+            2789
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q5",
+          "question_id": "G4M_NBT_002_L2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 10,284 - 2,900.",
+          "answer": "7,384",
+          "correct_answer": "7,384",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 7,384.",
+          "choices": [
+            "7,384",
+            "7,484",
+            "13,184"
+          ],
+          "read_aloud_text": "Subtract 10,284 - 2,900.",
+          "question_audio": {
+            "text": "Subtract 10,284 - 2,900.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            10284,
+            2900
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q6",
+          "question_id": "G4M_NBT_002_L2_Q6",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 10,605 - 3,011.",
+          "answer": "7,594",
+          "correct_answer": "7,594",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 7,594.",
+          "acceptable_answers": [
+            "7,594",
+            "7594"
+          ],
+          "choices": [
+            "7,594",
+            "7,694",
+            "13,616"
+          ],
+          "read_aloud_text": "Subtract 10,605 - 3,011.",
+          "question_audio": {
+            "text": "Subtract 10,605 - 3,011.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            10605,
+            3011
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q7",
+          "question_id": "G4M_NBT_002_L2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 10,926 - 3,122.",
+          "answer": "7,804",
+          "correct_answer": "7,804",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 7,804.",
+          "choices": [
+            "7,804",
+            "7,904",
+            "14,048"
+          ],
+          "read_aloud_text": "Subtract 10,926 - 3,122.",
+          "question_audio": {
+            "text": "Subtract 10,926 - 3,122.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            10926,
+            3122
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q8",
+          "question_id": "G4M_NBT_002_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 11,247 - 3,233.",
+          "answer": "8,014",
+          "correct_answer": "8,014",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 8,014.",
+          "acceptable_answers": [
+            "8,014",
+            "8014"
+          ],
+          "choices": [
+            "8,014",
+            "8,114",
+            "14,480"
+          ],
+          "read_aloud_text": "Subtract 11,247 - 3,233.",
+          "question_audio": {
+            "text": "Subtract 11,247 - 3,233.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            11247,
+            3233
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q9",
+          "question_id": "G4M_NBT_002_L2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 11,568 - 3,344.",
+          "answer": "8,224",
+          "correct_answer": "8,224",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 8,224.",
+          "choices": [
+            "8,224",
+            "8,324",
+            "14,912"
+          ],
+          "read_aloud_text": "Subtract 11,568 - 3,344.",
+          "question_audio": {
+            "text": "Subtract 11,568 - 3,344.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            11568,
+            3344
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L2_Q10",
+          "question_id": "G4M_NBT_002_L2_Q10",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 11,889 - 3,455.",
+          "answer": "8,434",
+          "correct_answer": "8,434",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 8,434.",
+          "acceptable_answers": [
+            "8,434",
+            "8434"
+          ],
+          "choices": [
+            "8,434",
+            "8,534",
+            "15,344"
+          ],
+          "read_aloud_text": "Subtract 11,889 - 3,455.",
+          "question_audio": {
+            "text": "Subtract 11,889 - 3,455.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            11889,
+            3455
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_002_LVL3",
+      "label": "Level 3: Regrouping Across Zeros",
+      "focus": "Regrouping Across Zeros",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_002_L3_Q1",
+          "question_id": "G4M_NBT_002_L3_Q1",
+          "question_type": "short_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 5,003 - 2,786.",
+          "answer": "2,217",
+          "correct_answer": "2,217",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2,217.",
+          "acceptable_answers": [
+            "2,217",
+            "2217"
+          ],
+          "read_aloud_text": "Subtract 5,003 - 2,786.",
+          "question_audio": {
+            "text": "Subtract 5,003 - 2,786.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q2",
+          "question_id": "G4M_NBT_002_L3_Q2",
+          "question_type": "algorithm_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 7,002 - 3,489.",
+          "answer": "3,513",
+          "correct_answer": "3,513",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3,513.",
+          "acceptable_answers": [
+            "3,513",
+            "3513"
+          ],
+          "read_aloud_text": "Subtract 7,002 - 3,489.",
+          "question_audio": {
+            "text": "Subtract 7,002 - 3,489.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q3",
+          "question_id": "G4M_NBT_002_L3_Q3",
+          "question_type": "short_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 8,000 - 4,567.",
+          "answer": "3,433",
+          "correct_answer": "3,433",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3,433.",
+          "acceptable_answers": [
+            "3,433",
+            "3433"
+          ],
+          "read_aloud_text": "Subtract 8,000 - 4,567.",
+          "question_audio": {
+            "text": "Subtract 8,000 - 4,567.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q4",
+          "question_id": "G4M_NBT_002_L3_Q4",
+          "question_type": "algorithm_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 6,005 - 2,198.",
+          "answer": "3,807",
+          "correct_answer": "3,807",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3,807.",
+          "acceptable_answers": [
+            "3,807",
+            "3807"
+          ],
+          "read_aloud_text": "Subtract 6,005 - 2,198.",
+          "question_audio": {
+            "text": "Subtract 6,005 - 2,198.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q5",
+          "question_id": "G4M_NBT_002_L3_Q5",
+          "question_type": "short_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 9,001 - 3,754.",
+          "answer": "5,247",
+          "correct_answer": "5,247",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 5,247.",
+          "acceptable_answers": [
+            "5,247",
+            "5247"
+          ],
+          "read_aloud_text": "Subtract 9,001 - 3,754.",
+          "question_audio": {
+            "text": "Subtract 9,001 - 3,754.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q6",
+          "question_id": "G4M_NBT_002_L3_Q6",
+          "question_type": "algorithm_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 4,000 - 1,568.",
+          "answer": "2,432",
+          "correct_answer": "2,432",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2,432.",
+          "acceptable_answers": [
+            "2,432",
+            "2432"
+          ],
+          "read_aloud_text": "Subtract 4,000 - 1,568.",
+          "question_audio": {
+            "text": "Subtract 4,000 - 1,568.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q7",
+          "question_id": "G4M_NBT_002_L3_Q7",
+          "question_type": "short_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 10,000 - 6,427.",
+          "answer": "3,573",
+          "correct_answer": "3,573",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3,573.",
+          "acceptable_answers": [
+            "3,573",
+            "3573"
+          ],
+          "read_aloud_text": "Subtract 10,000 - 6,427.",
+          "question_audio": {
+            "text": "Subtract 10,000 - 6,427.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q8",
+          "question_id": "G4M_NBT_002_L3_Q8",
+          "question_type": "algorithm_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 3,006 - 1,889.",
+          "answer": "1,117",
+          "correct_answer": "1,117",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 1,117.",
+          "acceptable_answers": [
+            "1,117",
+            "1117"
+          ],
+          "read_aloud_text": "Subtract 3,006 - 1,889.",
+          "question_audio": {
+            "text": "Subtract 3,006 - 1,889.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q9",
+          "question_id": "G4M_NBT_002_L3_Q9",
+          "question_type": "short_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 7,050 - 2,684.",
+          "answer": "4,366",
+          "correct_answer": "4,366",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4,366.",
+          "acceptable_answers": [
+            "4,366",
+            "4366"
+          ],
+          "read_aloud_text": "Subtract 7,050 - 2,684.",
+          "question_audio": {
+            "text": "Subtract 7,050 - 2,684.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_L3_Q10",
+          "question_id": "G4M_NBT_002_L3_Q10",
+          "question_type": "algorithm_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 9,020 - 4,815.",
+          "answer": "4,205",
+          "correct_answer": "4,205",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4,205.",
+          "acceptable_answers": [
+            "4,205",
+            "4205"
+          ],
+          "read_aloud_text": "Subtract 9,020 - 4,815.",
+          "question_audio": {
+            "text": "Subtract 9,020 - 4,815.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_002_LVL4",
+      "label": "Level 4: Estimate and Check",
+      "focus": "Estimate and Check",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_002_L4_Q1",
+          "question_id": "G4M_NBT_002_L4_Q1",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 3,478 + 2,195 to the nearest thousand.",
+          "answer": "5,000",
+          "correct_answer": "5,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 5,000.",
+          "acceptable_answers": [
+            "5,000",
+            "5000"
+          ],
+          "read_aloud_text": "Estimate 3,478 + 2,195 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 3,478 + 2,195 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 5673,
+          "estimate": 5000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q2",
+          "question_id": "G4M_NBT_002_L4_Q2",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 3,857 + 2,436 to the nearest thousand.",
+          "answer": "6,000",
+          "correct_answer": "6,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,000.",
+          "acceptable_answers": [
+            "6,000",
+            "6000"
+          ],
+          "read_aloud_text": "Estimate 3,857 + 2,436 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 3,857 + 2,436 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 6293,
+          "estimate": 6000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q3",
+          "question_id": "G4M_NBT_002_L4_Q3",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 4,236 + 2,677 to the nearest thousand.",
+          "answer": "7,000",
+          "correct_answer": "7,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 7,000.",
+          "acceptable_answers": [
+            "7,000",
+            "7000"
+          ],
+          "read_aloud_text": "Estimate 4,236 + 2,677 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 4,236 + 2,677 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 6913,
+          "estimate": 7000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q4",
+          "question_id": "G4M_NBT_002_L4_Q4",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 4,615 + 2,918 to the nearest thousand.",
+          "answer": "8,000",
+          "correct_answer": "8,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 8,000.",
+          "acceptable_answers": [
+            "8,000",
+            "8000"
+          ],
+          "read_aloud_text": "Estimate 4,615 + 2,918 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 4,615 + 2,918 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 7533,
+          "estimate": 8000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q5",
+          "question_id": "G4M_NBT_002_L4_Q5",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 4,994 + 3,159 to the nearest thousand.",
+          "answer": "8,000",
+          "correct_answer": "8,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 8,000.",
+          "acceptable_answers": [
+            "8,000",
+            "8000"
+          ],
+          "read_aloud_text": "Estimate 4,994 + 3,159 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 4,994 + 3,159 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 8153,
+          "estimate": 8000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q6",
+          "question_id": "G4M_NBT_002_L4_Q6",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 5,373 + 3,400 to the nearest thousand.",
+          "answer": "8,000",
+          "correct_answer": "8,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 8,000.",
+          "acceptable_answers": [
+            "8,000",
+            "8000"
+          ],
+          "read_aloud_text": "Estimate 5,373 + 3,400 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 5,373 + 3,400 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 8773,
+          "estimate": 8000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q7",
+          "question_id": "G4M_NBT_002_L4_Q7",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 5,752 + 3,641 to the nearest thousand.",
+          "answer": "10,000",
+          "correct_answer": "10,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 10,000.",
+          "acceptable_answers": [
+            "10,000",
+            "10000"
+          ],
+          "read_aloud_text": "Estimate 5,752 + 3,641 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 5,752 + 3,641 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 9393,
+          "estimate": 10000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q8",
+          "question_id": "G4M_NBT_002_L4_Q8",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 6,131 + 3,882 to the nearest thousand.",
+          "answer": "10,000",
+          "correct_answer": "10,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 10,000.",
+          "acceptable_answers": [
+            "10,000",
+            "10000"
+          ],
+          "read_aloud_text": "Estimate 6,131 + 3,882 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 6,131 + 3,882 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 10013,
+          "estimate": 10000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q9",
+          "question_id": "G4M_NBT_002_L4_Q9",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 6,510 + 4,123 to the nearest thousand.",
+          "answer": "11,000",
+          "correct_answer": "11,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 11,000.",
+          "acceptable_answers": [
+            "11,000",
+            "11000"
+          ],
+          "read_aloud_text": "Estimate 6,510 + 4,123 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 6,510 + 4,123 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 10633,
+          "estimate": 11000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_L4_Q10",
+          "question_id": "G4M_NBT_002_L4_Q10",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 6,889 + 4,364 to the nearest thousand.",
+          "answer": "11,000",
+          "correct_answer": "11,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 11,000.",
+          "acceptable_answers": [
+            "11,000",
+            "11000"
+          ],
+          "read_aloud_text": "Estimate 6,889 + 4,364 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 6,889 + 4,364 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 11253,
+          "estimate": 11000,
+          "min": 0,
+          "max": 12000
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_002_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed",
+      "difficulty": 6,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_002_MIXED_Q1",
+          "question_id": "G4M_NBT_002_MIXED_Q1",
+          "question_type": "algorithm_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 2,345 + 1,678.",
+          "answer": "4,023",
+          "correct_answer": "4,023",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4,023.",
+          "acceptable_answers": [
+            "4,023",
+            "4023"
+          ],
+          "read_aloud_text": "Add 2,345 + 1,678.",
+          "question_audio": {
+            "text": "Add 2,345 + 1,678.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            2345,
+            1678
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q2",
+          "question_id": "G4M_NBT_002_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 3,456 + 1,900.",
+          "answer": "5,356",
+          "correct_answer": "5,356",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 5,356.",
+          "acceptable_answers": [
+            "5,356",
+            "5356"
+          ],
+          "read_aloud_text": "Add 3,456 + 1,900.",
+          "question_audio": {
+            "text": "Add 3,456 + 1,900.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            3456,
+            1900
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q3",
+          "question_id": "G4M_NBT_002_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Add 4,567 + 2,122.",
+          "answer": "6,689",
+          "correct_answer": "6,689",
+          "misconception_tag": "digit_alignment_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,689.",
+          "acceptable_answers": [
+            "6,689",
+            "6689"
+          ],
+          "read_aloud_text": "Add 4,567 + 2,122.",
+          "question_audio": {
+            "text": "Add 4,567 + 2,122.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "+",
+          "operands": [
+            4567,
+            2122
+          ],
+          "algorithm_steps": [
+            "Line up ones, tens, hundreds, and thousands.",
+            "Add each column from right to left.",
+            "Regroup when a column makes ten or more."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q4",
+          "question_id": "G4M_NBT_002_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 9,000 - 2,456.",
+          "answer": "6,544",
+          "correct_answer": "6,544",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,544.",
+          "choices": [
+            "6,544",
+            "6,644",
+            "11,456"
+          ],
+          "read_aloud_text": "Subtract 9,000 - 2,456.",
+          "question_audio": {
+            "text": "Subtract 9,000 - 2,456.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            9000,
+            2456
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q5",
+          "question_id": "G4M_NBT_002_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 9,321 - 2,567.",
+          "answer": "6,754",
+          "correct_answer": "6,754",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,754.",
+          "acceptable_answers": [
+            "6,754",
+            "6754"
+          ],
+          "choices": [
+            "6,754",
+            "6,854",
+            "11,888"
+          ],
+          "read_aloud_text": "Subtract 9,321 - 2,567.",
+          "question_audio": {
+            "text": "Subtract 9,321 - 2,567.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            9321,
+            2567
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q6",
+          "question_id": "G4M_NBT_002_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "algorithm_steps",
+          "prompt": "Subtract 9,642 - 2,678.",
+          "answer": "6,964",
+          "correct_answer": "6,964",
+          "misconception_tag": "subtraction_borrowing_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,964.",
+          "choices": [
+            "6,964",
+            "7,064",
+            "12,320"
+          ],
+          "read_aloud_text": "Subtract 9,642 - 2,678.",
+          "question_audio": {
+            "text": "Subtract 9,642 - 2,678.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "−",
+          "operands": [
+            9642,
+            2678
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q7",
+          "question_id": "G4M_NBT_002_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 5,003 - 2,786.",
+          "answer": "2,217",
+          "correct_answer": "2,217",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2,217.",
+          "acceptable_answers": [
+            "2,217",
+            "2217"
+          ],
+          "read_aloud_text": "Subtract 5,003 - 2,786.",
+          "question_audio": {
+            "text": "Subtract 5,003 - 2,786.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q8",
+          "question_id": "G4M_NBT_002_MIXED_Q8",
+          "question_type": "algorithm_response",
+          "visual_model": "regrouping_model",
+          "prompt": "Subtract 7,002 - 3,489.",
+          "answer": "3,513",
+          "correct_answer": "3,513",
+          "misconception_tag": "regrouping_across_zero_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3,513.",
+          "acceptable_answers": [
+            "3,513",
+            "3513"
+          ],
+          "read_aloud_text": "Subtract 7,002 - 3,489.",
+          "question_audio": {
+            "text": "Subtract 7,002 - 3,489.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "trades": [
+            "Trade from the thousands place.",
+            "Rename zeros so hundreds and tens can be used.",
+            "Subtract ones, tens, hundreds, then thousands."
+          ]
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q9",
+          "question_id": "G4M_NBT_002_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 3,478 + 2,195 to the nearest thousand.",
+          "answer": "5,000",
+          "correct_answer": "5,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 5,000.",
+          "acceptable_answers": [
+            "5,000",
+            "5000"
+          ],
+          "read_aloud_text": "Estimate 3,478 + 2,195 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 3,478 + 2,195 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 5673,
+          "estimate": 5000,
+          "min": 0,
+          "max": 12000
+        },
+        {
+          "id": "G4M_NBT_002_MIXED_Q10",
+          "question_id": "G4M_NBT_002_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "estimation_number_line",
+          "prompt": "Estimate 3,857 + 2,436 to the nearest thousand.",
+          "answer": "6,000",
+          "correct_answer": "6,000",
+          "misconception_tag": "estimate_reasonableness_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 6,000.",
+          "acceptable_answers": [
+            "6,000",
+            "6000"
+          ],
+          "read_aloud_text": "Estimate 3,857 + 2,436 to the nearest thousand.",
+          "question_audio": {
+            "text": "Estimate 3,857 + 2,436 to the nearest thousand.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "exact": 6293,
+          "estimate": 6000,
+          "min": 0,
+          "max": 12000
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Multi-Digit Addition and Subtraction. This mission connects real math to a clear visual model before you solve on your own. Press Start Mission when you are ready to read the problem, notice what the model is showing, and explain your thinking.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This page teaches the main ideas for Multi-Digit Addition and Subtraction. Read the objective, vocabulary, misconception warning, and real-world connection so you know what to watch for. Press Next when you can name the strategy you will use.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this example as a tutor would solve it. Step one is to read the question and identify the operation or pattern. Step two is to use the visual model to organize the numbers. Step three is to compute carefully and check that the final answer is reasonable. Press Next when you can explain why the answer is correct.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo gives you support before independent work. Read each part of the model, connect it to the lesson vocabulary, and say what each number means. Press Next when the reasoning feels clear.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Now try a practice question with support. Tap Read Question first, choose your answer or type it carefully, and use the hint if your first idea does not fit the model. Press Next after your answer is complete.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This challenge asks you to use the skill with less help. Tap Read Question, decide which strategy fits, and check your answer against the visual model. Press Next when you can justify your response.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This checkpoint shows what you can do independently. Tap Read Question, answer carefully, and use the model to verify your reasoning before you move on. Press Next after your best work.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Great work completing Multi-Digit Addition and Subtraction. This badge celebrates careful math reasoning, clear models, and answers that match the question. Press Save Growth Data to add this skill to your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Your profile summarizes this mission and points you to more practice. Choose Continue to Skill Practice for focused levels and a Mixed level, or go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

@@ -1,0 +1,2632 @@
+{
+  "skill_id": "G4M_OA_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production",
+    "source_docs": [
+      "docs/grade4_math_completion_plan.md",
+      "curriculum-framework/plans/grade4-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade4-math-completion-plan.v1.json",
+    "readiness_checkpoint": "grade4_operations_base_ten_batch"
+  },
+  "grade": 4,
+  "subject": "Math",
+  "domain": "Operations and Algebraic Thinking",
+  "skill": "Multiplicative Comparison and Patterns",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "game_theme": {
+    "title": "Pattern Harbor",
+    "badge_name": "Multiplicative Comparison and Patterns Badge",
+    "mission_intro": "Use multiplicative comparison and patterns to help the Skill World crew solve a real Grade 4 math challenge."
+  },
+  "lesson": {
+    "story_mission": "Join the Pattern Harbor crew and solve problems about understand multiplicative comparison, factors, multiples, prime and composite numbers, and number or shape patterns.",
+    "mini_lesson": "In this lesson, you will understand multiplicative comparison, factors, multiples, prime and composite numbers, and number or shape patterns. Use models to keep the math organized and explain each answer.",
+    "objective": "Understand multiplicative comparison, factors, multiples, prime and composite numbers, and number or shape patterns.",
+    "key_vocabulary": [
+      "factor",
+      "multiple",
+      "place value",
+      "estimate",
+      "algorithm",
+      "pattern",
+      "product"
+    ],
+    "concept_explanation": "Grade 4 mathematicians use visual models and precise vocabulary to understand multiplicative comparison, factors, multiples, prime and composite numbers, and number or shape patterns.",
+    "common_misconception": "A common mistake is using the right numbers but the wrong relationship, place value, or rule.",
+    "real_world_connection": "These skills help with planning, checking totals, comparing quantities, and solving multi-step real-world problems.",
+    "lesson_summary": "Read carefully, model the relationship, calculate with place value, and check for reasonableness.",
+    "visual_model": "comparison_model",
+    "audio": {
+      "text": "In this lesson, we practice Multiplicative Comparison and Patterns. Use the visuals, listen to the page narration, and explain why your answer works.",
+      "label": "Listen to Lesson",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G4M_OA_001_L1_Q1",
+      "question_id": "G4M_OA_001_L1_Q1",
+      "question_type": "short_response",
+      "visual_model": "comparison_model",
+      "prompt": "6 is how many times as many as 3?",
+      "answer": "2",
+      "correct_answer": "2",
+      "misconception_tag": "additive_vs_multiplicative_confusion",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 2.",
+      "acceptable_answers": [
+        "2",
+        "2"
+      ],
+      "choices": [
+        "2",
+        "3",
+        "3"
+      ],
+      "read_aloud_text": "6 is how many times as many as 3?",
+      "question_audio": {
+        "text": "6 is how many times as many as 3?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "base_value": 3,
+      "factor": 2,
+      "compared_value": 6
+    },
+    {
+      "id": "G4M_OA_001_L1_Q2",
+      "question_id": "G4M_OA_001_L1_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison_model",
+      "prompt": "12 is how many times as many as 4?",
+      "answer": "3",
+      "correct_answer": "3",
+      "misconception_tag": "additive_vs_multiplicative_confusion",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 3.",
+      "choices": [
+        "3",
+        "4",
+        "8"
+      ],
+      "read_aloud_text": "12 is how many times as many as 4?",
+      "question_audio": {
+        "text": "12 is how many times as many as 4?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "base_value": 4,
+      "factor": 3,
+      "compared_value": 12
+    }
+  ],
+  "hint_ladder": [
+    "Underline the math action in the question.",
+    "Use the visual model to organize place value and relationships.",
+    "Check that your answer matches the question and is reasonable."
+  ],
+  "guided_practice": [
+    {
+      "id": "G4M_OA_001_L1_Q1",
+      "question_id": "G4M_OA_001_L1_Q1",
+      "question_type": "short_response",
+      "visual_model": "comparison_model",
+      "prompt": "6 is how many times as many as 3?",
+      "answer": "2",
+      "correct_answer": "2",
+      "misconception_tag": "additive_vs_multiplicative_confusion",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 2.",
+      "acceptable_answers": [
+        "2",
+        "2"
+      ],
+      "choices": [
+        "2",
+        "3",
+        "3"
+      ],
+      "read_aloud_text": "6 is how many times as many as 3?",
+      "question_audio": {
+        "text": "6 is how many times as many as 3?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "base_value": 3,
+      "factor": 2,
+      "compared_value": 6
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G4M_OA_001_L1_Q5",
+      "question_id": "G4M_OA_001_L1_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison_model",
+      "prompt": "14 is how many times as many as 7?",
+      "answer": "2",
+      "correct_answer": "2",
+      "misconception_tag": "additive_vs_multiplicative_confusion",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 2.",
+      "choices": [
+        "2",
+        "3",
+        "7"
+      ],
+      "read_aloud_text": "14 is how many times as many as 7?",
+      "question_audio": {
+        "text": "14 is how many times as many as 7?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "base_value": 7,
+      "factor": 2,
+      "compared_value": 14
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G4M_OA_001_L1_Q9",
+      "question_id": "G4M_OA_001_L1_Q9",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison_model",
+      "prompt": "22 is how many times as many as 11?",
+      "answer": "2",
+      "correct_answer": "2",
+      "misconception_tag": "additive_vs_multiplicative_confusion",
+      "hints": [
+        "Underline the math action in the question.",
+        "Use the visual model to organize place value and relationships.",
+        "Check that your answer matches the question and is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes! Your reasoning matches the model.",
+        "incorrect": "Try again by using the model and checking each place."
+      },
+      "explanation": "The answer is 2.",
+      "choices": [
+        "2",
+        "3",
+        "11"
+      ],
+      "read_aloud_text": "22 is how many times as many as 11?",
+      "question_audio": {
+        "text": "22 is how many times as many as 11?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "base_value": 11,
+      "factor": 2,
+      "compared_value": 22
+    }
+  ],
+  "misconception_bank": {
+    "additive_vs_multiplicative_confusion": {
+      "description": "Watch for additive vs multiplicative confusion.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "factor_multiple_confusion": {
+      "description": "Watch for factor multiple confusion.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "prime_composite_confusion": {
+      "description": "Watch for prime composite confusion.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    },
+    "pattern_rule_error": {
+      "description": "Watch for pattern rule error.",
+      "intervention": "Return to the model, name each number, and check the vocabulary in the question."
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G4M_OA_001_LVL1",
+      "label": "Level 1: Multiplicative Comparison",
+      "focus": "Multiplicative Comparison",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_OA_001_L1_Q1",
+          "question_id": "G4M_OA_001_L1_Q1",
+          "question_type": "short_response",
+          "visual_model": "comparison_model",
+          "prompt": "6 is how many times as many as 3?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2.",
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "3"
+          ],
+          "read_aloud_text": "6 is how many times as many as 3?",
+          "question_audio": {
+            "text": "6 is how many times as many as 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 3,
+          "factor": 2,
+          "compared_value": 6
+        },
+        {
+          "id": "G4M_OA_001_L1_Q2",
+          "question_id": "G4M_OA_001_L1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "prompt": "12 is how many times as many as 4?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "choices": [
+            "3",
+            "4",
+            "8"
+          ],
+          "read_aloud_text": "12 is how many times as many as 4?",
+          "question_audio": {
+            "text": "12 is how many times as many as 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 4,
+          "factor": 3,
+          "compared_value": 12
+        },
+        {
+          "id": "G4M_OA_001_L1_Q3",
+          "question_id": "G4M_OA_001_L1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "prompt": "20 is how many times as many as 5?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "4",
+            "5",
+            "15"
+          ],
+          "read_aloud_text": "20 is how many times as many as 5?",
+          "question_audio": {
+            "text": "20 is how many times as many as 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 5,
+          "factor": 4,
+          "compared_value": 20
+        },
+        {
+          "id": "G4M_OA_001_L1_Q4",
+          "question_id": "G4M_OA_001_L1_Q4",
+          "question_type": "short_response",
+          "visual_model": "comparison_model",
+          "prompt": "30 is how many times as many as 6?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5"
+          ],
+          "choices": [
+            "5",
+            "6",
+            "24"
+          ],
+          "read_aloud_text": "30 is how many times as many as 6?",
+          "question_audio": {
+            "text": "30 is how many times as many as 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 6,
+          "factor": 5,
+          "compared_value": 30
+        },
+        {
+          "id": "G4M_OA_001_L1_Q5",
+          "question_id": "G4M_OA_001_L1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "prompt": "14 is how many times as many as 7?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2.",
+          "choices": [
+            "2",
+            "3",
+            "7"
+          ],
+          "read_aloud_text": "14 is how many times as many as 7?",
+          "question_audio": {
+            "text": "14 is how many times as many as 7?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 7,
+          "factor": 2,
+          "compared_value": 14
+        },
+        {
+          "id": "G4M_OA_001_L1_Q6",
+          "question_id": "G4M_OA_001_L1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "prompt": "24 is how many times as many as 8?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "choices": [
+            "3",
+            "4",
+            "16"
+          ],
+          "read_aloud_text": "24 is how many times as many as 8?",
+          "question_audio": {
+            "text": "24 is how many times as many as 8?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 8,
+          "factor": 3,
+          "compared_value": 24
+        },
+        {
+          "id": "G4M_OA_001_L1_Q7",
+          "question_id": "G4M_OA_001_L1_Q7",
+          "question_type": "short_response",
+          "visual_model": "comparison_model",
+          "prompt": "36 is how many times as many as 9?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4"
+          ],
+          "choices": [
+            "4",
+            "5",
+            "27"
+          ],
+          "read_aloud_text": "36 is how many times as many as 9?",
+          "question_audio": {
+            "text": "36 is how many times as many as 9?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 9,
+          "factor": 4,
+          "compared_value": 36
+        },
+        {
+          "id": "G4M_OA_001_L1_Q8",
+          "question_id": "G4M_OA_001_L1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "prompt": "50 is how many times as many as 10?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 5.",
+          "choices": [
+            "5",
+            "6",
+            "40"
+          ],
+          "read_aloud_text": "50 is how many times as many as 10?",
+          "question_audio": {
+            "text": "50 is how many times as many as 10?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 10,
+          "factor": 5,
+          "compared_value": 50
+        },
+        {
+          "id": "G4M_OA_001_L1_Q9",
+          "question_id": "G4M_OA_001_L1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "prompt": "22 is how many times as many as 11?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2.",
+          "choices": [
+            "2",
+            "3",
+            "11"
+          ],
+          "read_aloud_text": "22 is how many times as many as 11?",
+          "question_audio": {
+            "text": "22 is how many times as many as 11?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 11,
+          "factor": 2,
+          "compared_value": 22
+        },
+        {
+          "id": "G4M_OA_001_L1_Q10",
+          "question_id": "G4M_OA_001_L1_Q10",
+          "question_type": "short_response",
+          "visual_model": "comparison_model",
+          "prompt": "36 is how many times as many as 12?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "choices": [
+            "3",
+            "4",
+            "24"
+          ],
+          "read_aloud_text": "36 is how many times as many as 12?",
+          "question_audio": {
+            "text": "36 is how many times as many as 12?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 12,
+          "factor": 3,
+          "compared_value": 36
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_OA_001_LVL2",
+      "label": "Level 2: Factors and Multiples",
+      "focus": "Factors and Multiples",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_OA_001_L2_Q1",
+          "question_id": "G4M_OA_001_L2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Name a factor of 12 greater than 1.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 12 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 12 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 12,
+          "product": 12,
+          "multiple_of": 2,
+          "factor_pairs": [
+            [
+              1,
+              12
+            ],
+            [
+              2,
+              6
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q2",
+          "question_id": "G4M_OA_001_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "factor_pair_model",
+          "prompt": "Name a factor of 18 greater than 1.",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 18 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 18 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 18,
+          "product": 18,
+          "multiple_of": 3,
+          "factor_pairs": [
+            [
+              1,
+              18
+            ],
+            [
+              2,
+              9
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q3",
+          "question_id": "G4M_OA_001_L2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Name a factor of 24 greater than 1.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 24 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 24 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 24,
+          "product": 24,
+          "multiple_of": 4,
+          "factor_pairs": [
+            [
+              1,
+              24
+            ],
+            [
+              2,
+              12
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q4",
+          "question_id": "G4M_OA_001_L2_Q4",
+          "question_type": "short_response",
+          "visual_model": "factor_pair_model",
+          "prompt": "Name a factor of 30 greater than 1.",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 30 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 30 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 30,
+          "product": 30,
+          "multiple_of": 5,
+          "factor_pairs": [
+            [
+              1,
+              30
+            ],
+            [
+              2,
+              15
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q5",
+          "question_id": "G4M_OA_001_L2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Name a factor of 36 greater than 1.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 36 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 36 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 36,
+          "product": 36,
+          "multiple_of": 6,
+          "factor_pairs": [
+            [
+              1,
+              36
+            ],
+            [
+              2,
+              18
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q6",
+          "question_id": "G4M_OA_001_L2_Q6",
+          "question_type": "short_response",
+          "visual_model": "factor_pair_model",
+          "prompt": "Name a factor of 42 greater than 1.",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 42 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 42 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 42,
+          "product": 42,
+          "multiple_of": 2,
+          "factor_pairs": [
+            [
+              1,
+              42
+            ],
+            [
+              2,
+              21
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q7",
+          "question_id": "G4M_OA_001_L2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Name a factor of 48 greater than 1.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 48 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 48 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 48,
+          "product": 48,
+          "multiple_of": 3,
+          "factor_pairs": [
+            [
+              1,
+              48
+            ],
+            [
+              2,
+              24
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q8",
+          "question_id": "G4M_OA_001_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "factor_pair_model",
+          "prompt": "Name a factor of 54 greater than 1.",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 54 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 54 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 54,
+          "product": 54,
+          "multiple_of": 4,
+          "factor_pairs": [
+            [
+              1,
+              54
+            ],
+            [
+              2,
+              27
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q9",
+          "question_id": "G4M_OA_001_L2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Name a factor of 60 greater than 1.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 60 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 60 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 60,
+          "product": 60,
+          "multiple_of": 5,
+          "factor_pairs": [
+            [
+              1,
+              60
+            ],
+            [
+              2,
+              30
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L2_Q10",
+          "question_id": "G4M_OA_001_L2_Q10",
+          "question_type": "short_response",
+          "visual_model": "factor_pair_model",
+          "prompt": "Name a factor of 72 greater than 1.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 72 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 72 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 72,
+          "product": 72,
+          "multiple_of": 6,
+          "factor_pairs": [
+            [
+              1,
+              72
+            ],
+            [
+              2,
+              36
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_OA_001_LVL3",
+      "label": "Level 3: Prime and Composite Numbers",
+      "focus": "Prime and Composite Numbers",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_OA_001_L3_Q1",
+          "question_id": "G4M_OA_001_L3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Is 7 prime or composite?",
+          "answer": "prime",
+          "correct_answer": "prime",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is prime.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 7 prime or composite?",
+          "question_audio": {
+            "text": "Is 7 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 7
+        },
+        {
+          "id": "G4M_OA_001_L3_Q2",
+          "question_id": "G4M_OA_001_L3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "factor_pair_model",
+          "prompt": "Is 9 prime or composite?",
+          "answer": "composite",
+          "correct_answer": "composite",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is composite.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 9 prime or composite?",
+          "question_audio": {
+            "text": "Is 9 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 9
+        },
+        {
+          "id": "G4M_OA_001_L3_Q3",
+          "question_id": "G4M_OA_001_L3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Is 11 prime or composite?",
+          "answer": "prime",
+          "correct_answer": "prime",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is prime.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 11 prime or composite?",
+          "question_audio": {
+            "text": "Is 11 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 11
+        },
+        {
+          "id": "G4M_OA_001_L3_Q4",
+          "question_id": "G4M_OA_001_L3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "factor_pair_model",
+          "prompt": "Is 15 prime or composite?",
+          "answer": "composite",
+          "correct_answer": "composite",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is composite.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 15 prime or composite?",
+          "question_audio": {
+            "text": "Is 15 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 15
+        },
+        {
+          "id": "G4M_OA_001_L3_Q5",
+          "question_id": "G4M_OA_001_L3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Is 17 prime or composite?",
+          "answer": "prime",
+          "correct_answer": "prime",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is prime.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 17 prime or composite?",
+          "question_audio": {
+            "text": "Is 17 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 17
+        },
+        {
+          "id": "G4M_OA_001_L3_Q6",
+          "question_id": "G4M_OA_001_L3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "factor_pair_model",
+          "prompt": "Is 21 prime or composite?",
+          "answer": "composite",
+          "correct_answer": "composite",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is composite.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 21 prime or composite?",
+          "question_audio": {
+            "text": "Is 21 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 21
+        },
+        {
+          "id": "G4M_OA_001_L3_Q7",
+          "question_id": "G4M_OA_001_L3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Is 23 prime or composite?",
+          "answer": "prime",
+          "correct_answer": "prime",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is prime.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 23 prime or composite?",
+          "question_audio": {
+            "text": "Is 23 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 23
+        },
+        {
+          "id": "G4M_OA_001_L3_Q8",
+          "question_id": "G4M_OA_001_L3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "factor_pair_model",
+          "prompt": "Is 25 prime or composite?",
+          "answer": "composite",
+          "correct_answer": "composite",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is composite.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 25 prime or composite?",
+          "question_audio": {
+            "text": "Is 25 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 25
+        },
+        {
+          "id": "G4M_OA_001_L3_Q9",
+          "question_id": "G4M_OA_001_L3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Is 29 prime or composite?",
+          "answer": "prime",
+          "correct_answer": "prime",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is prime.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 29 prime or composite?",
+          "question_audio": {
+            "text": "Is 29 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 29
+        },
+        {
+          "id": "G4M_OA_001_L3_Q10",
+          "question_id": "G4M_OA_001_L3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "factor_pair_model",
+          "prompt": "Is 33 prime or composite?",
+          "answer": "composite",
+          "correct_answer": "composite",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is composite.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 33 prime or composite?",
+          "question_audio": {
+            "text": "Is 33 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 33
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_OA_001_LVL4",
+      "label": "Level 4: Number and Shape Patterns",
+      "focus": "Number and Shape Patterns",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_OA_001_L4_Q1",
+          "question_id": "G4M_OA_001_L4_Q1",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 2 and adds 2. What is the 5th term?",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 10.",
+          "acceptable_answers": [
+            "10",
+            "10"
+          ],
+          "read_aloud_text": "The pattern starts at 2 and adds 2. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 2 and adds 2. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 2",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 2
+            },
+            {
+              "input": 2,
+              "output": 4
+            },
+            {
+              "input": 3,
+              "output": 6
+            },
+            {
+              "input": 4,
+              "output": 8
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q2",
+          "question_id": "G4M_OA_001_L4_Q2",
+          "question_type": "pattern_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 3 and adds 3. What is the 5th term?",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 15.",
+          "acceptable_answers": [
+            "15",
+            "15"
+          ],
+          "read_aloud_text": "The pattern starts at 3 and adds 3. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 3 and adds 3. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 3",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 3
+            },
+            {
+              "input": 2,
+              "output": 6
+            },
+            {
+              "input": 3,
+              "output": 9
+            },
+            {
+              "input": 4,
+              "output": 12
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q3",
+          "question_id": "G4M_OA_001_L4_Q3",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 4 and adds 4. What is the 5th term?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 20.",
+          "acceptable_answers": [
+            "20",
+            "20"
+          ],
+          "read_aloud_text": "The pattern starts at 4 and adds 4. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 4 and adds 4. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 4",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 4
+            },
+            {
+              "input": 2,
+              "output": 8
+            },
+            {
+              "input": 3,
+              "output": 12
+            },
+            {
+              "input": 4,
+              "output": 16
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q4",
+          "question_id": "G4M_OA_001_L4_Q4",
+          "question_type": "pattern_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 5 and adds 2. What is the 5th term?",
+          "answer": "13",
+          "correct_answer": "13",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 13.",
+          "acceptable_answers": [
+            "13",
+            "13"
+          ],
+          "read_aloud_text": "The pattern starts at 5 and adds 2. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 5 and adds 2. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 2",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 5
+            },
+            {
+              "input": 2,
+              "output": 7
+            },
+            {
+              "input": 3,
+              "output": 9
+            },
+            {
+              "input": 4,
+              "output": 11
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q5",
+          "question_id": "G4M_OA_001_L4_Q5",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 6 and adds 3. What is the 5th term?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18"
+          ],
+          "read_aloud_text": "The pattern starts at 6 and adds 3. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 6 and adds 3. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 3",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 6
+            },
+            {
+              "input": 2,
+              "output": 9
+            },
+            {
+              "input": 3,
+              "output": 12
+            },
+            {
+              "input": 4,
+              "output": 15
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q6",
+          "question_id": "G4M_OA_001_L4_Q6",
+          "question_type": "pattern_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 7 and adds 4. What is the 5th term?",
+          "answer": "23",
+          "correct_answer": "23",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 23.",
+          "acceptable_answers": [
+            "23",
+            "23"
+          ],
+          "read_aloud_text": "The pattern starts at 7 and adds 4. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 7 and adds 4. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 4",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 7
+            },
+            {
+              "input": 2,
+              "output": 11
+            },
+            {
+              "input": 3,
+              "output": 15
+            },
+            {
+              "input": 4,
+              "output": 19
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q7",
+          "question_id": "G4M_OA_001_L4_Q7",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 8 and adds 2. What is the 5th term?",
+          "answer": "16",
+          "correct_answer": "16",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 16.",
+          "acceptable_answers": [
+            "16",
+            "16"
+          ],
+          "read_aloud_text": "The pattern starts at 8 and adds 2. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 8 and adds 2. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 2",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 8
+            },
+            {
+              "input": 2,
+              "output": 10
+            },
+            {
+              "input": 3,
+              "output": 12
+            },
+            {
+              "input": 4,
+              "output": 14
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q8",
+          "question_id": "G4M_OA_001_L4_Q8",
+          "question_type": "pattern_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 9 and adds 3. What is the 5th term?",
+          "answer": "21",
+          "correct_answer": "21",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 21.",
+          "acceptable_answers": [
+            "21",
+            "21"
+          ],
+          "read_aloud_text": "The pattern starts at 9 and adds 3. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 9 and adds 3. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 3",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 9
+            },
+            {
+              "input": 2,
+              "output": 12
+            },
+            {
+              "input": 3,
+              "output": 15
+            },
+            {
+              "input": 4,
+              "output": 18
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q9",
+          "question_id": "G4M_OA_001_L4_Q9",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 10 and adds 4. What is the 5th term?",
+          "answer": "26",
+          "correct_answer": "26",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 26.",
+          "acceptable_answers": [
+            "26",
+            "26"
+          ],
+          "read_aloud_text": "The pattern starts at 10 and adds 4. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 10 and adds 4. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 4",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 10
+            },
+            {
+              "input": 2,
+              "output": 14
+            },
+            {
+              "input": 3,
+              "output": 18
+            },
+            {
+              "input": 4,
+              "output": 22
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_L4_Q10",
+          "question_id": "G4M_OA_001_L4_Q10",
+          "question_type": "pattern_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 11 and adds 2. What is the 5th term?",
+          "answer": "19",
+          "correct_answer": "19",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 19.",
+          "acceptable_answers": [
+            "19",
+            "19"
+          ],
+          "read_aloud_text": "The pattern starts at 11 and adds 2. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 11 and adds 2. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 2",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 11
+            },
+            {
+              "input": 2,
+              "output": 13
+            },
+            {
+              "input": 3,
+              "output": 15
+            },
+            {
+              "input": 4,
+              "output": 17
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_OA_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed",
+      "difficulty": 6,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_OA_001_MIXED_Q1",
+          "question_id": "G4M_OA_001_MIXED_Q1",
+          "question_type": "short_response",
+          "visual_model": "comparison_model",
+          "prompt": "6 is how many times as many as 3?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 2.",
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "3"
+          ],
+          "read_aloud_text": "6 is how many times as many as 3?",
+          "question_audio": {
+            "text": "6 is how many times as many as 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 3,
+          "factor": 2,
+          "compared_value": 6
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q2",
+          "question_id": "G4M_OA_001_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "prompt": "12 is how many times as many as 4?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "choices": [
+            "3",
+            "4",
+            "8"
+          ],
+          "read_aloud_text": "12 is how many times as many as 4?",
+          "question_audio": {
+            "text": "12 is how many times as many as 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 4,
+          "factor": 3,
+          "compared_value": 12
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q3",
+          "question_id": "G4M_OA_001_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "prompt": "20 is how many times as many as 5?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "additive_vs_multiplicative_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "4",
+            "5",
+            "15"
+          ],
+          "read_aloud_text": "20 is how many times as many as 5?",
+          "question_audio": {
+            "text": "20 is how many times as many as 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "base_value": 5,
+          "factor": 4,
+          "compared_value": 20
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q4",
+          "question_id": "G4M_OA_001_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Name a factor of 12 greater than 1.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 12 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 12 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 12,
+          "product": 12,
+          "multiple_of": 2,
+          "factor_pairs": [
+            [
+              1,
+              12
+            ],
+            [
+              2,
+              6
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q5",
+          "question_id": "G4M_OA_001_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "factor_pair_model",
+          "prompt": "Name a factor of 18 greater than 1.",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 18 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 18 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 18,
+          "product": 18,
+          "multiple_of": 3,
+          "factor_pairs": [
+            [
+              1,
+              18
+            ],
+            [
+              2,
+              9
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q6",
+          "question_id": "G4M_OA_001_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Name a factor of 24 greater than 1.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "factor_multiple_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 4.",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "read_aloud_text": "Name a factor of 24 greater than 1.",
+          "question_audio": {
+            "text": "Name a factor of 24 greater than 1.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 24,
+          "product": 24,
+          "multiple_of": 4,
+          "factor_pairs": [
+            [
+              1,
+              24
+            ],
+            [
+              2,
+              12
+            ]
+          ]
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q7",
+          "question_id": "G4M_OA_001_MIXED_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "multiples_chart",
+          "prompt": "Is 7 prime or composite?",
+          "answer": "prime",
+          "correct_answer": "prime",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is prime.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 7 prime or composite?",
+          "question_audio": {
+            "text": "Is 7 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 7
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q8",
+          "question_id": "G4M_OA_001_MIXED_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "factor_pair_model",
+          "prompt": "Is 9 prime or composite?",
+          "answer": "composite",
+          "correct_answer": "composite",
+          "misconception_tag": "prime_composite_confusion",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is composite.",
+          "choices": [
+            "prime",
+            "composite",
+            "multiple"
+          ],
+          "read_aloud_text": "Is 9 prime or composite?",
+          "question_audio": {
+            "text": "Is 9 prime or composite?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "number": 9
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q9",
+          "question_id": "G4M_OA_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 2 and adds 2. What is the 5th term?",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 10.",
+          "acceptable_answers": [
+            "10",
+            "10"
+          ],
+          "read_aloud_text": "The pattern starts at 2 and adds 2. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 2 and adds 2. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 2",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 2
+            },
+            {
+              "input": 2,
+              "output": 4
+            },
+            {
+              "input": 3,
+              "output": 6
+            },
+            {
+              "input": 4,
+              "output": 8
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        },
+        {
+          "id": "G4M_OA_001_MIXED_Q10",
+          "question_id": "G4M_OA_001_MIXED_Q10",
+          "question_type": "pattern_response",
+          "visual_model": "pattern_table",
+          "prompt": "The pattern starts at 3 and adds 3. What is the 5th term?",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "pattern_rule_error",
+          "hints": [
+            "Underline the math action in the question.",
+            "Use the visual model to organize place value and relationships.",
+            "Check that your answer matches the question and is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes! Your reasoning matches the model.",
+            "incorrect": "Try again by using the model and checking each place."
+          },
+          "explanation": "The answer is 15.",
+          "acceptable_answers": [
+            "15",
+            "15"
+          ],
+          "read_aloud_text": "The pattern starts at 3 and adds 3. What is the 5th term?",
+          "question_audio": {
+            "text": "The pattern starts at 3 and adds 3. What is the 5th term?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "rule": "add 3",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 3
+            },
+            {
+              "input": 2,
+              "output": 6
+            },
+            {
+              "input": 3,
+              "output": 9
+            },
+            {
+              "input": 4,
+              "output": 12
+            },
+            {
+              "input": 5,
+              "output": "?"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Multiplicative Comparison and Patterns. This mission connects real math to a clear visual model before you solve on your own. Press Start Mission when you are ready to read the problem, notice what the model is showing, and explain your thinking.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This page teaches the main ideas for Multiplicative Comparison and Patterns. Read the objective, vocabulary, misconception warning, and real-world connection so you know what to watch for. Press Next when you can name the strategy you will use.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this example as a tutor would solve it. Step one is to read the question and identify the operation or pattern. Step two is to use the visual model to organize the numbers. Step three is to compute carefully and check that the final answer is reasonable. Press Next when you can explain why the answer is correct.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo gives you support before independent work. Read each part of the model, connect it to the lesson vocabulary, and say what each number means. Press Next when the reasoning feels clear.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Now try a practice question with support. Tap Read Question first, choose your answer or type it carefully, and use the hint if your first idea does not fit the model. Press Next after your answer is complete.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This challenge asks you to use the skill with less help. Tap Read Question, decide which strategy fits, and check your answer against the visual model. Press Next when you can justify your response.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This checkpoint shows what you can do independently. Tap Read Question, answer carefully, and use the model to verify your reasoning before you move on. Press Next after your best work.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Great work completing Multiplicative Comparison and Patterns. This badge celebrates careful math reasoning, clear models, and answers that match the question. Press Save Growth Data to add this skill to your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Your profile summarizes this mission and points you to more practice. Choose Continue to Skill Practice for focused levels and a Mixed level, or go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

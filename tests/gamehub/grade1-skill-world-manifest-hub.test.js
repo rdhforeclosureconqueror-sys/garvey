@@ -322,3 +322,32 @@ test('Grade 4 Math Place Value Skill World package appears from manifest for the
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
+
+test('Grade 4 operations and base-ten Skill World packages appear from manifest for the hub', () => {
+  const expectedGrade4 = new Map([
+    ['G4M_OA_001', { skill: 'Multiplicative Comparison and Patterns', domain: 'Operations and Algebraic Thinking' }],
+    ['G4M_NBT_002', { skill: 'Multi-Digit Addition and Subtraction', domain: 'Number and Operations in Base Ten' }],
+    ['G4M_NBT_003', { skill: 'Multi-Digit Multiplication', domain: 'Number and Operations in Base Ten' }]
+  ]);
+  for (const skillId of expectedGrade4.keys()) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
+  const packages = manifest.packages.map(readPackage);
+  for (const [skillId, expected] of expectedGrade4.entries()) {
+    const g4 = packages.find((pkg) => pkg.skill_id === skillId);
+    assert.ok(g4, `${skillId} package loads from manifest`);
+    assert.equal(g4.grade, 4);
+    assert.equal(g4.subject, 'Math');
+    assert.equal(g4.domain, expected.domain);
+    assert.equal(g4.skill, expected.skill);
+    assert.equal(Array.isArray(g4.level_banks), true);
+    assert.equal(g4.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(g4.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(g4.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(g4.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
+  }
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});
