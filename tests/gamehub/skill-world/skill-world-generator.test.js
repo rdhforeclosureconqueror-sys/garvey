@@ -1974,3 +1974,62 @@ assert.match(negativeCoordinateHtml,/coordinate-plane-four-quadrant/,'coordinate
 assert.match(negativeCoordinateHtml,/-[1-9]/,'coordinate_plane includes negative axis labels or point labels');
 const integerComparisonHtml=VisualRegistry.render(grade6NsQuestions.find((q)=>q.visual_model==='comparison_model'));
 assert.match(integerComparisonHtml,/integer-comparison-visual/,'comparison visuals handle negative integers');
+
+const grade6ExpressionsEquationsPackages = [
+  {id:'G6M_EE_001',domain:'Expressions and Equations',skill:'Expressions and Exponents',labels:['Level 1: Numerical Expressions','Level 2: Exponents','Level 3: Variables and Substitution','Level 4: Order of Operations','Mixed'],visuals:['expression_builder','exponent_model','variable_tile','order_of_operations_steps'],types:['multiple_choice','short_response','expression_response'],tags:['exponent_multiplication_confusion','variable_meaning_confusion','operation_order_confusion','substitution_error'],pkg:load('G6M_EE_001')},
+  {id:'G6M_EE_002',domain:'Expressions and Equations',skill:'Equations and Inequalities',labels:['Level 1: One-Step Addition/Subtraction Equations','Level 2: One-Step Multiplication/Division Equations','Level 3: Inequalities','Level 4: Represent Solutions','Mixed'],visuals:['balance_scale','equation_builder','inequality_number_line','solution_set_model'],types:['multiple_choice','short_response','equation_response','inequality_response'],tags:['inverse_operation_error','equality_balance_confusion','inequality_symbol_reversal','solution_set_confusion'],pkg:load('G6M_EE_002')},
+  {id:'G6M_EE_003',domain:'Expressions and Equations',skill:'Dependent and Independent Variables',labels:['Level 1: Identify Variables','Level 2: Tables and Rules','Level 3: Graph Relationships','Level 4: Match Equation/Table/Graph','Mixed'],visuals:['pattern_table','coordinate_plane','graph_interpretation','equation_table_match'],types:['multiple_choice','short_response','coordinate_response','expression_response'],tags:['independent_dependent_confusion','graph_table_mismatch','equation_rule_error','input_output_reversal'],pkg:load('G6M_EE_003')}
+];
+
+grade6ExpressionsEquationsPackages.forEach(({id,domain,skill,labels,visuals,types,tags,pkg})=>{
+  const allQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])];
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,6,`${id} is Grade 6`);
+  assert.equal(pkg.subject,'Math',`${id} is Math`);
+  assert.equal(pkg.domain,domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,skill,`${id} title matches plan`);
+  const mission=Renderer.renderSkillWorld(pkg,{failClosed:true});
+  assert.deepEqual(mission.steps,['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],`${id} full mission flow renders`);
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(mission.html,new RegExp(label),`${id} renders ${label}`));
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(allQuestions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(Schema.QUESTION_TYPES.includes(type),`schema accepts ${type}`));
+  types.forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(allQuestions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} constructed-response items have acceptable_answers`);
+  for (const screen of ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile']) {
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${id} ${screen} has Read This Page narration`);
+    assert.ok((pkg.page_audio?.[screen]?.text||'').split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`${id} ${screen} narration teaches the page`);
+  }
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} references Read Question`));
+  [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} Skill Practice question has Read Question narration`));
+  assert.match(mission.html,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillState=Renderer.createState(); drillState.mode='drill';
+  assert.match(Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+
+const grade6EeManifest=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
+['G6M_EE_001.skill-package.v1.json','G6M_EE_002.skill-package.v1.json','G6M_EE_003.skill-package.v1.json'].forEach((file)=>assert.ok(grade6EeManifest.packages.includes(file),`manifest includes ${file}`));
+const grade6EeQuestions=grade6ExpressionsEquationsPackages.flatMap(({pkg})=>[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])]);
+['exponent_model','variable_tile','order_of_operations_steps','balance_scale','inequality_number_line','solution_set_model','equation_table_match'].forEach((visual)=>{
+  const question=grade6EeQuestions.find((q)=>q.visual_model===visual);
+  assert.ok(question,`Grade 6 Expressions and Equations batch includes ${visual}`);
+  const html=VisualRegistry.render(question);
+  assert.match(html,new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists`);
+  assert.doesNotMatch(html,/placeholder|coming soon/i,`${visual} renderer is not placeholder-only`);
+});
+assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='exponent_model')),/exponent-factor/,'exponent_model shows repeated factors clearly');
+assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='variable_tile')),/variable-card[\s\S]*value-card/,'variable_tile shows variable and substitution value clearly');
+assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='order_of_operations_steps')),/order-step/,'order_of_operations_steps shows ordered steps');
+assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='balance_scale')),/scale-pan[\s\S]*scale-pan/,'balance_scale shows both sides of an equation');
+const inequalityHtml=VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='inequality_number_line'));
+assert.match(inequalityHtml,/ineq-circle (open|closed)/,'inequality_number_line shows open or closed circle');
+assert.match(inequalityHtml,/ineq-ray (left|right)/,'inequality_number_line shows arrow direction');
+assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='solution_set_model')),/solution-chip valid/,'solution_set_model shows valid solutions clearly');
+assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='equation_table_match')),/equation-strip[\s\S]*sw-pattern-table[\s\S]*graph-canvas/,'equation_table_match shows equation, table, and graph relationship');

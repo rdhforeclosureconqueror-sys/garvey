@@ -1,0 +1,2309 @@
+{
+  "metadata": {
+    "content_version": "2026.06.01",
+    "production_status": "ready",
+    "source_plan": "docs/grade6_math_completion_plan.md"
+  },
+  "skill_id": "G6M_EE_001",
+  "grade": 6,
+  "subject": "Math",
+  "domain": "Expressions and Equations",
+  "skill": "Expressions and Exponents",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "feedback_fields": [
+    "correct",
+    "incorrect",
+    "hint"
+  ],
+  "next_skill_id": "",
+  "remediation_skill_id": "G6M_RP_001",
+  "support_type": "expression_builder",
+  "badgeName": "Expressions and Exponents",
+  "lesson": {
+    "story_mission": "Join the Skill World lab to master write, evaluate, and interpret expressions with variables, exponents, and order of operations.",
+    "objective": "write, evaluate, and interpret expressions with variables, exponents, and order of operations",
+    "key_vocabulary": [
+      "expression",
+      "variable",
+      "equation",
+      "inequality",
+      "input",
+      "output"
+    ],
+    "concept_explanation": "This mission teaches how to reason about write, evaluate, and interpret expressions with variables, exponents, and order of operations with symbols, models, and steps.",
+    "visual_model": "expression_builder",
+    "common_misconception": "A common mistake is treating symbols like decoration instead of using their math meaning.",
+    "real_world_connection": "These ideas help describe prices, patterns, distances, and changing quantities.",
+    "lesson_summary": "Read the structure first, use the model, then check that your answer makes the original statement true.",
+    "page_audio": {
+      "text": "Read This Page. This lesson teaches write, evaluate, and interpret expressions with variables, exponents, and order of operations. Math symbols have jobs, so read them in order and connect them to the visual model. Explain why the answer works, not just what the answer is.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G6M_EE_001_WE1",
+      "text": "Three squared means 3 times 3, not 3 times 2.",
+      "visual_model": "exponent_model",
+      "base": 3,
+      "exponent": 2,
+      "product": 9,
+      "correct_answer": "9",
+      "page_audio": {
+        "text": "Read This Page. Watch for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_EE_001:page:watch"
+      }
+    },
+    {
+      "id": "G6M_EE_001_WE2",
+      "text": "If x = 5, then x + 7 becomes 5 + 7 = 12.",
+      "visual_model": "variable_tile",
+      "variable": "x",
+      "value": 5,
+      "expression": "x + 7",
+      "substituted_expression": "5 + 7",
+      "correct_answer": "12",
+      "page_audio": {
+        "text": "Read This Page. Demo for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_EE_001:page:demo"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the symbols and units carefully.",
+    "Use the visual model to plan the first step.",
+    "Check your result in the original expression, equation, or relationship."
+  ],
+  "misconception_bank": {
+    "exponent_multiplication_confusion": "exponent multiplication confusion",
+    "variable_meaning_confusion": "variable meaning confusion",
+    "operation_order_confusion": "operation order confusion",
+    "substitution_error": "substitution error"
+  },
+  "review_bank": [],
+  "game_theme": {
+    "mission_intro": "A systems station needs your help with write, evaluate, and interpret expressions with variables, exponents, and order of operations.",
+    "badge": "Expression Engineer"
+  },
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Story for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:story"
+    },
+    "lesson": {
+      "text": "Read This Page. Lesson for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:lesson"
+    },
+    "watch": {
+      "text": "Read This Page. Watch for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:watch"
+    },
+    "demo": {
+      "text": "Read This Page. Demo for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:demo"
+    },
+    "practice": {
+      "text": "Read This Page. Practice for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer. Tap Read Question on each item so the prompt is read clearly before you solve.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:practice"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer. Tap Read Question on each item so the prompt is read clearly before you solve.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:challenge"
+    },
+    "checkpoint": {
+      "text": "Read This Page. Checkpoint for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer. Tap Read Question on each item so the prompt is read clearly before you solve.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:checkpoint"
+    },
+    "badge": {
+      "text": "Read This Page. Badge for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:badge"
+    },
+    "profile": {
+      "text": "Read This Page. Profile for write, evaluate, and interpret expressions with variables, exponents, and order of operations. Notice the important math language and connect each symbol to what it means. Use the model on the page to explain your thinking before choosing or typing an answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_EE_001:page:profile"
+    }
+  },
+  "guided_practice": [
+    {
+      "question_id": "G6M_EE_001_GP1",
+      "prompt": "What is the value of 4 squared?",
+      "question_type": "short_response",
+      "visual_model": "exponent_model",
+      "support_type": "exponent_model",
+      "correct_answer": "16",
+      "answer": "16",
+      "misconception_tag": "exponent_multiplication_confusion",
+      "hints": [
+        "Read the math statement.",
+        "Use the model to choose a step.",
+        "Check by substituting or comparing."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the relationship.",
+        "incorrect": "Try again. Use the model and check the original statement."
+      },
+      "explanation": "The answer is 16.",
+      "read_aloud_text": "What is the value of 4 squared?",
+      "question_audio": {
+        "text": "What is the value of 4 squared?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_GP1"
+      },
+      "acceptable_answers": [
+        "16",
+        "16"
+      ],
+      "base": 4,
+      "exponent": 2,
+      "product": 16
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6M_EE_001_AQ1",
+      "prompt": "Evaluate n + 6 when n = 8.",
+      "question_type": "short_response",
+      "visual_model": "variable_tile",
+      "support_type": "variable_tile",
+      "correct_answer": "14",
+      "answer": "14",
+      "misconception_tag": "substitution_error",
+      "hints": [
+        "Read the math statement.",
+        "Use the model to choose a step.",
+        "Check by substituting or comparing."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the relationship.",
+        "incorrect": "Try again. Use the model and check the original statement."
+      },
+      "explanation": "The answer is 14.",
+      "read_aloud_text": "Evaluate n + 6 when n = 8.",
+      "question_audio": {
+        "text": "Evaluate n + 6 when n = 8.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_AQ1"
+      },
+      "acceptable_answers": [
+        "14",
+        "14"
+      ],
+      "variable": "n",
+      "value": 8,
+      "expression": "n + 6",
+      "substituted_expression": "8 + 6"
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6M_EE_001_CP1",
+      "prompt": "Which expression equals 3 + 2 \u00d7 5?",
+      "question_type": "multiple_choice",
+      "visual_model": "order_of_operations_steps",
+      "support_type": "order_of_operations_steps",
+      "correct_answer": "13",
+      "answer": "13",
+      "misconception_tag": "operation_order_confusion",
+      "hints": [
+        "Read the math statement.",
+        "Use the model to choose a step.",
+        "Check by substituting or comparing."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the relationship.",
+        "incorrect": "Try again. Use the model and check the original statement."
+      },
+      "explanation": "The answer is 13.",
+      "read_aloud_text": "Which expression equals 3 + 2 \u00d7 5?",
+      "question_audio": {
+        "text": "Which expression equals 3 + 2 \u00d7 5?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_CP1"
+      },
+      "choices": [
+        "25",
+        "13",
+        "17",
+        "30"
+      ],
+      "expression": "3 + 2 \u00d7 5",
+      "steps": [
+        {
+          "label": "Multiply first",
+          "work": "2 \u00d7 5 = 10"
+        },
+        {
+          "label": "Add next",
+          "work": "3 + 10 = 13"
+        }
+      ]
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G6M_EE_001_LVL1",
+      "label": "Level 1: Numerical Expressions",
+      "focus": "Level 1: Numerical Expressions",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6M_EE_001_LVL1_Q1",
+          "prompt": "Write an expression for 2 more than 3.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "3 + 2",
+          "answer": "3 + 2",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 3 + 2.",
+          "read_aloud_text": "Write an expression for 2 more than 3.",
+          "question_audio": {
+            "text": "Write an expression for 2 more than 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q1"
+          },
+          "choices": [
+            "3 + 2",
+            "2 - 3",
+            "2 \u00d7 3",
+            "3 - 2"
+          ],
+          "expression": "3 + 2"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q2",
+          "prompt": "Write an expression for 3 more than 4.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "4 + 3",
+          "answer": "4 + 3",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 4 + 3.",
+          "read_aloud_text": "Write an expression for 3 more than 4.",
+          "question_audio": {
+            "text": "Write an expression for 3 more than 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q2"
+          },
+          "acceptable_answers": [
+            "4 + 3",
+            "4+3"
+          ],
+          "expression": "4 + 3"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q3",
+          "prompt": "Write an expression for 4 more than 5.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "5 + 4",
+          "answer": "5 + 4",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 5 + 4.",
+          "read_aloud_text": "Write an expression for 4 more than 5.",
+          "question_audio": {
+            "text": "Write an expression for 4 more than 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q3"
+          },
+          "choices": [
+            "5 + 4",
+            "4 - 5",
+            "4 \u00d7 5",
+            "5 - 4"
+          ],
+          "expression": "5 + 4"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q4",
+          "prompt": "Write an expression for 5 more than 6.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "6 + 5",
+          "answer": "6 + 5",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 6 + 5.",
+          "read_aloud_text": "Write an expression for 5 more than 6.",
+          "question_audio": {
+            "text": "Write an expression for 5 more than 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q4"
+          },
+          "acceptable_answers": [
+            "6 + 5",
+            "6+5"
+          ],
+          "expression": "6 + 5"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q5",
+          "prompt": "Write an expression for 6 more than 7.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "7 + 6",
+          "answer": "7 + 6",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 7 + 6.",
+          "read_aloud_text": "Write an expression for 6 more than 7.",
+          "question_audio": {
+            "text": "Write an expression for 6 more than 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q5"
+          },
+          "choices": [
+            "7 + 6",
+            "6 - 7",
+            "6 \u00d7 7",
+            "7 - 6"
+          ],
+          "expression": "7 + 6"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q6",
+          "prompt": "Write an expression for 7 more than 8.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "8 + 7",
+          "answer": "8 + 7",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 8 + 7.",
+          "read_aloud_text": "Write an expression for 7 more than 8.",
+          "question_audio": {
+            "text": "Write an expression for 7 more than 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q6"
+          },
+          "acceptable_answers": [
+            "8 + 7",
+            "8+7"
+          ],
+          "expression": "8 + 7"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q7",
+          "prompt": "Write an expression for 8 more than 9.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "9 + 8",
+          "answer": "9 + 8",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 9 + 8.",
+          "read_aloud_text": "Write an expression for 8 more than 9.",
+          "question_audio": {
+            "text": "Write an expression for 8 more than 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q7"
+          },
+          "choices": [
+            "9 + 8",
+            "8 - 9",
+            "8 \u00d7 9",
+            "9 - 8"
+          ],
+          "expression": "9 + 8"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q8",
+          "prompt": "Write an expression for 9 more than 10.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "10 + 9",
+          "answer": "10 + 9",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 10 + 9.",
+          "read_aloud_text": "Write an expression for 9 more than 10.",
+          "question_audio": {
+            "text": "Write an expression for 9 more than 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q8"
+          },
+          "acceptable_answers": [
+            "10 + 9",
+            "10+9"
+          ],
+          "expression": "10 + 9"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q9",
+          "prompt": "Write an expression for 10 more than 11.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "11 + 10",
+          "answer": "11 + 10",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 11 + 10.",
+          "read_aloud_text": "Write an expression for 10 more than 11.",
+          "question_audio": {
+            "text": "Write an expression for 10 more than 11.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q9"
+          },
+          "choices": [
+            "11 + 10",
+            "10 - 11",
+            "10 \u00d7 11",
+            "11 - 10"
+          ],
+          "expression": "11 + 10"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL1_Q10",
+          "prompt": "Write an expression for 11 more than 12.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "12 + 11",
+          "answer": "12 + 11",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 12 + 11.",
+          "read_aloud_text": "Write an expression for 11 more than 12.",
+          "question_audio": {
+            "text": "Write an expression for 11 more than 12.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL1_Q10"
+          },
+          "acceptable_answers": [
+            "12 + 11",
+            "12+11"
+          ],
+          "expression": "12 + 11"
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_EE_001_LVL2",
+      "label": "Level 2: Exponents",
+      "focus": "Level 2: Exponents",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6M_EE_001_LVL2_Q1",
+          "prompt": "Evaluate 2 squared.",
+          "question_type": "multiple_choice",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Evaluate 2 squared.",
+          "question_audio": {
+            "text": "Evaluate 2 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q1"
+          },
+          "choices": [
+            "4",
+            "4",
+            "4",
+            "5"
+          ],
+          "base": 2,
+          "exponent": 2,
+          "product": 4
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q2",
+          "prompt": "Evaluate 3 squared.",
+          "question_type": "short_response",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "Evaluate 3 squared.",
+          "question_audio": {
+            "text": "Evaluate 3 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q2"
+          },
+          "acceptable_answers": [
+            "9",
+            "9"
+          ],
+          "base": 3,
+          "exponent": 2,
+          "product": 9
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q3",
+          "prompt": "Evaluate 4 squared.",
+          "question_type": "multiple_choice",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "16",
+          "answer": "16",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 16.",
+          "read_aloud_text": "Evaluate 4 squared.",
+          "question_audio": {
+            "text": "Evaluate 4 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q3"
+          },
+          "choices": [
+            "8",
+            "16",
+            "6",
+            "17"
+          ],
+          "base": 4,
+          "exponent": 2,
+          "product": 16
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q4",
+          "prompt": "Evaluate 5 squared.",
+          "question_type": "short_response",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "25",
+          "answer": "25",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 25.",
+          "read_aloud_text": "Evaluate 5 squared.",
+          "question_audio": {
+            "text": "Evaluate 5 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q4"
+          },
+          "acceptable_answers": [
+            "25",
+            "25"
+          ],
+          "base": 5,
+          "exponent": 2,
+          "product": 25
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q5",
+          "prompt": "Evaluate 6 squared.",
+          "question_type": "multiple_choice",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "36",
+          "answer": "36",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 36.",
+          "read_aloud_text": "Evaluate 6 squared.",
+          "question_audio": {
+            "text": "Evaluate 6 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q5"
+          },
+          "choices": [
+            "12",
+            "36",
+            "8",
+            "37"
+          ],
+          "base": 6,
+          "exponent": 2,
+          "product": 36
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q6",
+          "prompt": "Evaluate 7 squared.",
+          "question_type": "short_response",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "49",
+          "answer": "49",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 49.",
+          "read_aloud_text": "Evaluate 7 squared.",
+          "question_audio": {
+            "text": "Evaluate 7 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q6"
+          },
+          "acceptable_answers": [
+            "49",
+            "49"
+          ],
+          "base": 7,
+          "exponent": 2,
+          "product": 49
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q7",
+          "prompt": "Evaluate 8 squared.",
+          "question_type": "multiple_choice",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "64",
+          "answer": "64",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 64.",
+          "read_aloud_text": "Evaluate 8 squared.",
+          "question_audio": {
+            "text": "Evaluate 8 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q7"
+          },
+          "choices": [
+            "16",
+            "64",
+            "10",
+            "65"
+          ],
+          "base": 8,
+          "exponent": 2,
+          "product": 64
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q8",
+          "prompt": "Evaluate 9 squared.",
+          "question_type": "short_response",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "81",
+          "answer": "81",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 81.",
+          "read_aloud_text": "Evaluate 9 squared.",
+          "question_audio": {
+            "text": "Evaluate 9 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q8"
+          },
+          "acceptable_answers": [
+            "81",
+            "81"
+          ],
+          "base": 9,
+          "exponent": 2,
+          "product": 81
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q9",
+          "prompt": "Evaluate 10 squared.",
+          "question_type": "multiple_choice",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "100",
+          "answer": "100",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 100.",
+          "read_aloud_text": "Evaluate 10 squared.",
+          "question_audio": {
+            "text": "Evaluate 10 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q9"
+          },
+          "choices": [
+            "20",
+            "100",
+            "12",
+            "101"
+          ],
+          "base": 10,
+          "exponent": 2,
+          "product": 100
+        },
+        {
+          "question_id": "G6M_EE_001_LVL2_Q10",
+          "prompt": "Evaluate 11 squared.",
+          "question_type": "short_response",
+          "visual_model": "exponent_model",
+          "support_type": "exponent_model",
+          "correct_answer": "121",
+          "answer": "121",
+          "misconception_tag": "exponent_multiplication_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 121.",
+          "read_aloud_text": "Evaluate 11 squared.",
+          "question_audio": {
+            "text": "Evaluate 11 squared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL2_Q10"
+          },
+          "acceptable_answers": [
+            "121",
+            "121"
+          ],
+          "base": 11,
+          "exponent": 2,
+          "product": 121
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_EE_001_LVL3",
+      "label": "Level 3: Variables and Substitution",
+      "focus": "Level 3: Variables and Substitution",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6M_EE_001_LVL3_Q1",
+          "prompt": "Evaluate x + 3 when x = 2.",
+          "question_type": "expression_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "Evaluate x + 3 when x = 2.",
+          "question_audio": {
+            "text": "Evaluate x + 3 when x = 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q1"
+          },
+          "acceptable_answers": [
+            "5",
+            "5"
+          ],
+          "variable": "x",
+          "value": 2,
+          "expression": "x + 3",
+          "substituted_expression": "2 + 3"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q2",
+          "prompt": "Evaluate x + 4 when x = 3.",
+          "question_type": "short_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "7",
+          "answer": "7",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "Evaluate x + 4 when x = 3.",
+          "question_audio": {
+            "text": "Evaluate x + 4 when x = 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q2"
+          },
+          "acceptable_answers": [
+            "7",
+            "7"
+          ],
+          "variable": "x",
+          "value": 3,
+          "expression": "x + 4",
+          "substituted_expression": "3 + 4"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q3",
+          "prompt": "Evaluate x + 5 when x = 4.",
+          "question_type": "expression_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "Evaluate x + 5 when x = 4.",
+          "question_audio": {
+            "text": "Evaluate x + 5 when x = 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q3"
+          },
+          "acceptable_answers": [
+            "9",
+            "9"
+          ],
+          "variable": "x",
+          "value": 4,
+          "expression": "x + 5",
+          "substituted_expression": "4 + 5"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q4",
+          "prompt": "Evaluate x + 6 when x = 5.",
+          "question_type": "short_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "11",
+          "answer": "11",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 11.",
+          "read_aloud_text": "Evaluate x + 6 when x = 5.",
+          "question_audio": {
+            "text": "Evaluate x + 6 when x = 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q4"
+          },
+          "acceptable_answers": [
+            "11",
+            "11"
+          ],
+          "variable": "x",
+          "value": 5,
+          "expression": "x + 6",
+          "substituted_expression": "5 + 6"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q5",
+          "prompt": "Evaluate x + 7 when x = 6.",
+          "question_type": "expression_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "13",
+          "answer": "13",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 13.",
+          "read_aloud_text": "Evaluate x + 7 when x = 6.",
+          "question_audio": {
+            "text": "Evaluate x + 7 when x = 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q5"
+          },
+          "acceptable_answers": [
+            "13",
+            "13"
+          ],
+          "variable": "x",
+          "value": 6,
+          "expression": "x + 7",
+          "substituted_expression": "6 + 7"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q6",
+          "prompt": "Evaluate x + 8 when x = 7.",
+          "question_type": "short_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "15",
+          "answer": "15",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "Evaluate x + 8 when x = 7.",
+          "question_audio": {
+            "text": "Evaluate x + 8 when x = 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q6"
+          },
+          "acceptable_answers": [
+            "15",
+            "15"
+          ],
+          "variable": "x",
+          "value": 7,
+          "expression": "x + 8",
+          "substituted_expression": "7 + 8"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q7",
+          "prompt": "Evaluate x + 9 when x = 8.",
+          "question_type": "expression_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "17",
+          "answer": "17",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 17.",
+          "read_aloud_text": "Evaluate x + 9 when x = 8.",
+          "question_audio": {
+            "text": "Evaluate x + 9 when x = 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q7"
+          },
+          "acceptable_answers": [
+            "17",
+            "17"
+          ],
+          "variable": "x",
+          "value": 8,
+          "expression": "x + 9",
+          "substituted_expression": "8 + 9"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q8",
+          "prompt": "Evaluate x + 10 when x = 9.",
+          "question_type": "short_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "19",
+          "answer": "19",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 19.",
+          "read_aloud_text": "Evaluate x + 10 when x = 9.",
+          "question_audio": {
+            "text": "Evaluate x + 10 when x = 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q8"
+          },
+          "acceptable_answers": [
+            "19",
+            "19"
+          ],
+          "variable": "x",
+          "value": 9,
+          "expression": "x + 10",
+          "substituted_expression": "9 + 10"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q9",
+          "prompt": "Evaluate x + 11 when x = 10.",
+          "question_type": "expression_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "21",
+          "answer": "21",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 21.",
+          "read_aloud_text": "Evaluate x + 11 when x = 10.",
+          "question_audio": {
+            "text": "Evaluate x + 11 when x = 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q9"
+          },
+          "acceptable_answers": [
+            "21",
+            "21"
+          ],
+          "variable": "x",
+          "value": 10,
+          "expression": "x + 11",
+          "substituted_expression": "10 + 11"
+        },
+        {
+          "question_id": "G6M_EE_001_LVL3_Q10",
+          "prompt": "Evaluate x + 12 when x = 11.",
+          "question_type": "short_response",
+          "visual_model": "variable_tile",
+          "support_type": "variable_tile",
+          "correct_answer": "23",
+          "answer": "23",
+          "misconception_tag": "substitution_error",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 23.",
+          "read_aloud_text": "Evaluate x + 12 when x = 11.",
+          "question_audio": {
+            "text": "Evaluate x + 12 when x = 11.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL3_Q10"
+          },
+          "acceptable_answers": [
+            "23",
+            "23"
+          ],
+          "variable": "x",
+          "value": 11,
+          "expression": "x + 12",
+          "substituted_expression": "11 + 12"
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_EE_001_LVL4",
+      "label": "Level 4: Order of Operations",
+      "focus": "Level 4: Order of Operations",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6M_EE_001_LVL4_Q1",
+          "prompt": "Evaluate 2 + 3 \u00d7 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Evaluate 2 + 3 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 2 + 3 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q1"
+          },
+          "choices": [
+            "10",
+            "8",
+            "8",
+            "7"
+          ],
+          "expression": "2 + 3 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "3 \u00d7 2 = 6"
+            },
+            {
+              "label": "Add next",
+              "work": "2 + 6 = 8"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q2",
+          "prompt": "Evaluate 3 + 4 \u00d7 2.",
+          "question_type": "short_response",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "11",
+          "answer": "11",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 11.",
+          "read_aloud_text": "Evaluate 3 + 4 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 3 + 4 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q2"
+          },
+          "acceptable_answers": [
+            "11",
+            "11"
+          ],
+          "expression": "3 + 4 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "4 \u00d7 2 = 8"
+            },
+            {
+              "label": "Add next",
+              "work": "3 + 8 = 11"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q3",
+          "prompt": "Evaluate 4 + 5 \u00d7 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "14",
+          "answer": "14",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 14.",
+          "read_aloud_text": "Evaluate 4 + 5 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 4 + 5 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q3"
+          },
+          "choices": [
+            "18",
+            "14",
+            "22",
+            "11"
+          ],
+          "expression": "4 + 5 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "5 \u00d7 2 = 10"
+            },
+            {
+              "label": "Add next",
+              "work": "4 + 10 = 14"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q4",
+          "prompt": "Evaluate 5 + 6 \u00d7 2.",
+          "question_type": "short_response",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "17",
+          "answer": "17",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 17.",
+          "read_aloud_text": "Evaluate 5 + 6 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 5 + 6 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q4"
+          },
+          "acceptable_answers": [
+            "17",
+            "17"
+          ],
+          "expression": "5 + 6 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "6 \u00d7 2 = 12"
+            },
+            {
+              "label": "Add next",
+              "work": "5 + 12 = 17"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q5",
+          "prompt": "Evaluate 6 + 7 \u00d7 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "20",
+          "answer": "20",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 20.",
+          "read_aloud_text": "Evaluate 6 + 7 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 6 + 7 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q5"
+          },
+          "choices": [
+            "26",
+            "20",
+            "44",
+            "15"
+          ],
+          "expression": "6 + 7 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "7 \u00d7 2 = 14"
+            },
+            {
+              "label": "Add next",
+              "work": "6 + 14 = 20"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q6",
+          "prompt": "Evaluate 7 + 8 \u00d7 2.",
+          "question_type": "short_response",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "23",
+          "answer": "23",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 23.",
+          "read_aloud_text": "Evaluate 7 + 8 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 7 + 8 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q6"
+          },
+          "acceptable_answers": [
+            "23",
+            "23"
+          ],
+          "expression": "7 + 8 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "8 \u00d7 2 = 16"
+            },
+            {
+              "label": "Add next",
+              "work": "7 + 16 = 23"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q7",
+          "prompt": "Evaluate 8 + 9 \u00d7 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "26",
+          "answer": "26",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 26.",
+          "read_aloud_text": "Evaluate 8 + 9 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 8 + 9 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q7"
+          },
+          "choices": [
+            "34",
+            "26",
+            "74",
+            "19"
+          ],
+          "expression": "8 + 9 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "9 \u00d7 2 = 18"
+            },
+            {
+              "label": "Add next",
+              "work": "8 + 18 = 26"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q8",
+          "prompt": "Evaluate 9 + 10 \u00d7 2.",
+          "question_type": "short_response",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "29",
+          "answer": "29",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 29.",
+          "read_aloud_text": "Evaluate 9 + 10 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 9 + 10 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q8"
+          },
+          "acceptable_answers": [
+            "29",
+            "29"
+          ],
+          "expression": "9 + 10 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "10 \u00d7 2 = 20"
+            },
+            {
+              "label": "Add next",
+              "work": "9 + 20 = 29"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q9",
+          "prompt": "Evaluate 10 + 11 \u00d7 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "32",
+          "answer": "32",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 32.",
+          "read_aloud_text": "Evaluate 10 + 11 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 10 + 11 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q9"
+          },
+          "choices": [
+            "42",
+            "32",
+            "112",
+            "23"
+          ],
+          "expression": "10 + 11 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "11 \u00d7 2 = 22"
+            },
+            {
+              "label": "Add next",
+              "work": "10 + 22 = 32"
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_EE_001_LVL4_Q10",
+          "prompt": "Evaluate 11 + 12 \u00d7 2.",
+          "question_type": "short_response",
+          "visual_model": "order_of_operations_steps",
+          "support_type": "order_of_operations_steps",
+          "correct_answer": "35",
+          "answer": "35",
+          "misconception_tag": "operation_order_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 35.",
+          "read_aloud_text": "Evaluate 11 + 12 \u00d7 2.",
+          "question_audio": {
+            "text": "Evaluate 11 + 12 \u00d7 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_LVL4_Q10"
+          },
+          "acceptable_answers": [
+            "35",
+            "35"
+          ],
+          "expression": "11 + 12 \u00d7 2",
+          "steps": [
+            {
+              "label": "Multiply first",
+              "work": "12 \u00d7 2 = 24"
+            },
+            {
+              "label": "Add next",
+              "work": "11 + 24 = 35"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_EE_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6M_EE_001_MIXED_Q1",
+          "prompt": "Write an expression for 2 more than 3.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "3 + 2",
+          "answer": "3 + 2",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 3 + 2.",
+          "read_aloud_text": "Write an expression for 2 more than 3.",
+          "question_audio": {
+            "text": "Write an expression for 2 more than 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q1"
+          },
+          "choices": [
+            "3 + 2",
+            "2 - 3",
+            "2 \u00d7 3",
+            "3 - 2"
+          ],
+          "expression": "3 + 2"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q2",
+          "prompt": "Write an expression for 3 more than 4.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "4 + 3",
+          "answer": "4 + 3",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 4 + 3.",
+          "read_aloud_text": "Write an expression for 3 more than 4.",
+          "question_audio": {
+            "text": "Write an expression for 3 more than 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q2"
+          },
+          "acceptable_answers": [
+            "4 + 3",
+            "4+3"
+          ],
+          "expression": "4 + 3"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q3",
+          "prompt": "Write an expression for 4 more than 5.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "5 + 4",
+          "answer": "5 + 4",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 5 + 4.",
+          "read_aloud_text": "Write an expression for 4 more than 5.",
+          "question_audio": {
+            "text": "Write an expression for 4 more than 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q3"
+          },
+          "choices": [
+            "5 + 4",
+            "4 - 5",
+            "4 \u00d7 5",
+            "5 - 4"
+          ],
+          "expression": "5 + 4"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q4",
+          "prompt": "Write an expression for 5 more than 6.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "6 + 5",
+          "answer": "6 + 5",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 6 + 5.",
+          "read_aloud_text": "Write an expression for 5 more than 6.",
+          "question_audio": {
+            "text": "Write an expression for 5 more than 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q4"
+          },
+          "acceptable_answers": [
+            "6 + 5",
+            "6+5"
+          ],
+          "expression": "6 + 5"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q5",
+          "prompt": "Write an expression for 6 more than 7.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "7 + 6",
+          "answer": "7 + 6",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 7 + 6.",
+          "read_aloud_text": "Write an expression for 6 more than 7.",
+          "question_audio": {
+            "text": "Write an expression for 6 more than 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q5"
+          },
+          "choices": [
+            "7 + 6",
+            "6 - 7",
+            "6 \u00d7 7",
+            "7 - 6"
+          ],
+          "expression": "7 + 6"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q6",
+          "prompt": "Write an expression for 7 more than 8.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "8 + 7",
+          "answer": "8 + 7",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 8 + 7.",
+          "read_aloud_text": "Write an expression for 7 more than 8.",
+          "question_audio": {
+            "text": "Write an expression for 7 more than 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q6"
+          },
+          "acceptable_answers": [
+            "8 + 7",
+            "8+7"
+          ],
+          "expression": "8 + 7"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q7",
+          "prompt": "Write an expression for 8 more than 9.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "9 + 8",
+          "answer": "9 + 8",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 9 + 8.",
+          "read_aloud_text": "Write an expression for 8 more than 9.",
+          "question_audio": {
+            "text": "Write an expression for 8 more than 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q7"
+          },
+          "choices": [
+            "9 + 8",
+            "8 - 9",
+            "8 \u00d7 9",
+            "9 - 8"
+          ],
+          "expression": "9 + 8"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q8",
+          "prompt": "Write an expression for 9 more than 10.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "10 + 9",
+          "answer": "10 + 9",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 10 + 9.",
+          "read_aloud_text": "Write an expression for 9 more than 10.",
+          "question_audio": {
+            "text": "Write an expression for 9 more than 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q8"
+          },
+          "acceptable_answers": [
+            "10 + 9",
+            "10+9"
+          ],
+          "expression": "10 + 9"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q9",
+          "prompt": "Write an expression for 10 more than 11.",
+          "question_type": "multiple_choice",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "11 + 10",
+          "answer": "11 + 10",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 11 + 10.",
+          "read_aloud_text": "Write an expression for 10 more than 11.",
+          "question_audio": {
+            "text": "Write an expression for 10 more than 11.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q9"
+          },
+          "choices": [
+            "11 + 10",
+            "10 - 11",
+            "10 \u00d7 11",
+            "11 - 10"
+          ],
+          "expression": "11 + 10"
+        },
+        {
+          "question_id": "G6M_EE_001_MIXED_Q10",
+          "prompt": "Write an expression for 11 more than 12.",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "support_type": "expression_builder",
+          "correct_answer": "12 + 11",
+          "answer": "12 + 11",
+          "misconception_tag": "variable_meaning_confusion",
+          "hints": [
+            "Read the math statement.",
+            "Use the model to choose a step.",
+            "Check by substituting or comparing."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the relationship.",
+            "incorrect": "Try again. Use the model and check the original statement."
+          },
+          "explanation": "The answer is 12 + 11.",
+          "read_aloud_text": "Write an expression for 11 more than 12.",
+          "question_audio": {
+            "text": "Write an expression for 11 more than 12.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_EE_001:question:G6M_EE_001_MIXED_Q10"
+          },
+          "acceptable_answers": [
+            "12 + 11",
+            "12+11"
+          ],
+          "expression": "12 + 11"
+        }
+      ]
+    }
+  ]
+}

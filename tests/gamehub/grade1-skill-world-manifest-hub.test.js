@@ -533,3 +533,29 @@ test('Grade 6 Number System Skill World packages appear from manifest for the hu
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
+
+test('Grade 6 Expressions and Equations Skill World packages appear from manifest for the hub', () => {
+  const expected = new Map([
+    ['G6M_EE_001', { skill: 'Expressions and Exponents' }],
+    ['G6M_EE_002', { skill: 'Equations and Inequalities' }],
+    ['G6M_EE_003', { skill: 'Dependent and Independent Variables' }]
+  ]);
+  for (const skillId of expected.keys()) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
+  const packages = [...expected.keys()].map((skillId) => readPackage(`${skillId}.skill-package.v1.json`));
+  for (const pkg of packages) {
+    assert.equal(pkg.grade, 6);
+    assert.equal(pkg.subject, 'Math');
+    assert.equal(pkg.domain, 'Expressions and Equations');
+    assert.equal(pkg.skill, expected.get(pkg.skill_id).skill);
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
+  }
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});
