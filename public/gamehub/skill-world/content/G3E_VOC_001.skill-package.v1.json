@@ -1,0 +1,2546 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade3-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade3_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01"
+  },
+  "skill_id": "G3E_VOC_001",
+  "grade": 3,
+  "subject": "English",
+  "domain": "Vocabulary / Language",
+  "skill": "Vocabulary, Context Clues, and Word Relationships",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Word Detectives solve clues in classroom notes, stories, and science sentences.",
+    "objective": "I can use context clues, synonyms, antonyms, shades of meaning, and multiple-meaning words.",
+    "key_vocabulary": [
+      "context clue",
+      "synonym",
+      "antonym",
+      "shade of meaning",
+      "multiple-meaning word"
+    ],
+    "concept_explanation": "Good readers use context clues, synonyms, antonyms, shades of meaning, and multiple-meaning words. They slow down, notice clues in the words or text, and explain how the clue supports the answer.",
+    "visual_model": "context_sentence",
+    "common_misconception": "Readers may choose a meaning without using nearby clues.",
+    "real_world_connection": "Vocabulary strategies help readers understand new words in books, tests, projects, and conversations.",
+    "lesson_summary": "Use nearby context, word relationships, strength of meaning, and multiple meanings to choose the word that best fits.",
+    "mini_lesson": "Read around the unknown word. Look for examples, definitions, contrasts, or a related word. Then test the meaning in the sentence.",
+    "audio": {
+      "text": "context clue, synonym, antonym, shade of meaning, multiple-meaning word",
+      "label": "Listen",
+      "type": "word",
+      "repeat_count": 1,
+      "student_prompt": "Listen, then read it yourself."
+    }
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: In \u201cThe trail was damp after the rain,\u201d after the rain is a clue that damp means slightly wet.",
+      "correct_answer": "slightly wet",
+      "visual_model": "context_sentence",
+      "context": "The trail was damp after the rain, so our shoes got wet.",
+      "word": "damp",
+      "audio": {
+        "text": "The trail was damp after the rain, so our shoes got wet.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "text": "Demo: Happy and joyful are synonyms because they have almost the same meaning.",
+      "correct_answer": "joyful",
+      "visual_model": "vocabulary_match",
+      "word": "happy",
+      "choices": [
+        "joyful",
+        "sad",
+        "empty"
+      ],
+      "audio": {
+        "text": "Happy and joyful are synonyms.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read before and after the word.",
+    "Ask whether the words mean the same, opposite, stronger, or weaker.",
+    "Test the answer in the sentence."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G3E_VOC_001_LVL1_Q01",
+      "sentence": "The trail was damp after the rain, so our shoes got wet.",
+      "context": "The trail was damp after the rain, so our shoes got wet.",
+      "word": "damp",
+      "scale_words": null,
+      "prompt": "In the sentence, what does damp mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "slightly wet",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "The answer is slightly wet because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 slightly wet fits the reading clue.",
+      "question_audio": {
+        "text": "In the sentence, what does damp mean? Choices: slightly wet, very hot, full of dust.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "slightly wet",
+        "very hot",
+        "full of dust"
+      ],
+      "audio": {
+        "text": "The trail was damp after the rain, so our shoes got wet.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_VOC_001_LVL2_Q01",
+      "sentence": "",
+      "context": "happy",
+      "word": "happy",
+      "scale_words": null,
+      "prompt": "Which word is a synonym for happy?",
+      "question_type": "vocabulary_match",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "joyful",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "The answer is joyful because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 joyful fits the reading clue.",
+      "question_audio": {
+        "text": "Which word is a synonym for happy? Choices: joyful, sad, empty.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "joyful",
+        "sad",
+        "empty"
+      ],
+      "audio": {
+        "text": "happy",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G3E_VOC_001_LVL4_Q01",
+      "sentence": "The bat flew out of the cave at dusk.",
+      "context": "The bat flew out of the cave at dusk.",
+      "word": "bat",
+      "scale_words": null,
+      "prompt": "What does bat mean here?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "an animal",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "multiple_meaning_confusion",
+      "explanation": "The answer is an animal because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 an animal fits the reading clue.",
+      "question_audio": {
+        "text": "What does bat mean here? Choices: an animal, a baseball stick, a bag.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "an animal",
+        "a baseball stick",
+        "a bag"
+      ],
+      "audio": {
+        "text": "The bat flew out of the cave at dusk.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G3E_VOC_001_LVL3_Q01",
+      "sentence": "walk, stroll, sprint",
+      "context": "walk, stroll, sprint",
+      "word": "sprint",
+      "scale_words": [
+        "walk",
+        "stroll",
+        "sprint"
+      ],
+      "prompt": "Which word means moving fastest?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_scale",
+      "support_type": "word_scale",
+      "correct_answer": "sprint",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "shade_of_meaning_confusion",
+      "explanation": "The answer is sprint because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 sprint fits the reading clue.",
+      "question_audio": {
+        "text": "Which word means moving fastest? Choices: sprint, stroll, walk.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "sprint",
+        "stroll",
+        "walk"
+      ],
+      "audio": {
+        "text": "walk, stroll, sprint",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "misconception_bank": {
+    "context_clue_ignored": "Readers may choose a meaning without using nearby clues.",
+    "synonym_antonym_confusion": "Readers may mix up words that mean the same with words that mean the opposite.",
+    "shade_of_meaning_confusion": "Readers may miss whether a word is stronger, weaker, or more exact.",
+    "multiple_meaning_confusion": "Readers may choose the wrong meaning for a word that has more than one meaning."
+  },
+  "review_bank": [
+    {
+      "question_id": "G3E_VOC_001_MIXED_Q01",
+      "sentence": "The trail was damp after the rain, so our shoes got wet.",
+      "context": "The trail was damp after the rain, so our shoes got wet.",
+      "word": "damp",
+      "scale_words": null,
+      "prompt": "In the sentence, what does damp mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "slightly wet",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "The answer is slightly wet because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 slightly wet fits the reading clue.",
+      "question_audio": {
+        "text": "In the sentence, what does damp mean? Choices: slightly wet, very hot, full of dust.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "slightly wet",
+        "very hot",
+        "full of dust"
+      ],
+      "audio": {
+        "text": "The trail was damp after the rain, so our shoes got wet.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_VOC_001_MIXED_Q02",
+      "sentence": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+      "context": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+      "word": "delighted",
+      "scale_words": null,
+      "prompt": "Which clue helps you know delighted means happy?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "smiled all afternoon",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "The answer is smiled all afternoon because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 smiled all afternoon fits the reading clue.",
+      "question_audio": {
+        "text": "Which clue helps you know delighted means happy? Choices: smiled all afternoon, saw the surprise, Mia was.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "smiled all afternoon",
+        "saw the surprise",
+        "Mia was"
+      ],
+      "audio": {
+        "text": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_VOC_001_MIXED_Q03",
+      "sentence": "The enormous pumpkin was so large that two people carried it.",
+      "context": "The enormous pumpkin was so large that two people carried it.",
+      "word": "enormous",
+      "scale_words": null,
+      "prompt": "Complete the meaning: enormous means ___.",
+      "question_type": "short_response",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "very large",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "The answer is very large because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 very large fits the reading clue.",
+      "question_audio": {
+        "text": "Complete the meaning: enormous means ___.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "The enormous pumpkin was so large that two people carried it.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_VOC_001_MIXED_Q04",
+      "sentence": "",
+      "context": "happy",
+      "word": "happy",
+      "scale_words": null,
+      "prompt": "Which word is a synonym for happy?",
+      "question_type": "vocabulary_match",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "joyful",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "The answer is joyful because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 joyful fits the reading clue.",
+      "question_audio": {
+        "text": "Which word is a synonym for happy? Choices: joyful, sad, empty.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "joyful",
+        "sad",
+        "empty"
+      ],
+      "audio": {
+        "text": "happy",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_VOC_001_MIXED_Q05",
+      "sentence": "",
+      "context": "ancient",
+      "word": "ancient",
+      "scale_words": null,
+      "prompt": "Which word is an antonym for ancient?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "modern",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "The answer is modern because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 modern fits the reading clue.",
+      "question_audio": {
+        "text": "Which word is an antonym for ancient? Choices: modern, old, early.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "modern",
+        "old",
+        "early"
+      ],
+      "audio": {
+        "text": "ancient",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_VOC_001_MIXED_Q06",
+      "sentence": "walk, stroll, sprint",
+      "context": "walk, stroll, sprint",
+      "word": "sprint",
+      "scale_words": [
+        "walk",
+        "stroll",
+        "sprint"
+      ],
+      "prompt": "Which word means moving fastest?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_scale",
+      "support_type": "word_scale",
+      "correct_answer": "sprint",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "shade_of_meaning_confusion",
+      "explanation": "The answer is sprint because the word relationship or context clue supports it.",
+      "feedback": "Yes \u2014 sprint fits the reading clue.",
+      "question_audio": {
+        "text": "Which word means moving fastest? Choices: sprint, stroll, walk.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "sprint",
+        "stroll",
+        "walk"
+      ],
+      "audio": {
+        "text": "walk, stroll, sprint",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "game_theme": {
+    "title": "Vocabulary, Context Clues, and Word Relationships",
+    "mission_intro": "Help the Word Detectives solve clues in classroom notes, stories, and science sentences.",
+    "badge_name": "Word Detective Badge",
+    "world": "Grade 3 English Studio"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": "G3E_RF_001",
+  "level_banks": [
+    {
+      "level_id": "G3E_VOC_001_LVL1",
+      "label": "Level 1: Context Clues",
+      "focus": "Practice context clues in grade-level vocabulary.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q01",
+          "sentence": "The trail was damp after the rain, so our shoes got wet.",
+          "context": "The trail was damp after the rain, so our shoes got wet.",
+          "word": "damp",
+          "scale_words": null,
+          "prompt": "In the sentence, what does damp mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "slightly wet",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is slightly wet because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 slightly wet fits the reading clue.",
+          "question_audio": {
+            "text": "In the sentence, what does damp mean? Choices: slightly wet, very hot, full of dust.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "slightly wet",
+            "very hot",
+            "full of dust"
+          ],
+          "audio": {
+            "text": "The trail was damp after the rain, so our shoes got wet.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q02",
+          "sentence": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+          "context": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+          "word": "delighted",
+          "scale_words": null,
+          "prompt": "Which clue helps you know delighted means happy?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "smiled all afternoon",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is smiled all afternoon because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 smiled all afternoon fits the reading clue.",
+          "question_audio": {
+            "text": "Which clue helps you know delighted means happy? Choices: smiled all afternoon, saw the surprise, Mia was.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "smiled all afternoon",
+            "saw the surprise",
+            "Mia was"
+          ],
+          "audio": {
+            "text": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q03",
+          "sentence": "The enormous pumpkin was so large that two people carried it.",
+          "context": "The enormous pumpkin was so large that two people carried it.",
+          "word": "enormous",
+          "scale_words": null,
+          "prompt": "Complete the meaning: enormous means ___.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "very large",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is very large because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 very large fits the reading clue.",
+          "question_audio": {
+            "text": "Complete the meaning: enormous means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The enormous pumpkin was so large that two people carried it.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q04",
+          "sentence": "The kitten was timid; it hid under the chair when visitors arrived.",
+          "context": "The kitten was timid; it hid under the chair when visitors arrived.",
+          "word": "timid",
+          "scale_words": null,
+          "prompt": "What does timid mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "shy or fearful",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is shy or fearful because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 shy or fearful fits the reading clue.",
+          "question_audio": {
+            "text": "What does timid mean? Choices: shy or fearful, loud and brave, sleepy.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "shy or fearful",
+            "loud and brave",
+            "sleepy"
+          ],
+          "audio": {
+            "text": "The kitten was timid; it hid under the chair when visitors arrived.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q05",
+          "sentence": "Dad repaired the leaky faucet by fixing the broken part.",
+          "context": "Dad repaired the leaky faucet by fixing the broken part.",
+          "word": "repaired",
+          "scale_words": null,
+          "prompt": "Which word is a clue for repaired?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "fixing",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is fixing because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 fixing fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is a clue for repaired? Choices: fixing, leaky, faucet.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "fixing",
+            "leaky",
+            "faucet"
+          ],
+          "audio": {
+            "text": "Dad repaired the leaky faucet by fixing the broken part.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q06",
+          "sentence": "The room was silent, without a single sound.",
+          "context": "The room was silent, without a single sound.",
+          "word": "silent",
+          "scale_words": null,
+          "prompt": "Write the meaning of silent.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "quiet",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is quiet because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 quiet fits the reading clue.",
+          "question_audio": {
+            "text": "Write the meaning of silent.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The room was silent, without a single sound.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q07",
+          "sentence": "The soup was steaming because it was very hot.",
+          "context": "The soup was steaming because it was very hot.",
+          "word": "steaming",
+          "scale_words": null,
+          "prompt": "What does steaming suggest?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "hot",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is hot because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 hot fits the reading clue.",
+          "question_audio": {
+            "text": "What does steaming suggest? Choices: hot, cold, sweet.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "hot",
+            "cold",
+            "sweet"
+          ],
+          "audio": {
+            "text": "The soup was steaming because it was very hot.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q08",
+          "sentence": "Ava selected the blue marker; she chose it from the box.",
+          "context": "Ava selected the blue marker; she chose it from the box.",
+          "word": "selected",
+          "scale_words": null,
+          "prompt": "Which clue tells selected means chose?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "chose",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is chose because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 chose fits the reading clue.",
+          "question_audio": {
+            "text": "Which clue tells selected means chose? Choices: chose, blue, box.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "chose",
+            "blue",
+            "box"
+          ],
+          "audio": {
+            "text": "Ava selected the blue marker; she chose it from the box.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q09",
+          "sentence": "The fragile vase could break easily, so we carried it carefully.",
+          "context": "The fragile vase could break easily, so we carried it carefully.",
+          "word": "fragile",
+          "scale_words": null,
+          "prompt": "Complete: fragile means ___.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "breaks easily",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is breaks easily because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 breaks easily fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: fragile means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The fragile vase could break easily, so we carried it carefully.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL1_Q10",
+          "sentence": "The path was narrow, with barely enough room for one bike.",
+          "context": "The path was narrow, with barely enough room for one bike.",
+          "word": "narrow",
+          "scale_words": null,
+          "prompt": "What does narrow mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "not wide",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is not wide because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 not wide fits the reading clue.",
+          "question_audio": {
+            "text": "What does narrow mean? Choices: not wide, very noisy, made of stone.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "not wide",
+            "very noisy",
+            "made of stone"
+          ],
+          "audio": {
+            "text": "The path was narrow, with barely enough room for one bike.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_VOC_001_LVL2",
+      "label": "Level 2: Synonyms and Antonyms",
+      "focus": "Practice synonyms and antonyms in grade-level vocabulary.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q01",
+          "sentence": "",
+          "context": "happy",
+          "word": "happy",
+          "scale_words": null,
+          "prompt": "Which word is a synonym for happy?",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "joyful",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is joyful because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 joyful fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is a synonym for happy? Choices: joyful, sad, empty.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "joyful",
+            "sad",
+            "empty"
+          ],
+          "audio": {
+            "text": "happy",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q02",
+          "sentence": "",
+          "context": "ancient",
+          "word": "ancient",
+          "scale_words": null,
+          "prompt": "Which word is an antonym for ancient?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "modern",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is modern because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 modern fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is an antonym for ancient? Choices: modern, old, early.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "modern",
+            "old",
+            "early"
+          ],
+          "audio": {
+            "text": "ancient",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q03",
+          "sentence": "",
+          "context": "quick",
+          "word": "quick",
+          "scale_words": null,
+          "prompt": "Complete: A synonym for quick is ___.",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "fast",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is fast because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 fast fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: A synonym for quick is ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "quick",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q04",
+          "sentence": "",
+          "context": "begin",
+          "word": "begin",
+          "scale_words": null,
+          "prompt": "Which word is an antonym for begin?",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "finish",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is finish because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 finish fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is an antonym for begin? Choices: finish, start, open.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "finish",
+            "start",
+            "open"
+          ],
+          "audio": {
+            "text": "begin",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q05",
+          "sentence": "",
+          "context": "calm",
+          "word": "calm",
+          "scale_words": null,
+          "prompt": "Which word is a synonym for calm?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "peaceful",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is peaceful because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 peaceful fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is a synonym for calm? Choices: peaceful, wild, angry.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "peaceful",
+            "wild",
+            "angry"
+          ],
+          "audio": {
+            "text": "calm",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q06",
+          "sentence": "",
+          "context": "empty",
+          "word": "empty",
+          "scale_words": null,
+          "prompt": "Write an antonym for empty.",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "full",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is full because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 full fits the reading clue.",
+          "question_audio": {
+            "text": "Write an antonym for empty.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "empty",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q07",
+          "sentence": "",
+          "context": "brave",
+          "word": "brave",
+          "scale_words": null,
+          "prompt": "Which word is a synonym for brave?",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "courageous",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is courageous because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 courageous fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is a synonym for brave? Choices: courageous, afraid, tiny.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "courageous",
+            "afraid",
+            "tiny"
+          ],
+          "audio": {
+            "text": "brave",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q08",
+          "sentence": "",
+          "context": "include",
+          "word": "include",
+          "scale_words": null,
+          "prompt": "Which word is an antonym for include?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "exclude",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is exclude because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 exclude fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is an antonym for include? Choices: exclude, contain, add.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "exclude",
+            "contain",
+            "add"
+          ],
+          "audio": {
+            "text": "include",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q09",
+          "sentence": "",
+          "context": "difficult",
+          "word": "difficult",
+          "scale_words": null,
+          "prompt": "Complete: A synonym for difficult is ___.",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "hard",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is hard because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 hard fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: A synonym for difficult is ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "difficult",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL2_Q10",
+          "sentence": "",
+          "context": "near",
+          "word": "near",
+          "scale_words": null,
+          "prompt": "Which word is an antonym for near?",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "far",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is far because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 far fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is an antonym for near? Choices: far, close, beside.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "far",
+            "close",
+            "beside"
+          ],
+          "audio": {
+            "text": "near",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_VOC_001_LVL3",
+      "label": "Level 3: Shades of Meaning",
+      "focus": "Practice shades of meaning in grade-level vocabulary.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q01",
+          "sentence": "walk, stroll, sprint",
+          "context": "walk, stroll, sprint",
+          "word": "sprint",
+          "scale_words": [
+            "walk",
+            "stroll",
+            "sprint"
+          ],
+          "prompt": "Which word means moving fastest?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "sprint",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is sprint because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 sprint fits the reading clue.",
+          "question_audio": {
+            "text": "Which word means moving fastest? Choices: sprint, stroll, walk.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "sprint",
+            "stroll",
+            "walk"
+          ],
+          "audio": {
+            "text": "walk, stroll, sprint",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q02",
+          "sentence": "cold, chilly, freezing",
+          "context": "cold, chilly, freezing",
+          "word": "freezing",
+          "scale_words": [
+            "cold",
+            "chilly",
+            "freezing"
+          ],
+          "prompt": "Which word is strongest?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "freezing",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is freezing because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 freezing fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is strongest? Choices: freezing, chilly, cold.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "freezing",
+            "chilly",
+            "cold"
+          ],
+          "audio": {
+            "text": "cold, chilly, freezing",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q03",
+          "sentence": "look, glance, stare",
+          "context": "look, glance, stare",
+          "word": "stare",
+          "scale_words": [
+            "look",
+            "glance",
+            "stare"
+          ],
+          "prompt": "Complete: To look for a long time is to ___.",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "stare",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is stare because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 stare fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: To look for a long time is to ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "look, glance, stare",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q04",
+          "sentence": "small, tiny, little",
+          "context": "small, tiny, little",
+          "word": "tiny",
+          "scale_words": [
+            "small",
+            "tiny",
+            "little"
+          ],
+          "prompt": "Which word means the smallest?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "tiny",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is tiny because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 tiny fits the reading clue.",
+          "question_audio": {
+            "text": "Which word means the smallest? Choices: tiny, little, small.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "tiny",
+            "little",
+            "small"
+          ],
+          "audio": {
+            "text": "small, tiny, little",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q05",
+          "sentence": "good, excellent, fine",
+          "context": "good, excellent, fine",
+          "word": "excellent",
+          "scale_words": [
+            "good",
+            "excellent",
+            "fine"
+          ],
+          "prompt": "Which word is most positive?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "excellent",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is excellent because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 excellent fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is most positive? Choices: excellent, fine, good.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "excellent",
+            "fine",
+            "good"
+          ],
+          "audio": {
+            "text": "good, excellent, fine",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q06",
+          "sentence": "ask, beg, request",
+          "context": "ask, beg, request",
+          "word": "beg",
+          "scale_words": [
+            "ask",
+            "beg",
+            "request"
+          ],
+          "prompt": "Write the strongest word for asking desperately.",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "beg",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is beg because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 beg fits the reading clue.",
+          "question_audio": {
+            "text": "Write the strongest word for asking desperately.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "ask, beg, request",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q07",
+          "sentence": "rain, drizzle, pour",
+          "context": "rain, drizzle, pour",
+          "word": "pour",
+          "scale_words": [
+            "rain",
+            "drizzle",
+            "pour"
+          ],
+          "prompt": "Which word means the heaviest rain?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "pour",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is pour because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 pour fits the reading clue.",
+          "question_audio": {
+            "text": "Which word means the heaviest rain? Choices: pour, drizzle, rain.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "pour",
+            "drizzle",
+            "rain"
+          ],
+          "audio": {
+            "text": "rain, drizzle, pour",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q08",
+          "sentence": "mad, annoyed, furious",
+          "context": "mad, annoyed, furious",
+          "word": "furious",
+          "scale_words": [
+            "mad",
+            "annoyed",
+            "furious"
+          ],
+          "prompt": "Which word is strongest?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "furious",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is furious because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 furious fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is strongest? Choices: furious, annoyed, mad.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "furious",
+            "annoyed",
+            "mad"
+          ],
+          "audio": {
+            "text": "mad, annoyed, furious",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q09",
+          "sentence": "eat, nibble, gobble",
+          "context": "eat, nibble, gobble",
+          "word": "gobble",
+          "scale_words": [
+            "eat",
+            "nibble",
+            "gobble"
+          ],
+          "prompt": "Complete: To eat very quickly is to ___.",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "gobble",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is gobble because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 gobble fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: To eat very quickly is to ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "eat, nibble, gobble",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL3_Q10",
+          "sentence": "bright, dim, glowing",
+          "context": "bright, dim, glowing",
+          "word": "dim",
+          "scale_words": [
+            "bright",
+            "dim",
+            "glowing"
+          ],
+          "prompt": "Which word means not very bright?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "dim",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is dim because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 dim fits the reading clue.",
+          "question_audio": {
+            "text": "Which word means not very bright? Choices: dim, bright, glowing.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "dim",
+            "bright",
+            "glowing"
+          ],
+          "audio": {
+            "text": "bright, dim, glowing",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_VOC_001_LVL4",
+      "label": "Level 4: Multiple-Meaning Words",
+      "focus": "Practice multiple-meaning words in grade-level vocabulary.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q01",
+          "sentence": "The bat flew out of the cave at dusk.",
+          "context": "The bat flew out of the cave at dusk.",
+          "word": "bat",
+          "scale_words": null,
+          "prompt": "What does bat mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "an animal",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is an animal because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 an animal fits the reading clue.",
+          "question_audio": {
+            "text": "What does bat mean here? Choices: an animal, a baseball stick, a bag.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "an animal",
+            "a baseball stick",
+            "a bag"
+          ],
+          "audio": {
+            "text": "The bat flew out of the cave at dusk.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q02",
+          "sentence": "Lena used a bat to hit the ball.",
+          "context": "Lena used a bat to hit the ball.",
+          "word": "bat",
+          "scale_words": null,
+          "prompt": "What does bat mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "a baseball stick",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is a baseball stick because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 a baseball stick fits the reading clue.",
+          "question_audio": {
+            "text": "What does bat mean here? Choices: a baseball stick, an animal, a small bird.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "a baseball stick",
+            "an animal",
+            "a small bird"
+          ],
+          "audio": {
+            "text": "Lena used a bat to hit the ball.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q03",
+          "sentence": "Please turn on the light by the desk.",
+          "context": "Please turn on the light by the desk.",
+          "word": "light",
+          "scale_words": null,
+          "prompt": "Complete: light means ___.",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "lamp or brightness",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is lamp or brightness because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 lamp or brightness fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: light means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Please turn on the light by the desk.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q04",
+          "sentence": "This box is light enough to carry.",
+          "context": "This box is light enough to carry.",
+          "word": "light",
+          "scale_words": null,
+          "prompt": "What does light mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "not heavy",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is not heavy because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 not heavy fits the reading clue.",
+          "question_audio": {
+            "text": "What does light mean here? Choices: not heavy, not dark, a lamp.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "not heavy",
+            "not dark",
+            "a lamp"
+          ],
+          "audio": {
+            "text": "This box is light enough to carry.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q05",
+          "sentence": "The duck dove under the water.",
+          "context": "The duck dove under the water.",
+          "word": "duck",
+          "scale_words": null,
+          "prompt": "What does duck mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "a bird",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is a bird because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 a bird fits the reading clue.",
+          "question_audio": {
+            "text": "What does duck mean here? Choices: a bird, to lower your head, a truck.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "a bird",
+            "to lower your head",
+            "a truck"
+          ],
+          "audio": {
+            "text": "The duck dove under the water.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q06",
+          "sentence": "Duck when the branch comes close.",
+          "context": "Duck when the branch comes close.",
+          "word": "duck",
+          "scale_words": null,
+          "prompt": "Write what duck means here.",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "lower your head",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is lower your head because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 lower your head fits the reading clue.",
+          "question_audio": {
+            "text": "Write what duck means here.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Duck when the branch comes close.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q07",
+          "sentence": "The pitcher threw the ball over the plate.",
+          "context": "The pitcher threw the ball over the plate.",
+          "word": "plate",
+          "scale_words": null,
+          "prompt": "What does plate mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "baseball base",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is baseball base because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 baseball base fits the reading clue.",
+          "question_audio": {
+            "text": "What does plate mean here? Choices: baseball base, dish, flat rock.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "baseball base",
+            "dish",
+            "flat rock"
+          ],
+          "audio": {
+            "text": "The pitcher threw the ball over the plate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q08",
+          "sentence": "Put the sandwich on the plate.",
+          "context": "Put the sandwich on the plate.",
+          "word": "plate",
+          "scale_words": null,
+          "prompt": "What does plate mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "dish",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is dish because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 dish fits the reading clue.",
+          "question_audio": {
+            "text": "What does plate mean here? Choices: dish, baseball base, metal armor.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "dish",
+            "baseball base",
+            "metal armor"
+          ],
+          "audio": {
+            "text": "Put the sandwich on the plate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q09",
+          "sentence": "The ring on her finger was silver.",
+          "context": "The ring on her finger was silver.",
+          "word": "ring",
+          "scale_words": null,
+          "prompt": "Complete: ring means ___.",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "jewelry",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is jewelry because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 jewelry fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: ring means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The ring on her finger was silver.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_LVL4_Q10",
+          "sentence": "The phone began to ring during dinner.",
+          "context": "The phone began to ring during dinner.",
+          "word": "ring",
+          "scale_words": null,
+          "prompt": "What does ring mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "make a sound",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is make a sound because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 make a sound fits the reading clue.",
+          "question_audio": {
+            "text": "What does ring mean here? Choices: make a sound, jewelry, draw a circle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "make a sound",
+            "jewelry",
+            "draw a circle"
+          ],
+          "audio": {
+            "text": "The phone began to ring during dinner.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_VOC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave context clues, word relationships, shades of meaning, and multiple meanings.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q01",
+          "sentence": "The trail was damp after the rain, so our shoes got wet.",
+          "context": "The trail was damp after the rain, so our shoes got wet.",
+          "word": "damp",
+          "scale_words": null,
+          "prompt": "In the sentence, what does damp mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "slightly wet",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is slightly wet because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 slightly wet fits the reading clue.",
+          "question_audio": {
+            "text": "In the sentence, what does damp mean? Choices: slightly wet, very hot, full of dust.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "slightly wet",
+            "very hot",
+            "full of dust"
+          ],
+          "audio": {
+            "text": "The trail was damp after the rain, so our shoes got wet.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q02",
+          "sentence": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+          "context": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+          "word": "delighted",
+          "scale_words": null,
+          "prompt": "Which clue helps you know delighted means happy?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "smiled all afternoon",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is smiled all afternoon because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 smiled all afternoon fits the reading clue.",
+          "question_audio": {
+            "text": "Which clue helps you know delighted means happy? Choices: smiled all afternoon, saw the surprise, Mia was.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "smiled all afternoon",
+            "saw the surprise",
+            "Mia was"
+          ],
+          "audio": {
+            "text": "Mia was delighted when she saw the surprise, and she smiled all afternoon.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q03",
+          "sentence": "The enormous pumpkin was so large that two people carried it.",
+          "context": "The enormous pumpkin was so large that two people carried it.",
+          "word": "enormous",
+          "scale_words": null,
+          "prompt": "Complete the meaning: enormous means ___.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "very large",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "The answer is very large because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 very large fits the reading clue.",
+          "question_audio": {
+            "text": "Complete the meaning: enormous means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The enormous pumpkin was so large that two people carried it.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q04",
+          "sentence": "",
+          "context": "happy",
+          "word": "happy",
+          "scale_words": null,
+          "prompt": "Which word is a synonym for happy?",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "joyful",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is joyful because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 joyful fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is a synonym for happy? Choices: joyful, sad, empty.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "joyful",
+            "sad",
+            "empty"
+          ],
+          "audio": {
+            "text": "happy",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q05",
+          "sentence": "",
+          "context": "ancient",
+          "word": "ancient",
+          "scale_words": null,
+          "prompt": "Which word is an antonym for ancient?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "modern",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "The answer is modern because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 modern fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is an antonym for ancient? Choices: modern, old, early.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "modern",
+            "old",
+            "early"
+          ],
+          "audio": {
+            "text": "ancient",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q06",
+          "sentence": "walk, stroll, sprint",
+          "context": "walk, stroll, sprint",
+          "word": "sprint",
+          "scale_words": [
+            "walk",
+            "stroll",
+            "sprint"
+          ],
+          "prompt": "Which word means moving fastest?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "sprint",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is sprint because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 sprint fits the reading clue.",
+          "question_audio": {
+            "text": "Which word means moving fastest? Choices: sprint, stroll, walk.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "sprint",
+            "stroll",
+            "walk"
+          ],
+          "audio": {
+            "text": "walk, stroll, sprint",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q07",
+          "sentence": "cold, chilly, freezing",
+          "context": "cold, chilly, freezing",
+          "word": "freezing",
+          "scale_words": [
+            "cold",
+            "chilly",
+            "freezing"
+          ],
+          "prompt": "Which word is strongest?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "freezing",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is freezing because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 freezing fits the reading clue.",
+          "question_audio": {
+            "text": "Which word is strongest? Choices: freezing, chilly, cold.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "freezing",
+            "chilly",
+            "cold"
+          ],
+          "audio": {
+            "text": "cold, chilly, freezing",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q08",
+          "sentence": "look, glance, stare",
+          "context": "look, glance, stare",
+          "word": "stare",
+          "scale_words": [
+            "look",
+            "glance",
+            "stare"
+          ],
+          "prompt": "Complete: To look for a long time is to ___.",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "stare",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "shade_of_meaning_confusion",
+          "explanation": "The answer is stare because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 stare fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: To look for a long time is to ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "look, glance, stare",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q09",
+          "sentence": "The bat flew out of the cave at dusk.",
+          "context": "The bat flew out of the cave at dusk.",
+          "word": "bat",
+          "scale_words": null,
+          "prompt": "What does bat mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "an animal",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is an animal because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 an animal fits the reading clue.",
+          "question_audio": {
+            "text": "What does bat mean here? Choices: an animal, a baseball stick, a bag.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "an animal",
+            "a baseball stick",
+            "a bag"
+          ],
+          "audio": {
+            "text": "The bat flew out of the cave at dusk.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_VOC_001_MIXED_Q10",
+          "sentence": "Lena used a bat to hit the ball.",
+          "context": "Lena used a bat to hit the ball.",
+          "word": "bat",
+          "scale_words": null,
+          "prompt": "What does bat mean here?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "a baseball stick",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "The answer is a baseball stick because the word relationship or context clue supports it.",
+          "feedback": "Yes \u2014 a baseball stick fits the reading clue.",
+          "question_audio": {
+            "text": "What does bat mean here? Choices: a baseball stick, an animal, a small bird.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "a baseball stick",
+            "an animal",
+            "a small bird"
+          ],
+          "audio": {
+            "text": "Lena used a bat to hit the ball.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Vocabulary, Context Clues, and Word Relationships. In this mission, you will use context clues, synonyms, antonyms, shades of meaning, and multiple-meaning words while helping a reader solve a real classroom task. Listen to the story goal, look for the reading strategy, and Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This mini lesson teaches you how to use context clues and word relationships to choose meanings precisely. Read the objective, look at the visual model, and think about the watch-out mistake before answering. Press Next to continue after you can say the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this worked example carefully because it shows the whole thinking path. Step one, read the prompt or passage. Step two, use the model to find the clue. Step three, check that the final answer matches the text before you Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo lets you try the strategy with support. Listen to the example, look at the model, and think about why the answer fits. Press Next to continue when you are ready for independent practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This is your Practice zone for Vocabulary, Context Clues, and Word Relationships. Use Read Question to hear the prompt, then reread the sentence or passage yourself. Choose your answer when you are ready, and Use the hint if you need help.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This Challenge zone asks you to apply the same strategy with a little more independence. Use Read Question first, listen for any helpful audio, and check the model before answering. Answer carefully, then continue once your choice matches the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This Checkpoint shows what you can do after the lesson and challenge. Use Read Question to hear the prompt, then prove your answer with the reading strategy. Answer carefully, then continue to see how your work earns growth credit.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge screen for Vocabulary, Context Clues, and Word Relationships. Think about one strategy you used well, such as rereading, checking a clue, or proving an answer. Press Next to see your profile and keep building your Grade 3 English skills.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page summarizes your growth for Vocabulary, Context Clues, and Word Relationships. Read your accuracy, check any misconception notes, and notice the recommended next step. Continue to Skill Practice or go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

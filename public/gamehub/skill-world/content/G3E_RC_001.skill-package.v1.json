@@ -1,0 +1,2916 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade3-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade3_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01"
+  },
+  "skill_id": "G3E_RC_001",
+  "grade": 3,
+  "subject": "English",
+  "domain": "Reading Comprehension",
+  "skill": "Ask and Answer Questions With Text Evidence",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Evidence Explorers to answer questions about short passages and prove each answer with text.",
+    "objective": "I can answer literal and inferential questions using text evidence.",
+    "key_vocabulary": [
+      "literal question",
+      "inferential question",
+      "text evidence",
+      "question word",
+      "explain"
+    ],
+    "concept_explanation": "Good readers answer literal and inferential questions using text evidence. They slow down, notice clues in the words or text, and explain how the clue supports the answer.",
+    "visual_model": "text_evidence_builder",
+    "common_misconception": "Readers may choose an answer they like without support from the text.",
+    "real_world_connection": "Text evidence helps readers explain answers in book clubs, science notebooks, tests, and class discussions.",
+    "lesson_summary": "Read the question, return to the passage, choose an answer, and point to the words that prove it.",
+    "mini_lesson": "First decide what the question asks. For literal questions, find the exact information. For inferential questions, combine clues with what you know. Always cite evidence.",
+    "audio": {
+      "text": "literal question, inferential question, text evidence, question word, explain",
+      "label": "Listen",
+      "type": "word",
+      "repeat_count": 1,
+      "student_prompt": "Listen, then read it yourself."
+    }
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: The question asks where Nora planted the seeds. The passage says she planted them near the fence, so near the fence is the answer.",
+      "correct_answer": "near the fence",
+      "visual_model": "short_passage",
+      "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+      "evidence_spans": [
+        "that spot got the most light"
+      ],
+      "audio": {
+        "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "text": "Demo: The answer is strongest when it includes evidence. \u201cThe text says that spot got the most light\u201d proves why Nora chose the fence.",
+      "correct_answer": "that spot got the most light",
+      "visual_model": "text_evidence_builder",
+      "answer_claim": "near the fence",
+      "evidence_spans": [
+        "that spot got the most light"
+      ],
+      "audio": {
+        "text": "The text says that spot got the most light.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Ask: What is the question asking?",
+    "Go back to the passage and find proof.",
+    "Make sure your answer and evidence match."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G3E_RC_001_LVL1_Q01",
+      "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+      "question": "Where did Nora plant the bean seeds?",
+      "answer_claim": "near the fence",
+      "evidence_spans": [
+        "that spot got the most light"
+      ],
+      "acceptable_answers": [
+        "near the fence",
+        "near the fence",
+        "that spot got the most light"
+      ],
+      "prompt": "Where did Nora plant the bean seeds?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "near the fence",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "The answer is supported by the evidence: that spot got the most light.",
+      "feedback": "Yes \u2014 near the fence fits the reading clue.",
+      "question_audio": {
+        "text": "Where did Nora plant the bean seeds? Choices: near the fence, at the bus stop, because it was loud.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "near the fence",
+        "at the bus stop",
+        "because it was loud"
+      ],
+      "audio": {
+        "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_RC_001_LVL3_Q01",
+      "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+      "question": "Which evidence best supports the answer \u201cnear the fence\u201d?",
+      "answer_claim": "near the fence",
+      "evidence_spans": [
+        "that spot got the most light"
+      ],
+      "acceptable_answers": [
+        "that spot got the most light",
+        "near the fence",
+        "that spot got the most light"
+      ],
+      "prompt": "Which evidence best supports the answer \u201cnear the fence\u201d?",
+      "question_type": "text_evidence",
+      "visual_model": "evidence_highlight",
+      "support_type": "evidence_highlight",
+      "correct_answer": "that spot got the most light",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "misses_text_evidence",
+      "explanation": "The answer is supported by the evidence: that spot got the most light.",
+      "feedback": "Yes \u2014 that spot got the most light fits the reading clue.",
+      "question_audio": {
+        "text": "Which evidence best supports the answer \u201cnear the fence\u201d? Choices: that spot got the most light, The passage does not say., A detail from another story..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "that spot got the most light",
+        "The passage does not say.",
+        "A detail from another story."
+      ],
+      "audio": {
+        "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G3E_RC_001_LVL4_Q02",
+      "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+      "question": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+      "answer_claim": "the room became quiet",
+      "evidence_spans": [
+        "When the students whispered"
+      ],
+      "acceptable_answers": [
+        "The text says When the students whispered.",
+        "the room became quiet",
+        "When the students whispered"
+      ],
+      "prompt": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+      "question_type": "short_response",
+      "visual_model": "text_evidence_builder",
+      "support_type": "text_evidence_builder",
+      "correct_answer": "The text says When the students whispered.",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "The answer is supported by the evidence: When the students whispered.",
+      "feedback": "Yes \u2014 The text says When the students whispered. fits the reading clue.",
+      "question_audio": {
+        "text": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G3E_RC_001_LVL2_Q02",
+      "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+      "question": "What is the best inference supported by the passage?",
+      "answer_claim": "the room became quiet",
+      "evidence_spans": [
+        "When the students whispered"
+      ],
+      "acceptable_answers": [
+        "the room became quiet",
+        "the room became quiet",
+        "When the students whispered"
+      ],
+      "prompt": "What is the best inference supported by the passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "correct_answer": "the room became quiet",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "inference_without_evidence",
+      "explanation": "The answer is supported by the evidence: When the students whispered.",
+      "feedback": "Yes \u2014 the room became quiet fits the reading clue.",
+      "question_audio": {
+        "text": "What is the best inference supported by the passage? Choices: the room became quiet, The character forgot the plan., The setting is underwater..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "the room became quiet",
+        "The character forgot the plan.",
+        "The setting is underwater."
+      ],
+      "audio": {
+        "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "misconception_bank": {
+    "unsupported_answer": "Readers may choose an answer they like without support from the text.",
+    "inference_without_evidence": "Readers may infer without connecting to a clue in the passage.",
+    "misses_text_evidence": "Readers may answer correctly but miss the exact evidence.",
+    "question_word_confusion": "Readers may confuse who, what, where, when, why, or how."
+  },
+  "review_bank": [
+    {
+      "question_id": "G3E_RC_001_MIXED_Q01",
+      "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+      "question": "Where did Nora plant the bean seeds?",
+      "answer_claim": "near the fence",
+      "evidence_spans": [
+        "that spot got the most light"
+      ],
+      "acceptable_answers": [
+        "near the fence",
+        "near the fence",
+        "that spot got the most light"
+      ],
+      "prompt": "Where did Nora plant the bean seeds?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "near the fence",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "The answer is supported by the evidence: that spot got the most light.",
+      "feedback": "Yes \u2014 near the fence fits the reading clue.",
+      "question_audio": {
+        "text": "Where did Nora plant the bean seeds? Choices: near the fence, at the bus stop, because it was loud.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "near the fence",
+        "at the bus stop",
+        "because it was loud"
+      ],
+      "audio": {
+        "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_RC_001_MIXED_Q02",
+      "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+      "question": "Why did the turtle come out?",
+      "answer_claim": "the room became quiet",
+      "evidence_spans": [
+        "When the students whispered"
+      ],
+      "acceptable_answers": [
+        "the room became quiet",
+        "the room became quiet",
+        "When the students whispered"
+      ],
+      "prompt": "Why did the turtle come out?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "the room became quiet",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "The answer is supported by the evidence: When the students whispered.",
+      "feedback": "Yes \u2014 the room became quiet fits the reading clue.",
+      "question_audio": {
+        "text": "Why did the turtle come out? Choices: the room became quiet, at the bus stop, because it was loud.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "the room became quiet",
+        "at the bus stop",
+        "because it was loud"
+      ],
+      "audio": {
+        "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_RC_001_MIXED_Q03",
+      "passage": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+      "question": "What did Marcus pack?",
+      "answer_claim": "a flashlight, a map, and a warm jacket",
+      "evidence_spans": [
+        "packed a flashlight, a map, and a warm jacket"
+      ],
+      "acceptable_answers": [
+        "a flashlight, a map, and a warm jacket",
+        "a flashlight, a map, and a warm jacket",
+        "packed a flashlight, a map, and a warm jacket"
+      ],
+      "prompt": "What did Marcus pack?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "a flashlight, a map, and a warm jacket",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "The answer is supported by the evidence: packed a flashlight, a map, and a warm jacket.",
+      "feedback": "Yes \u2014 a flashlight, a map, and a warm jacket fits the reading clue.",
+      "question_audio": {
+        "text": "What did Marcus pack? Choices: a flashlight, a map, and a warm jacket, at the bus stop, because it was loud.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "a flashlight, a map, and a warm jacket",
+        "at the bus stop",
+        "because it was loud"
+      ],
+      "audio": {
+        "text": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_RC_001_MIXED_Q04",
+      "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+      "question": "What is the best inference supported by the passage?",
+      "answer_claim": "near the fence",
+      "evidence_spans": [
+        "that spot got the most light"
+      ],
+      "acceptable_answers": [
+        "near the fence",
+        "near the fence",
+        "that spot got the most light"
+      ],
+      "prompt": "What is the best inference supported by the passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "correct_answer": "near the fence",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "inference_without_evidence",
+      "explanation": "The answer is supported by the evidence: that spot got the most light.",
+      "feedback": "Yes \u2014 near the fence fits the reading clue.",
+      "question_audio": {
+        "text": "What is the best inference supported by the passage? Choices: near the fence, The character forgot the plan., The setting is underwater..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "near the fence",
+        "The character forgot the plan.",
+        "The setting is underwater."
+      ],
+      "audio": {
+        "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_RC_001_MIXED_Q05",
+      "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+      "question": "What is the best inference supported by the passage?",
+      "answer_claim": "the room became quiet",
+      "evidence_spans": [
+        "When the students whispered"
+      ],
+      "acceptable_answers": [
+        "the room became quiet",
+        "the room became quiet",
+        "When the students whispered"
+      ],
+      "prompt": "What is the best inference supported by the passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "correct_answer": "the room became quiet",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "inference_without_evidence",
+      "explanation": "The answer is supported by the evidence: When the students whispered.",
+      "feedback": "Yes \u2014 the room became quiet fits the reading clue.",
+      "question_audio": {
+        "text": "What is the best inference supported by the passage? Choices: the room became quiet, The character forgot the plan., The setting is underwater..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "the room became quiet",
+        "The character forgot the plan.",
+        "The setting is underwater."
+      ],
+      "audio": {
+        "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_RC_001_MIXED_Q06",
+      "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+      "question": "Which evidence best supports the answer \u201cnear the fence\u201d?",
+      "answer_claim": "near the fence",
+      "evidence_spans": [
+        "that spot got the most light"
+      ],
+      "acceptable_answers": [
+        "that spot got the most light",
+        "near the fence",
+        "that spot got the most light"
+      ],
+      "prompt": "Which evidence best supports the answer \u201cnear the fence\u201d?",
+      "question_type": "text_evidence",
+      "visual_model": "evidence_highlight",
+      "support_type": "evidence_highlight",
+      "correct_answer": "that spot got the most light",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "misses_text_evidence",
+      "explanation": "The answer is supported by the evidence: that spot got the most light.",
+      "feedback": "Yes \u2014 that spot got the most light fits the reading clue.",
+      "question_audio": {
+        "text": "Which evidence best supports the answer \u201cnear the fence\u201d? Choices: that spot got the most light, The passage does not say., A detail from another story..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "that spot got the most light",
+        "The passage does not say.",
+        "A detail from another story."
+      ],
+      "audio": {
+        "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "game_theme": {
+    "title": "Ask and Answer Questions With Text Evidence",
+    "mission_intro": "Join the Evidence Explorers to answer questions about short passages and prove each answer with text.",
+    "badge_name": "Text Evidence Explorer Badge",
+    "world": "Grade 3 English Studio"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": "G3E_RF_001",
+  "level_banks": [
+    {
+      "level_id": "G3E_RC_001_LVL1",
+      "label": "Level 1: Literal Questions",
+      "focus": "Practice literal questions with short passages and evidence.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_001_LVL1_Q01",
+          "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+          "question": "Where did Nora plant the bean seeds?",
+          "answer_claim": "near the fence",
+          "evidence_spans": [
+            "that spot got the most light"
+          ],
+          "acceptable_answers": [
+            "near the fence",
+            "near the fence",
+            "that spot got the most light"
+          ],
+          "prompt": "Where did Nora plant the bean seeds?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "near the fence",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: that spot got the most light.",
+          "feedback": "Yes \u2014 near the fence fits the reading clue.",
+          "question_audio": {
+            "text": "Where did Nora plant the bean seeds? Choices: near the fence, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "near the fence",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q02",
+          "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+          "question": "Why did the turtle come out?",
+          "answer_claim": "the room became quiet",
+          "evidence_spans": [
+            "When the students whispered"
+          ],
+          "acceptable_answers": [
+            "the room became quiet",
+            "the room became quiet",
+            "When the students whispered"
+          ],
+          "prompt": "Why did the turtle come out?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "the room became quiet",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: When the students whispered.",
+          "feedback": "Yes \u2014 the room became quiet fits the reading clue.",
+          "question_audio": {
+            "text": "Why did the turtle come out? Choices: the room became quiet, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "the room became quiet",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q03",
+          "passage": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+          "question": "What did Marcus pack?",
+          "answer_claim": "a flashlight, a map, and a warm jacket",
+          "evidence_spans": [
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "acceptable_answers": [
+            "a flashlight, a map, and a warm jacket",
+            "a flashlight, a map, and a warm jacket",
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "prompt": "What did Marcus pack?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "a flashlight, a map, and a warm jacket",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: packed a flashlight, a map, and a warm jacket.",
+          "feedback": "Yes \u2014 a flashlight, a map, and a warm jacket fits the reading clue.",
+          "question_audio": {
+            "text": "What did Marcus pack? Choices: a flashlight, a map, and a warm jacket, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "a flashlight, a map, and a warm jacket",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q04",
+          "passage": "Ava noticed the library book had a torn cover. She carried it to the desk and asked the librarian for tape.",
+          "question": "What can you infer about Ava?",
+          "answer_claim": "She wanted to take care of the book",
+          "evidence_spans": [
+            "asked the librarian for tape"
+          ],
+          "acceptable_answers": [
+            "She wanted to take care of the book",
+            "She wanted to take care of the book",
+            "asked the librarian for tape"
+          ],
+          "prompt": "What can you infer about Ava?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "She wanted to take care of the book",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: asked the librarian for tape.",
+          "feedback": "Yes \u2014 She wanted to take care of the book fits the reading clue.",
+          "question_audio": {
+            "text": "What can you infer about Ava? Choices: She wanted to take care of the book, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "She wanted to take care of the book",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "Ava noticed the library book had a torn cover. She carried it to the desk and asked the librarian for tape.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q05",
+          "passage": "The soccer field was muddy after two days of rain. Coach Rivera moved practice into the gym so the team could stay dry.",
+          "question": "Where did practice move?",
+          "answer_claim": "into the gym",
+          "evidence_spans": [
+            "moved practice into the gym"
+          ],
+          "acceptable_answers": [
+            "into the gym",
+            "into the gym",
+            "moved practice into the gym"
+          ],
+          "prompt": "Where did practice move?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "into the gym",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: moved practice into the gym.",
+          "feedback": "Yes \u2014 into the gym fits the reading clue.",
+          "question_audio": {
+            "text": "Where did practice move? Choices: into the gym, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "into the gym",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "The soccer field was muddy after two days of rain. Coach Rivera moved practice into the gym so the team could stay dry.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q06",
+          "passage": "When the final bell rang, Eli stayed at his desk to finish the last math problem. He smiled when he wrote the answer.",
+          "question": "How did Eli likely feel at the end?",
+          "answer_claim": "proud or satisfied",
+          "evidence_spans": [
+            "He smiled when he wrote the answer"
+          ],
+          "acceptable_answers": [
+            "proud or satisfied",
+            "proud or satisfied",
+            "He smiled when he wrote the answer"
+          ],
+          "prompt": "How did Eli likely feel at the end?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "proud or satisfied",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: He smiled when he wrote the answer.",
+          "feedback": "Yes \u2014 proud or satisfied fits the reading clue.",
+          "question_audio": {
+            "text": "How did Eli likely feel at the end? Choices: proud or satisfied, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "proud or satisfied",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "When the final bell rang, Eli stayed at his desk to finish the last math problem. He smiled when he wrote the answer.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q07",
+          "passage": "The museum guide pointed to scratch marks on the old canoe. She explained that rocks in the river had made the marks long ago.",
+          "question": "What made the scratch marks?",
+          "answer_claim": "rocks in the river",
+          "evidence_spans": [
+            "rocks in the river had made the marks"
+          ],
+          "acceptable_answers": [
+            "rocks in the river",
+            "rocks in the river",
+            "rocks in the river had made the marks"
+          ],
+          "prompt": "What made the scratch marks?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "rocks in the river",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: rocks in the river had made the marks.",
+          "feedback": "Yes \u2014 rocks in the river fits the reading clue.",
+          "question_audio": {
+            "text": "What made the scratch marks? Choices: rocks in the river, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "rocks in the river",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "The museum guide pointed to scratch marks on the old canoe. She explained that rocks in the river had made the marks long ago.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q08",
+          "passage": "Priya put extra water bottles in her bag before the field day race. The afternoon sun was already hot.",
+          "question": "Why did Priya pack extra water?",
+          "answer_claim": "She expected to get thirsty in the heat",
+          "evidence_spans": [
+            "The afternoon sun was already hot"
+          ],
+          "acceptable_answers": [
+            "She expected to get thirsty in the heat",
+            "She expected to get thirsty in the heat",
+            "The afternoon sun was already hot"
+          ],
+          "prompt": "Why did Priya pack extra water?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "She expected to get thirsty in the heat",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: The afternoon sun was already hot.",
+          "feedback": "Yes \u2014 She expected to get thirsty in the heat fits the reading clue.",
+          "question_audio": {
+            "text": "Why did Priya pack extra water? Choices: She expected to get thirsty in the heat, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "She expected to get thirsty in the heat",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "Priya put extra water bottles in her bag before the field day race. The afternoon sun was already hot.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q09",
+          "passage": "On Saturday, the bakery sold every loaf of cinnamon bread before noon. A line of customers still waited outside.",
+          "question": "What happened before noon?",
+          "answer_claim": "The bakery sold every loaf of cinnamon bread",
+          "evidence_spans": [
+            "sold every loaf of cinnamon bread before noon"
+          ],
+          "acceptable_answers": [
+            "The bakery sold every loaf of cinnamon bread",
+            "The bakery sold every loaf of cinnamon bread",
+            "sold every loaf of cinnamon bread before noon"
+          ],
+          "prompt": "What happened before noon?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "The bakery sold every loaf of cinnamon bread",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: sold every loaf of cinnamon bread before noon.",
+          "feedback": "Yes \u2014 The bakery sold every loaf of cinnamon bread fits the reading clue.",
+          "question_audio": {
+            "text": "What happened before noon? Choices: The bakery sold every loaf of cinnamon bread, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "The bakery sold every loaf of cinnamon bread",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "On Saturday, the bakery sold every loaf of cinnamon bread before noon. A line of customers still waited outside.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL1_Q10",
+          "passage": "The puppy wagged its tail and bounced when Sam picked up the leash. It scratched excitedly at the front door.",
+          "question": "What does the puppy probably expect?",
+          "answer_claim": "to go for a walk",
+          "evidence_spans": [
+            "Sam picked up the leash"
+          ],
+          "acceptable_answers": [
+            "to go for a walk",
+            "to go for a walk",
+            "Sam picked up the leash"
+          ],
+          "prompt": "What does the puppy probably expect?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "to go for a walk",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: Sam picked up the leash.",
+          "feedback": "Yes \u2014 to go for a walk fits the reading clue.",
+          "question_audio": {
+            "text": "What does the puppy probably expect? Choices: to go for a walk, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "to go for a walk",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "The puppy wagged its tail and bounced when Sam picked up the leash. It scratched excitedly at the front door.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_001_LVL2",
+      "label": "Level 2: Inferential Questions",
+      "focus": "Practice inferential questions with short passages and evidence.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_001_LVL2_Q01",
+          "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "near the fence",
+          "evidence_spans": [
+            "that spot got the most light"
+          ],
+          "acceptable_answers": [
+            "near the fence",
+            "near the fence",
+            "that spot got the most light"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "near the fence",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: that spot got the most light.",
+          "feedback": "Yes \u2014 near the fence fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: near the fence, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "near the fence",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q02",
+          "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "the room became quiet",
+          "evidence_spans": [
+            "When the students whispered"
+          ],
+          "acceptable_answers": [
+            "the room became quiet",
+            "the room became quiet",
+            "When the students whispered"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "the room became quiet",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: When the students whispered.",
+          "feedback": "Yes \u2014 the room became quiet fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: the room became quiet, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "the room became quiet",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q03",
+          "passage": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "a flashlight, a map, and a warm jacket",
+          "evidence_spans": [
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "acceptable_answers": [
+            "a flashlight, a map, and a warm jacket",
+            "a flashlight, a map, and a warm jacket",
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "a flashlight, a map, and a warm jacket",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: packed a flashlight, a map, and a warm jacket.",
+          "feedback": "Yes \u2014 a flashlight, a map, and a warm jacket fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: a flashlight, a map, and a warm jacket, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "a flashlight, a map, and a warm jacket",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q04",
+          "passage": "Ava noticed the library book had a torn cover. She carried it to the desk and asked the librarian for tape.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "She wanted to take care of the book",
+          "evidence_spans": [
+            "asked the librarian for tape"
+          ],
+          "acceptable_answers": [
+            "She wanted to take care of the book",
+            "She wanted to take care of the book",
+            "asked the librarian for tape"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "She wanted to take care of the book",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: asked the librarian for tape.",
+          "feedback": "Yes \u2014 She wanted to take care of the book fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: She wanted to take care of the book, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "She wanted to take care of the book",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "Ava noticed the library book had a torn cover. She carried it to the desk and asked the librarian for tape.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q05",
+          "passage": "The soccer field was muddy after two days of rain. Coach Rivera moved practice into the gym so the team could stay dry.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "into the gym",
+          "evidence_spans": [
+            "moved practice into the gym"
+          ],
+          "acceptable_answers": [
+            "into the gym",
+            "into the gym",
+            "moved practice into the gym"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "into the gym",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: moved practice into the gym.",
+          "feedback": "Yes \u2014 into the gym fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: into the gym, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "into the gym",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "The soccer field was muddy after two days of rain. Coach Rivera moved practice into the gym so the team could stay dry.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q06",
+          "passage": "When the final bell rang, Eli stayed at his desk to finish the last math problem. He smiled when he wrote the answer.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "proud or satisfied",
+          "evidence_spans": [
+            "He smiled when he wrote the answer"
+          ],
+          "acceptable_answers": [
+            "proud or satisfied",
+            "proud or satisfied",
+            "He smiled when he wrote the answer"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "proud or satisfied",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: He smiled when he wrote the answer.",
+          "feedback": "Yes \u2014 proud or satisfied fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: proud or satisfied, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "proud or satisfied",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "When the final bell rang, Eli stayed at his desk to finish the last math problem. He smiled when he wrote the answer.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q07",
+          "passage": "The museum guide pointed to scratch marks on the old canoe. She explained that rocks in the river had made the marks long ago.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "rocks in the river",
+          "evidence_spans": [
+            "rocks in the river had made the marks"
+          ],
+          "acceptable_answers": [
+            "rocks in the river",
+            "rocks in the river",
+            "rocks in the river had made the marks"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "rocks in the river",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: rocks in the river had made the marks.",
+          "feedback": "Yes \u2014 rocks in the river fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: rocks in the river, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "rocks in the river",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "The museum guide pointed to scratch marks on the old canoe. She explained that rocks in the river had made the marks long ago.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q08",
+          "passage": "Priya put extra water bottles in her bag before the field day race. The afternoon sun was already hot.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "She expected to get thirsty in the heat",
+          "evidence_spans": [
+            "The afternoon sun was already hot"
+          ],
+          "acceptable_answers": [
+            "She expected to get thirsty in the heat",
+            "She expected to get thirsty in the heat",
+            "The afternoon sun was already hot"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "She expected to get thirsty in the heat",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: The afternoon sun was already hot.",
+          "feedback": "Yes \u2014 She expected to get thirsty in the heat fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: She expected to get thirsty in the heat, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "She expected to get thirsty in the heat",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "Priya put extra water bottles in her bag before the field day race. The afternoon sun was already hot.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q09",
+          "passage": "On Saturday, the bakery sold every loaf of cinnamon bread before noon. A line of customers still waited outside.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "The bakery sold every loaf of cinnamon bread",
+          "evidence_spans": [
+            "sold every loaf of cinnamon bread before noon"
+          ],
+          "acceptable_answers": [
+            "The bakery sold every loaf of cinnamon bread",
+            "The bakery sold every loaf of cinnamon bread",
+            "sold every loaf of cinnamon bread before noon"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "The bakery sold every loaf of cinnamon bread",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: sold every loaf of cinnamon bread before noon.",
+          "feedback": "Yes \u2014 The bakery sold every loaf of cinnamon bread fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: The bakery sold every loaf of cinnamon bread, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "The bakery sold every loaf of cinnamon bread",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "On Saturday, the bakery sold every loaf of cinnamon bread before noon. A line of customers still waited outside.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL2_Q10",
+          "passage": "The puppy wagged its tail and bounced when Sam picked up the leash. It scratched excitedly at the front door.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "to go for a walk",
+          "evidence_spans": [
+            "Sam picked up the leash"
+          ],
+          "acceptable_answers": [
+            "to go for a walk",
+            "to go for a walk",
+            "Sam picked up the leash"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "to go for a walk",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: Sam picked up the leash.",
+          "feedback": "Yes \u2014 to go for a walk fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: to go for a walk, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "to go for a walk",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "The puppy wagged its tail and bounced when Sam picked up the leash. It scratched excitedly at the front door.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_001_LVL3",
+      "label": "Level 3: Find Text Evidence",
+      "focus": "Practice find text evidence with short passages and evidence.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_001_LVL3_Q01",
+          "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+          "question": "Which evidence best supports the answer \u201cnear the fence\u201d?",
+          "answer_claim": "near the fence",
+          "evidence_spans": [
+            "that spot got the most light"
+          ],
+          "acceptable_answers": [
+            "that spot got the most light",
+            "near the fence",
+            "that spot got the most light"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cnear the fence\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "that spot got the most light",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: that spot got the most light.",
+          "feedback": "Yes \u2014 that spot got the most light fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cnear the fence\u201d? Choices: that spot got the most light, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "that spot got the most light",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q02",
+          "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+          "question": "Which evidence best supports the answer \u201cthe room became quiet\u201d?",
+          "answer_claim": "the room became quiet",
+          "evidence_spans": [
+            "When the students whispered"
+          ],
+          "acceptable_answers": [
+            "When the students whispered",
+            "the room became quiet",
+            "When the students whispered"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cthe room became quiet\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "When the students whispered",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: When the students whispered.",
+          "feedback": "Yes \u2014 When the students whispered fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cthe room became quiet\u201d? Choices: When the students whispered, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "When the students whispered",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q03",
+          "passage": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+          "question": "Which evidence best supports the answer \u201ca flashlight, a map, and a warm jacket\u201d?",
+          "answer_claim": "a flashlight, a map, and a warm jacket",
+          "evidence_spans": [
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "acceptable_answers": [
+            "packed a flashlight, a map, and a warm jacket",
+            "a flashlight, a map, and a warm jacket",
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "prompt": "Which evidence best supports the answer \u201ca flashlight, a map, and a warm jacket\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "packed a flashlight, a map, and a warm jacket",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: packed a flashlight, a map, and a warm jacket.",
+          "feedback": "Yes \u2014 packed a flashlight, a map, and a warm jacket fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201ca flashlight, a map, and a warm jacket\u201d? Choices: packed a flashlight, a map, and a warm jacket, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "packed a flashlight, a map, and a warm jacket",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q04",
+          "passage": "Ava noticed the library book had a torn cover. She carried it to the desk and asked the librarian for tape.",
+          "question": "Which evidence best supports the answer \u201cShe wanted to take care of the book\u201d?",
+          "answer_claim": "She wanted to take care of the book",
+          "evidence_spans": [
+            "asked the librarian for tape"
+          ],
+          "acceptable_answers": [
+            "asked the librarian for tape",
+            "She wanted to take care of the book",
+            "asked the librarian for tape"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cShe wanted to take care of the book\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "asked the librarian for tape",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: asked the librarian for tape.",
+          "feedback": "Yes \u2014 asked the librarian for tape fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cShe wanted to take care of the book\u201d? Choices: asked the librarian for tape, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "asked the librarian for tape",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "Ava noticed the library book had a torn cover. She carried it to the desk and asked the librarian for tape.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q05",
+          "passage": "The soccer field was muddy after two days of rain. Coach Rivera moved practice into the gym so the team could stay dry.",
+          "question": "Which evidence best supports the answer \u201cinto the gym\u201d?",
+          "answer_claim": "into the gym",
+          "evidence_spans": [
+            "moved practice into the gym"
+          ],
+          "acceptable_answers": [
+            "moved practice into the gym",
+            "into the gym",
+            "moved practice into the gym"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cinto the gym\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "moved practice into the gym",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: moved practice into the gym.",
+          "feedback": "Yes \u2014 moved practice into the gym fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cinto the gym\u201d? Choices: moved practice into the gym, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "moved practice into the gym",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "The soccer field was muddy after two days of rain. Coach Rivera moved practice into the gym so the team could stay dry.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q06",
+          "passage": "When the final bell rang, Eli stayed at his desk to finish the last math problem. He smiled when he wrote the answer.",
+          "question": "Which evidence best supports the answer \u201cproud or satisfied\u201d?",
+          "answer_claim": "proud or satisfied",
+          "evidence_spans": [
+            "He smiled when he wrote the answer"
+          ],
+          "acceptable_answers": [
+            "He smiled when he wrote the answer",
+            "proud or satisfied",
+            "He smiled when he wrote the answer"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cproud or satisfied\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "He smiled when he wrote the answer",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: He smiled when he wrote the answer.",
+          "feedback": "Yes \u2014 He smiled when he wrote the answer fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cproud or satisfied\u201d? Choices: He smiled when he wrote the answer, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "He smiled when he wrote the answer",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "When the final bell rang, Eli stayed at his desk to finish the last math problem. He smiled when he wrote the answer.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q07",
+          "passage": "The museum guide pointed to scratch marks on the old canoe. She explained that rocks in the river had made the marks long ago.",
+          "question": "Which evidence best supports the answer \u201crocks in the river\u201d?",
+          "answer_claim": "rocks in the river",
+          "evidence_spans": [
+            "rocks in the river had made the marks"
+          ],
+          "acceptable_answers": [
+            "rocks in the river had made the marks",
+            "rocks in the river",
+            "rocks in the river had made the marks"
+          ],
+          "prompt": "Which evidence best supports the answer \u201crocks in the river\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "rocks in the river had made the marks",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: rocks in the river had made the marks.",
+          "feedback": "Yes \u2014 rocks in the river had made the marks fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201crocks in the river\u201d? Choices: rocks in the river had made the marks, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "rocks in the river had made the marks",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "The museum guide pointed to scratch marks on the old canoe. She explained that rocks in the river had made the marks long ago.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q08",
+          "passage": "Priya put extra water bottles in her bag before the field day race. The afternoon sun was already hot.",
+          "question": "Which evidence best supports the answer \u201cShe expected to get thirsty in the heat\u201d?",
+          "answer_claim": "She expected to get thirsty in the heat",
+          "evidence_spans": [
+            "The afternoon sun was already hot"
+          ],
+          "acceptable_answers": [
+            "The afternoon sun was already hot",
+            "She expected to get thirsty in the heat",
+            "The afternoon sun was already hot"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cShe expected to get thirsty in the heat\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "The afternoon sun was already hot",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: The afternoon sun was already hot.",
+          "feedback": "Yes \u2014 The afternoon sun was already hot fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cShe expected to get thirsty in the heat\u201d? Choices: The afternoon sun was already hot, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "The afternoon sun was already hot",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "Priya put extra water bottles in her bag before the field day race. The afternoon sun was already hot.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q09",
+          "passage": "On Saturday, the bakery sold every loaf of cinnamon bread before noon. A line of customers still waited outside.",
+          "question": "Which evidence best supports the answer \u201cThe bakery sold every loaf of cinnamon bread\u201d?",
+          "answer_claim": "The bakery sold every loaf of cinnamon bread",
+          "evidence_spans": [
+            "sold every loaf of cinnamon bread before noon"
+          ],
+          "acceptable_answers": [
+            "sold every loaf of cinnamon bread before noon",
+            "The bakery sold every loaf of cinnamon bread",
+            "sold every loaf of cinnamon bread before noon"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cThe bakery sold every loaf of cinnamon bread\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "sold every loaf of cinnamon bread before noon",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: sold every loaf of cinnamon bread before noon.",
+          "feedback": "Yes \u2014 sold every loaf of cinnamon bread before noon fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cThe bakery sold every loaf of cinnamon bread\u201d? Choices: sold every loaf of cinnamon bread before noon, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "sold every loaf of cinnamon bread before noon",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "On Saturday, the bakery sold every loaf of cinnamon bread before noon. A line of customers still waited outside.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL3_Q10",
+          "passage": "The puppy wagged its tail and bounced when Sam picked up the leash. It scratched excitedly at the front door.",
+          "question": "Which evidence best supports the answer \u201cto go for a walk\u201d?",
+          "answer_claim": "to go for a walk",
+          "evidence_spans": [
+            "Sam picked up the leash"
+          ],
+          "acceptable_answers": [
+            "Sam picked up the leash",
+            "to go for a walk",
+            "Sam picked up the leash"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cto go for a walk\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Sam picked up the leash",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: Sam picked up the leash.",
+          "feedback": "Yes \u2014 Sam picked up the leash fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cto go for a walk\u201d? Choices: Sam picked up the leash, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "Sam picked up the leash",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "The puppy wagged its tail and bounced when Sam picked up the leash. It scratched excitedly at the front door.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_001_LVL4",
+      "label": "Level 4: Explain Your Answer",
+      "focus": "Practice explain your answer with short passages and evidence.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_001_LVL4_Q01",
+          "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+          "question": "Explain how the evidence supports the answer \u201cnear the fence.\u201d",
+          "answer_claim": "near the fence",
+          "evidence_spans": [
+            "that spot got the most light"
+          ],
+          "acceptable_answers": [
+            "The text says that spot got the most light.",
+            "near the fence",
+            "that spot got the most light"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cnear the fence.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says that spot got the most light.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: that spot got the most light.",
+          "feedback": "Yes \u2014 The text says that spot got the most light. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cnear the fence.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q02",
+          "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+          "question": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+          "answer_claim": "the room became quiet",
+          "evidence_spans": [
+            "When the students whispered"
+          ],
+          "acceptable_answers": [
+            "The text says When the students whispered.",
+            "the room became quiet",
+            "When the students whispered"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says When the students whispered.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: When the students whispered.",
+          "feedback": "Yes \u2014 The text says When the students whispered. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q03",
+          "passage": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+          "question": "Explain how the evidence supports the answer \u201ca flashlight, a map, and a warm jacket.\u201d",
+          "answer_claim": "a flashlight, a map, and a warm jacket",
+          "evidence_spans": [
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "acceptable_answers": [
+            "The text says packed a flashlight, a map, and a warm jacket.",
+            "a flashlight, a map, and a warm jacket",
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201ca flashlight, a map, and a warm jacket.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says packed a flashlight, a map, and a warm jacket.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: packed a flashlight, a map, and a warm jacket.",
+          "feedback": "Yes \u2014 The text says packed a flashlight, a map, and a warm jacket. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201ca flashlight, a map, and a warm jacket.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q04",
+          "passage": "Ava noticed the library book had a torn cover. She carried it to the desk and asked the librarian for tape.",
+          "question": "Explain how the evidence supports the answer \u201cShe wanted to take care of the book.\u201d",
+          "answer_claim": "She wanted to take care of the book",
+          "evidence_spans": [
+            "asked the librarian for tape"
+          ],
+          "acceptable_answers": [
+            "The text says asked the librarian for tape.",
+            "She wanted to take care of the book",
+            "asked the librarian for tape"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cShe wanted to take care of the book.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says asked the librarian for tape.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: asked the librarian for tape.",
+          "feedback": "Yes \u2014 The text says asked the librarian for tape. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cShe wanted to take care of the book.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Ava noticed the library book had a torn cover. She carried it to the desk and asked the librarian for tape.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q05",
+          "passage": "The soccer field was muddy after two days of rain. Coach Rivera moved practice into the gym so the team could stay dry.",
+          "question": "Explain how the evidence supports the answer \u201cinto the gym.\u201d",
+          "answer_claim": "into the gym",
+          "evidence_spans": [
+            "moved practice into the gym"
+          ],
+          "acceptable_answers": [
+            "The text says moved practice into the gym.",
+            "into the gym",
+            "moved practice into the gym"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cinto the gym.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says moved practice into the gym.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: moved practice into the gym.",
+          "feedback": "Yes \u2014 The text says moved practice into the gym. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cinto the gym.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The soccer field was muddy after two days of rain. Coach Rivera moved practice into the gym so the team could stay dry.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q06",
+          "passage": "When the final bell rang, Eli stayed at his desk to finish the last math problem. He smiled when he wrote the answer.",
+          "question": "Explain how the evidence supports the answer \u201cproud or satisfied.\u201d",
+          "answer_claim": "proud or satisfied",
+          "evidence_spans": [
+            "He smiled when he wrote the answer"
+          ],
+          "acceptable_answers": [
+            "The text says He smiled when he wrote the answer.",
+            "proud or satisfied",
+            "He smiled when he wrote the answer"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cproud or satisfied.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says He smiled when he wrote the answer.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: He smiled when he wrote the answer.",
+          "feedback": "Yes \u2014 The text says He smiled when he wrote the answer. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cproud or satisfied.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "When the final bell rang, Eli stayed at his desk to finish the last math problem. He smiled when he wrote the answer.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q07",
+          "passage": "The museum guide pointed to scratch marks on the old canoe. She explained that rocks in the river had made the marks long ago.",
+          "question": "Explain how the evidence supports the answer \u201crocks in the river.\u201d",
+          "answer_claim": "rocks in the river",
+          "evidence_spans": [
+            "rocks in the river had made the marks"
+          ],
+          "acceptable_answers": [
+            "The text says rocks in the river had made the marks.",
+            "rocks in the river",
+            "rocks in the river had made the marks"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201crocks in the river.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says rocks in the river had made the marks.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: rocks in the river had made the marks.",
+          "feedback": "Yes \u2014 The text says rocks in the river had made the marks. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201crocks in the river.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The museum guide pointed to scratch marks on the old canoe. She explained that rocks in the river had made the marks long ago.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q08",
+          "passage": "Priya put extra water bottles in her bag before the field day race. The afternoon sun was already hot.",
+          "question": "Explain how the evidence supports the answer \u201cShe expected to get thirsty in the heat.\u201d",
+          "answer_claim": "She expected to get thirsty in the heat",
+          "evidence_spans": [
+            "The afternoon sun was already hot"
+          ],
+          "acceptable_answers": [
+            "The text says The afternoon sun was already hot.",
+            "She expected to get thirsty in the heat",
+            "The afternoon sun was already hot"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cShe expected to get thirsty in the heat.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says The afternoon sun was already hot.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: The afternoon sun was already hot.",
+          "feedback": "Yes \u2014 The text says The afternoon sun was already hot. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cShe expected to get thirsty in the heat.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Priya put extra water bottles in her bag before the field day race. The afternoon sun was already hot.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q09",
+          "passage": "On Saturday, the bakery sold every loaf of cinnamon bread before noon. A line of customers still waited outside.",
+          "question": "Explain how the evidence supports the answer \u201cThe bakery sold every loaf of cinnamon bread.\u201d",
+          "answer_claim": "The bakery sold every loaf of cinnamon bread",
+          "evidence_spans": [
+            "sold every loaf of cinnamon bread before noon"
+          ],
+          "acceptable_answers": [
+            "The text says sold every loaf of cinnamon bread before noon.",
+            "The bakery sold every loaf of cinnamon bread",
+            "sold every loaf of cinnamon bread before noon"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cThe bakery sold every loaf of cinnamon bread.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says sold every loaf of cinnamon bread before noon.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: sold every loaf of cinnamon bread before noon.",
+          "feedback": "Yes \u2014 The text says sold every loaf of cinnamon bread before noon. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cThe bakery sold every loaf of cinnamon bread.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, the bakery sold every loaf of cinnamon bread before noon. A line of customers still waited outside.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_LVL4_Q10",
+          "passage": "The puppy wagged its tail and bounced when Sam picked up the leash. It scratched excitedly at the front door.",
+          "question": "Explain how the evidence supports the answer \u201cto go for a walk.\u201d",
+          "answer_claim": "to go for a walk",
+          "evidence_spans": [
+            "Sam picked up the leash"
+          ],
+          "acceptable_answers": [
+            "The text says Sam picked up the leash.",
+            "to go for a walk",
+            "Sam picked up the leash"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cto go for a walk.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says Sam picked up the leash.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: Sam picked up the leash.",
+          "feedback": "Yes \u2014 The text says Sam picked up the leash. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cto go for a walk.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The puppy wagged its tail and bounced when Sam picked up the leash. It scratched excitedly at the front door.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave literal answers, inferences, evidence, and explanations.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_001_MIXED_Q01",
+          "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+          "question": "Where did Nora plant the bean seeds?",
+          "answer_claim": "near the fence",
+          "evidence_spans": [
+            "that spot got the most light"
+          ],
+          "acceptable_answers": [
+            "near the fence",
+            "near the fence",
+            "that spot got the most light"
+          ],
+          "prompt": "Where did Nora plant the bean seeds?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "near the fence",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: that spot got the most light.",
+          "feedback": "Yes \u2014 near the fence fits the reading clue.",
+          "question_audio": {
+            "text": "Where did Nora plant the bean seeds? Choices: near the fence, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "near the fence",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q02",
+          "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+          "question": "Why did the turtle come out?",
+          "answer_claim": "the room became quiet",
+          "evidence_spans": [
+            "When the students whispered"
+          ],
+          "acceptable_answers": [
+            "the room became quiet",
+            "the room became quiet",
+            "When the students whispered"
+          ],
+          "prompt": "Why did the turtle come out?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "the room became quiet",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: When the students whispered.",
+          "feedback": "Yes \u2014 the room became quiet fits the reading clue.",
+          "question_audio": {
+            "text": "Why did the turtle come out? Choices: the room became quiet, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "the room became quiet",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q03",
+          "passage": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+          "question": "What did Marcus pack?",
+          "answer_claim": "a flashlight, a map, and a warm jacket",
+          "evidence_spans": [
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "acceptable_answers": [
+            "a flashlight, a map, and a warm jacket",
+            "a flashlight, a map, and a warm jacket",
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "prompt": "What did Marcus pack?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "a flashlight, a map, and a warm jacket",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by the evidence: packed a flashlight, a map, and a warm jacket.",
+          "feedback": "Yes \u2014 a flashlight, a map, and a warm jacket fits the reading clue.",
+          "question_audio": {
+            "text": "What did Marcus pack? Choices: a flashlight, a map, and a warm jacket, at the bus stop, because it was loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "a flashlight, a map, and a warm jacket",
+            "at the bus stop",
+            "because it was loud"
+          ],
+          "audio": {
+            "text": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q04",
+          "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "near the fence",
+          "evidence_spans": [
+            "that spot got the most light"
+          ],
+          "acceptable_answers": [
+            "near the fence",
+            "near the fence",
+            "that spot got the most light"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "near the fence",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: that spot got the most light.",
+          "feedback": "Yes \u2014 near the fence fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: near the fence, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "near the fence",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q05",
+          "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+          "question": "What is the best inference supported by the passage?",
+          "answer_claim": "the room became quiet",
+          "evidence_spans": [
+            "When the students whispered"
+          ],
+          "acceptable_answers": [
+            "the room became quiet",
+            "the room became quiet",
+            "When the students whispered"
+          ],
+          "prompt": "What is the best inference supported by the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "the room became quiet",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by the evidence: When the students whispered.",
+          "feedback": "Yes \u2014 the room became quiet fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best inference supported by the passage? Choices: the room became quiet, The character forgot the plan., The setting is underwater..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "the room became quiet",
+            "The character forgot the plan.",
+            "The setting is underwater."
+          ],
+          "audio": {
+            "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q06",
+          "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+          "question": "Which evidence best supports the answer \u201cnear the fence\u201d?",
+          "answer_claim": "near the fence",
+          "evidence_spans": [
+            "that spot got the most light"
+          ],
+          "acceptable_answers": [
+            "that spot got the most light",
+            "near the fence",
+            "that spot got the most light"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cnear the fence\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "that spot got the most light",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: that spot got the most light.",
+          "feedback": "Yes \u2014 that spot got the most light fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cnear the fence\u201d? Choices: that spot got the most light, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "that spot got the most light",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q07",
+          "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+          "question": "Which evidence best supports the answer \u201cthe room became quiet\u201d?",
+          "answer_claim": "the room became quiet",
+          "evidence_spans": [
+            "When the students whispered"
+          ],
+          "acceptable_answers": [
+            "When the students whispered",
+            "the room became quiet",
+            "When the students whispered"
+          ],
+          "prompt": "Which evidence best supports the answer \u201cthe room became quiet\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "When the students whispered",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: When the students whispered.",
+          "feedback": "Yes \u2014 When the students whispered fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201cthe room became quiet\u201d? Choices: When the students whispered, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "When the students whispered",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q08",
+          "passage": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+          "question": "Which evidence best supports the answer \u201ca flashlight, a map, and a warm jacket\u201d?",
+          "answer_claim": "a flashlight, a map, and a warm jacket",
+          "evidence_spans": [
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "acceptable_answers": [
+            "packed a flashlight, a map, and a warm jacket",
+            "a flashlight, a map, and a warm jacket",
+            "packed a flashlight, a map, and a warm jacket"
+          ],
+          "prompt": "Which evidence best supports the answer \u201ca flashlight, a map, and a warm jacket\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "packed a flashlight, a map, and a warm jacket",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by the evidence: packed a flashlight, a map, and a warm jacket.",
+          "feedback": "Yes \u2014 packed a flashlight, a map, and a warm jacket fits the reading clue.",
+          "question_audio": {
+            "text": "Which evidence best supports the answer \u201ca flashlight, a map, and a warm jacket\u201d? Choices: packed a flashlight, a map, and a warm jacket, The passage does not say., A detail from another story..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "packed a flashlight, a map, and a warm jacket",
+            "The passage does not say.",
+            "A detail from another story."
+          ],
+          "audio": {
+            "text": "Marcus packed a flashlight, a map, and a warm jacket before the hike. Dark clouds were already covering the mountain trail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q09",
+          "passage": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+          "question": "Explain how the evidence supports the answer \u201cnear the fence.\u201d",
+          "answer_claim": "near the fence",
+          "evidence_spans": [
+            "that spot got the most light"
+          ],
+          "acceptable_answers": [
+            "The text says that spot got the most light.",
+            "near the fence",
+            "that spot got the most light"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cnear the fence.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says that spot got the most light.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: that spot got the most light.",
+          "feedback": "Yes \u2014 The text says that spot got the most light. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cnear the fence.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "At sunrise, Nora filled three blue buckets with soil. She planted bean seeds near the fence because that spot got the most light. By lunch, she had watered every row.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_RC_001_MIXED_Q10",
+          "passage": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+          "question": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+          "answer_claim": "the room became quiet",
+          "evidence_spans": [
+            "When the students whispered"
+          ],
+          "acceptable_answers": [
+            "The text says When the students whispered.",
+            "the room became quiet",
+            "When the students whispered"
+          ],
+          "prompt": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says When the students whispered.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by the evidence: When the students whispered.",
+          "feedback": "Yes \u2014 The text says When the students whispered. fits the reading clue.",
+          "question_audio": {
+            "text": "Explain how the evidence supports the answer \u201cthe room became quiet.\u201d",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The class turtle hid inside its log when the room grew noisy. When the students whispered, the turtle slowly came out and ate lettuce.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Ask and Answer Questions With Text Evidence. In this mission, you will answer literal and inferential questions using text evidence while helping a reader solve a real classroom task. Listen to the story goal, look for the reading strategy, and Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This mini lesson teaches you how to answer the question and prove it with words from the passage. Read the objective, look at the visual model, and think about the watch-out mistake before answering. Press Next to continue after you can say the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this worked example carefully because it shows the whole thinking path. Step one, read the prompt or passage. Step two, use the model to find the clue. Step three, check that the final answer matches the text before you Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo lets you try the strategy with support. Listen to the example, look at the model, and think about why the answer fits. Press Next to continue when you are ready for independent practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This is your Practice zone for Ask and Answer Questions With Text Evidence. Use Read Question to hear the prompt, then reread the sentence or passage yourself. Choose your answer when you are ready, and Use the hint if you need help.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This Challenge zone asks you to apply the same strategy with a little more independence. Use Read Question first, listen for any helpful audio, and check the model before answering. Answer carefully, then continue once your choice matches the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This Checkpoint shows what you can do after the lesson and challenge. Use Read Question to hear the prompt, then prove your answer with the reading strategy. Answer carefully, then continue to see how your work earns growth credit.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge screen for Ask and Answer Questions With Text Evidence. Think about one strategy you used well, such as rereading, checking a clue, or proving an answer. Press Next to see your profile and keep building your Grade 3 English skills.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page summarizes your growth for Ask and Answer Questions With Text Evidence. Read your accuracy, check any misconception notes, and notice the recommended next step. Continue to Skill Practice or go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

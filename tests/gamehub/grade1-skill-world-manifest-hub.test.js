@@ -17,7 +17,7 @@ const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G
 const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001', 'G1E_PH_002', 'G1E_SW_001', 'G1E_FL_001', 'G1E_RC_001', 'G1E_RC_002', 'G1E_WR_001', 'G1E_WR_002'];
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
 const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2E_RC_001', 'G2E_RC_002', 'G2E_RC_003', 'G2E_WR_001', 'G2E_WR_002', 'G2E_WR_003', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
-const requiredGrade3EnglishSkillIds = ['G3E_RF_001'];
+const requiredGrade3EnglishSkillIds = ['G3E_RF_001', 'G3E_FL_001', 'G3E_VOC_001', 'G3E_RC_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -228,20 +228,31 @@ test('Adaptive Grade 1 hub routes generated missions to /skill-world/:skillId', 
 
 
 test('Grade 3 English Skill World package appears from manifest for the hub', () => {
-  assert.ok(manifest.packages.includes('G3E_RF_001.skill-package.v1.json'), 'manifest includes G3E_RF_001');
+  for (const skillId of requiredGrade3EnglishSkillIds) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
   const packages = manifest.packages.map(readPackage);
   const grade3EnglishPackages = packages.filter((pkg) => requiredGrade3EnglishSkillIds.includes(pkg.skill_id));
   assert.deepEqual(grade3EnglishPackages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade3EnglishSkillIds].sort());
-  const g3e = grade3EnglishPackages.find((pkg) => pkg.skill_id === 'G3E_RF_001');
-  assert.equal(g3e.grade, 3);
-  assert.equal(g3e.subject, 'English');
-  assert.equal(g3e.domain, 'Reading Foundations');
-  assert.equal(g3e.skill, 'Multisyllable Word Reading and Advanced Phonics');
-  assert.equal(Array.isArray(g3e.level_banks), true);
-  assert.equal(g3e.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
-  assert.equal(g3e.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
-  assert.equal(g3e.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
-  assert.equal(`/skill-world/${encodeURIComponent(g3e.skill_id)}/drill`, '/skill-world/G3E_RF_001/drill');
+  const expected = new Map([
+    ['G3E_RF_001', { domain: 'Reading Foundations', skill: 'Multisyllable Word Reading and Advanced Phonics' }],
+    ['G3E_FL_001', { domain: 'Fluency', skill: 'Reading Fluency and Expression' }],
+    ['G3E_VOC_001', { domain: 'Vocabulary / Language', skill: 'Vocabulary, Context Clues, and Word Relationships' }],
+    ['G3E_RC_001', { domain: 'Reading Comprehension', skill: 'Ask and Answer Questions With Text Evidence' }]
+  ]);
+  for (const [skillId, details] of expected.entries()) {
+    const g3e = grade3EnglishPackages.find((pkg) => pkg.skill_id === skillId);
+    assert.ok(g3e, `${skillId} package loads from manifest`);
+    assert.equal(g3e.grade, 3);
+    assert.equal(g3e.subject, 'English');
+    assert.equal(g3e.domain, details.domain);
+    assert.equal(g3e.skill, details.skill);
+    assert.equal(Array.isArray(g3e.level_banks), true);
+    assert.equal(g3e.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(g3e.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(g3e.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(g3e.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
+  }
   assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);

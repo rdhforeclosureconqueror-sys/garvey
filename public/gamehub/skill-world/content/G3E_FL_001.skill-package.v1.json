@@ -1,0 +1,2659 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade3-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade3_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01"
+  },
+  "skill_id": "G3E_FL_001",
+  "grade": 3,
+  "subject": "English",
+  "domain": "Fluency",
+  "skill": "Reading Fluency and Expression",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Theater Readers as they prepare a clear, lively read-aloud for the school broadcast.",
+    "objective": "I can read grade-level text accurately, smoothly, and with expression.",
+    "key_vocabulary": [
+      "accuracy",
+      "phrasing",
+      "expression",
+      "punctuation",
+      "repeated reading"
+    ],
+    "concept_explanation": "Good readers read grade-level text accurately, smoothly, and with expression. They slow down, notice clues in the words or text, and explain how the clue supports the answer.",
+    "visual_model": "fluency_meter",
+    "common_misconception": "Readers sometimes skip small words and change the meaning.",
+    "real_world_connection": "Fluency helps when you read directions, perform poems, share reports, and understand chapter books.",
+    "lesson_summary": "Read every word accurately, group words into phrases, pause at punctuation, and reread to improve smoothness and expression.",
+    "mini_lesson": "First read for accuracy. Next group words that belong together. Then let commas, periods, question marks, and exclamation marks guide your voice. Reread to make it smoother.",
+    "audio": {
+      "text": "accuracy, phrasing, expression, punctuation, repeated reading",
+      "label": "Listen",
+      "type": "word",
+      "repeat_count": 1,
+      "student_prompt": "Listen, then read it yourself."
+    }
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: The reader says every word in \u201cThe clever rabbit slipped under the garden gate\u201d and does not skip clever or under.",
+      "correct_answer": "The clever rabbit slipped under the garden gate.",
+      "visual_model": "fluency_meter",
+      "sentence": "The clever rabbit slipped under the garden gate.",
+      "fluency_scores": {
+        "accuracy": 95,
+        "smoothness": 85,
+        "expression": 80
+      },
+      "audio": {
+        "text": "The clever rabbit slipped under the garden gate.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "text": "Demo: \u201cAfter lunch / the students / returned to the classroom\u201d sounds smooth because the pauses keep word groups together.",
+      "correct_answer": "After lunch / the students / returned to the classroom.",
+      "visual_model": "phrase_builder",
+      "sentence": "After lunch the students returned to the classroom.",
+      "phrases": [
+        "After lunch",
+        "the students",
+        "returned to the classroom"
+      ],
+      "audio": {
+        "text": "After lunch, the students returned to the classroom.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Track every word with your eyes.",
+    "Look for phrase groups and punctuation.",
+    "Reread the sentence so it sounds like talking."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G3E_FL_001_LVL1_Q01",
+      "sentence": "The clever rabbit slipped under the garden gate.",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "Which reading keeps every word from the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "The clever rabbit slipped under the garden gate.",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "The answer is The clever rabbit slipped under the garden gate. because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 The clever rabbit slipped under the garden gate. fits the reading clue.",
+      "question_audio": {
+        "text": "Which reading keeps every word from the sentence? Choices: The clever rabbit slipped under the garden gate., The rabbit slipped garden gate., The clever rabbit under gate..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "The clever rabbit slipped under the garden gate.",
+        "The rabbit slipped garden gate.",
+        "The clever rabbit under gate."
+      ],
+      "audio": {
+        "text": "The clever rabbit slipped under the garden gate.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_FL_001_LVL2_Q01",
+      "sentence": "After lunch / the students / returned to the classroom.",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "Which phrase chunk is best for the beginning of the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "After lunch",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "The answer is After lunch because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 After lunch fits the reading clue.",
+      "question_audio": {
+        "text": "Which phrase chunk is best for the beginning of the sentence? Choices: After lunch, After lunch the, lunch the students.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "After lunch",
+        "After lunch the",
+        "lunch the students"
+      ],
+      "audio": {
+        "text": "After lunch / the students / returned to the classroom.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G3E_FL_001_LVL4_Q01",
+      "sentence": "The river sparkled as it twisted through the valley.",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "What is the best reason to reread this sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "to make it smoother and more accurate",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "expression_flat_reading",
+      "explanation": "The answer is to make it smoother and more accurate because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 to make it smoother and more accurate fits the reading clue.",
+      "question_audio": {
+        "text": "What is the best reason to reread this sentence? Choices: to make it smoother and more accurate, to skip the long words, to read it only in your head.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "to make it smoother and more accurate",
+        "to skip the long words",
+        "to read it only in your head"
+      ],
+      "audio": {
+        "text": "The river sparkled as it twisted through the valley.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G3E_FL_001_LVL3_Q01",
+      "sentence": "Did you remember your library card?",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "How should your voice sound at the end?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "like a question",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "punctuation_ignored",
+      "explanation": "The answer is like a question because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 like a question fits the reading clue.",
+      "question_audio": {
+        "text": "How should your voice sound at the end? Choices: like a question, like a list, like a whisper.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "like a question",
+        "like a list",
+        "like a whisper"
+      ],
+      "audio": {
+        "text": "Did you remember your library card?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "misconception_bank": {
+    "skips_words": "Readers sometimes skip small words and change the meaning.",
+    "punctuation_ignored": "Readers may ignore punctuation and miss how the sentence should sound.",
+    "phrase_chunking_error": "Readers may pause in the middle of word groups that belong together.",
+    "expression_flat_reading": "Readers may read every sentence in the same flat voice."
+  },
+  "review_bank": [
+    {
+      "question_id": "G3E_FL_001_MIXED_Q01",
+      "sentence": "The clever rabbit slipped under the garden gate.",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "Which reading keeps every word from the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "The clever rabbit slipped under the garden gate.",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "The answer is The clever rabbit slipped under the garden gate. because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 The clever rabbit slipped under the garden gate. fits the reading clue.",
+      "question_audio": {
+        "text": "Which reading keeps every word from the sentence? Choices: The clever rabbit slipped under the garden gate., The rabbit slipped garden gate., The clever rabbit under gate..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "The clever rabbit slipped under the garden gate.",
+        "The rabbit slipped garden gate.",
+        "The clever rabbit under gate."
+      ],
+      "audio": {
+        "text": "The clever rabbit slipped under the garden gate.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_FL_001_MIXED_Q02",
+      "sentence": "Maya carried a basket of smooth stones to the creek.",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "Which word must you not skip when reading this sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "smooth",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "The answer is smooth because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 smooth fits the reading clue.",
+      "question_audio": {
+        "text": "Which word must you not skip when reading this sentence? Choices: smooth, basket, Maya.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "smooth",
+        "basket",
+        "Maya"
+      ],
+      "audio": {
+        "text": "Maya carried a basket of smooth stones to the creek.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_FL_001_MIXED_Q03",
+      "sentence": "The hikers followed the narrow trail beside the lake.",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "Complete the sentence exactly: The hikers followed the ___ trail beside the lake.",
+      "question_type": "sentence_completion",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "narrow",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "The answer is narrow because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 narrow fits the reading clue.",
+      "question_audio": {
+        "text": "Complete the sentence exactly: The hikers followed the ___ trail beside the lake.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "The hikers followed the narrow trail beside the lake.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "narrow"
+      ]
+    },
+    {
+      "question_id": "G3E_FL_001_MIXED_Q04",
+      "sentence": "After lunch / the students / returned to the classroom.",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "Which phrase chunk is best for the beginning of the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "After lunch",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "The answer is After lunch because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 After lunch fits the reading clue.",
+      "question_audio": {
+        "text": "Which phrase chunk is best for the beginning of the sentence? Choices: After lunch, After lunch the, lunch the students.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "After lunch",
+        "After lunch the",
+        "lunch the students"
+      ],
+      "audio": {
+        "text": "After lunch / the students / returned to the classroom.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_FL_001_MIXED_Q05",
+      "sentence": "The little boat / drifted across / the sparkling pond.",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "Choose the phrase that belongs together.",
+      "question_type": "multiple_choice",
+      "visual_model": "phrase_builder",
+      "support_type": "phrase_builder",
+      "correct_answer": "the sparkling pond",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "The answer is the sparkling pond because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 the sparkling pond fits the reading clue.",
+      "question_audio": {
+        "text": "Choose the phrase that belongs together. Choices: the sparkling pond, pond drifted, boat drifted across the.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "the sparkling pond",
+        "pond drifted",
+        "boat drifted across the"
+      ],
+      "audio": {
+        "text": "The little boat / drifted across / the sparkling pond.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "question_id": "G3E_FL_001_MIXED_Q06",
+      "sentence": "Did you remember your library card?",
+      "fluency_scores": {
+        "accuracy": 90,
+        "smoothness": 82,
+        "expression": 78
+      },
+      "prompt": "How should your voice sound at the end?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "like a question",
+      "hints": [
+        "Reread the important words.",
+        "Use the model or clue before answering.",
+        "Check that your answer matches the whole sentence or text."
+      ],
+      "misconception_tag": "punctuation_ignored",
+      "explanation": "The answer is like a question because fluent reading keeps meaning clear.",
+      "feedback": "Yes \u2014 like a question fits the reading clue.",
+      "question_audio": {
+        "text": "How should your voice sound at the end? Choices: like a question, like a list, like a whisper.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "like a question",
+        "like a list",
+        "like a whisper"
+      ],
+      "audio": {
+        "text": "Did you remember your library card?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "game_theme": {
+    "title": "Reading Fluency and Expression",
+    "mission_intro": "Join the Theater Readers as they prepare a clear, lively read-aloud for the school broadcast.",
+    "badge_name": "Fluency Performer Badge",
+    "world": "Grade 3 English Studio"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": "G3E_RF_001",
+  "level_banks": [
+    {
+      "level_id": "G3E_FL_001_LVL1",
+      "label": "Level 1: Accuracy",
+      "focus": "Practice accuracy for fluent grade-level reading.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_FL_001_LVL1_Q01",
+          "sentence": "The clever rabbit slipped under the garden gate.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which reading keeps every word from the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "The clever rabbit slipped under the garden gate.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is The clever rabbit slipped under the garden gate. because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 The clever rabbit slipped under the garden gate. fits the reading clue.",
+          "question_audio": {
+            "text": "Which reading keeps every word from the sentence? Choices: The clever rabbit slipped under the garden gate., The rabbit slipped garden gate., The clever rabbit under gate..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "The clever rabbit slipped under the garden gate.",
+            "The rabbit slipped garden gate.",
+            "The clever rabbit under gate."
+          ],
+          "audio": {
+            "text": "The clever rabbit slipped under the garden gate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q02",
+          "sentence": "Maya carried a basket of smooth stones to the creek.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which word must you not skip when reading this sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "smooth",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is smooth because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 smooth fits the reading clue.",
+          "question_audio": {
+            "text": "Which word must you not skip when reading this sentence? Choices: smooth, basket, Maya.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "smooth",
+            "basket",
+            "Maya"
+          ],
+          "audio": {
+            "text": "Maya carried a basket of smooth stones to the creek.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q03",
+          "sentence": "The hikers followed the narrow trail beside the lake.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Complete the sentence exactly: The hikers followed the ___ trail beside the lake.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "narrow",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is narrow because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 narrow fits the reading clue.",
+          "question_audio": {
+            "text": "Complete the sentence exactly: The hikers followed the ___ trail beside the lake.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The hikers followed the narrow trail beside the lake.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "narrow"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q04",
+          "sentence": "Our class planted tiny seeds in paper cups.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which reading changes the meaning by skipping a word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "Our class planted seeds in paper cups.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is Our class planted seeds in paper cups. because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 Our class planted seeds in paper cups. fits the reading clue.",
+          "question_audio": {
+            "text": "Which reading changes the meaning by skipping a word? Choices: Our class planted tiny seeds in paper cups., Our class planted seeds in paper cups., Our class planted tiny seeds in cups..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "Our class planted tiny seeds in paper cups.",
+            "Our class planted seeds in paper cups.",
+            "Our class planted tiny seeds in cups."
+          ],
+          "audio": {
+            "text": "Our class planted tiny seeds in paper cups.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q05",
+          "sentence": "The brown dog waited calmly beside the porch.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which word tells what kind of dog?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "brown",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is brown because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 brown fits the reading clue.",
+          "question_audio": {
+            "text": "Which word tells what kind of dog? Choices: brown, waited, porch.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "brown",
+            "waited",
+            "porch"
+          ],
+          "audio": {
+            "text": "The brown dog waited calmly beside the porch.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q06",
+          "sentence": "A bright moon rose above the quiet field.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Write the missing word: A bright moon rose above the ___ field.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "quiet",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is quiet because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 quiet fits the reading clue.",
+          "question_audio": {
+            "text": "Write the missing word: A bright moon rose above the ___ field.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A bright moon rose above the quiet field.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "quiet"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q07",
+          "sentence": "The coach handed Leo a red jersey before the game.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which exact reading includes the color word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "The coach handed Leo a red jersey before the game.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is The coach handed Leo a red jersey before the game. because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 The coach handed Leo a red jersey before the game. fits the reading clue.",
+          "question_audio": {
+            "text": "Which exact reading includes the color word? Choices: The coach handed Leo a red jersey before the game., The coach handed Leo a jersey before the game., The coach handed a red jersey before the game..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "The coach handed Leo a red jersey before the game.",
+            "The coach handed Leo a jersey before the game.",
+            "The coach handed a red jersey before the game."
+          ],
+          "audio": {
+            "text": "The coach handed Leo a red jersey before the game.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q08",
+          "sentence": "Sofia gently placed the glass jar on the shelf.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which word shows how Sofia placed the jar?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "gently",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is gently because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 gently fits the reading clue.",
+          "question_audio": {
+            "text": "Which word shows how Sofia placed the jar? Choices: gently, glass, shelf.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "gently",
+            "glass",
+            "shelf"
+          ],
+          "audio": {
+            "text": "Sofia gently placed the glass jar on the shelf.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q09",
+          "sentence": "The windy road curved around the tall hill.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Complete the exact sentence: The windy road curved around the ___ hill.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "tall",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is tall because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 tall fits the reading clue.",
+          "question_audio": {
+            "text": "Complete the exact sentence: The windy road curved around the ___ hill.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The windy road curved around the tall hill.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "tall"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL1_Q10",
+          "sentence": "Three small birds rested on the fence rail.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which reading has all the words in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "Three small birds rested on the fence rail.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is Three small birds rested on the fence rail. because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 Three small birds rested on the fence rail. fits the reading clue.",
+          "question_audio": {
+            "text": "Which reading has all the words in order? Choices: Three small birds rested on the fence rail., Three birds rested fence rail., Small birds rested on rail..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "Three small birds rested on the fence rail.",
+            "Three birds rested fence rail.",
+            "Small birds rested on rail."
+          ],
+          "audio": {
+            "text": "Three small birds rested on the fence rail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_FL_001_LVL2",
+      "label": "Level 2: Phrasing",
+      "focus": "Practice phrasing for fluent grade-level reading.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_FL_001_LVL2_Q01",
+          "sentence": "After lunch / the students / returned to the classroom.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which phrase chunk is best for the beginning of the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "After lunch",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is After lunch because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 After lunch fits the reading clue.",
+          "question_audio": {
+            "text": "Which phrase chunk is best for the beginning of the sentence? Choices: After lunch, After lunch the, lunch the students.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "After lunch",
+            "After lunch the",
+            "lunch the students"
+          ],
+          "audio": {
+            "text": "After lunch / the students / returned to the classroom.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q02",
+          "sentence": "The little boat / drifted across / the sparkling pond.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Choose the phrase that belongs together.",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "the sparkling pond",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is the sparkling pond because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 the sparkling pond fits the reading clue.",
+          "question_audio": {
+            "text": "Choose the phrase that belongs together. Choices: the sparkling pond, pond drifted, boat drifted across the.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "the sparkling pond",
+            "pond drifted",
+            "boat drifted across the"
+          ],
+          "audio": {
+            "text": "The little boat / drifted across / the sparkling pond.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q03",
+          "sentence": "Before the storm / Dad closed / every window.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Complete the phrase: Before the ___",
+          "question_type": "sentence_completion",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "storm",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is storm because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 storm fits the reading clue.",
+          "question_audio": {
+            "text": "Complete the phrase: Before the ___",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the storm / Dad closed / every window.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "storm"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q04",
+          "sentence": "At the museum / we studied / the dinosaur bones.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which reading pause sounds smooth?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "At the museum / we studied / the dinosaur bones.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is At the museum / we studied / the dinosaur bones. because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 At the museum / we studied / the dinosaur bones. fits the reading clue.",
+          "question_audio": {
+            "text": "Which reading pause sounds smooth? Choices: At the museum / we studied / the dinosaur bones., At / the museum we / studied the dinosaur bones., At the museum we studied the / dinosaur bones..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "At the museum / we studied / the dinosaur bones.",
+            "At / the museum we / studied the dinosaur bones.",
+            "At the museum we studied the / dinosaur bones."
+          ],
+          "audio": {
+            "text": "At the museum / we studied / the dinosaur bones.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q05",
+          "sentence": "The soccer team / practiced passing / after school.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which words make the action phrase?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "practiced passing",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is practiced passing because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 practiced passing fits the reading clue.",
+          "question_audio": {
+            "text": "Which words make the action phrase? Choices: practiced passing, team practiced, after school passing.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "practiced passing",
+            "team practiced",
+            "after school passing"
+          ],
+          "audio": {
+            "text": "The soccer team / practiced passing / after school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q06",
+          "sentence": "Under the oak tree / a squirrel / buried an acorn.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Write the first phrase chunk.",
+          "question_type": "short_response",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "Under the oak tree",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is Under the oak tree because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 Under the oak tree fits the reading clue.",
+          "question_audio": {
+            "text": "Write the first phrase chunk.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Under the oak tree / a squirrel / buried an acorn.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Under the oak tree"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q07",
+          "sentence": "During art class / Naomi mixed / blue and yellow paint.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which chunk tells when?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "During art class",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is During art class because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 During art class fits the reading clue.",
+          "question_audio": {
+            "text": "Which chunk tells when? Choices: During art class, Naomi mixed, blue and yellow paint.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "During art class",
+            "Naomi mixed",
+            "blue and yellow paint"
+          ],
+          "audio": {
+            "text": "During art class / Naomi mixed / blue and yellow paint.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q08",
+          "sentence": "The friendly librarian / helped us find / a mystery book.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which chunk names the person?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "The friendly librarian",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is The friendly librarian because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 The friendly librarian fits the reading clue.",
+          "question_audio": {
+            "text": "Which chunk names the person? Choices: The friendly librarian, helped us, a mystery book.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "The friendly librarian",
+            "helped us",
+            "a mystery book"
+          ],
+          "audio": {
+            "text": "The friendly librarian / helped us find / a mystery book.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q09",
+          "sentence": "Near the playground / two butterflies / floated in the air.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Complete the place phrase: Near the ___",
+          "question_type": "sentence_completion",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "playground",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is playground because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 playground fits the reading clue.",
+          "question_audio": {
+            "text": "Complete the place phrase: Near the ___",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Near the playground / two butterflies / floated in the air.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "playground"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL2_Q10",
+          "sentence": "With a careful smile / Jalen read / the final line.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which phrasing is smoothest?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "With a careful smile / Jalen read / the final line.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is With a careful smile / Jalen read / the final line. because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 With a careful smile / Jalen read / the final line. fits the reading clue.",
+          "question_audio": {
+            "text": "Which phrasing is smoothest? Choices: With a careful smile / Jalen read / the final line., With a / careful smile Jalen / read the final line., With a careful smile Jalen / read the / final line..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "With a careful smile / Jalen read / the final line.",
+            "With a / careful smile Jalen / read the final line.",
+            "With a careful smile Jalen / read the / final line."
+          ],
+          "audio": {
+            "text": "With a careful smile / Jalen read / the final line.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_FL_001_LVL3",
+      "label": "Level 3: Punctuation and Expression",
+      "focus": "Practice punctuation and expression for fluent grade-level reading.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_FL_001_LVL3_Q01",
+          "sentence": "Did you remember your library card?",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "How should your voice sound at the end?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "like a question",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is like a question because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 like a question fits the reading clue.",
+          "question_audio": {
+            "text": "How should your voice sound at the end? Choices: like a question, like a list, like a whisper.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "like a question",
+            "like a list",
+            "like a whisper"
+          ],
+          "audio": {
+            "text": "Did you remember your library card?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q02",
+          "sentence": "Watch out! The puppy is chasing your kite!",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which punctuation tells you to read with excitement?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "exclamation mark",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is exclamation mark because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 exclamation mark fits the reading clue.",
+          "question_audio": {
+            "text": "Which punctuation tells you to read with excitement? Choices: exclamation mark, comma, period.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "exclamation mark",
+            "comma",
+            "period"
+          ],
+          "audio": {
+            "text": "Watch out! The puppy is chasing your kite!",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q03",
+          "sentence": "When the bell rang, we lined up quietly.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "What should you do at the comma?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "pause briefly",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is pause briefly because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 pause briefly fits the reading clue.",
+          "question_audio": {
+            "text": "What should you do at the comma? Choices: pause briefly, stop forever, skip the next word.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "pause briefly",
+            "stop forever",
+            "skip the next word"
+          ],
+          "audio": {
+            "text": "When the bell rang, we lined up quietly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q04",
+          "sentence": "The garden is full of beans, carrots, and peas.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Complete: Commas in a list tell readers to ___ between items.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "pause",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is pause because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 pause fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: Commas in a list tell readers to ___ between items.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The garden is full of beans, carrots, and peas.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "pause"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q05",
+          "sentence": "I cannot wait for the science fair!",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which voice matches the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "excited",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is excited because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 excited fits the reading clue.",
+          "question_audio": {
+            "text": "Which voice matches the sentence? Choices: excited, bored, confused.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "excited",
+            "bored",
+            "confused"
+          ],
+          "audio": {
+            "text": "I cannot wait for the science fair!",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q06",
+          "sentence": "Please close the door softly.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which expression best fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "calm request",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is calm request because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 calm request fits the reading clue.",
+          "question_audio": {
+            "text": "Which expression best fits? Choices: calm request, shouted warning, surprised question.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "calm request",
+            "shouted warning",
+            "surprised question"
+          ],
+          "audio": {
+            "text": "Please close the door softly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q07",
+          "sentence": "Where did the trail map go?",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Write the punctuation mark that guides your question voice.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "?",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ? because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 ? fits the reading clue.",
+          "question_audio": {
+            "text": "Write the punctuation mark that guides your question voice.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Where did the trail map go?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "?"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q08",
+          "sentence": "The kitten slept on the chair.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "How should this sentence end?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "with a stopping voice",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is with a stopping voice because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 with a stopping voice fits the reading clue.",
+          "question_audio": {
+            "text": "How should this sentence end? Choices: with a stopping voice, with a question voice, with surprise.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "with a stopping voice",
+            "with a question voice",
+            "with surprise"
+          ],
+          "audio": {
+            "text": "The kitten slept on the chair.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q09",
+          "sentence": "Amazing, we found the missing key!",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which word should sound excited?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "Amazing",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is Amazing because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 Amazing fits the reading clue.",
+          "question_audio": {
+            "text": "Which word should sound excited? Choices: Amazing, missing, key.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "Amazing",
+            "missing",
+            "key"
+          ],
+          "audio": {
+            "text": "Amazing, we found the missing key!",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL3_Q10",
+          "sentence": "First wash the berries, then slice them.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "What does the comma signal?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "a brief pause",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is a brief pause because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 a brief pause fits the reading clue.",
+          "question_audio": {
+            "text": "What does the comma signal? Choices: a brief pause, a louder voice, a skipped word.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "a brief pause",
+            "a louder voice",
+            "a skipped word"
+          ],
+          "audio": {
+            "text": "First wash the berries, then slice them.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_FL_001_LVL4",
+      "label": "Level 4: Repeated Reading",
+      "focus": "Practice repeated reading for fluent grade-level reading.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_FL_001_LVL4_Q01",
+          "sentence": "The river sparkled as it twisted through the valley.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "What is the best reason to reread this sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "to make it smoother and more accurate",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is to make it smoother and more accurate because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 to make it smoother and more accurate fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best reason to reread this sentence? Choices: to make it smoother and more accurate, to skip the long words, to read it only in your head.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "to make it smoother and more accurate",
+            "to skip the long words",
+            "to read it only in your head"
+          ],
+          "audio": {
+            "text": "The river sparkled as it twisted through the valley.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q02",
+          "sentence": "The shy fox peeked from behind the fern.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "After a first choppy read, what should you improve?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "smooth phrasing",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is smooth phrasing because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 smooth phrasing fits the reading clue.",
+          "question_audio": {
+            "text": "After a first choppy read, what should you improve? Choices: smooth phrasing, fewer words, a different sentence.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "smooth phrasing",
+            "fewer words",
+            "a different sentence"
+          ],
+          "audio": {
+            "text": "The shy fox peeked from behind the fern.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q03",
+          "sentence": "Can you hear the crickets singing after sunset?",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Reread the sentence and complete: A question mark means my voice should ___ at the end.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "sound like a question",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is sound like a question because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 sound like a question fits the reading clue.",
+          "question_audio": {
+            "text": "Reread the sentence and complete: A question mark means my voice should ___ at the end.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Can you hear the crickets singing after sunset?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "sound like a question"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q04",
+          "sentence": "The old train rumbled slowly into the station.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which goal fits repeated reading?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "read with fewer stops",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is read with fewer stops because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 read with fewer stops fits the reading clue.",
+          "question_audio": {
+            "text": "Which goal fits repeated reading? Choices: read with fewer stops, change the words, ignore punctuation.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "read with fewer stops",
+            "change the words",
+            "ignore punctuation"
+          ],
+          "audio": {
+            "text": "The old train rumbled slowly into the station.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q05",
+          "sentence": "Great job, team! We finished the garden path.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "What can rereading help you add?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "expression",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is expression because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 expression fits the reading clue.",
+          "question_audio": {
+            "text": "What can rereading help you add? Choices: expression, missing errors, new words.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "expression",
+            "missing errors",
+            "new words"
+          ],
+          "audio": {
+            "text": "Great job, team! We finished the garden path.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q06",
+          "sentence": "The tiny mouse dashed under the wooden bench.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Write one thing to check on a repeated read.",
+          "question_type": "short_response",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "accuracy",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is accuracy because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 accuracy fits the reading clue.",
+          "question_audio": {
+            "text": "Write one thing to check on a repeated read.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The tiny mouse dashed under the wooden bench.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "accuracy"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q07",
+          "sentence": "Before sunrise, the campers packed their tents.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which second-read focus uses the comma?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "pause after Before sunrise",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is pause after Before sunrise because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 pause after Before sunrise fits the reading clue.",
+          "question_audio": {
+            "text": "Which second-read focus uses the comma? Choices: pause after Before sunrise, skip Before sunrise, make every word loud.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "pause after Before sunrise",
+            "skip Before sunrise",
+            "make every word loud"
+          ],
+          "audio": {
+            "text": "Before sunrise, the campers packed their tents.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q08",
+          "sentence": "The parade music echoed down the street.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "What fluency goal matches this sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "read smoothly in phrases",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is read smoothly in phrases because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 read smoothly in phrases fits the reading clue.",
+          "question_audio": {
+            "text": "What fluency goal matches this sentence? Choices: read smoothly in phrases, read backward, skip small words.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "read smoothly in phrases",
+            "read backward",
+            "skip small words"
+          ],
+          "audio": {
+            "text": "The parade music echoed down the street.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q09",
+          "sentence": "Why is the hallway so quiet today?",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "On a reread, what expression should you use?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "curious question voice",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is curious question voice because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 curious question voice fits the reading clue.",
+          "question_audio": {
+            "text": "On a reread, what expression should you use? Choices: curious question voice, flat robot voice, angry shout.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "curious question voice",
+            "flat robot voice",
+            "angry shout"
+          ],
+          "audio": {
+            "text": "Why is the hallway so quiet today?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_LVL4_Q10",
+          "sentence": "The bright lantern swung gently in the wind.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Complete: Rereading helps a reader sound more ___.",
+          "question_type": "sentence_completion",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "fluent",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is fluent because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 fluent fits the reading clue.",
+          "question_audio": {
+            "text": "Complete: Rereading helps a reader sound more ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The bright lantern swung gently in the wind.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "fluent"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_FL_001_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave accuracy, phrasing, punctuation, expression, and repeated reading.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_FL_001_MIXED_Q01",
+          "sentence": "The clever rabbit slipped under the garden gate.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which reading keeps every word from the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "The clever rabbit slipped under the garden gate.",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is The clever rabbit slipped under the garden gate. because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 The clever rabbit slipped under the garden gate. fits the reading clue.",
+          "question_audio": {
+            "text": "Which reading keeps every word from the sentence? Choices: The clever rabbit slipped under the garden gate., The rabbit slipped garden gate., The clever rabbit under gate..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "The clever rabbit slipped under the garden gate.",
+            "The rabbit slipped garden gate.",
+            "The clever rabbit under gate."
+          ],
+          "audio": {
+            "text": "The clever rabbit slipped under the garden gate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q02",
+          "sentence": "Maya carried a basket of smooth stones to the creek.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which word must you not skip when reading this sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "smooth",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is smooth because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 smooth fits the reading clue.",
+          "question_audio": {
+            "text": "Which word must you not skip when reading this sentence? Choices: smooth, basket, Maya.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "smooth",
+            "basket",
+            "Maya"
+          ],
+          "audio": {
+            "text": "Maya carried a basket of smooth stones to the creek.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q03",
+          "sentence": "The hikers followed the narrow trail beside the lake.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Complete the sentence exactly: The hikers followed the ___ trail beside the lake.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "narrow",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The answer is narrow because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 narrow fits the reading clue.",
+          "question_audio": {
+            "text": "Complete the sentence exactly: The hikers followed the ___ trail beside the lake.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The hikers followed the narrow trail beside the lake.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "narrow"
+          ]
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q04",
+          "sentence": "After lunch / the students / returned to the classroom.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which phrase chunk is best for the beginning of the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "After lunch",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is After lunch because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 After lunch fits the reading clue.",
+          "question_audio": {
+            "text": "Which phrase chunk is best for the beginning of the sentence? Choices: After lunch, After lunch the, lunch the students.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "After lunch",
+            "After lunch the",
+            "lunch the students"
+          ],
+          "audio": {
+            "text": "After lunch / the students / returned to the classroom.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q05",
+          "sentence": "The little boat / drifted across / the sparkling pond.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Choose the phrase that belongs together.",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "the sparkling pond",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is the sparkling pond because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 the sparkling pond fits the reading clue.",
+          "question_audio": {
+            "text": "Choose the phrase that belongs together. Choices: the sparkling pond, pond drifted, boat drifted across the.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "the sparkling pond",
+            "pond drifted",
+            "boat drifted across the"
+          ],
+          "audio": {
+            "text": "The little boat / drifted across / the sparkling pond.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q06",
+          "sentence": "Did you remember your library card?",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "How should your voice sound at the end?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "like a question",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is like a question because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 like a question fits the reading clue.",
+          "question_audio": {
+            "text": "How should your voice sound at the end? Choices: like a question, like a list, like a whisper.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "like a question",
+            "like a list",
+            "like a whisper"
+          ],
+          "audio": {
+            "text": "Did you remember your library card?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q07",
+          "sentence": "Watch out! The puppy is chasing your kite!",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "Which punctuation tells you to read with excitement?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "exclamation mark",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is exclamation mark because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 exclamation mark fits the reading clue.",
+          "question_audio": {
+            "text": "Which punctuation tells you to read with excitement? Choices: exclamation mark, comma, period.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "exclamation mark",
+            "comma",
+            "period"
+          ],
+          "audio": {
+            "text": "Watch out! The puppy is chasing your kite!",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q08",
+          "sentence": "When the bell rang, we lined up quietly.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "What should you do at the comma?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "pause briefly",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is pause briefly because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 pause briefly fits the reading clue.",
+          "question_audio": {
+            "text": "What should you do at the comma? Choices: pause briefly, stop forever, skip the next word.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "pause briefly",
+            "stop forever",
+            "skip the next word"
+          ],
+          "audio": {
+            "text": "When the bell rang, we lined up quietly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q09",
+          "sentence": "The river sparkled as it twisted through the valley.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "What is the best reason to reread this sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "to make it smoother and more accurate",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The answer is to make it smoother and more accurate because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 to make it smoother and more accurate fits the reading clue.",
+          "question_audio": {
+            "text": "What is the best reason to reread this sentence? Choices: to make it smoother and more accurate, to skip the long words, to read it only in your head.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "to make it smoother and more accurate",
+            "to skip the long words",
+            "to read it only in your head"
+          ],
+          "audio": {
+            "text": "The river sparkled as it twisted through the valley.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        },
+        {
+          "question_id": "G3E_FL_001_MIXED_Q10",
+          "sentence": "The shy fox peeked from behind the fern.",
+          "fluency_scores": {
+            "accuracy": 90,
+            "smoothness": 82,
+            "expression": 78
+          },
+          "prompt": "After a first choppy read, what should you improve?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "smooth phrasing",
+          "hints": [
+            "Reread the important words.",
+            "Use the model or clue before answering.",
+            "Check that your answer matches the whole sentence or text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The answer is smooth phrasing because fluent reading keeps meaning clear.",
+          "feedback": "Yes \u2014 smooth phrasing fits the reading clue.",
+          "question_audio": {
+            "text": "After a first choppy read, what should you improve? Choices: smooth phrasing, fewer words, a different sentence.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "smooth phrasing",
+            "fewer words",
+            "a different sentence"
+          ],
+          "audio": {
+            "text": "The shy fox peeked from behind the fern.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          }
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Reading Fluency and Expression. In this mission, you will read grade-level text accurately, smoothly, and with expression while helping a reader solve a real classroom task. Listen to the story goal, look for the reading strategy, and Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This mini lesson teaches you how to read every word, group phrases smoothly, and let punctuation guide expression. Read the objective, look at the visual model, and think about the watch-out mistake before answering. Press Next to continue after you can say the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this worked example carefully because it shows the whole thinking path. Step one, read the prompt or passage. Step two, use the model to find the clue. Step three, check that the final answer matches the text before you Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo lets you try the strategy with support. Listen to the example, look at the model, and think about why the answer fits. Press Next to continue when you are ready for independent practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This is your Practice zone for Reading Fluency and Expression. Use Read Question to hear the prompt, then reread the sentence or passage yourself. Choose your answer when you are ready, and Use the hint if you need help.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This Challenge zone asks you to apply the same strategy with a little more independence. Use Read Question first, listen for any helpful audio, and check the model before answering. Answer carefully, then continue once your choice matches the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This Checkpoint shows what you can do after the lesson and challenge. Use Read Question to hear the prompt, then prove your answer with the reading strategy. Answer carefully, then continue to see how your work earns growth credit.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge screen for Reading Fluency and Expression. Think about one strategy you used well, such as rereading, checking a clue, or proving an answer. Press Next to see your profile and keep building your Grade 3 English skills.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page summarizes your growth for Reading Fluency and Expression. Read your accuracy, check any misconception notes, and notice the recommended next step. Continue to Skill Practice or go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
