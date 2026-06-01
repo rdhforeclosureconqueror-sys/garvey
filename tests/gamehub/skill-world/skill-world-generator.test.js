@@ -1478,6 +1478,47 @@ assert.match(VisualRegistry.render({visual_model:'place_value_chart',value:10000
 assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='expanded_form'&&q.value===405020)),/405,020|405020/,'expanded_form renderer handles multi-digit numbers with zeros');
 assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='number_line')),/data-renderer="number_line"/,'number_line renderer handles Grade 4 values');
 assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='rounding_model'&&q.round_to>=100000)),/data-renderer="rounding_model"/,'rounding_model renderer handles Grade 4 values');
+
+
+const g5DecimalPlaceValue=load('G5M_NBT_001');
+const g5Questions=[...(g5DecimalPlaceValue.guided_practice||[]),...(g5DecimalPlaceValue.adaptive_question_bank||[]),...(g5DecimalPlaceValue.checkpoint||[]),...(g5DecimalPlaceValue.level_banks||[]).flatMap((level)=>level.questions||[])];
+assert.equal(Schema.validateSkillPackage(g5DecimalPlaceValue,{allowPlannedLevelBanks:false}).valid,true,'G5M_NBT_001 validates in strict production mode');
+assert.equal(g5DecimalPlaceValue.grade,5,'G5M_NBT_001 is Grade 5');
+assert.equal(g5DecimalPlaceValue.subject,'Math','G5M_NBT_001 is Math');
+assert.equal(g5DecimalPlaceValue.domain,'Number and Operations in Base Ten','G5M_NBT_001 domain matches plan');
+assert.equal(g5DecimalPlaceValue.skill,'Place Value With Decimals','G5M_NBT_001 title matches plan');
+assert.deepEqual(Renderer.stepLabels(g5DecimalPlaceValue),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'G5M_NBT_001 full Skill World flow exists');
+assert.equal(Array.isArray(g5DecimalPlaceValue.level_banks),true,'G5M_NBT_001 has real level_banks');
+assert.equal(g5DecimalPlaceValue.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G5M_NBT_001 has four focused levels');
+assert.equal(g5DecimalPlaceValue.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,'G5M_NBT_001 has Mixed level');
+g5DecimalPlaceValue.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+['Level 1: Whole Number Place Value Review','Level 2: Decimal Place Value to Thousandths','Level 3: Powers of 10 and Place Value Shifts','Level 4: Compare and Round Decimals','Mixed'].forEach((label)=>assert.ok(g5DecimalPlaceValue.level_banks.some((level)=>level.label===label),`G5M_NBT_001 includes ${label}`));
+['place_value_chart','decimal_grid','number_line','rounding_model'].forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+['place_value_chart','decimal_grid','number_line','rounding_model'].forEach((visual)=>assert.ok(g5Questions.some((q)=>q.visual_model===visual),`G5M_NBT_001 includes ${visual}`));
+['multiple_choice','short_response','comparison','rounding'].forEach((type)=>assert.ok(g5Questions.some((q)=>q.question_type===type),`G5M_NBT_001 includes ${type}`));
+['decimal_place_value_confusion','decimal_length_error','power_of_ten_shift_error','rounding_decimal_error'].forEach((tag)=>assert.ok(g5DecimalPlaceValue.misconception_bank[tag],`G5M_NBT_001 includes misconception ${tag}`));
+assert.ok(g5Questions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G5M_NBT_001 short-response items have acceptable_answers');
+['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>{const audio=g5DecimalPlaceValue.page_audio?.[screen]; assert.ok(audio?.text,`G5M_NBT_001 has Read This Page narration for ${screen}`); assert.equal(audio.label,'Read This Page',`G5M_NBT_001 ${screen} uses Read This Page label`); assert.ok(audio.text.split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`G5M_NBT_001 ${screen} has tutor-quality narration`);});
+['practice','challenge','checkpoint'].forEach((screen)=>assert.match(g5DecimalPlaceValue.page_audio[screen].text,/Read Question/,`G5M_NBT_001 ${screen} references Read Question`));
+[...(g5DecimalPlaceValue.guided_practice||[]),...(g5DecimalPlaceValue.adaptive_question_bank||[]),...(g5DecimalPlaceValue.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+g5DecimalPlaceValue.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} practice question has Read Question narration`));
+const g5MissionHtml=Renderer.renderSkillWorld(g5DecimalPlaceValue,{failClosed:true}).html;
+['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g5MissionHtml,new RegExp(label),`G5M_NBT_001 mission renders ${label}`));
+assert.match(g5MissionHtml,/Continue to Skill Practice/,'G5M_NBT_001 profile links to Skill Practice Center');
+const g5DrillHtml=Renderer.renderSkillWorld(g5DecimalPlaceValue,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+assert.match(g5DrillHtml,/Skill Practice Center/,'G5M_NBT_001 Practice This Skill route renders Skill Practice Center');
+const g5DecimalGridHtml=VisualRegistry.render(g5Questions.find((q)=>q.visual_model==='decimal_grid'));
+assert.match(g5DecimalGridHtml,/data-renderer="decimal_grid"/,'decimal_grid renderer output exists');
+assert.match(g5DecimalGridHtml,/decimal-grid-cell/g,'decimal_grid renders real visual cells');
+assert.match(g5DecimalGridHtml,/decimal-grid-cell[^>]+shaded/,'decimal_grid renders shaded parts');
+assert.doesNotMatch(g5DecimalGridHtml,/placeholder|coming soon/i,'decimal_grid does not render placeholder text');
+assert.match(VisualRegistry.render({visual_model:'place_value_chart',value:6.482,tenths:4,hundredths:8,thousandths:2,place:'thousandths'}),/Thousandths/,'place_value_chart handles decimals to thousandths');
+assert.match(VisualRegistry.render(g5Questions.find((q)=>q.visual_model==='number_line'&&String(q.prompt).includes('0.4'))),/0\.4|0\.400|decimal benchmark/,'number_line renders decimal values');
+assert.match(VisualRegistry.render(g5Questions.find((q)=>q.visual_model==='rounding_model')),/3\.46|3\.5|data-renderer="rounding_model"/,'rounding_model renders decimal values');
+const g5Manifest=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
+assert.ok(g5Manifest.packages.includes('G5M_NBT_001.skill-package.v1.json'),'manifest includes G5M_NBT_001');
+assert.equal(`/skill-world/${encodeURIComponent('G5M_NBT_001')}/drill`,'/skill-world/G5M_NBT_001/drill','Practice This Skill route exists for G5M_NBT_001');
+
 const g4Manifest=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
 assert.ok(g4Manifest.packages.includes('G4M_NBT_001.skill-package.v1.json'),'manifest includes G4M_NBT_001');
 assert.equal(`/skill-world/${encodeURIComponent('G4M_NBT_001')}/drill`,'/skill-world/G4M_NBT_001/drill','Practice This Skill route exists for G4M_NBT_001');

@@ -323,6 +323,30 @@ test('Grade 4 Math Place Value Skill World package appears from manifest for the
   assert.match(hub, /Practice This Skill/);
 });
 
+
+
+test('Grade 5 Math decimal place value Skill World package appears from manifest for the hub', () => {
+  assert.ok(manifest.packages.includes('G5M_NBT_001.skill-package.v1.json'), 'manifest includes G5M_NBT_001');
+  const packages = manifest.packages.map(readPackage);
+  const g5 = packages.find((pkg) => pkg.skill_id === 'G5M_NBT_001');
+  assert.ok(g5, 'G5M_NBT_001 package loads from manifest');
+  assert.equal(g5.grade, 5);
+  assert.equal(g5.subject, 'Math');
+  assert.equal(g5.domain, 'Number and Operations in Base Ten');
+  assert.equal(g5.skill, 'Place Value With Decimals');
+  assert.equal(Array.isArray(g5.level_banks), true);
+  assert.equal(g5.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+  assert.equal(g5.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+  assert.equal(g5.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+  assert.equal(`/skill-world/${encodeURIComponent(g5.skill_id)}/drill`, '/skill-world/G5M_NBT_001/drill');
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /title:pkg\.skill/);
+  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});
+
 test('Grade 4 operations and base-ten Skill World packages appear from manifest for the hub', () => {
   const expectedGrade4 = new Map([
     ['G4M_OA_001', { skill: 'Multiplicative Comparison and Patterns', domain: 'Operations and Algebraic Thinking' }],
