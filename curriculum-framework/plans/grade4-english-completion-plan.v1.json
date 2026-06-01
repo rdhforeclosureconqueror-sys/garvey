@@ -1,0 +1,1133 @@
+{
+  "plan_id": "grade4-english-completion-plan.v1",
+  "grade": 4,
+  "subject": "English",
+  "status": "planning_only_no_packages_implemented",
+  "production_standard": [
+    "SkillPackage JSON is the source of truth for skill content, question banks, level banks, misconceptions, lesson assets, theme metadata, voice metadata, and readiness checkpoint metadata.",
+    "The Skill World generator produces the Guided Mission and Skill Practice Center; do not create one-off games or package-specific bespoke flows.",
+    "Every Guided Mission follows Story -> Lesson -> Watch -> Demo -> Practice -> Challenge -> Checkpoint -> Badge -> Profile.",
+    "Every Skill Practice Center includes at least four focused levels plus Mixed; each focused level and Mixed contains 10-12 production questions.",
+    "Packages are exposed through manifest-driven hub discovery, not hardcoded Grade 4 English cards or placeholder routes.",
+    "Every production package includes full voice support, cached AI audio route compatibility through /api/skill-world/audio, and browser speech fallback."
+  ],
+  "renderer_fit_decision": {
+    "decision": "partial_support",
+    "summary": "Existing Grades 1-3 English plus Grade 4+ Skill World renderer support can carry most Grade 4 English production needs. The runtime already includes the Grade 3 literacy extensions for fluency, evidence, theme, text features, dialogue, grammar, and sentence combining. Full Grade 4 English production still needs two reusable renderer additions before all packages can be completed.",
+    "existing_renderers_reusable": [
+      "character_trait_chart",
+      "context_sentence",
+      "detail_cards",
+      "dialogue_builder",
+      "event_cards",
+      "evidence_highlight",
+      "fact_cards",
+      "fluency_meter",
+      "grammar_highlight",
+      "main_idea_web",
+      "morpheme_tiles",
+      "opinion_reason_chart",
+      "paragraph_builder",
+      "phrase_builder",
+      "punctuation_marker",
+      "question_card",
+      "sentence_builder",
+      "sentence_card",
+      "sentence_combiner",
+      "sentence_highlight",
+      "short_passage",
+      "story_map",
+      "story_sequence",
+      "syllable_break",
+      "text_evidence_builder",
+      "text_feature_map",
+      "theme_tracker",
+      "topic_detail_chart",
+      "vocabulary_match",
+      "word_builder",
+      "word_parts",
+      "word_scale",
+      "writing_checklist"
+    ],
+    "new_renderers_required": [
+      "figurative_language_card",
+      "text_structure_chart"
+    ]
+  },
+  "schema_updates_needed": [
+    "Add `figurative_language_card` and `text_structure_chart` to the SkillPackage schema/runtime visual model allowlist and the visual model registry before authoring dependent packages.",
+    "Confirm Grade 4 English reuses existing visual models already present in the Grade 3+ runtime: `fluency_meter`, `word_scale`, `text_evidence_builder`, `character_trait_chart`, `theme_tracker`, `text_feature_map`, `dialogue_builder`, `grammar_highlight`, and `sentence_combiner`.",
+    "Keep validation strict for literacy `level_banks`: exactly the four named focused levels plus Mixed for this plan, 10-12 questions per level, stable level ids, mastery threshold metadata, and no placeholder cards.",
+    "Confirm question-type handling for `multiple_choice`, `short_response`, `word_building`, `sentence_completion`, `vocabulary_match`, `text_evidence`, `sequencing`, `detail_match`, `writing_response`, and `editing`.",
+    "Add or document Grade 4 English item metadata for syllable divisions, affixes, roots, vowel patterns, fluency phrasing, expression cues, context clue spans, figurative language labels, evidence spans, text structures, text features, writing rubric dimensions, grammar targets, and acceptable answer forms.",
+    "Require stable audio keys/text fields for page narration, question narration, listen audio, cached AI audio, and browser fallback text in every package."
+  ],
+  "writing_validation_updates_needed": [
+    "Opinion writing validation must check for a clear opinion, aligned reasons, relevant evidence, linking words, and a conclusion.",
+    "Informative writing validation must check for topic introduction, accurate facts/definitions/details, useful formatting or linking words when prompted, and a conclusion.",
+    "Narrative writing validation must check event sequence, transitions, descriptive details, dialogue conventions when prompted, and closure.",
+    "Grammar/conventions validation must support capitalization, punctuation, commas, quotation marks, relative pronouns/adverbs, progressive verb tenses, prepositional phrases, fragments, and sentence combining quality.",
+    "Short-response and writing-response validation should run deterministic rubric checks first, then optional review hooks only when privacy, safety, and teacher-review policies are defined.",
+    "Text-evidence responses must validate selected or cited evidence spans and distinguish supported inference from unsupported guessing."
+  ],
+  "voice_requirements": [
+    "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+    "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+    "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+    "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+    "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+    "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+    "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+  ],
+  "passage_and_listen_audio_needs": [
+    "Fluency packages need listenable model sentences/passages for accuracy, phrasing, punctuation, expression, and repeated reading.",
+    "Vocabulary packages need listen audio for target words, idioms, similes, metaphors, example sentences, and shades-of-meaning comparisons.",
+    "Reading comprehension/literature/informational packages need listen audio for short passages, question stems, evidence options, and selected text spans.",
+    "Writing and language packages need listen audio for model sentences, dialogue, paragraph examples, editing prompts, and sentence-combining options."
+  ],
+  "question_type_backlog": [
+    "detail_match",
+    "editing",
+    "multiple_choice",
+    "sentence_completion",
+    "sequencing",
+    "short_response",
+    "text_evidence",
+    "vocabulary_match",
+    "word_building",
+    "writing_response"
+  ],
+  "skills": [
+    {
+      "skill_id": "G4E_RF_001",
+      "title": "Advanced Word Analysis and Multisyllable Decoding",
+      "domain": "Reading Foundations / Phonics",
+      "focus": "decode multisyllable words using syllables, prefixes, suffixes, roots, and vowel patterns",
+      "levels": [
+        "Syllable Types",
+        "Prefixes and Suffixes",
+        "Roots and Word Parts",
+        "Multisyllable Decoding",
+        "Mixed"
+      ],
+      "visual_models": [
+        "syllable_break",
+        "word_parts",
+        "morpheme_tiles",
+        "word_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "word_building"
+      ],
+      "misconception_tags": [
+        "syllable_division_error",
+        "prefix_suffix_confusion",
+        "root_meaning_confusion",
+        "multisyllable_guessing"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_RF_001_LVL1",
+          "label": "Level 1: Syllable Types",
+          "focus": "Practice syllable types for decode multisyllable words using syllables, prefixes, suffixes, roots, and vowel patterns.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RF_001_LVL2",
+          "label": "Level 2: Prefixes and Suffixes",
+          "focus": "Practice prefixes and suffixes for decode multisyllable words using syllables, prefixes, suffixes, roots, and vowel patterns.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RF_001_LVL3",
+          "label": "Level 3: Roots and Word Parts",
+          "focus": "Practice roots and word parts for decode multisyllable words using syllables, prefixes, suffixes, roots, and vowel patterns.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RF_001_LVL4",
+          "label": "Level 4: Multisyllable Decoding",
+          "focus": "Practice multisyllable decoding for decode multisyllable words using syllables, prefixes, suffixes, roots, and vowel patterns.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RF_001_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for decode multisyllable words using syllables, prefixes, suffixes, roots, and vowel patterns.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_FL_001",
+      "title": "Reading Fluency, Accuracy, and Expression",
+      "domain": "Fluency",
+      "focus": "read grade-level text with accuracy, phrasing, pacing, and expression",
+      "levels": [
+        "Accuracy",
+        "Phrasing",
+        "Punctuation and Expression",
+        "Repeated Reading",
+        "Mixed"
+      ],
+      "visual_models": [
+        "sentence_card",
+        "sentence_highlight",
+        "phrase_builder",
+        "fluency_meter"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "skips_words",
+        "punctuation_ignored",
+        "phrase_chunking_error",
+        "expression_flat_reading"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_FL_001_LVL1",
+          "label": "Level 1: Accuracy",
+          "focus": "Practice accuracy for read grade-level text with accuracy, phrasing, pacing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_FL_001_LVL2",
+          "label": "Level 2: Phrasing",
+          "focus": "Practice phrasing for read grade-level text with accuracy, phrasing, pacing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_FL_001_LVL3",
+          "label": "Level 3: Punctuation and Expression",
+          "focus": "Practice punctuation and expression for read grade-level text with accuracy, phrasing, pacing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_FL_001_LVL4",
+          "label": "Level 4: Repeated Reading",
+          "focus": "Practice repeated reading for read grade-level text with accuracy, phrasing, pacing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_FL_001_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for read grade-level text with accuracy, phrasing, pacing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_VOC_001",
+      "title": "Vocabulary, Context Clues, and Figurative Language",
+      "domain": "Vocabulary / Language",
+      "focus": "use context clues, affixes/roots, synonyms/antonyms, idioms, similes, metaphors, and shades of meaning",
+      "levels": [
+        "Context Clues",
+        "Word Parts and Meanings",
+        "Synonyms, Antonyms, and Shades",
+        "Figurative Language",
+        "Mixed"
+      ],
+      "visual_models": [
+        "context_sentence",
+        "vocabulary_match",
+        "word_scale",
+        "figurative_language_card"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "vocabulary_match"
+      ],
+      "misconception_tags": [
+        "context_clue_ignored",
+        "affix_meaning_confusion",
+        "literal_vs_figurative_confusion",
+        "shade_of_meaning_confusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_VOC_001_LVL1",
+          "label": "Level 1: Context Clues",
+          "focus": "Practice context clues for use context clues, affixes/roots, synonyms/antonyms, idioms, similes, metaphors, and shades of meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_VOC_001_LVL2",
+          "label": "Level 2: Word Parts and Meanings",
+          "focus": "Practice word parts and meanings for use context clues, affixes/roots, synonyms/antonyms, idioms, similes, metaphors, and shades of meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_VOC_001_LVL3",
+          "label": "Level 3: Synonyms, Antonyms, and Shades",
+          "focus": "Practice synonyms, antonyms, and shades for use context clues, affixes/roots, synonyms/antonyms, idioms, similes, metaphors, and shades of meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_VOC_001_LVL4",
+          "label": "Level 4: Figurative Language",
+          "focus": "Practice figurative language for use context clues, affixes/roots, synonyms/antonyms, idioms, similes, metaphors, and shades of meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_VOC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for use context clues, affixes/roots, synonyms/antonyms, idioms, similes, metaphors, and shades of meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_RC_001",
+      "title": "Ask and Answer Questions With Text Evidence",
+      "domain": "Reading Comprehension",
+      "focus": "answer literal and inferential questions using evidence from the text",
+      "levels": [
+        "Literal Questions",
+        "Inferential Questions",
+        "Find Text Evidence",
+        "Explain Your Answer",
+        "Mixed"
+      ],
+      "visual_models": [
+        "short_passage",
+        "question_card",
+        "evidence_highlight",
+        "text_evidence_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "text_evidence"
+      ],
+      "misconception_tags": [
+        "unsupported_answer",
+        "inference_without_evidence",
+        "misses_text_evidence",
+        "question_word_confusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_RC_001_LVL1",
+          "label": "Level 1: Literal Questions",
+          "focus": "Practice literal questions for answer literal and inferential questions using evidence from the text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_001_LVL2",
+          "label": "Level 2: Inferential Questions",
+          "focus": "Practice inferential questions for answer literal and inferential questions using evidence from the text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_001_LVL3",
+          "label": "Level 3: Find Text Evidence",
+          "focus": "Practice find text evidence for answer literal and inferential questions using evidence from the text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_001_LVL4",
+          "label": "Level 4: Explain Your Answer",
+          "focus": "Practice explain your answer for answer literal and inferential questions using evidence from the text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for answer literal and inferential questions using evidence from the text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_RC_002",
+      "title": "Story Elements, Theme, and Character Analysis",
+      "domain": "Reading Literature",
+      "focus": "identify character, setting, plot, theme, point of view, and character response",
+      "levels": [
+        "Characters and Setting",
+        "Plot and Problem/Solution",
+        "Character Traits and Point of View",
+        "Theme / Lesson",
+        "Mixed"
+      ],
+      "visual_models": [
+        "story_map",
+        "character_trait_chart",
+        "event_cards",
+        "theme_tracker"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sequencing",
+        "text_evidence"
+      ],
+      "misconception_tags": [
+        "character_trait_confusion",
+        "point_of_view_confusion",
+        "theme_detail_confusion",
+        "sequence_order_error"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_RC_002_LVL1",
+          "label": "Level 1: Characters and Setting",
+          "focus": "Practice characters and setting for identify character, setting, plot, theme, point of view, and character response.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_002_LVL2",
+          "label": "Level 2: Plot and Problem/Solution",
+          "focus": "Practice plot and problem/solution for identify character, setting, plot, theme, point of view, and character response.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_002_LVL3",
+          "label": "Level 3: Character Traits and Point of View",
+          "focus": "Practice character traits and point of view for identify character, setting, plot, theme, point of view, and character response.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_002_LVL4",
+          "label": "Level 4: Theme / Lesson",
+          "focus": "Practice theme / lesson for identify character, setting, plot, theme, point of view, and character response.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_002_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for identify character, setting, plot, theme, point of view, and character response.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_RC_003",
+      "title": "Main Idea, Key Details, and Text Structure",
+      "domain": "Reading Informational Text",
+      "focus": "determine main idea, summarize key details, identify text structure, and use text features",
+      "levels": [
+        "Topic and Main Idea",
+        "Key Details and Summary",
+        "Text Structure",
+        "Text Features",
+        "Mixed"
+      ],
+      "visual_models": [
+        "short_passage",
+        "main_idea_web",
+        "detail_cards",
+        "text_feature_map",
+        "text_structure_chart"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "text_evidence",
+        "detail_match"
+      ],
+      "misconception_tags": [
+        "topic_main_idea_confusion",
+        "detail_selection_error",
+        "text_structure_confusion",
+        "text_feature_confusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_RC_003_LVL1",
+          "label": "Level 1: Topic and Main Idea",
+          "focus": "Practice topic and main idea for determine main idea, summarize key details, identify text structure, and use text features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_003_LVL2",
+          "label": "Level 2: Key Details and Summary",
+          "focus": "Practice key details and summary for determine main idea, summarize key details, identify text structure, and use text features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_003_LVL3",
+          "label": "Level 3: Text Structure",
+          "focus": "Practice text structure for determine main idea, summarize key details, identify text structure, and use text features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_003_LVL4",
+          "label": "Level 4: Text Features",
+          "focus": "Practice text features for determine main idea, summarize key details, identify text structure, and use text features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_RC_003_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for determine main idea, summarize key details, identify text structure, and use text features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_WR_001",
+      "title": "Opinion Writing With Reasons and Evidence",
+      "domain": "Writing / Composition",
+      "focus": "write opinion pieces with reasons, evidence, linking words, and conclusion",
+      "levels": [
+        "State an Opinion",
+        "Support With Reasons and Evidence",
+        "Linking Words and Conclusion",
+        "Build Opinion Paragraph",
+        "Mixed"
+      ],
+      "visual_models": [
+        "opinion_reason_chart",
+        "paragraph_builder",
+        "writing_checklist",
+        "sentence_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "missing_opinion",
+        "weak_reason",
+        "missing_evidence",
+        "missing_conclusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_WR_001_LVL1",
+          "label": "Level 1: State an Opinion",
+          "focus": "Practice state an opinion for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_001_LVL2",
+          "label": "Level 2: Support With Reasons and Evidence",
+          "focus": "Practice support with reasons and evidence for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_001_LVL3",
+          "label": "Level 3: Linking Words and Conclusion",
+          "focus": "Practice linking words and conclusion for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_001_LVL4",
+          "label": "Level 4: Build Opinion Paragraph",
+          "focus": "Practice build opinion paragraph for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_001_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_WR_002",
+      "title": "Informative Writing With Facts and Details",
+      "domain": "Writing / Composition",
+      "focus": "write informative/explanatory text with topic, facts, definitions, details, formatting, and conclusion",
+      "levels": [
+        "Choose a Topic",
+        "Add Facts, Definitions, and Details",
+        "Use Linking Words and Formatting",
+        "Build Informative Paragraph",
+        "Mixed"
+      ],
+      "visual_models": [
+        "topic_detail_chart",
+        "fact_cards",
+        "paragraph_builder",
+        "writing_checklist"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "missing_topic",
+        "unsupported_fact",
+        "missing_detail",
+        "missing_conclusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_WR_002_LVL1",
+          "label": "Level 1: Choose a Topic",
+          "focus": "Practice choose a topic for write informative/explanatory text with topic, facts, definitions, details, formatting, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_002_LVL2",
+          "label": "Level 2: Add Facts, Definitions, and Details",
+          "focus": "Practice add facts, definitions, and details for write informative/explanatory text with topic, facts, definitions, details, formatting, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_002_LVL3",
+          "label": "Level 3: Use Linking Words and Formatting",
+          "focus": "Practice use linking words and formatting for write informative/explanatory text with topic, facts, definitions, details, formatting, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_002_LVL4",
+          "label": "Level 4: Build Informative Paragraph",
+          "focus": "Practice build informative paragraph for write informative/explanatory text with topic, facts, definitions, details, formatting, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_002_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for write informative/explanatory text with topic, facts, definitions, details, formatting, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_WR_003",
+      "title": "Narrative Writing With Dialogue and Description",
+      "domain": "Writing / Composition",
+      "focus": "write narratives with sequence, dialogue, description, transitions, and closure",
+      "levels": [
+        "Sequence Events",
+        "Add Description",
+        "Dialogue and Transitions",
+        "Build Narrative",
+        "Mixed"
+      ],
+      "visual_models": [
+        "story_sequence",
+        "event_cards",
+        "paragraph_builder",
+        "dialogue_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sequencing"
+      ],
+      "misconception_tags": [
+        "event_order_error",
+        "missing_description",
+        "dialogue_punctuation_error",
+        "missing_closure"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_WR_003_LVL1",
+          "label": "Level 1: Sequence Events",
+          "focus": "Practice sequence events for write narratives with sequence, dialogue, description, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_003_LVL2",
+          "label": "Level 2: Add Description",
+          "focus": "Practice add description for write narratives with sequence, dialogue, description, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_003_LVL3",
+          "label": "Level 3: Dialogue and Transitions",
+          "focus": "Practice dialogue and transitions for write narratives with sequence, dialogue, description, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_003_LVL4",
+          "label": "Level 4: Build Narrative",
+          "focus": "Practice build narrative for write narratives with sequence, dialogue, description, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_WR_003_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for write narratives with sequence, dialogue, description, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    },
+    {
+      "skill_id": "G4E_LANG_001",
+      "title": "Grammar, Conventions, and Sentence Combining",
+      "domain": "Language",
+      "focus": "use capitalization, punctuation, commas, quotation marks, relative pronouns/adverbs, progressive verb tenses, prepositional phrases, and sentence combining",
+      "levels": [
+        "Capitalization and Punctuation",
+        "Commas and Quotation Marks",
+        "Grammar and Verb Tense",
+        "Sentence Combining",
+        "Mixed"
+      ],
+      "visual_models": [
+        "sentence_builder",
+        "punctuation_marker",
+        "grammar_highlight",
+        "sentence_combiner"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sentence_completion",
+        "editing"
+      ],
+      "misconception_tags": [
+        "capitalization_error",
+        "punctuation_error",
+        "verb_tense_error",
+        "sentence_fragment"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G4E_LANG_001_LVL1",
+          "label": "Level 1: Capitalization and Punctuation",
+          "focus": "Practice capitalization and punctuation for use capitalization, punctuation, commas, quotation marks, relative pronouns/adverbs, progressive verb tenses, prepositional phrases, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_LANG_001_LVL2",
+          "label": "Level 2: Commas and Quotation Marks",
+          "focus": "Practice commas and quotation marks for use capitalization, punctuation, commas, quotation marks, relative pronouns/adverbs, progressive verb tenses, prepositional phrases, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_LANG_001_LVL3",
+          "label": "Level 3: Grammar and Verb Tense",
+          "focus": "Practice grammar and verb tense for use capitalization, punctuation, commas, quotation marks, relative pronouns/adverbs, progressive verb tenses, prepositional phrases, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_LANG_001_LVL4",
+          "label": "Level 4: Sentence Combining",
+          "focus": "Practice sentence combining for use capitalization, punctuation, commas, quotation marks, relative pronouns/adverbs, progressive verb tenses, prepositional phrases, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G4E_LANG_001_MIXED",
+          "label": "Mixed",
+          "focus": "Practice mixed for use capitalization, punctuation, commas, quotation marks, relative pronouns/adverbs, progressive verb tenses, prepositional phrases, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "skill_practice_center": {
+        "focused_level_count": 4,
+        "mixed_level_count": 1,
+        "questions_per_level_min": 10,
+        "questions_per_level_max": 12
+      },
+      "voice_requirements": [
+        "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+        "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+        "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, or passage reading improves the task.",
+        "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+        "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+        "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, and text evidence prompts naturally."
+      ]
+    }
+  ],
+  "contractor_backlog": [
+    {
+      "work_id": "G4E-BLK-001",
+      "priority": "P0",
+      "area": "Schema/runtime contracts",
+      "description": "Add `figurative_language_card` and `text_structure_chart`; confirm all Grade 4 English question types and audio metadata fields validate."
+    },
+    {
+      "work_id": "G4E-BLK-002",
+      "priority": "P0",
+      "area": "Renderer implementation",
+      "description": "Implement reusable `figurative_language_card` and `text_structure_chart` renderers with fixtures, accessibility labels, and voice-friendly text surfaces."
+    },
+    {
+      "work_id": "G4E-BLK-003",
+      "priority": "P0",
+      "area": "Voice and cached audio",
+      "description": "Ensure Read This Page, Read Question, Listen audio, /api/skill-world/audio compatibility, and browser fallback work for all Grade 4 English mission and practice surfaces."
+    },
+    {
+      "work_id": "G4E-BLK-004",
+      "priority": "P0",
+      "area": "Writing validation",
+      "description": "Extend deterministic writing and editing validation for Grade 4 opinion, informative, narrative, grammar, conventions, and sentence-combining tasks."
+    },
+    {
+      "work_id": "G4E-BLK-005",
+      "priority": "P1",
+      "area": "Package production",
+      "description": "Author the ten Grade 4 English SkillPackage JSON files with guided mission content, level banks, misconception coverage, review banks, and no placeholder questions."
+    },
+    {
+      "work_id": "G4E-BLK-006",
+      "priority": "P1",
+      "area": "Manifest/hub exposure",
+      "description": "Add completed packages to the content manifest only after validation passes so the hub discovers them from manifest metadata rather than hardcoded cards."
+    },
+    {
+      "work_id": "G4E-BLK-007",
+      "priority": "P1",
+      "area": "QA and accessibility",
+      "description": "Run schema validation, content linting, audio fallback checks, keyboard checks, screen-reader label checks, and package-level smoke tests for every skill."
+    }
+  ]
+}
