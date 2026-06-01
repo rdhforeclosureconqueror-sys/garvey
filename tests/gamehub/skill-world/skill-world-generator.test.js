@@ -34,6 +34,8 @@ const g4DivisionRemainders=load('G4M_NBT_004');
 const g4FractionEquivalenceOrdering=load('G4M_FR_001');
 const g4AddSubtractFractions=load('G4M_FR_002');
 const g4MultiplyFractionsWholeNumbers=load('G4M_FR_003');
+const g4MeasurementConversionData=load('G4M_MD_001');
+const g4AnglesLinesShapes=load('G4M_GM_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -1532,6 +1534,11 @@ assert.match(VisualRegistry.render({visual_model:'algorithm_steps',operation:'+'
 assert.match(VisualRegistry.render({visual_model:'regrouping_model',trades:['trade one thousand']}),/data-renderer="regrouping_model"/,'regrouping_model renderer output exists');
 assert.match(VisualRegistry.render({visual_model:'estimation_number_line',exact:5791,estimate:6000}),/data-renderer="estimation_number_line"/,'estimation_number_line renderer output exists');
 assert.match(VisualRegistry.render({visual_model:'partial_products_model',partial_products:[180,24],correct_answer:204}),/data-renderer="partial_products_model"/,'partial_products_model renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'measurement_conversion_table',amount:3,from_unit:'feet',to_unit:'inches',factor:12,converted:36}),/data-renderer="measurement_conversion_table"/,'measurement_conversion_table renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'angle_model',angle_degrees:75,angle_type:'acute'}),/data-renderer="angle_model"/,'angle_model renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'protractor_model',angle_degrees:120}),/data-renderer="protractor_model"/,'protractor_model renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'line_relationships',relationship:'perpendicular'}),/data-renderer="line_relationships"/,'line_relationships renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'symmetry_model',shape:'rectangle',symmetry_lines:1}),/data-renderer="symmetry_model"/,'symmetry_model renderer output exists');
 
 
 const grade4DivisionFractionsPackages=[
@@ -1573,6 +1580,53 @@ grade4DivisionFractionsPackages.forEach(({pkg,id,domain,skill,labels,visuals,typ
   Renderer.selectLevel(drillState,0);
   const drillHtml=Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html;
   assert.match(drillHtml,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+
+
+const grade4FinalMeasurementGeometryPackages=[
+  {pkg:g4MeasurementConversionData,id:'G4M_MD_001',domain:'Measurement and Data',skill:'Measurement Conversion and Data',labels:['Level 1: Convert Larger to Smaller Units','Level 2: Measurement Word Problems','Level 3: Line Plots With Fractions','Level 4: Area and Perimeter Word Problems','Mixed'],visuals:['measurement_conversion_table','word_problem_model','line_plot','area_model','perimeter_path'],types:['multiple_choice','short_response','measurement','data_interpretation'],tags:['unit_conversion_direction_error','measurement_unit_confusion','line_plot_fraction_error','area_perimeter_confusion']},
+  {pkg:g4AnglesLinesShapes,id:'G4M_GM_001',domain:'Geometry',skill:'Angles, Lines, and Shape Classification',labels:['Level 1: Points, Lines, Rays, and Angles','Level 2: Measure and Draw Angles','Level 3: Parallel and Perpendicular Lines','Level 4: Classify Shapes and Symmetry','Mixed'],visuals:['angle_model','protractor_model','line_relationships','symmetry_model','shape_identification'],types:['multiple_choice','short_response','geometry_response'],tags:['angle_size_confusion','protractor_reading_error','parallel_perpendicular_confusion','symmetry_line_error']}
+];
+
+grade4FinalMeasurementGeometryPackages.forEach(({pkg,id,domain,skill,labels,visuals,types,tags})=>{
+  assert.ok(pkg,`${id} package loads`);
+  const questions=pkg.level_banks.flatMap((level)=>level.questions);
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,4);
+  assert.equal(pkg.subject,'Math');
+  assert.equal(pkg.domain,domain);
+  assert.equal(pkg.skill,skill);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(questions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(questions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(questions.filter((q)=>q.question_type==='short_response'||q.question_type==='geometry_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} constructed-response items have acceptable_answers`);
+  assert.ok(questions.every((q)=>q.question_audio?.label==='Read Question'&&q.question_audio?.text),`${id} Skill Practice Center questions have Read Question narration`);
+  for (const screen of ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile']) {
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${id} ${screen} has Read This Page narration`);
+    assert.equal((pkg.page_audio?.[screen]?.text||'').split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,true,`${id} ${screen} narration teaches the page`);
+  }
+  for (const screen of ['practice','challenge','checkpoint']) assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} mentions Read Question`);
+  for (const q of [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])]) assert.equal(q.question_audio?.label,'Read Question',`${id} mission question has Read Question narration`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} full mission flow renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillState=Renderer.createState();
+  drillState.mode='drill';
+  const drillHtml=Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+
+['measurement_conversion_table','angle_model','protractor_model','line_relationships','symmetry_model'].forEach((visual)=>{
+  const pkg=visual==='measurement_conversion_table'?g4MeasurementConversionData:g4AnglesLinesShapes;
+  const q=pkg.level_banks.flatMap((level)=>level.questions).find((item)=>item.visual_model===visual);
+  assert.ok(q,`Grade 4 final batch includes ${visual}`);
+  assert.match(VisualRegistry.render(q),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists for final Grade 4 batch`);
 });
 
 const g4DivisionQuestions=g4DivisionRemainders.level_banks.flatMap((level)=>level.questions);
