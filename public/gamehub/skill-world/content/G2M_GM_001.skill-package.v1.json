@@ -91,7 +91,13 @@
         "circle",
         "square"
       ],
-      "shape": "triangle"
+      "shape": "triangle",
+      "question_audio": {
+        "text": "Which 2D shape has 3 sides?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_LVL1_Q2",
@@ -117,7 +123,13 @@
         "triangle",
         "circle"
       ],
-      "shape": "square"
+      "shape": "square",
+      "question_audio": {
+        "text": "Which 2D shape has 4 equal sides and 4 corners?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_LVL1_Q3",
@@ -143,7 +155,13 @@
         "rectangle",
         "cube"
       ],
-      "shape": "circle"
+      "shape": "circle",
+      "question_audio": {
+        "text": "Which shape is round with no sides or corners?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     }
   ],
   "adaptive_question_bank": [
@@ -169,7 +187,13 @@
         "incorrect": "Use the visual model and try again."
       },
       "explanation": "The correct answer is 6.",
-      "shape": "hexagon"
+      "shape": "hexagon",
+      "question_audio": {
+        "text": "How many sides does a hexagon have?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_LVL2_Q2",
@@ -193,7 +217,13 @@
         "incorrect": "Use the visual model and try again."
       },
       "explanation": "The correct answer is 5.",
-      "shape": "pentagon"
+      "shape": "pentagon",
+      "question_audio": {
+        "text": "How many corners does a pentagon have?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_LVL3_Q1",
@@ -220,7 +250,13 @@
       "explanation": "The correct answer is halves.",
       "shape": "rectangle",
       "shares": 2,
-      "equal": true
+      "equal": true,
+      "question_audio": {
+        "text": "A rectangle is split into 2 equal shares. What are the shares called?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_LVL3_Q2",
@@ -247,7 +283,13 @@
       "explanation": "The correct answer is thirds.",
       "shape": "circle",
       "shares": 3,
-      "equal": true
+      "equal": true,
+      "question_audio": {
+        "text": "A circle is split into 3 equal shares. What are the shares called?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_LVL4_Q1",
@@ -272,7 +314,13 @@
       },
       "explanation": "2 rows of 3 equals 6.",
       "rows": 2,
-      "columns": 3
+      "columns": 3,
+      "question_audio": {
+        "text": "An array has 2 rows and 3 columns. How many objects are there?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_LVL4_Q2",
@@ -297,7 +345,13 @@
       },
       "explanation": "3 rows of 4 equals 12.",
       "rows": 3,
-      "columns": 4
+      "columns": 4,
+      "question_audio": {
+        "text": "An array has 3 rows and 4 columns. How many objects are there?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     }
   ],
   "checkpoint": [
@@ -325,7 +379,13 @@
         "circle",
         "square"
       ],
-      "shape": "triangle"
+      "shape": "triangle",
+      "question_audio": {
+        "text": "Which 2D shape has 3 sides?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_MIXED_Q2",
@@ -351,7 +411,13 @@
         "sphere",
         "cone"
       ],
-      "shape": "cube"
+      "shape": "cube",
+      "question_audio": {
+        "text": "Which 3D shape has 6 square faces?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "id": "G2M_GM_001_MIXED_Q3",
@@ -375,7 +441,13 @@
         "incorrect": "Use the visual model and try again."
       },
       "explanation": "The correct answer is 6.",
-      "shape": "hexagon"
+      "shape": "hexagon",
+      "question_audio": {
+        "text": "How many sides does a hexagon have?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      }
     }
   ],
   "level_banks": [
@@ -411,7 +483,13 @@
             "circle",
             "square"
           ],
-          "shape": "triangle"
+          "shape": "triangle",
+          "question_audio": {
+            "text": "Which 2D shape has 3 sides?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q2",
@@ -437,7 +515,13 @@
             "triangle",
             "circle"
           ],
-          "shape": "square"
+          "shape": "square",
+          "question_audio": {
+            "text": "Which 2D shape has 4 equal sides and 4 corners?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q3",
@@ -463,7 +547,13 @@
             "rectangle",
             "cube"
           ],
-          "shape": "circle"
+          "shape": "circle",
+          "question_audio": {
+            "text": "Which shape is round with no sides or corners?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q4",
@@ -489,7 +579,13 @@
             "sphere",
             "cone"
           ],
-          "shape": "cube"
+          "shape": "cube",
+          "question_audio": {
+            "text": "Which 3D shape has 6 square faces?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q5",
@@ -515,7 +611,13 @@
             "cylinder",
             "rectangular prism"
           ],
-          "shape": "sphere"
+          "shape": "sphere",
+          "question_audio": {
+            "text": "Which 3D shape is round like a ball?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q6",
@@ -541,7 +643,13 @@
             "cube",
             "pyramid"
           ],
-          "shape": "cylinder"
+          "shape": "cylinder",
+          "question_audio": {
+            "text": "Which 3D shape has two flat circular faces?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q7",
@@ -565,7 +673,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 4.",
-          "shape": "rectangle"
+          "shape": "rectangle",
+          "question_audio": {
+            "text": "How many corners does a rectangle have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q8",
@@ -589,7 +703,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 3.",
-          "shape": "triangle"
+          "shape": "triangle",
+          "question_audio": {
+            "text": "How many sides does a triangle have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q9",
@@ -613,7 +733,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 6.",
-          "shape": "cube"
+          "shape": "cube",
+          "question_audio": {
+            "text": "How many faces does a cube have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL1_Q10",
@@ -639,7 +765,13 @@
             "sphere",
             "cube"
           ],
-          "shape": "cone"
+          "shape": "cone",
+          "question_audio": {
+            "text": "Which 3D shape can have a point and a circular face?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         }
       ]
     },
@@ -673,7 +805,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 6.",
-          "shape": "hexagon"
+          "shape": "hexagon",
+          "question_audio": {
+            "text": "How many sides does a hexagon have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q2",
@@ -697,7 +835,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 5.",
-          "shape": "pentagon"
+          "shape": "pentagon",
+          "question_audio": {
+            "text": "How many corners does a pentagon have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q3",
@@ -721,7 +865,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 4.",
-          "shape": "rectangle"
+          "shape": "rectangle",
+          "question_audio": {
+            "text": "How many sides does a quadrilateral have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q4",
@@ -745,7 +895,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 6.",
-          "shape": "cube"
+          "shape": "cube",
+          "question_audio": {
+            "text": "A cube has how many faces?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q5",
@@ -771,7 +927,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 3 sides.",
-          "shape": "triangle"
+          "shape": "triangle",
+          "question_audio": {
+            "text": "Which attribute defines a triangle?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q6",
@@ -798,7 +960,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is no corners.",
-          "shape": "circle"
+          "shape": "circle",
+          "question_audio": {
+            "text": "Which attribute defines a circle?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q7",
@@ -822,7 +990,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 4.",
-          "shape": "square"
+          "shape": "square",
+          "question_audio": {
+            "text": "How many corners does a square have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q8",
@@ -846,7 +1020,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 6.",
-          "shape": "rectangular prism"
+          "shape": "rectangular prism",
+          "question_audio": {
+            "text": "A rectangular prism has how many rectangular faces?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q9",
@@ -871,7 +1051,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is number of sides.",
-          "shape": "triangle"
+          "shape": "triangle",
+          "question_audio": {
+            "text": "Which is a defining attribute: color or number of sides?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL2_Q10",
@@ -895,7 +1081,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 8.",
-          "shape": "octagon"
+          "shape": "octagon",
+          "question_audio": {
+            "text": "How many sides does an octagon have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         }
       ]
     },
@@ -932,7 +1124,13 @@
           "explanation": "The correct answer is halves.",
           "shape": "rectangle",
           "shares": 2,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "A rectangle is split into 2 equal shares. What are the shares called?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q2",
@@ -959,7 +1157,13 @@
           "explanation": "The correct answer is thirds.",
           "shape": "circle",
           "shares": 3,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "A circle is split into 3 equal shares. What are the shares called?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q3",
@@ -986,7 +1190,13 @@
           "explanation": "The correct answer is fourths.",
           "shape": "rectangle",
           "shares": 4,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "A rectangle is split into 4 equal shares. What are the shares called?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q4",
@@ -1012,7 +1222,13 @@
           "explanation": "The correct answer is 3.",
           "shape": "circle",
           "shares": 3,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "How many equal shares are in thirds?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q5",
@@ -1038,7 +1254,13 @@
           "explanation": "The correct answer is 4.",
           "shape": "rectangle",
           "shares": 4,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "How many equal shares are in fourths?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q6",
@@ -1064,7 +1286,13 @@
           "explanation": "The correct answer is 2.",
           "shape": "circle",
           "shares": 2,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "How many equal shares are in halves?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q7",
@@ -1091,7 +1319,13 @@
           "explanation": "The correct answer is no.",
           "shape": "rectangle",
           "shares": 3,
-          "equal": false
+          "equal": false,
+          "question_audio": {
+            "text": "Are 3 parts thirds if one part is much larger?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q8",
@@ -1118,7 +1352,13 @@
           "explanation": "The correct answer is fourths.",
           "shape": "circle",
           "shares": 4,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "A circle cut into 4 equal parts names what share?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q9",
@@ -1145,7 +1385,13 @@
           "explanation": "The correct answer is halves.",
           "shape": "rectangle",
           "shares": 2,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "A sandwich cut into 2 equal parts names what share?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL3_Q10",
@@ -1171,7 +1417,13 @@
           "explanation": "The correct answer is 4.",
           "shape": "rectangle",
           "shares": 4,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "A rectangle has 4 same-size parts. How many fourths make the whole?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         }
       ]
     },
@@ -1206,7 +1458,13 @@
           },
           "explanation": "2 rows of 3 equals 6.",
           "rows": 2,
-          "columns": 3
+          "columns": 3,
+          "question_audio": {
+            "text": "An array has 2 rows and 3 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q2",
@@ -1231,7 +1489,13 @@
           },
           "explanation": "3 rows of 4 equals 12.",
           "rows": 3,
-          "columns": 4
+          "columns": 4,
+          "question_audio": {
+            "text": "An array has 3 rows and 4 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q3",
@@ -1256,7 +1520,13 @@
           },
           "explanation": "4 rows of 5 equals 20.",
           "rows": 4,
-          "columns": 5
+          "columns": 5,
+          "question_audio": {
+            "text": "An array has 4 rows and 5 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q4",
@@ -1281,7 +1551,13 @@
           },
           "explanation": "2 rows of 5 equals 10.",
           "rows": 2,
-          "columns": 5
+          "columns": 5,
+          "question_audio": {
+            "text": "An array has 2 rows and 5 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q5",
@@ -1306,7 +1582,13 @@
           },
           "explanation": "5 rows of 2 equals 10.",
           "rows": 5,
-          "columns": 2
+          "columns": 2,
+          "question_audio": {
+            "text": "An array has 5 rows and 2 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q6",
@@ -1331,7 +1613,13 @@
           },
           "explanation": "3 rows of 3 equals 9.",
           "rows": 3,
-          "columns": 3
+          "columns": 3,
+          "question_audio": {
+            "text": "An array has 3 rows and 3 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q7",
@@ -1356,7 +1644,13 @@
           },
           "explanation": "4 rows of 4 equals 16.",
           "rows": 4,
-          "columns": 4
+          "columns": 4,
+          "question_audio": {
+            "text": "An array has 4 rows and 4 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q8",
@@ -1381,7 +1675,13 @@
           },
           "explanation": "2 rows of 6 equals 12.",
           "rows": 2,
-          "columns": 6
+          "columns": 6,
+          "question_audio": {
+            "text": "An array has 2 rows and 6 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q9",
@@ -1406,7 +1706,13 @@
           },
           "explanation": "5 rows of 3 equals 15.",
           "rows": 5,
-          "columns": 3
+          "columns": 3,
+          "question_audio": {
+            "text": "An array has 5 rows and 3 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_LVL4_Q10",
@@ -1431,7 +1737,13 @@
           },
           "explanation": "3 rows of 6 equals 18.",
           "rows": 3,
-          "columns": 6
+          "columns": 6,
+          "question_audio": {
+            "text": "An array has 3 rows and 6 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         }
       ]
     },
@@ -1467,7 +1779,13 @@
             "circle",
             "square"
           ],
-          "shape": "triangle"
+          "shape": "triangle",
+          "question_audio": {
+            "text": "Which 2D shape has 3 sides?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q2",
@@ -1493,7 +1811,13 @@
             "sphere",
             "cone"
           ],
-          "shape": "cube"
+          "shape": "cube",
+          "question_audio": {
+            "text": "Which 3D shape has 6 square faces?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q3",
@@ -1517,7 +1841,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is 6.",
-          "shape": "hexagon"
+          "shape": "hexagon",
+          "question_audio": {
+            "text": "How many sides does a hexagon have?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q4",
@@ -1542,7 +1872,13 @@
             "incorrect": "Use the visual model and try again."
           },
           "explanation": "The correct answer is number of sides.",
-          "shape": "triangle"
+          "shape": "triangle",
+          "question_audio": {
+            "text": "Which is a defining attribute: color or number of sides?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q5",
@@ -1569,7 +1905,13 @@
           "explanation": "The correct answer is halves.",
           "shape": "rectangle",
           "shares": 2,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "A rectangle is split into 2 equal shares. What are the shares called?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q6",
@@ -1596,7 +1938,13 @@
           "explanation": "The correct answer is fourths.",
           "shape": "rectangle",
           "shares": 4,
-          "equal": true
+          "equal": true,
+          "question_audio": {
+            "text": "A rectangle is split into 4 equal shares. What are the shares called?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q7",
@@ -1623,7 +1971,13 @@
           "explanation": "The correct answer is no.",
           "shape": "rectangle",
           "shares": 3,
-          "equal": false
+          "equal": false,
+          "question_audio": {
+            "text": "Are 3 parts thirds if one part is much larger?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q8",
@@ -1648,7 +2002,13 @@
           },
           "explanation": "3 rows of 4 equals 12.",
           "rows": 3,
-          "columns": 4
+          "columns": 4,
+          "question_audio": {
+            "text": "An array has 3 rows and 4 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q9",
@@ -1673,7 +2033,13 @@
           },
           "explanation": "3 rows of 3 equals 9.",
           "rows": 3,
-          "columns": 3
+          "columns": 3,
+          "question_audio": {
+            "text": "An array has 3 rows and 3 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         },
         {
           "id": "G2M_GM_001_MIXED_Q10",
@@ -1698,9 +2064,71 @@
           },
           "explanation": "3 rows of 6 equals 18.",
           "rows": 3,
-          "columns": 6
+          "columns": 6,
+          "question_audio": {
+            "text": "An array has 3 rows and 6 columns. How many objects are there?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          }
         }
       ]
     }
-  ]
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to this page. You are starting a math mission about Shapes, Arrays, and Partitioning. Look at the story and think about what the characters need to solve. Math missions are easier when you name the numbers and the model first. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches Shapes, Arrays, and Partitioning. Look at the shape identification and connect each part to the math words. Use the vocabulary on the page to explain your thinking. Remember to check place value, units, or symbols before you answer. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "This page lets you watch a worked example for Shapes, Arrays, and Partitioning. Follow the model one step at a time. Say what each number means before you look at the final answer. If a symbol appears, read it in words like plus, minus, equals, greater than, or less than. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This demo helps you try Shapes, Arrays, and Partitioning with support. Build or study the model first, then connect it to the question. A good strategy is to explain the answer in math words before choosing. Press Next when you are ready for practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This is practice. Use the visual model to help you think about Shapes, Arrays, and Partitioning. Press Read Question if you want the exact question read aloud. Check your strategy before you choose or write an answer. When you are ready, answer the question and keep going.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This is a challenge. Use the visual model to help you think about Shapes, Arrays, and Partitioning. Press Read Question if you want the exact question read aloud. Check your strategy before you choose or write an answer. When you are ready, answer the question and keep going.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This is your checkpoint. Use the visual model to help you think about Shapes, Arrays, and Partitioning. Press Read Question if you want the exact question read aloud. Check your strategy before you choose or write an answer. When you are ready, answer the question and keep going.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "This badge page celebrates your mission work on Shapes, Arrays, and Partitioning. Look at your stars and remember the strategy you used. Mistakes help show what to practice next. Save your growth data to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page shows your growth for Shapes, Arrays, and Partitioning. Look at attempts, correct answers, accuracy, and hints used. Use the recommendation to decide what to practice next. You can continue to Skill Practice or replay the mission.",
+      "label": "Read This Page",
+      "type": "page",
+      "playback_preference": "cached_audio_first"
+    }
+  }
 }
