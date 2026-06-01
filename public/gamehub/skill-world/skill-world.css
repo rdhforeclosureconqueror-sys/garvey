@@ -681,3 +681,16 @@ button,input,select,textarea{font:inherit;max-width:100%}
 .coordinate-axis{background:#334155;align-self:center;justify-self:stretch;z-index:1}
 .coordinate-axis.x-axis{height:2px}.coordinate-axis.y-axis{width:2px;justify-self:center;align-self:stretch}
 .origin-label{font-weight:700;color:#0f766e}
+
+/* Grade 6 geometry and statistics visual models */
+.polygon-area-model-visual .composite-polygon,.net-model-visual .net-grid,.statistics-summary-grid,.data-comparison-grid{display:grid;gap:.5rem;max-width:100%;}
+.polygon-area-model-visual .composite-polygon{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;}
+.polygon-part,.net-face,.stat-card,.comparison-side{border:2px solid #2563eb;border-radius:12px;background:#eff6ff;padding:.55rem;text-align:center;min-width:0;}
+.polygon-part span,.net-face span,.comparison-stats span{display:block;font-size:.82rem;}
+.net-model-visual .net-grid{grid-template-columns:repeat(4,minmax(56px,1fr));grid-template-areas:". top . ." "left front right back" ". bottom . .";align-items:center;}
+.net-face.face-0{grid-area:top}.net-face.face-1{grid-area:bottom}.net-face.face-2{grid-area:front}.net-face.face-3{grid-area:back}.net-face.face-4{grid-area:left}.net-face.face-5{grid-area:right}
+.dot-plot-axis{display:flex;align-items:flex-end;justify-content:center;gap:.35rem;border-bottom:2px solid #334155;padding:.5rem .25rem .1rem;overflow-x:auto;}
+.dot-col{display:flex;flex-direction:column;align-items:center;min-width:28px}.dot-stack{display:flex;flex-direction:column-reverse;gap:3px;min-height:20px}.dot{width:12px;height:12px;background:#7c3aed;border-radius:999px;display:block}
+.histogram-bars{display:flex;align-items:flex-end;gap:.2rem;height:140px;border-left:2px solid #334155;border-bottom:2px solid #334155;padding:.35rem;overflow-x:auto}.histogram-bar-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:44px}.histogram-bar{width:100%;background:#0ea5e9;border-radius:8px 8px 0 0;display:flex;align-items:flex-start;justify-content:center;color:#082f49}
+.box-plot-line{position:relative;height:82px;margin:.5rem;border-bottom:4px solid #334155}.box-plot-line .whisker,.box-edge,.median-line{position:absolute;bottom:-16px;width:4px;height:34px;background:#334155}.box-fill{position:absolute;bottom:-10px;height:24px;border:3px solid #2563eb;background:#dbeafe;border-radius:8px}.median-line{background:#dc2626;height:44px}.five-number-row{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:space-around;font-size:.82rem}.statistics-summary-grid{grid-template-columns:repeat(auto-fit,minmax(82px,1fr))}.stat-card strong{display:block;text-transform:capitalize}.data-comparison-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mini-dot-plot{border:0;padding:0}.comparison-stats{display:flex;gap:.35rem;justify-content:center;flex-wrap:wrap}
+@media (max-width:520px){.polygon-area-model-visual .composite-polygon,.data-comparison-grid{grid-template-columns:1fr}.net-model-visual .net-grid{grid-template-columns:repeat(3,minmax(48px,1fr));font-size:.78rem}.histogram-bars{height:120px}.dot-col{min-width:24px}}
