@@ -1,0 +1,2533 @@
+{
+  "metadata": {
+    "content_version": "2026.06.01",
+    "production_status": "ready",
+    "source_plan": "docs/grade6_math_completion_plan.md"
+  },
+  "skill_id": "G6M_SP_001",
+  "grade": 6,
+  "subject": "Math",
+  "domain": "Statistics and Probability",
+  "skill": "Statistical Questions and Data Displays",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "feedback_fields": [
+    "correct",
+    "incorrect",
+    "hint"
+  ],
+  "next_skill_id": "",
+  "remediation_skill_id": "G6M_EE_003",
+  "support_type": "dot_plot",
+  "badgeName": "Statistical Questions and Data Displays",
+  "lesson": {
+    "story_mission": "Join the Skill World studio to master identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread.",
+    "objective": "identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread",
+    "key_vocabulary": [
+      "identify statistical questions",
+      "read dot plots",
+      "histograms",
+      "box plots",
+      "and calculate measures of center and spread"
+    ],
+    "concept_explanation": "This mission teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread with models, labels, context, and careful answer checks.",
+    "visual_model": "dot_plot",
+    "common_misconception": "A common mistake is using a number without checking what the labels and units mean.",
+    "real_world_connection": "These skills help solve design, science, sports, and community data problems.",
+    "lesson_summary": "Read the model, choose the correct measure or statistic, calculate carefully, and interpret the answer in context.",
+    "page_audio": {
+      "text": "Read This Page. This lesson teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Listen for the important vocabulary, study the visual model, and explain why the answer fits the situation.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:lesson-card"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G6M_SP_001_WE1",
+      "text": "Watch how the model supports identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread.",
+      "visual_model": "dot_plot",
+      "correct_answer": "model",
+      "page_audio": {
+        "text": "Read This Page. Watch how labels and visuals guide identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Pause on each label and connect it to the calculation or interpretation.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_001:page:watch-example"
+      }
+    },
+    {
+      "id": "G6M_SP_001_WE2",
+      "text": "Demo: solve one step, then interpret the result.",
+      "visual_model": "dot_plot",
+      "correct_answer": "demo",
+      "page_audio": {
+        "text": "Read This Page. Demo for identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Try the reasoning aloud before answering the next question.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_001:page:demo-example"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the prompt and labels.",
+    "Use the visual model.",
+    "Check units and context."
+  ],
+  "misconception_bank": {
+    "non_statistical_question_confusion": "non statistical question confusion",
+    "mean_median_confusion": "mean median confusion",
+    "range_error": "range error",
+    "box_plot_reading_error": "box plot reading error"
+  },
+  "review_bank": [],
+  "game_theme": {
+    "mission_intro": "A Skill World station needs your help with identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread.",
+    "badge": "Statistical Questions and Data Displays",
+    "badge_name": "Statistical Questions and Data Displays"
+  },
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Story teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:story"
+    },
+    "lesson": {
+      "text": "Read This Page. Lesson teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:lesson"
+    },
+    "watch": {
+      "text": "Read This Page. Watch teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:watch"
+    },
+    "demo": {
+      "text": "Read This Page. Demo teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:demo"
+    },
+    "practice": {
+      "text": "Read This Page. Practice teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:practice"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:challenge"
+    },
+    "checkpoint": {
+      "text": "Read This Page. Checkpoint teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:checkpoint"
+    },
+    "badge": {
+      "text": "Read This Page. Badge teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:badge"
+    },
+    "profile": {
+      "text": "Read This Page. Profile teaches identify statistical questions, read dot plots, histograms, box plots, and calculate measures of center and spread. Use the visual model to notice statistical questions, dot plots, histograms, box plots, center, spread, and variability. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_001:page:profile"
+    }
+  },
+  "guided_practice": [
+    {
+      "question_id": "G6M_SP_001_GP1",
+      "prompt": "Which question is statistical: How tall is Maya, or how tall are students in Maya’s class?",
+      "question_type": "multiple_choice",
+      "visual_model": "data_table",
+      "support_type": "data_table",
+      "correct_answer": "How tall are students in Maya’s class?",
+      "answer": "How tall are students in Maya’s class?",
+      "misconception_tag": "non_statistical_question_confusion",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is How tall are students in Maya’s class?.",
+      "read_aloud_text": "Which question is statistical: How tall is Maya, or how tall are students in Maya’s class?",
+      "question_audio": {
+        "text": "Which question is statistical: How tall is Maya, or how tall are students in Maya’s class?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_GP1"
+      },
+      "choices": [
+        "How tall are students in Maya’s class?",
+        "How tall is Maya?"
+      ],
+      "headers": [
+        "Question",
+        "Varies?"
+      ],
+      "rows": [
+        [
+          "How tall is Maya?",
+          "No"
+        ],
+        [
+          "How tall are students in class?",
+          "Yes"
+        ]
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6M_SP_001_AQ1",
+      "prompt": "The data are 4, 5, 5, 6, and 10. What is the median?",
+      "question_type": "statistics_response",
+      "visual_model": "statistics_summary",
+      "support_type": "statistics_summary",
+      "correct_answer": "5",
+      "answer": "5",
+      "misconception_tag": "mean_median_confusion",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is 5.",
+      "read_aloud_text": "The data are 4, 5, 5, 6, and 10. What is the median?",
+      "question_audio": {
+        "text": "The data are 4, 5, 5, 6, and 10. What is the median?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_AQ1"
+      },
+      "acceptable_answers": [
+        "5",
+        "5",
+        "5"
+      ],
+      "summary": {
+        "mean": 6,
+        "median": 5,
+        "mode": 5,
+        "range": 6
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6M_SP_001_CP1",
+      "prompt": "In the box plot, what value is the median?",
+      "question_type": "multiple_choice",
+      "visual_model": "box_plot",
+      "support_type": "box_plot",
+      "correct_answer": "8",
+      "answer": "8",
+      "misconception_tag": "box_plot_reading_error",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is 8.",
+      "read_aloud_text": "In the box plot, what value is the median?",
+      "question_audio": {
+        "text": "In the box plot, what value is the median?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_CP1"
+      },
+      "choices": [
+        "8",
+        "5",
+        "14"
+      ],
+      "five_number_summary": {
+        "min": 2,
+        "q1": 5,
+        "median": 8,
+        "q3": 11,
+        "max": 14
+      }
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G6M_SP_001_LVL1",
+      "label": "Level 1: Statistical Questions",
+      "focus": "Tell whether questions expect variable data.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_001_LVL1_Q01",
+          "prompt": "Is this a statistical question: How many minutes do sixth graders read each night?",
+          "question_type": "short_response",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How many minutes do sixth graders read each night?",
+          "question_audio": {
+            "text": "Is this a statistical question: How many minutes do sixth graders read each night?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q01"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How many minutes do sixth graders read each night?",
+              "many possible answers"
+            ]
+          ],
+          "acceptable_answers": [
+            "Yes",
+            "yes"
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q02",
+          "prompt": "Is this a statistical question: What are the shoe sizes of students in our class?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: What are the shoe sizes of students in our class?",
+          "question_audio": {
+            "text": "Is this a statistical question: What are the shoe sizes of students in our class?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q02"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "What are the shoe sizes of students in our class?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q03",
+          "prompt": "Is this a statistical question: How many pets do students in the building have?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How many pets do students in the building have?",
+          "question_audio": {
+            "text": "Is this a statistical question: How many pets do students in the building have?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q03"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How many pets do students in the building have?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q04",
+          "prompt": "Is this a statistical question: What distances did runners travel this week?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: What distances did runners travel this week?",
+          "question_audio": {
+            "text": "Is this a statistical question: What distances did runners travel this week?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q04"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "What distances did runners travel this week?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q05",
+          "prompt": "Is this a statistical question: How many texts do students send in a day?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How many texts do students send in a day?",
+          "question_audio": {
+            "text": "Is this a statistical question: How many texts do students send in a day?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q05"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How many texts do students send in a day?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q06",
+          "prompt": "Is this a statistical question: What are the heights of plants in the garden?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: What are the heights of plants in the garden?",
+          "question_audio": {
+            "text": "Is this a statistical question: What are the heights of plants in the garden?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q06"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "What are the heights of plants in the garden?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q07",
+          "prompt": "Is this a statistical question: How many books did each student finish?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How many books did each student finish?",
+          "question_audio": {
+            "text": "Is this a statistical question: How many books did each student finish?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q07"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How many books did each student finish?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q08",
+          "prompt": "Is this a statistical question: What temperatures were recorded each day?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: What temperatures were recorded each day?",
+          "question_audio": {
+            "text": "Is this a statistical question: What temperatures were recorded each day?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q08"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "What temperatures were recorded each day?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q09",
+          "prompt": "Is this a statistical question: How long did each bus ride take?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How long did each bus ride take?",
+          "question_audio": {
+            "text": "Is this a statistical question: How long did each bus ride take?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q09"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How long did each bus ride take?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL1_Q10",
+          "prompt": "Is this a statistical question: How many siblings do students have?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How many siblings do students have?",
+          "question_audio": {
+            "text": "Is this a statistical question: How many siblings do students have?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL1_Q10"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How many siblings do students have?",
+              "many possible answers"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_SP_001_LVL2",
+      "label": "Level 2: Dot Plots and Histograms",
+      "focus": "Read dots over values and interval bars.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_001_LVL2_Q01",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q01"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            5
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q02",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q02"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "data": [
+            1,
+            1,
+            2,
+            3,
+            3,
+            3,
+            4
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q03",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q03"
+          },
+          "acceptable_answers": [
+            "6",
+            "6",
+            "6"
+          ],
+          "data": [
+            5,
+            6,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q04",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "12",
+          "answer": "12",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q04"
+          },
+          "acceptable_answers": [
+            "12",
+            "12",
+            "12"
+          ],
+          "data": [
+            10,
+            12,
+            12,
+            14,
+            16
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q05",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q05"
+          },
+          "acceptable_answers": [
+            "5",
+            "5",
+            "5"
+          ],
+          "data": [
+            3,
+            4,
+            5,
+            5,
+            5,
+            6
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q06",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "the tallest interval",
+          "answer": "the tallest interval",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is the tallest interval.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q06"
+          },
+          "acceptable_answers": [
+            "the tallest interval",
+            "the tallest interval",
+            "the tallest interval"
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 0
+            },
+            {
+              "label": "5–9",
+              "frequency": 4
+            },
+            {
+              "label": "10–14",
+              "frequency": 1
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q07",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "the tallest interval",
+          "answer": "the tallest interval",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is the tallest interval.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q07"
+          },
+          "acceptable_answers": [
+            "the tallest interval",
+            "the tallest interval",
+            "the tallest interval"
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 5
+            },
+            {
+              "label": "5–9",
+              "frequency": 1
+            },
+            {
+              "label": "10–14",
+              "frequency": 0
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q08",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "the tallest interval",
+          "answer": "the tallest interval",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is the tallest interval.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q08"
+          },
+          "acceptable_answers": [
+            "the tallest interval",
+            "the tallest interval",
+            "the tallest interval"
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 0
+            },
+            {
+              "label": "5–9",
+              "frequency": 3
+            },
+            {
+              "label": "10–14",
+              "frequency": 2
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q09",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "the tallest interval",
+          "answer": "the tallest interval",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is the tallest interval.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q09"
+          },
+          "acceptable_answers": [
+            "the tallest interval",
+            "the tallest interval",
+            "the tallest interval"
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 2
+            },
+            {
+              "label": "5–9",
+              "frequency": 3
+            },
+            {
+              "label": "10–14",
+              "frequency": 0
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_LVL2_Q10",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "the tallest interval",
+          "answer": "the tallest interval",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is the tallest interval.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL2_Q10"
+          },
+          "acceptable_answers": [
+            "the tallest interval",
+            "the tallest interval",
+            "the tallest interval"
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 2
+            },
+            {
+              "label": "5–9",
+              "frequency": 4
+            },
+            {
+              "label": "10–14",
+              "frequency": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_SP_001_LVL3",
+      "label": "Level 3: Mean, Median, Mode, and Range",
+      "focus": "Calculate measures of center and spread.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_001_LVL3_Q01",
+          "prompt": "For the data set [2, 3, 3, 4, 4, 5], find the median.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "mean_median_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "For the data set [2, 3, 3, 4, 4, 5], find the median.",
+          "question_audio": {
+            "text": "For the data set [2, 3, 3, 4, 4, 5], find the median.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q01"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "summary": {
+            "mean": 3.5,
+            "median": 4,
+            "range": 3
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q02",
+          "prompt": "For the data set [1, 1, 2, 3, 3, 3, 4], find the median.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "mean_median_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "For the data set [1, 1, 2, 3, 3, 3, 4], find the median.",
+          "question_audio": {
+            "text": "For the data set [1, 1, 2, 3, 3, 3, 4], find the median.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q02"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "summary": {
+            "mean": 2.4,
+            "median": 3,
+            "range": 3
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q03",
+          "prompt": "For the data set [5, 6, 6, 7, 8], find the range.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "For the data set [5, 6, 6, 7, 8], find the range.",
+          "question_audio": {
+            "text": "For the data set [5, 6, 6, 7, 8], find the range.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q03"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "summary": {
+            "mean": 6.4,
+            "median": 6,
+            "range": 3
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q04",
+          "prompt": "For the data set [10, 12, 12, 14, 16], find the median.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "12",
+          "answer": "12",
+          "misconception_tag": "mean_median_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "For the data set [10, 12, 12, 14, 16], find the median.",
+          "question_audio": {
+            "text": "For the data set [10, 12, 12, 14, 16], find the median.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q04"
+          },
+          "acceptable_answers": [
+            "12",
+            "12",
+            "12"
+          ],
+          "summary": {
+            "mean": 12.8,
+            "median": 12,
+            "range": 6
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q05",
+          "prompt": "For the data set [3, 4, 5, 5, 5, 6], find the median.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "mean_median_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "For the data set [3, 4, 5, 5, 5, 6], find the median.",
+          "question_audio": {
+            "text": "For the data set [3, 4, 5, 5, 5, 6], find the median.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q05"
+          },
+          "acceptable_answers": [
+            "5",
+            "5",
+            "5"
+          ],
+          "summary": {
+            "mean": 4.7,
+            "median": 5,
+            "range": 3
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q06",
+          "prompt": "For the data set [7, 8, 8, 9, 10], find the range.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "For the data set [7, 8, 8, 9, 10], find the range.",
+          "question_audio": {
+            "text": "For the data set [7, 8, 8, 9, 10], find the range.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q06"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "summary": {
+            "mean": 8.4,
+            "median": 8,
+            "range": 3
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q07",
+          "prompt": "For the data set [2, 2, 2, 3, 4, 5], find the median.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "mean_median_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "For the data set [2, 2, 2, 3, 4, 5], find the median.",
+          "question_audio": {
+            "text": "For the data set [2, 2, 2, 3, 4, 5], find the median.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q07"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "summary": {
+            "mean": 3,
+            "median": 3,
+            "range": 3
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q08",
+          "prompt": "For the data set [6, 7, 9, 10, 10], find the median.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "mean_median_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "For the data set [6, 7, 9, 10, 10], find the median.",
+          "question_audio": {
+            "text": "For the data set [6, 7, 9, 10, 10], find the median.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q08"
+          },
+          "acceptable_answers": [
+            "9",
+            "9",
+            "9"
+          ],
+          "summary": {
+            "mean": 8.4,
+            "median": 9,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q09",
+          "prompt": "For the data set [1, 3, 5, 7, 9], find the range.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "For the data set [1, 3, 5, 7, 9], find the range.",
+          "question_audio": {
+            "text": "For the data set [1, 3, 5, 7, 9], find the range.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q09"
+          },
+          "acceptable_answers": [
+            "8",
+            "8",
+            "8"
+          ],
+          "summary": {
+            "mean": 5,
+            "median": 5,
+            "range": 8
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL3_Q10",
+          "prompt": "For the data set [4, 4, 6, 8, 8, 8], find the median.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "mean_median_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "For the data set [4, 4, 6, 8, 8, 8], find the median.",
+          "question_audio": {
+            "text": "For the data set [4, 4, 6, 8, 8, 8], find the median.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL3_Q10"
+          },
+          "acceptable_answers": [
+            "8",
+            "8",
+            "8"
+          ],
+          "summary": {
+            "mean": 6.3,
+            "median": 8,
+            "range": 4
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_SP_001_LVL4",
+      "label": "Level 4: Box Plots and Distribution Shape",
+      "focus": "Read five-number summaries and shape.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_001_LVL4_Q01",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "statistics_response",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q01"
+          },
+          "acceptable_answers": [
+            "5",
+            "5",
+            "5"
+          ],
+          "five_number_summary": {
+            "min": 1,
+            "q1": 3,
+            "median": 5,
+            "q3": 8,
+            "max": 11
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q02",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q02"
+          },
+          "choices": [
+            "6",
+            "4",
+            "12"
+          ],
+          "five_number_summary": {
+            "min": 2,
+            "q1": 4,
+            "median": 6,
+            "q3": 9,
+            "max": 12
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q03",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "statistics_response",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "7",
+          "answer": "7",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q03"
+          },
+          "acceptable_answers": [
+            "7",
+            "7",
+            "7"
+          ],
+          "five_number_summary": {
+            "min": 3,
+            "q1": 5,
+            "median": 7,
+            "q3": 10,
+            "max": 13
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q04",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q04"
+          },
+          "choices": [
+            "8",
+            "6",
+            "14"
+          ],
+          "five_number_summary": {
+            "min": 4,
+            "q1": 6,
+            "median": 8,
+            "q3": 11,
+            "max": 14
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q05",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "statistics_response",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q05"
+          },
+          "acceptable_answers": [
+            "9",
+            "9",
+            "9"
+          ],
+          "five_number_summary": {
+            "min": 5,
+            "q1": 7,
+            "median": 9,
+            "q3": 12,
+            "max": 15
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q06",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "10",
+          "answer": "10",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 10.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q06"
+          },
+          "choices": [
+            "10",
+            "8",
+            "16"
+          ],
+          "five_number_summary": {
+            "min": 6,
+            "q1": 8,
+            "median": 10,
+            "q3": 13,
+            "max": 16
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q07",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "statistics_response",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "11",
+          "answer": "11",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 11.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q07"
+          },
+          "acceptable_answers": [
+            "11",
+            "11",
+            "11"
+          ],
+          "five_number_summary": {
+            "min": 7,
+            "q1": 9,
+            "median": 11,
+            "q3": 14,
+            "max": 17
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q08",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "12",
+          "answer": "12",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q08"
+          },
+          "choices": [
+            "12",
+            "10",
+            "18"
+          ],
+          "five_number_summary": {
+            "min": 8,
+            "q1": 10,
+            "median": 12,
+            "q3": 15,
+            "max": 18
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q09",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "statistics_response",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "13",
+          "answer": "13",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 13.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q09"
+          },
+          "acceptable_answers": [
+            "13",
+            "13",
+            "13"
+          ],
+          "five_number_summary": {
+            "min": 9,
+            "q1": 11,
+            "median": 13,
+            "q3": 16,
+            "max": 19
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_LVL4_Q10",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "14",
+          "answer": "14",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 14.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_LVL4_Q10"
+          },
+          "choices": [
+            "14",
+            "12",
+            "20"
+          ],
+          "five_number_summary": {
+            "min": 10,
+            "q1": 12,
+            "median": 14,
+            "q3": 17,
+            "max": 20
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_SP_001_MIXED",
+      "label": "Mixed",
+      "focus": "Practice questions and displays together.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_001_MIXED_Q01",
+          "prompt": "Is this a statistical question: How many minutes do sixth graders read each night?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How many minutes do sixth graders read each night?",
+          "question_audio": {
+            "text": "Is this a statistical question: How many minutes do sixth graders read each night?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q01"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How many minutes do sixth graders read each night?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q02",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q02"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "data": [
+            1,
+            1,
+            2,
+            3,
+            3,
+            3,
+            4
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q03",
+          "prompt": "For the data set [5, 6, 6, 7, 8], find the range.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "For the data set [5, 6, 6, 7, 8], find the range.",
+          "question_audio": {
+            "text": "For the data set [5, 6, 6, 7, 8], find the range.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q03"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "summary": {
+            "mean": 6.4,
+            "median": 6,
+            "range": 3
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q04",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q04"
+          },
+          "choices": [
+            "8",
+            "6",
+            "14"
+          ],
+          "five_number_summary": {
+            "min": 4,
+            "q1": 6,
+            "median": 8,
+            "q3": 11,
+            "max": 14
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q05",
+          "prompt": "Is this a statistical question: How many texts do students send in a day?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How many texts do students send in a day?",
+          "question_audio": {
+            "text": "Is this a statistical question: How many texts do students send in a day?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q05"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How many texts do students send in a day?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q06",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "the tallest interval",
+          "answer": "the tallest interval",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is the tallest interval.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q06"
+          },
+          "acceptable_answers": [
+            "the tallest interval",
+            "the tallest interval",
+            "the tallest interval"
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 0
+            },
+            {
+              "label": "5–9",
+              "frequency": 4
+            },
+            {
+              "label": "10–14",
+              "frequency": 1
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q07",
+          "prompt": "For the data set [2, 2, 2, 3, 4, 5], find the median.",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "mean_median_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "For the data set [2, 2, 2, 3, 4, 5], find the median.",
+          "question_audio": {
+            "text": "For the data set [2, 2, 2, 3, 4, 5], find the median.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q07"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3"
+          ],
+          "summary": {
+            "mean": 3,
+            "median": 3,
+            "range": 3
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q08",
+          "prompt": "Read the box plot. What is the median?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "12",
+          "answer": "12",
+          "misconception_tag": "box_plot_reading_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "Read the box plot. What is the median?",
+          "question_audio": {
+            "text": "Read the box plot. What is the median?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q08"
+          },
+          "choices": [
+            "12",
+            "10",
+            "18"
+          ],
+          "five_number_summary": {
+            "min": 8,
+            "q1": 10,
+            "median": 12,
+            "q3": 15,
+            "max": 18
+          }
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q09",
+          "prompt": "Is this a statistical question: How long did each bus ride take?",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "support_type": "data_table",
+          "correct_answer": "Yes",
+          "answer": "Yes",
+          "misconception_tag": "non_statistical_question_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Yes.",
+          "read_aloud_text": "Is this a statistical question: How long did each bus ride take?",
+          "question_audio": {
+            "text": "Is this a statistical question: How long did each bus ride take?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q09"
+          },
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "headers": [
+            "Question",
+            "Answer"
+          ],
+          "rows": [
+            [
+              "How long did each bus ride take?",
+              "many possible answers"
+            ]
+          ]
+        },
+        {
+          "question_id": "G6M_SP_001_MIXED_Q10",
+          "prompt": "Read the display. Which value or interval has the most data?",
+          "question_type": "data_interpretation",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "the tallest interval",
+          "answer": "the tallest interval",
+          "misconception_tag": "range_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is the tallest interval.",
+          "read_aloud_text": "Read the display. Which value or interval has the most data?",
+          "question_audio": {
+            "text": "Read the display. Which value or interval has the most data?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_001:question:G6M_SP_001_MIXED_Q10"
+          },
+          "acceptable_answers": [
+            "the tallest interval",
+            "the tallest interval",
+            "the tallest interval"
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 2
+            },
+            {
+              "label": "5–9",
+              "frequency": 4
+            },
+            {
+              "label": "10–14",
+              "frequency": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

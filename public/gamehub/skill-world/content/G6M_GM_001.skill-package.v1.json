@@ -1,0 +1,2431 @@
+{
+  "metadata": {
+    "content_version": "2026.06.01",
+    "production_status": "ready",
+    "source_plan": "docs/grade6_math_completion_plan.md"
+  },
+  "skill_id": "G6M_GM_001",
+  "grade": 6,
+  "subject": "Math",
+  "domain": "Geometry",
+  "skill": "Area, Surface Area, and Volume",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "feedback_fields": [
+    "correct",
+    "incorrect",
+    "hint"
+  ],
+  "next_skill_id": "",
+  "remediation_skill_id": "G6M_EE_003",
+  "support_type": "polygon_area_model",
+  "badgeName": "Area, Surface Area, and Volume",
+  "lesson": {
+    "story_mission": "Join the Skill World studio to master find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms.",
+    "objective": "find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms",
+    "key_vocabulary": [
+      "find area of triangles",
+      "quadrilaterals",
+      "and polygons",
+      "use nets for surface area",
+      "find volume of rectangular prisms"
+    ],
+    "concept_explanation": "This mission teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms with models, labels, context, and careful answer checks.",
+    "visual_model": "polygon_area_model",
+    "common_misconception": "A common mistake is using a number without checking what the labels and units mean.",
+    "real_world_connection": "These skills help solve design, science, sports, and community data problems.",
+    "lesson_summary": "Read the model, choose the correct measure or statistic, calculate carefully, and interpret the answer in context.",
+    "page_audio": {
+      "text": "Read This Page. This lesson teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Listen for the important vocabulary, study the visual model, and explain why the answer fits the situation.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:lesson-card"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G6M_GM_001_WE1",
+      "text": "Watch how the model supports find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms.",
+      "visual_model": "polygon_area_model",
+      "correct_answer": "model",
+      "page_audio": {
+        "text": "Read This Page. Watch how labels and visuals guide find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Pause on each label and connect it to the calculation or interpretation.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_GM_001:page:watch-example"
+      }
+    },
+    {
+      "id": "G6M_GM_001_WE2",
+      "text": "Demo: solve one step, then interpret the result.",
+      "visual_model": "polygon_area_model",
+      "correct_answer": "demo",
+      "page_audio": {
+        "text": "Read This Page. Demo for find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Try the reasoning aloud before answering the next question.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_GM_001:page:demo-example"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the prompt and labels.",
+    "Use the visual model.",
+    "Check units and context."
+  ],
+  "misconception_bank": {
+    "triangle_area_halving_error": "triangle area halving error",
+    "polygon_decomposition_error": "polygon decomposition error",
+    "surface_area_net_error": "surface area net error",
+    "volume_area_confusion": "volume area confusion"
+  },
+  "review_bank": [],
+  "game_theme": {
+    "mission_intro": "A Skill World station needs your help with find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms.",
+    "badge": "Area, Surface Area, and Volume",
+    "badge_name": "Area, Surface Area, and Volume"
+  },
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Story teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:story"
+    },
+    "lesson": {
+      "text": "Read This Page. Lesson teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:lesson"
+    },
+    "watch": {
+      "text": "Read This Page. Watch teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:watch"
+    },
+    "demo": {
+      "text": "Read This Page. Demo teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:demo"
+    },
+    "practice": {
+      "text": "Read This Page. Practice teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:practice"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:challenge"
+    },
+    "checkpoint": {
+      "text": "Read This Page. Checkpoint teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:checkpoint"
+    },
+    "badge": {
+      "text": "Read This Page. Badge teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:badge"
+    },
+    "profile": {
+      "text": "Read This Page. Profile teaches find area of triangles, quadrilaterals, and polygons; use nets for surface area; find volume of rectangular prisms. Use the visual model to notice area, surface area, volume, nets, base, height, square units, and cubic units. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_GM_001:page:profile"
+    }
+  },
+  "guided_practice": [
+    {
+      "question_id": "G6M_GM_001_GP1",
+      "prompt": "A triangle has base 8 units and height 5 units. What is its area?",
+      "question_type": "geometry_response",
+      "visual_model": "polygon_area_model",
+      "support_type": "polygon_area_model",
+      "correct_answer": "20 square units",
+      "answer": "20 square units",
+      "misconception_tag": "triangle_area_halving_error",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is 20 square units.",
+      "read_aloud_text": "A triangle has base 8 units and height 5 units. What is its area?",
+      "question_audio": {
+        "text": "A triangle has base 8 units and height 5 units. What is its area?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_GP1"
+      },
+      "acceptable_answers": [
+        "20 square units",
+        "20 square units",
+        "20 sq units"
+      ],
+      "base": 8,
+      "height": 5,
+      "shapes": [
+        {
+          "label": "triangle",
+          "base": 8,
+          "height": 5,
+          "area": 20
+        }
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6M_GM_001_AQ1",
+      "prompt": "A rectangular prism is 4 units long, 3 units wide, and 5 units high. What is the volume?",
+      "question_type": "volume_response",
+      "visual_model": "rectangular_prism_model",
+      "support_type": "rectangular_prism_model",
+      "correct_answer": "60 cubic units",
+      "answer": "60 cubic units",
+      "misconception_tag": "volume_area_confusion",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is 60 cubic units.",
+      "read_aloud_text": "A rectangular prism is 4 units long, 3 units wide, and 5 units high. What is the volume?",
+      "question_audio": {
+        "text": "A rectangular prism is 4 units long, 3 units wide, and 5 units high. What is the volume?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_AQ1"
+      },
+      "acceptable_answers": [
+        "60 cubic units",
+        "60 cubic units",
+        "60 cu units"
+      ],
+      "length": 4,
+      "width": 3,
+      "height": 5
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6M_GM_001_CP1",
+      "prompt": "A net has face areas 12, 12, 8, 8, 6, and 6 square inches. What is the surface area?",
+      "question_type": "multiple_choice",
+      "visual_model": "net_model",
+      "support_type": "net_model",
+      "correct_answer": "52 square inches",
+      "answer": "52 square inches",
+      "misconception_tag": "surface_area_net_error",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is 52 square inches.",
+      "read_aloud_text": "A net has face areas 12, 12, 8, 8, 6, and 6 square inches. What is the surface area?",
+      "question_audio": {
+        "text": "A net has face areas 12, 12, 8, 8, 6, and 6 square inches. What is the surface area?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_CP1"
+      },
+      "choices": [
+        "52 square inches",
+        "26 square inches",
+        "48 cubic inches"
+      ],
+      "faces": [
+        {
+          "label": "top",
+          "dims": "4\u00d73",
+          "area": 12
+        },
+        {
+          "label": "bottom",
+          "dims": "4\u00d73",
+          "area": 12
+        },
+        {
+          "label": "front",
+          "dims": "4\u00d72",
+          "area": 8
+        },
+        {
+          "label": "back",
+          "dims": "4\u00d72",
+          "area": 8
+        },
+        {
+          "label": "left",
+          "dims": "3\u00d72",
+          "area": 6
+        },
+        {
+          "label": "right",
+          "dims": "3\u00d72",
+          "area": 6
+        }
+      ],
+      "surface_area": "52"
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G6M_GM_001_LVL1",
+      "label": "Level 1: Area of Triangles and Quadrilaterals",
+      "focus": "Find areas using base and height.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_GM_001_LVL1_Q01",
+          "prompt": "Find the area of the triangle with base 6 units and height 4 units.",
+          "question_type": "geometry_response",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "12 square units",
+          "answer": "12 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 12 square units.",
+          "read_aloud_text": "Find the area of the triangle with base 6 units and height 4 units.",
+          "question_audio": {
+            "text": "Find the area of the triangle with base 6 units and height 4 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q01"
+          },
+          "acceptable_answers": [
+            "12 square units",
+            "12 square units",
+            "12 sq units"
+          ],
+          "rows": 4,
+          "columns": 6,
+          "area": 12
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q02",
+          "prompt": "Find the area of the triangle with base 9 units and height 4 units.",
+          "question_type": "geometry_response",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "18 square units",
+          "answer": "18 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 18 square units.",
+          "read_aloud_text": "Find the area of the triangle with base 9 units and height 4 units.",
+          "question_audio": {
+            "text": "Find the area of the triangle with base 9 units and height 4 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q02"
+          },
+          "acceptable_answers": [
+            "18 square units",
+            "18 square units",
+            "18 sq units"
+          ],
+          "rows": 4,
+          "columns": 9,
+          "area": 18
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q03",
+          "prompt": "Find the area of the triangle with base 10 units and height 3 units.",
+          "question_type": "geometry_response",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "15 square units",
+          "answer": "15 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 15 square units.",
+          "read_aloud_text": "Find the area of the triangle with base 10 units and height 3 units.",
+          "question_audio": {
+            "text": "Find the area of the triangle with base 10 units and height 3 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q03"
+          },
+          "acceptable_answers": [
+            "15 square units",
+            "15 square units",
+            "15 sq units"
+          ],
+          "rows": 3,
+          "columns": 10,
+          "area": 15
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q04",
+          "prompt": "Find the area of the triangle with base 7 units and height 6 units.",
+          "question_type": "geometry_response",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "21 square units",
+          "answer": "21 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 21 square units.",
+          "read_aloud_text": "Find the area of the triangle with base 7 units and height 6 units.",
+          "question_audio": {
+            "text": "Find the area of the triangle with base 7 units and height 6 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q04"
+          },
+          "acceptable_answers": [
+            "21 square units",
+            "21 square units",
+            "21 sq units"
+          ],
+          "rows": 6,
+          "columns": 7,
+          "area": 21
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q05",
+          "prompt": "Find the area of the triangle with base 12 units and height 5 units.",
+          "question_type": "geometry_response",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "30 square units",
+          "answer": "30 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 30 square units.",
+          "read_aloud_text": "Find the area of the triangle with base 12 units and height 5 units.",
+          "question_audio": {
+            "text": "Find the area of the triangle with base 12 units and height 5 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q05"
+          },
+          "acceptable_answers": [
+            "30 square units",
+            "30 square units",
+            "30 sq units"
+          ],
+          "rows": 5,
+          "columns": 12,
+          "area": 30
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q06",
+          "prompt": "Find the area of a parallelogram with base 5 units and height 7 units.",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "35 square units",
+          "answer": "35 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 35 square units.",
+          "read_aloud_text": "Find the area of a parallelogram with base 5 units and height 7 units.",
+          "question_audio": {
+            "text": "Find the area of a parallelogram with base 5 units and height 7 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q06"
+          },
+          "choices": [
+            "35 square units",
+            "12 square units",
+            "17 square units"
+          ],
+          "rows": 7,
+          "columns": 5,
+          "area": 35
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q07",
+          "prompt": "Find the area of a parallelogram with base 8 units and height 3 units.",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "24 square units",
+          "answer": "24 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 24 square units.",
+          "read_aloud_text": "Find the area of a parallelogram with base 8 units and height 3 units.",
+          "question_audio": {
+            "text": "Find the area of a parallelogram with base 8 units and height 3 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q07"
+          },
+          "choices": [
+            "24 square units",
+            "11 square units",
+            "12 square units"
+          ],
+          "rows": 3,
+          "columns": 8,
+          "area": 24
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q08",
+          "prompt": "Find the area of a parallelogram with base 6 units and height 6 units.",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "36 square units",
+          "answer": "36 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 36 square units.",
+          "read_aloud_text": "Find the area of a parallelogram with base 6 units and height 6 units.",
+          "question_audio": {
+            "text": "Find the area of a parallelogram with base 6 units and height 6 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q08"
+          },
+          "choices": [
+            "36 square units",
+            "12 square units",
+            "18 square units"
+          ],
+          "rows": 6,
+          "columns": 6,
+          "area": 36
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q09",
+          "prompt": "Find the area of a parallelogram with base 9 units and height 2 units.",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "18 square units",
+          "answer": "18 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 18 square units.",
+          "read_aloud_text": "Find the area of a parallelogram with base 9 units and height 2 units.",
+          "question_audio": {
+            "text": "Find the area of a parallelogram with base 9 units and height 2 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q09"
+          },
+          "choices": [
+            "18 square units",
+            "11 square units",
+            "9 square units"
+          ],
+          "rows": 2,
+          "columns": 9,
+          "area": 18
+        },
+        {
+          "question_id": "G6M_GM_001_LVL1_Q10",
+          "prompt": "Find the area of a parallelogram with base 4 units and height 11 units.",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "44 square units",
+          "answer": "44 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 44 square units.",
+          "read_aloud_text": "Find the area of a parallelogram with base 4 units and height 11 units.",
+          "question_audio": {
+            "text": "Find the area of a parallelogram with base 4 units and height 11 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL1_Q10"
+          },
+          "choices": [
+            "44 square units",
+            "15 square units",
+            "22 square units"
+          ],
+          "rows": 11,
+          "columns": 4,
+          "area": 44
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_GM_001_LVL2",
+      "label": "Level 2: Area of Polygons",
+      "focus": "Decompose polygons and add part areas.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_GM_001_LVL2_Q01",
+          "prompt": "A composite polygon is decomposed into areas 10 and 8 square units. What is the total area?",
+          "question_type": "geometry_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "18 square units",
+          "answer": "18 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 18 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 10 and 8 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 10 and 8 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q01"
+          },
+          "acceptable_answers": [
+            "18 square units",
+            "18 square units",
+            "18 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 10,
+              "height": 1,
+              "area": 10
+            },
+            {
+              "label": "triangle",
+              "base": 16,
+              "height": 1,
+              "area": 8
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q02",
+          "prompt": "A composite polygon is decomposed into areas 11 and 9 square units. What is the total area?",
+          "question_type": "short_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "20 square units",
+          "answer": "20 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 20 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 11 and 9 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 11 and 9 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q02"
+          },
+          "acceptable_answers": [
+            "20 square units",
+            "20 square units",
+            "20 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 11,
+              "height": 1,
+              "area": 11
+            },
+            {
+              "label": "triangle",
+              "base": 18,
+              "height": 1,
+              "area": 9
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q03",
+          "prompt": "A composite polygon is decomposed into areas 12 and 10 square units. What is the total area?",
+          "question_type": "short_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "22 square units",
+          "answer": "22 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 22 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 12 and 10 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 12 and 10 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q03"
+          },
+          "acceptable_answers": [
+            "22 square units",
+            "22 square units",
+            "22 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 12,
+              "height": 1,
+              "area": 12
+            },
+            {
+              "label": "triangle",
+              "base": 20,
+              "height": 1,
+              "area": 10
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q04",
+          "prompt": "A composite polygon is decomposed into areas 13 and 11 square units. What is the total area?",
+          "question_type": "geometry_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "24 square units",
+          "answer": "24 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 24 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 13 and 11 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 13 and 11 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q04"
+          },
+          "acceptable_answers": [
+            "24 square units",
+            "24 square units",
+            "24 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 13,
+              "height": 1,
+              "area": 13
+            },
+            {
+              "label": "triangle",
+              "base": 22,
+              "height": 1,
+              "area": 11
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q05",
+          "prompt": "A composite polygon is decomposed into areas 14 and 8 square units. What is the total area?",
+          "question_type": "short_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "22 square units",
+          "answer": "22 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 22 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 14 and 8 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 14 and 8 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q05"
+          },
+          "acceptable_answers": [
+            "22 square units",
+            "22 square units",
+            "22 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 14,
+              "height": 1,
+              "area": 14
+            },
+            {
+              "label": "triangle",
+              "base": 16,
+              "height": 1,
+              "area": 8
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q06",
+          "prompt": "A composite polygon is decomposed into areas 15 and 9 square units. What is the total area?",
+          "question_type": "short_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "24 square units",
+          "answer": "24 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 24 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 15 and 9 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 15 and 9 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q06"
+          },
+          "acceptable_answers": [
+            "24 square units",
+            "24 square units",
+            "24 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 15,
+              "height": 1,
+              "area": 15
+            },
+            {
+              "label": "triangle",
+              "base": 18,
+              "height": 1,
+              "area": 9
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q07",
+          "prompt": "A composite polygon is decomposed into areas 16 and 10 square units. What is the total area?",
+          "question_type": "geometry_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "26 square units",
+          "answer": "26 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 26 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 16 and 10 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 16 and 10 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q07"
+          },
+          "acceptable_answers": [
+            "26 square units",
+            "26 square units",
+            "26 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 16,
+              "height": 1,
+              "area": 16
+            },
+            {
+              "label": "triangle",
+              "base": 20,
+              "height": 1,
+              "area": 10
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q08",
+          "prompt": "A composite polygon is decomposed into areas 17 and 11 square units. What is the total area?",
+          "question_type": "short_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "28 square units",
+          "answer": "28 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 28 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 17 and 11 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 17 and 11 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q08"
+          },
+          "acceptable_answers": [
+            "28 square units",
+            "28 square units",
+            "28 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 17,
+              "height": 1,
+              "area": 17
+            },
+            {
+              "label": "triangle",
+              "base": 22,
+              "height": 1,
+              "area": 11
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q09",
+          "prompt": "A composite polygon is decomposed into areas 18 and 8 square units. What is the total area?",
+          "question_type": "short_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "26 square units",
+          "answer": "26 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 26 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 18 and 8 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 18 and 8 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q09"
+          },
+          "acceptable_answers": [
+            "26 square units",
+            "26 square units",
+            "26 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 18,
+              "height": 1,
+              "area": 18
+            },
+            {
+              "label": "triangle",
+              "base": 16,
+              "height": 1,
+              "area": 8
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_LVL2_Q10",
+          "prompt": "A composite polygon is decomposed into areas 19 and 9 square units. What is the total area?",
+          "question_type": "geometry_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "28 square units",
+          "answer": "28 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 28 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 19 and 9 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 19 and 9 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL2_Q10"
+          },
+          "acceptable_answers": [
+            "28 square units",
+            "28 square units",
+            "28 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 19,
+              "height": 1,
+              "area": 19
+            },
+            {
+              "label": "triangle",
+              "base": 18,
+              "height": 1,
+              "area": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_GM_001_LVL3",
+      "label": "Level 3: Surface Area With Nets",
+      "focus": "Use unfolded nets to add face areas.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_GM_001_LVL3_Q01",
+          "prompt": "Use the net of a 4 by 3 by 2 rectangular prism. What is the surface area?",
+          "question_type": "geometry_response",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "52 square units",
+          "answer": "52 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 52 square units.",
+          "read_aloud_text": "Use the net of a 4 by 3 by 2 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 4 by 3 by 2 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q01"
+          },
+          "acceptable_answers": [
+            "52 square units",
+            "52 square units",
+            "52 sq units"
+          ],
+          "length": 4,
+          "width": 3,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q02",
+          "prompt": "Use the net of a 5 by 2 by 3 rectangular prism. What is the surface area?",
+          "question_type": "multiple_choice",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "62 square units",
+          "answer": "62 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 62 square units.",
+          "read_aloud_text": "Use the net of a 5 by 2 by 3 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 5 by 2 by 3 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q02"
+          },
+          "choices": [
+            "62 square units",
+            "30 cubic units",
+            "31 square units"
+          ],
+          "length": 5,
+          "width": 2,
+          "height": 3
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q03",
+          "prompt": "Use the net of a 6 by 4 by 2 rectangular prism. What is the surface area?",
+          "question_type": "geometry_response",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "88 square units",
+          "answer": "88 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 88 square units.",
+          "read_aloud_text": "Use the net of a 6 by 4 by 2 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 6 by 4 by 2 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q03"
+          },
+          "acceptable_answers": [
+            "88 square units",
+            "88 square units",
+            "88 sq units"
+          ],
+          "length": 6,
+          "width": 4,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q04",
+          "prompt": "Use the net of a 3 by 3 by 5 rectangular prism. What is the surface area?",
+          "question_type": "multiple_choice",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "78 square units",
+          "answer": "78 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 78 square units.",
+          "read_aloud_text": "Use the net of a 3 by 3 by 5 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 3 by 3 by 5 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q04"
+          },
+          "choices": [
+            "78 square units",
+            "45 cubic units",
+            "39 square units"
+          ],
+          "length": 3,
+          "width": 3,
+          "height": 5
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q05",
+          "prompt": "Use the net of a 7 by 2 by 4 rectangular prism. What is the surface area?",
+          "question_type": "geometry_response",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "100 square units",
+          "answer": "100 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 100 square units.",
+          "read_aloud_text": "Use the net of a 7 by 2 by 4 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 7 by 2 by 4 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q05"
+          },
+          "acceptable_answers": [
+            "100 square units",
+            "100 square units",
+            "100 sq units"
+          ],
+          "length": 7,
+          "width": 2,
+          "height": 4
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q06",
+          "prompt": "Use the net of a 5 by 5 by 2 rectangular prism. What is the surface area?",
+          "question_type": "multiple_choice",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "90 square units",
+          "answer": "90 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 90 square units.",
+          "read_aloud_text": "Use the net of a 5 by 5 by 2 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 5 by 5 by 2 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q06"
+          },
+          "choices": [
+            "90 square units",
+            "50 cubic units",
+            "45 square units"
+          ],
+          "length": 5,
+          "width": 5,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q07",
+          "prompt": "Use the net of a 8 by 3 by 2 rectangular prism. What is the surface area?",
+          "question_type": "geometry_response",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "92 square units",
+          "answer": "92 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 92 square units.",
+          "read_aloud_text": "Use the net of a 8 by 3 by 2 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 8 by 3 by 2 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q07"
+          },
+          "acceptable_answers": [
+            "92 square units",
+            "92 square units",
+            "92 sq units"
+          ],
+          "length": 8,
+          "width": 3,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q08",
+          "prompt": "Use the net of a 4 by 4 by 4 rectangular prism. What is the surface area?",
+          "question_type": "multiple_choice",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "96 square units",
+          "answer": "96 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 96 square units.",
+          "read_aloud_text": "Use the net of a 4 by 4 by 4 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 4 by 4 by 4 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q08"
+          },
+          "choices": [
+            "96 square units",
+            "64 cubic units",
+            "48 square units"
+          ],
+          "length": 4,
+          "width": 4,
+          "height": 4
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q09",
+          "prompt": "Use the net of a 6 by 2 by 5 rectangular prism. What is the surface area?",
+          "question_type": "geometry_response",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "104 square units",
+          "answer": "104 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 104 square units.",
+          "read_aloud_text": "Use the net of a 6 by 2 by 5 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 6 by 2 by 5 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q09"
+          },
+          "acceptable_answers": [
+            "104 square units",
+            "104 square units",
+            "104 sq units"
+          ],
+          "length": 6,
+          "width": 2,
+          "height": 5
+        },
+        {
+          "question_id": "G6M_GM_001_LVL3_Q10",
+          "prompt": "Use the net of a 9 by 2 by 3 rectangular prism. What is the surface area?",
+          "question_type": "multiple_choice",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "102 square units",
+          "answer": "102 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 102 square units.",
+          "read_aloud_text": "Use the net of a 9 by 2 by 3 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 9 by 2 by 3 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL3_Q10"
+          },
+          "choices": [
+            "102 square units",
+            "54 cubic units",
+            "51 square units"
+          ],
+          "length": 9,
+          "width": 2,
+          "height": 3
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_GM_001_LVL4",
+      "label": "Level 4: Volume of Rectangular Prisms",
+      "focus": "Find volume as layers of unit cubes.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_GM_001_LVL4_Q01",
+          "prompt": "Find the volume of a rectangular prism with length 4, width 3, and height 2.",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "support_type": "volume_model",
+          "correct_answer": "24 cubic units",
+          "answer": "24 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 24 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 4, width 3, and height 2.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 4, width 3, and height 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q01"
+          },
+          "acceptable_answers": [
+            "24 cubic units",
+            "24 cubic units",
+            "24 cu units"
+          ],
+          "length": 4,
+          "width": 3,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q02",
+          "prompt": "Find the volume of a rectangular prism with length 5, width 2, and height 3.",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "support_type": "rectangular_prism_model",
+          "correct_answer": "30 cubic units",
+          "answer": "30 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 30 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 5, width 2, and height 3.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 5, width 2, and height 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q02"
+          },
+          "choices": [
+            "30 cubic units",
+            "62 square units",
+            "10 square units"
+          ],
+          "length": 5,
+          "width": 2,
+          "height": 3
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q03",
+          "prompt": "Find the volume of a rectangular prism with length 6, width 4, and height 2.",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "support_type": "volume_model",
+          "correct_answer": "48 cubic units",
+          "answer": "48 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 48 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 6, width 4, and height 2.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 6, width 4, and height 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q03"
+          },
+          "acceptable_answers": [
+            "48 cubic units",
+            "48 cubic units",
+            "48 cu units"
+          ],
+          "length": 6,
+          "width": 4,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q04",
+          "prompt": "Find the volume of a rectangular prism with length 3, width 3, and height 5.",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "support_type": "rectangular_prism_model",
+          "correct_answer": "45 cubic units",
+          "answer": "45 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 45 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 3, width 3, and height 5.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 3, width 3, and height 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q04"
+          },
+          "choices": [
+            "45 cubic units",
+            "78 square units",
+            "9 square units"
+          ],
+          "length": 3,
+          "width": 3,
+          "height": 5
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q05",
+          "prompt": "Find the volume of a rectangular prism with length 7, width 2, and height 4.",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "support_type": "volume_model",
+          "correct_answer": "56 cubic units",
+          "answer": "56 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 56 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 7, width 2, and height 4.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 7, width 2, and height 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q05"
+          },
+          "acceptable_answers": [
+            "56 cubic units",
+            "56 cubic units",
+            "56 cu units"
+          ],
+          "length": 7,
+          "width": 2,
+          "height": 4
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q06",
+          "prompt": "Find the volume of a rectangular prism with length 5, width 5, and height 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "support_type": "rectangular_prism_model",
+          "correct_answer": "50 cubic units",
+          "answer": "50 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 50 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 5, width 5, and height 2.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 5, width 5, and height 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q06"
+          },
+          "choices": [
+            "50 cubic units",
+            "90 square units",
+            "25 square units"
+          ],
+          "length": 5,
+          "width": 5,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q07",
+          "prompt": "Find the volume of a rectangular prism with length 8, width 3, and height 2.",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "support_type": "volume_model",
+          "correct_answer": "48 cubic units",
+          "answer": "48 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 48 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 8, width 3, and height 2.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 8, width 3, and height 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q07"
+          },
+          "acceptable_answers": [
+            "48 cubic units",
+            "48 cubic units",
+            "48 cu units"
+          ],
+          "length": 8,
+          "width": 3,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q08",
+          "prompt": "Find the volume of a rectangular prism with length 4, width 4, and height 4.",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "support_type": "rectangular_prism_model",
+          "correct_answer": "64 cubic units",
+          "answer": "64 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 64 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 4, width 4, and height 4.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 4, width 4, and height 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q08"
+          },
+          "choices": [
+            "64 cubic units",
+            "96 square units",
+            "16 square units"
+          ],
+          "length": 4,
+          "width": 4,
+          "height": 4
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q09",
+          "prompt": "Find the volume of a rectangular prism with length 6, width 2, and height 5.",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "support_type": "volume_model",
+          "correct_answer": "60 cubic units",
+          "answer": "60 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 60 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 6, width 2, and height 5.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 6, width 2, and height 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q09"
+          },
+          "acceptable_answers": [
+            "60 cubic units",
+            "60 cubic units",
+            "60 cu units"
+          ],
+          "length": 6,
+          "width": 2,
+          "height": 5
+        },
+        {
+          "question_id": "G6M_GM_001_LVL4_Q10",
+          "prompt": "Find the volume of a rectangular prism with length 9, width 2, and height 3.",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "support_type": "rectangular_prism_model",
+          "correct_answer": "54 cubic units",
+          "answer": "54 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 54 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 9, width 2, and height 3.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 9, width 2, and height 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_LVL4_Q10"
+          },
+          "choices": [
+            "54 cubic units",
+            "102 square units",
+            "18 square units"
+          ],
+          "length": 9,
+          "width": 2,
+          "height": 3
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_GM_001_MIXED",
+      "label": "Mixed",
+      "focus": "Practice area, surface area, and volume together.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_GM_001_MIXED_Q01",
+          "prompt": "Find the area of the triangle with base 6 units and height 4 units.",
+          "question_type": "geometry_response",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "12 square units",
+          "answer": "12 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 12 square units.",
+          "read_aloud_text": "Find the area of the triangle with base 6 units and height 4 units.",
+          "question_audio": {
+            "text": "Find the area of the triangle with base 6 units and height 4 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q01"
+          },
+          "acceptable_answers": [
+            "12 square units",
+            "12 square units",
+            "12 sq units"
+          ],
+          "rows": 4,
+          "columns": 6,
+          "area": 12
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q02",
+          "prompt": "Find the area of a parallelogram with base 8 units and height 3 units.",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "support_type": "area_model",
+          "correct_answer": "24 square units",
+          "answer": "24 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 24 square units.",
+          "read_aloud_text": "Find the area of a parallelogram with base 8 units and height 3 units.",
+          "question_audio": {
+            "text": "Find the area of a parallelogram with base 8 units and height 3 units.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q02"
+          },
+          "choices": [
+            "24 square units",
+            "11 square units",
+            "12 square units"
+          ],
+          "rows": 3,
+          "columns": 8,
+          "area": 24
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q03",
+          "prompt": "A composite polygon is decomposed into areas 12 and 10 square units. What is the total area?",
+          "question_type": "short_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "22 square units",
+          "answer": "22 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 22 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 12 and 10 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 12 and 10 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q03"
+          },
+          "acceptable_answers": [
+            "22 square units",
+            "22 square units",
+            "22 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 12,
+              "height": 1,
+              "area": 12
+            },
+            {
+              "label": "triangle",
+              "base": 20,
+              "height": 1,
+              "area": 10
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q04",
+          "prompt": "A composite polygon is decomposed into areas 17 and 11 square units. What is the total area?",
+          "question_type": "short_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "28 square units",
+          "answer": "28 square units",
+          "misconception_tag": "polygon_decomposition_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 28 square units.",
+          "read_aloud_text": "A composite polygon is decomposed into areas 17 and 11 square units. What is the total area?",
+          "question_audio": {
+            "text": "A composite polygon is decomposed into areas 17 and 11 square units. What is the total area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q04"
+          },
+          "acceptable_answers": [
+            "28 square units",
+            "28 square units",
+            "28 sq units"
+          ],
+          "shapes": [
+            {
+              "label": "rectangle",
+              "base": 17,
+              "height": 1,
+              "area": 17
+            },
+            {
+              "label": "triangle",
+              "base": 22,
+              "height": 1,
+              "area": 11
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q05",
+          "prompt": "Use the net of a 5 by 2 by 3 rectangular prism. What is the surface area?",
+          "question_type": "multiple_choice",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "62 square units",
+          "answer": "62 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 62 square units.",
+          "read_aloud_text": "Use the net of a 5 by 2 by 3 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 5 by 2 by 3 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q05"
+          },
+          "choices": [
+            "62 square units",
+            "30 cubic units",
+            "31 square units"
+          ],
+          "length": 5,
+          "width": 2,
+          "height": 3
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q06",
+          "prompt": "Use the net of a 5 by 5 by 2 rectangular prism. What is the surface area?",
+          "question_type": "multiple_choice",
+          "visual_model": "net_model",
+          "support_type": "net_model",
+          "correct_answer": "90 square units",
+          "answer": "90 square units",
+          "misconception_tag": "surface_area_net_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 90 square units.",
+          "read_aloud_text": "Use the net of a 5 by 5 by 2 rectangular prism. What is the surface area?",
+          "question_audio": {
+            "text": "Use the net of a 5 by 5 by 2 rectangular prism. What is the surface area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q06"
+          },
+          "choices": [
+            "90 square units",
+            "50 cubic units",
+            "45 square units"
+          ],
+          "length": 5,
+          "width": 5,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q07",
+          "prompt": "Find the volume of a rectangular prism with length 4, width 3, and height 2.",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "support_type": "volume_model",
+          "correct_answer": "24 cubic units",
+          "answer": "24 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 24 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 4, width 3, and height 2.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 4, width 3, and height 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q07"
+          },
+          "acceptable_answers": [
+            "24 cubic units",
+            "24 cubic units",
+            "24 cu units"
+          ],
+          "length": 4,
+          "width": 3,
+          "height": 2
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q08",
+          "prompt": "Find the volume of a rectangular prism with length 7, width 2, and height 4.",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "support_type": "volume_model",
+          "correct_answer": "56 cubic units",
+          "answer": "56 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 56 cubic units.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 7, width 2, and height 4.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 7, width 2, and height 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q08"
+          },
+          "acceptable_answers": [
+            "56 cubic units",
+            "56 cubic units",
+            "56 cu units"
+          ],
+          "length": 7,
+          "width": 2,
+          "height": 4
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q09",
+          "prompt": "A triangle has base 8 units and height 5 units. What is its area?",
+          "question_type": "geometry_response",
+          "visual_model": "polygon_area_model",
+          "support_type": "polygon_area_model",
+          "correct_answer": "20 square units",
+          "answer": "20 square units",
+          "misconception_tag": "triangle_area_halving_error",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 20 square units.",
+          "read_aloud_text": "A triangle has base 8 units and height 5 units. What is its area?",
+          "question_audio": {
+            "text": "A triangle has base 8 units and height 5 units. What is its area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q09"
+          },
+          "acceptable_answers": [
+            "20 square units",
+            "20 square units",
+            "20 sq units"
+          ],
+          "base": 8,
+          "height": 5,
+          "shapes": [
+            {
+              "label": "triangle",
+              "base": 8,
+              "height": 5,
+              "area": 20
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_GM_001_MIXED_Q10",
+          "prompt": "A rectangular prism is 4 units long, 3 units wide, and 5 units high. What is the volume?",
+          "question_type": "volume_response",
+          "visual_model": "rectangular_prism_model",
+          "support_type": "rectangular_prism_model",
+          "correct_answer": "60 cubic units",
+          "answer": "60 cubic units",
+          "misconception_tag": "volume_area_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 60 cubic units.",
+          "read_aloud_text": "A rectangular prism is 4 units long, 3 units wide, and 5 units high. What is the volume?",
+          "question_audio": {
+            "text": "A rectangular prism is 4 units long, 3 units wide, and 5 units high. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_GM_001:question:G6M_GM_001_MIXED_Q10"
+          },
+          "acceptable_answers": [
+            "60 cubic units",
+            "60 cubic units",
+            "60 cu units"
+          ],
+          "length": 4,
+          "width": 3,
+          "height": 5
+        }
+      ]
+    }
+  ]
+}

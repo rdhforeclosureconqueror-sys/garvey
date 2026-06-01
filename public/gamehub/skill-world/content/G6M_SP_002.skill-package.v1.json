@@ -1,0 +1,2831 @@
+{
+  "metadata": {
+    "content_version": "2026.06.01",
+    "production_status": "ready",
+    "source_plan": "docs/grade6_math_completion_plan.md"
+  },
+  "skill_id": "G6M_SP_002",
+  "grade": 6,
+  "subject": "Math",
+  "domain": "Statistics and Probability",
+  "skill": "Summarize and Interpret Data",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "feedback_fields": [
+    "correct",
+    "incorrect",
+    "hint"
+  ],
+  "next_skill_id": "",
+  "remediation_skill_id": "G6M_EE_003",
+  "support_type": "data_comparison_panel",
+  "badgeName": "Summarize and Interpret Data",
+  "lesson": {
+    "story_mission": "Join the Skill World studio to master describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers.",
+    "objective": "describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers",
+    "key_vocabulary": [
+      "describe distributions by center",
+      "spread",
+      "variability",
+      "clusters",
+      "peaks"
+    ],
+    "concept_explanation": "This mission teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers with models, labels, context, and careful answer checks.",
+    "visual_model": "data_comparison_panel",
+    "common_misconception": "A common mistake is using a number without checking what the labels and units mean.",
+    "real_world_connection": "These skills help solve design, science, sports, and community data problems.",
+    "lesson_summary": "Read the model, choose the correct measure or statistic, calculate carefully, and interpret the answer in context.",
+    "page_audio": {
+      "text": "Read This Page. This lesson teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Listen for the important vocabulary, study the visual model, and explain why the answer fits the situation.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:lesson-card"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G6M_SP_002_WE1",
+      "text": "Watch how the model supports describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers.",
+      "visual_model": "data_comparison_panel",
+      "correct_answer": "model",
+      "page_audio": {
+        "text": "Read This Page. Watch how labels and visuals guide describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Pause on each label and connect it to the calculation or interpretation.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_002:page:watch-example"
+      }
+    },
+    {
+      "id": "G6M_SP_002_WE2",
+      "text": "Demo: solve one step, then interpret the result.",
+      "visual_model": "data_comparison_panel",
+      "correct_answer": "demo",
+      "page_audio": {
+        "text": "Read This Page. Demo for describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Try the reasoning aloud before answering the next question.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_002:page:demo-example"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the prompt and labels.",
+    "Use the visual model.",
+    "Check units and context."
+  ],
+  "misconception_bank": {
+    "center_vs_spread_confusion": "center vs spread confusion",
+    "outlier_effect_confusion": "outlier effect confusion",
+    "distribution_shape_error": "distribution shape error",
+    "context_interpretation_gap": "context interpretation gap"
+  },
+  "review_bank": [],
+  "game_theme": {
+    "mission_intro": "A Skill World station needs your help with describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers.",
+    "badge": "Summarize and Interpret Data",
+    "badge_name": "Summarize and Interpret Data"
+  },
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Story teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:story"
+    },
+    "lesson": {
+      "text": "Read This Page. Lesson teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:lesson"
+    },
+    "watch": {
+      "text": "Read This Page. Watch teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:watch"
+    },
+    "demo": {
+      "text": "Read This Page. Demo teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:demo"
+    },
+    "practice": {
+      "text": "Read This Page. Practice teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:practice"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:challenge"
+    },
+    "checkpoint": {
+      "text": "Read This Page. Checkpoint teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:checkpoint"
+    },
+    "badge": {
+      "text": "Read This Page. Badge teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:badge"
+    },
+    "profile": {
+      "text": "Read This Page. Profile teaches describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers. Use the visual model to notice center, spread, variability, clusters, gaps, peaks, outliers, and context. Read the labels, explain what the display or shape means, and then use Read Question when a practice, challenge, or checkpoint item appears.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "cache_key": "skill-world:G6M_SP_002:page:profile"
+    }
+  },
+  "guided_practice": [
+    {
+      "question_id": "G6M_SP_002_GP1",
+      "prompt": "A dot plot clusters around 6 and has one value at 14. What feature is 14?",
+      "question_type": "multiple_choice",
+      "visual_model": "dot_plot",
+      "support_type": "dot_plot",
+      "correct_answer": "outlier",
+      "answer": "outlier",
+      "misconception_tag": "outlier_effect_confusion",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is outlier.",
+      "read_aloud_text": "A dot plot clusters around 6 and has one value at 14. What feature is 14?",
+      "question_audio": {
+        "text": "A dot plot clusters around 6 and has one value at 14. What feature is 14?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_GP1"
+      },
+      "choices": [
+        "outlier",
+        "median",
+        "gap"
+      ],
+      "data": [
+        5,
+        6,
+        6,
+        7,
+        14
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6M_SP_002_AQ1",
+      "prompt": "Data Set A has median 8 and range 4. Data Set B has median 8 and range 12. Which set has more variability?",
+      "question_type": "data_interpretation",
+      "visual_model": "data_comparison_panel",
+      "support_type": "data_comparison_panel",
+      "correct_answer": "Data Set B",
+      "answer": "Data Set B",
+      "misconception_tag": "center_vs_spread_confusion",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is Data Set B.",
+      "read_aloud_text": "Data Set A has median 8 and range 4. Data Set B has median 8 and range 12. Which set has more variability?",
+      "question_audio": {
+        "text": "Data Set A has median 8 and range 4. Data Set B has median 8 and range 12. Which set has more variability?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_AQ1"
+      },
+      "acceptable_answers": [
+        "Data Set B",
+        "data set b",
+        "Data Set B"
+      ],
+      "dataset_a": {
+        "label": "A",
+        "data": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "summary": {
+          "median": 8,
+          "range": 4
+        }
+      },
+      "dataset_b": {
+        "label": "B",
+        "data": [
+          2,
+          6,
+          8,
+          12,
+          14
+        ],
+        "summary": {
+          "median": 8,
+          "range": 12
+        }
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6M_SP_002_CP1",
+      "prompt": "Which statement best describes the distribution?",
+      "question_type": "multiple_choice",
+      "visual_model": "histogram",
+      "support_type": "histogram",
+      "correct_answer": "Most data are in the middle interval, with a gap at the high end.",
+      "answer": "Most data are in the middle interval, with a gap at the high end.",
+      "misconception_tag": "distribution_shape_error",
+      "hints": [
+        "Read the labels and units carefully.",
+        "Use the visual model before calculating.",
+        "Check whether the answer matches the question context."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer fits the model and the context.",
+        "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+      },
+      "explanation": "The answer is Most data are in the middle interval, with a gap at the high end..",
+      "read_aloud_text": "Which statement best describes the distribution?",
+      "question_audio": {
+        "text": "Which statement best describes the distribution?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_CP1"
+      },
+      "choices": [
+        "Most data are in the middle interval, with a gap at the high end.",
+        "Every interval has the same frequency.",
+        "There are no peaks or gaps."
+      ],
+      "bins": [
+        {
+          "label": "0–4",
+          "frequency": 2
+        },
+        {
+          "label": "5–9",
+          "frequency": 7
+        },
+        {
+          "label": "10–14",
+          "frequency": 0
+        },
+        {
+          "label": "15–19",
+          "frequency": 1
+        }
+      ]
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G6M_SP_002_LVL1",
+      "label": "Level 1: Describe Center and Spread",
+      "focus": "Describe typical value and variability.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_002_LVL1_Q01",
+          "prompt": "Describe the center and spread for data [3, 4, 4, 5, 7]. What is the range?",
+          "question_type": "short_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [3, 4, 4, 5, 7]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [3, 4, 4, 5, 7]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q01"
+          },
+          "acceptable_answers": [
+            "4",
+            "yes"
+          ],
+          "data": [
+            3,
+            4,
+            4,
+            5,
+            7
+          ],
+          "summary": {
+            "median": 4,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q02",
+          "prompt": "Describe the center and spread for data [4, 5, 5, 6, 8]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [4, 5, 5, 6, 8]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [4, 5, 5, 6, 8]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q02"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            4,
+            5,
+            5,
+            6,
+            8
+          ],
+          "summary": {
+            "median": 5,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q03",
+          "prompt": "Describe the center and spread for data [5, 6, 6, 7, 9]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [5, 6, 6, 7, 9]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [5, 6, 6, 7, 9]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q03"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            5,
+            6,
+            6,
+            7,
+            9
+          ],
+          "summary": {
+            "median": 6,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q04",
+          "prompt": "Describe the center and spread for data [6, 7, 7, 8, 10]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [6, 7, 7, 8, 10]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [6, 7, 7, 8, 10]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q04"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            6,
+            7,
+            7,
+            8,
+            10
+          ],
+          "summary": {
+            "median": 7,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q05",
+          "prompt": "Describe the center and spread for data [7, 8, 8, 9, 11]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [7, 8, 8, 9, 11]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [7, 8, 8, 9, 11]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q05"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            7,
+            8,
+            8,
+            9,
+            11
+          ],
+          "summary": {
+            "median": 8,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q06",
+          "prompt": "Describe the center and spread for data [8, 9, 9, 10, 12]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [8, 9, 9, 10, 12]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [8, 9, 9, 10, 12]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q06"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            8,
+            9,
+            9,
+            10,
+            12
+          ],
+          "summary": {
+            "median": 9,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q07",
+          "prompt": "Describe the center and spread for data [9, 10, 10, 11, 13]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [9, 10, 10, 11, 13]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [9, 10, 10, 11, 13]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q07"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            9,
+            10,
+            10,
+            11,
+            13
+          ],
+          "summary": {
+            "median": 10,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q08",
+          "prompt": "Describe the center and spread for data [10, 11, 11, 12, 14]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [10, 11, 11, 12, 14]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [10, 11, 11, 12, 14]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q08"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            10,
+            11,
+            11,
+            12,
+            14
+          ],
+          "summary": {
+            "median": 11,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q09",
+          "prompt": "Describe the center and spread for data [11, 12, 12, 13, 15]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [11, 12, 12, 13, 15]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [11, 12, 12, 13, 15]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q09"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            11,
+            12,
+            12,
+            13,
+            15
+          ],
+          "summary": {
+            "median": 12,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL1_Q10",
+          "prompt": "Describe the center and spread for data [12, 13, 13, 14, 16]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [12, 13, 13, 14, 16]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [12, 13, 13, 14, 16]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL1_Q10"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            12,
+            13,
+            13,
+            14,
+            16
+          ],
+          "summary": {
+            "median": 13,
+            "range": 4
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_SP_002_LVL2",
+      "label": "Level 2: Clusters, Peaks, Gaps, and Outliers",
+      "focus": "Name distribution features from displays.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_002_LVL2_Q01",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q01"
+          },
+          "choices": [
+            "8",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            8
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q02",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q02"
+          },
+          "choices": [
+            "9",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            9
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q03",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "10",
+          "answer": "10",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 10.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q03"
+          },
+          "choices": [
+            "10",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            10
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q04",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "11",
+          "answer": "11",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 11.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q04"
+          },
+          "choices": [
+            "11",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            11
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q05",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "12",
+          "answer": "12",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q05"
+          },
+          "choices": [
+            "12",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            12
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q06",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "13",
+          "answer": "13",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 13.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q06"
+          },
+          "choices": [
+            "13",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            13
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q07",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "14",
+          "answer": "14",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 14.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q07"
+          },
+          "choices": [
+            "14",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            14
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q08",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "15",
+          "answer": "15",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q08"
+          },
+          "choices": [
+            "15",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            15
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q09",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "16",
+          "answer": "16",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 16.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q09"
+          },
+          "choices": [
+            "16",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            16
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL2_Q10",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "17",
+          "answer": "17",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 17.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL2_Q10"
+          },
+          "choices": [
+            "17",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_SP_002_LVL3",
+      "label": "Level 3: Compare Data Sets",
+      "focus": "Compare center, spread, and shape.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_002_LVL3_Q01",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q01"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              10
+            ],
+            "summary": {
+              "median": 6,
+              "range": 8
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q02",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q02"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              11
+            ],
+            "summary": {
+              "median": 6,
+              "range": 9
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q03",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q03"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              12
+            ],
+            "summary": {
+              "median": 6,
+              "range": 10
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q04",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q04"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              13
+            ],
+            "summary": {
+              "median": 6,
+              "range": 11
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q05",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q05"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              14
+            ],
+            "summary": {
+              "median": 6,
+              "range": 12
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q06",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q06"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              15
+            ],
+            "summary": {
+              "median": 6,
+              "range": 13
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q07",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q07"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              16
+            ],
+            "summary": {
+              "median": 6,
+              "range": 14
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q08",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q08"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              17
+            ],
+            "summary": {
+              "median": 6,
+              "range": 15
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q09",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q09"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              18
+            ],
+            "summary": {
+              "median": 6,
+              "range": 16
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL3_Q10",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL3_Q10"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              19
+            ],
+            "summary": {
+              "median": 6,
+              "range": 17
+            }
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_SP_002_LVL4",
+      "label": "Level 4: Interpret Data in Context",
+      "focus": "Use distribution language in context.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_002_LVL4_Q01",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q01"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 1
+            },
+            {
+              "label": "5–9",
+              "frequency": 5
+            },
+            {
+              "label": "10–14",
+              "frequency": 2
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q02",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q02"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "five_number_summary": {
+            "min": 2,
+            "q1": 4,
+            "median": 7,
+            "q3": 9,
+            "max": 13
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q03",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q03"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "summary": {
+            "median": 7,
+            "range": 12,
+            "iqr": 5
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q04",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q04"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 2
+            },
+            {
+              "label": "5–9",
+              "frequency": 5
+            },
+            {
+              "label": "10–14",
+              "frequency": 2
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q05",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q05"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "five_number_summary": {
+            "min": 2,
+            "q1": 4,
+            "median": 7,
+            "q3": 9,
+            "max": 16
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q06",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q06"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "summary": {
+            "median": 7,
+            "range": 15,
+            "iqr": 5
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q07",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q07"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 1
+            },
+            {
+              "label": "5–9",
+              "frequency": 5
+            },
+            {
+              "label": "10–14",
+              "frequency": 2
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q08",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q08"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "five_number_summary": {
+            "min": 2,
+            "q1": 4,
+            "median": 7,
+            "q3": 9,
+            "max": 19
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q09",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q09"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "summary": {
+            "median": 7,
+            "range": 18,
+            "iqr": 5
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_LVL4_Q10",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_LVL4_Q10"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 2
+            },
+            {
+              "label": "5–9",
+              "frequency": 5
+            },
+            {
+              "label": "10–14",
+              "frequency": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_SP_002_MIXED",
+      "label": "Mixed",
+      "focus": "Practice interpreting distributions together.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_SP_002_MIXED_Q01",
+          "prompt": "Describe the center and spread for data [3, 4, 4, 5, 7]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [3, 4, 4, 5, 7]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [3, 4, 4, 5, 7]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q01"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            3,
+            4,
+            4,
+            5,
+            7
+          ],
+          "summary": {
+            "median": 4,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q02",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q02"
+          },
+          "choices": [
+            "9",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            9
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q03",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q03"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              12
+            ],
+            "summary": {
+              "median": 6,
+              "range": 10
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q04",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "histogram",
+          "support_type": "histogram",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q04"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "bins": [
+            {
+              "label": "0–4",
+              "frequency": 2
+            },
+            {
+              "label": "5–9",
+              "frequency": 5
+            },
+            {
+              "label": "10–14",
+              "frequency": 2
+            }
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q05",
+          "prompt": "Describe the center and spread for data [7, 8, 8, 9, 11]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [7, 8, 8, 9, 11]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [7, 8, 8, 9, 11]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q05"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            7,
+            8,
+            8,
+            9,
+            11
+          ],
+          "summary": {
+            "median": 8,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q06",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "13",
+          "answer": "13",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 13.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q06"
+          },
+          "choices": [
+            "13",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            13
+          ]
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q07",
+          "prompt": "Compare the two data sets. Which set has greater spread?",
+          "question_type": "data_interpretation",
+          "visual_model": "data_comparison_panel",
+          "support_type": "data_comparison_panel",
+          "correct_answer": "Data Set B",
+          "answer": "Data Set B",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is Data Set B.",
+          "read_aloud_text": "Compare the two data sets. Which set has greater spread?",
+          "question_audio": {
+            "text": "Compare the two data sets. Which set has greater spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q07"
+          },
+          "acceptable_answers": [
+            "Data Set B",
+            "data set b",
+            "Data Set B"
+          ],
+          "dataset_a": {
+            "label": "Data Set A",
+            "data": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "summary": {
+              "median": 6,
+              "range": 4
+            }
+          },
+          "dataset_b": {
+            "label": "Data Set B",
+            "data": [
+              2,
+              4,
+              6,
+              8,
+              16
+            ],
+            "summary": {
+              "median": 6,
+              "range": 14
+            }
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q08",
+          "prompt": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_type": "multiple_choice",
+          "visual_model": "box_plot",
+          "support_type": "box_plot",
+          "correct_answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "answer": "The typical value is near the center, and the spread shows how variable the data are.",
+          "misconception_tag": "context_interpretation_gap",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is The typical value is near the center, and the spread shows how variable the data are..",
+          "read_aloud_text": "Interpret the data in context. Which sentence uses both center and spread?",
+          "question_audio": {
+            "text": "Interpret the data in context. Which sentence uses both center and spread?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q08"
+          },
+          "choices": [
+            "The typical value is near the center, and the spread shows how variable the data are.",
+            "Only the largest value matters.",
+            "The labels do not matter."
+          ],
+          "five_number_summary": {
+            "min": 2,
+            "q1": 4,
+            "median": 7,
+            "q3": 9,
+            "max": 19
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q09",
+          "prompt": "Describe the center and spread for data [11, 12, 12, 13, 15]. What is the range?",
+          "question_type": "statistics_response",
+          "visual_model": "statistics_summary",
+          "support_type": "statistics_summary",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "center_vs_spread_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Describe the center and spread for data [11, 12, 12, 13, 15]. What is the range?",
+          "question_audio": {
+            "text": "Describe the center and spread for data [11, 12, 12, 13, 15]. What is the range?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q09"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4"
+          ],
+          "data": [
+            11,
+            12,
+            12,
+            13,
+            15
+          ],
+          "summary": {
+            "median": 12,
+            "range": 4
+          }
+        },
+        {
+          "question_id": "G6M_SP_002_MIXED_Q10",
+          "prompt": "Look at the display. Which feature is far from the cluster?",
+          "question_type": "multiple_choice",
+          "visual_model": "dot_plot",
+          "support_type": "dot_plot",
+          "correct_answer": "17",
+          "answer": "17",
+          "misconception_tag": "outlier_effect_confusion",
+          "hints": [
+            "Read the labels and units carefully.",
+            "Use the visual model before calculating.",
+            "Check whether the answer matches the question context."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer fits the model and the context.",
+            "incorrect": "Try again. Recheck the labels, units, and what the question asks."
+          },
+          "explanation": "The answer is 17.",
+          "read_aloud_text": "Look at the display. Which feature is far from the cluster?",
+          "question_audio": {
+            "text": "Look at the display. Which feature is far from the cluster?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_SP_002:question:G6M_SP_002_MIXED_Q10"
+          },
+          "choices": [
+            "17",
+            "3",
+            "4"
+          ],
+          "data": [
+            2,
+            3,
+            3,
+            4,
+            17
+          ]
+        }
+      ]
+    }
+  ]
+}

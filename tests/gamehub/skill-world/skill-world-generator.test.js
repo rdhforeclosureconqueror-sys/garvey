@@ -2033,3 +2033,61 @@ assert.match(inequalityHtml,/ineq-circle (open|closed)/,'inequality_number_line 
 assert.match(inequalityHtml,/ineq-ray (left|right)/,'inequality_number_line shows arrow direction');
 assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='solution_set_model')),/solution-chip valid/,'solution_set_model shows valid solutions clearly');
 assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='equation_table_match')),/equation-strip[\s\S]*sw-pattern-table[\s\S]*graph-canvas/,'equation_table_match shows equation, table, and graph relationship');
+
+
+const grade6FinalMathPackages = [
+  {id:'G6M_GM_001',domain:'Geometry',skill:'Area, Surface Area, and Volume',labels:['Level 1: Area of Triangles and Quadrilaterals','Level 2: Area of Polygons','Level 3: Surface Area With Nets','Level 4: Volume of Rectangular Prisms','Mixed'],visuals:['area_model','polygon_area_model','net_model','rectangular_prism_model','volume_model'],types:['multiple_choice','short_response','geometry_response','volume_response'],tags:['triangle_area_halving_error','polygon_decomposition_error','surface_area_net_error','volume_area_confusion'],pkg:load('G6M_GM_001')},
+  {id:'G6M_SP_001',domain:'Statistics and Probability',skill:'Statistical Questions and Data Displays',labels:['Level 1: Statistical Questions','Level 2: Dot Plots and Histograms','Level 3: Mean, Median, Mode, and Range','Level 4: Box Plots and Distribution Shape','Mixed'],visuals:['dot_plot','histogram','box_plot','data_table','statistics_summary'],types:['multiple_choice','short_response','data_interpretation','statistics_response'],tags:['non_statistical_question_confusion','mean_median_confusion','range_error','box_plot_reading_error'],pkg:load('G6M_SP_001')},
+  {id:'G6M_SP_002',domain:'Statistics and Probability',skill:'Summarize and Interpret Data',labels:['Level 1: Describe Center and Spread','Level 2: Clusters, Peaks, Gaps, and Outliers','Level 3: Compare Data Sets','Level 4: Interpret Data in Context','Mixed'],visuals:['dot_plot','histogram','box_plot','data_comparison_panel','statistics_summary'],types:['multiple_choice','short_response','data_interpretation','statistics_response'],tags:['center_vs_spread_confusion','outlier_effect_confusion','distribution_shape_error','context_interpretation_gap'],pkg:load('G6M_SP_002')}
+];
+
+grade6FinalMathPackages.forEach(({id,domain,skill,labels,visuals,types,tags,pkg})=>{
+  const allQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])];
+  const validation=Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false});
+  assert.equal(validation.valid,true,`${id} validates in strict production mode: ${validation.errors.join('; ')}`);
+  assert.equal(pkg.grade,6,`${id} is Grade 6`);
+  assert.equal(pkg.subject,'Math',`${id} is Math`);
+  assert.equal(pkg.domain,domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,skill,`${id} skill matches plan`);
+  assert.deepEqual(Renderer.renderSkillWorld(pkg,{failClosed:true}).steps,['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],`${id} mission renders full Skill World flow`);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(allQuestions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(Schema.QUESTION_TYPES.includes(type),`schema accepts ${type}`));
+  types.forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  allQuestions.filter((q)=>['short_response','geometry_response','volume_response','statistics_response','data_interpretation'].includes(q.question_type)).forEach((q)=>assert.ok(Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0,`${q.question_id} acceptable_answers exist`));
+  for (const screen of ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile']) {
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${id} ${screen} has Read This Page narration`);
+    assert.ok((pkg.page_audio?.[screen]?.text||'').split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`${id} ${screen} narration teaches the page`);
+  }
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} references Read Question`));
+  [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} Skill Practice question has Read Question narration`));
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} full mission flow renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  assert.match(Renderer.renderSkillWorld(pkg,{mode:'drill',failClosed:true}).html,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+
+const grade6FinalManifest=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
+['G6M_GM_001.skill-package.v1.json','G6M_SP_001.skill-package.v1.json','G6M_SP_002.skill-package.v1.json'].forEach((file)=>assert.ok(grade6FinalManifest.packages.includes(file),`manifest includes ${file}`));
+const grade6FinalQuestions=grade6FinalMathPackages.flatMap(({pkg})=>[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])]);
+['polygon_area_model','net_model','dot_plot','histogram','box_plot','statistics_summary','data_comparison_panel'].forEach((visual)=>{
+  const question=grade6FinalQuestions.find((q)=>q.visual_model===visual);
+  assert.ok(question,`${visual} has a fixture question`);
+  const html=VisualRegistry.render(question);
+  assert.match(html,new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists`);
+  assert.doesNotMatch(html,/placeholder|coming soon|missing visual/i,`${visual} does not render placeholder-only text`);
+});
+assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='polygon_area_model')),/polygon-part[\s\S]*(base|height)/,'polygon_area_model shows decomposed shapes or labeled base/height');
+assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='net_model')),/net-face[\s\S]*face-5/,'net_model shows a real unfolded net with faces');
+assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='dot_plot')),/dot-stack[\s\S]*class="dot"/,'dot_plot shows dots over values');
+assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='histogram')),/histogram-bar/,'histogram shows interval bars');
+assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='box_plot')),/min[\s\S]*Q1[\s\S]*median[\s\S]*Q3[\s\S]*max/,'box_plot shows min, quartiles, median, and max');
+assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='statistics_summary')),/stat-card[\s\S]*(median|range|mean)/,'statistics_summary shows center/spread values clearly');
+assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='data_comparison_panel')),/comparison-side[\s\S]*comparison-side/,'data_comparison_panel compares two data displays visually');
