@@ -52,9 +52,9 @@
       "visual_model": "equation_builder",
       "prompt": "Mia has 14 stickers and gives away 7. How many are left?",
       "correct_answer": "7",
-      "equation": "14 \u2212 7 = 7",
+      "equation": "14 − 7 = 7",
       "context": "Mia has 14 stickers and gives away 7. How many are left?",
-      "operation": "\u2212",
+      "operation": "−",
       "text": "Mia has 14 stickers and gives away 7. How many are left?"
     },
     {
@@ -105,7 +105,8 @@
         "19",
         "25",
         "18"
-      ]
+      ],
+      "read_aloud_text": "Mia has 13 stickers and gets 6 more. How many stickers does she have now? Choices: 19, 25, 18."
     },
     {
       "id": "G3M_WP_001_LVL1_Q2",
@@ -131,15 +132,16 @@
         "7 objects",
         "7 items"
       ],
-      "equation": "14 \u2212 7 = 7",
+      "equation": "14 − 7 = 7",
       "context": "Mia has 14 stickers and gives away 7. How many are left?",
-      "operation": "\u2212",
-      "steps": "\u2212",
+      "operation": "−",
+      "steps": "−",
       "choices": [
         "7",
         "14",
         "6"
-      ]
+      ],
+      "read_aloud_text": "Mia has 14 stickers and gives away 7. How many are left? Choices: 7, 14, 6."
     },
     {
       "id": "G3M_WP_001_LVL1_Q3",
@@ -173,7 +175,8 @@
         "23",
         "31",
         "22"
-      ]
+      ],
+      "read_aloud_text": "Mia has 15 stickers and gets 8 more. How many stickers does she have now? Choices: 23, 31, 22."
     }
   ],
   "adaptive_question_bank": [
@@ -201,10 +204,11 @@
         "16",
         "10"
       ],
-      "equation": "16 \u2212 5 = 11",
+      "equation": "16 − 5 = 11",
       "context": "Mia has 16 stickers and gives away 5. How many are left?",
-      "operation": "\u2212",
-      "steps": "\u2212"
+      "operation": "−",
+      "steps": "−",
+      "read_aloud_text": "Mia has 16 stickers and gives away 5. How many are left? Choices: 11, 16, 10."
     },
     {
       "id": "G3M_WP_001_LVL1_Q5",
@@ -238,7 +242,8 @@
         "23",
         "29",
         "22"
-      ]
+      ],
+      "read_aloud_text": "Mia has 17 stickers and gets 6 more. How many stickers does she have now? Choices: 23, 29, 22."
     },
     {
       "id": "G3M_WP_001_LVL1_Q6",
@@ -264,15 +269,16 @@
         "11 objects",
         "11 items"
       ],
-      "equation": "18 \u2212 7 = 11",
+      "equation": "18 − 7 = 11",
       "context": "Mia has 18 stickers and gives away 7. How many are left?",
-      "operation": "\u2212",
-      "steps": "\u2212",
+      "operation": "−",
+      "steps": "−",
       "choices": [
         "11",
         "18",
         "10"
-      ]
+      ],
+      "read_aloud_text": "Mia has 18 stickers and gives away 7. How many are left? Choices: 11, 18, 10."
     },
     {
       "id": "G3M_WP_001_LVL1_Q7",
@@ -306,7 +312,8 @@
         "27",
         "35",
         "26"
-      ]
+      ],
+      "read_aloud_text": "Mia has 19 stickers and gets 8 more. How many stickers does she have now? Choices: 27, 35, 26."
     },
     {
       "id": "G3M_WP_001_LVL1_Q8",
@@ -332,10 +339,11 @@
         "20",
         "14"
       ],
-      "equation": "20 \u2212 5 = 15",
+      "equation": "20 − 5 = 15",
       "context": "Mia has 20 stickers and gives away 5. How many are left?",
-      "operation": "\u2212",
-      "steps": "\u2212"
+      "operation": "−",
+      "steps": "−",
+      "read_aloud_text": "Mia has 20 stickers and gives away 5. How many are left? Choices: 15, 20, 14."
     },
     {
       "id": "G3M_WP_001_LVL1_Q9",
@@ -369,7 +377,8 @@
         "27",
         "33",
         "26"
-      ]
+      ],
+      "read_aloud_text": "Mia has 21 stickers and gets 6 more. How many stickers does she have now? Choices: 27, 33, 26."
     }
   ],
   "checkpoint": [
@@ -378,7 +387,7 @@
       "question_id": "G3M_WP_001_MIXED_Q8",
       "question_type": "multiple_choice",
       "visual_model": "word_problem_model",
-      "prompt": "Two-step challenge: use 18, 5, and 3 with operations \u2212 then \u00d7. What is the answer?",
+      "prompt": "Two-step challenge: use 18, 5, and 3 with operations − then ×. What is the answer?",
       "answer": "39",
       "correct_answer": "39",
       "misconception_tag": "operation_selection_error",
@@ -397,17 +406,18 @@
         "40",
         "38"
       ],
-      "equation": "(18-5)\u00d73=39",
-      "context": "Two-step challenge: use 18, 5, and 3 with operations \u2212 then \u00d7. What is the answer?",
-      "operation": "\u2212 then \u00d7",
-      "steps": "\u2212 then \u00d7"
+      "equation": "(18-5)×3=39",
+      "context": "Two-step challenge: use 18, 5, and 3 with operations − then ×. What is the answer?",
+      "operation": "− then ×",
+      "steps": "− then ×",
+      "read_aloud_text": "Two-step challenge: use 18, 5, and 3 with operations minus then times. What is the answer? Choices: 39, 40, 38."
     },
     {
       "id": "G3M_WP_001_MIXED_Q9",
       "question_id": "G3M_WP_001_MIXED_Q9",
       "question_type": "short_response",
       "visual_model": "bar_model",
-      "prompt": "Two-step challenge: use 19, 6, and 4 with operations \u2212 then \u00d7. What is the answer?",
+      "prompt": "Two-step challenge: use 19, 6, and 4 with operations − then ×. What is the answer?",
       "answer": "52",
       "correct_answer": "52",
       "misconception_tag": "two_step_tracking_error",
@@ -426,17 +436,18 @@
         "52 objects",
         "52 items"
       ],
-      "equation": "(19-6)\u00d74=52",
-      "context": "Two-step challenge: use 19, 6, and 4 with operations \u2212 then \u00d7. What is the answer?",
-      "operation": "\u2212 then \u00d7",
-      "steps": "\u2212 then \u00d7"
+      "equation": "(19-6)×4=52",
+      "context": "Two-step challenge: use 19, 6, and 4 with operations − then ×. What is the answer?",
+      "operation": "− then ×",
+      "steps": "− then ×",
+      "read_aloud_text": "Two-step challenge: use 19, 6, and 4 with operations minus then times. What is the answer?"
     },
     {
       "id": "G3M_WP_001_MIXED_Q10",
       "question_id": "G3M_WP_001_MIXED_Q10",
       "question_type": "word_problem",
       "visual_model": "equation_builder",
-      "prompt": "Two-step challenge: use 20, 2, and 5 with operations \u2212 then \u00d7. What is the answer?",
+      "prompt": "Two-step challenge: use 20, 2, and 5 with operations − then ×. What is the answer?",
       "answer": "90",
       "correct_answer": "90",
       "misconception_tag": "hidden_question_confusion",
@@ -455,10 +466,11 @@
         "90 objects",
         "90 items"
       ],
-      "equation": "(20-2)\u00d75=90",
-      "context": "Two-step challenge: use 20, 2, and 5 with operations \u2212 then \u00d7. What is the answer?",
-      "operation": "\u2212 then \u00d7",
-      "steps": "\u2212 then \u00d7"
+      "equation": "(20-2)×5=90",
+      "context": "Two-step challenge: use 20, 2, and 5 with operations − then ×. What is the answer?",
+      "operation": "− then ×",
+      "steps": "− then ×",
+      "read_aloud_text": "Two-step challenge: use 20, 2, and 5 with operations minus then times. What is the answer?"
     }
   ],
   "misconception_bank": {
@@ -514,7 +526,8 @@
             "19",
             "25",
             "18"
-          ]
+          ],
+          "read_aloud_text": "Mia has 13 stickers and gets 6 more. How many stickers does she have now? Choices: 19, 25, 18."
         },
         {
           "id": "G3M_WP_001_LVL1_Q2",
@@ -540,15 +553,16 @@
             "7 objects",
             "7 items"
           ],
-          "equation": "14 \u2212 7 = 7",
+          "equation": "14 − 7 = 7",
           "context": "Mia has 14 stickers and gives away 7. How many are left?",
-          "operation": "\u2212",
-          "steps": "\u2212",
+          "operation": "−",
+          "steps": "−",
           "choices": [
             "7",
             "14",
             "6"
-          ]
+          ],
+          "read_aloud_text": "Mia has 14 stickers and gives away 7. How many are left? Choices: 7, 14, 6."
         },
         {
           "id": "G3M_WP_001_LVL1_Q3",
@@ -582,7 +596,8 @@
             "23",
             "31",
             "22"
-          ]
+          ],
+          "read_aloud_text": "Mia has 15 stickers and gets 8 more. How many stickers does she have now? Choices: 23, 31, 22."
         },
         {
           "id": "G3M_WP_001_LVL1_Q4",
@@ -608,10 +623,11 @@
             "16",
             "10"
           ],
-          "equation": "16 \u2212 5 = 11",
+          "equation": "16 − 5 = 11",
           "context": "Mia has 16 stickers and gives away 5. How many are left?",
-          "operation": "\u2212",
-          "steps": "\u2212"
+          "operation": "−",
+          "steps": "−",
+          "read_aloud_text": "Mia has 16 stickers and gives away 5. How many are left? Choices: 11, 16, 10."
         },
         {
           "id": "G3M_WP_001_LVL1_Q5",
@@ -645,7 +661,8 @@
             "23",
             "29",
             "22"
-          ]
+          ],
+          "read_aloud_text": "Mia has 17 stickers and gets 6 more. How many stickers does she have now? Choices: 23, 29, 22."
         },
         {
           "id": "G3M_WP_001_LVL1_Q6",
@@ -671,15 +688,16 @@
             "11 objects",
             "11 items"
           ],
-          "equation": "18 \u2212 7 = 11",
+          "equation": "18 − 7 = 11",
           "context": "Mia has 18 stickers and gives away 7. How many are left?",
-          "operation": "\u2212",
-          "steps": "\u2212",
+          "operation": "−",
+          "steps": "−",
           "choices": [
             "11",
             "18",
             "10"
-          ]
+          ],
+          "read_aloud_text": "Mia has 18 stickers and gives away 7. How many are left? Choices: 11, 18, 10."
         },
         {
           "id": "G3M_WP_001_LVL1_Q7",
@@ -713,7 +731,8 @@
             "27",
             "35",
             "26"
-          ]
+          ],
+          "read_aloud_text": "Mia has 19 stickers and gets 8 more. How many stickers does she have now? Choices: 27, 35, 26."
         },
         {
           "id": "G3M_WP_001_LVL1_Q8",
@@ -739,10 +758,11 @@
             "20",
             "14"
           ],
-          "equation": "20 \u2212 5 = 15",
+          "equation": "20 − 5 = 15",
           "context": "Mia has 20 stickers and gives away 5. How many are left?",
-          "operation": "\u2212",
-          "steps": "\u2212"
+          "operation": "−",
+          "steps": "−",
+          "read_aloud_text": "Mia has 20 stickers and gives away 5. How many are left? Choices: 15, 20, 14."
         },
         {
           "id": "G3M_WP_001_LVL1_Q9",
@@ -776,7 +796,8 @@
             "27",
             "33",
             "26"
-          ]
+          ],
+          "read_aloud_text": "Mia has 21 stickers and gets 6 more. How many stickers does she have now? Choices: 27, 33, 26."
         },
         {
           "id": "G3M_WP_001_LVL1_Q10",
@@ -802,15 +823,16 @@
             "15 objects",
             "15 items"
           ],
-          "equation": "22 \u2212 7 = 15",
+          "equation": "22 − 7 = 15",
           "context": "Mia has 22 stickers and gives away 7. How many are left?",
-          "operation": "\u2212",
-          "steps": "\u2212",
+          "operation": "−",
+          "steps": "−",
           "choices": [
             "15",
             "22",
             "14"
-          ]
+          ],
+          "read_aloud_text": "Mia has 22 stickers and gives away 7. How many are left? Choices: 15, 22, 14."
         }
       ]
     },
@@ -848,13 +870,14 @@
           ],
           "equation": "21 + 7 - 4 = 24",
           "context": "A class has 21 pencils. The teacher adds 7 pencils, then students use 4. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212",
+          "operation": "+ then −",
+          "steps": "+ then −",
           "choices": [
             "24",
             "31",
             "23"
-          ]
+          ],
+          "read_aloud_text": "A class has 21 pencils. The teacher adds 7 pencils, then students use 4. How many pencils are ready now? Choices: 24, 31, 23."
         },
         {
           "id": "G3M_WP_001_LVL2_Q2",
@@ -882,13 +905,14 @@
           ],
           "equation": "22 + 8 - 5 = 25",
           "context": "A class has 22 pencils. The teacher adds 8 pencils, then students use 5. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212",
+          "operation": "+ then −",
+          "steps": "+ then −",
           "choices": [
             "25",
             "33",
             "24"
-          ]
+          ],
+          "read_aloud_text": "A class has 22 pencils. The teacher adds 8 pencils, then students use 5. How many pencils are ready now? Choices: 25, 33, 24."
         },
         {
           "id": "G3M_WP_001_LVL2_Q3",
@@ -916,13 +940,14 @@
           ],
           "equation": "23 + 6 - 6 = 23",
           "context": "A class has 23 pencils. The teacher adds 6 pencils, then students use 6. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212",
+          "operation": "+ then −",
+          "steps": "+ then −",
           "choices": [
             "23",
             "29",
             "22"
-          ]
+          ],
+          "read_aloud_text": "A class has 23 pencils. The teacher adds 6 pencils, then students use 6. How many pencils are ready now? Choices: 23, 29, 22."
         },
         {
           "id": "G3M_WP_001_LVL2_Q4",
@@ -950,8 +975,9 @@
           ],
           "equation": "24 + 7 - 3 = 28",
           "context": "A class has 24 pencils. The teacher adds 7 pencils, then students use 3. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212"
+          "operation": "+ then −",
+          "steps": "+ then −",
+          "read_aloud_text": "A class has 24 pencils. The teacher adds 7 pencils, then students use 3. How many pencils are ready now? Choices: 28, 35, 27."
         },
         {
           "id": "G3M_WP_001_LVL2_Q5",
@@ -979,13 +1005,14 @@
           ],
           "equation": "25 + 8 - 4 = 29",
           "context": "A class has 25 pencils. The teacher adds 8 pencils, then students use 4. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212",
+          "operation": "+ then −",
+          "steps": "+ then −",
           "choices": [
             "29",
             "37",
             "28"
-          ]
+          ],
+          "read_aloud_text": "A class has 25 pencils. The teacher adds 8 pencils, then students use 4. How many pencils are ready now? Choices: 29, 37, 28."
         },
         {
           "id": "G3M_WP_001_LVL2_Q6",
@@ -1013,13 +1040,14 @@
           ],
           "equation": "26 + 6 - 5 = 27",
           "context": "A class has 26 pencils. The teacher adds 6 pencils, then students use 5. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212",
+          "operation": "+ then −",
+          "steps": "+ then −",
           "choices": [
             "27",
             "33",
             "26"
-          ]
+          ],
+          "read_aloud_text": "A class has 26 pencils. The teacher adds 6 pencils, then students use 5. How many pencils are ready now? Choices: 27, 33, 26."
         },
         {
           "id": "G3M_WP_001_LVL2_Q7",
@@ -1047,13 +1075,14 @@
           ],
           "equation": "27 + 7 - 6 = 28",
           "context": "A class has 27 pencils. The teacher adds 7 pencils, then students use 6. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212",
+          "operation": "+ then −",
+          "steps": "+ then −",
           "choices": [
             "28",
             "35",
             "27"
-          ]
+          ],
+          "read_aloud_text": "A class has 27 pencils. The teacher adds 7 pencils, then students use 6. How many pencils are ready now? Choices: 28, 35, 27."
         },
         {
           "id": "G3M_WP_001_LVL2_Q8",
@@ -1081,8 +1110,9 @@
           ],
           "equation": "28 + 8 - 3 = 33",
           "context": "A class has 28 pencils. The teacher adds 8 pencils, then students use 3. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212"
+          "operation": "+ then −",
+          "steps": "+ then −",
+          "read_aloud_text": "A class has 28 pencils. The teacher adds 8 pencils, then students use 3. How many pencils are ready now? Choices: 33, 41, 32."
         },
         {
           "id": "G3M_WP_001_LVL2_Q9",
@@ -1110,13 +1140,14 @@
           ],
           "equation": "29 + 6 - 4 = 31",
           "context": "A class has 29 pencils. The teacher adds 6 pencils, then students use 4. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212",
+          "operation": "+ then −",
+          "steps": "+ then −",
           "choices": [
             "31",
             "37",
             "30"
-          ]
+          ],
+          "read_aloud_text": "A class has 29 pencils. The teacher adds 6 pencils, then students use 4. How many pencils are ready now? Choices: 31, 37, 30."
         },
         {
           "id": "G3M_WP_001_LVL2_Q10",
@@ -1144,13 +1175,14 @@
           ],
           "equation": "30 + 7 - 5 = 32",
           "context": "A class has 30 pencils. The teacher adds 7 pencils, then students use 5. How many pencils are ready now?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212",
+          "operation": "+ then −",
+          "steps": "+ then −",
           "choices": [
             "32",
             "39",
             "31"
-          ]
+          ],
+          "read_aloud_text": "A class has 30 pencils. The teacher adds 7 pencils, then students use 5. How many pencils are ready now? Choices: 32, 39, 31."
         }
       ]
     },
@@ -1186,15 +1218,16 @@
             "5 objects",
             "5 items"
           ],
-          "equation": "(4 \u00d7 5) \u00f7 4 = 5",
+          "equation": "(4 × 5) ÷ 4 = 5",
           "context": "There are 4 bags with 5 marbles in each bag. The marbles are shared equally among 4 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
           "choices": [
             "5",
             "10",
             "4"
-          ]
+          ],
+          "read_aloud_text": "There are 4 bags with 5 marbles in each bag. The marbles are shared equally among 4 friends. How many marbles does each friend get? Choices: 5, 10, 4."
         },
         {
           "id": "G3M_WP_001_LVL3_Q2",
@@ -1220,15 +1253,16 @@
             "6 objects",
             "6 items"
           ],
-          "equation": "(5 \u00d7 6) \u00f7 5 = 6",
+          "equation": "(5 × 6) ÷ 5 = 6",
           "context": "There are 5 bags with 6 marbles in each bag. The marbles are shared equally among 5 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
           "choices": [
             "6",
             "12",
             "5"
-          ]
+          ],
+          "read_aloud_text": "There are 5 bags with 6 marbles in each bag. The marbles are shared equally among 5 friends. How many marbles does each friend get? Choices: 6, 12, 5."
         },
         {
           "id": "G3M_WP_001_LVL3_Q3",
@@ -1254,15 +1288,16 @@
             "7 objects",
             "7 items"
           ],
-          "equation": "(6 \u00d7 7) \u00f7 6 = 7",
+          "equation": "(6 × 7) ÷ 6 = 7",
           "context": "There are 6 bags with 7 marbles in each bag. The marbles are shared equally among 6 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
           "choices": [
             "7",
             "14",
             "6"
-          ]
+          ],
+          "read_aloud_text": "There are 6 bags with 7 marbles in each bag. The marbles are shared equally among 6 friends. How many marbles does each friend get? Choices: 7, 14, 6."
         },
         {
           "id": "G3M_WP_001_LVL3_Q4",
@@ -1288,10 +1323,11 @@
             "8",
             "3"
           ],
-          "equation": "(7 \u00d7 4) \u00f7 7 = 4",
+          "equation": "(7 × 4) ÷ 7 = 4",
           "context": "There are 7 bags with 4 marbles in each bag. The marbles are shared equally among 7 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7"
+          "operation": "× then ÷",
+          "steps": "× then ÷",
+          "read_aloud_text": "There are 7 bags with 4 marbles in each bag. The marbles are shared equally among 7 friends. How many marbles does each friend get? Choices: 4, 8, 3."
         },
         {
           "id": "G3M_WP_001_LVL3_Q5",
@@ -1317,15 +1353,16 @@
             "5 objects",
             "5 items"
           ],
-          "equation": "(3 \u00d7 5) \u00f7 3 = 5",
+          "equation": "(3 × 5) ÷ 3 = 5",
           "context": "There are 3 bags with 5 marbles in each bag. The marbles are shared equally among 3 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
           "choices": [
             "5",
             "10",
             "4"
-          ]
+          ],
+          "read_aloud_text": "There are 3 bags with 5 marbles in each bag. The marbles are shared equally among 3 friends. How many marbles does each friend get? Choices: 5, 10, 4."
         },
         {
           "id": "G3M_WP_001_LVL3_Q6",
@@ -1351,15 +1388,16 @@
             "6 objects",
             "6 items"
           ],
-          "equation": "(4 \u00d7 6) \u00f7 4 = 6",
+          "equation": "(4 × 6) ÷ 4 = 6",
           "context": "There are 4 bags with 6 marbles in each bag. The marbles are shared equally among 4 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
           "choices": [
             "6",
             "12",
             "5"
-          ]
+          ],
+          "read_aloud_text": "There are 4 bags with 6 marbles in each bag. The marbles are shared equally among 4 friends. How many marbles does each friend get? Choices: 6, 12, 5."
         },
         {
           "id": "G3M_WP_001_LVL3_Q7",
@@ -1385,15 +1423,16 @@
             "7 objects",
             "7 items"
           ],
-          "equation": "(5 \u00d7 7) \u00f7 5 = 7",
+          "equation": "(5 × 7) ÷ 5 = 7",
           "context": "There are 5 bags with 7 marbles in each bag. The marbles are shared equally among 5 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
           "choices": [
             "7",
             "14",
             "6"
-          ]
+          ],
+          "read_aloud_text": "There are 5 bags with 7 marbles in each bag. The marbles are shared equally among 5 friends. How many marbles does each friend get? Choices: 7, 14, 6."
         },
         {
           "id": "G3M_WP_001_LVL3_Q8",
@@ -1419,10 +1458,11 @@
             "8",
             "3"
           ],
-          "equation": "(6 \u00d7 4) \u00f7 6 = 4",
+          "equation": "(6 × 4) ÷ 6 = 4",
           "context": "There are 6 bags with 4 marbles in each bag. The marbles are shared equally among 6 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7"
+          "operation": "× then ÷",
+          "steps": "× then ÷",
+          "read_aloud_text": "There are 6 bags with 4 marbles in each bag. The marbles are shared equally among 6 friends. How many marbles does each friend get? Choices: 4, 8, 3."
         },
         {
           "id": "G3M_WP_001_LVL3_Q9",
@@ -1448,15 +1488,16 @@
             "5 objects",
             "5 items"
           ],
-          "equation": "(7 \u00d7 5) \u00f7 7 = 5",
+          "equation": "(7 × 5) ÷ 7 = 5",
           "context": "There are 7 bags with 5 marbles in each bag. The marbles are shared equally among 7 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
           "choices": [
             "5",
             "10",
             "4"
-          ]
+          ],
+          "read_aloud_text": "There are 7 bags with 5 marbles in each bag. The marbles are shared equally among 7 friends. How many marbles does each friend get? Choices: 5, 10, 4."
         },
         {
           "id": "G3M_WP_001_LVL3_Q10",
@@ -1482,15 +1523,16 @@
             "6 objects",
             "6 items"
           ],
-          "equation": "(3 \u00d7 6) \u00f7 3 = 6",
+          "equation": "(3 × 6) ÷ 3 = 6",
           "context": "There are 3 bags with 6 marbles in each bag. The marbles are shared equally among 3 friends. How many marbles does each friend get?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
           "choices": [
             "6",
             "12",
             "5"
-          ]
+          ],
+          "read_aloud_text": "There are 3 bags with 6 marbles in each bag. The marbles are shared equally among 3 friends. How many marbles does each friend get? Choices: 6, 12, 5."
         }
       ]
     },
@@ -1526,15 +1568,16 @@
             "48 objects",
             "48 items"
           ],
-          "equation": "(9 + 3) \u00d7 4 = 48",
+          "equation": "(9 + 3) × 4 = 48",
           "context": "Solve the story and choose the operations: start with 9, add 3 and then make 4 equal groups. What is the result?",
-          "operation": "+ then \u00d7",
-          "steps": "+ then \u00d7",
+          "operation": "+ then ×",
+          "steps": "+ then ×",
           "choices": [
             "48",
             "51",
             "47"
-          ]
+          ],
+          "read_aloud_text": "Solve the story and choose the operations: start with 9, add 3 and then make 4 equal groups. What is the result? Choices: 48, 51, 47."
         },
         {
           "id": "G3M_WP_001_LVL4_Q2",
@@ -1560,15 +1603,16 @@
             "46 objects",
             "46 items"
           ],
-          "equation": "10 \u00d7 5 - 4 = 46",
+          "equation": "10 × 5 - 4 = 46",
           "context": "Solve the story and choose the operations: start with 10, make 5 groups and then remove 4. What is the result?",
-          "operation": "\u00d7 then \u2212",
-          "steps": "\u00d7 then \u2212",
+          "operation": "× then −",
+          "steps": "× then −",
           "choices": [
             "46",
             "50",
             "45"
-          ]
+          ],
+          "read_aloud_text": "Solve the story and choose the operations: start with 10, make 5 groups and then remove 4. What is the result? Choices: 46, 50, 45."
         },
         {
           "id": "G3M_WP_001_LVL4_Q3",
@@ -1594,15 +1638,16 @@
             "96 objects",
             "96 items"
           ],
-          "equation": "(11 + 5) \u00d7 6 = 96",
+          "equation": "(11 + 5) × 6 = 96",
           "context": "Solve the story and choose the operations: start with 11, add 5 and then make 6 equal groups. What is the result?",
-          "operation": "+ then \u00d7",
-          "steps": "+ then \u00d7",
+          "operation": "+ then ×",
+          "steps": "+ then ×",
           "choices": [
             "96",
             "101",
             "95"
-          ]
+          ],
+          "read_aloud_text": "Solve the story and choose the operations: start with 11, add 5 and then make 6 equal groups. What is the result? Choices: 96, 101, 95."
         },
         {
           "id": "G3M_WP_001_LVL4_Q4",
@@ -1628,10 +1673,11 @@
             "84",
             "81"
           ],
-          "equation": "12 \u00d7 7 - 2 = 82",
+          "equation": "12 × 7 - 2 = 82",
           "context": "Solve the story and choose the operations: start with 12, make 7 groups and then remove 2. What is the result?",
-          "operation": "\u00d7 then \u2212",
-          "steps": "\u00d7 then \u2212"
+          "operation": "× then −",
+          "steps": "× then −",
+          "read_aloud_text": "Solve the story and choose the operations: start with 12, make 7 groups and then remove 2. What is the result? Choices: 82, 84, 81."
         },
         {
           "id": "G3M_WP_001_LVL4_Q5",
@@ -1657,15 +1703,16 @@
             "48 objects",
             "48 items"
           ],
-          "equation": "(13 + 3) \u00d7 3 = 48",
+          "equation": "(13 + 3) × 3 = 48",
           "context": "Solve the story and choose the operations: start with 13, add 3 and then make 3 equal groups. What is the result?",
-          "operation": "+ then \u00d7",
-          "steps": "+ then \u00d7",
+          "operation": "+ then ×",
+          "steps": "+ then ×",
           "choices": [
             "48",
             "51",
             "47"
-          ]
+          ],
+          "read_aloud_text": "Solve the story and choose the operations: start with 13, add 3 and then make 3 equal groups. What is the result? Choices: 48, 51, 47."
         },
         {
           "id": "G3M_WP_001_LVL4_Q6",
@@ -1691,15 +1738,16 @@
             "52 objects",
             "52 items"
           ],
-          "equation": "14 \u00d7 4 - 4 = 52",
+          "equation": "14 × 4 - 4 = 52",
           "context": "Solve the story and choose the operations: start with 14, make 4 groups and then remove 4. What is the result?",
-          "operation": "\u00d7 then \u2212",
-          "steps": "\u00d7 then \u2212",
+          "operation": "× then −",
+          "steps": "× then −",
           "choices": [
             "52",
             "56",
             "51"
-          ]
+          ],
+          "read_aloud_text": "Solve the story and choose the operations: start with 14, make 4 groups and then remove 4. What is the result? Choices: 52, 56, 51."
         },
         {
           "id": "G3M_WP_001_LVL4_Q7",
@@ -1725,15 +1773,16 @@
             "100 objects",
             "100 items"
           ],
-          "equation": "(15 + 5) \u00d7 5 = 100",
+          "equation": "(15 + 5) × 5 = 100",
           "context": "Solve the story and choose the operations: start with 15, add 5 and then make 5 equal groups. What is the result?",
-          "operation": "+ then \u00d7",
-          "steps": "+ then \u00d7",
+          "operation": "+ then ×",
+          "steps": "+ then ×",
           "choices": [
             "100",
             "105",
             "99"
-          ]
+          ],
+          "read_aloud_text": "Solve the story and choose the operations: start with 15, add 5 and then make 5 equal groups. What is the result? Choices: 100, 105, 99."
         },
         {
           "id": "G3M_WP_001_LVL4_Q8",
@@ -1759,10 +1808,11 @@
             "96",
             "93"
           ],
-          "equation": "16 \u00d7 6 - 2 = 94",
+          "equation": "16 × 6 - 2 = 94",
           "context": "Solve the story and choose the operations: start with 16, make 6 groups and then remove 2. What is the result?",
-          "operation": "\u00d7 then \u2212",
-          "steps": "\u00d7 then \u2212"
+          "operation": "× then −",
+          "steps": "× then −",
+          "read_aloud_text": "Solve the story and choose the operations: start with 16, make 6 groups and then remove 2. What is the result? Choices: 94, 96, 93."
         },
         {
           "id": "G3M_WP_001_LVL4_Q9",
@@ -1788,15 +1838,16 @@
             "140 objects",
             "140 items"
           ],
-          "equation": "(17 + 3) \u00d7 7 = 140",
+          "equation": "(17 + 3) × 7 = 140",
           "context": "Solve the story and choose the operations: start with 17, add 3 and then make 7 equal groups. What is the result?",
-          "operation": "+ then \u00d7",
-          "steps": "+ then \u00d7",
+          "operation": "+ then ×",
+          "steps": "+ then ×",
           "choices": [
             "140",
             "143",
             "139"
-          ]
+          ],
+          "read_aloud_text": "Solve the story and choose the operations: start with 17, add 3 and then make 7 equal groups. What is the result? Choices: 140, 143, 139."
         },
         {
           "id": "G3M_WP_001_LVL4_Q10",
@@ -1822,15 +1873,16 @@
             "50 objects",
             "50 items"
           ],
-          "equation": "18 \u00d7 3 - 4 = 50",
+          "equation": "18 × 3 - 4 = 50",
           "context": "Solve the story and choose the operations: start with 18, make 3 groups and then remove 4. What is the result?",
-          "operation": "\u00d7 then \u2212",
-          "steps": "\u00d7 then \u2212",
+          "operation": "× then −",
+          "steps": "× then −",
           "choices": [
             "50",
             "54",
             "49"
-          ]
+          ],
+          "read_aloud_text": "Solve the story and choose the operations: start with 18, make 3 groups and then remove 4. What is the result? Choices: 50, 54, 49."
         }
       ]
     },
@@ -1847,7 +1899,7 @@
           "question_id": "G3M_WP_001_MIXED_Q1",
           "question_type": "short_response",
           "visual_model": "bar_model",
-          "prompt": "Two-step challenge: use 11, 3, and 4 with operations + then \u2212. What is the answer?",
+          "prompt": "Two-step challenge: use 11, 3, and 4 with operations + then −. What is the answer?",
           "answer": "10",
           "correct_answer": "10",
           "misconception_tag": "two_step_tracking_error",
@@ -1867,16 +1919,17 @@
             "10 items"
           ],
           "equation": "11+3-4=10",
-          "context": "Two-step challenge: use 11, 3, and 4 with operations + then \u2212. What is the answer?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212"
+          "context": "Two-step challenge: use 11, 3, and 4 with operations + then −. What is the answer?",
+          "operation": "+ then −",
+          "steps": "+ then −",
+          "read_aloud_text": "Two-step challenge: use 11, 3, and 4 with operations plus then minus. What is the answer?"
         },
         {
           "id": "G3M_WP_001_MIXED_Q2",
           "question_id": "G3M_WP_001_MIXED_Q2",
           "question_type": "word_problem",
           "visual_model": "equation_builder",
-          "prompt": "Two-step challenge: use 12, 4, and 5 with operations + then \u2212. What is the answer?",
+          "prompt": "Two-step challenge: use 12, 4, and 5 with operations + then −. What is the answer?",
           "answer": "11",
           "correct_answer": "11",
           "misconception_tag": "hidden_question_confusion",
@@ -1896,16 +1949,17 @@
             "11 items"
           ],
           "equation": "12+4-5=11",
-          "context": "Two-step challenge: use 12, 4, and 5 with operations + then \u2212. What is the answer?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212"
+          "context": "Two-step challenge: use 12, 4, and 5 with operations + then −. What is the answer?",
+          "operation": "+ then −",
+          "steps": "+ then −",
+          "read_aloud_text": "Two-step challenge: use 12, 4, and 5 with operations plus then minus. What is the answer?"
         },
         {
           "id": "G3M_WP_001_MIXED_Q3",
           "question_id": "G3M_WP_001_MIXED_Q3",
           "question_type": "equation_builder",
           "visual_model": "operation_sort",
-          "prompt": "Two-step challenge: use 13, 5, and 6 with operations + then \u2212. What is the answer?",
+          "prompt": "Two-step challenge: use 13, 5, and 6 with operations + then −. What is the answer?",
           "answer": "12",
           "correct_answer": "12",
           "misconception_tag": "equation_setup_error",
@@ -1925,16 +1979,17 @@
             "12 items"
           ],
           "equation": "13+5-6=12",
-          "context": "Two-step challenge: use 13, 5, and 6 with operations + then \u2212. What is the answer?",
-          "operation": "+ then \u2212",
-          "steps": "+ then \u2212"
+          "context": "Two-step challenge: use 13, 5, and 6 with operations + then −. What is the answer?",
+          "operation": "+ then −",
+          "steps": "+ then −",
+          "read_aloud_text": "Two-step challenge: use 13, 5, and 6 with operations plus then minus. What is the answer?"
         },
         {
           "id": "G3M_WP_001_MIXED_Q4",
           "question_id": "G3M_WP_001_MIXED_Q4",
           "question_type": "multiple_choice",
           "visual_model": "word_problem_model",
-          "prompt": "Two-step challenge: use 14, 6, and 14 with operations \u00d7 then \u00f7. What is the answer?",
+          "prompt": "Two-step challenge: use 14, 6, and 14 with operations × then ÷. What is the answer?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "operation_selection_error",
@@ -1953,17 +2008,18 @@
             "7",
             "5"
           ],
-          "equation": "(14\u00d76)\u00f714=6",
-          "context": "Two-step challenge: use 14, 6, and 14 with operations \u00d7 then \u00f7. What is the answer?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7"
+          "equation": "(14×6)÷14=6",
+          "context": "Two-step challenge: use 14, 6, and 14 with operations × then ÷. What is the answer?",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
+          "read_aloud_text": "Two-step challenge: use 14, 6, and 14 with operations times then divided by. What is the answer? Choices: 6, 7, 5."
         },
         {
           "id": "G3M_WP_001_MIXED_Q5",
           "question_id": "G3M_WP_001_MIXED_Q5",
           "question_type": "short_response",
           "visual_model": "bar_model",
-          "prompt": "Two-step challenge: use 15, 2, and 15 with operations \u00d7 then \u00f7. What is the answer?",
+          "prompt": "Two-step challenge: use 15, 2, and 15 with operations × then ÷. What is the answer?",
           "answer": "2",
           "correct_answer": "2",
           "misconception_tag": "two_step_tracking_error",
@@ -1982,17 +2038,18 @@
             "2 objects",
             "2 items"
           ],
-          "equation": "(15\u00d72)\u00f715=2",
-          "context": "Two-step challenge: use 15, 2, and 15 with operations \u00d7 then \u00f7. What is the answer?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7"
+          "equation": "(15×2)÷15=2",
+          "context": "Two-step challenge: use 15, 2, and 15 with operations × then ÷. What is the answer?",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
+          "read_aloud_text": "Two-step challenge: use 15, 2, and 15 with operations times then divided by. What is the answer?"
         },
         {
           "id": "G3M_WP_001_MIXED_Q6",
           "question_id": "G3M_WP_001_MIXED_Q6",
           "question_type": "word_problem",
           "visual_model": "equation_builder",
-          "prompt": "Two-step challenge: use 16, 3, and 16 with operations \u00d7 then \u00f7. What is the answer?",
+          "prompt": "Two-step challenge: use 16, 3, and 16 with operations × then ÷. What is the answer?",
           "answer": "3",
           "correct_answer": "3",
           "misconception_tag": "hidden_question_confusion",
@@ -2011,17 +2068,18 @@
             "3 objects",
             "3 items"
           ],
-          "equation": "(16\u00d73)\u00f716=3",
-          "context": "Two-step challenge: use 16, 3, and 16 with operations \u00d7 then \u00f7. What is the answer?",
-          "operation": "\u00d7 then \u00f7",
-          "steps": "\u00d7 then \u00f7"
+          "equation": "(16×3)÷16=3",
+          "context": "Two-step challenge: use 16, 3, and 16 with operations × then ÷. What is the answer?",
+          "operation": "× then ÷",
+          "steps": "× then ÷",
+          "read_aloud_text": "Two-step challenge: use 16, 3, and 16 with operations times then divided by. What is the answer?"
         },
         {
           "id": "G3M_WP_001_MIXED_Q7",
           "question_id": "G3M_WP_001_MIXED_Q7",
           "question_type": "equation_builder",
           "visual_model": "operation_sort",
-          "prompt": "Two-step challenge: use 17, 4, and 6 with operations \u2212 then \u00d7. What is the answer?",
+          "prompt": "Two-step challenge: use 17, 4, and 6 with operations − then ×. What is the answer?",
           "answer": "78",
           "correct_answer": "78",
           "misconception_tag": "equation_setup_error",
@@ -2040,17 +2098,18 @@
             "78 objects",
             "78 items"
           ],
-          "equation": "(17-4)\u00d76=78",
-          "context": "Two-step challenge: use 17, 4, and 6 with operations \u2212 then \u00d7. What is the answer?",
-          "operation": "\u2212 then \u00d7",
-          "steps": "\u2212 then \u00d7"
+          "equation": "(17-4)×6=78",
+          "context": "Two-step challenge: use 17, 4, and 6 with operations − then ×. What is the answer?",
+          "operation": "− then ×",
+          "steps": "− then ×",
+          "read_aloud_text": "Two-step challenge: use 17, 4, and 6 with operations minus then times. What is the answer?"
         },
         {
           "id": "G3M_WP_001_MIXED_Q8",
           "question_id": "G3M_WP_001_MIXED_Q8",
           "question_type": "multiple_choice",
           "visual_model": "word_problem_model",
-          "prompt": "Two-step challenge: use 18, 5, and 3 with operations \u2212 then \u00d7. What is the answer?",
+          "prompt": "Two-step challenge: use 18, 5, and 3 with operations − then ×. What is the answer?",
           "answer": "39",
           "correct_answer": "39",
           "misconception_tag": "operation_selection_error",
@@ -2069,17 +2128,18 @@
             "40",
             "38"
           ],
-          "equation": "(18-5)\u00d73=39",
-          "context": "Two-step challenge: use 18, 5, and 3 with operations \u2212 then \u00d7. What is the answer?",
-          "operation": "\u2212 then \u00d7",
-          "steps": "\u2212 then \u00d7"
+          "equation": "(18-5)×3=39",
+          "context": "Two-step challenge: use 18, 5, and 3 with operations − then ×. What is the answer?",
+          "operation": "− then ×",
+          "steps": "− then ×",
+          "read_aloud_text": "Two-step challenge: use 18, 5, and 3 with operations minus then times. What is the answer? Choices: 39, 40, 38."
         },
         {
           "id": "G3M_WP_001_MIXED_Q9",
           "question_id": "G3M_WP_001_MIXED_Q9",
           "question_type": "short_response",
           "visual_model": "bar_model",
-          "prompt": "Two-step challenge: use 19, 6, and 4 with operations \u2212 then \u00d7. What is the answer?",
+          "prompt": "Two-step challenge: use 19, 6, and 4 with operations − then ×. What is the answer?",
           "answer": "52",
           "correct_answer": "52",
           "misconception_tag": "two_step_tracking_error",
@@ -2098,17 +2158,18 @@
             "52 objects",
             "52 items"
           ],
-          "equation": "(19-6)\u00d74=52",
-          "context": "Two-step challenge: use 19, 6, and 4 with operations \u2212 then \u00d7. What is the answer?",
-          "operation": "\u2212 then \u00d7",
-          "steps": "\u2212 then \u00d7"
+          "equation": "(19-6)×4=52",
+          "context": "Two-step challenge: use 19, 6, and 4 with operations − then ×. What is the answer?",
+          "operation": "− then ×",
+          "steps": "− then ×",
+          "read_aloud_text": "Two-step challenge: use 19, 6, and 4 with operations minus then times. What is the answer?"
         },
         {
           "id": "G3M_WP_001_MIXED_Q10",
           "question_id": "G3M_WP_001_MIXED_Q10",
           "question_type": "word_problem",
           "visual_model": "equation_builder",
-          "prompt": "Two-step challenge: use 20, 2, and 5 with operations \u2212 then \u00d7. What is the answer?",
+          "prompt": "Two-step challenge: use 20, 2, and 5 with operations − then ×. What is the answer?",
           "answer": "90",
           "correct_answer": "90",
           "misconception_tag": "hidden_question_confusion",
@@ -2127,12 +2188,60 @@
             "90 objects",
             "90 items"
           ],
-          "equation": "(20-2)\u00d75=90",
-          "context": "Two-step challenge: use 20, 2, and 5 with operations \u2212 then \u00d7. What is the answer?",
-          "operation": "\u2212 then \u00d7",
-          "steps": "\u2212 then \u00d7"
+          "equation": "(20-2)×5=90",
+          "context": "Two-step challenge: use 20, 2, and 5 with operations − then ×. What is the answer?",
+          "operation": "− then ×",
+          "steps": "− then ×",
+          "read_aloud_text": "Two-step challenge: use 20, 2, and 5 with operations minus then times. What is the answer?"
         }
       ]
     }
-  ]
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to this page. This mission introduces one-step and two-step word problems. Look for what the story is asking and which numbers matter in the picture. Think about how the mission story connects to the math. Draw a model, choose the operation, and check the units as you get ready. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "lesson": {
+      "text": "This mini lesson teaches one-step and two-step word problems. Look for what the story is asking and which numbers matter and read the vocabulary words. Draw a model, choose the operation, and check the units one step at a time. Watch out for answering after only the first step in a two-step problem. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "watch": {
+      "text": "This Watch page shows a worked example for Two-Step Word Problems. Look at the model and listen for how each part matches the question. Step one, read what is being asked. Step two, use the visual model. Step three, check the final answer with the right units or math words. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "demo": {
+      "text": "This guided demo lets you practice one-step and two-step word problems with help. Look for what the story is asking and which numbers matter before you choose an answer. Draw a model, choose the operation, and check the units and explain your thinking in math words. Do not rush past answering after only the first step in a two-step problem. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "practice": {
+      "text": "Practice time. Use the model to help you work on one-step and two-step word problems. Draw a model, choose the operation, and check the units and check your answer. Press Read Question if you want the exact question read aloud. Choose your answer when you are ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "challenge": {
+      "text": "Challenge time. The problem may need careful thinking about one-step and two-step word problems. Look for what the story is asking and which numbers matter, then decide which strategy fits best. Press Read Question if you want the exact question read aloud. Answer carefully, then continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "checkpoint": {
+      "text": "Checkpoint time. Show what you know about one-step and two-step word problems. Read the problem, use the visual, and check for answering after only the first step in a two-step problem. Press Read Question if you want the exact question read aloud. Choose or write the answer when ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "badge": {
+      "text": "This badge page celebrates your work on Two-Step Word Problems. Look at your stars and remember the strategy you used. Mistakes helped your brain grow when you checked them. Press Next to see your profile.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "profile": {
+      "text": "This profile page shows how your mission went. Look at your accuracy, hints, and growth notes. If a level needs more practice, go back to the hub or continue to Skill Practice. Use your results to choose what to practice next.",
+      "label": "Read This Page",
+      "type": "page"
+    }
+  }
 }

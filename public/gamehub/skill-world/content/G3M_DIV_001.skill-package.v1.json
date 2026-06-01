@@ -46,7 +46,7 @@
       "total": 12,
       "groups": 3,
       "items_per_group": 4,
-      "equation": "12 \u00f7 3 = 4",
+      "equation": "12 ÷ 3 = 4",
       "text": "Share 12 counters equally among 3 friends. How many counters does each friend get?"
     },
     {
@@ -56,7 +56,7 @@
       "total": 15,
       "groups": 5,
       "items_per_group": 3,
-      "equation": "15 \u00f7 5 = 3",
+      "equation": "15 ÷ 5 = 3",
       "text": "Share 15 counters equally among 5 friends. How many counters does each friend get?"
     },
     {
@@ -66,7 +66,7 @@
       "total": 18,
       "groups": 6,
       "items_per_group": 3,
-      "equation": "18 \u00f7 6 = 3",
+      "equation": "18 ÷ 6 = 3",
       "text": "Share 18 counters equally among 6 friends. How many counters does each friend get?"
     }
   ],
@@ -106,8 +106,9 @@
       "divisor": 3,
       "items_per_group": 4,
       "quotient": 4,
-      "equation": "12 \u00f7 3 = 4",
-      "mode": "sharing"
+      "equation": "12 ÷ 3 = 4",
+      "mode": "sharing",
+      "read_aloud_text": "Share 12 counters equally among 3 friends. How many counters does each friend get?"
     },
     {
       "id": "G3M_DIV_001_LVL1_Q2",
@@ -139,8 +140,9 @@
       "divisor": 5,
       "items_per_group": 3,
       "quotient": 3,
-      "equation": "15 \u00f7 5 = 3",
-      "mode": "sharing"
+      "equation": "15 ÷ 5 = 3",
+      "mode": "sharing",
+      "read_aloud_text": "Share 15 counters equally among 5 friends. How many counters does each friend get?"
     },
     {
       "id": "G3M_DIV_001_LVL1_Q3",
@@ -172,8 +174,9 @@
       "divisor": 6,
       "items_per_group": 3,
       "quotient": 3,
-      "equation": "18 \u00f7 6 = 3",
-      "mode": "sharing"
+      "equation": "18 ÷ 6 = 3",
+      "mode": "sharing",
+      "read_aloud_text": "Share 18 counters equally among 6 friends. How many counters does each friend get? Choices: 3, 4, 2."
     }
   ],
   "adaptive_question_bank": [
@@ -207,8 +210,9 @@
       "divisor": 4,
       "items_per_group": 5,
       "quotient": 5,
-      "equation": "20 \u00f7 4 = 5",
-      "mode": "sharing"
+      "equation": "20 ÷ 4 = 5",
+      "mode": "sharing",
+      "read_aloud_text": "Share 20 counters equally among 4 friends. How many counters does each friend get?"
     },
     {
       "id": "G3M_DIV_001_LVL1_Q5",
@@ -240,8 +244,9 @@
       "divisor": 6,
       "items_per_group": 4,
       "quotient": 4,
-      "equation": "24 \u00f7 6 = 4",
-      "mode": "sharing"
+      "equation": "24 ÷ 6 = 4",
+      "mode": "sharing",
+      "read_aloud_text": "Share 24 counters equally among 6 friends. How many counters does each friend get?"
     },
     {
       "id": "G3M_DIV_001_LVL1_Q6",
@@ -273,8 +278,9 @@
       "divisor": 4,
       "items_per_group": 4,
       "quotient": 4,
-      "equation": "16 \u00f7 4 = 4",
-      "mode": "sharing"
+      "equation": "16 ÷ 4 = 4",
+      "mode": "sharing",
+      "read_aloud_text": "Share 16 counters equally among 4 friends. How many counters does each friend get? Choices: 4, 5, 3."
     },
     {
       "id": "G3M_DIV_001_LVL1_Q7",
@@ -306,8 +312,9 @@
       "divisor": 7,
       "items_per_group": 3,
       "quotient": 3,
-      "equation": "21 \u00f7 7 = 3",
-      "mode": "sharing"
+      "equation": "21 ÷ 7 = 3",
+      "mode": "sharing",
+      "read_aloud_text": "Share 21 counters equally among 7 friends. How many counters does each friend get?"
     },
     {
       "id": "G3M_DIV_001_LVL1_Q8",
@@ -339,8 +346,9 @@
       "divisor": 3,
       "items_per_group": 9,
       "quotient": 9,
-      "equation": "27 \u00f7 3 = 9",
-      "mode": "sharing"
+      "equation": "27 ÷ 3 = 9",
+      "mode": "sharing",
+      "read_aloud_text": "Share 27 counters equally among 3 friends. How many counters does each friend get?"
     },
     {
       "id": "G3M_DIV_001_LVL1_Q9",
@@ -372,8 +380,9 @@
       "divisor": 5,
       "items_per_group": 6,
       "quotient": 6,
-      "equation": "30 \u00f7 5 = 6",
-      "mode": "sharing"
+      "equation": "30 ÷ 5 = 6",
+      "mode": "sharing",
+      "read_aloud_text": "Share 30 counters equally among 5 friends. How many counters does each friend get? Choices: 6, 7, 5."
     }
   ],
   "checkpoint": [
@@ -382,7 +391,7 @@
       "question_id": "G3M_DIV_001_MIXED_Q8",
       "question_type": "division_equation",
       "visual_model": "fact_family_model",
-      "prompt": "The facts use 8, 9, and 72. What is 72 \u00f7 8?",
+      "prompt": "The facts use 8, 9, and 72. What is 72 ÷ 8?",
       "answer": "9",
       "correct_answer": "9",
       "misconception_tag": "inverse_operation_confusion",
@@ -405,14 +414,15 @@
       "factor_b": 9,
       "product": 72,
       "total": 72,
-      "equation": "72 \u00f7 8 = 9"
+      "equation": "72 ÷ 8 = 9",
+      "read_aloud_text": "The facts use 8, 9, and 72. What is 72 divided by 8?"
     },
     {
       "id": "G3M_DIV_001_MIXED_Q9",
       "question_id": "G3M_DIV_001_MIXED_Q9",
       "question_type": "multiple_choice",
       "visual_model": "division_model",
-      "prompt": "Solve with the model: 54 \u00f7 6 = ?",
+      "prompt": "Solve with the model: 54 ÷ 6 = ?",
       "answer": "9",
       "correct_answer": "9",
       "misconception_tag": "division_symbol_confusion",
@@ -437,16 +447,17 @@
       "divisor": 6,
       "items_per_group": 9,
       "quotient": 9,
-      "equation": "54 \u00f7 6 = 9",
+      "equation": "54 ÷ 6 = 9",
       "rows": 6,
-      "columns": 9
+      "columns": 9,
+      "read_aloud_text": "Solve with the model: 54 divided by 6 equals? Choices: 9, 10, 8."
     },
     {
       "id": "G3M_DIV_001_MIXED_Q10",
       "question_id": "G3M_DIV_001_MIXED_Q10",
       "question_type": "short_response",
       "visual_model": "equal_groups",
-      "prompt": "Solve with the model: 63 \u00f7 7 = ?",
+      "prompt": "Solve with the model: 63 ÷ 7 = ?",
       "answer": "9",
       "correct_answer": "9",
       "misconception_tag": "sharing_grouping_confusion",
@@ -471,9 +482,10 @@
       "divisor": 7,
       "items_per_group": 9,
       "quotient": 9,
-      "equation": "63 \u00f7 7 = 9",
+      "equation": "63 ÷ 7 = 9",
       "rows": 7,
-      "columns": 9
+      "columns": 9,
+      "read_aloud_text": "Solve with the model: 63 divided by 7 equals?"
     }
   ],
   "misconception_bank": {
@@ -527,8 +539,9 @@
           "divisor": 3,
           "items_per_group": 4,
           "quotient": 4,
-          "equation": "12 \u00f7 3 = 4",
-          "mode": "sharing"
+          "equation": "12 ÷ 3 = 4",
+          "mode": "sharing",
+          "read_aloud_text": "Share 12 counters equally among 3 friends. How many counters does each friend get?"
         },
         {
           "id": "G3M_DIV_001_LVL1_Q2",
@@ -560,8 +573,9 @@
           "divisor": 5,
           "items_per_group": 3,
           "quotient": 3,
-          "equation": "15 \u00f7 5 = 3",
-          "mode": "sharing"
+          "equation": "15 ÷ 5 = 3",
+          "mode": "sharing",
+          "read_aloud_text": "Share 15 counters equally among 5 friends. How many counters does each friend get?"
         },
         {
           "id": "G3M_DIV_001_LVL1_Q3",
@@ -593,8 +607,9 @@
           "divisor": 6,
           "items_per_group": 3,
           "quotient": 3,
-          "equation": "18 \u00f7 6 = 3",
-          "mode": "sharing"
+          "equation": "18 ÷ 6 = 3",
+          "mode": "sharing",
+          "read_aloud_text": "Share 18 counters equally among 6 friends. How many counters does each friend get? Choices: 3, 4, 2."
         },
         {
           "id": "G3M_DIV_001_LVL1_Q4",
@@ -626,8 +641,9 @@
           "divisor": 4,
           "items_per_group": 5,
           "quotient": 5,
-          "equation": "20 \u00f7 4 = 5",
-          "mode": "sharing"
+          "equation": "20 ÷ 4 = 5",
+          "mode": "sharing",
+          "read_aloud_text": "Share 20 counters equally among 4 friends. How many counters does each friend get?"
         },
         {
           "id": "G3M_DIV_001_LVL1_Q5",
@@ -659,8 +675,9 @@
           "divisor": 6,
           "items_per_group": 4,
           "quotient": 4,
-          "equation": "24 \u00f7 6 = 4",
-          "mode": "sharing"
+          "equation": "24 ÷ 6 = 4",
+          "mode": "sharing",
+          "read_aloud_text": "Share 24 counters equally among 6 friends. How many counters does each friend get?"
         },
         {
           "id": "G3M_DIV_001_LVL1_Q6",
@@ -692,8 +709,9 @@
           "divisor": 4,
           "items_per_group": 4,
           "quotient": 4,
-          "equation": "16 \u00f7 4 = 4",
-          "mode": "sharing"
+          "equation": "16 ÷ 4 = 4",
+          "mode": "sharing",
+          "read_aloud_text": "Share 16 counters equally among 4 friends. How many counters does each friend get? Choices: 4, 5, 3."
         },
         {
           "id": "G3M_DIV_001_LVL1_Q7",
@@ -725,8 +743,9 @@
           "divisor": 7,
           "items_per_group": 3,
           "quotient": 3,
-          "equation": "21 \u00f7 7 = 3",
-          "mode": "sharing"
+          "equation": "21 ÷ 7 = 3",
+          "mode": "sharing",
+          "read_aloud_text": "Share 21 counters equally among 7 friends. How many counters does each friend get?"
         },
         {
           "id": "G3M_DIV_001_LVL1_Q8",
@@ -758,8 +777,9 @@
           "divisor": 3,
           "items_per_group": 9,
           "quotient": 9,
-          "equation": "27 \u00f7 3 = 9",
-          "mode": "sharing"
+          "equation": "27 ÷ 3 = 9",
+          "mode": "sharing",
+          "read_aloud_text": "Share 27 counters equally among 3 friends. How many counters does each friend get?"
         },
         {
           "id": "G3M_DIV_001_LVL1_Q9",
@@ -791,8 +811,9 @@
           "divisor": 5,
           "items_per_group": 6,
           "quotient": 6,
-          "equation": "30 \u00f7 5 = 6",
-          "mode": "sharing"
+          "equation": "30 ÷ 5 = 6",
+          "mode": "sharing",
+          "read_aloud_text": "Share 30 counters equally among 5 friends. How many counters does each friend get? Choices: 6, 7, 5."
         },
         {
           "id": "G3M_DIV_001_LVL1_Q10",
@@ -824,8 +845,9 @@
           "divisor": 6,
           "items_per_group": 6,
           "quotient": 6,
-          "equation": "36 \u00f7 6 = 6",
-          "mode": "sharing"
+          "equation": "36 ÷ 6 = 6",
+          "mode": "sharing",
+          "read_aloud_text": "Share 36 counters equally among 6 friends. How many counters does each friend get?"
         }
       ]
     },
@@ -867,8 +889,9 @@
           "divisor": 4,
           "items_per_group": 3,
           "quotient": 3,
-          "equation": "12 \u00f7 4 = 3",
-          "mode": "groups"
+          "equation": "12 ÷ 4 = 3",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 12 counters with 4 counters in each group. How many groups can you make?"
         },
         {
           "id": "G3M_DIV_001_LVL2_Q2",
@@ -900,8 +923,9 @@
           "divisor": 3,
           "items_per_group": 6,
           "quotient": 6,
-          "equation": "18 \u00f7 3 = 6",
-          "mode": "groups"
+          "equation": "18 ÷ 3 = 6",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 18 counters with 3 counters in each group. How many groups can you make?"
         },
         {
           "id": "G3M_DIV_001_LVL2_Q3",
@@ -933,8 +957,9 @@
           "divisor": 8,
           "items_per_group": 3,
           "quotient": 3,
-          "equation": "24 \u00f7 8 = 3",
-          "mode": "groups"
+          "equation": "24 ÷ 8 = 3",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 24 counters with 8 counters in each group. How many groups can you make? Choices: 3, 4, 2."
         },
         {
           "id": "G3M_DIV_001_LVL2_Q4",
@@ -966,8 +991,9 @@
           "divisor": 7,
           "items_per_group": 4,
           "quotient": 4,
-          "equation": "28 \u00f7 7 = 4",
-          "mode": "groups"
+          "equation": "28 ÷ 7 = 4",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 28 counters with 7 counters in each group. How many groups can you make?"
         },
         {
           "id": "G3M_DIV_001_LVL2_Q5",
@@ -999,8 +1025,9 @@
           "divisor": 4,
           "items_per_group": 8,
           "quotient": 8,
-          "equation": "32 \u00f7 4 = 8",
-          "mode": "groups"
+          "equation": "32 ÷ 4 = 8",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 32 counters with 4 counters in each group. How many groups can you make?"
         },
         {
           "id": "G3M_DIV_001_LVL2_Q6",
@@ -1032,8 +1059,9 @@
           "divisor": 5,
           "items_per_group": 7,
           "quotient": 7,
-          "equation": "35 \u00f7 5 = 7",
-          "mode": "groups"
+          "equation": "35 ÷ 5 = 7",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 35 counters with 5 counters in each group. How many groups can you make? Choices: 7, 8, 6."
         },
         {
           "id": "G3M_DIV_001_LVL2_Q7",
@@ -1065,8 +1093,9 @@
           "divisor": 8,
           "items_per_group": 5,
           "quotient": 5,
-          "equation": "40 \u00f7 8 = 5",
-          "mode": "groups"
+          "equation": "40 ÷ 8 = 5",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 40 counters with 8 counters in each group. How many groups can you make?"
         },
         {
           "id": "G3M_DIV_001_LVL2_Q8",
@@ -1098,8 +1127,9 @@
           "divisor": 6,
           "items_per_group": 7,
           "quotient": 7,
-          "equation": "42 \u00f7 6 = 7",
-          "mode": "groups"
+          "equation": "42 ÷ 6 = 7",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 42 counters with 6 counters in each group. How many groups can you make?"
         },
         {
           "id": "G3M_DIV_001_LVL2_Q9",
@@ -1131,8 +1161,9 @@
           "divisor": 9,
           "items_per_group": 5,
           "quotient": 5,
-          "equation": "45 \u00f7 9 = 5",
-          "mode": "groups"
+          "equation": "45 ÷ 9 = 5",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 45 counters with 9 counters in each group. How many groups can you make? Choices: 5, 6, 4."
         },
         {
           "id": "G3M_DIV_001_LVL2_Q10",
@@ -1164,8 +1195,9 @@
           "divisor": 6,
           "items_per_group": 8,
           "quotient": 8,
-          "equation": "48 \u00f7 6 = 8",
-          "mode": "groups"
+          "equation": "48 ÷ 6 = 8",
+          "mode": "groups",
+          "read_aloud_text": "Make equal groups from 48 counters with 6 counters in each group. How many groups can you make?"
         }
       ]
     },
@@ -1182,7 +1214,7 @@
           "question_id": "G3M_DIV_001_LVL3_Q1",
           "question_type": "short_response",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 14 \u00f7 2 = ?",
+          "prompt": "Which quotient makes this equation true: 14 ÷ 2 = ?",
           "answer": "7",
           "correct_answer": "7",
           "misconception_tag": "division_symbol_confusion",
@@ -1207,15 +1239,16 @@
           "divisor": 2,
           "items_per_group": 7,
           "quotient": 7,
-          "equation": "14 \u00f7 2 = 7",
-          "mode": "groups"
+          "equation": "14 ÷ 2 = 7",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 14 divided by 2 equals?"
         },
         {
           "id": "G3M_DIV_001_LVL3_Q2",
           "question_id": "G3M_DIV_001_LVL3_Q2",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 18 \u00f7 9 = ?",
+          "prompt": "Which quotient makes this equation true: 18 ÷ 9 = ?",
           "answer": "2",
           "correct_answer": "2",
           "misconception_tag": "division_symbol_confusion",
@@ -1240,15 +1273,16 @@
           "divisor": 9,
           "items_per_group": 2,
           "quotient": 2,
-          "equation": "18 \u00f7 9 = 2",
-          "mode": "groups"
+          "equation": "18 ÷ 9 = 2",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 18 divided by 9 equals?"
         },
         {
           "id": "G3M_DIV_001_LVL3_Q3",
           "question_id": "G3M_DIV_001_LVL3_Q3",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 24 \u00f7 3 = ?",
+          "prompt": "Which quotient makes this equation true: 24 ÷ 3 = ?",
           "answer": "8",
           "correct_answer": "8",
           "misconception_tag": "division_symbol_confusion",
@@ -1273,15 +1307,16 @@
           "divisor": 3,
           "items_per_group": 8,
           "quotient": 8,
-          "equation": "24 \u00f7 3 = 8",
-          "mode": "groups"
+          "equation": "24 ÷ 3 = 8",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 24 divided by 3 equals? Choices: 8, 9, 7."
         },
         {
           "id": "G3M_DIV_001_LVL3_Q4",
           "question_id": "G3M_DIV_001_LVL3_Q4",
           "question_type": "short_response",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 27 \u00f7 9 = ?",
+          "prompt": "Which quotient makes this equation true: 27 ÷ 9 = ?",
           "answer": "3",
           "correct_answer": "3",
           "misconception_tag": "division_symbol_confusion",
@@ -1306,15 +1341,16 @@
           "divisor": 9,
           "items_per_group": 3,
           "quotient": 3,
-          "equation": "27 \u00f7 9 = 3",
-          "mode": "groups"
+          "equation": "27 ÷ 9 = 3",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 27 divided by 9 equals?"
         },
         {
           "id": "G3M_DIV_001_LVL3_Q5",
           "question_id": "G3M_DIV_001_LVL3_Q5",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 30 \u00f7 6 = ?",
+          "prompt": "Which quotient makes this equation true: 30 ÷ 6 = ?",
           "answer": "5",
           "correct_answer": "5",
           "misconception_tag": "division_symbol_confusion",
@@ -1339,15 +1375,16 @@
           "divisor": 6,
           "items_per_group": 5,
           "quotient": 5,
-          "equation": "30 \u00f7 6 = 5",
-          "mode": "groups"
+          "equation": "30 ÷ 6 = 5",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 30 divided by 6 equals?"
         },
         {
           "id": "G3M_DIV_001_LVL3_Q6",
           "question_id": "G3M_DIV_001_LVL3_Q6",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 36 \u00f7 4 = ?",
+          "prompt": "Which quotient makes this equation true: 36 ÷ 4 = ?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "division_symbol_confusion",
@@ -1372,15 +1409,16 @@
           "divisor": 4,
           "items_per_group": 9,
           "quotient": 9,
-          "equation": "36 \u00f7 4 = 9",
-          "mode": "groups"
+          "equation": "36 ÷ 4 = 9",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 36 divided by 4 equals? Choices: 9, 10, 8."
         },
         {
           "id": "G3M_DIV_001_LVL3_Q7",
           "question_id": "G3M_DIV_001_LVL3_Q7",
           "question_type": "short_response",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 42 \u00f7 7 = ?",
+          "prompt": "Which quotient makes this equation true: 42 ÷ 7 = ?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "division_symbol_confusion",
@@ -1405,15 +1443,16 @@
           "divisor": 7,
           "items_per_group": 6,
           "quotient": 6,
-          "equation": "42 \u00f7 7 = 6",
-          "mode": "groups"
+          "equation": "42 ÷ 7 = 6",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 42 divided by 7 equals?"
         },
         {
           "id": "G3M_DIV_001_LVL3_Q8",
           "question_id": "G3M_DIV_001_LVL3_Q8",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 48 \u00f7 8 = ?",
+          "prompt": "Which quotient makes this equation true: 48 ÷ 8 = ?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "division_symbol_confusion",
@@ -1438,15 +1477,16 @@
           "divisor": 8,
           "items_per_group": 6,
           "quotient": 6,
-          "equation": "48 \u00f7 8 = 6",
-          "mode": "groups"
+          "equation": "48 ÷ 8 = 6",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 48 divided by 8 equals?"
         },
         {
           "id": "G3M_DIV_001_LVL3_Q9",
           "question_id": "G3M_DIV_001_LVL3_Q9",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 54 \u00f7 6 = ?",
+          "prompt": "Which quotient makes this equation true: 54 ÷ 6 = ?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "division_symbol_confusion",
@@ -1471,15 +1511,16 @@
           "divisor": 6,
           "items_per_group": 9,
           "quotient": 9,
-          "equation": "54 \u00f7 6 = 9",
-          "mode": "groups"
+          "equation": "54 ÷ 6 = 9",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 54 divided by 6 equals? Choices: 9, 10, 8."
         },
         {
           "id": "G3M_DIV_001_LVL3_Q10",
           "question_id": "G3M_DIV_001_LVL3_Q10",
           "question_type": "short_response",
           "visual_model": "division_model",
-          "prompt": "Which quotient makes this equation true: 56 \u00f7 7 = ?",
+          "prompt": "Which quotient makes this equation true: 56 ÷ 7 = ?",
           "answer": "8",
           "correct_answer": "8",
           "misconception_tag": "division_symbol_confusion",
@@ -1504,8 +1545,9 @@
           "divisor": 7,
           "items_per_group": 8,
           "quotient": 8,
-          "equation": "56 \u00f7 7 = 8",
-          "mode": "groups"
+          "equation": "56 ÷ 7 = 8",
+          "mode": "groups",
+          "read_aloud_text": "Which quotient makes this equation true: 56 divided by 7 equals?"
         }
       ]
     },
@@ -1522,7 +1564,7 @@
           "question_id": "G3M_DIV_001_LVL4_Q1",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 3, 4, and 12. What is 12 \u00f7 3?",
+          "prompt": "Use the fact family for 3, 4, and 12. What is 12 ÷ 3?",
           "answer": "4",
           "correct_answer": "4",
           "misconception_tag": "inverse_operation_confusion",
@@ -1547,14 +1589,15 @@
           "total": 12,
           "groups": 3,
           "items_per_group": 4,
-          "equation": "12 \u00f7 3 = 4"
+          "equation": "12 ÷ 3 = 4",
+          "read_aloud_text": "Use the fact family for 3, 4, and 12. What is 12 divided by 3?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q2",
           "question_id": "G3M_DIV_001_LVL4_Q2",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 5, 6, and 30. What is 30 \u00f7 5?",
+          "prompt": "Use the fact family for 5, 6, and 30. What is 30 ÷ 5?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "inverse_operation_confusion",
@@ -1579,14 +1622,15 @@
           "total": 30,
           "groups": 5,
           "items_per_group": 6,
-          "equation": "30 \u00f7 5 = 6"
+          "equation": "30 ÷ 5 = 6",
+          "read_aloud_text": "Use the fact family for 5, 6, and 30. What is 30 divided by 5?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q3",
           "question_id": "G3M_DIV_001_LVL4_Q3",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 7, 8, and 56. What is 56 \u00f7 7?",
+          "prompt": "Use the fact family for 7, 8, and 56. What is 56 ÷ 7?",
           "answer": "8",
           "correct_answer": "8",
           "misconception_tag": "inverse_operation_confusion",
@@ -1611,14 +1655,15 @@
           "total": 56,
           "groups": 7,
           "items_per_group": 8,
-          "equation": "56 \u00f7 7 = 8"
+          "equation": "56 ÷ 7 = 8",
+          "read_aloud_text": "Use the fact family for 7, 8, and 56. What is 56 divided by 7?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q4",
           "question_id": "G3M_DIV_001_LVL4_Q4",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 9, 4, and 36. What is 36 \u00f7 9?",
+          "prompt": "Use the fact family for 9, 4, and 36. What is 36 ÷ 9?",
           "answer": "4",
           "correct_answer": "4",
           "misconception_tag": "inverse_operation_confusion",
@@ -1643,14 +1688,15 @@
           "total": 36,
           "groups": 9,
           "items_per_group": 4,
-          "equation": "36 \u00f7 9 = 4"
+          "equation": "36 ÷ 9 = 4",
+          "read_aloud_text": "Use the fact family for 9, 4, and 36. What is 36 divided by 9?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q5",
           "question_id": "G3M_DIV_001_LVL4_Q5",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 6, 6, and 36. What is 36 \u00f7 6?",
+          "prompt": "Use the fact family for 6, 6, and 36. What is 36 ÷ 6?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "inverse_operation_confusion",
@@ -1675,14 +1721,15 @@
           "total": 36,
           "groups": 6,
           "items_per_group": 6,
-          "equation": "36 \u00f7 6 = 6"
+          "equation": "36 ÷ 6 = 6",
+          "read_aloud_text": "Use the fact family for 6, 6, and 36. What is 36 divided by 6?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q6",
           "question_id": "G3M_DIV_001_LVL4_Q6",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 8, 5, and 40. What is 40 \u00f7 8?",
+          "prompt": "Use the fact family for 8, 5, and 40. What is 40 ÷ 8?",
           "answer": "5",
           "correct_answer": "5",
           "misconception_tag": "inverse_operation_confusion",
@@ -1707,14 +1754,15 @@
           "total": 40,
           "groups": 8,
           "items_per_group": 5,
-          "equation": "40 \u00f7 8 = 5"
+          "equation": "40 ÷ 8 = 5",
+          "read_aloud_text": "Use the fact family for 8, 5, and 40. What is 40 divided by 8?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q7",
           "question_id": "G3M_DIV_001_LVL4_Q7",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 7, 3, and 21. What is 21 \u00f7 7?",
+          "prompt": "Use the fact family for 7, 3, and 21. What is 21 ÷ 7?",
           "answer": "3",
           "correct_answer": "3",
           "misconception_tag": "inverse_operation_confusion",
@@ -1739,14 +1787,15 @@
           "total": 21,
           "groups": 7,
           "items_per_group": 3,
-          "equation": "21 \u00f7 7 = 3"
+          "equation": "21 ÷ 7 = 3",
+          "read_aloud_text": "Use the fact family for 7, 3, and 21. What is 21 divided by 7?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q8",
           "question_id": "G3M_DIV_001_LVL4_Q8",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 9, 8, and 72. What is 72 \u00f7 9?",
+          "prompt": "Use the fact family for 9, 8, and 72. What is 72 ÷ 9?",
           "answer": "8",
           "correct_answer": "8",
           "misconception_tag": "inverse_operation_confusion",
@@ -1771,14 +1820,15 @@
           "total": 72,
           "groups": 9,
           "items_per_group": 8,
-          "equation": "72 \u00f7 9 = 8"
+          "equation": "72 ÷ 9 = 8",
+          "read_aloud_text": "Use the fact family for 9, 8, and 72. What is 72 divided by 9?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q9",
           "question_id": "G3M_DIV_001_LVL4_Q9",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 10, 6, and 60. What is 60 \u00f7 10?",
+          "prompt": "Use the fact family for 10, 6, and 60. What is 60 ÷ 10?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "inverse_operation_confusion",
@@ -1803,14 +1853,15 @@
           "total": 60,
           "groups": 10,
           "items_per_group": 6,
-          "equation": "60 \u00f7 10 = 6"
+          "equation": "60 ÷ 10 = 6",
+          "read_aloud_text": "Use the fact family for 10, 6, and 60. What is 60 divided by 10?"
         },
         {
           "id": "G3M_DIV_001_LVL4_Q10",
           "question_id": "G3M_DIV_001_LVL4_Q10",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Use the fact family for 11, 4, and 44. What is 44 \u00f7 11?",
+          "prompt": "Use the fact family for 11, 4, and 44. What is 44 ÷ 11?",
           "answer": "4",
           "correct_answer": "4",
           "misconception_tag": "inverse_operation_confusion",
@@ -1835,7 +1886,8 @@
           "total": 44,
           "groups": 11,
           "items_per_group": 4,
-          "equation": "44 \u00f7 11 = 4"
+          "equation": "44 ÷ 11 = 4",
+          "read_aloud_text": "Use the fact family for 11, 4, and 44. What is 44 divided by 11?"
         }
       ]
     },
@@ -1852,7 +1904,7 @@
           "question_id": "G3M_DIV_001_MIXED_Q1",
           "question_type": "short_response",
           "visual_model": "division_model",
-          "prompt": "Solve with the model: 18 \u00f7 3 = ?",
+          "prompt": "Solve with the model: 18 ÷ 3 = ?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "sharing_grouping_confusion",
@@ -1877,16 +1929,17 @@
           "divisor": 3,
           "items_per_group": 6,
           "quotient": 6,
-          "equation": "18 \u00f7 3 = 6",
+          "equation": "18 ÷ 3 = 6",
           "rows": 3,
-          "columns": 6
+          "columns": 6,
+          "read_aloud_text": "Solve with the model: 18 divided by 3 equals?"
         },
         {
           "id": "G3M_DIV_001_MIXED_Q2",
           "question_id": "G3M_DIV_001_MIXED_Q2",
           "question_type": "division_equation",
           "visual_model": "equal_groups",
-          "prompt": "Solve with the model: 24 \u00f7 4 = ?",
+          "prompt": "Solve with the model: 24 ÷ 4 = ?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "sharing_grouping_confusion",
@@ -1911,16 +1964,17 @@
           "divisor": 4,
           "items_per_group": 6,
           "quotient": 6,
-          "equation": "24 \u00f7 4 = 6",
+          "equation": "24 ÷ 4 = 6",
           "rows": 4,
-          "columns": 6
+          "columns": 6,
+          "read_aloud_text": "Solve with the model: 24 divided by 4 equals?"
         },
         {
           "id": "G3M_DIV_001_MIXED_Q3",
           "question_id": "G3M_DIV_001_MIXED_Q3",
           "question_type": "multiple_choice",
           "visual_model": "array_model",
-          "prompt": "Solve with the model: 30 \u00f7 5 = ?",
+          "prompt": "Solve with the model: 30 ÷ 5 = ?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "division_symbol_confusion",
@@ -1945,16 +1999,17 @@
           "divisor": 5,
           "items_per_group": 6,
           "quotient": 6,
-          "equation": "30 \u00f7 5 = 6",
+          "equation": "30 ÷ 5 = 6",
           "rows": 5,
-          "columns": 6
+          "columns": 6,
+          "read_aloud_text": "Solve with the model: 30 divided by 5 equals? Choices: 6, 7, 5."
         },
         {
           "id": "G3M_DIV_001_MIXED_Q4",
           "question_id": "G3M_DIV_001_MIXED_Q4",
           "question_type": "short_response",
           "visual_model": "fact_family_model",
-          "prompt": "The facts use 6, 7, and 42. What is 42 \u00f7 6?",
+          "prompt": "The facts use 6, 7, and 42. What is 42 ÷ 6?",
           "answer": "7",
           "correct_answer": "7",
           "misconception_tag": "inverse_operation_confusion",
@@ -1977,14 +2032,15 @@
           "factor_b": 7,
           "product": 42,
           "total": 42,
-          "equation": "42 \u00f7 6 = 7"
+          "equation": "42 ÷ 6 = 7",
+          "read_aloud_text": "The facts use 6, 7, and 42. What is 42 divided by 6?"
         },
         {
           "id": "G3M_DIV_001_MIXED_Q5",
           "question_id": "G3M_DIV_001_MIXED_Q5",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Solve with the model: 36 \u00f7 9 = ?",
+          "prompt": "Solve with the model: 36 ÷ 9 = ?",
           "answer": "4",
           "correct_answer": "4",
           "misconception_tag": "remainder_confusion",
@@ -2009,16 +2065,17 @@
           "divisor": 9,
           "items_per_group": 4,
           "quotient": 4,
-          "equation": "36 \u00f7 9 = 4",
+          "equation": "36 ÷ 9 = 4",
           "rows": 9,
-          "columns": 4
+          "columns": 4,
+          "read_aloud_text": "Solve with the model: 36 divided by 9 equals?"
         },
         {
           "id": "G3M_DIV_001_MIXED_Q6",
           "question_id": "G3M_DIV_001_MIXED_Q6",
           "question_type": "multiple_choice",
           "visual_model": "equal_groups",
-          "prompt": "Solve with the model: 40 \u00f7 8 = ?",
+          "prompt": "Solve with the model: 40 ÷ 8 = ?",
           "answer": "5",
           "correct_answer": "5",
           "misconception_tag": "sharing_grouping_confusion",
@@ -2043,16 +2100,17 @@
           "divisor": 8,
           "items_per_group": 5,
           "quotient": 5,
-          "equation": "40 \u00f7 8 = 5",
+          "equation": "40 ÷ 8 = 5",
           "rows": 8,
-          "columns": 5
+          "columns": 5,
+          "read_aloud_text": "Solve with the model: 40 divided by 8 equals? Choices: 5, 6, 4."
         },
         {
           "id": "G3M_DIV_001_MIXED_Q7",
           "question_id": "G3M_DIV_001_MIXED_Q7",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "Solve with the model: 42 \u00f7 6 = ?",
+          "prompt": "Solve with the model: 42 ÷ 6 = ?",
           "answer": "7",
           "correct_answer": "7",
           "misconception_tag": "division_symbol_confusion",
@@ -2077,16 +2135,17 @@
           "divisor": 6,
           "items_per_group": 7,
           "quotient": 7,
-          "equation": "42 \u00f7 6 = 7",
+          "equation": "42 ÷ 6 = 7",
           "rows": 6,
-          "columns": 7
+          "columns": 7,
+          "read_aloud_text": "Solve with the model: 42 divided by 6 equals?"
         },
         {
           "id": "G3M_DIV_001_MIXED_Q8",
           "question_id": "G3M_DIV_001_MIXED_Q8",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "The facts use 8, 9, and 72. What is 72 \u00f7 8?",
+          "prompt": "The facts use 8, 9, and 72. What is 72 ÷ 8?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "inverse_operation_confusion",
@@ -2109,14 +2168,15 @@
           "factor_b": 9,
           "product": 72,
           "total": 72,
-          "equation": "72 \u00f7 8 = 9"
+          "equation": "72 ÷ 8 = 9",
+          "read_aloud_text": "The facts use 8, 9, and 72. What is 72 divided by 8?"
         },
         {
           "id": "G3M_DIV_001_MIXED_Q9",
           "question_id": "G3M_DIV_001_MIXED_Q9",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Solve with the model: 54 \u00f7 6 = ?",
+          "prompt": "Solve with the model: 54 ÷ 6 = ?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "division_symbol_confusion",
@@ -2141,16 +2201,17 @@
           "divisor": 6,
           "items_per_group": 9,
           "quotient": 9,
-          "equation": "54 \u00f7 6 = 9",
+          "equation": "54 ÷ 6 = 9",
           "rows": 6,
-          "columns": 9
+          "columns": 9,
+          "read_aloud_text": "Solve with the model: 54 divided by 6 equals? Choices: 9, 10, 8."
         },
         {
           "id": "G3M_DIV_001_MIXED_Q10",
           "question_id": "G3M_DIV_001_MIXED_Q10",
           "question_type": "short_response",
           "visual_model": "equal_groups",
-          "prompt": "Solve with the model: 63 \u00f7 7 = ?",
+          "prompt": "Solve with the model: 63 ÷ 7 = ?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "sharing_grouping_confusion",
@@ -2175,11 +2236,59 @@
           "divisor": 7,
           "items_per_group": 9,
           "quotient": 9,
-          "equation": "63 \u00f7 7 = 9",
+          "equation": "63 ÷ 7 = 9",
           "rows": 7,
-          "columns": 9
+          "columns": 9,
+          "read_aloud_text": "Solve with the model: 63 divided by 7 equals?"
         }
       ]
     }
-  ]
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to this page. This mission introduces division as sharing equally and making equal groups. Look at how the objects are shared or grouped in the picture. Think about how the mission story connects to the math. Check that every group has the same amount as you get ready. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "lesson": {
+      "text": "This mini lesson teaches division as sharing equally and making equal groups. Look at how the objects are shared or grouped and read the vocabulary words. Check that every group has the same amount one step at a time. Watch out for leaving extras in a group or making groups uneven. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "watch": {
+      "text": "This Watch page shows a worked example for Division Foundations. Look at the model and listen for how each part matches the question. Step one, read what is being asked. Step two, use the visual model. Step three, check the final answer with the right units or math words. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "demo": {
+      "text": "This guided demo lets you practice division as sharing equally and making equal groups with help. Look at how the objects are shared or grouped before you choose an answer. Check that every group has the same amount and explain your thinking in math words. Do not rush past leaving extras in a group or making groups uneven. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "practice": {
+      "text": "Practice time. Use the model to help you work on division as sharing equally and making equal groups. Check that every group has the same amount and check your answer. Press Read Question if you want the exact question read aloud. Choose your answer when you are ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "challenge": {
+      "text": "Challenge time. The problem may need careful thinking about division as sharing equally and making equal groups. Look at how the objects are shared or grouped, then decide which strategy fits best. Press Read Question if you want the exact question read aloud. Answer carefully, then continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "checkpoint": {
+      "text": "Checkpoint time. Show what you know about division as sharing equally and making equal groups. Read the problem, use the visual, and check for leaving extras in a group or making groups uneven. Press Read Question if you want the exact question read aloud. Choose or write the answer when ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "badge": {
+      "text": "This badge page celebrates your work on Division Foundations. Look at your stars and remember the strategy you used. Mistakes helped your brain grow when you checked them. Press Next to see your profile.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "profile": {
+      "text": "This profile page shows how your mission went. Look at your accuracy, hints, and growth notes. If a level needs more practice, go back to the hub or continue to Skill Practice. Use your results to choose what to practice next.",
+      "label": "Read This Page",
+      "type": "page"
+    }
+  }
 }

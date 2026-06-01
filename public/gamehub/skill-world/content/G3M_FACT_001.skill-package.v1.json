@@ -41,7 +41,7 @@
   "worked_examples": [
     {
       "visual_model": "skip_counting",
-      "prompt": "What is 2 \u00d7 2?",
+      "prompt": "What is 2 × 2?",
       "correct_answer": "4",
       "factor_a": 2,
       "factor_b": 2,
@@ -56,12 +56,12 @@
         2,
         4
       ],
-      "equation": "2 \u00d7 2 = 4",
-      "text": "What is 2 \u00d7 2?"
+      "equation": "2 × 2 = 4",
+      "text": "What is 2 × 2?"
     },
     {
       "visual_model": "array_model",
-      "prompt": "What is 2 \u00d7 3?",
+      "prompt": "What is 2 × 3?",
       "correct_answer": "6",
       "factor_a": 2,
       "factor_b": 3,
@@ -77,12 +77,12 @@
         4,
         6
       ],
-      "equation": "2 \u00d7 3 = 6",
-      "text": "What is 2 \u00d7 3?"
+      "equation": "2 × 3 = 6",
+      "text": "What is 2 × 3?"
     },
     {
       "visual_model": "fact_family_model",
-      "prompt": "What is 2 \u00d7 4?",
+      "prompt": "What is 2 × 4?",
       "correct_answer": "8",
       "factor_a": 2,
       "factor_b": 4,
@@ -99,8 +99,8 @@
         6,
         8
       ],
-      "equation": "2 \u00d7 4 = 8",
-      "text": "What is 2 \u00d7 4?"
+      "equation": "2 × 4 = 8",
+      "text": "What is 2 × 4?"
     }
   ],
   "hint_ladder": [
@@ -114,7 +114,7 @@
       "question_id": "G3M_FACT_001_LVL1_Q1",
       "question_type": "multiplication_equation",
       "visual_model": "skip_counting",
-      "prompt": "What is 2 \u00d7 2?",
+      "prompt": "What is 2 × 2?",
       "answer": "4",
       "correct_answer": "4",
       "misconception_tag": "skip_count_error",
@@ -148,14 +148,15 @@
         2,
         4
       ],
-      "equation": "2 \u00d7 2 = 4"
+      "equation": "2 × 2 = 4",
+      "read_aloud_text": "What is 2 times 2?"
     },
     {
       "id": "G3M_FACT_001_LVL1_Q2",
       "question_id": "G3M_FACT_001_LVL1_Q2",
       "question_type": "short_response",
       "visual_model": "array_model",
-      "prompt": "What is 2 \u00d7 3?",
+      "prompt": "What is 2 × 3?",
       "answer": "6",
       "correct_answer": "6",
       "misconception_tag": "multiplication_division_mixup",
@@ -190,14 +191,15 @@
         4,
         6
       ],
-      "equation": "2 \u00d7 3 = 6"
+      "equation": "2 × 3 = 6",
+      "read_aloud_text": "What is 2 times 3?"
     },
     {
       "id": "G3M_FACT_001_LVL1_Q3",
       "question_id": "G3M_FACT_001_LVL1_Q3",
       "question_type": "multiplication_equation",
       "visual_model": "fact_family_model",
-      "prompt": "What is 2 \u00d7 4?",
+      "prompt": "What is 2 × 4?",
       "answer": "8",
       "correct_answer": "8",
       "misconception_tag": "inverse_fact_confusion",
@@ -233,7 +235,8 @@
         6,
         8
       ],
-      "equation": "2 \u00d7 4 = 8"
+      "equation": "2 × 4 = 8",
+      "read_aloud_text": "What is 2 times 4?"
     }
   ],
   "adaptive_question_bank": [
@@ -242,7 +245,7 @@
       "question_id": "G3M_FACT_001_LVL1_Q4",
       "question_type": "division_equation",
       "visual_model": "multiplication_chart",
-      "prompt": "What is 10 \u00f7 2?",
+      "prompt": "What is 10 ÷ 2?",
       "answer": "5",
       "correct_answer": "5",
       "misconception_tag": "fact_recall_gap",
@@ -279,14 +282,15 @@
         8,
         10
       ],
-      "equation": "10 \u00f7 2 = 5"
+      "equation": "10 ÷ 2 = 5",
+      "read_aloud_text": "What is 10 divided by 2?"
     },
     {
       "id": "G3M_FACT_001_LVL1_Q5",
       "question_id": "G3M_FACT_001_LVL1_Q5",
       "question_type": "multiplication_equation",
       "visual_model": "skip_counting",
-      "prompt": "What is 2 \u00d7 6?",
+      "prompt": "What is 2 × 6?",
       "answer": "12",
       "correct_answer": "12",
       "misconception_tag": "skip_count_error",
@@ -324,14 +328,15 @@
         10,
         12
       ],
-      "equation": "2 \u00d7 6 = 12"
+      "equation": "2 × 6 = 12",
+      "read_aloud_text": "What is 2 times 6?"
     },
     {
       "id": "G3M_FACT_001_LVL1_Q6",
       "question_id": "G3M_FACT_001_LVL1_Q6",
       "question_type": "short_response",
       "visual_model": "array_model",
-      "prompt": "What is 2 \u00d7 7?",
+      "prompt": "What is 2 × 7?",
       "answer": "14",
       "correct_answer": "14",
       "misconception_tag": "multiplication_division_mixup",
@@ -370,14 +375,15 @@
         12,
         14
       ],
-      "equation": "2 \u00d7 7 = 14"
+      "equation": "2 × 7 = 14",
+      "read_aloud_text": "What is 2 times 7?"
     },
     {
       "id": "G3M_FACT_001_LVL1_Q7",
       "question_id": "G3M_FACT_001_LVL1_Q7",
       "question_type": "multiplication_equation",
       "visual_model": "fact_family_model",
-      "prompt": "What is 2 \u00d7 8?",
+      "prompt": "What is 2 × 8?",
       "answer": "16",
       "correct_answer": "16",
       "misconception_tag": "inverse_fact_confusion",
@@ -417,14 +423,15 @@
         14,
         16
       ],
-      "equation": "2 \u00d7 8 = 16"
+      "equation": "2 × 8 = 16",
+      "read_aloud_text": "What is 2 times 8?"
     },
     {
       "id": "G3M_FACT_001_LVL1_Q8",
       "question_id": "G3M_FACT_001_LVL1_Q8",
       "question_type": "division_equation",
       "visual_model": "multiplication_chart",
-      "prompt": "What is 18 \u00f7 2?",
+      "prompt": "What is 18 ÷ 2?",
       "answer": "9",
       "correct_answer": "9",
       "misconception_tag": "fact_recall_gap",
@@ -465,14 +472,15 @@
         16,
         18
       ],
-      "equation": "18 \u00f7 2 = 9"
+      "equation": "18 ÷ 2 = 9",
+      "read_aloud_text": "What is 18 divided by 2?"
     },
     {
       "id": "G3M_FACT_001_LVL1_Q9",
       "question_id": "G3M_FACT_001_LVL1_Q9",
       "question_type": "multiplication_equation",
       "visual_model": "skip_counting",
-      "prompt": "What is 2 \u00d7 10?",
+      "prompt": "What is 2 × 10?",
       "answer": "20",
       "correct_answer": "20",
       "misconception_tag": "skip_count_error",
@@ -514,7 +522,8 @@
         18,
         20
       ],
-      "equation": "2 \u00d7 10 = 20"
+      "equation": "2 × 10 = 20",
+      "read_aloud_text": "What is 2 times 10?"
     }
   ],
   "checkpoint": [
@@ -523,7 +532,7 @@
       "question_id": "G3M_FACT_001_MIXED_Q8",
       "question_type": "short_response",
       "visual_model": "multiplication_chart",
-      "prompt": "Solve: 7 \u00d7 9",
+      "prompt": "Solve: 7 × 9",
       "answer": "63",
       "correct_answer": "63",
       "misconception_tag": "fact_recall_gap",
@@ -564,14 +573,15 @@
         56,
         63
       ],
-      "equation": "7 \u00d7 9 = 63"
+      "equation": "7 × 9 = 63",
+      "read_aloud_text": "Solve: 7 times 9"
     },
     {
       "id": "G3M_FACT_001_MIXED_Q9",
       "question_id": "G3M_FACT_001_MIXED_Q9",
       "question_type": "division_equation",
       "visual_model": "fact_family_model",
-      "prompt": "Solve: 80 \u00f7 10",
+      "prompt": "Solve: 80 ÷ 10",
       "answer": "8",
       "correct_answer": "8",
       "misconception_tag": "inverse_fact_confusion",
@@ -611,14 +621,15 @@
         70,
         80
       ],
-      "equation": "80 \u00f7 10 = 8"
+      "equation": "80 ÷ 10 = 8",
+      "read_aloud_text": "Solve: 80 divided by 10"
     },
     {
       "id": "G3M_FACT_001_MIXED_Q10",
       "question_id": "G3M_FACT_001_MIXED_Q10",
       "question_type": "short_response",
       "visual_model": "array_model",
-      "prompt": "Solve: 9 \u00d7 9",
+      "prompt": "Solve: 9 × 9",
       "answer": "81",
       "correct_answer": "81",
       "misconception_tag": "fact_recall_gap",
@@ -659,7 +670,8 @@
         72,
         81
       ],
-      "equation": "9 \u00d7 9 = 81"
+      "equation": "9 × 9 = 81",
+      "read_aloud_text": "Solve: 9 times 9"
     }
   ],
   "misconception_bank": {
@@ -688,7 +700,7 @@
           "question_id": "G3M_FACT_001_LVL1_Q1",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 2 \u00d7 2?",
+          "prompt": "What is 2 × 2?",
           "answer": "4",
           "correct_answer": "4",
           "misconception_tag": "skip_count_error",
@@ -722,14 +734,15 @@
             2,
             4
           ],
-          "equation": "2 \u00d7 2 = 4"
+          "equation": "2 × 2 = 4",
+          "read_aloud_text": "What is 2 times 2?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q2",
           "question_id": "G3M_FACT_001_LVL1_Q2",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 2 \u00d7 3?",
+          "prompt": "What is 2 × 3?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "multiplication_division_mixup",
@@ -764,14 +777,15 @@
             4,
             6
           ],
-          "equation": "2 \u00d7 3 = 6"
+          "equation": "2 × 3 = 6",
+          "read_aloud_text": "What is 2 times 3?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q3",
           "question_id": "G3M_FACT_001_LVL1_Q3",
           "question_type": "multiplication_equation",
           "visual_model": "fact_family_model",
-          "prompt": "What is 2 \u00d7 4?",
+          "prompt": "What is 2 × 4?",
           "answer": "8",
           "correct_answer": "8",
           "misconception_tag": "inverse_fact_confusion",
@@ -807,14 +821,15 @@
             6,
             8
           ],
-          "equation": "2 \u00d7 4 = 8"
+          "equation": "2 × 4 = 8",
+          "read_aloud_text": "What is 2 times 4?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q4",
           "question_id": "G3M_FACT_001_LVL1_Q4",
           "question_type": "division_equation",
           "visual_model": "multiplication_chart",
-          "prompt": "What is 10 \u00f7 2?",
+          "prompt": "What is 10 ÷ 2?",
           "answer": "5",
           "correct_answer": "5",
           "misconception_tag": "fact_recall_gap",
@@ -851,14 +866,15 @@
             8,
             10
           ],
-          "equation": "10 \u00f7 2 = 5"
+          "equation": "10 ÷ 2 = 5",
+          "read_aloud_text": "What is 10 divided by 2?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q5",
           "question_id": "G3M_FACT_001_LVL1_Q5",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 2 \u00d7 6?",
+          "prompt": "What is 2 × 6?",
           "answer": "12",
           "correct_answer": "12",
           "misconception_tag": "skip_count_error",
@@ -896,14 +912,15 @@
             10,
             12
           ],
-          "equation": "2 \u00d7 6 = 12"
+          "equation": "2 × 6 = 12",
+          "read_aloud_text": "What is 2 times 6?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q6",
           "question_id": "G3M_FACT_001_LVL1_Q6",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 2 \u00d7 7?",
+          "prompt": "What is 2 × 7?",
           "answer": "14",
           "correct_answer": "14",
           "misconception_tag": "multiplication_division_mixup",
@@ -942,14 +959,15 @@
             12,
             14
           ],
-          "equation": "2 \u00d7 7 = 14"
+          "equation": "2 × 7 = 14",
+          "read_aloud_text": "What is 2 times 7?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q7",
           "question_id": "G3M_FACT_001_LVL1_Q7",
           "question_type": "multiplication_equation",
           "visual_model": "fact_family_model",
-          "prompt": "What is 2 \u00d7 8?",
+          "prompt": "What is 2 × 8?",
           "answer": "16",
           "correct_answer": "16",
           "misconception_tag": "inverse_fact_confusion",
@@ -989,14 +1007,15 @@
             14,
             16
           ],
-          "equation": "2 \u00d7 8 = 16"
+          "equation": "2 × 8 = 16",
+          "read_aloud_text": "What is 2 times 8?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q8",
           "question_id": "G3M_FACT_001_LVL1_Q8",
           "question_type": "division_equation",
           "visual_model": "multiplication_chart",
-          "prompt": "What is 18 \u00f7 2?",
+          "prompt": "What is 18 ÷ 2?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "fact_recall_gap",
@@ -1037,14 +1056,15 @@
             16,
             18
           ],
-          "equation": "18 \u00f7 2 = 9"
+          "equation": "18 ÷ 2 = 9",
+          "read_aloud_text": "What is 18 divided by 2?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q9",
           "question_id": "G3M_FACT_001_LVL1_Q9",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 2 \u00d7 10?",
+          "prompt": "What is 2 × 10?",
           "answer": "20",
           "correct_answer": "20",
           "misconception_tag": "skip_count_error",
@@ -1086,14 +1106,15 @@
             18,
             20
           ],
-          "equation": "2 \u00d7 10 = 20"
+          "equation": "2 × 10 = 20",
+          "read_aloud_text": "What is 2 times 10?"
         },
         {
           "id": "G3M_FACT_001_LVL1_Q10",
           "question_id": "G3M_FACT_001_LVL1_Q10",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 2 \u00d7 11?",
+          "prompt": "What is 2 × 11?",
           "answer": "22",
           "correct_answer": "22",
           "misconception_tag": "multiplication_division_mixup",
@@ -1136,7 +1157,8 @@
             20,
             22
           ],
-          "equation": "2 \u00d7 11 = 22"
+          "equation": "2 × 11 = 22",
+          "read_aloud_text": "What is 2 times 11?"
         }
       ]
     },
@@ -1153,7 +1175,7 @@
           "question_id": "G3M_FACT_001_LVL2_Q1",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 3 \u00d7 2?",
+          "prompt": "What is 3 × 2?",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "skip_count_error",
@@ -1187,14 +1209,15 @@
             3,
             6
           ],
-          "equation": "3 \u00d7 2 = 6"
+          "equation": "3 × 2 = 6",
+          "read_aloud_text": "What is 3 times 2?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q2",
           "question_id": "G3M_FACT_001_LVL2_Q2",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 3 \u00d7 3?",
+          "prompt": "What is 3 × 3?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "multiplication_division_mixup",
@@ -1229,14 +1252,15 @@
             6,
             9
           ],
-          "equation": "3 \u00d7 3 = 9"
+          "equation": "3 × 3 = 9",
+          "read_aloud_text": "What is 3 times 3?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q3",
           "question_id": "G3M_FACT_001_LVL2_Q3",
           "question_type": "multiplication_equation",
           "visual_model": "fact_family_model",
-          "prompt": "What is 3 \u00d7 4?",
+          "prompt": "What is 3 × 4?",
           "answer": "12",
           "correct_answer": "12",
           "misconception_tag": "inverse_fact_confusion",
@@ -1272,14 +1296,15 @@
             9,
             12
           ],
-          "equation": "3 \u00d7 4 = 12"
+          "equation": "3 × 4 = 12",
+          "read_aloud_text": "What is 3 times 4?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q4",
           "question_id": "G3M_FACT_001_LVL2_Q4",
           "question_type": "division_equation",
           "visual_model": "multiplication_chart",
-          "prompt": "What is 15 \u00f7 3?",
+          "prompt": "What is 15 ÷ 3?",
           "answer": "5",
           "correct_answer": "5",
           "misconception_tag": "fact_recall_gap",
@@ -1316,14 +1341,15 @@
             12,
             15
           ],
-          "equation": "15 \u00f7 3 = 5"
+          "equation": "15 ÷ 3 = 5",
+          "read_aloud_text": "What is 15 divided by 3?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q5",
           "question_id": "G3M_FACT_001_LVL2_Q5",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 3 \u00d7 6?",
+          "prompt": "What is 3 × 6?",
           "answer": "18",
           "correct_answer": "18",
           "misconception_tag": "skip_count_error",
@@ -1361,14 +1387,15 @@
             15,
             18
           ],
-          "equation": "3 \u00d7 6 = 18"
+          "equation": "3 × 6 = 18",
+          "read_aloud_text": "What is 3 times 6?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q6",
           "question_id": "G3M_FACT_001_LVL2_Q6",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 3 \u00d7 7?",
+          "prompt": "What is 3 × 7?",
           "answer": "21",
           "correct_answer": "21",
           "misconception_tag": "multiplication_division_mixup",
@@ -1407,14 +1434,15 @@
             18,
             21
           ],
-          "equation": "3 \u00d7 7 = 21"
+          "equation": "3 × 7 = 21",
+          "read_aloud_text": "What is 3 times 7?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q7",
           "question_id": "G3M_FACT_001_LVL2_Q7",
           "question_type": "multiplication_equation",
           "visual_model": "fact_family_model",
-          "prompt": "What is 3 \u00d7 8?",
+          "prompt": "What is 3 × 8?",
           "answer": "24",
           "correct_answer": "24",
           "misconception_tag": "inverse_fact_confusion",
@@ -1454,14 +1482,15 @@
             21,
             24
           ],
-          "equation": "3 \u00d7 8 = 24"
+          "equation": "3 × 8 = 24",
+          "read_aloud_text": "What is 3 times 8?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q8",
           "question_id": "G3M_FACT_001_LVL2_Q8",
           "question_type": "division_equation",
           "visual_model": "multiplication_chart",
-          "prompt": "What is 27 \u00f7 3?",
+          "prompt": "What is 27 ÷ 3?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "fact_recall_gap",
@@ -1502,14 +1531,15 @@
             24,
             27
           ],
-          "equation": "27 \u00f7 3 = 9"
+          "equation": "27 ÷ 3 = 9",
+          "read_aloud_text": "What is 27 divided by 3?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q9",
           "question_id": "G3M_FACT_001_LVL2_Q9",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 3 \u00d7 10?",
+          "prompt": "What is 3 × 10?",
           "answer": "30",
           "correct_answer": "30",
           "misconception_tag": "skip_count_error",
@@ -1551,14 +1581,15 @@
             27,
             30
           ],
-          "equation": "3 \u00d7 10 = 30"
+          "equation": "3 × 10 = 30",
+          "read_aloud_text": "What is 3 times 10?"
         },
         {
           "id": "G3M_FACT_001_LVL2_Q10",
           "question_id": "G3M_FACT_001_LVL2_Q10",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 3 \u00d7 11?",
+          "prompt": "What is 3 × 11?",
           "answer": "33",
           "correct_answer": "33",
           "misconception_tag": "multiplication_division_mixup",
@@ -1601,7 +1632,8 @@
             30,
             33
           ],
-          "equation": "3 \u00d7 11 = 33"
+          "equation": "3 × 11 = 33",
+          "read_aloud_text": "What is 3 times 11?"
         }
       ]
     },
@@ -1618,7 +1650,7 @@
           "question_id": "G3M_FACT_001_LVL3_Q1",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 6 \u00d7 2?",
+          "prompt": "What is 6 × 2?",
           "answer": "12",
           "correct_answer": "12",
           "misconception_tag": "skip_count_error",
@@ -1652,14 +1684,15 @@
             6,
             12
           ],
-          "equation": "6 \u00d7 2 = 12"
+          "equation": "6 × 2 = 12",
+          "read_aloud_text": "What is 6 times 2?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q2",
           "question_id": "G3M_FACT_001_LVL3_Q2",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 6 \u00d7 3?",
+          "prompt": "What is 6 × 3?",
           "answer": "18",
           "correct_answer": "18",
           "misconception_tag": "multiplication_division_mixup",
@@ -1694,14 +1727,15 @@
             12,
             18
           ],
-          "equation": "6 \u00d7 3 = 18"
+          "equation": "6 × 3 = 18",
+          "read_aloud_text": "What is 6 times 3?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q3",
           "question_id": "G3M_FACT_001_LVL3_Q3",
           "question_type": "multiplication_equation",
           "visual_model": "fact_family_model",
-          "prompt": "What is 6 \u00d7 4?",
+          "prompt": "What is 6 × 4?",
           "answer": "24",
           "correct_answer": "24",
           "misconception_tag": "inverse_fact_confusion",
@@ -1737,14 +1771,15 @@
             18,
             24
           ],
-          "equation": "6 \u00d7 4 = 24"
+          "equation": "6 × 4 = 24",
+          "read_aloud_text": "What is 6 times 4?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q4",
           "question_id": "G3M_FACT_001_LVL3_Q4",
           "question_type": "division_equation",
           "visual_model": "multiplication_chart",
-          "prompt": "What is 30 \u00f7 6?",
+          "prompt": "What is 30 ÷ 6?",
           "answer": "5",
           "correct_answer": "5",
           "misconception_tag": "fact_recall_gap",
@@ -1781,14 +1816,15 @@
             24,
             30
           ],
-          "equation": "30 \u00f7 6 = 5"
+          "equation": "30 ÷ 6 = 5",
+          "read_aloud_text": "What is 30 divided by 6?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q5",
           "question_id": "G3M_FACT_001_LVL3_Q5",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 6 \u00d7 6?",
+          "prompt": "What is 6 × 6?",
           "answer": "36",
           "correct_answer": "36",
           "misconception_tag": "skip_count_error",
@@ -1826,14 +1862,15 @@
             30,
             36
           ],
-          "equation": "6 \u00d7 6 = 36"
+          "equation": "6 × 6 = 36",
+          "read_aloud_text": "What is 6 times 6?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q6",
           "question_id": "G3M_FACT_001_LVL3_Q6",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 6 \u00d7 7?",
+          "prompt": "What is 6 × 7?",
           "answer": "42",
           "correct_answer": "42",
           "misconception_tag": "multiplication_division_mixup",
@@ -1872,14 +1909,15 @@
             36,
             42
           ],
-          "equation": "6 \u00d7 7 = 42"
+          "equation": "6 × 7 = 42",
+          "read_aloud_text": "What is 6 times 7?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q7",
           "question_id": "G3M_FACT_001_LVL3_Q7",
           "question_type": "multiplication_equation",
           "visual_model": "fact_family_model",
-          "prompt": "What is 6 \u00d7 8?",
+          "prompt": "What is 6 × 8?",
           "answer": "48",
           "correct_answer": "48",
           "misconception_tag": "inverse_fact_confusion",
@@ -1919,14 +1957,15 @@
             42,
             48
           ],
-          "equation": "6 \u00d7 8 = 48"
+          "equation": "6 × 8 = 48",
+          "read_aloud_text": "What is 6 times 8?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q8",
           "question_id": "G3M_FACT_001_LVL3_Q8",
           "question_type": "division_equation",
           "visual_model": "multiplication_chart",
-          "prompt": "What is 54 \u00f7 6?",
+          "prompt": "What is 54 ÷ 6?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "fact_recall_gap",
@@ -1967,14 +2006,15 @@
             48,
             54
           ],
-          "equation": "54 \u00f7 6 = 9"
+          "equation": "54 ÷ 6 = 9",
+          "read_aloud_text": "What is 54 divided by 6?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q9",
           "question_id": "G3M_FACT_001_LVL3_Q9",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 6 \u00d7 10?",
+          "prompt": "What is 6 × 10?",
           "answer": "60",
           "correct_answer": "60",
           "misconception_tag": "skip_count_error",
@@ -2016,14 +2056,15 @@
             54,
             60
           ],
-          "equation": "6 \u00d7 10 = 60"
+          "equation": "6 × 10 = 60",
+          "read_aloud_text": "What is 6 times 10?"
         },
         {
           "id": "G3M_FACT_001_LVL3_Q10",
           "question_id": "G3M_FACT_001_LVL3_Q10",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 6 \u00d7 11?",
+          "prompt": "What is 6 × 11?",
           "answer": "66",
           "correct_answer": "66",
           "misconception_tag": "multiplication_division_mixup",
@@ -2066,7 +2107,8 @@
             60,
             66
           ],
-          "equation": "6 \u00d7 11 = 66"
+          "equation": "6 × 11 = 66",
+          "read_aloud_text": "What is 6 times 11?"
         }
       ]
     },
@@ -2083,7 +2125,7 @@
           "question_id": "G3M_FACT_001_LVL4_Q1",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 9 \u00d7 2?",
+          "prompt": "What is 9 × 2?",
           "answer": "18",
           "correct_answer": "18",
           "misconception_tag": "skip_count_error",
@@ -2117,14 +2159,15 @@
             9,
             18
           ],
-          "equation": "9 \u00d7 2 = 18"
+          "equation": "9 × 2 = 18",
+          "read_aloud_text": "What is 9 times 2?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q2",
           "question_id": "G3M_FACT_001_LVL4_Q2",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 9 \u00d7 3?",
+          "prompt": "What is 9 × 3?",
           "answer": "27",
           "correct_answer": "27",
           "misconception_tag": "multiplication_division_mixup",
@@ -2159,14 +2202,15 @@
             18,
             27
           ],
-          "equation": "9 \u00d7 3 = 27"
+          "equation": "9 × 3 = 27",
+          "read_aloud_text": "What is 9 times 3?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q3",
           "question_id": "G3M_FACT_001_LVL4_Q3",
           "question_type": "multiplication_equation",
           "visual_model": "fact_family_model",
-          "prompt": "What is 9 \u00d7 4?",
+          "prompt": "What is 9 × 4?",
           "answer": "36",
           "correct_answer": "36",
           "misconception_tag": "inverse_fact_confusion",
@@ -2202,14 +2246,15 @@
             27,
             36
           ],
-          "equation": "9 \u00d7 4 = 36"
+          "equation": "9 × 4 = 36",
+          "read_aloud_text": "What is 9 times 4?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q4",
           "question_id": "G3M_FACT_001_LVL4_Q4",
           "question_type": "division_equation",
           "visual_model": "multiplication_chart",
-          "prompt": "What is 45 \u00f7 9?",
+          "prompt": "What is 45 ÷ 9?",
           "answer": "5",
           "correct_answer": "5",
           "misconception_tag": "fact_recall_gap",
@@ -2246,14 +2291,15 @@
             36,
             45
           ],
-          "equation": "45 \u00f7 9 = 5"
+          "equation": "45 ÷ 9 = 5",
+          "read_aloud_text": "What is 45 divided by 9?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q5",
           "question_id": "G3M_FACT_001_LVL4_Q5",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 9 \u00d7 6?",
+          "prompt": "What is 9 × 6?",
           "answer": "54",
           "correct_answer": "54",
           "misconception_tag": "skip_count_error",
@@ -2291,14 +2337,15 @@
             45,
             54
           ],
-          "equation": "9 \u00d7 6 = 54"
+          "equation": "9 × 6 = 54",
+          "read_aloud_text": "What is 9 times 6?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q6",
           "question_id": "G3M_FACT_001_LVL4_Q6",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 9 \u00d7 7?",
+          "prompt": "What is 9 × 7?",
           "answer": "63",
           "correct_answer": "63",
           "misconception_tag": "multiplication_division_mixup",
@@ -2337,14 +2384,15 @@
             54,
             63
           ],
-          "equation": "9 \u00d7 7 = 63"
+          "equation": "9 × 7 = 63",
+          "read_aloud_text": "What is 9 times 7?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q7",
           "question_id": "G3M_FACT_001_LVL4_Q7",
           "question_type": "multiplication_equation",
           "visual_model": "fact_family_model",
-          "prompt": "What is 9 \u00d7 8?",
+          "prompt": "What is 9 × 8?",
           "answer": "72",
           "correct_answer": "72",
           "misconception_tag": "inverse_fact_confusion",
@@ -2384,14 +2432,15 @@
             63,
             72
           ],
-          "equation": "9 \u00d7 8 = 72"
+          "equation": "9 × 8 = 72",
+          "read_aloud_text": "What is 9 times 8?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q8",
           "question_id": "G3M_FACT_001_LVL4_Q8",
           "question_type": "division_equation",
           "visual_model": "multiplication_chart",
-          "prompt": "What is 81 \u00f7 9?",
+          "prompt": "What is 81 ÷ 9?",
           "answer": "9",
           "correct_answer": "9",
           "misconception_tag": "fact_recall_gap",
@@ -2432,14 +2481,15 @@
             72,
             81
           ],
-          "equation": "81 \u00f7 9 = 9"
+          "equation": "81 ÷ 9 = 9",
+          "read_aloud_text": "What is 81 divided by 9?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q9",
           "question_id": "G3M_FACT_001_LVL4_Q9",
           "question_type": "multiplication_equation",
           "visual_model": "skip_counting",
-          "prompt": "What is 9 \u00d7 10?",
+          "prompt": "What is 9 × 10?",
           "answer": "90",
           "correct_answer": "90",
           "misconception_tag": "skip_count_error",
@@ -2481,14 +2531,15 @@
             81,
             90
           ],
-          "equation": "9 \u00d7 10 = 90"
+          "equation": "9 × 10 = 90",
+          "read_aloud_text": "What is 9 times 10?"
         },
         {
           "id": "G3M_FACT_001_LVL4_Q10",
           "question_id": "G3M_FACT_001_LVL4_Q10",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "What is 9 \u00d7 11?",
+          "prompt": "What is 9 × 11?",
           "answer": "99",
           "correct_answer": "99",
           "misconception_tag": "multiplication_division_mixup",
@@ -2531,7 +2582,8 @@
             90,
             99
           ],
-          "equation": "9 \u00d7 11 = 99"
+          "equation": "9 × 11 = 99",
+          "read_aloud_text": "What is 9 times 11?"
         }
       ]
     },
@@ -2548,7 +2600,7 @@
           "question_id": "G3M_FACT_001_MIXED_Q1",
           "question_type": "multiple_choice",
           "visual_model": "fact_family_model",
-          "prompt": "Solve: 2 \u00d7 9",
+          "prompt": "Solve: 2 × 9",
           "answer": "18",
           "correct_answer": "18",
           "misconception_tag": "fact_recall_gap",
@@ -2589,14 +2641,15 @@
             16,
             18
           ],
-          "equation": "2 \u00d7 9 = 18"
+          "equation": "2 × 9 = 18",
+          "read_aloud_text": "Solve: 2 times 9 Choices: 18, 19, 17."
         },
         {
           "id": "G3M_FACT_001_MIXED_Q2",
           "question_id": "G3M_FACT_001_MIXED_Q2",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "Solve: 5 \u00d7 7",
+          "prompt": "Solve: 5 × 7",
           "answer": "35",
           "correct_answer": "35",
           "misconception_tag": "fact_recall_gap",
@@ -2635,14 +2688,15 @@
             30,
             35
           ],
-          "equation": "5 \u00d7 7 = 35"
+          "equation": "5 × 7 = 35",
+          "read_aloud_text": "Solve: 5 times 7"
         },
         {
           "id": "G3M_FACT_001_MIXED_Q3",
           "question_id": "G3M_FACT_001_MIXED_Q3",
           "question_type": "division_equation",
           "visual_model": "skip_counting",
-          "prompt": "Solve: 24 \u00f7 3",
+          "prompt": "Solve: 24 ÷ 3",
           "answer": "8",
           "correct_answer": "8",
           "misconception_tag": "inverse_fact_confusion",
@@ -2682,14 +2736,15 @@
             21,
             24
           ],
-          "equation": "24 \u00f7 3 = 8"
+          "equation": "24 ÷ 3 = 8",
+          "read_aloud_text": "Solve: 24 divided by 3"
         },
         {
           "id": "G3M_FACT_001_MIXED_Q4",
           "question_id": "G3M_FACT_001_MIXED_Q4",
           "question_type": "short_response",
           "visual_model": "multiplication_chart",
-          "prompt": "Solve: 4 \u00d7 6",
+          "prompt": "Solve: 4 × 6",
           "answer": "24",
           "correct_answer": "24",
           "misconception_tag": "fact_recall_gap",
@@ -2727,14 +2782,15 @@
             20,
             24
           ],
-          "equation": "4 \u00d7 6 = 24"
+          "equation": "4 × 6 = 24",
+          "read_aloud_text": "Solve: 4 times 6"
         },
         {
           "id": "G3M_FACT_001_MIXED_Q5",
           "question_id": "G3M_FACT_001_MIXED_Q5",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Solve: 42 \u00f7 6",
+          "prompt": "Solve: 42 ÷ 6",
           "answer": "7",
           "correct_answer": "7",
           "misconception_tag": "inverse_fact_confusion",
@@ -2773,14 +2829,15 @@
             36,
             42
           ],
-          "equation": "42 \u00f7 6 = 7"
+          "equation": "42 ÷ 6 = 7",
+          "read_aloud_text": "Solve: 42 divided by 6"
         },
         {
           "id": "G3M_FACT_001_MIXED_Q6",
           "question_id": "G3M_FACT_001_MIXED_Q6",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "Solve: 8 \u00d7 8",
+          "prompt": "Solve: 8 × 8",
           "answer": "64",
           "correct_answer": "64",
           "misconception_tag": "fact_recall_gap",
@@ -2820,14 +2877,15 @@
             56,
             64
           ],
-          "equation": "8 \u00d7 8 = 64"
+          "equation": "8 × 8 = 64",
+          "read_aloud_text": "Solve: 8 times 8"
         },
         {
           "id": "G3M_FACT_001_MIXED_Q7",
           "question_id": "G3M_FACT_001_MIXED_Q7",
           "question_type": "division_equation",
           "visual_model": "skip_counting",
-          "prompt": "Solve: 54 \u00f7 9",
+          "prompt": "Solve: 54 ÷ 9",
           "answer": "6",
           "correct_answer": "6",
           "misconception_tag": "inverse_fact_confusion",
@@ -2865,14 +2923,15 @@
             45,
             54
           ],
-          "equation": "54 \u00f7 9 = 6"
+          "equation": "54 ÷ 9 = 6",
+          "read_aloud_text": "Solve: 54 divided by 9"
         },
         {
           "id": "G3M_FACT_001_MIXED_Q8",
           "question_id": "G3M_FACT_001_MIXED_Q8",
           "question_type": "short_response",
           "visual_model": "multiplication_chart",
-          "prompt": "Solve: 7 \u00d7 9",
+          "prompt": "Solve: 7 × 9",
           "answer": "63",
           "correct_answer": "63",
           "misconception_tag": "fact_recall_gap",
@@ -2913,14 +2972,15 @@
             56,
             63
           ],
-          "equation": "7 \u00d7 9 = 63"
+          "equation": "7 × 9 = 63",
+          "read_aloud_text": "Solve: 7 times 9"
         },
         {
           "id": "G3M_FACT_001_MIXED_Q9",
           "question_id": "G3M_FACT_001_MIXED_Q9",
           "question_type": "division_equation",
           "visual_model": "fact_family_model",
-          "prompt": "Solve: 80 \u00f7 10",
+          "prompt": "Solve: 80 ÷ 10",
           "answer": "8",
           "correct_answer": "8",
           "misconception_tag": "inverse_fact_confusion",
@@ -2960,14 +3020,15 @@
             70,
             80
           ],
-          "equation": "80 \u00f7 10 = 8"
+          "equation": "80 ÷ 10 = 8",
+          "read_aloud_text": "Solve: 80 divided by 10"
         },
         {
           "id": "G3M_FACT_001_MIXED_Q10",
           "question_id": "G3M_FACT_001_MIXED_Q10",
           "question_type": "short_response",
           "visual_model": "array_model",
-          "prompt": "Solve: 9 \u00d7 9",
+          "prompt": "Solve: 9 × 9",
           "answer": "81",
           "correct_answer": "81",
           "misconception_tag": "fact_recall_gap",
@@ -3008,9 +3069,57 @@
             72,
             81
           ],
-          "equation": "9 \u00d7 9 = 81"
+          "equation": "9 × 9 = 81",
+          "read_aloud_text": "Solve: 9 times 9"
         }
       ]
     }
-  ]
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to this page. This mission introduces multiplication and division fact fluency. Look for related facts and fact families in the picture. Think about how the mission story connects to the math. Use a known fact, then connect the inverse operation as you get ready. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "lesson": {
+      "text": "This mini lesson teaches multiplication and division fact fluency. Look for related facts and fact families and read the vocabulary words. Use a known fact, then connect the inverse operation one step at a time. Watch out for guessing before checking which operation is being used. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "watch": {
+      "text": "This Watch page shows a worked example for Multiplication and Division Fluency. Look at the model and listen for how each part matches the question. Step one, read what is being asked. Step two, use the visual model. Step three, check the final answer with the right units or math words. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "demo": {
+      "text": "This guided demo lets you practice multiplication and division fact fluency with help. Look for related facts and fact families before you choose an answer. Use a known fact, then connect the inverse operation and explain your thinking in math words. Do not rush past guessing before checking which operation is being used. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "practice": {
+      "text": "Practice time. Use the model to help you work on multiplication and division fact fluency. Use a known fact, then connect the inverse operation and check your answer. Press Read Question if you want the exact question read aloud. Choose your answer when you are ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "challenge": {
+      "text": "Challenge time. The problem may need careful thinking about multiplication and division fact fluency. Look for related facts and fact families, then decide which strategy fits best. Press Read Question if you want the exact question read aloud. Answer carefully, then continue.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "checkpoint": {
+      "text": "Checkpoint time. Show what you know about multiplication and division fact fluency. Read the problem, use the visual, and check for guessing before checking which operation is being used. Press Read Question if you want the exact question read aloud. Choose or write the answer when ready.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "badge": {
+      "text": "This badge page celebrates your work on Multiplication and Division Fluency. Look at your stars and remember the strategy you used. Mistakes helped your brain grow when you checked them. Press Next to see your profile.",
+      "label": "Read This Page",
+      "type": "page"
+    },
+    "profile": {
+      "text": "This profile page shows how your mission went. Look at your accuracy, hints, and growth notes. If a level needs more practice, go back to the hub or continue to Skill Practice. Use your results to choose what to practice next.",
+      "label": "Read This Page",
+      "type": "page"
+    }
+  }
 }
