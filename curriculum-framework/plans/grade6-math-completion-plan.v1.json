@@ -1,0 +1,1144 @@
+{
+  "version": "1.0",
+  "grade": "6",
+  "subject": "math",
+  "generated_from": "docs/grade6_math_completion_plan.md",
+  "status": "planning_only_no_packages_implemented",
+  "production_standard": {
+    "skill_package_json": true,
+    "skill_world_generator": true,
+    "guided_mission_sequence": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "minimum_levels": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Mixed"
+      ],
+      "questions_per_level": "10-12"
+    },
+    "manifest_hub_exposure": "All packages must appear through manifest/graph-driven discovery, not hardcoded placeholders.",
+    "voice_standard": {
+      "read_this_page_all_guided_screens": true,
+      "read_question_mission_practice_challenge_checkpoint": true,
+      "read_question_all_practice_center_questions": true,
+      "cached_ai_audio_route": "/api/skill-world/audio",
+      "browser_speech_fallback": true,
+      "natural_math_narration": true
+    },
+    "one_off_games_allowed": false,
+    "placeholder_cards_allowed": false
+  },
+  "renderer_assessment": {
+    "existing_grades_1_5_support_or_extension": [
+      {
+        "model": "fraction_bar",
+        "status": "supported_extend",
+        "notes": "Reusable from Grades 1-5; Grade 6 fraction division needs measurement and sharing contexts plus quotient-size language."
+      },
+      {
+        "model": "fraction_division_model",
+        "status": "extend",
+        "notes": "Grade 5 fraction division foundations can extend to fraction-by-fraction division and real-world contexts."
+      },
+      {
+        "model": "number_line",
+        "status": "supported_extend",
+        "notes": "Reusable for fractions and decimals; Grade 6 needs negative values, absolute value, and ratio/rate scaling when not using dedicated integer or double-number-line renderers."
+      },
+      {
+        "model": "word_problem_model",
+        "status": "supported_extend",
+        "notes": "Reusable narrative problem shell; Grade 6 needs ratio, rate, fraction division, decimal operation, geometry, and statistics contexts with unit labels."
+      },
+      {
+        "model": "decimal_grid",
+        "status": "supported_extend",
+        "notes": "Reusable for decimal magnitude and operations; Grade 6 needs multi-digit decimal fluency, estimation, and operation-choice feedback."
+      },
+      {
+        "model": "place_value_chart",
+        "status": "supported_extend",
+        "notes": "Reusable for decimal alignment and place value; Grade 6 needs operation explanations more than new place-value columns."
+      },
+      {
+        "model": "algorithm_steps",
+        "status": "supported_extend",
+        "notes": "Reusable standard-algorithm renderer; Grade 6 needs decimal multiplication/division steps, estimation checks, and speakable regrouping/decimal placement."
+      },
+      {
+        "model": "comparison_model",
+        "status": "supported_extend",
+        "notes": "Reusable comparison scaffolding; Grade 6 needs integer ordering and inequality language."
+      },
+      {
+        "model": "expression_builder",
+        "status": "supported_extend",
+        "notes": "Grade 5 expression renderer should extend for variables, exponents, substitution, and order-of-operations explanations."
+      },
+      {
+        "model": "equation_builder",
+        "status": "supported_extend",
+        "notes": "Reusable equation renderer; Grade 6 needs one-step equation solving, inverse-operation annotations, and inequality connections."
+      },
+      {
+        "model": "pattern_table",
+        "status": "supported_extend",
+        "notes": "Reusable input/output table; Grade 6 needs explicit independent/dependent variable labels and rule matching."
+      },
+      {
+        "model": "coordinate_plane",
+        "status": "extend",
+        "notes": "Grade 5 first-quadrant coordinate plane must extend to all four quadrants and signed coordinates."
+      },
+      {
+        "model": "graph_interpretation",
+        "status": "supported_extend",
+        "notes": "Reusable graph reading shell; Grade 6 needs variable relationships, data-display interpretation, and accessibility text."
+      },
+      {
+        "model": "area_model",
+        "status": "supported_extend",
+        "notes": "Reusable area renderer; Grade 6 needs triangle, quadrilateral, and decomposition models with formula connections."
+      },
+      {
+        "model": "rectangular_prism_model",
+        "status": "supported_extend",
+        "notes": "Reusable prism renderer; Grade 6 needs surface-area/volume distinction and labeled dimensions."
+      },
+      {
+        "model": "volume_model",
+        "status": "supported_extend",
+        "notes": "Reusable unit-cube/layer model; Grade 6 needs rectangular-prism volume fluency and unit reasoning."
+      },
+      {
+        "model": "data_table",
+        "status": "supported_extend",
+        "notes": "Reusable tabular data display; Grade 6 needs statistical-question and summary-statistic metadata."
+      }
+    ],
+    "new_renderers_needed": [
+      {
+        "model": "ratio_table",
+        "notes": "Equivalent-ratio table with scalable rows, missing-value highlighting, multiplicative arrows, and accessible row/column narration."
+      },
+      {
+        "model": "double_number_line",
+        "notes": "Paired scaled number lines for ratio/rate reasoning with aligned tick marks, unit labels, and proportional-step narration."
+      },
+      {
+        "model": "tape_diagram",
+        "notes": "Part-part/part-whole and ratio tape segments with labels, totals, and visual safeguards against order reversal."
+      },
+      {
+        "model": "unit_rate_card",
+        "notes": "Compact rate comparison card that separates numerator unit, denominator unit, per-one language, and answer units."
+      },
+      {
+        "model": "integer_number_line",
+        "notes": "Signed number line with zero anchor, direction cues, comparisons, and responsive tick density."
+      },
+      {
+        "model": "absolute_value_model",
+        "notes": "Distance-from-zero visual that emphasizes absolute value as magnitude, not sign removal without context."
+      },
+      {
+        "model": "exponent_model",
+        "notes": "Repeated-factor/exponential-form visual with base/exponent callouts and natural narration for powers."
+      },
+      {
+        "model": "variable_tile",
+        "notes": "Variable and value substitution tile renderer with labels, expressions, and accessible replacement steps."
+      },
+      {
+        "model": "order_of_operations_steps",
+        "notes": "Step-by-step expression simplification panel with grouped operations, exponents, and operation-order highlights."
+      },
+      {
+        "model": "balance_scale",
+        "notes": "Equation balance model that shows inverse operations on both sides and supports multiplication/division contexts."
+      },
+      {
+        "model": "inequality_number_line",
+        "notes": "Open/closed circle number-line solution renderer with ray direction, boundary value, and symbol alignment."
+      },
+      {
+        "model": "solution_set_model",
+        "notes": "Inequality or equation solution-set panel connecting symbols, words, and number-line representations."
+      },
+      {
+        "model": "equation_table_match",
+        "notes": "Matcher for equations, tables, graphs, and verbal descriptions with input/output labels."
+      },
+      {
+        "model": "polygon_area_model",
+        "notes": "Polygon decomposition/composition renderer for triangles, quadrilaterals, and composite figures."
+      },
+      {
+        "model": "net_model",
+        "notes": "Surface-area net renderer with face labels, duplicate-face pairing, dimensions, and foldable-prism descriptions."
+      },
+      {
+        "model": "dot_plot",
+        "notes": "Dot plot renderer with stacked points, scale labels, clusters, gaps, peaks, outliers, and accessible summaries."
+      },
+      {
+        "model": "histogram",
+        "notes": "Binned data renderer with interval boundaries, frequency bars, and clear distinction from bar graphs."
+      },
+      {
+        "model": "box_plot",
+        "notes": "Five-number-summary renderer with whiskers, quartiles, median, interquartile range, and outlier annotations."
+      },
+      {
+        "model": "statistics_summary",
+        "notes": "Summary-statistics panel for mean, median, mode, range, IQR, variability, and contextual interpretation."
+      },
+      {
+        "model": "data_comparison_panel",
+        "notes": "Side-by-side data-display comparison renderer for center, spread, shape, clusters, gaps, and outliers."
+      }
+    ]
+  },
+  "schema_updates_needed": [
+    "Require Grade 6 SkillPackage metadata for domain, focus, standards tags, level_banks, visual_models, question_types, misconception_tags, voice metadata, acceptable-answer metadata, and manifest exposure status.",
+    "Require generator mappings or source content for every Guided Mission stage: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+    "Validate that each Skill Practice Center has exactly four focused Level banks plus Mixed, and each bank has 10-12 production questions.",
+    "Extend visual_model enum/registry for all Grade 6 new renderers and mark existing renderer extensions required before package exposure.",
+    "Extend question_type and answer schema for ratio_response, rate_response, fraction_response, decimal_response, integer_response, comparison, expression_response, equation_response, inequality_response, coordinate_response, geometry_response, volume_response, data_interpretation, statistics_response, division_equation, and word_problem.",
+    "Add renderer fixture requirements: every visual_model used by Grade 6 must have canonical package fixture data, aria labels, speakable descriptions, and no placeholder fallback state."
+  ],
+  "acceptable_answer_needs": [
+    "Ratio answers must accept equivalent ratio forms only when the prompt allows equivalence, preserve order, and validate colon, word, and fraction-like ratio notation.",
+    "Unit-rate answers must validate numerator unit, denominator unit, per-one denominator, decimal/fraction equivalents, and required rounding precision.",
+    "Fraction division answers must accept simplified and unsimplified equivalent fractions when permitted, mixed-number forms when permitted, and equations that preserve dividend/divisor order.",
+    "Decimal answers must validate place value, rounding tolerance when specified, exactness when required, and operation-choice reasoning for word problems.",
+    "Integer/comparison answers must validate signed values, inequality symbols, ordering from least to greatest/greatest to least, opposites, absolute value, and coordinate signs.",
+    "Expression answers must support equivalent expression forms only under explicit equivalence rules and validate exponent notation, substitution, and order-of-operations steps.",
+    "Equation and inequality answers must validate inverse operations, solution values, inequality direction, open/closed boundary points, and symbolic/number-line consistency.",
+    "Coordinate and variable-relationship answers must validate ordered pairs, quadrant signs, independent/dependent variable labels, table-rule matches, and graph correspondences.",
+    "Geometry answers must validate units, square/cubic units, surface-area versus volume context, formula selections, polygon decompositions, and net face totals.",
+    "Statistics answers must validate mean/median/mode/range/IQR, five-number summaries, display readings, data-set comparisons, and context-based interpretations.",
+    "Short-response rubrics must include acceptable aliases, natural-language equivalents, unit requirements, misconception-tag mapping, and deterministic feedback hints."
+  ],
+  "voice_narration_requirements": [
+    "Every Guided Mission screen must expose Read This Page text with grade-appropriate, human-readable math narration.",
+    "Mission Practice, Challenge, and Checkpoint questions must expose Read Question text for the prompt, answer choices, visual alt summaries, and feedback when available.",
+    "Every Skill Practice Center question must expose Read Question text, including level name, prompt, answer options, and concise visual description.",
+    "Math narration must speak symbols naturally: ratios as '3 to 4', rates as '12 miles per 3 hours', fractions as 'two-thirds', exponents as '3 to the fourth power', inequalities as 'x is greater than or equal to 5', and coordinates as 'negative 2 comma 4'.",
+    "All packages must be compatible with cached AI audio through /api/skill-world/audio and must fall back to browser speech without blocking practice.",
+    "Renderer data must include speakable descriptions for graphs, tables, number lines, nets, box plots, histograms, and statistical summaries so audio is not limited to raw symbols."
+  ],
+  "graph_statistics_visual_risks": [
+    "Coordinate planes with all four quadrants can become unreadable on mobile if tick density, origin labels, and negative-axis labels are not responsive.",
+    "Double number lines and ratio tables can imply additive rather than multiplicative reasoning if scaling arrows and row alignment are unclear.",
+    "Inequality number lines are high-risk for symbol-direction reversal, open/closed endpoint confusion, and inconsistent ray orientation in right-to-left or narrow layouts.",
+    "Histograms are easily confused with bar graphs; bin boundaries, intervals, and frequencies must be explicit in visuals and voice narration.",
+    "Box plots require accurate five-number summaries, quartile positions, whisker scaling, and outlier notation; small rendering errors create wrong math.",
+    "Dot plots need stacked-dot collision handling, accessible count summaries, and clear scale ticks for clusters, gaps, peaks, and outliers.",
+    "Statistics comparison panels must avoid overemphasizing mean alone; center, spread, shape, outliers, and context need equal visual affordances.",
+    "Surface-area nets can undercount/overcount faces unless paired faces, dimensions, and unit labels are visually linked."
+  ],
+  "skills": [
+    {
+      "id": "G6M_RP_001",
+      "title": "Ratios and Unit Rates",
+      "domain": "Ratios and Proportional Relationships",
+      "focus": "understand ratios, ratio language, equivalent ratios, and unit rates",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Ratio Language",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Equivalent Ratios",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Ratio Tables",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Unit Rates",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "ratio_table",
+        "double_number_line",
+        "tape_diagram",
+        "unit_rate_card"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "ratio_response",
+        "rate_response"
+      ],
+      "misconception_tags": [
+        "ratio_order_reversal",
+        "part_part_whole_confusion",
+        "equivalent_ratio_error",
+        "unit_rate_confusion"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_NS_001",
+      "title": "Dividing Fractions",
+      "domain": "The Number System",
+      "focus": "divide fractions by fractions and solve real-world fraction division problems",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Fraction Division Meaning",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Visual Fraction Division",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Divide Fractions by Fractions",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Fraction Division Word Problems",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "fraction_division_model",
+        "number_line",
+        "word_problem_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "fraction_response",
+        "division_equation"
+      ],
+      "misconception_tags": [
+        "divisor_dividend_confusion",
+        "reciprocal_misuse",
+        "fraction_division_context_error",
+        "quotient_size_confusion"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_NS_002",
+      "title": "Multi-Digit Decimal Operations",
+      "domain": "The Number System",
+      "focus": "fluently add, subtract, multiply, and divide multi-digit decimals",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Add and Subtract Decimals",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Multiply Decimals",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Divide Decimals",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Decimal Operation Word Problems",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "decimal_grid",
+        "place_value_chart",
+        "algorithm_steps",
+        "estimation_number_line"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "decimal_response",
+        "word_problem"
+      ],
+      "misconception_tags": [
+        "decimal_alignment_error",
+        "decimal_product_size_error",
+        "decimal_quotient_error",
+        "operation_choice_error"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_NS_003",
+      "title": "Integers and the Number Line",
+      "domain": "The Number System",
+      "focus": "understand positive/negative numbers, absolute value, opposites, and comparisons",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Positive and Negative Numbers",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Opposites and Absolute Value",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Compare Integers",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Coordinate Plane With Integers",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "integer_number_line",
+        "absolute_value_model",
+        "coordinate_plane",
+        "comparison_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "integer_response",
+        "comparison"
+      ],
+      "misconception_tags": [
+        "negative_number_order_error",
+        "absolute_value_confusion",
+        "opposite_number_confusion",
+        "coordinate_sign_error"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_EE_001",
+      "title": "Expressions and Exponents",
+      "domain": "Expressions and Equations",
+      "focus": "write, evaluate, and interpret expressions with variables, exponents, and order of operations",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Numerical Expressions",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Exponents",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Variables and Substitution",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Order of Operations",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "expression_builder",
+        "exponent_model",
+        "variable_tile",
+        "order_of_operations_steps"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "expression_response"
+      ],
+      "misconception_tags": [
+        "exponent_multiplication_confusion",
+        "variable_meaning_confusion",
+        "operation_order_confusion",
+        "substitution_error"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_EE_002",
+      "title": "Equations and Inequalities",
+      "domain": "Expressions and Equations",
+      "focus": "solve one-step equations and inequalities and represent solutions",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "One-Step Addition/Subtraction Equations",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "One-Step Multiplication/Division Equations",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Inequalities",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Represent Solutions",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "balance_scale",
+        "equation_builder",
+        "inequality_number_line",
+        "solution_set_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "equation_response",
+        "inequality_response"
+      ],
+      "misconception_tags": [
+        "inverse_operation_error",
+        "equality_balance_confusion",
+        "inequality_symbol_reversal",
+        "solution_set_confusion"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_EE_003",
+      "title": "Dependent and Independent Variables",
+      "domain": "Expressions and Equations",
+      "focus": "represent relationships between variables using tables, graphs, equations, and verbal descriptions",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Identify Variables",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Tables and Rules",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Graph Relationships",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Match Equation/Table/Graph",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "pattern_table",
+        "coordinate_plane",
+        "graph_interpretation",
+        "equation_table_match"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "coordinate_response",
+        "expression_response"
+      ],
+      "misconception_tags": [
+        "independent_dependent_confusion",
+        "graph_table_mismatch",
+        "equation_rule_error",
+        "input_output_reversal"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_GM_001",
+      "title": "Area, Surface Area, and Volume",
+      "domain": "Geometry",
+      "focus": "find area of triangles/quadrilaterals/polygons, surface area, and volume",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Area of Triangles and Quadrilaterals",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Area of Polygons",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Surface Area With Nets",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Volume of Rectangular Prisms",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "area_model",
+        "polygon_area_model",
+        "net_model",
+        "rectangular_prism_model",
+        "volume_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "geometry_response",
+        "volume_response"
+      ],
+      "misconception_tags": [
+        "triangle_area_halving_error",
+        "polygon_decomposition_error",
+        "surface_area_net_error",
+        "volume_area_confusion"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_SP_001",
+      "title": "Statistical Questions and Data Displays",
+      "domain": "Statistics and Probability",
+      "focus": "statistical questions, dot plots, histograms, box plots, and measures of center/spread",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Statistical Questions",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Dot Plots and Histograms",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Mean, Median, Mode, and Range",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Box Plots and Distribution Shape",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "dot_plot",
+        "histogram",
+        "box_plot",
+        "data_table",
+        "statistics_summary"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "data_interpretation",
+        "statistics_response"
+      ],
+      "misconception_tags": [
+        "non_statistical_question_confusion",
+        "mean_median_confusion",
+        "range_error",
+        "box_plot_reading_error"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    },
+    {
+      "id": "G6M_SP_002",
+      "title": "Summarize and Interpret Data",
+      "domain": "Statistics and Probability",
+      "focus": "describe distributions by center, spread, variability, clusters, peaks, gaps, and outliers",
+      "guided_mission_sequence": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Describe Center and Spread",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Clusters, Peaks, Gaps, and Outliers",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Compare Data Sets",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Interpret Data in Context",
+          "question_count": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count": "10-12"
+        }
+      ],
+      "visual_models": [
+        "dot_plot",
+        "histogram",
+        "box_plot",
+        "data_comparison_panel",
+        "statistics_summary"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "data_interpretation",
+        "statistics_response"
+      ],
+      "misconception_tags": [
+        "center_vs_spread_confusion",
+        "outlier_effect_confusion",
+        "distribution_shape_error",
+        "context_interpretation_gap"
+      ],
+      "voice_acceptance": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "natural_math_narration": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true
+      },
+      "package_acceptance": [
+        "SkillPackage JSON validates.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+        "Skill Practice Center includes four focused levels plus Mixed, each with 10-12 questions.",
+        "Package appears from manifest-driven Grade 6 Math hub exposure, not hardcoded placeholders.",
+        "No one-off games, no placeholder cards, and no renderer fallback placeholders."
+      ]
+    }
+  ],
+  "backlog": [
+    {
+      "id": "G6M-INF-001",
+      "priority": "P0",
+      "type": "SCHEMA_UPDATE",
+      "owner": "platform/schema",
+      "depends_on": [],
+      "acceptance_criteria": [
+        "Schema/registry covers every Grade 6 visual_model, question_type, answer type, misconception tag, voice metadata field, and manifest exposure field in this plan.",
+        "Validation rejects packages missing any Guided Mission stage from Story through Profile.",
+        "Validation rejects Practice Center level_banks without four focused levels plus Mixed or without 10-12 questions per bank.",
+        "Validation rejects package exposure when renderer fixtures, acceptable-answer metadata, or voice metadata are incomplete."
+      ]
+    },
+    {
+      "id": "G6M-INF-002",
+      "priority": "P0",
+      "type": "RENDERER_UPDATE",
+      "owner": "skill-world/renderers",
+      "depends_on": [
+        "G6M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Renderer registry covers all supported/extended and new Grade 6 visual models without fallback placeholder output.",
+        "Each Grade 6 renderer has fixture data, deterministic tests, aria labels, speakable descriptions, mobile layout checks, and no one-off game code path.",
+        "High-risk graph/statistics renderers have fixtures for edge cases including negative axes, open/closed inequality points, histogram bins, box-plot quartiles, and outliers."
+      ]
+    },
+    {
+      "id": "G6M-INF-003",
+      "priority": "P0",
+      "type": "VOICE_AUDIO",
+      "owner": "skill-world/audio",
+      "depends_on": [
+        "G6M-INF-001",
+        "G6M-INF-002"
+      ],
+      "acceptance_criteria": [
+        "Read This Page exists for every guided mission screen and Read Question exists for mission Practice/Challenge/Checkpoint and all Practice Center questions.",
+        "Natural math narration rules cover ratios, rates, fractions, decimals, integers, inequalities, exponents, coordinates, geometry units, and statistics displays.",
+        "Cached AI audio requests route through /api/skill-world/audio and browser speech fallback works when cache or network audio is unavailable."
+      ]
+    },
+    {
+      "id": "G6M-INF-004",
+      "priority": "P0",
+      "type": "ANSWER_VALIDATION",
+      "owner": "content/assessment",
+      "depends_on": [
+        "G6M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Acceptable-answer validators cover all Grade 6 structured responses, units, equivalent forms, tolerances, and deterministic feedback branches.",
+        "Validators map common wrong answers to the misconception tags listed for every skill.",
+        "Short-response rubrics include accepted aliases and reject mathematically different forms that only look similar as strings."
+      ]
+    },
+    {
+      "id": "G6M-PKG-001",
+      "priority": "P1",
+      "type": "CONTENT_PACKAGE",
+      "owner": "curriculum/content",
+      "depends_on": [
+        "G6M-INF-001",
+        "G6M-INF-002",
+        "G6M-INF-003",
+        "G6M-INF-004"
+      ],
+      "acceptance_criteria": [
+        "Author and validate G6M_RP_001 and G6M_NS_001 as production SkillPackage JSON with full Guided Mission, Practice Center, voice, answers, and manifest metadata.",
+        "No hardcoded hub cards, no placeholders, and no one-off games are introduced."
+      ]
+    },
+    {
+      "id": "G6M-PKG-002",
+      "priority": "P1",
+      "type": "CONTENT_PACKAGE",
+      "owner": "curriculum/content",
+      "depends_on": [
+        "G6M-PKG-001"
+      ],
+      "acceptance_criteria": [
+        "Author and validate G6M_NS_002, G6M_NS_003, G6M_EE_001, G6M_EE_002, and G6M_EE_003 with all required production fields and renderer fixtures.",
+        "Run package validation, Practice Center bank counts, voice coverage checks, and manifest exposure checks for each package before hub release."
+      ]
+    },
+    {
+      "id": "G6M-PKG-003",
+      "priority": "P1",
+      "type": "CONTENT_PACKAGE",
+      "owner": "curriculum/content",
+      "depends_on": [
+        "G6M-INF-002",
+        "G6M-INF-004"
+      ],
+      "acceptance_criteria": [
+        "Author and validate G6M_GM_001, G6M_SP_001, and G6M_SP_002 after geometry/statistics visual risk fixtures pass.",
+        "Graph/statistics packages must pass mobile visual audit, accessible summaries, and answer validation for all data displays before exposure."
+      ]
+    },
+    {
+      "id": "G6M-QA-001",
+      "priority": "P0",
+      "type": "PRODUCTION_QA",
+      "owner": "qa/release",
+      "depends_on": [
+        "G6M-PKG-001",
+        "G6M-PKG-002",
+        "G6M-PKG-003"
+      ],
+      "acceptance_criteria": [
+        "Run end-to-end Skill World generation for all Grade 6 Math packages from manifest discovery only.",
+        "Verify each package produces Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile, four focused Practice Center levels, Mixed, 10-12 questions per level, cached audio compatibility, and browser speech fallback.",
+        "Perform Grade 6 graph/statistics visual audit on desktop and mobile and block release on fallback placeholders or unreadable visuals."
+      ]
+    }
+  ]
+}
