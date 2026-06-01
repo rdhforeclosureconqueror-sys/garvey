@@ -1,0 +1,3067 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade4-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade4_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01"
+  },
+  "skill_id": "G4E_RC_001",
+  "grade": 4,
+  "subject": "English",
+  "domain": "Reading Comprehension",
+  "skill": "Ask and Answer Questions With Text Evidence",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Enter Evidence Explorer Camp, where every answer needs a trail back to the words in the text.",
+    "objective": "I can answer literal and inferential questions using evidence from the text.",
+    "key_vocabulary": [
+      "literal question",
+      "inferential question",
+      "text evidence",
+      "answer",
+      "explain",
+      "question word",
+      "because"
+    ],
+    "concept_explanation": "Strong readers notice what the question asks, answer from the text, find exact evidence, and explain how the evidence supports the answer. Literal questions are stated directly. Inferential questions require clues plus thinking.",
+    "visual_model": "text_evidence_builder",
+    "common_misconception": "A reader may answer from memory, make an inference without evidence, choose an unrelated sentence, or miss the question word.",
+    "real_world_connection": "Text evidence helps you discuss books, write reading responses, answer test questions, and support ideas in every subject.",
+    "lesson_summary": "Read the question, answer with text support, select evidence, and explain the connection.",
+    "mini_lesson": "First identify the question word. Then find the answer or clues in the passage. Finally explain how the evidence proves your answer.",
+    "audio": {
+      "text": "literal question, inferential question, text evidence, answer, explain, question word",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "student_prompt": "Listen, then say the important reading words with me."
+    }
+  },
+  "worked_examples": [
+    {
+      "question_id": "G4E_RC_001_LVL1_Q01",
+      "prompt": "Why did Mara move the smallest plants into the shade?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "so they would not wilt",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "Why did Mara move the smallest plants into the shade? Choices: so they would not wilt, a detail not stated in the text, because everyone guessed.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "Rooftop Garden",
+      "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+      "question": "Why did Mara move the smallest plants into the shade?",
+      "answer_claim": "so they would not wilt",
+      "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+      "evidence_spans": [
+        "She moved the smallest plants into the shade so they would not wilt."
+      ],
+      "details": [
+        "She moved the smallest plants into the shade so they would not wilt."
+      ],
+      "audio": {
+        "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "so they would not wilt",
+        "a detail not stated in the text",
+        "because everyone guessed"
+      ]
+    },
+    {
+      "question_id": "G4E_RC_001_LVL2_Q01",
+      "prompt": "What can you infer from the passage?",
+      "question_type": "short_response",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "correct_answer": "so they would not wilt based on the evidence",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "inference_without_evidence",
+      "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "What can you infer from the passage?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "Rooftop Garden",
+      "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+      "question": "What can you infer from the passage?",
+      "answer_claim": "so they would not wilt",
+      "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+      "evidence_spans": [
+        "She moved the smallest plants into the shade so they would not wilt."
+      ],
+      "details": [
+        "She moved the smallest plants into the shade so they would not wilt."
+      ],
+      "audio": {
+        "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "so they would not wilt based on the evidence",
+        "so they would not wilt",
+        "She moved the smallest plants into the shade so they would not wilt."
+      ]
+    },
+    {
+      "question_id": "G4E_RC_001_LVL3_Q01",
+      "prompt": "Which sentence is the best text evidence for this answer: so they would not wilt?",
+      "question_type": "text_evidence",
+      "visual_model": "evidence_highlight",
+      "support_type": "evidence_highlight",
+      "correct_answer": "She moved the smallest plants into the shade so they would not wilt.",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "misses_text_evidence",
+      "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "Which sentence is the best text evidence for this answer: so they would not wilt? Choices: She moved the smallest plants into the shade so they would not wilt., Mara watered the rooftop garden before school., This sentence does not support the answer..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "Rooftop Garden",
+      "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+      "question": "Which sentence is the best text evidence for this answer: so they would not wilt?",
+      "answer_claim": "so they would not wilt",
+      "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+      "evidence_spans": [
+        "She moved the smallest plants into the shade so they would not wilt."
+      ],
+      "details": [
+        "She moved the smallest plants into the shade so they would not wilt."
+      ],
+      "audio": {
+        "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "She moved the smallest plants into the shade so they would not wilt.",
+        "Mara watered the rooftop garden before school.",
+        "This sentence does not support the answer."
+      ],
+      "acceptable_answers": [
+        "She moved the smallest plants into the shade so they would not wilt.",
+        "so they would not wilt"
+      ]
+    },
+    {
+      "question_id": "G4E_RC_001_LVL4_Q01",
+      "prompt": "Explain why the answer \"so they would not wilt\" is supported by the passage.",
+      "question_type": "short_response",
+      "visual_model": "text_evidence_builder",
+      "support_type": "text_evidence_builder",
+      "correct_answer": "The text says, \"She moved the smallest plants into the shade so they would not wilt.\"",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "Explain why the answer \"so they would not wilt\" is supported by the passage.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "Rooftop Garden",
+      "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+      "question": "Explain why the answer \"so they would not wilt\" is supported by the passage.",
+      "answer_claim": "so they would not wilt",
+      "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+      "evidence_spans": [
+        "She moved the smallest plants into the shade so they would not wilt."
+      ],
+      "details": [
+        "She moved the smallest plants into the shade so they would not wilt."
+      ],
+      "audio": {
+        "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "The text says, \"She moved the smallest plants into the shade so they would not wilt.\"",
+        "so they would not wilt",
+        "She moved the smallest plants into the shade so they would not wilt."
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Reread the important words before answering.",
+    "Use the visual model and the clue in the text.",
+    "Check that your answer is supported by the sentence or passage."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G4E_RC_001_LVL1_Q02",
+      "prompt": "What did the volunteers remove from the riverbank?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "cans, wrappers, and plastic bottles",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "What did the volunteers remove from the riverbank? Choices: cans, wrappers, and plastic bottles, a detail not stated in the text, because everyone guessed.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "River Cleanup",
+      "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+      "question": "What did the volunteers remove from the riverbank?",
+      "answer_claim": "cans, wrappers, and plastic bottles",
+      "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+      "evidence_spans": [
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ],
+      "details": [
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ],
+      "audio": {
+        "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "cans, wrappers, and plastic bottles",
+        "a detail not stated in the text",
+        "because everyone guessed"
+      ]
+    },
+    {
+      "question_id": "G4E_RC_001_LVL3_Q02",
+      "prompt": "Which sentence is the best text evidence for this answer: cans, wrappers, and plastic bottles?",
+      "question_type": "text_evidence",
+      "visual_model": "evidence_highlight",
+      "support_type": "evidence_highlight",
+      "correct_answer": "They filled ten bags with cans, wrappers, and plastic bottles.",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "misses_text_evidence",
+      "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "Which sentence is the best text evidence for this answer: cans, wrappers, and plastic bottles? Choices: They filled ten bags with cans, wrappers, and plastic bottles., On Saturday, volunteers met beside the river., This sentence does not support the answer..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "River Cleanup",
+      "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+      "question": "Which sentence is the best text evidence for this answer: cans, wrappers, and plastic bottles?",
+      "answer_claim": "cans, wrappers, and plastic bottles",
+      "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+      "evidence_spans": [
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ],
+      "details": [
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ],
+      "audio": {
+        "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "They filled ten bags with cans, wrappers, and plastic bottles.",
+        "On Saturday, volunteers met beside the river.",
+        "This sentence does not support the answer."
+      ],
+      "acceptable_answers": [
+        "They filled ten bags with cans, wrappers, and plastic bottles.",
+        "cans, wrappers, and plastic bottles"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G4E_RC_001_LVL1_Q03",
+      "prompt": "How did Luis help Andre feel welcome?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "He invited Andre to join the math game.",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "The answer is supported by this evidence: Luis invited him to join the math game.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "How did Luis help Andre feel welcome? Choices: He invited Andre to join the math game., a detail not stated in the text, because everyone guessed.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "New Student",
+      "passage": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+      "question": "How did Luis help Andre feel welcome?",
+      "answer_claim": "He invited Andre to join the math game.",
+      "evidence": "Luis invited him to join the math game.",
+      "evidence_spans": [
+        "Luis invited him to join the math game."
+      ],
+      "details": [
+        "Luis invited him to join the math game."
+      ],
+      "audio": {
+        "text": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "He invited Andre to join the math game.",
+        "a detail not stated in the text",
+        "because everyone guessed"
+      ]
+    },
+    {
+      "question_id": "G4E_RC_001_LVL4_Q03",
+      "prompt": "Explain why the answer \"He invited Andre to join the math game.\" is supported by the passage.",
+      "question_type": "short_response",
+      "visual_model": "text_evidence_builder",
+      "support_type": "text_evidence_builder",
+      "correct_answer": "The text says, \"Luis invited him to join the math game.\"",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "The answer is supported by this evidence: Luis invited him to join the math game.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "Explain why the answer \"He invited Andre to join the math game.\" is supported by the passage.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "New Student",
+      "passage": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+      "question": "Explain why the answer \"He invited Andre to join the math game.\" is supported by the passage.",
+      "answer_claim": "He invited Andre to join the math game.",
+      "evidence": "Luis invited him to join the math game.",
+      "evidence_spans": [
+        "Luis invited him to join the math game."
+      ],
+      "details": [
+        "Luis invited him to join the math game."
+      ],
+      "audio": {
+        "text": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "The text says, \"Luis invited him to join the math game.\"",
+        "He invited Andre to join the math game.",
+        "Luis invited him to join the math game."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G4E_RC_001_LVL2_Q02",
+      "prompt": "What can you infer from the passage?",
+      "question_type": "short_response",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "correct_answer": "cans, wrappers, and plastic bottles based on the evidence",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "inference_without_evidence",
+      "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "What can you infer from the passage?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "River Cleanup",
+      "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+      "question": "What can you infer from the passage?",
+      "answer_claim": "cans, wrappers, and plastic bottles",
+      "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+      "evidence_spans": [
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ],
+      "details": [
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ],
+      "audio": {
+        "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "cans, wrappers, and plastic bottles based on the evidence",
+        "cans, wrappers, and plastic bottles",
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ]
+    },
+    {
+      "question_id": "G4E_RC_001_LVL4_Q02",
+      "prompt": "Explain why the answer \"cans, wrappers, and plastic bottles\" is supported by the passage.",
+      "question_type": "short_response",
+      "visual_model": "text_evidence_builder",
+      "support_type": "text_evidence_builder",
+      "correct_answer": "The text says, \"They filled ten bags with cans, wrappers, and plastic bottles.\"",
+      "hints": [
+        "Reread the important words before answering.",
+        "Use the visual model and the clue in the text.",
+        "Check that your answer is supported by the sentence or passage."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+      "feedback": "Good comprehension work. You connected the answer to text evidence.",
+      "question_audio": {
+        "text": "Explain why the answer \"cans, wrappers, and plastic bottles\" is supported by the passage.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "title": "River Cleanup",
+      "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+      "question": "Explain why the answer \"cans, wrappers, and plastic bottles\" is supported by the passage.",
+      "answer_claim": "cans, wrappers, and plastic bottles",
+      "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+      "evidence_spans": [
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ],
+      "details": [
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ],
+      "audio": {
+        "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "The text says, \"They filled ten bags with cans, wrappers, and plastic bottles.\"",
+        "cans, wrappers, and plastic bottles",
+        "They filled ten bags with cans, wrappers, and plastic bottles."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "unsupported_answer": "The reader chooses an answer that is not supported by the text.",
+    "inference_without_evidence": "The reader makes a reasonable guess but does not connect it to evidence.",
+    "misses_text_evidence": "The reader answers correctly but selects weak or unrelated evidence.",
+    "question_word_confusion": "The reader mixes up who, what, where, when, why, or how."
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Evidence Explorer Camp",
+    "mission_intro": "Enter Evidence Explorer Camp, where every answer needs a trail back to the words in the text.",
+    "badge_name": "Text Evidence Explorer Badge",
+    "setting": "reading camp"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": "G4E_RF_001",
+  "level_banks": [
+    {
+      "level_id": "G4E_RC_001_LVL1",
+      "label": "Level 1: Literal Questions",
+      "focus": "Literal Questions",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_RC_001_LVL1_Q01",
+          "prompt": "Why did Mara move the smallest plants into the shade?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "so they would not wilt",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Why did Mara move the smallest plants into the shade? Choices: so they would not wilt, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Rooftop Garden",
+          "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+          "question": "Why did Mara move the smallest plants into the shade?",
+          "answer_claim": "so they would not wilt",
+          "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+          "evidence_spans": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "details": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "audio": {
+            "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "so they would not wilt",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q02",
+          "prompt": "What did the volunteers remove from the riverbank?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "cans, wrappers, and plastic bottles",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What did the volunteers remove from the riverbank? Choices: cans, wrappers, and plastic bottles, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "River Cleanup",
+          "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+          "question": "What did the volunteers remove from the riverbank?",
+          "answer_claim": "cans, wrappers, and plastic bottles",
+          "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+          "evidence_spans": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "details": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "audio": {
+            "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "cans, wrappers, and plastic bottles",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q03",
+          "prompt": "How did Luis help Andre feel welcome?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "He invited Andre to join the math game.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: Luis invited him to join the math game.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "How did Luis help Andre feel welcome? Choices: He invited Andre to join the math game., a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "New Student",
+          "passage": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+          "question": "How did Luis help Andre feel welcome?",
+          "answer_claim": "He invited Andre to join the math game.",
+          "evidence": "Luis invited him to join the math game.",
+          "evidence_spans": [
+            "Luis invited him to join the math game."
+          ],
+          "details": [
+            "Luis invited him to join the math game."
+          ],
+          "audio": {
+            "text": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "He invited Andre to join the math game.",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q04",
+          "prompt": "What helped Kira predict Friday\u2019s storm?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "her notes about clouds and rain",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What helped Kira predict Friday\u2019s storm? Choices: her notes about clouds and rain, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Weather Notebook",
+          "passage": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+          "question": "What helped Kira predict Friday\u2019s storm?",
+          "answer_claim": "her notes about clouds and rain",
+          "evidence": "After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "evidence_spans": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "details": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "audio": {
+            "text": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "her notes about clouds and rain",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q05",
+          "prompt": "Where was the map?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "behind the bookcase",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: The class map slipped behind the bookcase.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Where was the map? Choices: behind the bookcase, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "The Lost Map",
+          "passage": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+          "question": "Where was the map?",
+          "answer_claim": "behind the bookcase",
+          "evidence": "The class map slipped behind the bookcase.",
+          "evidence_spans": [
+            "The class map slipped behind the bookcase."
+          ],
+          "details": [
+            "The class map slipped behind the bookcase."
+          ],
+          "audio": {
+            "text": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "behind the bookcase",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q06",
+          "prompt": "Why did Ms. Patel call the wildlife center?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "The bird seemed hurt.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: Its wing hung low.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Why did Ms. Patel call the wildlife center? Choices: The bird seemed hurt., a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Quiet Rescue",
+          "passage": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+          "question": "Why did Ms. Patel call the wildlife center?",
+          "answer_claim": "The bird seemed hurt.",
+          "evidence": "Its wing hung low.",
+          "evidence_spans": [
+            "Its wing hung low."
+          ],
+          "details": [
+            "Its wing hung low."
+          ],
+          "audio": {
+            "text": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "The bird seemed hurt.",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q07",
+          "prompt": "What did Jade check out?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "the biography",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: Jade checked out the biography instead.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What did Jade check out? Choices: the biography, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Library Choice",
+          "passage": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+          "question": "What did Jade check out?",
+          "answer_claim": "the biography",
+          "evidence": "Jade checked out the biography instead.",
+          "evidence_spans": [
+            "Jade checked out the biography instead."
+          ],
+          "details": [
+            "Jade checked out the biography instead."
+          ],
+          "audio": {
+            "text": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "the biography",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q08",
+          "prompt": "What safety step did the leader take?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "kept a bucket of water nearby",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: Their leader kept a bucket of water nearby.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What safety step did the leader take? Choices: kept a bucket of water nearby, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Campfire Plan",
+          "passage": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+          "question": "What safety step did the leader take?",
+          "answer_claim": "kept a bucket of water nearby",
+          "evidence": "Their leader kept a bucket of water nearby.",
+          "evidence_spans": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "details": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "audio": {
+            "text": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "kept a bucket of water nearby",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q09",
+          "prompt": "What surprising fact did Diego learn?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "the animal ate plants, not meat",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: The label explained that the animal ate plants, not meat.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What surprising fact did Diego learn? Choices: the animal ate plants, not meat, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Museum Sketch",
+          "passage": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+          "question": "What surprising fact did Diego learn?",
+          "answer_claim": "the animal ate plants, not meat",
+          "evidence": "The label explained that the animal ate plants, not meat.",
+          "evidence_spans": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "details": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "audio": {
+            "text": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "the animal ate plants, not meat",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL1_Q10",
+          "prompt": "Why did they take the south path?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "The north path was closed for repairs.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: A sign said the north path was closed for repairs.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Why did they take the south path? Choices: The north path was closed for repairs., a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Park Path",
+          "passage": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+          "question": "Why did they take the south path?",
+          "answer_claim": "The north path was closed for repairs.",
+          "evidence": "A sign said the north path was closed for repairs.",
+          "evidence_spans": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "details": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "audio": {
+            "text": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "The north path was closed for repairs.",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_RC_001_LVL2",
+      "label": "Level 2: Inferential Questions",
+      "focus": "Inferential Questions",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_RC_001_LVL2_Q01",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "so they would not wilt based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Rooftop Garden",
+          "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "so they would not wilt",
+          "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+          "evidence_spans": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "details": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "audio": {
+            "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "so they would not wilt based on the evidence",
+            "so they would not wilt",
+            "She moved the smallest plants into the shade so they would not wilt."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q02",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "cans, wrappers, and plastic bottles based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "River Cleanup",
+          "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "cans, wrappers, and plastic bottles",
+          "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+          "evidence_spans": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "details": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "audio": {
+            "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "cans, wrappers, and plastic bottles based on the evidence",
+            "cans, wrappers, and plastic bottles",
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q03",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "He invited Andre to join the math game. based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: Luis invited him to join the math game.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "New Student",
+          "passage": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "He invited Andre to join the math game.",
+          "evidence": "Luis invited him to join the math game.",
+          "evidence_spans": [
+            "Luis invited him to join the math game."
+          ],
+          "details": [
+            "Luis invited him to join the math game."
+          ],
+          "audio": {
+            "text": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "He invited Andre to join the math game. based on the evidence",
+            "He invited Andre to join the math game.",
+            "Luis invited him to join the math game."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q04",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "her notes about clouds and rain based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Weather Notebook",
+          "passage": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "her notes about clouds and rain",
+          "evidence": "After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "evidence_spans": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "details": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "audio": {
+            "text": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "her notes about clouds and rain based on the evidence",
+            "her notes about clouds and rain",
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q05",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "behind the bookcase based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: The class map slipped behind the bookcase.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "The Lost Map",
+          "passage": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "behind the bookcase",
+          "evidence": "The class map slipped behind the bookcase.",
+          "evidence_spans": [
+            "The class map slipped behind the bookcase."
+          ],
+          "details": [
+            "The class map slipped behind the bookcase."
+          ],
+          "audio": {
+            "text": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "behind the bookcase based on the evidence",
+            "behind the bookcase",
+            "The class map slipped behind the bookcase."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q06",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "The bird seemed hurt. based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: Its wing hung low.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Quiet Rescue",
+          "passage": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "The bird seemed hurt.",
+          "evidence": "Its wing hung low.",
+          "evidence_spans": [
+            "Its wing hung low."
+          ],
+          "details": [
+            "Its wing hung low."
+          ],
+          "audio": {
+            "text": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The bird seemed hurt. based on the evidence",
+            "The bird seemed hurt.",
+            "Its wing hung low."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q07",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "the biography based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: Jade checked out the biography instead.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Library Choice",
+          "passage": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "the biography",
+          "evidence": "Jade checked out the biography instead.",
+          "evidence_spans": [
+            "Jade checked out the biography instead."
+          ],
+          "details": [
+            "Jade checked out the biography instead."
+          ],
+          "audio": {
+            "text": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "the biography based on the evidence",
+            "the biography",
+            "Jade checked out the biography instead."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q08",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "kept a bucket of water nearby based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: Their leader kept a bucket of water nearby.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Campfire Plan",
+          "passage": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "kept a bucket of water nearby",
+          "evidence": "Their leader kept a bucket of water nearby.",
+          "evidence_spans": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "details": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "audio": {
+            "text": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "kept a bucket of water nearby based on the evidence",
+            "kept a bucket of water nearby",
+            "Their leader kept a bucket of water nearby."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q09",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "the animal ate plants, not meat based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: The label explained that the animal ate plants, not meat.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Museum Sketch",
+          "passage": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "the animal ate plants, not meat",
+          "evidence": "The label explained that the animal ate plants, not meat.",
+          "evidence_spans": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "details": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "audio": {
+            "text": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "the animal ate plants, not meat based on the evidence",
+            "the animal ate plants, not meat",
+            "The label explained that the animal ate plants, not meat."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL2_Q10",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "The north path was closed for repairs. based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: A sign said the north path was closed for repairs.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Park Path",
+          "passage": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "The north path was closed for repairs.",
+          "evidence": "A sign said the north path was closed for repairs.",
+          "evidence_spans": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "details": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "audio": {
+            "text": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The north path was closed for repairs. based on the evidence",
+            "The north path was closed for repairs.",
+            "A sign said the north path was closed for repairs."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_RC_001_LVL3",
+      "label": "Level 3: Find Text Evidence",
+      "focus": "Find Text Evidence",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_RC_001_LVL3_Q01",
+          "prompt": "Which sentence is the best text evidence for this answer: so they would not wilt?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "She moved the smallest plants into the shade so they would not wilt.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: so they would not wilt? Choices: She moved the smallest plants into the shade so they would not wilt., Mara watered the rooftop garden before school., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Rooftop Garden",
+          "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+          "question": "Which sentence is the best text evidence for this answer: so they would not wilt?",
+          "answer_claim": "so they would not wilt",
+          "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+          "evidence_spans": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "details": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "audio": {
+            "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "She moved the smallest plants into the shade so they would not wilt.",
+            "Mara watered the rooftop garden before school.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "She moved the smallest plants into the shade so they would not wilt.",
+            "so they would not wilt"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q02",
+          "prompt": "Which sentence is the best text evidence for this answer: cans, wrappers, and plastic bottles?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "They filled ten bags with cans, wrappers, and plastic bottles.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: cans, wrappers, and plastic bottles? Choices: They filled ten bags with cans, wrappers, and plastic bottles., On Saturday, volunteers met beside the river., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "River Cleanup",
+          "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+          "question": "Which sentence is the best text evidence for this answer: cans, wrappers, and plastic bottles?",
+          "answer_claim": "cans, wrappers, and plastic bottles",
+          "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+          "evidence_spans": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "details": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "audio": {
+            "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "They filled ten bags with cans, wrappers, and plastic bottles.",
+            "On Saturday, volunteers met beside the river.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "They filled ten bags with cans, wrappers, and plastic bottles.",
+            "cans, wrappers, and plastic bottles"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q03",
+          "prompt": "Which sentence is the best text evidence for this answer: He invited Andre to join the math game.?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Luis invited him to join the math game.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: Luis invited him to join the math game.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: He invited Andre to join the math game.? Choices: Luis invited him to join the math game., Andre stood quietly by the classroom door., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "New Student",
+          "passage": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+          "question": "Which sentence is the best text evidence for this answer: He invited Andre to join the math game.?",
+          "answer_claim": "He invited Andre to join the math game.",
+          "evidence": "Luis invited him to join the math game.",
+          "evidence_spans": [
+            "Luis invited him to join the math game."
+          ],
+          "details": [
+            "Luis invited him to join the math game."
+          ],
+          "audio": {
+            "text": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Luis invited him to join the math game.",
+            "Andre stood quietly by the classroom door.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "Luis invited him to join the math game.",
+            "He invited Andre to join the math game."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q04",
+          "prompt": "Which sentence is the best text evidence for this answer: her notes about clouds and rain?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: her notes about clouds and rain? Choices: After two weeks, she noticed that dark clouds often arrived before heavy rain., Each afternoon, Kira drew clouds in her weather notebook., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Weather Notebook",
+          "passage": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+          "question": "Which sentence is the best text evidence for this answer: her notes about clouds and rain?",
+          "answer_claim": "her notes about clouds and rain",
+          "evidence": "After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "evidence_spans": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "details": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "audio": {
+            "text": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+            "Each afternoon, Kira drew clouds in her weather notebook.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+            "her notes about clouds and rain"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q05",
+          "prompt": "Which sentence is the best text evidence for this answer: behind the bookcase?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "The class map slipped behind the bookcase.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: The class map slipped behind the bookcase.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: behind the bookcase? Choices: The class map slipped behind the bookcase., The class map slipped behind the bookcase., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "The Lost Map",
+          "passage": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+          "question": "Which sentence is the best text evidence for this answer: behind the bookcase?",
+          "answer_claim": "behind the bookcase",
+          "evidence": "The class map slipped behind the bookcase.",
+          "evidence_spans": [
+            "The class map slipped behind the bookcase."
+          ],
+          "details": [
+            "The class map slipped behind the bookcase."
+          ],
+          "audio": {
+            "text": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "The class map slipped behind the bookcase.",
+            "The class map slipped behind the bookcase.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "The class map slipped behind the bookcase.",
+            "behind the bookcase"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q06",
+          "prompt": "Which sentence is the best text evidence for this answer: The bird seemed hurt.?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Its wing hung low.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: Its wing hung low.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: The bird seemed hurt.? Choices: Its wing hung low., A tiny bird hopped near the playground fence., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Quiet Rescue",
+          "passage": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+          "question": "Which sentence is the best text evidence for this answer: The bird seemed hurt.?",
+          "answer_claim": "The bird seemed hurt.",
+          "evidence": "Its wing hung low.",
+          "evidence_spans": [
+            "Its wing hung low."
+          ],
+          "details": [
+            "Its wing hung low."
+          ],
+          "audio": {
+            "text": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Its wing hung low.",
+            "A tiny bird hopped near the playground fence.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "Its wing hung low.",
+            "The bird seemed hurt."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q07",
+          "prompt": "Which sentence is the best text evidence for this answer: the biography?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Jade checked out the biography instead.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: Jade checked out the biography instead.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: the biography? Choices: Jade checked out the biography instead., Jade wanted a mystery, but the cover of a biography caught her attention., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Library Choice",
+          "passage": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+          "question": "Which sentence is the best text evidence for this answer: the biography?",
+          "answer_claim": "the biography",
+          "evidence": "Jade checked out the biography instead.",
+          "evidence_spans": [
+            "Jade checked out the biography instead."
+          ],
+          "details": [
+            "Jade checked out the biography instead."
+          ],
+          "audio": {
+            "text": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Jade checked out the biography instead.",
+            "Jade wanted a mystery, but the cover of a biography caught her attention.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "Jade checked out the biography instead.",
+            "the biography"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q08",
+          "prompt": "Which sentence is the best text evidence for this answer: kept a bucket of water nearby?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Their leader kept a bucket of water nearby.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: Their leader kept a bucket of water nearby.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: kept a bucket of water nearby? Choices: Their leader kept a bucket of water nearby., The campers gathered dry sticks before sunset., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Campfire Plan",
+          "passage": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+          "question": "Which sentence is the best text evidence for this answer: kept a bucket of water nearby?",
+          "answer_claim": "kept a bucket of water nearby",
+          "evidence": "Their leader kept a bucket of water nearby.",
+          "evidence_spans": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "details": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "audio": {
+            "text": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Their leader kept a bucket of water nearby.",
+            "The campers gathered dry sticks before sunset.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "Their leader kept a bucket of water nearby.",
+            "kept a bucket of water nearby"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q09",
+          "prompt": "Which sentence is the best text evidence for this answer: the animal ate plants, not meat?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "The label explained that the animal ate plants, not meat.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: The label explained that the animal ate plants, not meat.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: the animal ate plants, not meat? Choices: The label explained that the animal ate plants, not meat., At the museum, Diego sketched a fossil with long curved teeth., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Museum Sketch",
+          "passage": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+          "question": "Which sentence is the best text evidence for this answer: the animal ate plants, not meat?",
+          "answer_claim": "the animal ate plants, not meat",
+          "evidence": "The label explained that the animal ate plants, not meat.",
+          "evidence_spans": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "details": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "audio": {
+            "text": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "The label explained that the animal ate plants, not meat.",
+            "At the museum, Diego sketched a fossil with long curved teeth.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "The label explained that the animal ate plants, not meat.",
+            "the animal ate plants, not meat"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL3_Q10",
+          "prompt": "Which sentence is the best text evidence for this answer: The north path was closed for repairs.?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "A sign said the north path was closed for repairs.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: A sign said the north path was closed for repairs.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: The north path was closed for repairs.? Choices: A sign said the north path was closed for repairs., A sign said the north path was closed for repairs., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Park Path",
+          "passage": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+          "question": "Which sentence is the best text evidence for this answer: The north path was closed for repairs.?",
+          "answer_claim": "The north path was closed for repairs.",
+          "evidence": "A sign said the north path was closed for repairs.",
+          "evidence_spans": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "details": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "audio": {
+            "text": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "A sign said the north path was closed for repairs.",
+            "A sign said the north path was closed for repairs.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "A sign said the north path was closed for repairs.",
+            "The north path was closed for repairs."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_RC_001_LVL4",
+      "label": "Level 4: Explain Your Answer",
+      "focus": "Explain Your Answer",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_RC_001_LVL4_Q01",
+          "prompt": "Explain why the answer \"so they would not wilt\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"She moved the smallest plants into the shade so they would not wilt.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"so they would not wilt\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Rooftop Garden",
+          "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+          "question": "Explain why the answer \"so they would not wilt\" is supported by the passage.",
+          "answer_claim": "so they would not wilt",
+          "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+          "evidence_spans": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "details": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "audio": {
+            "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"She moved the smallest plants into the shade so they would not wilt.\"",
+            "so they would not wilt",
+            "She moved the smallest plants into the shade so they would not wilt."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q02",
+          "prompt": "Explain why the answer \"cans, wrappers, and plastic bottles\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"They filled ten bags with cans, wrappers, and plastic bottles.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"cans, wrappers, and plastic bottles\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "River Cleanup",
+          "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+          "question": "Explain why the answer \"cans, wrappers, and plastic bottles\" is supported by the passage.",
+          "answer_claim": "cans, wrappers, and plastic bottles",
+          "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+          "evidence_spans": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "details": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "audio": {
+            "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"They filled ten bags with cans, wrappers, and plastic bottles.\"",
+            "cans, wrappers, and plastic bottles",
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q03",
+          "prompt": "Explain why the answer \"He invited Andre to join the math game.\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"Luis invited him to join the math game.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: Luis invited him to join the math game.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"He invited Andre to join the math game.\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "New Student",
+          "passage": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+          "question": "Explain why the answer \"He invited Andre to join the math game.\" is supported by the passage.",
+          "answer_claim": "He invited Andre to join the math game.",
+          "evidence": "Luis invited him to join the math game.",
+          "evidence_spans": [
+            "Luis invited him to join the math game."
+          ],
+          "details": [
+            "Luis invited him to join the math game."
+          ],
+          "audio": {
+            "text": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"Luis invited him to join the math game.\"",
+            "He invited Andre to join the math game.",
+            "Luis invited him to join the math game."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q04",
+          "prompt": "Explain why the answer \"her notes about clouds and rain\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"After two weeks, she noticed that dark clouds often arrived before heavy rain.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"her notes about clouds and rain\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Weather Notebook",
+          "passage": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+          "question": "Explain why the answer \"her notes about clouds and rain\" is supported by the passage.",
+          "answer_claim": "her notes about clouds and rain",
+          "evidence": "After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "evidence_spans": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "details": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "audio": {
+            "text": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"After two weeks, she noticed that dark clouds often arrived before heavy rain.\"",
+            "her notes about clouds and rain",
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q05",
+          "prompt": "Explain why the answer \"behind the bookcase\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"The class map slipped behind the bookcase.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: The class map slipped behind the bookcase.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"behind the bookcase\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "The Lost Map",
+          "passage": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+          "question": "Explain why the answer \"behind the bookcase\" is supported by the passage.",
+          "answer_claim": "behind the bookcase",
+          "evidence": "The class map slipped behind the bookcase.",
+          "evidence_spans": [
+            "The class map slipped behind the bookcase."
+          ],
+          "details": [
+            "The class map slipped behind the bookcase."
+          ],
+          "audio": {
+            "text": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"The class map slipped behind the bookcase.\"",
+            "behind the bookcase",
+            "The class map slipped behind the bookcase."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q06",
+          "prompt": "Explain why the answer \"The bird seemed hurt.\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"Its wing hung low.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: Its wing hung low.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"The bird seemed hurt.\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Quiet Rescue",
+          "passage": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+          "question": "Explain why the answer \"The bird seemed hurt.\" is supported by the passage.",
+          "answer_claim": "The bird seemed hurt.",
+          "evidence": "Its wing hung low.",
+          "evidence_spans": [
+            "Its wing hung low."
+          ],
+          "details": [
+            "Its wing hung low."
+          ],
+          "audio": {
+            "text": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"Its wing hung low.\"",
+            "The bird seemed hurt.",
+            "Its wing hung low."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q07",
+          "prompt": "Explain why the answer \"the biography\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"Jade checked out the biography instead.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: Jade checked out the biography instead.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"the biography\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Library Choice",
+          "passage": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+          "question": "Explain why the answer \"the biography\" is supported by the passage.",
+          "answer_claim": "the biography",
+          "evidence": "Jade checked out the biography instead.",
+          "evidence_spans": [
+            "Jade checked out the biography instead."
+          ],
+          "details": [
+            "Jade checked out the biography instead."
+          ],
+          "audio": {
+            "text": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"Jade checked out the biography instead.\"",
+            "the biography",
+            "Jade checked out the biography instead."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q08",
+          "prompt": "Explain why the answer \"kept a bucket of water nearby\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"Their leader kept a bucket of water nearby.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: Their leader kept a bucket of water nearby.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"kept a bucket of water nearby\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Campfire Plan",
+          "passage": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+          "question": "Explain why the answer \"kept a bucket of water nearby\" is supported by the passage.",
+          "answer_claim": "kept a bucket of water nearby",
+          "evidence": "Their leader kept a bucket of water nearby.",
+          "evidence_spans": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "details": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "audio": {
+            "text": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"Their leader kept a bucket of water nearby.\"",
+            "kept a bucket of water nearby",
+            "Their leader kept a bucket of water nearby."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q09",
+          "prompt": "Explain why the answer \"the animal ate plants, not meat\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"The label explained that the animal ate plants, not meat.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: The label explained that the animal ate plants, not meat.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"the animal ate plants, not meat\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Museum Sketch",
+          "passage": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+          "question": "Explain why the answer \"the animal ate plants, not meat\" is supported by the passage.",
+          "answer_claim": "the animal ate plants, not meat",
+          "evidence": "The label explained that the animal ate plants, not meat.",
+          "evidence_spans": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "details": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "audio": {
+            "text": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"The label explained that the animal ate plants, not meat.\"",
+            "the animal ate plants, not meat",
+            "The label explained that the animal ate plants, not meat."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_LVL4_Q10",
+          "prompt": "Explain why the answer \"The north path was closed for repairs.\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"A sign said the north path was closed for repairs.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: A sign said the north path was closed for repairs.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"The north path was closed for repairs.\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Park Path",
+          "passage": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+          "question": "Explain why the answer \"The north path was closed for repairs.\" is supported by the passage.",
+          "answer_claim": "The north path was closed for repairs.",
+          "evidence": "A sign said the north path was closed for repairs.",
+          "evidence_spans": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "details": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "audio": {
+            "text": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"A sign said the north path was closed for repairs.\"",
+            "The north path was closed for repairs.",
+            "A sign said the north path was closed for repairs."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_RC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed text-evidence comprehension review",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_RC_001_MIXED_Q01",
+          "prompt": "Why did Mara move the smallest plants into the shade?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "so they would not wilt",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: She moved the smallest plants into the shade so they would not wilt.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Why did Mara move the smallest plants into the shade? Choices: so they would not wilt, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Rooftop Garden",
+          "passage": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+          "question": "Why did Mara move the smallest plants into the shade?",
+          "answer_claim": "so they would not wilt",
+          "evidence": "She moved the smallest plants into the shade so they would not wilt.",
+          "evidence_spans": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "details": [
+            "She moved the smallest plants into the shade so they would not wilt."
+          ],
+          "audio": {
+            "text": "Mara watered the rooftop garden before school. The tomato leaves drooped in the heat, but the basil smelled fresh. She moved the smallest plants into the shade so they would not wilt.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "so they would not wilt",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q02",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "cans, wrappers, and plastic bottles based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: They filled ten bags with cans, wrappers, and plastic bottles.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "River Cleanup",
+          "passage": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "cans, wrappers, and plastic bottles",
+          "evidence": "They filled ten bags with cans, wrappers, and plastic bottles.",
+          "evidence_spans": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "details": [
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ],
+          "audio": {
+            "text": "On Saturday, volunteers met beside the river. They filled ten bags with cans, wrappers, and plastic bottles. By noon, ducks were swimming near a cleaner bank.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "cans, wrappers, and plastic bottles based on the evidence",
+            "cans, wrappers, and plastic bottles",
+            "They filled ten bags with cans, wrappers, and plastic bottles."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q03",
+          "prompt": "Which sentence is the best text evidence for this answer: He invited Andre to join the math game.?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Luis invited him to join the math game.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: Luis invited him to join the math game.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: He invited Andre to join the math game.? Choices: Luis invited him to join the math game., Andre stood quietly by the classroom door., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "New Student",
+          "passage": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+          "question": "Which sentence is the best text evidence for this answer: He invited Andre to join the math game.?",
+          "answer_claim": "He invited Andre to join the math game.",
+          "evidence": "Luis invited him to join the math game.",
+          "evidence_spans": [
+            "Luis invited him to join the math game."
+          ],
+          "details": [
+            "Luis invited him to join the math game."
+          ],
+          "audio": {
+            "text": "Andre stood quietly by the classroom door. When Luis invited him to join the math game, Andre smiled and pulled up a chair. Soon he was explaining a clever strategy.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Luis invited him to join the math game.",
+            "Andre stood quietly by the classroom door.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "Luis invited him to join the math game.",
+            "He invited Andre to join the math game."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q04",
+          "prompt": "Explain why the answer \"her notes about clouds and rain\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"After two weeks, she noticed that dark clouds often arrived before heavy rain.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"her notes about clouds and rain\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Weather Notebook",
+          "passage": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+          "question": "Explain why the answer \"her notes about clouds and rain\" is supported by the passage.",
+          "answer_claim": "her notes about clouds and rain",
+          "evidence": "After two weeks, she noticed that dark clouds often arrived before heavy rain.",
+          "evidence_spans": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "details": [
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ],
+          "audio": {
+            "text": "Each afternoon, Kira drew clouds in her weather notebook. After two weeks, she noticed that dark clouds often arrived before heavy rain. Her notes helped her predict Friday\u2019s storm.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"After two weeks, she noticed that dark clouds often arrived before heavy rain.\"",
+            "her notes about clouds and rain",
+            "After two weeks, she noticed that dark clouds often arrived before heavy rain."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q05",
+          "prompt": "Where was the map?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "behind the bookcase",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: The class map slipped behind the bookcase.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Where was the map? Choices: behind the bookcase, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "The Lost Map",
+          "passage": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+          "question": "Where was the map?",
+          "answer_claim": "behind the bookcase",
+          "evidence": "The class map slipped behind the bookcase.",
+          "evidence_spans": [
+            "The class map slipped behind the bookcase."
+          ],
+          "details": [
+            "The class map slipped behind the bookcase."
+          ],
+          "audio": {
+            "text": "The class map slipped behind the bookcase. During social studies, Noah remembered seeing one corner near the wall. He reached carefully and found it just before the activity began.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "behind the bookcase",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q06",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "The bird seemed hurt. based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: Its wing hung low.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Quiet Rescue",
+          "passage": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "The bird seemed hurt.",
+          "evidence": "Its wing hung low.",
+          "evidence_spans": [
+            "Its wing hung low."
+          ],
+          "details": [
+            "Its wing hung low."
+          ],
+          "audio": {
+            "text": "A tiny bird hopped near the playground fence. Its wing hung low, so Ms. Patel called the wildlife center. The students watched silently until a rescuer arrived.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The bird seemed hurt. based on the evidence",
+            "The bird seemed hurt.",
+            "Its wing hung low."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q07",
+          "prompt": "Which sentence is the best text evidence for this answer: the biography?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Jade checked out the biography instead.",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is supported by this evidence: Jade checked out the biography instead.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Which sentence is the best text evidence for this answer: the biography? Choices: Jade checked out the biography instead., Jade wanted a mystery, but the cover of a biography caught her attention., This sentence does not support the answer..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Library Choice",
+          "passage": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+          "question": "Which sentence is the best text evidence for this answer: the biography?",
+          "answer_claim": "the biography",
+          "evidence": "Jade checked out the biography instead.",
+          "evidence_spans": [
+            "Jade checked out the biography instead."
+          ],
+          "details": [
+            "Jade checked out the biography instead."
+          ],
+          "audio": {
+            "text": "Jade wanted a mystery, but the cover of a biography caught her attention. She read the first page and discovered that the inventor solved problems as a child. Jade checked out the biography instead.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Jade checked out the biography instead.",
+            "Jade wanted a mystery, but the cover of a biography caught her attention.",
+            "This sentence does not support the answer."
+          ],
+          "acceptable_answers": [
+            "Jade checked out the biography instead.",
+            "the biography"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q08",
+          "prompt": "Explain why the answer \"kept a bucket of water nearby\" is supported by the passage.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The text says, \"Their leader kept a bucket of water nearby.\"",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is supported by this evidence: Their leader kept a bucket of water nearby.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "Explain why the answer \"kept a bucket of water nearby\" is supported by the passage.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Campfire Plan",
+          "passage": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+          "question": "Explain why the answer \"kept a bucket of water nearby\" is supported by the passage.",
+          "answer_claim": "kept a bucket of water nearby",
+          "evidence": "Their leader kept a bucket of water nearby.",
+          "evidence_spans": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "details": [
+            "Their leader kept a bucket of water nearby."
+          ],
+          "audio": {
+            "text": "The campers gathered dry sticks before sunset. After dinner, they stacked the wood in a safe fire ring. Their leader kept a bucket of water nearby.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The text says, \"Their leader kept a bucket of water nearby.\"",
+            "kept a bucket of water nearby",
+            "Their leader kept a bucket of water nearby."
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q09",
+          "prompt": "What surprising fact did Diego learn?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "the animal ate plants, not meat",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The answer is supported by this evidence: The label explained that the animal ate plants, not meat.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What surprising fact did Diego learn? Choices: the animal ate plants, not meat, a detail not stated in the text, because everyone guessed.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Museum Sketch",
+          "passage": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+          "question": "What surprising fact did Diego learn?",
+          "answer_claim": "the animal ate plants, not meat",
+          "evidence": "The label explained that the animal ate plants, not meat.",
+          "evidence_spans": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "details": [
+            "The label explained that the animal ate plants, not meat."
+          ],
+          "audio": {
+            "text": "At the museum, Diego sketched a fossil with long curved teeth. The label explained that the animal ate plants, not meat. Diego added a note so he would remember that surprising fact.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "the animal ate plants, not meat",
+            "a detail not stated in the text",
+            "because everyone guessed"
+          ]
+        },
+        {
+          "question_id": "G4E_RC_001_MIXED_Q10",
+          "prompt": "What can you infer from the passage?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "The north path was closed for repairs. based on the evidence",
+          "hints": [
+            "Reread the important words before answering.",
+            "Use the visual model and the clue in the text.",
+            "Check that your answer is supported by the sentence or passage."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "explanation": "The answer is supported by this evidence: A sign said the north path was closed for repairs.",
+          "feedback": "Good comprehension work. You connected the answer to text evidence.",
+          "question_audio": {
+            "text": "What can you infer from the passage?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "title": "Park Path",
+          "passage": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+          "question": "What can you infer from the passage?",
+          "answer_claim": "The north path was closed for repairs.",
+          "evidence": "A sign said the north path was closed for repairs.",
+          "evidence_spans": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "details": [
+            "A sign said the north path was closed for repairs."
+          ],
+          "audio": {
+            "text": "A sign said the north path was closed for repairs. Nia and her uncle chose the longer south path. They reached the pond ten minutes later than usual.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "The north path was closed for repairs. based on the evidence",
+            "The north path was closed for repairs.",
+            "A sign said the north path was closed for repairs."
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to this page. In this mission, you enter a Grade 4 reading studio for answer literal and inferential questions using evidence from the text. You will learn why the skill matters, watch a model, practice with feedback, and carry your strategy into independent reading. Press Start Mission when you are ready to begin.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This mini lesson teaches answer literal and inferential questions using evidence from the text. First, name the reading job. Next, use the model to notice important words and clues. Finally, answer in a way that matches the text instead of guessing. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "This Watch page models the strategy. Listen for the teacher thinking aloud, because strong readers explain what they notice before they answer. Watch how the evidence clue is connected to the correct answer. Press Next to see the demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This demo gives you another guided example. Read the sentence or passage, point to the clue, and decide which answer is best supported. The goal is not speed alone; the goal is careful evidence thinking. Press Next when you are ready to practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Practice time. Read the item, use the visual model, and press Read Question if you want the exact prompt read aloud. Press Listen when hearing the word, sentence, or passage will help. Choose or write an answer that fits the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Challenge time. These questions ask you to apply answer literal and inferential questions using evidence from the text with less help. Press Read Question for narration, use Listen for pronunciation or passage support, and slow down if two answers seem close. Your best answer should match the evidence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Checkpoint time. Show that you can use answer literal and inferential questions using evidence from the text independently. Press Read Question if you want the prompt read aloud, and press Listen when audio will help you hear the sentence or passage. Answer carefully, then review your feedback.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "This badge page celebrates your progress. You earned credit for reading closely, using the model, and explaining your evidence thinking. Keep using this strategy whenever you meet a challenging text. Press Next to see your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "This profile page shows your growth and next steps. Review your accuracy, hints, and level progress. If one level needs more work, choose Practice This Skill and return to that level in the Skill Practice Center.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
