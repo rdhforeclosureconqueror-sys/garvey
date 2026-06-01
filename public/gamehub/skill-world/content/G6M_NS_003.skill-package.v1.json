@@ -1,0 +1,2496 @@
+{
+  "skill_id": "G6M_NS_003",
+  "grade": 6,
+  "subject": "Math",
+  "domain": "The Number System",
+  "skill": "Integers and the Number Line",
+  "badgeName": "Integer Navigator Badge",
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade6-math-completion-plan.v1.json",
+    "completion_plan_doc": "docs/grade6_math_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01",
+    "readiness": [
+      "validated_skill_package",
+      "guided_mission",
+      "skill_practice_center",
+      "manifest_hub_exposure",
+      "voice_standard",
+      "cached_ai_audio_compatible",
+      "browser_speech_fallback"
+    ]
+  },
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "feedback_fields": [
+    "correct",
+    "incorrect",
+    "misconception_tag"
+  ],
+  "next_skill_id": null,
+  "remediation_skill_id": null,
+  "lesson": {
+    "story_mission": "Help the Elevation Expedition map temperatures, sea levels, distances from zero, and signed coordinates.",
+    "objective": "I can understand positive and negative numbers, opposites, absolute value, integer comparison, and coordinate plane signs.",
+    "key_vocabulary": [
+      "integer",
+      "negative number",
+      "positive number",
+      "opposite",
+      "absolute value",
+      "coordinate plane",
+      "quadrant"
+    ],
+    "concept_explanation": "Integers extend the number line in both directions from zero. Opposites are the same distance from zero on different sides, and absolute value is distance from zero. Coordinates use signed x and y values.",
+    "visual_model": "integer_number_line",
+    "common_misconception": "A common mistake is thinking a larger digit always means a greater integer, even when the number is negative.",
+    "real_world_connection": "Temperatures below zero, elevations below sea level, credits and debts, and maps use positive and negative numbers.",
+    "lesson_summary": "Use zero as the anchor, compare positions from left to right, and read coordinate signs carefully.",
+    "page_audio": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Integers include negative numbers, zero, and positive numbers. On a number line, numbers farther right are greater. Absolute value is distance from zero, so negative five and positive five both have an absolute value of five."
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G6M_NS_003_WE1",
+      "text": "Negative 4 is left of 0 and positive 3 is right of 0, so negative 4 is less than 3.",
+      "visual_model": "integer_number_line",
+      "value": -4,
+      "points": [
+        -4,
+        0,
+        3
+      ],
+      "correct_answer": "-4 < 3",
+      "page_audio": {
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Read This Page. Watch the signed number line. Negative four is four units left of zero, and positive 3 is three units right of zero. A point farther left is less, so negative four is less than 3."
+      }
+    },
+    {
+      "id": "G6M_NS_003_WE2",
+      "text": "The absolute value of -6 is 6 because -6 is 6 units from zero.",
+      "visual_model": "absolute_value_model",
+      "value": -6,
+      "correct_answer": "6",
+      "page_audio": {
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Read This Page. Watch the absolute value model. Start at zero and count the distance to negative 6. Distance is never negative, so the absolute value of negative 6 is 6."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Find zero first.",
+    "For comparisons, the number farther right is greater.",
+    "For coordinates, read x first, then y, including the signs."
+  ],
+  "misconception_bank": {
+    "negative_number_order_error": "Negative numbers were ordered as if they were positive. Farther left means less.",
+    "absolute_value_confusion": "Absolute value was treated as the original sign instead of distance from zero.",
+    "opposite_number_confusion": "The opposite number was not placed the same distance on the other side of zero.",
+    "coordinate_sign_error": "The x-sign or y-sign was read in the wrong direction on the coordinate plane."
+  },
+  "game_theme": {
+    "title": "Elevation Expedition",
+    "name": "Elevation Expedition",
+    "mission_intro": "Help the Elevation Expedition map temperatures, sea levels, distances from zero, and signed coordinates.",
+    "badge_name": "Integer Navigator Badge"
+  },
+  "page_audio": {
+    "story": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Welcome to Elevation Expedition. You will solve mission problems with models, words, and careful checking. Listen for negative numbers, opposites, absolute value, integer comparisons, and signed coordinates so each answer fits the situation."
+    },
+    "lesson": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. This lesson teaches negative numbers, opposites, absolute value, integer comparisons, and signed coordinates. Read the quantities, name the operation, and connect the symbols to the visual model. A good answer explains what the number means."
+    },
+    "watch": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Step one, read the situation and mark the values. Step two, use the model to show the operation. Step three, compute and check whether the final answer is reasonable."
+    },
+    "demo": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. In the demo, build the model before answering. Say the important math words out loud and notice how each part of the picture matches the equation. Then explain the answer in one sentence."
+    },
+    "practice": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Practice with one supported question. Tap Read Question to hear the problem, then use the model and type or choose the answer. Check units, signs, and values before moving on."
+    },
+    "challenge": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. The challenge asks you to choose a strategy with less support. Tap Read Question, compare the visual to the equation, and avoid common mistakes before submitting."
+    },
+    "checkpoint": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. The checkpoint shows what you can do independently. Tap Read Question, solve carefully, and use your answer to prove you understand negative numbers, opposites, absolute value, integer comparisons, and signed coordinates."
+    },
+    "badge": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. You completed the Integers and the Number Line mission. Celebrate the models, explanations, and accurate answers you used today. The badge marks readiness for more Number System work."
+    },
+    "profile": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Your profile saves stars, accuracy, hints, and misconception notes. Use Practice This Skill for focused levels and Mixed review so negative numbers, opposites, absolute value, integer comparisons, and signed coordinates stay strong."
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G6M_NS_003_LVL1",
+      "label": "Level 1: Positive and Negative Numbers",
+      "focus": "Represent positive and negative numbers on a number line.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_003_LVL1_Q01",
+          "prompt": "Which integer represents 5 units below zero?",
+          "question_type": "short_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "-5",
+          "answer": "-5",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -5.",
+          "read_aloud_text": "Which integer represents 5 units below zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 5 units below zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q01"
+          },
+          "acceptable_answers": [
+            "-5",
+            "-5"
+          ],
+          "value": -5,
+          "points": [
+            -5,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q02",
+          "prompt": "Which integer represents 4 units above zero?",
+          "question_type": "integer_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Which integer represents 4 units above zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 4 units above zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q02"
+          },
+          "acceptable_answers": [
+            "4",
+            "4"
+          ],
+          "value": 4,
+          "points": [
+            4,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q03",
+          "prompt": "Which integer represents 2 units below zero?",
+          "question_type": "comparison",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "-2",
+          "answer": "-2",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -2.",
+          "read_aloud_text": "Which integer represents 2 units below zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 2 units below zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q03"
+          },
+          "acceptable_answers": [
+            "-2",
+            "-2"
+          ],
+          "value": -2,
+          "points": [
+            -2,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q04",
+          "prompt": "Which integer represents 7 units above zero?",
+          "question_type": "multiple_choice",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "7",
+          "answer": "7",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "Which integer represents 7 units above zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 7 units above zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q04"
+          },
+          "choices": [
+            "7",
+            "-7",
+            "0"
+          ],
+          "value": 7,
+          "points": [
+            7,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q05",
+          "prompt": "Which integer represents 8 units below zero?",
+          "question_type": "short_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "-8",
+          "answer": "-8",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -8.",
+          "read_aloud_text": "Which integer represents 8 units below zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 8 units below zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q05"
+          },
+          "acceptable_answers": [
+            "-8",
+            "-8"
+          ],
+          "value": -8,
+          "points": [
+            -8,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q06",
+          "prompt": "Which integer represents 3 units above zero?",
+          "question_type": "integer_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Which integer represents 3 units above zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 3 units above zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q06"
+          },
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "value": 3,
+          "points": [
+            3,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q07",
+          "prompt": "Which integer represents 1 units below zero?",
+          "question_type": "comparison",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "-1",
+          "answer": "-1",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -1.",
+          "read_aloud_text": "Which integer represents 1 units below zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 1 units below zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q07"
+          },
+          "acceptable_answers": [
+            "-1",
+            "-1"
+          ],
+          "value": -1,
+          "points": [
+            -1,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q08",
+          "prompt": "Which integer represents 6 units above zero?",
+          "question_type": "multiple_choice",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "Which integer represents 6 units above zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 6 units above zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q08"
+          },
+          "choices": [
+            "6",
+            "-6",
+            "0"
+          ],
+          "value": 6,
+          "points": [
+            6,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q09",
+          "prompt": "Which integer represents 6 units below zero?",
+          "question_type": "short_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "-6",
+          "answer": "-6",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -6.",
+          "read_aloud_text": "Which integer represents 6 units below zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 6 units below zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q09"
+          },
+          "acceptable_answers": [
+            "-6",
+            "-6"
+          ],
+          "value": -6,
+          "points": [
+            -6,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        },
+        {
+          "question_id": "G6M_NS_003_LVL1_Q10",
+          "prompt": "Which integer represents 2 units above zero?",
+          "question_type": "integer_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "Which integer represents 2 units above zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer represents 2 units above zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q10"
+          },
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "value": 2,
+          "points": [
+            2,
+            0
+          ],
+          "min": -9,
+          "max": 9
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_003_LVL2",
+      "label": "Level 2: Opposites and Absolute Value",
+      "focus": "Find opposites and absolute values as distance from zero.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_003_LVL2_Q01",
+          "prompt": "What is the opposite of -6?",
+          "question_type": "short_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "What is the opposite of -6?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is the opposite of -6?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q01"
+          },
+          "acceptable_answers": [
+            "6",
+            "6"
+          ],
+          "value": -6,
+          "points": [
+            -6,
+            6,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q02",
+          "prompt": "What is |5|?",
+          "question_type": "integer_response",
+          "visual_model": "absolute_value_model",
+          "support_type": "absolute_value_model",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "What is |5|?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is |5|?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q02"
+          },
+          "acceptable_answers": [
+            "5",
+            "5"
+          ],
+          "value": 5
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q03",
+          "prompt": "What is the opposite of -3?",
+          "question_type": "comparison",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "What is the opposite of -3?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is the opposite of -3?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q03"
+          },
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "value": -3,
+          "points": [
+            -3,
+            3,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q04",
+          "prompt": "What is |8|?",
+          "question_type": "multiple_choice",
+          "visual_model": "absolute_value_model",
+          "support_type": "absolute_value_model",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "What is |8|?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is |8|?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q04"
+          },
+          "choices": [
+            "8",
+            "-8",
+            "8"
+          ],
+          "value": 8
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q05",
+          "prompt": "What is the opposite of -9?",
+          "question_type": "short_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "What is the opposite of -9?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is the opposite of -9?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q05"
+          },
+          "acceptable_answers": [
+            "9",
+            "9"
+          ],
+          "value": -9,
+          "points": [
+            -9,
+            9,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q06",
+          "prompt": "What is |2|?",
+          "question_type": "integer_response",
+          "visual_model": "absolute_value_model",
+          "support_type": "absolute_value_model",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "What is |2|?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is |2|?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q06"
+          },
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "value": 2
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q07",
+          "prompt": "What is the opposite of -7?",
+          "question_type": "comparison",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "7",
+          "answer": "7",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "What is the opposite of -7?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is the opposite of -7?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q07"
+          },
+          "acceptable_answers": [
+            "7",
+            "7"
+          ],
+          "value": -7,
+          "points": [
+            -7,
+            7,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q08",
+          "prompt": "What is |4|?",
+          "question_type": "multiple_choice",
+          "visual_model": "absolute_value_model",
+          "support_type": "absolute_value_model",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "What is |4|?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is |4|?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q08"
+          },
+          "choices": [
+            "4",
+            "-4",
+            "4"
+          ],
+          "value": 4
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q09",
+          "prompt": "What is the opposite of -1?",
+          "question_type": "short_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "1",
+          "answer": "1",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "What is the opposite of -1?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is the opposite of -1?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q09"
+          },
+          "acceptable_answers": [
+            "1",
+            "1"
+          ],
+          "value": -1,
+          "points": [
+            -1,
+            1,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL2_Q10",
+          "prompt": "What is |6|?",
+          "question_type": "integer_response",
+          "visual_model": "absolute_value_model",
+          "support_type": "absolute_value_model",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "What is |6|?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is |6|?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q10"
+          },
+          "acceptable_answers": [
+            "6",
+            "6"
+          ],
+          "value": 6
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_003_LVL3",
+      "label": "Level 3: Compare Integers",
+      "focus": "Compare signed integers from left to right on the number line.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_003_LVL3_Q01",
+          "prompt": "Compare -4 and 3 using <, >, or =.",
+          "question_type": "short_response",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "-4 < 3",
+          "answer": "-4 < 3",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -4 < 3.",
+          "read_aloud_text": "Compare -4 and 3 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare -4 and 3 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q01"
+          },
+          "acceptable_answers": [
+            "-4 < 3",
+            "-4<3"
+          ],
+          "left_value": -4,
+          "right_value": 3,
+          "value": -4,
+          "points": [
+            -4,
+            3,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q02",
+          "prompt": "Compare -7 and -2 using <, >, or =.",
+          "question_type": "integer_response",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "-7 < -2",
+          "answer": "-7 < -2",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -7 < -2.",
+          "read_aloud_text": "Compare -7 and -2 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare -7 and -2 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q02"
+          },
+          "acceptable_answers": [
+            "-7 < -2",
+            "-7<-2"
+          ],
+          "left_value": -7,
+          "right_value": -2,
+          "value": -7,
+          "points": [
+            -7,
+            -2,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q03",
+          "prompt": "Compare 5 and -6 using <, >, or =.",
+          "question_type": "comparison",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "5 > -6",
+          "answer": "5 > -6",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5 > -6.",
+          "read_aloud_text": "Compare 5 and -6 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare 5 and -6 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q03"
+          },
+          "acceptable_answers": [
+            "5 > -6",
+            "5>-6"
+          ],
+          "left_value": 5,
+          "right_value": -6,
+          "value": 5,
+          "points": [
+            5,
+            -6,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q04",
+          "prompt": "Compare -1 and 0 using <, >, or =.",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "-1 < 0",
+          "answer": "-1 < 0",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -1 < 0.",
+          "read_aloud_text": "Compare -1 and 0 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare -1 and 0 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q04"
+          },
+          "choices": [
+            "-1 < 0",
+            "-1 > 0",
+            "0 < -1"
+          ],
+          "left_value": -1,
+          "right_value": 0,
+          "value": -1,
+          "points": [
+            -1,
+            0,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q05",
+          "prompt": "Compare -8 and -9 using <, >, or =.",
+          "question_type": "short_response",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "-8 > -9",
+          "answer": "-8 > -9",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -8 > -9.",
+          "read_aloud_text": "Compare -8 and -9 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare -8 and -9 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q05"
+          },
+          "acceptable_answers": [
+            "-8 > -9",
+            "-8>-9"
+          ],
+          "left_value": -8,
+          "right_value": -9,
+          "value": -8,
+          "points": [
+            -8,
+            -9,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q06",
+          "prompt": "Compare 2 and 6 using <, >, or =.",
+          "question_type": "integer_response",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "2 < 6",
+          "answer": "2 < 6",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2 < 6.",
+          "read_aloud_text": "Compare 2 and 6 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare 2 and 6 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q06"
+          },
+          "acceptable_answers": [
+            "2 < 6",
+            "2<6"
+          ],
+          "left_value": 2,
+          "right_value": 6,
+          "value": 2,
+          "points": [
+            2,
+            6,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q07",
+          "prompt": "Compare -3 and -5 using <, >, or =.",
+          "question_type": "comparison",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "-3 > -5",
+          "answer": "-3 > -5",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -3 > -5.",
+          "read_aloud_text": "Compare -3 and -5 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare -3 and -5 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q07"
+          },
+          "acceptable_answers": [
+            "-3 > -5",
+            "-3>-5"
+          ],
+          "left_value": -3,
+          "right_value": -5,
+          "value": -3,
+          "points": [
+            -3,
+            -5,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q08",
+          "prompt": "Compare 7 and -7 using <, >, or =.",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "7 > -7",
+          "answer": "7 > -7",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7 > -7.",
+          "read_aloud_text": "Compare 7 and -7 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare 7 and -7 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q08"
+          },
+          "choices": [
+            "7 > -7",
+            "7 < -7",
+            "-7 > 7"
+          ],
+          "left_value": 7,
+          "right_value": -7,
+          "value": 7,
+          "points": [
+            7,
+            -7,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q09",
+          "prompt": "Compare 0 and -4 using <, >, or =.",
+          "question_type": "short_response",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "0 > -4",
+          "answer": "0 > -4",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 0 > -4.",
+          "read_aloud_text": "Compare 0 and -4 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare 0 and -4 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q09"
+          },
+          "acceptable_answers": [
+            "0 > -4",
+            "0>-4"
+          ],
+          "left_value": 0,
+          "right_value": -4,
+          "value": 0,
+          "points": [
+            0,
+            -4,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL3_Q10",
+          "prompt": "Compare -2 and 1 using <, >, or =.",
+          "question_type": "integer_response",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "-2 < 1",
+          "answer": "-2 < 1",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -2 < 1.",
+          "read_aloud_text": "Compare -2 and 1 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare -2 and 1 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL3_Q10"
+          },
+          "acceptable_answers": [
+            "-2 < 1",
+            "-2<1"
+          ],
+          "left_value": -2,
+          "right_value": 1,
+          "value": -2,
+          "points": [
+            -2,
+            1,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_003_LVL4",
+      "label": "Level 4: Coordinate Plane With Integers",
+      "focus": "Read and plot signed coordinates with negative x and y values.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_003_LVL4_Q01",
+          "prompt": "Name the ordered pair for the point with x = -3 and y = 4.",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(-3, 4)",
+          "answer": "(-3, 4)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (-3, 4).",
+          "read_aloud_text": "Name the ordered pair for the point with x = -3 and y = 4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = -3 and y = 4.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q01"
+          },
+          "acceptable_answers": [
+            "(-3, 4)",
+            "(-3,4)"
+          ],
+          "x": -3,
+          "y": 4,
+          "points": [
+            {
+              "x": -3,
+              "y": 4,
+              "label": "(-3, 4)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q02",
+          "prompt": "Name the ordered pair for the point with x = 5 and y = -2.",
+          "question_type": "integer_response",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(5, -2)",
+          "answer": "(5, -2)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (5, -2).",
+          "read_aloud_text": "Name the ordered pair for the point with x = 5 and y = -2.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = 5 and y = -2.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q02"
+          },
+          "acceptable_answers": [
+            "(5, -2)",
+            "(5,-2)"
+          ],
+          "x": 5,
+          "y": -2,
+          "points": [
+            {
+              "x": 5,
+              "y": -2,
+              "label": "(5, -2)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q03",
+          "prompt": "Name the ordered pair for the point with x = -4 and y = -3.",
+          "question_type": "comparison",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(-4, -3)",
+          "answer": "(-4, -3)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (-4, -3).",
+          "read_aloud_text": "Name the ordered pair for the point with x = -4 and y = -3.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = -4 and y = -3.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q03"
+          },
+          "acceptable_answers": [
+            "(-4, -3)",
+            "(-4,-3)"
+          ],
+          "x": -4,
+          "y": -3,
+          "points": [
+            {
+              "x": -4,
+              "y": -3,
+              "label": "(-4, -3)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q04",
+          "prompt": "Name the ordered pair for the point with x = 2 and y = 6.",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(2, 6)",
+          "answer": "(2, 6)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (2, 6).",
+          "read_aloud_text": "Name the ordered pair for the point with x = 2 and y = 6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = 2 and y = 6.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q04"
+          },
+          "choices": [
+            "(2, 6)",
+            "(6, 2)",
+            "(-2, 6)"
+          ],
+          "x": 2,
+          "y": 6,
+          "points": [
+            {
+              "x": 2,
+              "y": 6,
+              "label": "(2, 6)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q05",
+          "prompt": "Name the ordered pair for the point with x = -1 and y = -5.",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(-1, -5)",
+          "answer": "(-1, -5)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (-1, -5).",
+          "read_aloud_text": "Name the ordered pair for the point with x = -1 and y = -5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = -1 and y = -5.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q05"
+          },
+          "acceptable_answers": [
+            "(-1, -5)",
+            "(-1,-5)"
+          ],
+          "x": -1,
+          "y": -5,
+          "points": [
+            {
+              "x": -1,
+              "y": -5,
+              "label": "(-1, -5)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q06",
+          "prompt": "Name the ordered pair for the point with x = 6 and y = 1.",
+          "question_type": "integer_response",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(6, 1)",
+          "answer": "(6, 1)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (6, 1).",
+          "read_aloud_text": "Name the ordered pair for the point with x = 6 and y = 1.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = 6 and y = 1.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q06"
+          },
+          "acceptable_answers": [
+            "(6, 1)",
+            "(6,1)"
+          ],
+          "x": 6,
+          "y": 1,
+          "points": [
+            {
+              "x": 6,
+              "y": 1,
+              "label": "(6, 1)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q07",
+          "prompt": "Name the ordered pair for the point with x = -6 and y = 2.",
+          "question_type": "comparison",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(-6, 2)",
+          "answer": "(-6, 2)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (-6, 2).",
+          "read_aloud_text": "Name the ordered pair for the point with x = -6 and y = 2.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = -6 and y = 2.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q07"
+          },
+          "acceptable_answers": [
+            "(-6, 2)",
+            "(-6,2)"
+          ],
+          "x": -6,
+          "y": 2,
+          "points": [
+            {
+              "x": -6,
+              "y": 2,
+              "label": "(-6, 2)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q08",
+          "prompt": "Name the ordered pair for the point with x = 3 and y = -4.",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(3, -4)",
+          "answer": "(3, -4)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (3, -4).",
+          "read_aloud_text": "Name the ordered pair for the point with x = 3 and y = -4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = 3 and y = -4.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q08"
+          },
+          "choices": [
+            "(3, -4)",
+            "(-4, 3)",
+            "(-3, -4)"
+          ],
+          "x": 3,
+          "y": -4,
+          "points": [
+            {
+              "x": 3,
+              "y": -4,
+              "label": "(3, -4)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q09",
+          "prompt": "Name the ordered pair for the point with x = -2 and y = -6.",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(-2, -6)",
+          "answer": "(-2, -6)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (-2, -6).",
+          "read_aloud_text": "Name the ordered pair for the point with x = -2 and y = -6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = -2 and y = -6.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q09"
+          },
+          "acceptable_answers": [
+            "(-2, -6)",
+            "(-2,-6)"
+          ],
+          "x": -2,
+          "y": -6,
+          "points": [
+            {
+              "x": -2,
+              "y": -6,
+              "label": "(-2, -6)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL4_Q10",
+          "prompt": "Name the ordered pair for the point with x = 4 and y = 0.",
+          "question_type": "integer_response",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(4, 0)",
+          "answer": "(4, 0)",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (4, 0).",
+          "read_aloud_text": "Name the ordered pair for the point with x = 4 and y = 0.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for the point with x = 4 and y = 0.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL4_Q10"
+          },
+          "acceptable_answers": [
+            "(4, 0)",
+            "(4,0)"
+          ],
+          "x": 4,
+          "y": 0,
+          "points": [
+            {
+              "x": 4,
+              "y": 0,
+              "label": "(4, 0)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_003_MIXED",
+      "label": "Mixed",
+      "focus": "Review positive and negative numbers, opposites, absolute value, comparisons, and coordinates.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_003_LVL5_Q01",
+          "prompt": "Which integer is 3 units below zero?",
+          "question_type": "short_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "-3",
+          "answer": "-3",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -3.",
+          "read_aloud_text": "Which integer is 3 units below zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Which integer is 3 units below zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q01"
+          },
+          "acceptable_answers": [
+            "-3",
+            "-3"
+          ],
+          "value": -3,
+          "points": [
+            -3,
+            0
+          ],
+          "min": -6,
+          "max": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q02",
+          "prompt": "What is |-8|?",
+          "question_type": "integer_response",
+          "visual_model": "absolute_value_model",
+          "support_type": "absolute_value_model",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "What is |-8|?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is |-8|?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q02"
+          },
+          "acceptable_answers": [
+            "8",
+            "8"
+          ],
+          "value": -8
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q03",
+          "prompt": "Compare -5 and -1 using <, >, or =.",
+          "question_type": "comparison",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "-5 < -1",
+          "answer": "-5 < -1",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -5 < -1.",
+          "read_aloud_text": "Compare -5 and -1 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare -5 and -1 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q03"
+          },
+          "acceptable_answers": [
+            "-5 < -1",
+            "-5<-1"
+          ],
+          "left_value": -5,
+          "right_value": -1,
+          "points": [
+            -5,
+            -1,
+            0
+          ],
+          "min": -8,
+          "max": 4
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q04",
+          "prompt": "Name the ordered pair for x = -2 and y = 5.",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(-2, 5)",
+          "answer": "(-2, 5)",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (-2, 5).",
+          "read_aloud_text": "Name the ordered pair for x = -2 and y = 5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for x = -2 and y = 5.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q04"
+          },
+          "choices": [
+            "(-2, 5)",
+            "0",
+            "(2, 5)"
+          ],
+          "x": -2,
+          "y": 5,
+          "points": [
+            {
+              "x": -2,
+              "y": 5,
+              "label": "(-2, 5)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q05",
+          "prompt": "What is the opposite of 7?",
+          "question_type": "short_response",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "-7",
+          "answer": "-7",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is -7.",
+          "read_aloud_text": "What is the opposite of 7?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is the opposite of 7?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q05"
+          },
+          "acceptable_answers": [
+            "-7",
+            "-7"
+          ],
+          "value": 7,
+          "points": [
+            7,
+            -7,
+            0
+          ],
+          "min": -8,
+          "max": 8
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q06",
+          "prompt": "Compare 0 and -6 using <, >, or =.",
+          "question_type": "integer_response",
+          "visual_model": "comparison_model",
+          "support_type": "comparison_model",
+          "correct_answer": "0 > -6",
+          "answer": "0 > -6",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 0 > -6.",
+          "read_aloud_text": "Compare 0 and -6 using <, >, or =.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compare 0 and -6 using <, >, or =.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q06"
+          },
+          "acceptable_answers": [
+            "0 > -6",
+            "0>-6"
+          ],
+          "left_value": 0,
+          "right_value": -6
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q07",
+          "prompt": "What integer is 4 units above zero?",
+          "question_type": "comparison",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "coordinate_sign_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "What integer is 4 units above zero?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What integer is 4 units above zero?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q07"
+          },
+          "acceptable_answers": [
+            "4",
+            "4"
+          ],
+          "value": 4,
+          "points": [
+            4,
+            0
+          ]
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q08",
+          "prompt": "What is the opposite of -9?",
+          "question_type": "multiple_choice",
+          "visual_model": "integer_number_line",
+          "support_type": "integer_number_line",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "negative_number_order_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "What is the opposite of -9?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is the opposite of -9?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q08"
+          },
+          "choices": [
+            "9",
+            "0",
+            "-9"
+          ],
+          "value": -9,
+          "points": [
+            -9,
+            9,
+            0
+          ],
+          "min": -10,
+          "max": 10
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q09",
+          "prompt": "What is |-2|?",
+          "question_type": "short_response",
+          "visual_model": "absolute_value_model",
+          "support_type": "absolute_value_model",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "absolute_value_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "What is |-2|?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "What is |-2|?",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q09"
+          },
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "value": -2
+        },
+        {
+          "question_id": "G6M_NS_003_LVL5_Q10",
+          "prompt": "Name the ordered pair for x = 3 and y = -5.",
+          "question_type": "integer_response",
+          "visual_model": "coordinate_plane",
+          "support_type": "coordinate_plane",
+          "correct_answer": "(3, -5)",
+          "answer": "(3, -5)",
+          "misconception_tag": "opposite_number_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is (3, -5).",
+          "read_aloud_text": "Name the ordered pair for x = 3 and y = -5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Name the ordered pair for x = 3 and y = -5.",
+            "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q10"
+          },
+          "acceptable_answers": [
+            "(3, -5)",
+            "(3,-5)"
+          ],
+          "x": 3,
+          "y": -5,
+          "points": [
+            {
+              "x": 3,
+              "y": -5,
+              "label": "(3, -5)"
+            }
+          ],
+          "min_x": -6,
+          "max_x": 6,
+          "min_y": -6,
+          "max_y": 6
+        }
+      ]
+    }
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G6M_NS_003_LVL1_Q01",
+      "prompt": "Which integer represents 5 units below zero?",
+      "question_type": "short_response",
+      "visual_model": "integer_number_line",
+      "support_type": "integer_number_line",
+      "correct_answer": "-5",
+      "answer": "-5",
+      "misconception_tag": "opposite_number_confusion",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is -5.",
+      "read_aloud_text": "Which integer represents 5 units below zero?",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Which integer represents 5 units below zero?",
+        "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL1_Q01"
+      },
+      "acceptable_answers": [
+        "-5",
+        "-5"
+      ],
+      "value": -5,
+      "points": [
+        -5,
+        0
+      ],
+      "min": -9,
+      "max": 9
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6M_NS_003_LVL2_Q01",
+      "prompt": "What is the opposite of -6?",
+      "question_type": "short_response",
+      "visual_model": "integer_number_line",
+      "support_type": "integer_number_line",
+      "correct_answer": "6",
+      "answer": "6",
+      "misconception_tag": "opposite_number_confusion",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is 6.",
+      "read_aloud_text": "What is the opposite of -6?",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "What is the opposite of -6?",
+        "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL2_Q01"
+      },
+      "acceptable_answers": [
+        "6",
+        "6"
+      ],
+      "value": -6,
+      "points": [
+        -6,
+        6,
+        0
+      ],
+      "min": -10,
+      "max": 10
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6M_NS_003_LVL5_Q01",
+      "prompt": "Which integer is 3 units below zero?",
+      "question_type": "short_response",
+      "visual_model": "integer_number_line",
+      "support_type": "integer_number_line",
+      "correct_answer": "-3",
+      "answer": "-3",
+      "misconception_tag": "absolute_value_confusion",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is -3.",
+      "read_aloud_text": "Which integer is 3 units below zero?",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Which integer is 3 units below zero?",
+        "cache_key": "skill-world:G6M_NS_003:question:G6M_NS_003_LVL5_Q01"
+      },
+      "acceptable_answers": [
+        "-3",
+        "-3"
+      ],
+      "value": -3,
+      "points": [
+        -3,
+        0
+      ],
+      "min": -6,
+      "max": 6
+    }
+  ],
+  "review_bank": [],
+  "support_type": "integer_number_line"
+}

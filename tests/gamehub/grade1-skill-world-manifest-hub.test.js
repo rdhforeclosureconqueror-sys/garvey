@@ -511,3 +511,25 @@ test('Grade 6 Math ratios and unit rates package appears from manifest for the h
   assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
   assert.equal(`/skill-world/${encodeURIComponent('G6M_RP_001')}/drill`, '/skill-world/G6M_RP_001/drill');
 });
+
+test('Grade 6 Number System Skill World packages appear from manifest for the hub', () => {
+  const skillIds = ['G6M_NS_001', 'G6M_NS_002', 'G6M_NS_003'];
+  for (const skillId of skillIds) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
+  const packages = skillIds.map((skillId) => readPackage(`${skillId}.skill-package.v1.json`));
+  for (const pkg of packages) {
+    assert.equal(pkg.grade, 6);
+    assert.equal(pkg.subject, 'Math');
+    assert.equal(pkg.domain, 'The Number System');
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
+  }
+  assert.deepEqual(packages.map((pkg) => pkg.skill), ['Dividing Fractions', 'Multi-Digit Decimal Operations', 'Integers and the Number Line']);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});

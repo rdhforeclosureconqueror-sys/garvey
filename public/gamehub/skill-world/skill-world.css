@@ -664,3 +664,20 @@ button,input,select,textarea{font:inherit;max-width:100%}
 /* Grade 6 ratios and rates visual models. */
 .ratio-table-visual,.double-number-line-visual,.tape-diagram-visual,.unit-rate-card-visual{display:grid;justify-items:center;gap:.7rem;max-width:100%;overflow-x:auto}.sw-ratio-table{border-collapse:separate;border-spacing:0;width:min(100%,32rem);background:#fff;border:3px solid #2563eb;border-radius:16px;overflow:hidden;box-shadow:0 8px 16px rgba(15,23,42,.12)}.sw-ratio-table th,.sw-ratio-table td{padding:.75rem 1rem;text-align:center;border-bottom:1px solid #bfdbfe;border-right:1px solid #bfdbfe;font-weight:900}.sw-ratio-table th{background:#dbeafe;color:#1e3a8a}.sw-ratio-table td.is-missing{background:#fef3c7;color:#92400e;outline:3px solid #f59e0b;outline-offset:-3px}.double-number-track{width:min(34rem,92vw);display:grid;gap:.35rem}.number-line-rail{height:5px;background:#2563eb;border-radius:999px}.bottom-rail{background:#16a34a}.double-number-ticks{display:flex;justify-content:space-between;gap:.35rem}.double-number-tick{display:grid;justify-items:center;align-items:center;min-width:2.6rem;font-weight:900}.double-number-tick i{height:1.8rem;border-left:3px solid #0f172a}.double-number-label{font-weight:900;color:#1e3a8a}.bottom-label{color:#166534}.tape-row{display:flex;width:min(34rem,92vw);border:3px solid #0f172a;border-radius:18px;overflow:hidden;background:#fff}.tape-part{display:grid;gap:.35rem;padding:.55rem;border-right:2px solid #0f172a;min-width:5rem}.tape-part:last-child{border-right:0}.tape-part strong{text-align:center;font-size:.85rem}.tape-cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(18px,1fr));gap:3px}.tape-cells span{min-height:2rem;border:1px solid rgba(15,23,42,.35);border-radius:6px}.tape-total{font-weight:900;color:#7c2d12}.unit-rate-card{width:min(25rem,88vw);display:grid;gap:.55rem;padding:1rem;border:3px solid #7c3aed;border-radius:20px;background:linear-gradient(180deg,#f5f3ff,#fff);box-shadow:0 8px 16px rgba(15,23,42,.12);text-align:center}.unit-rate-card p{margin:.15rem}.per-one{padding:.65rem;border:3px dashed #7c3aed;border-radius:16px;background:#ede9fe;font-size:1.25rem;font-weight:900}.unit-rate-answer{color:#166534;font-size:1.1rem}
 @media (max-width:520px){.sw-ratio-table th,.sw-ratio-table td{padding:.55rem .6rem}.double-number-tick{min-width:2rem;font-size:.85rem}.tape-row{flex-direction:column}.tape-part{border-right:0;border-bottom:2px solid #0f172a}.tape-part:last-child{border-bottom:0}}
+
+.integer-number-line-visual,.absolute-value-model-visual{overflow-x:auto}
+.integer-number-line-track,.absolute-value-line{position:relative;min-width:320px;height:82px;margin:10px 4px 4px;border-top:4px solid #475569}
+.integer-number-line-track{top:34px}
+.integer-number-tick{position:absolute;top:-14px;transform:translateX(-50%);text-align:center;font-size:.78rem;color:#334155}
+.integer-number-tick i{display:block;width:2px;height:18px;background:#475569;margin:0 auto 4px}
+.integer-number-tick.zero-tick i{height:26px;background:#0f766e}
+.integer-number-tick.is-marked b{background:#fef3c7;border:1px solid #f59e0b;border-radius:999px;padding:1px 5px}
+.integer-number-point{position:absolute;top:-34px;transform:translateX(-50%);color:#dc2626;font-size:1.2rem}
+.absolute-value-line{top:36px;border-top-color:#64748b}
+.abs-zero,.abs-value-point{position:absolute;top:-34px;transform:translateX(-50%);background:#fff;border:1px solid #94a3b8;border-radius:999px;padding:2px 7px;font-weight:700;color:#0f172a}
+.abs-value-point{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
+.abs-distance{position:absolute;top:-5px;height:10px;background:linear-gradient(90deg,#60a5fa,#2563eb);border-radius:999px}
+.coordinate-plane-four-quadrant{min-width:320px;overflow:hidden}
+.coordinate-axis{background:#334155;align-self:center;justify-self:stretch;z-index:1}
+.coordinate-axis.x-axis{height:2px}.coordinate-axis.y-axis{width:2px;justify-self:center;align-self:stretch}
+.origin-label{font-weight:700;color:#0f766e}

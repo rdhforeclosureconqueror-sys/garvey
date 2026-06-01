@@ -1912,3 +1912,65 @@ const grade6RatiosRates=load('G6M_RP_001');
   const manifestForGrade6=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
   assert.ok(manifestForGrade6.packages.includes('G6M_RP_001.skill-package.v1.json'),'manifest includes G6M_RP_001');
 }
+
+const grade6NumberSystemPackages = [
+  {id:'G6M_NS_001',domain:'The Number System',skill:'Dividing Fractions',labels:['Level 1: Fraction Division Meaning','Level 2: Visual Fraction Division','Level 3: Divide Fractions by Fractions','Level 4: Fraction Division Word Problems','Mixed'],visuals:['fraction_bar','fraction_division_model','number_line','word_problem_model'],types:['multiple_choice','short_response','fraction_response','division_equation'],tags:['divisor_dividend_confusion','reciprocal_misuse','fraction_division_context_error','quotient_size_confusion'],pkg:load('G6M_NS_001')},
+  {id:'G6M_NS_002',domain:'The Number System',skill:'Multi-Digit Decimal Operations',labels:['Level 1: Add and Subtract Decimals','Level 2: Multiply Decimals','Level 3: Divide Decimals','Level 4: Decimal Operation Word Problems','Mixed'],visuals:['decimal_grid','place_value_chart','algorithm_steps','estimation_number_line'],types:['multiple_choice','short_response','decimal_response','word_problem'],tags:['decimal_alignment_error','decimal_product_size_error','decimal_quotient_error','operation_choice_error'],pkg:load('G6M_NS_002')},
+  {id:'G6M_NS_003',domain:'The Number System',skill:'Integers and the Number Line',labels:['Level 1: Positive and Negative Numbers','Level 2: Opposites and Absolute Value','Level 3: Compare Integers','Level 4: Coordinate Plane With Integers','Mixed'],visuals:['integer_number_line','absolute_value_model','coordinate_plane','comparison_model'],types:['multiple_choice','short_response','integer_response','comparison'],tags:['negative_number_order_error','absolute_value_confusion','opposite_number_confusion','coordinate_sign_error'],pkg:load('G6M_NS_003')}
+];
+
+grade6NumberSystemPackages.forEach(({id,domain,skill,labels,visuals,types,tags,pkg})=>{
+  const allQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])];
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,6,`${id} is Grade 6`);
+  assert.equal(pkg.subject,'Math',`${id} is Math`);
+  assert.equal(pkg.domain,domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,skill,`${id} title matches plan`);
+  const mission=Renderer.renderSkillWorld(pkg,{failClosed:true});
+  assert.deepEqual(mission.steps,['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],`${id} full mission flow renders`);
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(mission.html,new RegExp(label),`${id} renders ${label}`));
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(allQuestions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(Schema.QUESTION_TYPES.includes(type),`schema accepts ${type}`));
+  types.forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(allQuestions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} constructed-response items have acceptable_answers`);
+  for (const screen of ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile']) {
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${id} ${screen} has Read This Page narration`);
+    assert.ok((pkg.page_audio?.[screen]?.text||'').split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`${id} ${screen} narration teaches the page`);
+  }
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} references Read Question`));
+  [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} Skill Practice question has Read Question narration`));
+  const drillState=Renderer.createState(); drillState.mode='drill';
+  assert.match(Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+
+const grade6NsManifest=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
+['G6M_NS_001.skill-package.v1.json','G6M_NS_002.skill-package.v1.json','G6M_NS_003.skill-package.v1.json'].forEach((file)=>assert.ok(grade6NsManifest.packages.includes(file),`manifest includes ${file}`));
+const grade6NsQuestions=grade6NumberSystemPackages.flatMap(({pkg})=>[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])]);
+const grade6NsFractionDivisionHtml=VisualRegistry.render(grade6NsQuestions.find((q)=>q.visual_model==='fraction_division_model'));
+assert.match(grade6NsFractionDivisionHtml,/data-renderer="fraction_division_model"/,'fraction_division_model renderer output exists');
+assert.match(grade6NsFractionDivisionHtml,/fraction-division-cell/,'fraction_division_model renders real partitioning cells');
+const grade6NsDecimalGridHtml=VisualRegistry.render(grade6NsQuestions.find((q)=>q.visual_model==='decimal_grid'));
+assert.match(grade6NsDecimalGridHtml,/data-renderer="decimal_grid"/,'decimal_grid renderer output exists');
+assert.match(grade6NsDecimalGridHtml,/decimal-grid-cell shaded/,'decimal_grid renderer output includes real shaded cells');
+const grade6NsIntegerNumberLineHtml=VisualRegistry.render(grade6NsQuestions.find((q)=>q.visual_model==='integer_number_line'));
+assert.match(grade6NsIntegerNumberLineHtml,/data-renderer="integer_number_line"/,'integer_number_line renderer output exists');
+assert.match(grade6NsIntegerNumberLineHtml,/>-\d+</,'integer_number_line shows negative numbers');
+assert.match(grade6NsIntegerNumberLineHtml,/>0</,'integer_number_line shows zero');
+assert.match(grade6NsIntegerNumberLineHtml,/>\d+</,'integer_number_line shows positive numbers');
+const grade6NsAbsoluteValueHtml=VisualRegistry.render(grade6NsQuestions.find((q)=>q.visual_model==='absolute_value_model'));
+assert.match(grade6NsAbsoluteValueHtml,/data-renderer="absolute_value_model"/,'absolute_value_model renderer output exists');
+assert.match(grade6NsAbsoluteValueHtml,/abs-distance/,'absolute_value_model shows distance from zero');
+const negativeCoordinateHtml=VisualRegistry.render(grade6NsQuestions.find((q)=>q.visual_model==='coordinate_plane'&&JSON.stringify(q).includes('-')));
+assert.match(negativeCoordinateHtml,/data-renderer="coordinate_plane"/,'coordinate_plane renderer output exists');
+assert.match(negativeCoordinateHtml,/coordinate-plane-four-quadrant/,'coordinate_plane can render negative coordinates');
+assert.match(negativeCoordinateHtml,/-[1-9]/,'coordinate_plane includes negative axis labels or point labels');
+const integerComparisonHtml=VisualRegistry.render(grade6NsQuestions.find((q)=>q.visual_model==='comparison_model'));
+assert.match(integerComparisonHtml,/integer-comparison-visual/,'comparison visuals handle negative integers');
