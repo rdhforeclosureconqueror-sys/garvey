@@ -1,0 +1,2385 @@
+{
+  "skill_id": "G4M_FR_003",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production",
+    "source_docs": [
+      "docs/grade4_math_completion_plan.md",
+      "curriculum-framework/plans/grade4-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade4-math-completion-plan.v1.json",
+    "readiness_checkpoint": "grade4_division_fractions_batch"
+  },
+  "grade": 4,
+  "subject": "Math",
+  "domain": "Number and Operations—Fractions",
+  "skill": "Multiply Fractions by Whole Numbers",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "game_theme": {
+    "title": "Multiply Fractions by Whole Numbers",
+    "badge_name": "Multiply Fractions by Whole Numbers Badge",
+    "mission_intro": "Use understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers to help the Skill World crew solve a real Grade 4 math challenge."
+  },
+  "lesson": {
+    "story_mission": "Join the Skill World crew and solve problems about understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers.",
+    "mini_lesson": "In this lesson, you will understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers. Use models to keep the math organized and explain each answer.",
+    "objective": "Understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers.",
+    "key_vocabulary": [
+      "unit fraction",
+      "multiple",
+      "repeated addition",
+      "whole number",
+      "product",
+      "fraction scaling"
+    ],
+    "concept_explanation": "Grade 4 mathematicians use visual models and precise vocabulary to understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers.",
+    "common_misconception": "A common mistake is using the right numbers but the wrong relationship, part, group, or leftover.",
+    "real_world_connection": "These skills help with sharing, comparing, measuring, cooking, planning, and checking real-world quantities.",
+    "lesson_summary": "Read carefully, model the relationship, calculate with precision, and check for reasonableness.",
+    "visual_model": "repeated_addition",
+    "audio": {
+      "text": "In this lesson, we practice Multiply Fractions by Whole Numbers. Use the visuals, listen to the page narration, and explain why your answer works.",
+      "label": "Listen to Lesson",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G4M_FR_003_L1_Q1",
+      "question_id": "G4M_FR_003_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "What is 3 copies of 1/4?",
+      "answer": "3/4",
+      "correct_answer": "3/4",
+      "misconception_tag": "unit_fraction_multiple_confusion",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 3/4.",
+      "read_aloud_text": "What is 3 copies of 1 over 4?",
+      "question_audio": {
+        "text": "What is 3 copies of 1 over 4?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "numerator": 3,
+      "denominator": 4,
+      "choices": [
+        "3/4",
+        "1/4",
+        "3/4",
+        "3/7"
+      ],
+      "acceptable_answers": [
+        "3/4",
+        "3/4"
+      ]
+    },
+    {
+      "id": "G4M_FR_003_L1_Q2",
+      "question_id": "G4M_FR_003_L1_Q2",
+      "question_type": "fraction_response",
+      "visual_model": "fraction_bar",
+      "prompt": "What is 5 copies of 1/6?",
+      "answer": "5/6",
+      "correct_answer": "5/6",
+      "misconception_tag": "unit_fraction_multiple_confusion",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 5/6.",
+      "read_aloud_text": "What is 5 copies of 1 over 6?",
+      "question_audio": {
+        "text": "What is 5 copies of 1 over 6?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "numerator": 5,
+      "denominator": 6,
+      "choices": [
+        "5/6",
+        "1/6",
+        "5/6",
+        "5/11"
+      ],
+      "acceptable_answers": [
+        "5/6",
+        "5/6"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Read the question and underline the action.",
+    "Use the visual model to organize the values.",
+    "Check your answer by explaining what each number means."
+  ],
+  "guided_practice": [
+    {
+      "id": "G4M_FR_003_L1_Q1",
+      "question_id": "G4M_FR_003_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "What is 3 copies of 1/4?",
+      "answer": "3/4",
+      "correct_answer": "3/4",
+      "misconception_tag": "unit_fraction_multiple_confusion",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 3/4.",
+      "read_aloud_text": "What is 3 copies of 1 over 4?",
+      "question_audio": {
+        "text": "What is 3 copies of 1 over 4?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "numerator": 3,
+      "denominator": 4,
+      "choices": [
+        "3/4",
+        "1/4",
+        "3/4",
+        "3/7"
+      ],
+      "acceptable_answers": [
+        "3/4",
+        "3/4"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G4M_FR_003_L1_Q5",
+      "question_id": "G4M_FR_003_L1_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "What is 4 copies of 1/5?",
+      "answer": "4/5",
+      "correct_answer": "4/5",
+      "misconception_tag": "unit_fraction_multiple_confusion",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 4/5.",
+      "read_aloud_text": "What is 4 copies of 1 over 5?",
+      "question_audio": {
+        "text": "What is 4 copies of 1 over 5?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "numerator": 4,
+      "denominator": 5,
+      "choices": [
+        "4/5",
+        "1/5",
+        "4/5",
+        "4/9"
+      ],
+      "acceptable_answers": [
+        "4/5",
+        "4/5"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G4M_FR_003_L1_Q9",
+      "question_id": "G4M_FR_003_L1_Q9",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "What is 5 copies of 1/9?",
+      "answer": "5/9",
+      "correct_answer": "5/9",
+      "misconception_tag": "unit_fraction_multiple_confusion",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 5/9.",
+      "read_aloud_text": "What is 5 copies of 1 over 9?",
+      "question_audio": {
+        "text": "What is 5 copies of 1 over 9?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "numerator": 5,
+      "denominator": 9,
+      "choices": [
+        "5/9",
+        "1/9",
+        "5/9",
+        "5/14"
+      ],
+      "acceptable_answers": [
+        "5/9",
+        "5/9"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "unit_fraction_multiple_confusion": "Watch for unit fraction multiple confusion.",
+    "whole_number_fraction_product_error": "Watch for whole number fraction product error.",
+    "repeated_addition_fraction_error": "Watch for repeated addition fraction error.",
+    "fraction_scaling_confusion": "Watch for fraction scaling confusion."
+  },
+  "level_banks": [
+    {
+      "level_id": "G4M_FR_003_LVL1",
+      "label": "Level 1: Unit Fractions as Multiples",
+      "focus": "Use copies of unit fractions.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_FR_003_L1_Q1",
+          "question_id": "G4M_FR_003_L1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 3 copies of 1/4?",
+          "answer": "3/4",
+          "correct_answer": "3/4",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3/4.",
+          "read_aloud_text": "What is 3 copies of 1 over 4?",
+          "question_audio": {
+            "text": "What is 3 copies of 1 over 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 3,
+          "denominator": 4,
+          "choices": [
+            "3/4",
+            "1/4",
+            "3/4",
+            "3/7"
+          ],
+          "acceptable_answers": [
+            "3/4",
+            "3/4"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q2",
+          "question_id": "G4M_FR_003_L1_Q2",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 5 copies of 1/6?",
+          "answer": "5/6",
+          "correct_answer": "5/6",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 5/6.",
+          "read_aloud_text": "What is 5 copies of 1 over 6?",
+          "question_audio": {
+            "text": "What is 5 copies of 1 over 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 5,
+          "denominator": 6,
+          "acceptable_answers": [
+            "5/6",
+            "5/6"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q3",
+          "question_id": "G4M_FR_003_L1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 2 copies of 1/3?",
+          "answer": "2/3",
+          "correct_answer": "2/3",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2/3.",
+          "read_aloud_text": "What is 2 copies of 1 over 3?",
+          "question_audio": {
+            "text": "What is 2 copies of 1 over 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 2,
+          "denominator": 3,
+          "choices": [
+            "2/3",
+            "1/3",
+            "2/3",
+            "2/5"
+          ],
+          "acceptable_answers": [
+            "2/3",
+            "2/3"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q4",
+          "question_id": "G4M_FR_003_L1_Q4",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 7 copies of 1/8?",
+          "answer": "7/8",
+          "correct_answer": "7/8",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 7/8.",
+          "read_aloud_text": "What is 7 copies of 1 over 8?",
+          "question_audio": {
+            "text": "What is 7 copies of 1 over 8?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 7,
+          "denominator": 8,
+          "choices": [
+            "7/8",
+            "1/8",
+            "7/8",
+            "7/15"
+          ],
+          "acceptable_answers": [
+            "7/8",
+            "7/8"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q5",
+          "question_id": "G4M_FR_003_L1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 4 copies of 1/5?",
+          "answer": "4/5",
+          "correct_answer": "4/5",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 4/5.",
+          "read_aloud_text": "What is 4 copies of 1 over 5?",
+          "question_audio": {
+            "text": "What is 4 copies of 1 over 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 4,
+          "denominator": 5,
+          "choices": [
+            "4/5",
+            "1/5",
+            "4/5",
+            "4/9"
+          ],
+          "acceptable_answers": [
+            "4/5",
+            "4/5"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q6",
+          "question_id": "G4M_FR_003_L1_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 6 copies of 1/10?",
+          "answer": "3/5",
+          "correct_answer": "3/5",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3/5.",
+          "read_aloud_text": "What is 6 copies of 1 over 10?",
+          "question_audio": {
+            "text": "What is 6 copies of 1 over 10?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 6,
+          "denominator": 10,
+          "choices": [
+            "3/5",
+            "1/10",
+            "6/10",
+            "6/16"
+          ],
+          "acceptable_answers": [
+            "3/5",
+            "6/10"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q7",
+          "question_id": "G4M_FR_003_L1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 3 copies of 1/7?",
+          "answer": "3/7",
+          "correct_answer": "3/7",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3/7.",
+          "read_aloud_text": "What is 3 copies of 1 over 7?",
+          "question_audio": {
+            "text": "What is 3 copies of 1 over 7?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 3,
+          "denominator": 7,
+          "choices": [
+            "3/7",
+            "1/7",
+            "3/7",
+            "3/10"
+          ],
+          "acceptable_answers": [
+            "3/7",
+            "3/7"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q8",
+          "question_id": "G4M_FR_003_L1_Q8",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 8 copies of 1/12?",
+          "answer": "2/3",
+          "correct_answer": "2/3",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2/3.",
+          "read_aloud_text": "What is 8 copies of 1 over 12?",
+          "question_audio": {
+            "text": "What is 8 copies of 1 over 12?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 8,
+          "denominator": 12,
+          "choices": [
+            "2/3",
+            "1/12",
+            "8/12",
+            "8/20"
+          ],
+          "acceptable_answers": [
+            "2/3",
+            "8/12"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q9",
+          "question_id": "G4M_FR_003_L1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 5 copies of 1/9?",
+          "answer": "5/9",
+          "correct_answer": "5/9",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 5/9.",
+          "read_aloud_text": "What is 5 copies of 1 over 9?",
+          "question_audio": {
+            "text": "What is 5 copies of 1 over 9?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 5,
+          "denominator": 9,
+          "choices": [
+            "5/9",
+            "1/9",
+            "5/9",
+            "5/14"
+          ],
+          "acceptable_answers": [
+            "5/9",
+            "5/9"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L1_Q10",
+          "question_id": "G4M_FR_003_L1_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 9 copies of 1/10?",
+          "answer": "9/10",
+          "correct_answer": "9/10",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9/10.",
+          "read_aloud_text": "What is 9 copies of 1 over 10?",
+          "question_audio": {
+            "text": "What is 9 copies of 1 over 10?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 9,
+          "denominator": 10,
+          "choices": [
+            "9/10",
+            "1/10",
+            "9/10",
+            "9/19"
+          ],
+          "acceptable_answers": [
+            "9/10",
+            "9/10"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_FR_003_LVL2",
+      "label": "Level 2: Whole Number Times Fraction",
+      "focus": "Multiply a whole number by a fraction.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_FR_003_L2_Q1",
+          "question_id": "G4M_FR_003_L2_Q1",
+          "question_type": "fraction_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 3 × 2/5.",
+          "answer": "1 1/5",
+          "correct_answer": "1 1/5",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/5.",
+          "read_aloud_text": "Multiply 3 times 2 over 5.",
+          "question_audio": {
+            "text": "Multiply 3 times 2 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 3,
+          "addend": "2/5",
+          "factor_a": 3,
+          "factor_b": "2/5",
+          "equation": "3 × 2/5 = ?",
+          "repeated_addition": "2/5 + 2/5 + 2/5 = 1 1/5",
+          "acceptable_answers": [
+            "1 1/5",
+            "6/5"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q2",
+          "question_id": "G4M_FR_003_L2_Q2",
+          "question_type": "multiplication_equation",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 4 × 3/8.",
+          "answer": "1 1/2",
+          "correct_answer": "1 1/2",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/2.",
+          "read_aloud_text": "Multiply 4 times 3 over 8.",
+          "question_audio": {
+            "text": "Multiply 4 times 3 over 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 4,
+          "addend": "3/8",
+          "factor_a": 4,
+          "factor_b": "3/8",
+          "equation": "4 × 3/8 = ?",
+          "repeated_addition": "3/8 + 3/8 + 3/8 + 3/8 = 1 1/2",
+          "acceptable_answers": [
+            "1 1/2",
+            "12/8"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q3",
+          "question_id": "G4M_FR_003_L2_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 5 × 1/6.",
+          "answer": "5/6",
+          "correct_answer": "5/6",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 5/6.",
+          "read_aloud_text": "Multiply 5 times 1 over 6.",
+          "question_audio": {
+            "text": "Multiply 5 times 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 5,
+          "addend": "1/6",
+          "factor_a": 5,
+          "factor_b": "1/6",
+          "equation": "5 × 1/6 = ?",
+          "repeated_addition": "1/6 + 1/6 + 1/6 + 1/6 + 1/6 = 5/6",
+          "acceptable_answers": [
+            "5/6",
+            "5/6"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q4",
+          "question_id": "G4M_FR_003_L2_Q4",
+          "question_type": "multiplication_equation",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 2 × 5/7.",
+          "answer": "1 3/7",
+          "correct_answer": "1 3/7",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 3/7.",
+          "read_aloud_text": "Multiply 2 times 5 over 7.",
+          "question_audio": {
+            "text": "Multiply 2 times 5 over 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 2,
+          "addend": "5/7",
+          "factor_a": 2,
+          "factor_b": "5/7",
+          "equation": "2 × 5/7 = ?",
+          "repeated_addition": "5/7 + 5/7 = 1 3/7",
+          "acceptable_answers": [
+            "1 3/7",
+            "10/7"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q5",
+          "question_id": "G4M_FR_003_L2_Q5",
+          "question_type": "fraction_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 6 × 1/4.",
+          "answer": "1 1/2",
+          "correct_answer": "1 1/2",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/2.",
+          "read_aloud_text": "Multiply 6 times 1 over 4.",
+          "question_audio": {
+            "text": "Multiply 6 times 1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 6,
+          "addend": "1/4",
+          "factor_a": 6,
+          "factor_b": "1/4",
+          "equation": "6 × 1/4 = ?",
+          "repeated_addition": "1/4 + 1/4 + 1/4 + 1/4 + 1/4 + 1/4 = 1 1/2",
+          "acceptable_answers": [
+            "1 1/2",
+            "6/4"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q6",
+          "question_id": "G4M_FR_003_L2_Q6",
+          "question_type": "multiplication_equation",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 3 × 4/9.",
+          "answer": "1 1/3",
+          "correct_answer": "1 1/3",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/3.",
+          "read_aloud_text": "Multiply 3 times 4 over 9.",
+          "question_audio": {
+            "text": "Multiply 3 times 4 over 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 3,
+          "addend": "4/9",
+          "factor_a": 3,
+          "factor_b": "4/9",
+          "equation": "3 × 4/9 = ?",
+          "repeated_addition": "4/9 + 4/9 + 4/9 = 1 1/3",
+          "acceptable_answers": [
+            "1 1/3",
+            "12/9"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q7",
+          "question_id": "G4M_FR_003_L2_Q7",
+          "question_type": "fraction_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 7 × 2/10.",
+          "answer": "1 2/5",
+          "correct_answer": "1 2/5",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 2/5.",
+          "read_aloud_text": "Multiply 7 times 2 over 10.",
+          "question_audio": {
+            "text": "Multiply 7 times 2 over 10.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 7,
+          "addend": "2/10",
+          "factor_a": 7,
+          "factor_b": "2/10",
+          "equation": "7 × 2/10 = ?",
+          "repeated_addition": "2/10 + 2/10 + 2/10 + 2/10 + 2/10 + 2/10 + 2/10 = 1 2/5",
+          "acceptable_answers": [
+            "1 2/5",
+            "14/10"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q8",
+          "question_id": "G4M_FR_003_L2_Q8",
+          "question_type": "multiplication_equation",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 4 × 3/5.",
+          "answer": "2 2/5",
+          "correct_answer": "2 2/5",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2 2/5.",
+          "read_aloud_text": "Multiply 4 times 3 over 5.",
+          "question_audio": {
+            "text": "Multiply 4 times 3 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 4,
+          "addend": "3/5",
+          "factor_a": 4,
+          "factor_b": "3/5",
+          "equation": "4 × 3/5 = ?",
+          "repeated_addition": "3/5 + 3/5 + 3/5 + 3/5 = 2 2/5",
+          "acceptable_answers": [
+            "2 2/5",
+            "12/5"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q9",
+          "question_id": "G4M_FR_003_L2_Q9",
+          "question_type": "fraction_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 5 × 2/3.",
+          "answer": "3 1/3",
+          "correct_answer": "3 1/3",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3 1/3.",
+          "read_aloud_text": "Multiply 5 times 2 over 3.",
+          "question_audio": {
+            "text": "Multiply 5 times 2 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 5,
+          "addend": "2/3",
+          "factor_a": 5,
+          "factor_b": "2/3",
+          "equation": "5 × 2/3 = ?",
+          "repeated_addition": "2/3 + 2/3 + 2/3 + 2/3 + 2/3 = 3 1/3",
+          "acceptable_answers": [
+            "3 1/3",
+            "10/3"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L2_Q10",
+          "question_id": "G4M_FR_003_L2_Q10",
+          "question_type": "multiplication_equation",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 8 × 1/12.",
+          "answer": "2/3",
+          "correct_answer": "2/3",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2/3.",
+          "read_aloud_text": "Multiply 8 times 1 over 12.",
+          "question_audio": {
+            "text": "Multiply 8 times 1 over 12.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 8,
+          "addend": "1/12",
+          "factor_a": 8,
+          "factor_b": "1/12",
+          "equation": "8 × 1/12 = ?",
+          "repeated_addition": "1/12 + 1/12 + 1/12 + 1/12 + 1/12 + 1/12 + 1/12 + 1/12 = 2/3",
+          "acceptable_answers": [
+            "2/3",
+            "8/12"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_FR_003_LVL3",
+      "label": "Level 3: Fraction Times Whole Number",
+      "focus": "Use the commutative property with fractions.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_FR_003_L3_Q1",
+          "question_id": "G4M_FR_003_L3_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 1/4 × 5.",
+          "answer": "1 1/4",
+          "correct_answer": "1 1/4",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/4.",
+          "read_aloud_text": "Multiply 1 over 4 times 5.",
+          "question_audio": {
+            "text": "Multiply 1 over 4 times 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 5,
+          "factor_b": "1/4",
+          "groups": 5,
+          "items_per_group": 1,
+          "total": 5,
+          "equation": "1/4 × 5 = ?",
+          "acceptable_answers": [
+            "1 1/4",
+            "5/4"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q2",
+          "question_id": "G4M_FR_003_L3_Q2",
+          "question_type": "fraction_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 2/3 × 4.",
+          "answer": "2 2/3",
+          "correct_answer": "2 2/3",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2 2/3.",
+          "read_aloud_text": "Multiply 2 over 3 times 4.",
+          "question_audio": {
+            "text": "Multiply 2 over 3 times 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 4,
+          "factor_b": "2/3",
+          "groups": 4,
+          "items_per_group": 1,
+          "total": 8,
+          "equation": "2/3 × 4 = ?",
+          "acceptable_answers": [
+            "2 2/3",
+            "8/3"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q3",
+          "question_id": "G4M_FR_003_L3_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 3/7 × 2.",
+          "answer": "6/7",
+          "correct_answer": "6/7",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 6/7.",
+          "read_aloud_text": "Multiply 3 over 7 times 2.",
+          "question_audio": {
+            "text": "Multiply 3 over 7 times 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 2,
+          "factor_b": "3/7",
+          "groups": 2,
+          "items_per_group": 1,
+          "total": 6,
+          "equation": "3/7 × 2 = ?",
+          "acceptable_answers": [
+            "6/7",
+            "6/7"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q4",
+          "question_id": "G4M_FR_003_L3_Q4",
+          "question_type": "fraction_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 4/5 × 3.",
+          "answer": "2 2/5",
+          "correct_answer": "2 2/5",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2 2/5.",
+          "read_aloud_text": "Multiply 4 over 5 times 3.",
+          "question_audio": {
+            "text": "Multiply 4 over 5 times 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 3,
+          "factor_b": "4/5",
+          "groups": 3,
+          "items_per_group": 1,
+          "total": 12,
+          "equation": "4/5 × 3 = ?",
+          "acceptable_answers": [
+            "2 2/5",
+            "12/5"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q5",
+          "question_id": "G4M_FR_003_L3_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 5/8 × 6.",
+          "answer": "3 3/4",
+          "correct_answer": "3 3/4",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3 3/4.",
+          "read_aloud_text": "Multiply 5 over 8 times 6.",
+          "question_audio": {
+            "text": "Multiply 5 over 8 times 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 6,
+          "factor_b": "5/8",
+          "groups": 6,
+          "items_per_group": 1,
+          "total": 30,
+          "equation": "5/8 × 6 = ?",
+          "acceptable_answers": [
+            "3 3/4",
+            "30/8"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q6",
+          "question_id": "G4M_FR_003_L3_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 2/9 × 7.",
+          "answer": "1 5/9",
+          "correct_answer": "1 5/9",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 5/9.",
+          "read_aloud_text": "Multiply 2 over 9 times 7.",
+          "question_audio": {
+            "text": "Multiply 2 over 9 times 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 7,
+          "factor_b": "2/9",
+          "groups": 7,
+          "items_per_group": 1,
+          "total": 14,
+          "equation": "2/9 × 7 = ?",
+          "acceptable_answers": [
+            "1 5/9",
+            "14/9"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q7",
+          "question_id": "G4M_FR_003_L3_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 3/10 × 5.",
+          "answer": "1 1/2",
+          "correct_answer": "1 1/2",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/2.",
+          "read_aloud_text": "Multiply 3 over 10 times 5.",
+          "question_audio": {
+            "text": "Multiply 3 over 10 times 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 5,
+          "factor_b": "3/10",
+          "groups": 5,
+          "items_per_group": 1,
+          "total": 15,
+          "equation": "3/10 × 5 = ?",
+          "acceptable_answers": [
+            "1 1/2",
+            "15/10"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q8",
+          "question_id": "G4M_FR_003_L3_Q8",
+          "question_type": "fraction_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 1/6 × 8.",
+          "answer": "1 1/3",
+          "correct_answer": "1 1/3",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/3.",
+          "read_aloud_text": "Multiply 1 over 6 times 8.",
+          "question_audio": {
+            "text": "Multiply 1 over 6 times 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 8,
+          "factor_b": "1/6",
+          "groups": 8,
+          "items_per_group": 1,
+          "total": 8,
+          "equation": "1/6 × 8 = ?",
+          "acceptable_answers": [
+            "1 1/3",
+            "8/6"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q9",
+          "question_id": "G4M_FR_003_L3_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 4/12 × 9.",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Multiply 4 over 12 times 9.",
+          "question_audio": {
+            "text": "Multiply 4 over 12 times 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 9,
+          "factor_b": "4/12",
+          "groups": 9,
+          "items_per_group": 1,
+          "total": 36,
+          "equation": "4/12 × 9 = ?",
+          "acceptable_answers": [
+            "3",
+            "36/12"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L3_Q10",
+          "question_id": "G4M_FR_003_L3_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 2/5 × 6.",
+          "answer": "2 2/5",
+          "correct_answer": "2 2/5",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2 2/5.",
+          "read_aloud_text": "Multiply 2 over 5 times 6.",
+          "question_audio": {
+            "text": "Multiply 2 over 5 times 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 6,
+          "factor_b": "2/5",
+          "groups": 6,
+          "items_per_group": 1,
+          "total": 12,
+          "equation": "2/5 × 6 = ?",
+          "acceptable_answers": [
+            "2 2/5",
+            "12/5"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_FR_003_LVL4",
+      "label": "Level 4: Fraction Word Problems",
+      "focus": "Solve fraction multiplication stories.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_FR_003_L4_Q1",
+          "question_id": "G4M_FR_003_L4_Q1",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each trail marker is 1/4 mile apart. What distance is 5 markers?",
+          "answer": "1 1/4",
+          "correct_answer": "1 1/4",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/4.",
+          "read_aloud_text": "Each trail marker is 1 over 4 mile apart. What distance is 5 markers?",
+          "question_audio": {
+            "text": "Each trail marker is 1 over 4 mile apart. What distance is 5 markers?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            5,
+            "1/4"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 5,
+          "denominator": 4,
+          "acceptable_answers": [
+            "1 1/4",
+            "5/4"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q2",
+          "question_id": "G4M_FR_003_L4_Q2",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each ribbon uses 2/3 yard. How much ribbon for 4 ribbons?",
+          "answer": "2 2/3",
+          "correct_answer": "2 2/3",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2 2/3.",
+          "read_aloud_text": "Each ribbon uses 2 over 3 yard. How much ribbon for 4 ribbons?",
+          "question_audio": {
+            "text": "Each ribbon uses 2 over 3 yard. How much ribbon for 4 ribbons?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            4,
+            "2/3"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 8,
+          "denominator": 3,
+          "acceptable_answers": [
+            "2 2/3",
+            "8/3"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q3",
+          "question_id": "G4M_FR_003_L4_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A recipe uses 3/8 cup of oats. How much for 3 batches?",
+          "answer": "1 1/8",
+          "correct_answer": "1 1/8",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/8.",
+          "read_aloud_text": "A recipe uses 3 over 8 cup of oats. How much for 3 batches?",
+          "question_audio": {
+            "text": "A recipe uses 3 over 8 cup of oats. How much for 3 batches?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            3,
+            "3/8"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 9,
+          "denominator": 8,
+          "acceptable_answers": [
+            "1 1/8",
+            "9/8"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q4",
+          "question_id": "G4M_FR_003_L4_Q4",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each lap is 5/6 mile. How far are 2 laps?",
+          "answer": "1 2/3",
+          "correct_answer": "1 2/3",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 2/3.",
+          "read_aloud_text": "Each lap is 5 over 6 mile. How far are 2 laps?",
+          "question_audio": {
+            "text": "Each lap is 5 over 6 mile. How far are 2 laps?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            2,
+            "5/6"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 10,
+          "denominator": 6,
+          "acceptable_answers": [
+            "1 2/3",
+            "10/6"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q5",
+          "question_id": "G4M_FR_003_L4_Q5",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each plant gets 1/5 liter of water. How much for 7 plants?",
+          "answer": "1 2/5",
+          "correct_answer": "1 2/5",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 2/5.",
+          "read_aloud_text": "Each plant gets 1 over 5 liter of water. How much for 7 plants?",
+          "question_audio": {
+            "text": "Each plant gets 1 over 5 liter of water. How much for 7 plants?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            7,
+            "1/5"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 7,
+          "denominator": 5,
+          "acceptable_answers": [
+            "1 2/5",
+            "7/5"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q6",
+          "question_id": "G4M_FR_003_L4_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each team gets 3/10 of a field. How much for 4 teams?",
+          "answer": "1 1/5",
+          "correct_answer": "1 1/5",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/5.",
+          "read_aloud_text": "Each team gets 3 over 10 of a field. How much for 4 teams?",
+          "question_audio": {
+            "text": "Each team gets 3 over 10 of a field. How much for 4 teams?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            4,
+            "3/10"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 12,
+          "denominator": 10,
+          "acceptable_answers": [
+            "1 1/5",
+            "12/10"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q7",
+          "question_id": "G4M_FR_003_L4_Q7",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each snack bag has 2/7 pound. How much for 6 bags?",
+          "answer": "1 5/7",
+          "correct_answer": "1 5/7",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 5/7.",
+          "read_aloud_text": "Each snack bag has 2 over 7 pound. How much for 6 bags?",
+          "question_audio": {
+            "text": "Each snack bag has 2 over 7 pound. How much for 6 bags?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            6,
+            "2/7"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 12,
+          "denominator": 7,
+          "acceptable_answers": [
+            "1 5/7",
+            "12/7"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q8",
+          "question_id": "G4M_FR_003_L4_Q8",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each art strip is 3/4 foot. How long are 5 strips?",
+          "answer": "3 3/4",
+          "correct_answer": "3 3/4",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3 3/4.",
+          "read_aloud_text": "Each art strip is 3 over 4 foot. How long are 5 strips?",
+          "question_audio": {
+            "text": "Each art strip is 3 over 4 foot. How long are 5 strips?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            5,
+            "3/4"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 15,
+          "denominator": 4,
+          "acceptable_answers": [
+            "3 3/4",
+            "15/4"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q9",
+          "question_id": "G4M_FR_003_L4_Q9",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each shelf uses 1/12 gallon of paint. How much for 8 shelves?",
+          "answer": "2/3",
+          "correct_answer": "2/3",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2/3.",
+          "read_aloud_text": "Each shelf uses 1 over 12 gallon of paint. How much for 8 shelves?",
+          "question_audio": {
+            "text": "Each shelf uses 1 over 12 gallon of paint. How much for 8 shelves?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            8,
+            "1/12"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 8,
+          "denominator": 12,
+          "acceptable_answers": [
+            "2/3",
+            "8/12"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_L4_Q10",
+          "question_id": "G4M_FR_003_L4_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each runner gets 4/9 liter. How much for 3 runners?",
+          "answer": "1 1/3",
+          "correct_answer": "1 1/3",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/3.",
+          "read_aloud_text": "Each runner gets 4 over 9 liter. How much for 3 runners?",
+          "question_audio": {
+            "text": "Each runner gets 4 over 9 liter. How much for 3 runners?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            3,
+            "4/9"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 12,
+          "denominator": 9,
+          "acceptable_answers": [
+            "1 1/3",
+            "12/9"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_FR_003_MIXED",
+      "label": "Mixed",
+      "focus": "Solve mixed fraction multiplication problems.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_FR_003_MIXED_Q1",
+          "question_id": "G4M_FR_003_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 3 copies of 1/4?",
+          "answer": "3/4",
+          "correct_answer": "3/4",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3/4.",
+          "read_aloud_text": "What is 3 copies of 1 over 4?",
+          "question_audio": {
+            "text": "What is 3 copies of 1 over 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 3,
+          "denominator": 4,
+          "choices": [
+            "3/4",
+            "1/4",
+            "3/4",
+            "3/7"
+          ],
+          "acceptable_answers": [
+            "3/4",
+            "3/4"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q2",
+          "question_id": "G4M_FR_003_MIXED_Q2",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "What is 5 copies of 1/6?",
+          "answer": "5/6",
+          "correct_answer": "5/6",
+          "misconception_tag": "unit_fraction_multiple_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 5/6.",
+          "read_aloud_text": "What is 5 copies of 1 over 6?",
+          "question_audio": {
+            "text": "What is 5 copies of 1 over 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "numerator": 5,
+          "denominator": 6,
+          "choices": [
+            "5/6",
+            "1/6",
+            "5/6",
+            "5/11"
+          ],
+          "acceptable_answers": [
+            "5/6",
+            "5/6"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q3",
+          "question_id": "G4M_FR_003_MIXED_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 5 × 1/6.",
+          "answer": "5/6",
+          "correct_answer": "5/6",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 5/6.",
+          "read_aloud_text": "Multiply 5 times 1 over 6.",
+          "question_audio": {
+            "text": "Multiply 5 times 1 over 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 5,
+          "addend": "1/6",
+          "factor_a": 5,
+          "factor_b": "1/6",
+          "equation": "5 × 1/6 = ?",
+          "repeated_addition": "1/6 + 1/6 + 1/6 + 1/6 + 1/6 = 5/6",
+          "acceptable_answers": [
+            "5/6",
+            "5/6"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q4",
+          "question_id": "G4M_FR_003_MIXED_Q4",
+          "question_type": "multiplication_equation",
+          "visual_model": "repeated_addition",
+          "prompt": "Multiply 2 × 5/7.",
+          "answer": "1 3/7",
+          "correct_answer": "1 3/7",
+          "misconception_tag": "whole_number_fraction_product_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 3/7.",
+          "read_aloud_text": "Multiply 2 times 5 over 7.",
+          "question_audio": {
+            "text": "Multiply 2 times 5 over 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "groups": 2,
+          "addend": "5/7",
+          "factor_a": 2,
+          "factor_b": "5/7",
+          "equation": "2 × 5/7 = ?",
+          "repeated_addition": "5/7 + 5/7 = 1 3/7",
+          "acceptable_answers": [
+            "1 3/7",
+            "10/7"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q5",
+          "question_id": "G4M_FR_003_MIXED_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 5/8 × 6.",
+          "answer": "3 3/4",
+          "correct_answer": "3 3/4",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3 3/4.",
+          "read_aloud_text": "Multiply 5 over 8 times 6.",
+          "question_audio": {
+            "text": "Multiply 5 over 8 times 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 6,
+          "factor_b": "5/8",
+          "groups": 6,
+          "items_per_group": 1,
+          "total": 30,
+          "equation": "5/8 × 6 = ?",
+          "acceptable_answers": [
+            "3 3/4",
+            "30/8"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q6",
+          "question_id": "G4M_FR_003_MIXED_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "multiplication_model",
+          "prompt": "Multiply 2/9 × 7.",
+          "answer": "1 5/9",
+          "correct_answer": "1 5/9",
+          "misconception_tag": "fraction_scaling_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 5/9.",
+          "read_aloud_text": "Multiply 2 over 9 times 7.",
+          "question_audio": {
+            "text": "Multiply 2 over 9 times 7.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "factor_a": 7,
+          "factor_b": "2/9",
+          "groups": 7,
+          "items_per_group": 1,
+          "total": 14,
+          "equation": "2/9 × 7 = ?",
+          "acceptable_answers": [
+            "1 5/9",
+            "14/9"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q7",
+          "question_id": "G4M_FR_003_MIXED_Q7",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each snack bag has 2/7 pound. How much for 6 bags?",
+          "answer": "1 5/7",
+          "correct_answer": "1 5/7",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 5/7.",
+          "read_aloud_text": "Each snack bag has 2 over 7 pound. How much for 6 bags?",
+          "question_audio": {
+            "text": "Each snack bag has 2 over 7 pound. How much for 6 bags?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            6,
+            "2/7"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 12,
+          "denominator": 7,
+          "acceptable_answers": [
+            "1 5/7",
+            "12/7"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q8",
+          "question_id": "G4M_FR_003_MIXED_Q8",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "Each art strip is 3/4 foot. How long are 5 strips?",
+          "answer": "3 3/4",
+          "correct_answer": "3 3/4",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3 3/4.",
+          "read_aloud_text": "Each art strip is 3 over 4 foot. How long are 5 strips?",
+          "question_audio": {
+            "text": "Each art strip is 3 over 4 foot. How long are 5 strips?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            5,
+            "3/4"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 15,
+          "denominator": 4,
+          "acceptable_answers": [
+            "3 3/4",
+            "15/4"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q9",
+          "question_id": "G4M_FR_003_MIXED_Q9",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Each shelf uses 1/12 gallon of paint. How much for 8 shelves?",
+          "answer": "2/3",
+          "correct_answer": "2/3",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 2/3.",
+          "read_aloud_text": "Each shelf uses 1 over 12 gallon of paint. How much for 8 shelves?",
+          "question_audio": {
+            "text": "Each shelf uses 1 over 12 gallon of paint. How much for 8 shelves?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            8,
+            "1/12"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 8,
+          "denominator": 12,
+          "acceptable_answers": [
+            "2/3",
+            "8/12"
+          ]
+        },
+        {
+          "id": "G4M_FR_003_MIXED_Q10",
+          "question_id": "G4M_FR_003_MIXED_Q10",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "Each runner gets 4/9 liter. How much for 3 runners?",
+          "answer": "1 1/3",
+          "correct_answer": "1 1/3",
+          "misconception_tag": "repeated_addition_fraction_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1 1/3.",
+          "read_aloud_text": "Each runner gets 4 over 9 liter. How much for 3 runners?",
+          "question_audio": {
+            "text": "Each runner gets 4 over 9 liter. How much for 3 runners?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "knowns": [
+            3,
+            "4/9"
+          ],
+          "operation": "multiply fractions",
+          "numerator": 12,
+          "denominator": 9,
+          "acceptable_answers": [
+            "1 1/3",
+            "12/9"
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Multiply Fractions by Whole Numbers. In this mission, the Skill World crew needs your Grade 4 reasoning to solve understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers. Listen for unit fraction, multiple, repeated addition, whole number, product, fraction scaling, then press Start Mission when you are ready to connect the story to the math model.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers. First read the objective and vocabulary. Then study how the model shows each number, because the visual will help you avoid common mistakes with unit fraction, multiple, repeated addition, whole number, product, fraction scaling. Press Next when you can explain the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this example like a tutor solving beside you. Step one is to read the question and name what is being asked. Step two is to model the quantities and labels, including unit fraction, multiple, repeated addition, whole number, product, fraction scaling. Step three is to calculate carefully and check that the final answer is reasonable. Press Next when the answer and model match.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo slows the thinking down. Read each label, say what each part of the model means, and connect the equation to the picture. Press Next when you can tell why the method works for understand a fraction as a multiple of a unit fraction and multiply fractions by whole numbers.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Now try a practice question with support. Tap Read Question first, use the visual model instead of guessing, and check that your answer fits unit fraction, multiple, repeated addition, whole number, product, fraction scaling. Use the hint if your first idea does not match the model, then press Next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This challenge gives you less help. Tap Read Question, choose a strategy, and explain how the model supports your answer. Check your work carefully before you press Next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This checkpoint shows what you can do independently. Tap Read Question, solve with careful Grade 4 reasoning, and verify the answer against the model before you move on. Answer carefully, then press Next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Great work completing Multiply Fractions by Whole Numbers. This badge celebrates clear models, accurate calculations, and math language that explains unit fraction, multiple, repeated addition, whole number, product, fraction scaling. Press Save Growth Data to add this skill to your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Your profile summarizes this mission and offers more practice. Choose Continue to Skill Practice to work through four focused levels and a Mixed level, or go back to the hub when you are ready. This final page helps you choose the next best step based on today's work.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

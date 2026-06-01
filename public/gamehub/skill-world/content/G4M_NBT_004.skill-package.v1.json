@@ -1,0 +1,2531 @@
+{
+  "skill_id": "G4M_NBT_004",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production",
+    "source_docs": [
+      "docs/grade4_math_completion_plan.md",
+      "curriculum-framework/plans/grade4-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade4-math-completion-plan.v1.json",
+    "readiness_checkpoint": "grade4_division_fractions_batch"
+  },
+  "grade": 4,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Division With Remainders",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "game_theme": {
+    "title": "Division With Remainders",
+    "badge_name": "Division With Remainders Badge",
+    "mission_intro": "Use divide up to four-digit dividends by one-digit divisors, including remainders to help the Skill World crew solve a real Grade 4 math challenge."
+  },
+  "lesson": {
+    "story_mission": "Join the Skill World crew and solve problems about divide up to four-digit dividends by one-digit divisors, including remainders.",
+    "mini_lesson": "In this lesson, you will divide up to four-digit dividends by one-digit divisors, including remainders. Use models to keep the math organized and explain each answer.",
+    "objective": "Divide up to four-digit dividends by one-digit divisors, including remainders.",
+    "key_vocabulary": [
+      "dividend",
+      "divisor",
+      "quotient",
+      "remainder",
+      "equal groups",
+      "inverse operation",
+      "interpret"
+    ],
+    "concept_explanation": "Grade 4 mathematicians use visual models and precise vocabulary to divide up to four-digit dividends by one-digit divisors, including remainders.",
+    "common_misconception": "A common mistake is using the right numbers but the wrong relationship, part, group, or leftover.",
+    "real_world_connection": "These skills help with sharing, comparing, measuring, cooking, planning, and checking real-world quantities.",
+    "lesson_summary": "Read carefully, model the relationship, calculate with precision, and check for reasonableness.",
+    "visual_model": "remainder_model",
+    "audio": {
+      "text": "In this lesson, we practice Division With Remainders. Use the visuals, listen to the page narration, and explain why your answer works.",
+      "label": "Listen to Lesson",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G4M_NBT_004_L1_Q1",
+      "question_id": "G4M_NBT_004_L1_Q1",
+      "question_type": "division_equation",
+      "visual_model": "division_model",
+      "prompt": "Divide 248 ÷ 4.",
+      "answer": "62",
+      "correct_answer": "62",
+      "misconception_tag": "quotient_place_value_error",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 62.",
+      "read_aloud_text": "Divide 248 divided by 4.",
+      "question_audio": {
+        "text": "Divide 248 divided by 4.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "dividend": 248,
+      "divisor": 4,
+      "quotient": 62,
+      "total": 248,
+      "groups": 4,
+      "equation": "248 ÷ 4 = 62",
+      "a": 248,
+      "b": 4,
+      "operator": "÷",
+      "acceptable_answers": [
+        "62",
+        "62"
+      ]
+    },
+    {
+      "id": "G4M_NBT_004_L1_Q2",
+      "question_id": "G4M_NBT_004_L1_Q2",
+      "question_type": "short_response",
+      "visual_model": "area_model",
+      "prompt": "Divide 396 ÷ 3.",
+      "answer": "132",
+      "correct_answer": "132",
+      "misconception_tag": "quotient_place_value_error",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 132.",
+      "read_aloud_text": "Divide 396 divided by 3.",
+      "question_audio": {
+        "text": "Divide 396 divided by 3.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "dividend": 396,
+      "divisor": 3,
+      "quotient": 132,
+      "total": 396,
+      "groups": 3,
+      "equation": "396 ÷ 3 = 132",
+      "a": 396,
+      "b": 3,
+      "operator": "÷",
+      "acceptable_answers": [
+        "132",
+        "132"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Read the question and underline the action.",
+    "Use the visual model to organize the values.",
+    "Check your answer by explaining what each number means."
+  ],
+  "guided_practice": [
+    {
+      "id": "G4M_NBT_004_L1_Q1",
+      "question_id": "G4M_NBT_004_L1_Q1",
+      "question_type": "division_equation",
+      "visual_model": "division_model",
+      "prompt": "Divide 248 ÷ 4.",
+      "answer": "62",
+      "correct_answer": "62",
+      "misconception_tag": "quotient_place_value_error",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 62.",
+      "read_aloud_text": "Divide 248 divided by 4.",
+      "question_audio": {
+        "text": "Divide 248 divided by 4.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "dividend": 248,
+      "divisor": 4,
+      "quotient": 62,
+      "total": 248,
+      "groups": 4,
+      "equation": "248 ÷ 4 = 62",
+      "a": 248,
+      "b": 4,
+      "operator": "÷",
+      "acceptable_answers": [
+        "62",
+        "62"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G4M_NBT_004_L1_Q5",
+      "question_id": "G4M_NBT_004_L1_Q5",
+      "question_type": "short_response",
+      "visual_model": "area_model",
+      "prompt": "Divide 936 ÷ 9.",
+      "answer": "104",
+      "correct_answer": "104",
+      "misconception_tag": "quotient_place_value_error",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 104.",
+      "read_aloud_text": "Divide 936 divided by 9.",
+      "question_audio": {
+        "text": "Divide 936 divided by 9.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "dividend": 936,
+      "divisor": 9,
+      "quotient": 104,
+      "total": 936,
+      "groups": 9,
+      "equation": "936 ÷ 9 = 104",
+      "a": 936,
+      "b": 9,
+      "operator": "÷",
+      "acceptable_answers": [
+        "104",
+        "104"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G4M_NBT_004_L1_Q9",
+      "question_id": "G4M_NBT_004_L1_Q9",
+      "question_type": "multiple_choice",
+      "visual_model": "fact_family_model",
+      "prompt": "Divide 7215 ÷ 5.",
+      "answer": "1443",
+      "correct_answer": "1443",
+      "misconception_tag": "quotient_place_value_error",
+      "hints": [
+        "Read the question and underline the action.",
+        "Use the visual model to organize the values.",
+        "Check your answer by explaining what each number means."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model.",
+        "incorrect": "Try again. Re-read the question and use the model labels."
+      },
+      "explanation": "The answer is 1443.",
+      "read_aloud_text": "Divide 7215 divided by 5.",
+      "question_audio": {
+        "text": "Divide 7215 divided by 5.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "dividend": 7215,
+      "divisor": 5,
+      "quotient": 1443,
+      "total": 7215,
+      "groups": 5,
+      "equation": "7215 ÷ 5 = 1443",
+      "a": 7215,
+      "b": 5,
+      "operator": "÷",
+      "choices": [
+        "1443",
+        "1444",
+        "1442",
+        "1445"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "remainder_confusion": "Watch for remainder confusion.",
+    "divisor_dividend_confusion": "Watch for divisor dividend confusion.",
+    "quotient_place_value_error": "Watch for quotient place value error.",
+    "inverse_operation_confusion": "Watch for inverse operation confusion."
+  },
+  "level_banks": [
+    {
+      "level_id": "G4M_NBT_004_LVL1",
+      "label": "Level 1: Division Without Remainders",
+      "focus": "Divide evenly and name the quotient.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_004_L1_Q1",
+          "question_id": "G4M_NBT_004_L1_Q1",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Divide 248 ÷ 4.",
+          "answer": "62",
+          "correct_answer": "62",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 62.",
+          "read_aloud_text": "Divide 248 divided by 4.",
+          "question_audio": {
+            "text": "Divide 248 divided by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 248,
+          "divisor": 4,
+          "quotient": 62,
+          "total": 248,
+          "groups": 4,
+          "equation": "248 ÷ 4 = 62",
+          "a": 248,
+          "b": 4,
+          "operator": "÷",
+          "acceptable_answers": [
+            "62",
+            "62"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q2",
+          "question_id": "G4M_NBT_004_L1_Q2",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Divide 396 ÷ 3.",
+          "answer": "132",
+          "correct_answer": "132",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 132.",
+          "read_aloud_text": "Divide 396 divided by 3.",
+          "question_audio": {
+            "text": "Divide 396 divided by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 396,
+          "divisor": 3,
+          "quotient": 132,
+          "total": 396,
+          "groups": 3,
+          "equation": "396 ÷ 3 = 132",
+          "a": 396,
+          "b": 3,
+          "operator": "÷",
+          "acceptable_answers": [
+            "132",
+            "132"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q3",
+          "question_id": "G4M_NBT_004_L1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Divide 864 ÷ 6.",
+          "answer": "144",
+          "correct_answer": "144",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 144.",
+          "read_aloud_text": "Divide 864 divided by 6.",
+          "question_audio": {
+            "text": "Divide 864 divided by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 864,
+          "divisor": 6,
+          "quotient": 144,
+          "total": 864,
+          "groups": 6,
+          "equation": "864 ÷ 6 = 144",
+          "a": 864,
+          "b": 6,
+          "operator": "÷",
+          "choices": [
+            "144",
+            "145",
+            "143",
+            "146"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q4",
+          "question_id": "G4M_NBT_004_L1_Q4",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Divide 1284 ÷ 4.",
+          "answer": "321",
+          "correct_answer": "321",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 321.",
+          "read_aloud_text": "Divide 1284 divided by 4.",
+          "question_audio": {
+            "text": "Divide 1284 divided by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 1284,
+          "divisor": 4,
+          "quotient": 321,
+          "total": 1284,
+          "groups": 4,
+          "equation": "1284 ÷ 4 = 321",
+          "a": 1284,
+          "b": 4,
+          "operator": "÷",
+          "acceptable_answers": [
+            "321",
+            "321"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q5",
+          "question_id": "G4M_NBT_004_L1_Q5",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Divide 936 ÷ 9.",
+          "answer": "104",
+          "correct_answer": "104",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 104.",
+          "read_aloud_text": "Divide 936 divided by 9.",
+          "question_audio": {
+            "text": "Divide 936 divided by 9.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 936,
+          "divisor": 9,
+          "quotient": 104,
+          "total": 936,
+          "groups": 9,
+          "equation": "936 ÷ 9 = 104",
+          "a": 936,
+          "b": 9,
+          "operator": "÷",
+          "acceptable_answers": [
+            "104",
+            "104"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q6",
+          "question_id": "G4M_NBT_004_L1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Divide 2448 ÷ 6.",
+          "answer": "408",
+          "correct_answer": "408",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 408.",
+          "read_aloud_text": "Divide 2448 divided by 6.",
+          "question_audio": {
+            "text": "Divide 2448 divided by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 2448,
+          "divisor": 6,
+          "quotient": 408,
+          "total": 2448,
+          "groups": 6,
+          "equation": "2448 ÷ 6 = 408",
+          "a": 2448,
+          "b": 6,
+          "operator": "÷",
+          "choices": [
+            "408",
+            "409",
+            "407",
+            "410"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q7",
+          "question_id": "G4M_NBT_004_L1_Q7",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Divide 3696 ÷ 8.",
+          "answer": "462",
+          "correct_answer": "462",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 462.",
+          "read_aloud_text": "Divide 3696 divided by 8.",
+          "question_audio": {
+            "text": "Divide 3696 divided by 8.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 3696,
+          "divisor": 8,
+          "quotient": 462,
+          "total": 3696,
+          "groups": 8,
+          "equation": "3696 ÷ 8 = 462",
+          "a": 3696,
+          "b": 8,
+          "operator": "÷",
+          "acceptable_answers": [
+            "462",
+            "462"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q8",
+          "question_id": "G4M_NBT_004_L1_Q8",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Divide 4824 ÷ 6.",
+          "answer": "804",
+          "correct_answer": "804",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 804.",
+          "read_aloud_text": "Divide 4824 divided by 6.",
+          "question_audio": {
+            "text": "Divide 4824 divided by 6.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 4824,
+          "divisor": 6,
+          "quotient": 804,
+          "total": 4824,
+          "groups": 6,
+          "equation": "4824 ÷ 6 = 804",
+          "a": 4824,
+          "b": 6,
+          "operator": "÷",
+          "acceptable_answers": [
+            "804",
+            "804"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q9",
+          "question_id": "G4M_NBT_004_L1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Divide 7215 ÷ 5.",
+          "answer": "1443",
+          "correct_answer": "1443",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 1443.",
+          "read_aloud_text": "Divide 7215 divided by 5.",
+          "question_audio": {
+            "text": "Divide 7215 divided by 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 7215,
+          "divisor": 5,
+          "quotient": 1443,
+          "total": 7215,
+          "groups": 5,
+          "equation": "7215 ÷ 5 = 1443",
+          "a": 7215,
+          "b": 5,
+          "operator": "÷",
+          "choices": [
+            "1443",
+            "1444",
+            "1442",
+            "1445"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L1_Q10",
+          "question_id": "G4M_NBT_004_L1_Q10",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Divide 9636 ÷ 3.",
+          "answer": "3212",
+          "correct_answer": "3212",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3212.",
+          "read_aloud_text": "Divide 9636 divided by 3.",
+          "question_audio": {
+            "text": "Divide 9636 divided by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 9636,
+          "divisor": 3,
+          "quotient": 3212,
+          "total": 9636,
+          "groups": 3,
+          "equation": "9636 ÷ 3 = 3212",
+          "a": 9636,
+          "b": 3,
+          "operator": "÷",
+          "acceptable_answers": [
+            "3212",
+            "3212"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_004_LVL2",
+      "label": "Level 2: Division With Remainders",
+      "focus": "Divide and record quotient plus remainder.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_004_L2_Q1",
+          "question_id": "G4M_NBT_004_L2_Q1",
+          "question_type": "division_equation",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 17 ÷ 5. Write the quotient and remainder.",
+          "answer": "3 R2",
+          "correct_answer": "3 R2",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3 R2.",
+          "read_aloud_text": "Divide 17 divided by 5. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 17 divided by 5. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3 R2",
+            "3 r 2",
+            "3 remainder 2"
+          ],
+          "dividend": 17,
+          "divisor": 5,
+          "quotient": 3,
+          "remainder": 2,
+          "total": 17,
+          "groups": 5,
+          "equation": "17 ÷ 5 = 3 R2",
+          "object": "counters"
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q2",
+          "question_id": "G4M_NBT_004_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 29 ÷ 4. Write the quotient and remainder.",
+          "answer": "7 R1",
+          "correct_answer": "7 R1",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 7 R1.",
+          "read_aloud_text": "Divide 29 divided by 4. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 29 divided by 4. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "7 R1",
+            "7 r 1",
+            "7 remainder 1"
+          ],
+          "dividend": 29,
+          "divisor": 4,
+          "quotient": 7,
+          "remainder": 1,
+          "total": 29,
+          "groups": 4,
+          "equation": "29 ÷ 4 = 7 R1",
+          "object": "counters"
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q3",
+          "question_id": "G4M_NBT_004_L2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 46 ÷ 6. Write the quotient and remainder.",
+          "answer": "7 R4",
+          "correct_answer": "7 R4",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 7 R4.",
+          "read_aloud_text": "Divide 46 divided by 6. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 46 divided by 6. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "7 R4",
+            "7 r 4",
+            "7 remainder 4"
+          ],
+          "dividend": 46,
+          "divisor": 6,
+          "quotient": 7,
+          "remainder": 4,
+          "total": 46,
+          "groups": 6,
+          "equation": "46 ÷ 6 = 7 R4",
+          "object": "counters",
+          "choices": [
+            "7 R4",
+            "75",
+            "73",
+            "76"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q4",
+          "question_id": "G4M_NBT_004_L2_Q4",
+          "question_type": "division_equation",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 83 ÷ 9. Write the quotient and remainder.",
+          "answer": "9 R2",
+          "correct_answer": "9 R2",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9 R2.",
+          "read_aloud_text": "Divide 83 divided by 9. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 83 divided by 9. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "9 R2",
+            "9 r 2",
+            "9 remainder 2"
+          ],
+          "dividend": 83,
+          "divisor": 9,
+          "quotient": 9,
+          "remainder": 2,
+          "total": 83,
+          "groups": 9,
+          "equation": "83 ÷ 9 = 9 R2",
+          "object": "counters"
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q5",
+          "question_id": "G4M_NBT_004_L2_Q5",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 157 ÷ 8. Write the quotient and remainder.",
+          "answer": "19 R5",
+          "correct_answer": "19 R5",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 19 R5.",
+          "read_aloud_text": "Divide 157 divided by 8. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 157 divided by 8. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "19 R5",
+            "19 r 5",
+            "19 remainder 5"
+          ],
+          "dividend": 157,
+          "divisor": 8,
+          "quotient": 19,
+          "remainder": 5,
+          "total": 157,
+          "groups": 8,
+          "equation": "157 ÷ 8 = 19 R5",
+          "object": "counters"
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q6",
+          "question_id": "G4M_NBT_004_L2_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 238 ÷ 7. Write the quotient and remainder.",
+          "answer": "34 R0",
+          "correct_answer": "34 R0",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 34 R0.",
+          "read_aloud_text": "Divide 238 divided by 7. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 238 divided by 7. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "34 R0",
+            "34 r 0",
+            "34 remainder 0"
+          ],
+          "dividend": 238,
+          "divisor": 7,
+          "quotient": 34,
+          "remainder": 0,
+          "total": 238,
+          "groups": 7,
+          "equation": "238 ÷ 7 = 34 R0",
+          "object": "counters",
+          "choices": [
+            "34 R0",
+            "341",
+            "339",
+            "342"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q7",
+          "question_id": "G4M_NBT_004_L2_Q7",
+          "question_type": "division_equation",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 409 ÷ 6. Write the quotient and remainder.",
+          "answer": "68 R1",
+          "correct_answer": "68 R1",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 68 R1.",
+          "read_aloud_text": "Divide 409 divided by 6. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 409 divided by 6. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "68 R1",
+            "68 r 1",
+            "68 remainder 1"
+          ],
+          "dividend": 409,
+          "divisor": 6,
+          "quotient": 68,
+          "remainder": 1,
+          "total": 409,
+          "groups": 6,
+          "equation": "409 ÷ 6 = 68 R1",
+          "object": "counters"
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q8",
+          "question_id": "G4M_NBT_004_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 735 ÷ 8. Write the quotient and remainder.",
+          "answer": "91 R7",
+          "correct_answer": "91 R7",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 91 R7.",
+          "read_aloud_text": "Divide 735 divided by 8. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 735 divided by 8. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "91 R7",
+            "91 r 7",
+            "91 remainder 7"
+          ],
+          "dividend": 735,
+          "divisor": 8,
+          "quotient": 91,
+          "remainder": 7,
+          "total": 735,
+          "groups": 8,
+          "equation": "735 ÷ 8 = 91 R7",
+          "object": "counters"
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q9",
+          "question_id": "G4M_NBT_004_L2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 1219 ÷ 5. Write the quotient and remainder.",
+          "answer": "243 R4",
+          "correct_answer": "243 R4",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 243 R4.",
+          "read_aloud_text": "Divide 1219 divided by 5. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 1219 divided by 5. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "243 R4",
+            "243 r 4",
+            "243 remainder 4"
+          ],
+          "dividend": 1219,
+          "divisor": 5,
+          "quotient": 243,
+          "remainder": 4,
+          "total": 1219,
+          "groups": 5,
+          "equation": "1219 ÷ 5 = 243 R4",
+          "object": "counters",
+          "choices": [
+            "243 R4",
+            "2435",
+            "2433",
+            "2436"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L2_Q10",
+          "question_id": "G4M_NBT_004_L2_Q10",
+          "question_type": "division_equation",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 3428 ÷ 9. Write the quotient and remainder.",
+          "answer": "380 R8",
+          "correct_answer": "380 R8",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 380 R8.",
+          "read_aloud_text": "Divide 3428 divided by 9. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 3428 divided by 9. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "380 R8",
+            "380 r 8",
+            "380 remainder 8"
+          ],
+          "dividend": 3428,
+          "divisor": 9,
+          "quotient": 380,
+          "remainder": 8,
+          "total": 3428,
+          "groups": 9,
+          "equation": "3428 ÷ 9 = 380 R8",
+          "object": "counters"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_004_LVL3",
+      "label": "Level 3: Interpret Remainders",
+      "focus": "Use the story to decide what the remainder means.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_004_L3_Q1",
+          "question_id": "G4M_NBT_004_L3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "A bus holds 8 students. How many buses are needed for 58 students?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "A bus holds 8 students. How many buses are needed for 58 students?",
+          "question_audio": {
+            "text": "A bus holds 8 students. How many buses are needed for 58 students?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 58,
+          "divisor": 8,
+          "quotient": 7,
+          "remainder": 2,
+          "remainder_interpretation": "round up because every student needs a bus",
+          "acceptable_answers": [
+            "8"
+          ],
+          "choices": [
+            "8",
+            "9",
+            "7",
+            "10"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q2",
+          "question_id": "G4M_NBT_004_L3_Q2",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "A baker packs 47 muffins in boxes of 6. How many full boxes can be packed?",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "A baker packs 47 muffins in boxes of 6. How many full boxes can be packed?",
+          "question_audio": {
+            "text": "A baker packs 47 muffins in boxes of 6. How many full boxes can be packed?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 47,
+          "divisor": 6,
+          "quotient": 7,
+          "remainder": 5,
+          "remainder_interpretation": "ignore the leftover for full boxes",
+          "acceptable_answers": [
+            "7"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q3",
+          "question_id": "G4M_NBT_004_L3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "Share 35 stickers equally among 4 friends. How many stickers are left over?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Share 35 stickers equally among 4 friends. How many stickers are left over?",
+          "question_audio": {
+            "text": "Share 35 stickers equally among 4 friends. How many stickers are left over?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 35,
+          "divisor": 4,
+          "quotient": 8,
+          "remainder": 3,
+          "remainder_interpretation": "the leftover is the remainder",
+          "acceptable_answers": [
+            "3"
+          ],
+          "choices": [
+            "3",
+            "4",
+            "2",
+            "5"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q4",
+          "question_id": "G4M_NBT_004_L3_Q4",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "A ribbon is 31 inches long. Pieces are 5 inches each. How many whole pieces can be cut?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "A ribbon is 31 inches long. Pieces are 5 inches each. How many whole pieces can be cut?",
+          "question_audio": {
+            "text": "A ribbon is 31 inches long. Pieces are 5 inches each. How many whole pieces can be cut?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 31,
+          "divisor": 5,
+          "quotient": 6,
+          "remainder": 1,
+          "remainder_interpretation": "use only whole pieces",
+          "acceptable_answers": [
+            "6"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q5",
+          "question_id": "G4M_NBT_004_L3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "A team has 74 players in vans of 9. How many vans are needed?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "A team has 74 players in vans of 9. How many vans are needed?",
+          "question_audio": {
+            "text": "A team has 74 players in vans of 9. How many vans are needed?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 74,
+          "divisor": 9,
+          "quotient": 8,
+          "remainder": 2,
+          "remainder_interpretation": "round up because the leftover players need a van",
+          "acceptable_answers": [
+            "9"
+          ],
+          "choices": [
+            "9",
+            "10",
+            "8",
+            "11"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q6",
+          "question_id": "G4M_NBT_004_L3_Q6",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "There are 50 photos with 6 photos on each page. How many pages are needed?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "There are 50 photos with 6 photos on each page. How many pages are needed?",
+          "question_audio": {
+            "text": "There are 50 photos with 6 photos on each page. How many pages are needed?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 50,
+          "divisor": 6,
+          "quotient": 8,
+          "remainder": 2,
+          "remainder_interpretation": "round up because leftover photos need a page",
+          "acceptable_answers": [
+            "9"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q7",
+          "question_id": "G4M_NBT_004_L3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "A gardener plants 67 seeds in rows of 8. How many seeds are left after full rows?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "A gardener plants 67 seeds in rows of 8. How many seeds are left after full rows?",
+          "question_audio": {
+            "text": "A gardener plants 67 seeds in rows of 8. How many seeds are left after full rows?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 67,
+          "divisor": 8,
+          "quotient": 8,
+          "remainder": 3,
+          "remainder_interpretation": "leftover seeds are the remainder",
+          "acceptable_answers": [
+            "3"
+          ],
+          "choices": [
+            "3",
+            "4",
+            "2",
+            "5"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q8",
+          "question_id": "G4M_NBT_004_L3_Q8",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "A teacher puts 92 pencils into cups of 10. How many full cups are made?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "A teacher puts 92 pencils into cups of 10. How many full cups are made?",
+          "question_audio": {
+            "text": "A teacher puts 92 pencils into cups of 10. How many full cups are made?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 92,
+          "divisor": 10,
+          "quotient": 9,
+          "remainder": 2,
+          "remainder_interpretation": "ignore leftovers for full cups",
+          "acceptable_answers": [
+            "9"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q9",
+          "question_id": "G4M_NBT_004_L3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "A trail mix bag has 125 ounces. Each jar holds 8 ounces. How many full jars?",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "A trail mix bag has 125 ounces. Each jar holds 8 ounces. How many full jars?",
+          "question_audio": {
+            "text": "A trail mix bag has 125 ounces. Each jar holds 8 ounces. How many full jars?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 125,
+          "divisor": 8,
+          "quotient": 15,
+          "remainder": 5,
+          "remainder_interpretation": "use only full jars",
+          "acceptable_answers": [
+            "15"
+          ],
+          "choices": [
+            "15",
+            "16",
+            "14",
+            "17"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_L3_Q10",
+          "question_id": "G4M_NBT_004_L3_Q10",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "There are 142 campers in cabins of 6. How many cabins are needed?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 24.",
+          "read_aloud_text": "There are 142 campers in cabins of 6. How many cabins are needed?",
+          "question_audio": {
+            "text": "There are 142 campers in cabins of 6. How many cabins are needed?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 142,
+          "divisor": 6,
+          "quotient": 23,
+          "remainder": 4,
+          "remainder_interpretation": "round up for all campers",
+          "acceptable_answers": [
+            "24"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_004_LVL4",
+      "label": "Level 4: Check With Multiplication",
+      "focus": "Use multiplication and addition to check division.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_004_L4_Q1",
+          "question_id": "G4M_NBT_004_L4_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 156 ÷ 4 using multiplication and the remainder.",
+          "answer": "4 × 39 + 0 = 156",
+          "correct_answer": "4 × 39 + 0 = 156",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 4 × 39 + 0 = 156.",
+          "read_aloud_text": "Check 156 divided by 4 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 156 divided by 4 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "4 × 39 + 0 = 156",
+            "39 × 4 = 156",
+            "156 × 4 = 39",
+            "4 + 39 + 0 = 156"
+          ],
+          "acceptable_answers": [
+            "4 × 39 + 0 = 156",
+            "39 × 4 + 0 = 156"
+          ],
+          "a": 4,
+          "b": 39,
+          "product": 156,
+          "equation": "4 × 39 + 0 = 156"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q2",
+          "question_id": "G4M_NBT_004_L4_Q2",
+          "question_type": "short_response",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 275 ÷ 5 using multiplication and the remainder.",
+          "answer": "5 × 55 + 0 = 275",
+          "correct_answer": "5 × 55 + 0 = 275",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 5 × 55 + 0 = 275.",
+          "read_aloud_text": "Check 275 divided by 5 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 275 divided by 5 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "5 × 55 + 0 = 275",
+            "55 × 5 = 275",
+            "275 × 5 = 55",
+            "5 + 55 + 0 = 275"
+          ],
+          "acceptable_answers": [
+            "5 × 55 + 0 = 275",
+            "55 × 5 + 0 = 275"
+          ],
+          "a": 5,
+          "b": 55,
+          "product": 275,
+          "equation": "5 × 55 + 0 = 275"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q3",
+          "question_id": "G4M_NBT_004_L4_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 432 ÷ 6 using multiplication and the remainder.",
+          "answer": "6 × 72 + 0 = 432",
+          "correct_answer": "6 × 72 + 0 = 432",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 6 × 72 + 0 = 432.",
+          "read_aloud_text": "Check 432 divided by 6 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 432 divided by 6 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "6 × 72 + 0 = 432",
+            "72 × 6 = 432",
+            "432 × 6 = 72",
+            "6 + 72 + 0 = 432"
+          ],
+          "acceptable_answers": [
+            "6 × 72 + 0 = 432",
+            "72 × 6 + 0 = 432"
+          ],
+          "a": 6,
+          "b": 72,
+          "product": 432,
+          "equation": "6 × 72 + 0 = 432"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q4",
+          "question_id": "G4M_NBT_004_L4_Q4",
+          "question_type": "short_response",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 718 ÷ 9 using multiplication and the remainder.",
+          "answer": "9 × 79 + 7 = 718",
+          "correct_answer": "9 × 79 + 7 = 718",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9 × 79 + 7 = 718.",
+          "read_aloud_text": "Check 718 divided by 9 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 718 divided by 9 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "9 × 79 + 7 = 718",
+            "79 × 9 = 725",
+            "718 × 9 = 79",
+            "9 + 79 + 7 = 718"
+          ],
+          "acceptable_answers": [
+            "9 × 79 + 7 = 718",
+            "79 × 9 + 7 = 718"
+          ],
+          "a": 9,
+          "b": 79,
+          "product": 711,
+          "equation": "9 × 79 + 7 = 718"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q5",
+          "question_id": "G4M_NBT_004_L4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 1025 ÷ 8 using multiplication and the remainder.",
+          "answer": "8 × 128 + 1 = 1025",
+          "correct_answer": "8 × 128 + 1 = 1025",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 8 × 128 + 1 = 1025.",
+          "read_aloud_text": "Check 1025 divided by 8 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 1025 divided by 8 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "8 × 128 + 1 = 1025",
+            "128 × 8 = 1026",
+            "1025 × 8 = 128",
+            "8 + 128 + 1 = 1025"
+          ],
+          "acceptable_answers": [
+            "8 × 128 + 1 = 1025",
+            "128 × 8 + 1 = 1025"
+          ],
+          "a": 8,
+          "b": 128,
+          "product": 1024,
+          "equation": "8 × 128 + 1 = 1025"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q6",
+          "question_id": "G4M_NBT_004_L4_Q6",
+          "question_type": "short_response",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 2444 ÷ 7 using multiplication and the remainder.",
+          "answer": "7 × 349 + 1 = 2444",
+          "correct_answer": "7 × 349 + 1 = 2444",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 7 × 349 + 1 = 2444.",
+          "read_aloud_text": "Check 2444 divided by 7 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 2444 divided by 7 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "7 × 349 + 1 = 2444",
+            "349 × 7 = 2445",
+            "2444 × 7 = 349",
+            "7 + 349 + 1 = 2444"
+          ],
+          "acceptable_answers": [
+            "7 × 349 + 1 = 2444",
+            "349 × 7 + 1 = 2444"
+          ],
+          "a": 7,
+          "b": 349,
+          "product": 2443,
+          "equation": "7 × 349 + 1 = 2444"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q7",
+          "question_id": "G4M_NBT_004_L4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 3201 ÷ 6 using multiplication and the remainder.",
+          "answer": "6 × 533 + 3 = 3201",
+          "correct_answer": "6 × 533 + 3 = 3201",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 6 × 533 + 3 = 3201.",
+          "read_aloud_text": "Check 3201 divided by 6 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 3201 divided by 6 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "6 × 533 + 3 = 3201",
+            "533 × 6 = 3204",
+            "3201 × 6 = 533",
+            "6 + 533 + 3 = 3201"
+          ],
+          "acceptable_answers": [
+            "6 × 533 + 3 = 3201",
+            "533 × 6 + 3 = 3201"
+          ],
+          "a": 6,
+          "b": 533,
+          "product": 3198,
+          "equation": "6 × 533 + 3 = 3201"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q8",
+          "question_id": "G4M_NBT_004_L4_Q8",
+          "question_type": "short_response",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 4876 ÷ 8 using multiplication and the remainder.",
+          "answer": "8 × 609 + 4 = 4876",
+          "correct_answer": "8 × 609 + 4 = 4876",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 8 × 609 + 4 = 4876.",
+          "read_aloud_text": "Check 4876 divided by 8 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 4876 divided by 8 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "8 × 609 + 4 = 4876",
+            "609 × 8 = 4880",
+            "4876 × 8 = 609",
+            "8 + 609 + 4 = 4876"
+          ],
+          "acceptable_answers": [
+            "8 × 609 + 4 = 4876",
+            "609 × 8 + 4 = 4876"
+          ],
+          "a": 8,
+          "b": 609,
+          "product": 4872,
+          "equation": "8 × 609 + 4 = 4876"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q9",
+          "question_id": "G4M_NBT_004_L4_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 6392 ÷ 9 using multiplication and the remainder.",
+          "answer": "9 × 710 + 2 = 6392",
+          "correct_answer": "9 × 710 + 2 = 6392",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9 × 710 + 2 = 6392.",
+          "read_aloud_text": "Check 6392 divided by 9 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 6392 divided by 9 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "9 × 710 + 2 = 6392",
+            "710 × 9 = 6394",
+            "6392 × 9 = 710",
+            "9 + 710 + 2 = 6392"
+          ],
+          "acceptable_answers": [
+            "9 × 710 + 2 = 6392",
+            "710 × 9 + 2 = 6392"
+          ],
+          "a": 9,
+          "b": 710,
+          "product": 6390,
+          "equation": "9 × 710 + 2 = 6392"
+        },
+        {
+          "id": "G4M_NBT_004_L4_Q10",
+          "question_id": "G4M_NBT_004_L4_Q10",
+          "question_type": "short_response",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 8404 ÷ 5 using multiplication and the remainder.",
+          "answer": "5 × 1680 + 4 = 8404",
+          "correct_answer": "5 × 1680 + 4 = 8404",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 5 × 1680 + 4 = 8404.",
+          "read_aloud_text": "Check 8404 divided by 5 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 8404 divided by 5 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "5 × 1680 + 4 = 8404",
+            "1680 × 5 = 8408",
+            "8404 × 5 = 1680",
+            "5 + 1680 + 4 = 8404"
+          ],
+          "acceptable_answers": [
+            "5 × 1680 + 4 = 8404",
+            "1680 × 5 + 4 = 8404"
+          ],
+          "a": 5,
+          "b": 1680,
+          "product": 8400,
+          "equation": "5 × 1680 + 4 = 8404"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_NBT_004_MIXED",
+      "label": "Mixed",
+      "focus": "Solve a mix of Grade 4 division and remainder questions.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_NBT_004_MIXED_Q1",
+          "question_id": "G4M_NBT_004_MIXED_Q1",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Divide 248 ÷ 4.",
+          "answer": "62",
+          "correct_answer": "62",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 62.",
+          "read_aloud_text": "Divide 248 divided by 4.",
+          "question_audio": {
+            "text": "Divide 248 divided by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 248,
+          "divisor": 4,
+          "quotient": 62,
+          "total": 248,
+          "groups": 4,
+          "equation": "248 ÷ 4 = 62",
+          "a": 248,
+          "b": 4,
+          "operator": "÷",
+          "acceptable_answers": [
+            "62",
+            "62"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q2",
+          "question_id": "G4M_NBT_004_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Divide 396 ÷ 3.",
+          "answer": "132",
+          "correct_answer": "132",
+          "misconception_tag": "quotient_place_value_error",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 132.",
+          "read_aloud_text": "Divide 396 divided by 3.",
+          "question_audio": {
+            "text": "Divide 396 divided by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 396,
+          "divisor": 3,
+          "quotient": 132,
+          "total": 396,
+          "groups": 3,
+          "equation": "396 ÷ 3 = 132",
+          "a": 396,
+          "b": 3,
+          "operator": "÷",
+          "acceptable_answers": [
+            "132",
+            "132"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q3",
+          "question_id": "G4M_NBT_004_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 46 ÷ 6. Write the quotient and remainder.",
+          "answer": "7 R4",
+          "correct_answer": "7 R4",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 7 R4.",
+          "read_aloud_text": "Divide 46 divided by 6. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 46 divided by 6. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "7 R4",
+            "7 r 4",
+            "7 remainder 4"
+          ],
+          "dividend": 46,
+          "divisor": 6,
+          "quotient": 7,
+          "remainder": 4,
+          "total": 46,
+          "groups": 6,
+          "equation": "46 ÷ 6 = 7 R4",
+          "object": "counters",
+          "choices": [
+            "7 R4",
+            "75",
+            "73",
+            "76"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q4",
+          "question_id": "G4M_NBT_004_MIXED_Q4",
+          "question_type": "division_equation",
+          "visual_model": "remainder_model",
+          "prompt": "Divide 83 ÷ 9. Write the quotient and remainder.",
+          "answer": "9 R2",
+          "correct_answer": "9 R2",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9 R2.",
+          "read_aloud_text": "Divide 83 divided by 9. Write the quotient and remainder.",
+          "question_audio": {
+            "text": "Divide 83 divided by 9. Write the quotient and remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "9 R2",
+            "9 r 2",
+            "9 remainder 2"
+          ],
+          "dividend": 83,
+          "divisor": 9,
+          "quotient": 9,
+          "remainder": 2,
+          "total": 83,
+          "groups": 9,
+          "equation": "83 ÷ 9 = 9 R2",
+          "object": "counters"
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q5",
+          "question_id": "G4M_NBT_004_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "remainder_model",
+          "prompt": "A team has 74 players in vans of 9. How many vans are needed?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "A team has 74 players in vans of 9. How many vans are needed?",
+          "question_audio": {
+            "text": "A team has 74 players in vans of 9. How many vans are needed?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 74,
+          "divisor": 9,
+          "quotient": 8,
+          "remainder": 2,
+          "remainder_interpretation": "round up because the leftover players need a van",
+          "acceptable_answers": [
+            "9"
+          ],
+          "choices": [
+            "9",
+            "10",
+            "8",
+            "11"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q6",
+          "question_id": "G4M_NBT_004_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "remainder_model",
+          "prompt": "There are 50 photos with 6 photos on each page. How many pages are needed?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "There are 50 photos with 6 photos on each page. How many pages are needed?",
+          "question_audio": {
+            "text": "There are 50 photos with 6 photos on each page. How many pages are needed?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 50,
+          "divisor": 6,
+          "quotient": 8,
+          "remainder": 2,
+          "remainder_interpretation": "round up because leftover photos need a page",
+          "acceptable_answers": [
+            "9"
+          ]
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q7",
+          "question_id": "G4M_NBT_004_MIXED_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 3201 ÷ 6 using multiplication and the remainder.",
+          "answer": "6 × 533 + 3 = 3201",
+          "correct_answer": "6 × 533 + 3 = 3201",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 6 × 533 + 3 = 3201.",
+          "read_aloud_text": "Check 3201 divided by 6 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 3201 divided by 6 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "6 × 533 + 3 = 3201",
+            "533 × 6 = 3204",
+            "3201 × 6 = 533",
+            "6 + 533 + 3 = 3201"
+          ],
+          "acceptable_answers": [
+            "6 × 533 + 3 = 3201",
+            "533 × 6 + 3 = 3201"
+          ],
+          "a": 6,
+          "b": 533,
+          "product": 3198,
+          "equation": "6 × 533 + 3 = 3201"
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q8",
+          "question_id": "G4M_NBT_004_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 4876 ÷ 8 using multiplication and the remainder.",
+          "answer": "8 × 609 + 4 = 4876",
+          "correct_answer": "8 × 609 + 4 = 4876",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 8 × 609 + 4 = 4876.",
+          "read_aloud_text": "Check 4876 divided by 8 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 4876 divided by 8 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "8 × 609 + 4 = 4876",
+            "609 × 8 = 4880",
+            "4876 × 8 = 609",
+            "8 + 609 + 4 = 4876"
+          ],
+          "acceptable_answers": [
+            "8 × 609 + 4 = 4876",
+            "609 × 8 + 4 = 4876"
+          ],
+          "a": 8,
+          "b": 609,
+          "product": 4872,
+          "equation": "8 × 609 + 4 = 4876"
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q9",
+          "question_id": "G4M_NBT_004_MIXED_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 6392 ÷ 9 using multiplication and the remainder.",
+          "answer": "9 × 710 + 2 = 6392",
+          "correct_answer": "9 × 710 + 2 = 6392",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 9 × 710 + 2 = 6392.",
+          "read_aloud_text": "Check 6392 divided by 9 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 6392 divided by 9 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "9 × 710 + 2 = 6392",
+            "710 × 9 = 6394",
+            "6392 × 9 = 710",
+            "9 + 710 + 2 = 6392"
+          ],
+          "acceptable_answers": [
+            "9 × 710 + 2 = 6392",
+            "710 × 9 + 2 = 6392"
+          ],
+          "a": 9,
+          "b": 710,
+          "product": 6390,
+          "equation": "9 × 710 + 2 = 6392"
+        },
+        {
+          "id": "G4M_NBT_004_MIXED_Q10",
+          "question_id": "G4M_NBT_004_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "fact_family_model",
+          "prompt": "Check 8404 ÷ 5 using multiplication and the remainder.",
+          "answer": "5 × 1680 + 4 = 8404",
+          "correct_answer": "5 × 1680 + 4 = 8404",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the question and underline the action.",
+            "Use the visual model to organize the values.",
+            "Check your answer by explaining what each number means."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model.",
+            "incorrect": "Try again. Re-read the question and use the model labels."
+          },
+          "explanation": "The answer is 5 × 1680 + 4 = 8404.",
+          "read_aloud_text": "Check 8404 divided by 5 using multiplication and the remainder.",
+          "question_audio": {
+            "text": "Check 8404 divided by 5 using multiplication and the remainder.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "5 × 1680 + 4 = 8404",
+            "1680 × 5 = 8408",
+            "8404 × 5 = 1680",
+            "5 + 1680 + 4 = 8404"
+          ],
+          "acceptable_answers": [
+            "5 × 1680 + 4 = 8404",
+            "1680 × 5 + 4 = 8404"
+          ],
+          "a": 5,
+          "b": 1680,
+          "product": 8400,
+          "equation": "5 × 1680 + 4 = 8404"
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Division With Remainders. In this mission, the Skill World crew needs your Grade 4 reasoning to solve divide up to four-digit dividends by one-digit divisors, including remainders. Listen for dividend, divisor, quotient, remainder, equal groups, inverse operation, interpret, then press Start Mission when you are ready to connect the story to the math model.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches divide up to four-digit dividends by one-digit divisors, including remainders. First read the objective and vocabulary. Then study how the model shows each number, because the visual will help you avoid common mistakes with dividend, divisor, quotient, remainder, equal groups, inverse operation, interpret. Press Next when you can explain the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch this example like a tutor solving beside you. Step one is to read the question and name what is being asked. Step two is to model the quantities and labels, including dividend, divisor, quotient, remainder, equal groups, inverse operation, interpret. Step three is to calculate carefully and check that the final answer is reasonable. Press Next when the answer and model match.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "This guided demo slows the thinking down. Read each label, say what each part of the model means, and connect the equation to the picture. Press Next when you can tell why the method works for divide up to four-digit dividends by one-digit divisors, including remainders.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Now try a practice question with support. Tap Read Question first, use the visual model instead of guessing, and check that your answer fits dividend, divisor, quotient, remainder, equal groups, inverse operation, interpret. Use the hint if your first idea does not match the model, then press Next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This challenge gives you less help. Tap Read Question, choose a strategy, and explain how the model supports your answer. Check your work carefully before you press Next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This checkpoint shows what you can do independently. Tap Read Question, solve with careful Grade 4 reasoning, and verify the answer against the model before you move on. Answer carefully, then press Next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Great work completing Division With Remainders. This badge celebrates clear models, accurate calculations, and math language that explains dividend, divisor, quotient, remainder, equal groups, inverse operation, interpret. Press Save Growth Data to add this skill to your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Your profile summarizes this mission and offers more practice. Choose Continue to Skill Practice to work through four focused levels and a Mixed level, or go back to the hub when you are ready. This final page helps you choose the next best step based on today's work.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

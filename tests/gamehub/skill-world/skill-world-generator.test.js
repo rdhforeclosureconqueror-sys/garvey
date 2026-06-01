@@ -30,6 +30,10 @@ const g3FractionComparisons=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FR_00
 const g3MeasurementData=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MD_001');
 const g3AreaPerimeter=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_GM_001');
 const g3GeometryShapes=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_GM_002');
+const g4DivisionRemainders=load('G4M_NBT_004');
+const g4FractionEquivalenceOrdering=load('G4M_FR_001');
+const g4AddSubtractFractions=load('G4M_FR_002');
+const g4MultiplyFractionsWholeNumbers=load('G4M_FR_003');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -1528,3 +1532,64 @@ assert.match(VisualRegistry.render({visual_model:'algorithm_steps',operation:'+'
 assert.match(VisualRegistry.render({visual_model:'regrouping_model',trades:['trade one thousand']}),/data-renderer="regrouping_model"/,'regrouping_model renderer output exists');
 assert.match(VisualRegistry.render({visual_model:'estimation_number_line',exact:5791,estimate:6000}),/data-renderer="estimation_number_line"/,'estimation_number_line renderer output exists');
 assert.match(VisualRegistry.render({visual_model:'partial_products_model',partial_products:[180,24],correct_answer:204}),/data-renderer="partial_products_model"/,'partial_products_model renderer output exists');
+
+
+const grade4DivisionFractionsPackages=[
+  {pkg:g4DivisionRemainders,id:'G4M_NBT_004',domain:'Number and Operations in Base Ten',skill:'Division With Remainders',labels:['Level 1: Division Without Remainders','Level 2: Division With Remainders','Level 3: Interpret Remainders','Level 4: Check With Multiplication','Mixed'],visuals:['division_model','area_model','remainder_model','fact_family_model'],types:['multiple_choice','short_response','division_equation'],tags:['remainder_confusion','divisor_dividend_confusion','quotient_place_value_error','inverse_operation_confusion']},
+  {pkg:g4FractionEquivalenceOrdering,id:'G4M_FR_001',domain:'Number and Operations—Fractions',skill:'Fraction Equivalence and Ordering',labels:['Level 1: Equivalent Fractions','Level 2: Compare Fractions','Level 3: Fraction Number Lines','Level 4: Benchmark Fractions','Mixed'],visuals:['fraction_bar','fraction_circle','number_line','comparison'],types:['multiple_choice','short_response','fraction_response','comparison'],tags:['equivalent_fraction_confusion','denominator_size_confusion','benchmark_fraction_error','fraction_number_line_error']},
+  {pkg:g4AddSubtractFractions,id:'G4M_FR_002',domain:'Number and Operations—Fractions',skill:'Add and Subtract Fractions',labels:['Level 1: Add Like Denominators','Level 2: Subtract Like Denominators','Level 3: Mixed Numbers','Level 4: Word Problems With Fractions','Mixed'],visuals:['fraction_bar','fraction_circle','equation_builder','word_problem_model'],types:['multiple_choice','short_response','fraction_response','word_problem'],tags:['denominator_addition_error','mixed_number_confusion','improper_fraction_confusion','fraction_word_problem_error']},
+  {pkg:g4MultiplyFractionsWholeNumbers,id:'G4M_FR_003',domain:'Number and Operations—Fractions',skill:'Multiply Fractions by Whole Numbers',labels:['Level 1: Unit Fractions as Multiples','Level 2: Whole Number Times Fraction','Level 3: Fraction Times Whole Number','Level 4: Fraction Word Problems','Mixed'],visuals:['fraction_bar','repeated_addition','multiplication_model','word_problem_model'],types:['multiple_choice','short_response','fraction_response','multiplication_equation'],tags:['unit_fraction_multiple_confusion','whole_number_fraction_product_error','repeated_addition_fraction_error','fraction_scaling_confusion']}
+];
+
+grade4DivisionFractionsPackages.forEach(({pkg,id,domain,skill,labels,visuals,types,tags})=>{
+  assert.ok(pkg,`${id} package loads`);
+  const questions=pkg.level_banks.flatMap((level)=>level.questions);
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,4);
+  assert.equal(pkg.subject,'Math');
+  assert.equal(pkg.domain,domain);
+  assert.equal(pkg.skill,skill);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(questions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(questions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(questions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} short-response items have acceptable_answers`);
+  assert.ok(questions.every((q)=>q.question_audio?.label==='Read Question'&&q.question_audio?.text),`${id} Skill Practice Center questions have Read Question narration`);
+  for (const screen of ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile']) {
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${id} ${screen} has Read This Page narration`);
+    assert.equal((pkg.page_audio?.[screen]?.text||'').split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,true,`${id} ${screen} narration teaches the page`);
+  }
+  for (const screen of ['practice','challenge','checkpoint']) assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} mentions Read Question`);
+  for (const q of [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])]) assert.equal(q.question_audio?.label,'Read Question',`${id} guided mission question has Read Question narration`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} full mission flow renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillState=Renderer.createState();
+  Renderer.selectLevel(drillState,0);
+  const drillHtml=Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+
+const g4DivisionQuestions=g4DivisionRemainders.level_banks.flatMap((level)=>level.questions);
+assert.match(VisualRegistry.render(g4DivisionQuestions.find((q)=>q.visual_model==='remainder_model')),/data-renderer="remainder_model"/,'remainder_model renderer output exists');
+const g4FractionQuestions=[...g4FractionEquivalenceOrdering.level_banks.flatMap((level)=>level.questions),...g4AddSubtractFractions.level_banks.flatMap((level)=>level.questions),...g4MultiplyFractionsWholeNumbers.level_banks.flatMap((level)=>level.questions)];
+const g4FractionBarHtml=VisualRegistry.render(g4FractionQuestions.find((q)=>q.visual_model==='fraction_bar'));
+const g4FractionCircleHtml=VisualRegistry.render(g4FractionQuestions.find((q)=>q.visual_model==='fraction_circle'));
+assert.match(g4FractionBarHtml,/data-renderer="fraction_bar"/,'fraction_bar renderer output exists for Grade 4');
+assert.match(g4FractionBarHtml,/fraction-bar-cell/g,'fraction_bar renderer output includes partition markup');
+assert.match(g4FractionBarHtml,/fraction-bar-cell[^>]+filled/,'fraction_bar renderer output includes shaded numerator parts');
+assert.match(g4FractionCircleHtml,/data-renderer="fraction_circle"/,'fraction_circle renderer output exists for Grade 4');
+assert.match(g4FractionCircleHtml,/fraction-circle-sector/g,'fraction_circle renderer output includes partition/sector markup');
+assert.match(g4FractionCircleHtml,/fraction-circle-sector[^>]+filled|fraction-circle-sector filled/,'fraction_circle renderer output includes shaded numerator sectors');
+assert.doesNotMatch(g4FractionBarHtml.trim(),/^\d{3,4}$/,'fraction_bar does not render raw placeholder strings like 123 or 1234');
+assert.doesNotMatch(g4FractionCircleHtml.trim(),/^\d{3,4}$/,'fraction_circle does not render raw placeholder strings like 123 or 1234');
+['fraction_bar','fraction_circle','number_line','comparison','equation_builder','word_problem_model','repeated_addition','multiplication_model'].forEach((visual)=>{
+  const q=g4FractionQuestions.find((item)=>item.visual_model===visual);
+  assert.ok(q,`Grade 4 fraction batch includes ${visual}`);
+  assert.match(VisualRegistry.render(q),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists`);
+});
