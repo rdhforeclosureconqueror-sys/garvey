@@ -1,0 +1,5678 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "status": "active"
+  },
+  "skill_id": "G5M_GM_002",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Geometry",
+  "skill": "Classify Two-Dimensional Figures",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "badgeName": "Classify Two-Dimensional Figures Badge",
+  "game_theme": {
+    "title": "Classify Two-Dimensional Figures",
+    "mission_intro": "Use classify two-dimensional figures by properties and shape hierarchies to solve real Grade 5 math missions.",
+    "badge_name": "Classify Two-Dimensional Figures Badge"
+  },
+  "lesson": {
+    "objective": "classify two-dimensional figures by properties and shape hierarchies",
+    "key_vocabulary": [
+      "polygons",
+      "triangles",
+      "quadrilaterals",
+      "rectangles",
+      "rhombi"
+    ],
+    "concept_explanation": "classify two-dimensional figures by properties and shape hierarchies means reading the situation, matching it to a visual model, and using precise Grade 5 math language before answering.",
+    "visual_model": "hierarchy_diagram",
+    "common_misconception": "A common mistake is focusing on one number or one visible feature without checking the labels, units, axes, or attributes that give the problem meaning.",
+    "real_world_connection": "Students, scientists, designers, builders, and data readers use these skills to describe and solve real problems clearly.",
+    "lesson_summary": "Use the model, name the important labels, and answer with accurate polygons, triangles, quadrilaterals, rectangles, rhombi, squares, attributes, hierarchy.",
+    "page_audio": {
+      "text": "This mini lesson introduces classify two-dimensional figures by properties and shape hierarchies. The visual model is part of the thinking, not decoration. Say the important labels aloud, then solve with the correct math language.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "title": "Classify a square",
+      "text": "A square is a rectangle because it has four right angles. It is also a rhombus because it has four equal sides.",
+      "visual_model": "hierarchy_diagram",
+      "correct_answer": "square, rectangle, rhombus, quadrilateral, polygon",
+      "hierarchy": {
+        "Polygons": [
+          "Quadrilaterals"
+        ],
+        "Quadrilaterals": [
+          "Parallelograms",
+          "Trapezoids"
+        ],
+        "Parallelograms": [
+          "Rectangles",
+          "Rhombi"
+        ],
+        "Rectangles": [
+          "Squares"
+        ],
+        "Rhombi": [
+          "Squares"
+        ]
+      },
+      "page_audio": {
+        "text": "Shape hierarchies are nested. A square belongs inside rectangles and rhombi because it has both sets of properties. It also belongs to quadrilaterals and polygons.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "title": "Sort by attributes",
+      "text": "Sort figures by properties such as side count, parallel sides, equal sides, and right angles.",
+      "visual_model": "geometry_card_sort",
+      "cards": [
+        {
+          "shape": "square",
+          "attributes": [
+            "4 equal sides",
+            "4 right angles"
+          ]
+        },
+        {
+          "shape": "triangle",
+          "attributes": [
+            "3 sides"
+          ]
+        },
+        {
+          "shape": "rectangle",
+          "attributes": [
+            "4 right angles"
+          ]
+        }
+      ],
+      "correct_answer": "sort by attributes",
+      "page_audio": {
+        "text": "Classifying shapes means checking properties, not just appearance. Size and tilt do not change the category. Use attributes like sides, angles, and parallel lines.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the question carefully and name the math idea.",
+    "Use the visual model to check each part before answering.",
+    "Explain why the answer matches the units, graph, or attributes."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_GM_002_LVL1_Q1",
+      "question_type": "geometry_response",
+      "visual_model": "shape_identification",
+      "prompt": "Classify the figure: triangle with 3 sides.",
+      "correct_answer": "polygon",
+      "answer": "polygon",
+      "misconception_tag": "shape_property_confusion",
+      "shape": "triangle",
+      "attributes": [
+        "3 sides",
+        "polygon",
+        "triangle"
+      ],
+      "shapes": [
+        "triangle",
+        "square",
+        "rectangle",
+        "rhombus",
+        "trapezoid",
+        "hexagon"
+      ],
+      "categories": [
+        "Polygons",
+        "Triangles",
+        "Quadrilaterals",
+        "Rectangles",
+        "Squares"
+      ],
+      "target": "polygon",
+      "cards": [
+        {
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon"
+          ]
+        },
+        {
+          "shape": "circle",
+          "attributes": [
+            "curved side",
+            "not polygon"
+          ]
+        },
+        {
+          "shape": "square",
+          "attributes": [
+            "4 equal sides",
+            "4 right angles"
+          ]
+        }
+      ],
+      "hierarchy": {
+        "Polygons": [
+          "Triangles",
+          "Quadrilaterals",
+          "Pentagons"
+        ],
+        "Quadrilaterals": [
+          "Trapezoids",
+          "Parallelograms"
+        ],
+        "Parallelograms": [
+          "Rectangles",
+          "Rhombi"
+        ],
+        "Rectangles": [
+          "Squares"
+        ],
+        "Rhombi": [
+          "Squares"
+        ]
+      },
+      "question_id": "G5M_GM_002_LVL1_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is polygon.",
+      "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+      "question_audio": {
+        "text": "Classify the figure: triangle with 3 sides.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "polygon",
+        "polygon",
+        "polygon."
+      ]
+    },
+    {
+      "id": "G5M_GM_002_LVL2_Q1",
+      "question_type": "geometry_response",
+      "visual_model": "shape_identification",
+      "prompt": "Classify the figure: triangle with 3 sides.",
+      "correct_answer": "polygon",
+      "answer": "polygon",
+      "misconception_tag": "shape_property_confusion",
+      "shape": "triangle",
+      "attributes": [
+        "3 sides",
+        "polygon",
+        "triangle"
+      ],
+      "shapes": [
+        "triangle",
+        "square",
+        "rectangle",
+        "rhombus",
+        "trapezoid",
+        "hexagon"
+      ],
+      "categories": [
+        "Polygons",
+        "Triangles",
+        "Quadrilaterals",
+        "Rectangles",
+        "Squares"
+      ],
+      "target": "polygon",
+      "cards": [
+        {
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon"
+          ]
+        },
+        {
+          "shape": "circle",
+          "attributes": [
+            "curved side",
+            "not polygon"
+          ]
+        },
+        {
+          "shape": "square",
+          "attributes": [
+            "4 equal sides",
+            "4 right angles"
+          ]
+        }
+      ],
+      "hierarchy": {
+        "Polygons": [
+          "Triangles",
+          "Quadrilaterals",
+          "Pentagons"
+        ],
+        "Quadrilaterals": [
+          "Trapezoids",
+          "Parallelograms"
+        ],
+        "Parallelograms": [
+          "Rectangles",
+          "Rhombi"
+        ],
+        "Rectangles": [
+          "Squares"
+        ],
+        "Rhombi": [
+          "Squares"
+        ]
+      },
+      "question_id": "G5M_GM_002_LVL2_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is polygon.",
+      "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+      "question_audio": {
+        "text": "Classify the figure: triangle with 3 sides.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "polygon",
+        "polygon",
+        "polygon."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_GM_002_LVL3_Q1",
+      "question_type": "geometry_response",
+      "visual_model": "shape_identification",
+      "prompt": "Classify the figure: triangle with 3 sides.",
+      "correct_answer": "polygon",
+      "answer": "polygon",
+      "misconception_tag": "shape_property_confusion",
+      "shape": "triangle",
+      "attributes": [
+        "3 sides",
+        "polygon",
+        "triangle"
+      ],
+      "shapes": [
+        "triangle",
+        "square",
+        "rectangle",
+        "rhombus",
+        "trapezoid",
+        "hexagon"
+      ],
+      "categories": [
+        "Polygons",
+        "Triangles",
+        "Quadrilaterals",
+        "Rectangles",
+        "Squares"
+      ],
+      "target": "polygon",
+      "cards": [
+        {
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon"
+          ]
+        },
+        {
+          "shape": "circle",
+          "attributes": [
+            "curved side",
+            "not polygon"
+          ]
+        },
+        {
+          "shape": "square",
+          "attributes": [
+            "4 equal sides",
+            "4 right angles"
+          ]
+        }
+      ],
+      "hierarchy": {
+        "Polygons": [
+          "Triangles",
+          "Quadrilaterals",
+          "Pentagons"
+        ],
+        "Quadrilaterals": [
+          "Trapezoids",
+          "Parallelograms"
+        ],
+        "Parallelograms": [
+          "Rectangles",
+          "Rhombi"
+        ],
+        "Rectangles": [
+          "Squares"
+        ],
+        "Rhombi": [
+          "Squares"
+        ]
+      },
+      "question_id": "G5M_GM_002_LVL3_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is polygon.",
+      "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+      "question_audio": {
+        "text": "Classify the figure: triangle with 3 sides.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "polygon",
+        "polygon",
+        "polygon."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_GM_002_LVL4_Q1",
+      "question_type": "geometry_response",
+      "visual_model": "hierarchy_diagram",
+      "prompt": "Classify the figure: triangle with 3 sides.",
+      "correct_answer": "polygon",
+      "answer": "polygon",
+      "misconception_tag": "shape_property_confusion",
+      "shape": "triangle",
+      "attributes": [
+        "3 sides",
+        "polygon",
+        "triangle"
+      ],
+      "shapes": [
+        "triangle",
+        "square",
+        "rectangle",
+        "rhombus",
+        "trapezoid",
+        "hexagon"
+      ],
+      "categories": [
+        "Polygons",
+        "Triangles",
+        "Quadrilaterals",
+        "Rectangles",
+        "Squares"
+      ],
+      "target": "polygon",
+      "cards": [
+        {
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon"
+          ]
+        },
+        {
+          "shape": "circle",
+          "attributes": [
+            "curved side",
+            "not polygon"
+          ]
+        },
+        {
+          "shape": "square",
+          "attributes": [
+            "4 equal sides",
+            "4 right angles"
+          ]
+        }
+      ],
+      "hierarchy": {
+        "Polygons": [
+          "Triangles",
+          "Quadrilaterals",
+          "Pentagons"
+        ],
+        "Quadrilaterals": [
+          "Trapezoids",
+          "Parallelograms"
+        ],
+        "Parallelograms": [
+          "Rectangles",
+          "Rhombi"
+        ],
+        "Rectangles": [
+          "Squares"
+        ],
+        "Rhombi": [
+          "Squares"
+        ]
+      },
+      "question_id": "G5M_GM_002_LVL4_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is polygon.",
+      "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+      "question_audio": {
+        "text": "Classify the figure: triangle with 3 sides.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "polygon",
+        "polygon",
+        "polygon."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "attribute_overgeneralization": "Watch for attribute overgeneralization.",
+    "triangle_classification_error": "Watch for triangle classification error.",
+    "quadrilateral_hierarchy_confusion": "Watch for quadrilateral hierarchy confusion.",
+    "shape_property_confusion": "Watch for shape property confusion."
+  },
+  "level_banks": [
+    {
+      "level_id": "G5M_GM_002_LVL1",
+      "label": "Level 1: Polygons and Attributes",
+      "focus": "Classify polygons by sides and attributes.",
+      "description": "Level 1: Polygons and Attributes",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_002_LVL1_Q1",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: triangle with 3 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon",
+            "triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "triangle",
+              "attributes": [
+                "3 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+          "question_audio": {
+            "text": "Classify the figure: triangle with 3 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: pentagon with 5 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "choices": [
+            "polygon",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "shape_property_confusion",
+          "shape": "pentagon",
+          "attributes": [
+            "5 sides",
+            "polygon",
+            "pentagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "pentagon",
+              "attributes": [
+                "5 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: pentagon with 5 sides.",
+          "question_audio": {
+            "text": "Classify the figure: pentagon with 5 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q3",
+          "question_type": "sorting",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: hexagon with 6 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "hexagon",
+          "attributes": [
+            "6 sides",
+            "polygon",
+            "hexagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "hexagon",
+              "attributes": [
+                "6 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: hexagon with 6 sides.",
+          "question_audio": {
+            "text": "Classify the figure: hexagon with 6 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q4",
+          "question_type": "short_response",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "square",
+          "attributes": [
+            "4 equal sides and 4 right angles",
+            "quadrilateral",
+            "square"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q5",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rectangle",
+          "attributes": [
+            "opposite sides equal and 4 right angles",
+            "quadrilateral",
+            "rectangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rectangle",
+              "attributes": [
+                "opposite sides equal and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: rhombus with 4 equal sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "choices": [
+            "quadrilateral",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rhombus",
+          "attributes": [
+            "4 equal sides",
+            "quadrilateral",
+            "rhombus"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rhombus",
+              "attributes": [
+                "4 equal sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rhombus with 4 equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: rhombus with 4 equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q7",
+          "question_type": "sorting",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "trapezoid",
+          "attributes": [
+            "at least one pair of parallel sides",
+            "quadrilateral",
+            "trapezoid"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "trapezoid",
+              "attributes": [
+                "at least one pair of parallel sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "question_audio": {
+            "text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: right triangle with one right angle.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "one right angle",
+            "triangle",
+            "right triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "right triangle",
+              "attributes": [
+                "one right angle",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: right triangle with one right angle.",
+          "question_audio": {
+            "text": "Classify the figure: right triangle with one right angle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "at least two equal sides",
+            "triangle",
+            "isosceles triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "isosceles triangle",
+              "attributes": [
+                "at least two equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: isosceles triangle with at least two equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: equilateral triangle with three equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "choices": [
+            "triangle",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "three equal sides",
+            "triangle",
+            "equilateral triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "equilateral triangle",
+              "attributes": [
+                "three equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL1_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: equilateral triangle with three equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: equilateral triangle with three equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_GM_002_LVL2",
+      "label": "Level 2: Triangles",
+      "focus": "Classify triangles by sides and angles.",
+      "description": "Level 2: Triangles",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_002_LVL2_Q1",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: triangle with 3 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon",
+            "triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "triangle",
+              "attributes": [
+                "3 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+          "question_audio": {
+            "text": "Classify the figure: triangle with 3 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: pentagon with 5 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "choices": [
+            "polygon",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "shape_property_confusion",
+          "shape": "pentagon",
+          "attributes": [
+            "5 sides",
+            "polygon",
+            "pentagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "pentagon",
+              "attributes": [
+                "5 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: pentagon with 5 sides.",
+          "question_audio": {
+            "text": "Classify the figure: pentagon with 5 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q3",
+          "question_type": "sorting",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: hexagon with 6 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "hexagon",
+          "attributes": [
+            "6 sides",
+            "polygon",
+            "hexagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "hexagon",
+              "attributes": [
+                "6 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: hexagon with 6 sides.",
+          "question_audio": {
+            "text": "Classify the figure: hexagon with 6 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q4",
+          "question_type": "short_response",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "square",
+          "attributes": [
+            "4 equal sides and 4 right angles",
+            "quadrilateral",
+            "square"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q5",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rectangle",
+          "attributes": [
+            "opposite sides equal and 4 right angles",
+            "quadrilateral",
+            "rectangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rectangle",
+              "attributes": [
+                "opposite sides equal and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: rhombus with 4 equal sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "choices": [
+            "quadrilateral",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rhombus",
+          "attributes": [
+            "4 equal sides",
+            "quadrilateral",
+            "rhombus"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rhombus",
+              "attributes": [
+                "4 equal sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rhombus with 4 equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: rhombus with 4 equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q7",
+          "question_type": "sorting",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "trapezoid",
+          "attributes": [
+            "at least one pair of parallel sides",
+            "quadrilateral",
+            "trapezoid"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "trapezoid",
+              "attributes": [
+                "at least one pair of parallel sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "question_audio": {
+            "text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q8",
+          "question_type": "short_response",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: right triangle with one right angle.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "one right angle",
+            "triangle",
+            "right triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "right triangle",
+              "attributes": [
+                "one right angle",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: right triangle with one right angle.",
+          "question_audio": {
+            "text": "Classify the figure: right triangle with one right angle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "at least two equal sides",
+            "triangle",
+            "isosceles triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "isosceles triangle",
+              "attributes": [
+                "at least two equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: isosceles triangle with at least two equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL2_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: equilateral triangle with three equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "choices": [
+            "triangle",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "three equal sides",
+            "triangle",
+            "equilateral triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "equilateral triangle",
+              "attributes": [
+                "three equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL2_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: equilateral triangle with three equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: equilateral triangle with three equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_GM_002_LVL3",
+      "label": "Level 3: Quadrilaterals",
+      "focus": "Classify quadrilaterals by properties.",
+      "description": "Level 3: Quadrilaterals",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_002_LVL3_Q1",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: triangle with 3 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon",
+            "triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "triangle",
+              "attributes": [
+                "3 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+          "question_audio": {
+            "text": "Classify the figure: triangle with 3 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: pentagon with 5 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "choices": [
+            "polygon",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "shape_property_confusion",
+          "shape": "pentagon",
+          "attributes": [
+            "5 sides",
+            "polygon",
+            "pentagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "pentagon",
+              "attributes": [
+                "5 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: pentagon with 5 sides.",
+          "question_audio": {
+            "text": "Classify the figure: pentagon with 5 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q3",
+          "question_type": "sorting",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: hexagon with 6 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "hexagon",
+          "attributes": [
+            "6 sides",
+            "polygon",
+            "hexagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "hexagon",
+              "attributes": [
+                "6 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: hexagon with 6 sides.",
+          "question_audio": {
+            "text": "Classify the figure: hexagon with 6 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "square",
+          "attributes": [
+            "4 equal sides and 4 right angles",
+            "quadrilateral",
+            "square"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q5",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rectangle",
+          "attributes": [
+            "opposite sides equal and 4 right angles",
+            "quadrilateral",
+            "rectangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rectangle",
+              "attributes": [
+                "opposite sides equal and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: rhombus with 4 equal sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "choices": [
+            "quadrilateral",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rhombus",
+          "attributes": [
+            "4 equal sides",
+            "quadrilateral",
+            "rhombus"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rhombus",
+              "attributes": [
+                "4 equal sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rhombus with 4 equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: rhombus with 4 equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q7",
+          "question_type": "sorting",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "trapezoid",
+          "attributes": [
+            "at least one pair of parallel sides",
+            "quadrilateral",
+            "trapezoid"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "trapezoid",
+              "attributes": [
+                "at least one pair of parallel sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "question_audio": {
+            "text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q8",
+          "question_type": "short_response",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: right triangle with one right angle.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "one right angle",
+            "triangle",
+            "right triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "right triangle",
+              "attributes": [
+                "one right angle",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: right triangle with one right angle.",
+          "question_audio": {
+            "text": "Classify the figure: right triangle with one right angle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "at least two equal sides",
+            "triangle",
+            "isosceles triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "isosceles triangle",
+              "attributes": [
+                "at least two equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: isosceles triangle with at least two equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "attribute_sort",
+          "prompt": "Classify the figure: equilateral triangle with three equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "choices": [
+            "triangle",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "three equal sides",
+            "triangle",
+            "equilateral triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "equilateral triangle",
+              "attributes": [
+                "three equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL3_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: equilateral triangle with three equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: equilateral triangle with three equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_GM_002_LVL4",
+      "label": "Level 4: Hierarchies of Shapes",
+      "focus": "Use nested categories for shapes.",
+      "description": "Level 4: Hierarchies of Shapes",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_002_LVL4_Q1",
+          "question_type": "geometry_response",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: triangle with 3 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon",
+            "triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "triangle",
+              "attributes": [
+                "3 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+          "question_audio": {
+            "text": "Classify the figure: triangle with 3 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: pentagon with 5 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "choices": [
+            "polygon",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "shape_property_confusion",
+          "shape": "pentagon",
+          "attributes": [
+            "5 sides",
+            "polygon",
+            "pentagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "pentagon",
+              "attributes": [
+                "5 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: pentagon with 5 sides.",
+          "question_audio": {
+            "text": "Classify the figure: pentagon with 5 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q3",
+          "question_type": "sorting",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: hexagon with 6 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "hexagon",
+          "attributes": [
+            "6 sides",
+            "polygon",
+            "hexagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "hexagon",
+              "attributes": [
+                "6 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: hexagon with 6 sides.",
+          "question_audio": {
+            "text": "Classify the figure: hexagon with 6 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "square",
+          "attributes": [
+            "4 equal sides and 4 right angles",
+            "quadrilateral",
+            "square"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q5",
+          "question_type": "geometry_response",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rectangle",
+          "attributes": [
+            "opposite sides equal and 4 right angles",
+            "quadrilateral",
+            "rectangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rectangle",
+              "attributes": [
+                "opposite sides equal and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: rhombus with 4 equal sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "choices": [
+            "quadrilateral",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rhombus",
+          "attributes": [
+            "4 equal sides",
+            "quadrilateral",
+            "rhombus"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rhombus",
+              "attributes": [
+                "4 equal sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rhombus with 4 equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: rhombus with 4 equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q7",
+          "question_type": "sorting",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "trapezoid",
+          "attributes": [
+            "at least one pair of parallel sides",
+            "quadrilateral",
+            "trapezoid"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "trapezoid",
+              "attributes": [
+                "at least one pair of parallel sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "question_audio": {
+            "text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: right triangle with one right angle.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "one right angle",
+            "triangle",
+            "right triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "right triangle",
+              "attributes": [
+                "one right angle",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: right triangle with one right angle.",
+          "question_audio": {
+            "text": "Classify the figure: right triangle with one right angle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "at least two equal sides",
+            "triangle",
+            "isosceles triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "isosceles triangle",
+              "attributes": [
+                "at least two equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: isosceles triangle with at least two equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_LVL4_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "hierarchy_diagram",
+          "prompt": "Classify the figure: equilateral triangle with three equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "choices": [
+            "triangle",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "three equal sides",
+            "triangle",
+            "equilateral triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "equilateral triangle",
+              "attributes": [
+                "three equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_LVL4_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: equilateral triangle with three equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: equilateral triangle with three equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_GM_002_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed shape classification review.",
+      "description": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_002_MIXED_Q1",
+          "question_type": "geometry_response",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: triangle with 3 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "triangle",
+          "attributes": [
+            "3 sides",
+            "polygon",
+            "triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "triangle",
+              "attributes": [
+                "3 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: triangle with 3 sides.",
+          "question_audio": {
+            "text": "Classify the figure: triangle with 3 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: pentagon with 5 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "choices": [
+            "polygon",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "shape_property_confusion",
+          "shape": "pentagon",
+          "attributes": [
+            "5 sides",
+            "polygon",
+            "pentagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "pentagon",
+              "attributes": [
+                "5 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: pentagon with 5 sides.",
+          "question_audio": {
+            "text": "Classify the figure: pentagon with 5 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q3",
+          "question_type": "sorting",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: hexagon with 6 sides.",
+          "correct_answer": "polygon",
+          "answer": "polygon",
+          "misconception_tag": "shape_property_confusion",
+          "shape": "hexagon",
+          "attributes": [
+            "6 sides",
+            "polygon",
+            "hexagon"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "polygon",
+          "cards": [
+            {
+              "shape": "hexagon",
+              "attributes": [
+                "6 sides",
+                "polygon"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is polygon.",
+          "read_aloud_text": "Classify the figure: hexagon with 6 sides.",
+          "question_audio": {
+            "text": "Classify the figure: hexagon with 6 sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "polygon",
+            "polygon",
+            "polygon."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "square",
+          "attributes": [
+            "4 equal sides and 4 right angles",
+            "quadrilateral",
+            "square"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: square with 4 equal sides and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q5",
+          "question_type": "geometry_response",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rectangle",
+          "attributes": [
+            "opposite sides equal and 4 right angles",
+            "quadrilateral",
+            "rectangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rectangle",
+              "attributes": [
+                "opposite sides equal and 4 right angles",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+          "question_audio": {
+            "text": "Classify the figure: rectangle with opposite sides equal and 4 right angles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: rhombus with 4 equal sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "choices": [
+            "quadrilateral",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "rhombus",
+          "attributes": [
+            "4 equal sides",
+            "quadrilateral",
+            "rhombus"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "rhombus",
+              "attributes": [
+                "4 equal sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: rhombus with 4 equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: rhombus with 4 equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q7",
+          "question_type": "sorting",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "correct_answer": "quadrilateral",
+          "answer": "quadrilateral",
+          "misconception_tag": "quadrilateral_hierarchy_confusion",
+          "shape": "trapezoid",
+          "attributes": [
+            "at least one pair of parallel sides",
+            "quadrilateral",
+            "trapezoid"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "quadrilateral",
+          "cards": [
+            {
+              "shape": "trapezoid",
+              "attributes": [
+                "at least one pair of parallel sides",
+                "quadrilateral"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is quadrilateral.",
+          "read_aloud_text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+          "question_audio": {
+            "text": "Classify the figure: trapezoid with at least one pair of parallel sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "quadrilateral",
+            "quadrilateral",
+            "quadrilateral."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: right triangle with one right angle.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "one right angle",
+            "triangle",
+            "right triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "right triangle",
+              "attributes": [
+                "one right angle",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: right triangle with one right angle.",
+          "question_audio": {
+            "text": "Classify the figure: right triangle with one right angle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "at least two equal sides",
+            "triangle",
+            "isosceles triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "isosceles triangle",
+              "attributes": [
+                "at least two equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: isosceles triangle with at least two equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: isosceles triangle with at least two equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle",
+            "triangle."
+          ]
+        },
+        {
+          "id": "G5M_GM_002_MIXED_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "geometry_card_sort",
+          "prompt": "Classify the figure: equilateral triangle with three equal sides.",
+          "correct_answer": "triangle",
+          "answer": "triangle",
+          "choices": [
+            "triangle",
+            "circle",
+            "not a polygon",
+            "line segment"
+          ],
+          "misconception_tag": "triangle_classification_error",
+          "shape": "triangle",
+          "attributes": [
+            "three equal sides",
+            "triangle",
+            "equilateral triangle"
+          ],
+          "shapes": [
+            "triangle",
+            "square",
+            "rectangle",
+            "rhombus",
+            "trapezoid",
+            "hexagon"
+          ],
+          "categories": [
+            "Polygons",
+            "Triangles",
+            "Quadrilaterals",
+            "Rectangles",
+            "Squares"
+          ],
+          "target": "triangle",
+          "cards": [
+            {
+              "shape": "equilateral triangle",
+              "attributes": [
+                "three equal sides",
+                "triangle"
+              ]
+            },
+            {
+              "shape": "circle",
+              "attributes": [
+                "curved side",
+                "not polygon"
+              ]
+            },
+            {
+              "shape": "square",
+              "attributes": [
+                "4 equal sides",
+                "4 right angles"
+              ]
+            }
+          ],
+          "hierarchy": {
+            "Polygons": [
+              "Triangles",
+              "Quadrilaterals",
+              "Pentagons"
+            ],
+            "Quadrilaterals": [
+              "Trapezoids",
+              "Parallelograms"
+            ],
+            "Parallelograms": [
+              "Rectangles",
+              "Rhombi"
+            ],
+            "Rectangles": [
+              "Squares"
+            ],
+            "Rhombi": [
+              "Squares"
+            ]
+          },
+          "question_id": "G5M_GM_002_MIXED_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Classify the figure: equilateral triangle with three equal sides.",
+          "question_audio": {
+            "text": "Classify the figure: equilateral triangle with three equal sides.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Classify Two-Dimensional Figures. In this mission, you will use classify two-dimensional figures by properties and shape hierarchies to solve problems that feel like real classroom and world tasks. Watch how the labels, units, and visual model tell you what to do next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches classify two-dimensional figures by properties and shape hierarchies. Read the model before calculating, because the model shows what each number or attribute means. Use precise math language: polygons, triangles, quadrilaterals, rectangles, rhombi, squares, attributes, hierarchy.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "On the Watch page, slow down and follow one complete example. First name what the question asks, then connect each label in the visual to the operation or property. Finally, say the answer in a complete math sentence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "On the Demo page, build the reasoning with support. Notice where common mistakes happen, such as reversing coordinates, converting the wrong direction, or using only one shape attribute. The model is here to help you catch the mistake early.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This Practice page lets you try the skill yourself. Tap Read Question before you answer so the measurement, coordinate, or geometry words are spoken clearly. Then use the visual and choose or type the answer carefully.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This Challenge page may combine ideas or ask for a deeper explanation. Tap Read Question, study the visual, and decide which information matters most. If the answer has a unit, coordinate, or shape category, include it.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This Checkpoint page checks what you can do independently. Tap Read Question, solve without rushing, and compare your answer to the model. Your response should show that you understand the classify two-dimensional figures by properties and shape hierarchies.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge page for Classify Two-Dimensional Figures. Think about the model that helped most and the misconception you avoided. This badge celebrates careful reasoning, not just a quick answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "The profile page saves your growth for Classify Two-Dimensional Figures. Review your strengths, then continue to the Skill Practice Center for focused levels or Mixed review. Choose Practice This Skill when you want more questions with Read Question support.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

@@ -1,0 +1,2536 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "status": "active"
+  },
+  "skill_id": "G5M_MD_001",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Measurement and Data",
+  "skill": "Measurement Conversion, Volume, and Data",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "badgeName": "Measurement Conversion, Volume, and Data Badge",
+  "game_theme": {
+    "title": "Measurement Conversion, Volume, and Data",
+    "mission_intro": "Use convert measurements, find volume, and interpret fractional line plots to solve real Grade 5 math missions.",
+    "badge_name": "Measurement Conversion, Volume, and Data Badge"
+  },
+  "lesson": {
+    "objective": "convert measurements, find volume, and interpret fractional line plots",
+    "key_vocabulary": [
+      "conversions",
+      "cubic units",
+      "volume",
+      "length",
+      "width"
+    ],
+    "concept_explanation": "convert measurements, find volume, and interpret fractional line plots means reading the situation, matching it to a visual model, and using precise Grade 5 math language before answering.",
+    "visual_model": "rectangular_prism_model",
+    "common_misconception": "A common mistake is focusing on one number or one visible feature without checking the labels, units, axes, or attributes that give the problem meaning.",
+    "real_world_connection": "Students, scientists, designers, builders, and data readers use these skills to describe and solve real problems clearly.",
+    "lesson_summary": "Use the model, name the important labels, and answer with accurate conversions, cubic units, volume, length, width, height, line plots, fractional measurements.",
+    "page_audio": {
+      "text": "This mini lesson introduces convert measurements, find volume, and interpret fractional line plots. The visual model is part of the thinking, not decoration. Say the important labels aloud, then solve with the correct math language.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "title": "Convert meters to centimeters",
+      "text": "Three meters equals three groups of one hundred centimeters, so multiply 3 by 100 to get 300 centimeters.",
+      "visual_model": "measurement_conversion_table",
+      "from_unit": "meters",
+      "to_unit": "centimeters",
+      "factor": 100,
+      "amount": 3,
+      "converted": 300,
+      "correct_answer": "300 centimeters",
+      "page_audio": {
+        "text": "When converting meters to centimeters, move from a larger unit to a smaller unit. That means one meter becomes one hundred centimeters. Three meters becomes three hundred centimeters.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "title": "Volume with length, width, and height",
+      "text": "A prism that is 4 units long, 3 units wide, and 2 units high has 4 × 3 × 2, or 24 cubic units.",
+      "visual_model": "rectangular_prism_model",
+      "length": 4,
+      "width": 3,
+      "height": 2,
+      "unit": "unit",
+      "correct_answer": "24 cubic units",
+      "page_audio": {
+        "text": "Volume counts cubic units that fill a solid. First find one layer with length times width. Then multiply by height to count every layer.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the question carefully and name the math idea.",
+    "Use the visual model to check each part before answering.",
+    "Explain why the answer matches the units, graph, or attributes."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_MD_001_LVL1_Q1",
+      "question_type": "measurement",
+      "visual_model": "measurement_conversion_table",
+      "prompt": "Convert 4 yards to feet.",
+      "correct_answer": "12 feet",
+      "answer": "12 feet",
+      "misconception_tag": "unit_conversion_direction_error",
+      "from_unit": "yards",
+      "to_unit": "feet",
+      "factor": 3,
+      "amount": 4,
+      "converted": 12,
+      "read_aloud_text": "Convert 4 yards to feet.",
+      "question_id": "G5M_MD_001_LVL1_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is 12 feet.",
+      "question_audio": {
+        "text": "Convert 4 yards to feet.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "12 feet",
+        "12 feet",
+        "12 feet."
+      ]
+    },
+    {
+      "id": "G5M_MD_001_LVL2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "volume_model",
+      "prompt": "A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?",
+      "correct_answer": "12 cubic units",
+      "answer": "12 cubic units",
+      "choices": [
+        "12 cubic units",
+        "6 square units",
+        "14 cubic units",
+        "7 cubic units"
+      ],
+      "misconception_tag": "volume_area_confusion",
+      "length": 3,
+      "width": 2,
+      "height": 2,
+      "unit": "unit",
+      "question_id": "G5M_MD_001_LVL2_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is 12 cubic units.",
+      "read_aloud_text": "A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?",
+      "question_audio": {
+        "text": "A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_MD_001_LVL3_Q1",
+      "question_type": "short_response",
+      "visual_model": "rectangular_prism_model",
+      "prompt": "Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.",
+      "correct_answer": "72 cubic centimeters",
+      "answer": "72 cubic centimeters",
+      "misconception_tag": "volume_area_confusion",
+      "length": 6,
+      "width": 4,
+      "height": 3,
+      "unit": "cm",
+      "question_id": "G5M_MD_001_LVL3_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is 72 cubic centimeters.",
+      "read_aloud_text": "Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.",
+      "question_audio": {
+        "text": "Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "72 cubic centimeters",
+        "72 cubic centimeters",
+        "72 cubic centimeters."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_MD_001_LVL4_Q1",
+      "question_type": "short_response",
+      "visual_model": "line_plot",
+      "prompt": "Use the fractional line plot. How many measurements are at 1 1/4 inches?",
+      "correct_answer": "3",
+      "answer": "3",
+      "misconception_tag": "line_plot_fraction_error",
+      "ticks": [
+        "1/2",
+        "3/4",
+        "1",
+        "1 1/4",
+        "1 1/2"
+      ],
+      "values": [
+        "1/2",
+        "1/2",
+        "3/4",
+        "1",
+        "1",
+        "1 1/4",
+        "1 1/4",
+        "1 1/4",
+        "1 1/2",
+        "1 1/2"
+      ],
+      "graph_title": "Ribbon Lengths in Inches",
+      "question_id": "G5M_MD_001_LVL4_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is 3.",
+      "read_aloud_text": "Use the fractional line plot. How many measurements are at 1 1 over 4 inches?",
+      "question_audio": {
+        "text": "Use the fractional line plot. How many measurements are at 1 1 over 4 inches?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "3",
+        "3",
+        "3."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "unit_conversion_direction_error": "Watch for unit conversion direction error.",
+    "volume_area_confusion": "Watch for volume area confusion.",
+    "cube_unit_count_error": "Watch for cube unit count error.",
+    "line_plot_fraction_error": "Watch for line plot fraction error."
+  },
+  "level_banks": [
+    {
+      "level_id": "G5M_MD_001_LVL1",
+      "label": "Level 1: Measurement Conversions",
+      "focus": "Convert larger and smaller units.",
+      "description": "Level 1: Measurement Conversions",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_MD_001_LVL1_Q1",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 4 yards to feet.",
+          "correct_answer": "12 feet",
+          "answer": "12 feet",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "yards",
+          "to_unit": "feet",
+          "factor": 3,
+          "amount": 4,
+          "converted": 12,
+          "read_aloud_text": "Convert 4 yards to feet.",
+          "question_id": "G5M_MD_001_LVL1_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 12 feet.",
+          "question_audio": {
+            "text": "Convert 4 yards to feet.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "12 feet",
+            "12 feet",
+            "12 feet."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 5 feet to inches.",
+          "correct_answer": "60 inches",
+          "answer": "60 inches",
+          "choices": [
+            "60 inches",
+            "17 inches",
+            "5 inches",
+            "5 inches"
+          ],
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "feet",
+          "to_unit": "inches",
+          "factor": 12,
+          "amount": 5,
+          "converted": 60,
+          "read_aloud_text": "Convert 5 feet to inches.",
+          "question_id": "G5M_MD_001_LVL1_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 60 inches.",
+          "question_audio": {
+            "text": "Convert 5 feet to inches.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q3",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 3 meters to centimeters.",
+          "correct_answer": "300 centimeters",
+          "answer": "300 centimeters",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "meters",
+          "to_unit": "centimeters",
+          "factor": 100,
+          "amount": 3,
+          "converted": 300,
+          "read_aloud_text": "Convert 3 meters to centimeters.",
+          "question_id": "G5M_MD_001_LVL1_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 300 centimeters.",
+          "question_audio": {
+            "text": "Convert 3 meters to centimeters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "300 centimeters",
+            "300 centimeters",
+            "300 centimeters."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q4",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 2 kilograms to grams.",
+          "correct_answer": "2000 grams",
+          "answer": "2000 grams",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "kilograms",
+          "to_unit": "grams",
+          "factor": 1000,
+          "amount": 2,
+          "converted": 2000,
+          "read_aloud_text": "Convert 2 kilograms to grams.",
+          "question_id": "G5M_MD_001_LVL1_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 2000 grams.",
+          "question_audio": {
+            "text": "Convert 2 kilograms to grams.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2000 grams",
+            "2000 grams",
+            "2000 grams."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 6 liters to milliliters.",
+          "correct_answer": "6000 milliliters",
+          "answer": "6000 milliliters",
+          "choices": [
+            "6000 milliliters",
+            "1006 milliliters",
+            "6 milliliters",
+            "6 milliliters"
+          ],
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "liters",
+          "to_unit": "milliliters",
+          "factor": 1000,
+          "amount": 6,
+          "converted": 6000,
+          "read_aloud_text": "Convert 6 liters to milliliters.",
+          "question_id": "G5M_MD_001_LVL1_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 6000 milliliters.",
+          "question_audio": {
+            "text": "Convert 6 liters to milliliters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 2 miles to feet.",
+          "correct_answer": "10560 feet",
+          "answer": "10560 feet",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "miles",
+          "to_unit": "feet",
+          "factor": 5280,
+          "amount": 2,
+          "converted": 10560,
+          "read_aloud_text": "Convert 2 miles to feet.",
+          "question_id": "G5M_MD_001_LVL1_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 10560 feet.",
+          "question_audio": {
+            "text": "Convert 2 miles to feet.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "10560 feet",
+            "10560 feet",
+            "10560 feet."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q7",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 3 hours to minutes.",
+          "correct_answer": "180 minutes",
+          "answer": "180 minutes",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "hours",
+          "to_unit": "minutes",
+          "factor": 60,
+          "amount": 3,
+          "converted": 180,
+          "read_aloud_text": "Convert 3 hours to minutes.",
+          "question_id": "G5M_MD_001_LVL1_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 180 minutes.",
+          "question_audio": {
+            "text": "Convert 3 hours to minutes.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "180 minutes",
+            "180 minutes",
+            "180 minutes."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 7 gallons to quarts.",
+          "correct_answer": "28 quarts",
+          "answer": "28 quarts",
+          "choices": [
+            "28 quarts",
+            "11 quarts",
+            "7 quarts",
+            "7 quarts"
+          ],
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "gallons",
+          "to_unit": "quarts",
+          "factor": 4,
+          "amount": 7,
+          "converted": 28,
+          "read_aloud_text": "Convert 7 gallons to quarts.",
+          "question_id": "G5M_MD_001_LVL1_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 28 quarts.",
+          "question_audio": {
+            "text": "Convert 7 gallons to quarts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q9",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 4 pounds to ounces.",
+          "correct_answer": "64 ounces",
+          "answer": "64 ounces",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "pounds",
+          "to_unit": "ounces",
+          "factor": 16,
+          "amount": 4,
+          "converted": 64,
+          "read_aloud_text": "Convert 4 pounds to ounces.",
+          "question_id": "G5M_MD_001_LVL1_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 64 ounces.",
+          "question_audio": {
+            "text": "Convert 4 pounds to ounces.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "64 ounces",
+            "64 ounces",
+            "64 ounces."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL1_Q10",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 8 meters to centimeters.",
+          "correct_answer": "800 centimeters",
+          "answer": "800 centimeters",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "meters",
+          "to_unit": "centimeters",
+          "factor": 100,
+          "amount": 8,
+          "converted": 800,
+          "read_aloud_text": "Convert 8 meters to centimeters.",
+          "question_id": "G5M_MD_001_LVL1_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 800 centimeters.",
+          "question_audio": {
+            "text": "Convert 8 meters to centimeters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "800 centimeters",
+            "800 centimeters",
+            "800 centimeters."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_MD_001_LVL2",
+      "label": "Level 2: Volume as Unit Cubes",
+      "focus": "Count cubes by layers.",
+      "description": "Level 2: Volume as Unit Cubes",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_MD_001_LVL2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?",
+          "correct_answer": "12 cubic units",
+          "answer": "12 cubic units",
+          "choices": [
+            "12 cubic units",
+            "6 square units",
+            "14 cubic units",
+            "7 cubic units"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 3,
+          "width": 2,
+          "height": 2,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 12 cubic units.",
+          "read_aloud_text": "A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q2",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+          "correct_answer": "8 cubic units",
+          "answer": "8 cubic units",
+          "misconception_tag": "cube_unit_count_error",
+          "length": 4,
+          "width": 2,
+          "height": 1,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 8 cubic units.",
+          "read_aloud_text": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "8 cubic units",
+            "8 cubic units",
+            "8 cubic units."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 2 columns, 2 rows, and 2 layers. What is the volume?",
+          "correct_answer": "8 cubic units",
+          "answer": "8 cubic units",
+          "choices": [
+            "8 cubic units",
+            "4 square units",
+            "10 cubic units",
+            "6 cubic units"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 2,
+          "width": 2,
+          "height": 2,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 8 cubic units.",
+          "read_aloud_text": "A cube model has 2 columns, 2 rows, and 2 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 2 columns, 2 rows, and 2 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q4",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 5 columns, 2 rows, and 2 layers. What is the volume?",
+          "correct_answer": "20 cubic units",
+          "answer": "20 cubic units",
+          "misconception_tag": "cube_unit_count_error",
+          "length": 5,
+          "width": 2,
+          "height": 2,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 20 cubic units.",
+          "read_aloud_text": "A cube model has 5 columns, 2 rows, and 2 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 5 columns, 2 rows, and 2 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "20 cubic units",
+            "20 cubic units",
+            "20 cubic units."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 3 columns, 3 rows, and 2 layers. What is the volume?",
+          "correct_answer": "18 cubic units",
+          "answer": "18 cubic units",
+          "choices": [
+            "18 cubic units",
+            "9 square units",
+            "20 cubic units",
+            "8 cubic units"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 3,
+          "width": 3,
+          "height": 2,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 18 cubic units.",
+          "read_aloud_text": "A cube model has 3 columns, 3 rows, and 2 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 3 columns, 3 rows, and 2 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q6",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+          "correct_answer": "12 cubic units",
+          "answer": "12 cubic units",
+          "misconception_tag": "cube_unit_count_error",
+          "length": 4,
+          "width": 3,
+          "height": 1,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 12 cubic units.",
+          "read_aloud_text": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "12 cubic units",
+            "12 cubic units",
+            "12 cubic units."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 2 columns, 3 rows, and 3 layers. What is the volume?",
+          "correct_answer": "18 cubic units",
+          "answer": "18 cubic units",
+          "choices": [
+            "18 cubic units",
+            "6 square units",
+            "21 cubic units",
+            "8 cubic units"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 2,
+          "width": 3,
+          "height": 3,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 18 cubic units.",
+          "read_aloud_text": "A cube model has 2 columns, 3 rows, and 3 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 2 columns, 3 rows, and 3 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q8",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 5 columns, 1 rows, and 2 layers. What is the volume?",
+          "correct_answer": "10 cubic units",
+          "answer": "10 cubic units",
+          "misconception_tag": "cube_unit_count_error",
+          "length": 5,
+          "width": 1,
+          "height": 2,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 10 cubic units.",
+          "read_aloud_text": "A cube model has 5 columns, 1 rows, and 2 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 5 columns, 1 rows, and 2 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "10 cubic units",
+            "10 cubic units",
+            "10 cubic units."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 4 columns, 2 rows, and 3 layers. What is the volume?",
+          "correct_answer": "24 cubic units",
+          "answer": "24 cubic units",
+          "choices": [
+            "24 cubic units",
+            "8 square units",
+            "27 cubic units",
+            "9 cubic units"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 4,
+          "width": 2,
+          "height": 3,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 24 cubic units.",
+          "read_aloud_text": "A cube model has 4 columns, 2 rows, and 3 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 4 columns, 2 rows, and 3 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL2_Q10",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 3 columns, 2 rows, and 4 layers. What is the volume?",
+          "correct_answer": "24 cubic units",
+          "answer": "24 cubic units",
+          "misconception_tag": "cube_unit_count_error",
+          "length": 3,
+          "width": 2,
+          "height": 4,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_LVL2_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 24 cubic units.",
+          "read_aloud_text": "A cube model has 3 columns, 2 rows, and 4 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 3 columns, 2 rows, and 4 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "24 cubic units",
+            "24 cubic units",
+            "24 cubic units."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_MD_001_LVL3",
+      "label": "Level 3: Volume Formulas",
+      "focus": "Use V = l × w × h and V = B × h.",
+      "description": "Level 3: Volume Formulas",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_MD_001_LVL3_Q1",
+          "question_type": "short_response",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.",
+          "correct_answer": "72 cubic centimeters",
+          "answer": "72 cubic centimeters",
+          "misconception_tag": "volume_area_confusion",
+          "length": 6,
+          "width": 4,
+          "height": 3,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 72 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "72 cubic centimeters",
+            "72 cubic centimeters",
+            "72 cubic centimeters."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q2",
+          "question_type": "volume_response",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 5 cm, width 5 cm, and height 2 cm.",
+          "correct_answer": "50 cubic centimeters",
+          "answer": "50 cubic centimeters",
+          "misconception_tag": "volume_area_confusion",
+          "length": 5,
+          "width": 5,
+          "height": 2,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 50 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 5 cm, width 5 cm, and height 2 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 5 cm, width 5 cm, and height 2 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "50 cubic centimeters",
+            "50 cubic centimeters",
+            "50 cubic centimeters."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+          "correct_answer": "48 cubic centimeters",
+          "answer": "48 cubic centimeters",
+          "choices": [
+            "48 cubic centimeters",
+            "24 square centimeters",
+            "13 cubic centimeters",
+            "92 square centimeters"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 8,
+          "width": 3,
+          "height": 2,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 48 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 7 cm, width 2 cm, and height 4 cm.",
+          "correct_answer": "56 cubic centimeters",
+          "answer": "56 cubic centimeters",
+          "misconception_tag": "volume_area_confusion",
+          "length": 7,
+          "width": 2,
+          "height": 4,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 56 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 7 cm, width 2 cm, and height 4 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 7 cm, width 2 cm, and height 4 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "56 cubic centimeters",
+            "56 cubic centimeters",
+            "56 cubic centimeters."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q5",
+          "question_type": "volume_response",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 10 cm, width 3 cm, and height 3 cm.",
+          "correct_answer": "90 cubic centimeters",
+          "answer": "90 cubic centimeters",
+          "misconception_tag": "volume_area_confusion",
+          "length": 10,
+          "width": 3,
+          "height": 3,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 90 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 10 cm, width 3 cm, and height 3 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 10 cm, width 3 cm, and height 3 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "90 cubic centimeters",
+            "90 cubic centimeters",
+            "90 cubic centimeters."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 9 cm, width 4 cm, and height 2 cm.",
+          "correct_answer": "72 cubic centimeters",
+          "answer": "72 cubic centimeters",
+          "choices": [
+            "72 cubic centimeters",
+            "36 square centimeters",
+            "15 cubic centimeters",
+            "124 square centimeters"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 9,
+          "width": 4,
+          "height": 2,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 72 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 9 cm, width 4 cm, and height 2 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 9 cm, width 4 cm, and height 2 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q7",
+          "question_type": "short_response",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+          "correct_answer": "72 cubic centimeters",
+          "answer": "72 cubic centimeters",
+          "misconception_tag": "volume_area_confusion",
+          "length": 6,
+          "width": 6,
+          "height": 2,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 72 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "72 cubic centimeters",
+            "72 cubic centimeters",
+            "72 cubic centimeters."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q8",
+          "question_type": "volume_response",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 12 cm, width 2 cm, and height 5 cm.",
+          "correct_answer": "120 cubic centimeters",
+          "answer": "120 cubic centimeters",
+          "misconception_tag": "volume_area_confusion",
+          "length": 12,
+          "width": 2,
+          "height": 5,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 120 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 12 cm, width 2 cm, and height 5 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 12 cm, width 2 cm, and height 5 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "120 cubic centimeters",
+            "120 cubic centimeters",
+            "120 cubic centimeters."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 4 cm, width 4 cm, and height 4 cm.",
+          "correct_answer": "64 cubic centimeters",
+          "answer": "64 cubic centimeters",
+          "choices": [
+            "64 cubic centimeters",
+            "16 square centimeters",
+            "12 cubic centimeters",
+            "96 square centimeters"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 4,
+          "width": 4,
+          "height": 4,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 64 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 4 cm, width 4 cm, and height 4 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 4 cm, width 4 cm, and height 4 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_LVL3_Q10",
+          "question_type": "short_response",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 11 cm, width 3 cm, and height 2 cm.",
+          "correct_answer": "66 cubic centimeters",
+          "answer": "66 cubic centimeters",
+          "misconception_tag": "volume_area_confusion",
+          "length": 11,
+          "width": 3,
+          "height": 2,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_LVL3_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 66 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 11 cm, width 3 cm, and height 2 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 11 cm, width 3 cm, and height 2 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "66 cubic centimeters",
+            "66 cubic centimeters",
+            "66 cubic centimeters."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_MD_001_LVL4",
+      "label": "Level 4: Line Plots With Fractions",
+      "focus": "Read and compare fractional data.",
+      "description": "Level 4: Line Plots With Fractions",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_MD_001_LVL4_Q1",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many measurements are at 1 1/4 inches?",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Use the fractional line plot. How many measurements are at 1 1 over 4 inches?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many measurements are at 1 1 over 4 inches?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q2",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many total measurements are shown on the line plot?",
+          "correct_answer": "10",
+          "answer": "10",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 10.",
+          "read_aloud_text": "Use the fractional line plot. How many total measurements are shown on the line plot?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many total measurements are shown on the line plot?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "10",
+            "10",
+            "10."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q3",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. Which fraction has exactly two X marks?",
+          "correct_answer": "1/2",
+          "answer": "1/2",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "Use the fractional line plot. Which fraction has exactly two X marks?",
+          "question_audio": {
+            "text": "Use the fractional line plot. Which fraction has exactly two X marks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1/2",
+            "1/2",
+            "1/2."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q4",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "5",
+            "5",
+            "5."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q5",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many measurements are at 1 inch?",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "Use the fractional line plot. How many measurements are at 1 inch?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many measurements are at 1 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2",
+            "2",
+            "2."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q6",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. Which measurement appears most often?",
+          "correct_answer": "1 1/4",
+          "answer": "1 1/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 1 1/4.",
+          "read_aloud_text": "Use the fractional line plot. Which measurement appears most often?",
+          "question_audio": {
+            "text": "Use the fractional line plot. Which measurement appears most often?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1 1/4",
+            "1 1/4",
+            "1 1/4."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q7",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many measurements are less than 1 inch?",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Use the fractional line plot. How many measurements are less than 1 inch?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many measurements are less than 1 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q8",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. Which label has no X marks?",
+          "correct_answer": "3/4",
+          "answer": "3/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 3/4.",
+          "read_aloud_text": "Use the fractional line plot. Which label has no X marks?",
+          "question_audio": {
+            "text": "Use the fractional line plot. Which label has no X marks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3/4",
+            "3/4",
+            "3/4."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q9",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many X marks are at 1 1/2 inches?",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "Use the fractional line plot. How many X marks are at 1 1 over 2 inches?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many X marks are at 1 1 over 2 inches?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2",
+            "2",
+            "2."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_LVL4_Q10",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many measurements are at least 1 inch?",
+          "correct_answer": "7",
+          "answer": "7",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_LVL4_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "Use the fractional line plot. How many measurements are at least 1 inch?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many measurements are at least 1 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "7",
+            "7",
+            "7."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_MD_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed conversion, volume, and data review.",
+      "description": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_MD_001_MIXED_Q1",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 4 yards to feet.",
+          "correct_answer": "12 feet",
+          "answer": "12 feet",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "yards",
+          "to_unit": "feet",
+          "factor": 3,
+          "amount": 4,
+          "converted": 12,
+          "read_aloud_text": "Convert 4 yards to feet.",
+          "question_id": "G5M_MD_001_MIXED_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 12 feet.",
+          "question_audio": {
+            "text": "Convert 4 yards to feet.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "12 feet",
+            "12 feet",
+            "12 feet."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q2",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+          "correct_answer": "8 cubic units",
+          "answer": "8 cubic units",
+          "misconception_tag": "cube_unit_count_error",
+          "length": 4,
+          "width": 2,
+          "height": 1,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_MIXED_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 8 cubic units.",
+          "read_aloud_text": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "8 cubic units",
+            "8 cubic units",
+            "8 cubic units."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+          "correct_answer": "48 cubic centimeters",
+          "answer": "48 cubic centimeters",
+          "choices": [
+            "48 cubic centimeters",
+            "24 square centimeters",
+            "13 cubic centimeters",
+            "92 square centimeters"
+          ],
+          "misconception_tag": "volume_area_confusion",
+          "length": 8,
+          "width": 3,
+          "height": 2,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_MIXED_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 48 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q4",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_MIXED_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "5",
+            "5",
+            "5."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 6 liters to milliliters.",
+          "correct_answer": "6000 milliliters",
+          "answer": "6000 milliliters",
+          "choices": [
+            "6000 milliliters",
+            "1006 milliliters",
+            "6 milliliters",
+            "6 milliliters"
+          ],
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "liters",
+          "to_unit": "milliliters",
+          "factor": 1000,
+          "amount": 6,
+          "converted": 6000,
+          "read_aloud_text": "Convert 6 liters to milliliters.",
+          "question_id": "G5M_MD_001_MIXED_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 6000 milliliters.",
+          "question_audio": {
+            "text": "Convert 6 liters to milliliters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q6",
+          "question_type": "volume_response",
+          "visual_model": "volume_model",
+          "prompt": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+          "correct_answer": "12 cubic units",
+          "answer": "12 cubic units",
+          "misconception_tag": "cube_unit_count_error",
+          "length": 4,
+          "width": 3,
+          "height": 1,
+          "unit": "unit",
+          "question_id": "G5M_MD_001_MIXED_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 12 cubic units.",
+          "read_aloud_text": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+          "question_audio": {
+            "text": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "12 cubic units",
+            "12 cubic units",
+            "12 cubic units."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "rectangular_prism_model",
+          "prompt": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+          "correct_answer": "72 cubic centimeters",
+          "answer": "72 cubic centimeters",
+          "misconception_tag": "volume_area_confusion",
+          "length": 6,
+          "width": 6,
+          "height": 2,
+          "unit": "cm",
+          "question_id": "G5M_MD_001_MIXED_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 72 cubic centimeters.",
+          "read_aloud_text": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+          "question_audio": {
+            "text": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "72 cubic centimeters",
+            "72 cubic centimeters",
+            "72 cubic centimeters."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q8",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. Which label has no X marks?",
+          "correct_answer": "3/4",
+          "answer": "3/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_MIXED_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 3/4.",
+          "read_aloud_text": "Use the fractional line plot. Which label has no X marks?",
+          "question_audio": {
+            "text": "Use the fractional line plot. Which label has no X marks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3/4",
+            "3/4",
+            "3/4."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 4 pounds to ounces.",
+          "correct_answer": "64 ounces",
+          "answer": "64 ounces",
+          "misconception_tag": "unit_conversion_direction_error",
+          "from_unit": "pounds",
+          "to_unit": "ounces",
+          "factor": 16,
+          "amount": 4,
+          "converted": 64,
+          "read_aloud_text": "Convert 4 pounds to ounces.",
+          "question_id": "G5M_MD_001_MIXED_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 64 ounces.",
+          "question_audio": {
+            "text": "Convert 4 pounds to ounces.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "64 ounces",
+            "64 ounces",
+            "64 ounces."
+          ]
+        },
+        {
+          "id": "G5M_MD_001_MIXED_Q10",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Use the fractional line plot. How many measurements are at least 1 inch?",
+          "correct_answer": "7",
+          "answer": "7",
+          "misconception_tag": "line_plot_fraction_error",
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1",
+            "1 1/4",
+            "1 1/2"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1",
+            "1 1/4",
+            "1 1/4",
+            "1 1/4",
+            "1 1/2",
+            "1 1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches",
+          "question_id": "G5M_MD_001_MIXED_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "Use the fractional line plot. How many measurements are at least 1 inch?",
+          "question_audio": {
+            "text": "Use the fractional line plot. How many measurements are at least 1 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "7",
+            "7",
+            "7."
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Measurement Conversion, Volume, and Data. In this mission, you will use convert measurements, find volume, and interpret fractional line plots to solve problems that feel like real classroom and world tasks. Watch how the labels, units, and visual model tell you what to do next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches convert measurements, find volume, and interpret fractional line plots. Read the model before calculating, because the model shows what each number or attribute means. Use precise math language: conversions, cubic units, volume, length, width, height, line plots, fractional measurements.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "On the Watch page, slow down and follow one complete example. First name what the question asks, then connect each label in the visual to the operation or property. Finally, say the answer in a complete math sentence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "On the Demo page, build the reasoning with support. Notice where common mistakes happen, such as reversing coordinates, converting the wrong direction, or using only one shape attribute. The model is here to help you catch the mistake early.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This Practice page lets you try the skill yourself. Tap Read Question before you answer so the measurement, coordinate, or geometry words are spoken clearly. Then use the visual and choose or type the answer carefully.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This Challenge page may combine ideas or ask for a deeper explanation. Tap Read Question, study the visual, and decide which information matters most. If the answer has a unit, coordinate, or shape category, include it.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This Checkpoint page checks what you can do independently. Tap Read Question, solve without rushing, and compare your answer to the model. Your response should show that you understand the convert measurements, find volume, and interpret fractional line plots.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge page for Measurement Conversion, Volume, and Data. Think about the model that helped most and the misconception you avoided. This badge celebrates careful reasoning, not just a quick answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "The profile page saves your growth for Measurement Conversion, Volume, and Data. Review your strengths, then continue to the Skill Practice Center for focused levels or Mixed review. Choose Practice This Skill when you want more questions with Read Question support.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

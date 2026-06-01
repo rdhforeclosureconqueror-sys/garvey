@@ -468,3 +468,30 @@ test('Grade 5 fraction Skill World packages appear from manifest for the hub', (
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
+
+test('Final Grade 5 measurement/data and geometry Skill World packages appear from manifest for the hub', () => {
+  const expected = new Map([
+    ['G5M_MD_001', { skill: 'Measurement Conversion, Volume, and Data', domain: 'Measurement and Data' }],
+    ['G5M_GM_001', { skill: 'Coordinate Plane and Graphing', domain: 'Geometry' }],
+    ['G5M_GM_002', { skill: 'Classify Two-Dimensional Figures', domain: 'Geometry' }]
+  ]);
+  for (const skillId of expected.keys()) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
+  const packages = manifest.packages.map(readPackage);
+  for (const [skillId, details] of expected.entries()) {
+    const pkg = packages.find((item) => item.skill_id === skillId);
+    assert.ok(pkg, `${skillId} package loads from manifest`);
+    assert.equal(pkg.grade, 5);
+    assert.equal(pkg.subject, 'Math');
+    assert.equal(pkg.domain, details.domain);
+    assert.equal(pkg.skill, details.skill);
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
+  }
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});
