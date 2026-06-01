@@ -556,3 +556,103 @@ button,input,select,textarea{font:inherit;max-width:100%}
 .decimal-grid-visual h4{margin:.25rem 0 .75rem;font-size:1rem;color:#1e3a8a}.decimal-grid{--decimal-grid-cols:10;display:grid;grid-template-columns:repeat(var(--decimal-grid-cols),minmax(10px,1fr));gap:2px;max-width:min(100%,560px);margin:0 auto 12px;padding:10px;background:#eff6ff;border:3px solid #2563eb;border-radius:18px}.decimal-grid-cell{aspect-ratio:1/1;min-width:8px;border:1px solid #93c5fd;background:#fff;border-radius:3px}.decimal-grid-cell.shaded{background:linear-gradient(135deg,#38bdf8,#2563eb);border-color:#1d4ed8}.decimal-grid-1000{max-width:min(100%,640px);gap:1px}.decimal-grid-1000 .decimal-grid-cell{border-width:0;border-radius:2px}.decimal-number-line,.decimal-rounding-line{grid-auto-columns:minmax(86px,1fr)}
 @media (max-width:700px){.decimal-place-value-chart{grid-template-columns:repeat(5,minmax(58px,1fr))}.decimal-grid{padding:8px;gap:1px}.decimal-grid-1000{grid-template-columns:repeat(20,minmax(6px,1fr));max-height:360px;overflow:auto}.decimal-number-line,.decimal-rounding-line{grid-auto-columns:minmax(76px,1fr)}}
 .expression-builder-visual .expression-piece-row{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;align-items:center;margin:.5rem auto 1rem}.expression-piece{display:inline-flex;align-items:center;justify-content:center;min-width:2.35rem;padding:.55rem .7rem;border:2px solid #93c5fd;border-radius:14px;background:#eff6ff;color:#1e3a8a;font-weight:800;box-shadow:0 2px 0 rgba(37,99,235,.18)}.expression-piece.operation{background:#fef3c7;border-color:#f59e0b;color:#92400e}.expression-piece.group{background:#ede9fe;border-color:#8b5cf6;color:#5b21b6}.coordinate-plane-grid{position:relative;display:grid;grid-template-columns:repeat(var(--coord-cols),minmax(28px,1fr));grid-template-rows:repeat(var(--coord-rows),minmax(28px,1fr)) 22px;gap:0;min-height:260px;max-width:520px;margin:.35rem auto 1rem;padding:18px 28px 28px 28px;background-image:linear-gradient(#bfdbfe 1px,transparent 1px),linear-gradient(90deg,#bfdbfe 1px,transparent 1px);background-size:calc((100% - 56px)/var(--coord-cols)) calc((100% - 68px)/var(--coord-rows));background-position:28px 18px;border:3px solid #2563eb;border-radius:20px;background-color:#f8fbff}.coordinate-axis-label{font-size:.78rem;color:#1e3a8a;font-weight:700;align-self:center;justify-self:center}.coordinate-axis-name{position:absolute;font-weight:900;color:#1d4ed8}.x-axis-name{right:10px;bottom:26px}.y-axis-name{left:14px;top:6px}.coordinate-origin{align-self:end;justify-self:start;color:#1e3a8a;font-weight:900}.coordinate-guide{background:#f97316;opacity:.45;align-self:center;justify-self:stretch;z-index:1}.coordinate-guide.x-guide{height:4px}.coordinate-guide.y-guide{width:4px;justify-self:center;align-self:stretch}.coordinate-point{z-index:2;align-self:center;justify-self:center;color:#dc2626;font-size:1.25rem;line-height:1;text-align:center;text-shadow:0 1px 0 #fff}.coordinate-point b{display:block;transform:translateY(-.15rem);font-size:.78rem;background:#fff7ed;border:1px solid #fb923c;border-radius:999px;padding:.12rem .35rem;white-space:nowrap}.ordered-pair-plot-visual .coordinate-guide{background:#16a34a}.ordered-pair-plot-visual .coordinate-point{color:#16a34a}@media (max-width:700px){.coordinate-plane-grid{grid-template-columns:repeat(var(--coord-cols),minmax(22px,1fr));grid-template-rows:repeat(var(--coord-rows),minmax(22px,1fr)) 18px;min-height:220px;padding:14px 22px 24px}.expression-piece{min-width:2rem;padding:.45rem .55rem}}
+
+/* Grade 5 fraction multiplication and division models. */
+.fraction-area-model-visual,
+.fraction-division-model-visual {
+  display: grid;
+  justify-items: center;
+  gap: .65rem;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.fraction-area-labels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .35rem;
+  align-items: center;
+  font-weight: 900;
+  color: #1e3a8a;
+}
+.fraction-area-labels span {
+  padding: .25rem .6rem;
+  border: 2px solid #60a5fa;
+  border-radius: 999px;
+  background: #eff6ff;
+}
+.fraction-area-grid {
+  --rows: 3;
+  --cols: 4;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(20px, 1fr));
+  grid-template-rows: repeat(var(--rows), minmax(20px, 1fr));
+  width: min(22rem, 88vw);
+  aspect-ratio: 1 / 1;
+  border: 3px solid #0f172a;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff7ed;
+  box-shadow: 0 8px 16px rgba(15,23,42,.12);
+}
+.fraction-area-cell {
+  border-right: 1px solid rgba(15,23,42,.55);
+  border-bottom: 1px solid rgba(15,23,42,.55);
+  background: #fff7ed;
+}
+.fraction-area-cell.row-shaded { background: rgba(125, 211, 252, .58); }
+.fraction-area-cell.column-shaded { background: rgba(250, 204, 21, .58); }
+.fraction-area-cell.overlap { background: linear-gradient(135deg, #38bdf8 0 45%, #facc15 45% 100%); }
+.fraction-division-bar {
+  --parts: 6;
+  display: grid;
+  grid-template-columns: repeat(var(--parts), minmax(10px, 1fr));
+  width: min(24rem, 90vw);
+  border: 3px solid #0f172a;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff7ed;
+}
+.fraction-division-cell {
+  min-height: 4rem;
+  border-right: 1px solid rgba(15,23,42,.55);
+  background: #fff7ed;
+}
+.fraction-division-cell.dividend-shaded { background: #bfdbfe; }
+.fraction-division-cell.quotient-share { background: #22c55e; box-shadow: inset 0 0 0 3px #166534; }
+.fraction-division-wholes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .7rem;
+  max-width: 100%;
+}
+.fraction-division-whole {
+  display: grid;
+  gap: .35rem;
+  min-width: min(12rem, 90vw);
+  padding: .65rem;
+  border: 2px solid #93c5fd;
+  border-radius: 18px;
+  background: #eff6ff;
+}
+.fraction-division-piece-row {
+  --parts: 4;
+  display: grid;
+  grid-template-columns: repeat(var(--parts), minmax(16px, 1fr));
+  border: 2px solid #0f172a;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.fraction-division-piece {
+  min-height: 2.8rem;
+  border-right: 1px solid rgba(15,23,42,.55);
+  background: linear-gradient(180deg, #fde68a, #facc15);
+}
+.fraction-division-piece:last-child,
+.fraction-division-cell:last-child { border-right: 0; }
+@media (max-width: 520px) {
+  .fraction-area-grid { width: min(18rem, 88vw); }
+  .fraction-division-cell { min-height: 3rem; }
+  .fraction-division-whole { min-width: min(9rem, 86vw); }
+}

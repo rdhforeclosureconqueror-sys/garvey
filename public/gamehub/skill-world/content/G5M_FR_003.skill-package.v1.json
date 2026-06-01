@@ -1,0 +1,2352 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "status": "production",
+    "source_plan": "curriculum-framework/plans/grade5-math-completion-plan.v1.json",
+    "readiness": [
+      "validated_skill_package",
+      "guided_mission",
+      "skill_practice_center",
+      "manifest_hub_exposure",
+      "voice_standard"
+    ]
+  },
+  "skill_id": "G5M_FR_003",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Number and Operations—Fractions",
+  "skill": "Divide Unit Fractions and Whole Numbers",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "lesson": {
+    "objective": "Divide unit fractions by whole numbers and whole numbers by unit fractions.",
+    "key_vocabulary": [
+      "equivalent fractions",
+      "unit fraction",
+      "fraction division"
+    ],
+    "concept_explanation": "Fractions name equal parts of a whole. Strong fraction work keeps the whole clear, uses equivalent fractions when parts need to match, and explains whether the answer is reasonable.",
+    "visual_model": "fraction_division_model",
+    "common_misconception": "A common mistake is changing numbers without tracking the size of the equal parts. Use a model and say what each numerator and denominator means.",
+    "real_world_connection": "Cooks, builders, artists, and scientists combine, scale, and share fractional amounts every day.",
+    "lesson_summary": "Divide unit fractions by whole numbers and whole numbers by unit fractions."
+  },
+  "worked_examples": [
+    {
+      "title": "Unit fraction divided by whole number",
+      "text": "To divide 1/3 by 2, split the one-third piece into 2 equal shares. Each share is 1/6 of the whole.",
+      "visual_model": "fraction_division_model",
+      "dividend": "1/3",
+      "divisor": 2,
+      "correct_answer": "1/6",
+      "page_audio": {
+        "text": "A unit fraction divided by a whole number means sharing that one fractional piece equally. The whole is still the original whole. One third split into two equal shares makes sixths.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "title": "Whole number divided by unit fraction",
+      "text": "To divide 3 by 1/4, ask how many one-fourth pieces are in 3 wholes. Each whole has 4 fourths, so 3 wholes have 12 fourths.",
+      "visual_model": "fraction_division_model",
+      "dividend": 3,
+      "divisor": "1/4",
+      "correct_answer": "12",
+      "page_audio": {
+        "text": "A whole number divided by a unit fraction is a measurement question. Count how many unit-fraction pieces fit inside all the wholes. Three wholes contain twelve fourths.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Say what one whole is and what each denominator counts.",
+    "Use equivalent fractions or models so the parts match the operation.",
+    "Compute carefully, then simplify or rename a mixed number when needed.",
+    "Check reasonableness: adding should combine amounts, multiplying by a fraction can make a smaller amount, and division asks how many groups or how much in each share."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_FR_003_LVL1_Q1",
+      "question_id": "G5M_FR_003_LVL1_Q1",
+      "question_type": "division_equation",
+      "visual_model": "fraction_division_model",
+      "prompt": "Divide 1/2 ÷ 2.",
+      "answer": "1/4",
+      "correct_answer": "1/4",
+      "misconception_tag": "unit_fraction_division_confusion",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 1/4.",
+      "read_aloud_text": "Divide 1 over 2  divided by  2.",
+      "question_audio": {
+        "text": "Divide 1 over 2  divided by  2.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "dividend": "1/2",
+      "divisor": 2,
+      "denominator": 2,
+      "numerator": 1,
+      "equation": "1/2 ÷ 2 = ?",
+      "acceptable_answers": [
+        "1/4",
+        "1/4",
+        "1/4."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_FR_003_LVL2_Q1",
+      "question_id": "G5M_FR_003_LVL2_Q1",
+      "question_type": "division_equation",
+      "visual_model": "fraction_division_model",
+      "prompt": "Divide 2 ÷ 1/2.",
+      "answer": "4",
+      "correct_answer": "4",
+      "misconception_tag": "whole_number_fraction_division_error",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 4.",
+      "read_aloud_text": "Divide 2  divided by  1 over 2.",
+      "question_audio": {
+        "text": "Divide 2  divided by  1 over 2.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "dividend": 2,
+      "divisor": "1/2",
+      "total": 4,
+      "groups": 2,
+      "items_per_group": 2,
+      "equation": "2 ÷ 1/2 = ?",
+      "object": "unit fraction pieces",
+      "acceptable_answers": [
+        "4",
+        "4",
+        "4."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_FR_003_MIXED_Q1",
+      "question_id": "G5M_FR_003_MIXED_Q1",
+      "question_type": "division_equation",
+      "visual_model": "fraction_division_model",
+      "prompt": "Divide 1/2 ÷ 2.",
+      "answer": "1/4",
+      "correct_answer": "1/4",
+      "misconception_tag": "unit_fraction_division_confusion",
+      "hints": [
+        "Name the operation and the fractions before solving.",
+        "Use the model to track equal parts and the size of one whole.",
+        "Simplify the final fraction when a common factor is visible."
+      ],
+      "feedback": {
+        "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+        "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+      },
+      "explanation": "The answer is 1/4.",
+      "read_aloud_text": "Divide 1 over 2  divided by  2.",
+      "question_audio": {
+        "text": "Divide 1 over 2  divided by  2.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "dividend": "1/2",
+      "divisor": 2,
+      "denominator": 2,
+      "numerator": 1,
+      "equation": "1/2 ÷ 2 = ?",
+      "acceptable_answers": [
+        "1/4",
+        "1/4",
+        "1/4."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "unit_fraction_division_confusion": "Watch for unit fraction division confusion.",
+    "whole_number_fraction_division_error": "Watch for whole number fraction division error.",
+    "reciprocal_overgeneralization": "Watch for reciprocal overgeneralization.",
+    "fraction_division_context_error": "Watch for fraction division context error."
+  },
+  "level_banks": [
+    {
+      "level_id": "G5M_FR_003_LVL1",
+      "label": "Level 1: Unit Fraction Divided by Whole Number",
+      "description": "Level 1: Unit Fraction Divided by Whole Number",
+      "questions": [
+        {
+          "id": "G5M_FR_003_LVL1_Q1",
+          "question_id": "G5M_FR_003_LVL1_Q1",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/2 ÷ 2.",
+          "answer": "1/4",
+          "correct_answer": "1/4",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/4.",
+          "read_aloud_text": "Divide 1 over 2  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 2  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/2",
+          "divisor": 2,
+          "denominator": 2,
+          "numerator": 1,
+          "equation": "1/2 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/4",
+            "1/4",
+            "1/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q2",
+          "question_id": "G5M_FR_003_LVL1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/3 ÷ 2.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Divide 1 over 3  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 3  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/3",
+          "divisor": 2,
+          "denominator": 3,
+          "numerator": 1,
+          "equation": "1/3 ÷ 2 = ?",
+          "choices": [
+            "1/6",
+            "1/5",
+            "0.6666666666666666"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q3",
+          "question_id": "G5M_FR_003_LVL1_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/4 ÷ 3.",
+          "answer": "1/12",
+          "correct_answer": "1/12",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/12.",
+          "read_aloud_text": "Divide 1 over 4  divided by  3.",
+          "question_audio": {
+            "text": "Divide 1 over 4  divided by  3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/4",
+          "divisor": 3,
+          "denominator": 4,
+          "numerator": 1,
+          "equation": "1/4 ÷ 3 = ?",
+          "acceptable_answers": [
+            "1/12",
+            "1/12",
+            "1/12."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q4",
+          "question_id": "G5M_FR_003_LVL1_Q4",
+          "question_type": "division_equation",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/5 ÷ 2.",
+          "answer": "1/10",
+          "correct_answer": "1/10",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/10.",
+          "read_aloud_text": "Divide 1 over 5  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 5  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/5",
+          "divisor": 2,
+          "denominator": 5,
+          "numerator": 1,
+          "equation": "1/5 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/10",
+            "1/10",
+            "1/10."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q5",
+          "question_id": "G5M_FR_003_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/6 ÷ 3.",
+          "answer": "1/18",
+          "correct_answer": "1/18",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/18.",
+          "read_aloud_text": "Divide 1 over 6  divided by  3.",
+          "question_audio": {
+            "text": "Divide 1 over 6  divided by  3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/6",
+          "divisor": 3,
+          "denominator": 6,
+          "numerator": 1,
+          "equation": "1/6 ÷ 3 = ?",
+          "choices": [
+            "1/18",
+            "1/9",
+            "0.5"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q6",
+          "question_id": "G5M_FR_003_LVL1_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/8 ÷ 2.",
+          "answer": "1/16",
+          "correct_answer": "1/16",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/16.",
+          "read_aloud_text": "Divide 1 over 8  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 8  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/8",
+          "divisor": 2,
+          "denominator": 8,
+          "numerator": 1,
+          "equation": "1/8 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/16",
+            "1/16",
+            "1/16."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q7",
+          "question_id": "G5M_FR_003_LVL1_Q7",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/10 ÷ 5.",
+          "answer": "1/50",
+          "correct_answer": "1/50",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/50.",
+          "read_aloud_text": "Divide 1 over 10  divided by  5.",
+          "question_audio": {
+            "text": "Divide 1 over 10  divided by  5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/10",
+          "divisor": 5,
+          "denominator": 10,
+          "numerator": 1,
+          "equation": "1/10 ÷ 5 = ?",
+          "acceptable_answers": [
+            "1/50",
+            "1/50",
+            "1/50."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q8",
+          "question_id": "G5M_FR_003_LVL1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/12 ÷ 3.",
+          "answer": "1/36",
+          "correct_answer": "1/36",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/36.",
+          "read_aloud_text": "Divide 1 over 12  divided by  3.",
+          "question_audio": {
+            "text": "Divide 1 over 12  divided by  3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/12",
+          "divisor": 3,
+          "denominator": 12,
+          "numerator": 1,
+          "equation": "1/12 ÷ 3 = ?",
+          "choices": [
+            "1/36",
+            "1/15",
+            "0.25"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q9",
+          "question_id": "G5M_FR_003_LVL1_Q9",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/7 ÷ 4.",
+          "answer": "1/28",
+          "correct_answer": "1/28",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/28.",
+          "read_aloud_text": "Divide 1 over 7  divided by  4.",
+          "question_audio": {
+            "text": "Divide 1 over 7  divided by  4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/7",
+          "divisor": 4,
+          "denominator": 7,
+          "numerator": 1,
+          "equation": "1/7 ÷ 4 = ?",
+          "acceptable_answers": [
+            "1/28",
+            "1/28",
+            "1/28."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL1_Q10",
+          "question_id": "G5M_FR_003_LVL1_Q10",
+          "question_type": "division_equation",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/9 ÷ 2.",
+          "answer": "1/18",
+          "correct_answer": "1/18",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/18.",
+          "read_aloud_text": "Divide 1 over 9  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 9  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/9",
+          "divisor": 2,
+          "denominator": 9,
+          "numerator": 1,
+          "equation": "1/9 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/18",
+            "1/18",
+            "1/18."
+          ]
+        }
+      ],
+      "focus": "Level 1: Unit Fraction Divided by Whole Number",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_003_LVL2",
+      "label": "Level 2: Whole Number Divided by Unit Fraction",
+      "description": "Level 2: Whole Number Divided by Unit Fraction",
+      "questions": [
+        {
+          "id": "G5M_FR_003_LVL2_Q1",
+          "question_id": "G5M_FR_003_LVL2_Q1",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 2 ÷ 1/2.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Divide 2  divided by  1 over 2.",
+          "question_audio": {
+            "text": "Divide 2  divided by  1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 2,
+          "divisor": "1/2",
+          "total": 4,
+          "groups": 2,
+          "items_per_group": 2,
+          "equation": "2 ÷ 1/2 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q2",
+          "question_id": "G5M_FR_003_LVL2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Divide 3 ÷ 1/4.",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "Divide 3  divided by  1 over 4.",
+          "question_audio": {
+            "text": "Divide 3  divided by  1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 3,
+          "divisor": "1/4",
+          "total": 12,
+          "groups": 3,
+          "items_per_group": 4,
+          "equation": "3 ÷ 1/4 = ?",
+          "object": "unit fraction pieces",
+          "choices": [
+            "12",
+            "7",
+            "1/12"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q3",
+          "question_id": "G5M_FR_003_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 4 ÷ 1/2.",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Divide 4  divided by  1 over 2.",
+          "question_audio": {
+            "text": "Divide 4  divided by  1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 4,
+          "divisor": "1/2",
+          "total": 8,
+          "groups": 4,
+          "items_per_group": 2,
+          "equation": "4 ÷ 1/2 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "8",
+            "8",
+            "8."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q4",
+          "question_id": "G5M_FR_003_LVL2_Q4",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Divide 5 ÷ 1/5.",
+          "answer": "25",
+          "correct_answer": "25",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 25.",
+          "read_aloud_text": "Divide 5  divided by  1 over 5.",
+          "question_audio": {
+            "text": "Divide 5  divided by  1 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 5,
+          "divisor": "1/5",
+          "total": 25,
+          "groups": 5,
+          "items_per_group": 5,
+          "equation": "5 ÷ 1/5 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "25",
+            "25",
+            "25."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q5",
+          "question_id": "G5M_FR_003_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 2 ÷ 1/3.",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "Divide 2  divided by  1 over 3.",
+          "question_audio": {
+            "text": "Divide 2  divided by  1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 2,
+          "divisor": "1/3",
+          "total": 6,
+          "groups": 2,
+          "items_per_group": 3,
+          "equation": "2 ÷ 1/3 = ?",
+          "object": "unit fraction pieces",
+          "choices": [
+            "6",
+            "5",
+            "1/6"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q6",
+          "question_id": "G5M_FR_003_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Divide 6 ÷ 1/2.",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "Divide 6  divided by  1 over 2.",
+          "question_audio": {
+            "text": "Divide 6  divided by  1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 6,
+          "divisor": "1/2",
+          "total": 12,
+          "groups": 6,
+          "items_per_group": 2,
+          "equation": "6 ÷ 1/2 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "12",
+            "12",
+            "12."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q7",
+          "question_id": "G5M_FR_003_LVL2_Q7",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 3 ÷ 1/5.",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "Divide 3  divided by  1 over 5.",
+          "question_audio": {
+            "text": "Divide 3  divided by  1 over 5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 3,
+          "divisor": "1/5",
+          "total": 15,
+          "groups": 3,
+          "items_per_group": 5,
+          "equation": "3 ÷ 1/5 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "15",
+            "15",
+            "15."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q8",
+          "question_id": "G5M_FR_003_LVL2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Divide 4 ÷ 1/4.",
+          "answer": "16",
+          "correct_answer": "16",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 16.",
+          "read_aloud_text": "Divide 4  divided by  1 over 4.",
+          "question_audio": {
+            "text": "Divide 4  divided by  1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 4,
+          "divisor": "1/4",
+          "total": 16,
+          "groups": 4,
+          "items_per_group": 4,
+          "equation": "4 ÷ 1/4 = ?",
+          "object": "unit fraction pieces",
+          "choices": [
+            "16",
+            "8",
+            "1/16"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q9",
+          "question_id": "G5M_FR_003_LVL2_Q9",
+          "question_type": "short_response",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 5 ÷ 1/2.",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 10.",
+          "read_aloud_text": "Divide 5  divided by  1 over 2.",
+          "question_audio": {
+            "text": "Divide 5  divided by  1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 5,
+          "divisor": "1/2",
+          "total": 10,
+          "groups": 5,
+          "items_per_group": 2,
+          "equation": "5 ÷ 1/2 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "10",
+            "10",
+            "10."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL2_Q10",
+          "question_id": "G5M_FR_003_LVL2_Q10",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Divide 6 ÷ 1/3.",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 18.",
+          "read_aloud_text": "Divide 6  divided by  1 over 3.",
+          "question_audio": {
+            "text": "Divide 6  divided by  1 over 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 6,
+          "divisor": "1/3",
+          "total": 18,
+          "groups": 6,
+          "items_per_group": 3,
+          "equation": "6 ÷ 1/3 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "18",
+            "18",
+            "18."
+          ]
+        }
+      ],
+      "focus": "Level 2: Whole Number Divided by Unit Fraction",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_003_LVL3",
+      "label": "Level 3: Visual Fraction Division",
+      "description": "Level 3: Visual Fraction Division",
+      "questions": [
+        {
+          "id": "G5M_FR_003_LVL3_Q1",
+          "question_id": "G5M_FR_003_LVL3_Q1",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/2 ÷ 2.",
+          "answer": "1/4",
+          "correct_answer": "1/4",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/4.",
+          "read_aloud_text": "Divide 1 over 2  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 2  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/2",
+          "divisor": 2,
+          "denominator": 2,
+          "numerator": 1,
+          "equation": "1/2 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/4",
+            "1/4",
+            "1/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q2",
+          "question_id": "G5M_FR_003_LVL3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/3 ÷ 2.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Divide 1 over 3  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 3  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/3",
+          "divisor": 2,
+          "denominator": 3,
+          "numerator": 1,
+          "equation": "1/3 ÷ 2 = ?",
+          "choices": [
+            "1/6",
+            "1/5",
+            "0.6666666666666666"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q3",
+          "question_id": "G5M_FR_003_LVL3_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/4 ÷ 3.",
+          "answer": "1/12",
+          "correct_answer": "1/12",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/12.",
+          "read_aloud_text": "Divide 1 over 4  divided by  3.",
+          "question_audio": {
+            "text": "Divide 1 over 4  divided by  3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/4",
+          "divisor": 3,
+          "denominator": 4,
+          "numerator": 1,
+          "equation": "1/4 ÷ 3 = ?",
+          "acceptable_answers": [
+            "1/12",
+            "1/12",
+            "1/12."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q4",
+          "question_id": "G5M_FR_003_LVL3_Q4",
+          "question_type": "division_equation",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/5 ÷ 2.",
+          "answer": "1/10",
+          "correct_answer": "1/10",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/10.",
+          "read_aloud_text": "Divide 1 over 5  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 5  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/5",
+          "divisor": 2,
+          "denominator": 5,
+          "numerator": 1,
+          "equation": "1/5 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/10",
+            "1/10",
+            "1/10."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q5",
+          "question_id": "G5M_FR_003_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/6 ÷ 3.",
+          "answer": "1/18",
+          "correct_answer": "1/18",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/18.",
+          "read_aloud_text": "Divide 1 over 6  divided by  3.",
+          "question_audio": {
+            "text": "Divide 1 over 6  divided by  3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/6",
+          "divisor": 3,
+          "denominator": 6,
+          "numerator": 1,
+          "equation": "1/6 ÷ 3 = ?",
+          "choices": [
+            "1/18",
+            "1/9",
+            "0.5"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q6",
+          "question_id": "G5M_FR_003_LVL3_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/8 ÷ 2.",
+          "answer": "1/16",
+          "correct_answer": "1/16",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/16.",
+          "read_aloud_text": "Divide 1 over 8  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 8  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/8",
+          "divisor": 2,
+          "denominator": 8,
+          "numerator": 1,
+          "equation": "1/8 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/16",
+            "1/16",
+            "1/16."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q7",
+          "question_id": "G5M_FR_003_LVL3_Q7",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/10 ÷ 5.",
+          "answer": "1/50",
+          "correct_answer": "1/50",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/50.",
+          "read_aloud_text": "Divide 1 over 10  divided by  5.",
+          "question_audio": {
+            "text": "Divide 1 over 10  divided by  5.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/10",
+          "divisor": 5,
+          "denominator": 10,
+          "numerator": 1,
+          "equation": "1/10 ÷ 5 = ?",
+          "acceptable_answers": [
+            "1/50",
+            "1/50",
+            "1/50."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q8",
+          "question_id": "G5M_FR_003_LVL3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/12 ÷ 3.",
+          "answer": "1/36",
+          "correct_answer": "1/36",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/36.",
+          "read_aloud_text": "Divide 1 over 12  divided by  3.",
+          "question_audio": {
+            "text": "Divide 1 over 12  divided by  3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/12",
+          "divisor": 3,
+          "denominator": 12,
+          "numerator": 1,
+          "equation": "1/12 ÷ 3 = ?",
+          "choices": [
+            "1/36",
+            "1/15",
+            "0.25"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q9",
+          "question_id": "G5M_FR_003_LVL3_Q9",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/7 ÷ 4.",
+          "answer": "1/28",
+          "correct_answer": "1/28",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/28.",
+          "read_aloud_text": "Divide 1 over 7  divided by  4.",
+          "question_audio": {
+            "text": "Divide 1 over 7  divided by  4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/7",
+          "divisor": 4,
+          "denominator": 7,
+          "numerator": 1,
+          "equation": "1/7 ÷ 4 = ?",
+          "acceptable_answers": [
+            "1/28",
+            "1/28",
+            "1/28."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL3_Q10",
+          "question_id": "G5M_FR_003_LVL3_Q10",
+          "question_type": "division_equation",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/9 ÷ 2.",
+          "answer": "1/18",
+          "correct_answer": "1/18",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/18.",
+          "read_aloud_text": "Divide 1 over 9  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 9  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/9",
+          "divisor": 2,
+          "denominator": 9,
+          "numerator": 1,
+          "equation": "1/9 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/18",
+            "1/18",
+            "1/18."
+          ]
+        }
+      ],
+      "focus": "Level 3: Visual Fraction Division",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_003_LVL4",
+      "label": "Level 4: Fraction Division Word Problems",
+      "description": "Level 4: Fraction Division Word Problems",
+      "questions": [
+        {
+          "id": "G5M_FR_003_LVL4_Q1",
+          "question_id": "G5M_FR_003_LVL4_Q1",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A ribbon is 1/4 yard long and is shared equally by 3 students. What fraction of a yard does each student get?",
+          "answer": "1/12",
+          "correct_answer": "1/12",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/12.",
+          "read_aloud_text": "A ribbon is 1 over 4 yard long and is shared equally by 3 students. What fraction of a yard does each student get?",
+          "question_audio": {
+            "text": "A ribbon is 1 over 4 yard long and is shared equally by 3 students. What fraction of a yard does each student get?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            "1/4",
+            3
+          ],
+          "unknown_label": "quotient",
+          "dividend": "1/4",
+          "divisor": 3,
+          "acceptable_answers": [
+            "1/12",
+            "1/12",
+            "1/12."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q2",
+          "question_id": "G5M_FR_003_LVL4_Q2",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A 1/5 liter sample is poured equally into 2 cups. How much is in each cup?",
+          "answer": "1/10",
+          "correct_answer": "1/10",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/10.",
+          "read_aloud_text": "A 1 over 5 liter sample is poured equally into 2 cups. How much is in each cup?",
+          "question_audio": {
+            "text": "A 1 over 5 liter sample is poured equally into 2 cups. How much is in each cup?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            "1/5",
+            2
+          ],
+          "unknown_label": "quotient",
+          "dividend": "1/5",
+          "divisor": 2,
+          "acceptable_answers": [
+            "1/10",
+            "1/10",
+            "1/10."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q3",
+          "question_id": "G5M_FR_003_LVL4_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "How many 1/3 cup servings are in 4 cups of soup?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "How many 1 over 3 cup servings are in 4 cups of soup?",
+          "question_audio": {
+            "text": "How many 1 over 3 cup servings are in 4 cups of soup?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            4,
+            "1/3"
+          ],
+          "unknown_label": "quotient",
+          "dividend": 4,
+          "divisor": "1/3",
+          "choices": [
+            "12",
+            "1/2",
+            "6"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q4",
+          "question_id": "G5M_FR_003_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "How many 1/6 meter pieces can be cut from 2 meters of string?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "How many 1 over 6 meter pieces can be cut from 2 meters of string?",
+          "question_audio": {
+            "text": "How many 1 over 6 meter pieces can be cut from 2 meters of string?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            2,
+            "1/6"
+          ],
+          "unknown_label": "quotient",
+          "dividend": 2,
+          "divisor": "1/6",
+          "acceptable_answers": [
+            "12",
+            "12",
+            "12."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q5",
+          "question_id": "G5M_FR_003_LVL4_Q5",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A 1/8 mile trail section is split into 4 equal parts. What fraction is each part?",
+          "answer": "1/32",
+          "correct_answer": "1/32",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/32.",
+          "read_aloud_text": "A 1 over 8 mile trail section is split into 4 equal parts. What fraction is each part?",
+          "question_audio": {
+            "text": "A 1 over 8 mile trail section is split into 4 equal parts. What fraction is each part?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            "1/8",
+            4
+          ],
+          "unknown_label": "quotient",
+          "dividend": "1/8",
+          "divisor": 4,
+          "acceptable_answers": [
+            "1/32",
+            "1/32",
+            "1/32."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q6",
+          "question_id": "G5M_FR_003_LVL4_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "How many 1/5 pound bags can be made from 3 pounds of seed?",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "How many 1 over 5 pound bags can be made from 3 pounds of seed?",
+          "question_audio": {
+            "text": "How many 1 over 5 pound bags can be made from 3 pounds of seed?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            3,
+            "1/5"
+          ],
+          "unknown_label": "quotient",
+          "dividend": 3,
+          "divisor": "1/5",
+          "acceptable_answers": [
+            "15",
+            "15",
+            "15."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q7",
+          "question_id": "G5M_FR_003_LVL4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A 1/6 sheet of paper is split equally among 2 crafts. What fraction of a sheet is each craft?",
+          "answer": "1/12",
+          "correct_answer": "1/12",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/12.",
+          "read_aloud_text": "A 1 over 6 sheet of paper is split equally among 2 crafts. What fraction of a sheet is each craft?",
+          "question_audio": {
+            "text": "A 1 over 6 sheet of paper is split equally among 2 crafts. What fraction of a sheet is each craft?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            "1/6",
+            2
+          ],
+          "unknown_label": "quotient",
+          "dividend": "1/6",
+          "divisor": 2,
+          "choices": [
+            "1/12",
+            "1/2",
+            "6"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q8",
+          "question_id": "G5M_FR_003_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "How many 1/4 yard strips fit in 5 yards of fabric?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 20.",
+          "read_aloud_text": "How many 1 over 4 yard strips fit in 5 yards of fabric?",
+          "question_audio": {
+            "text": "How many 1 over 4 yard strips fit in 5 yards of fabric?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            5,
+            "1/4"
+          ],
+          "unknown_label": "quotient",
+          "dividend": 5,
+          "divisor": "1/4",
+          "acceptable_answers": [
+            "20",
+            "20",
+            "20."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q9",
+          "question_id": "G5M_FR_003_LVL4_Q9",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A 1/3 pan of lasagna is shared by 2 people. What part of the whole pan does each get?",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "A 1 over 3 pan of lasagna is shared by 2 people. What part of the whole pan does each get?",
+          "question_audio": {
+            "text": "A 1 over 3 pan of lasagna is shared by 2 people. What part of the whole pan does each get?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            "1/3",
+            2
+          ],
+          "unknown_label": "quotient",
+          "dividend": "1/3",
+          "divisor": 2,
+          "acceptable_answers": [
+            "1/6",
+            "1/6",
+            "1/6."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_LVL4_Q10",
+          "question_id": "G5M_FR_003_LVL4_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "How many 1/2 hour blocks are in 6 hours?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "How many 1 over 2 hour blocks are in 6 hours?",
+          "question_audio": {
+            "text": "How many 1 over 2 hour blocks are in 6 hours?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            6,
+            "1/2"
+          ],
+          "unknown_label": "quotient",
+          "dividend": 6,
+          "divisor": "1/2",
+          "acceptable_answers": [
+            "12",
+            "12",
+            "12."
+          ]
+        }
+      ],
+      "focus": "Level 4: Fraction Division Word Problems",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    },
+    {
+      "level_id": "G5M_FR_003_MIXED",
+      "label": "Mixed",
+      "description": "Mixed",
+      "questions": [
+        {
+          "id": "G5M_FR_003_MIXED_Q1",
+          "question_id": "G5M_FR_003_MIXED_Q1",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/2 ÷ 2.",
+          "answer": "1/4",
+          "correct_answer": "1/4",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/4.",
+          "read_aloud_text": "Divide 1 over 2  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 2  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/2",
+          "divisor": 2,
+          "denominator": 2,
+          "numerator": 1,
+          "equation": "1/2 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/4",
+            "1/4",
+            "1/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q2",
+          "question_id": "G5M_FR_003_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/3 ÷ 2.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Divide 1 over 3  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 3  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/3",
+          "divisor": 2,
+          "denominator": 3,
+          "numerator": 1,
+          "equation": "1/3 ÷ 2 = ?",
+          "choices": [
+            "1/6",
+            "1/5",
+            "0.6666666666666666"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q3",
+          "question_id": "G5M_FR_003_MIXED_Q3",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/4 ÷ 3.",
+          "answer": "1/12",
+          "correct_answer": "1/12",
+          "misconception_tag": "unit_fraction_division_confusion",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/12.",
+          "read_aloud_text": "Divide 1 over 4  divided by  3.",
+          "question_audio": {
+            "text": "Divide 1 over 4  divided by  3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/4",
+          "divisor": 3,
+          "denominator": 4,
+          "numerator": 1,
+          "equation": "1/4 ÷ 3 = ?",
+          "acceptable_answers": [
+            "1/12",
+            "1/12",
+            "1/12."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q4",
+          "question_id": "G5M_FR_003_MIXED_Q4",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 2 ÷ 1/2.",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Divide 2  divided by  1 over 2.",
+          "question_audio": {
+            "text": "Divide 2  divided by  1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 2,
+          "divisor": "1/2",
+          "total": 4,
+          "groups": 2,
+          "items_per_group": 2,
+          "equation": "2 ÷ 1/2 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q5",
+          "question_id": "G5M_FR_003_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Divide 3 ÷ 1/4.",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "Divide 3  divided by  1 over 4.",
+          "question_audio": {
+            "text": "Divide 3  divided by  1 over 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 3,
+          "divisor": "1/4",
+          "total": 12,
+          "groups": 3,
+          "items_per_group": 4,
+          "equation": "3 ÷ 1/4 = ?",
+          "object": "unit fraction pieces",
+          "choices": [
+            "12",
+            "7",
+            "1/12"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q6",
+          "question_id": "G5M_FR_003_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 4 ÷ 1/2.",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "whole_number_fraction_division_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Divide 4  divided by  1 over 2.",
+          "question_audio": {
+            "text": "Divide 4  divided by  1 over 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": 4,
+          "divisor": "1/2",
+          "total": 8,
+          "groups": 4,
+          "items_per_group": 2,
+          "equation": "4 ÷ 1/2 = ?",
+          "object": "unit fraction pieces",
+          "acceptable_answers": [
+            "8",
+            "8",
+            "8."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q7",
+          "question_id": "G5M_FR_003_MIXED_Q7",
+          "question_type": "division_equation",
+          "visual_model": "fraction_division_model",
+          "prompt": "Divide 1/2 ÷ 2.",
+          "answer": "1/4",
+          "correct_answer": "1/4",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/4.",
+          "read_aloud_text": "Divide 1 over 2  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 2  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/2",
+          "divisor": 2,
+          "denominator": 2,
+          "numerator": 1,
+          "equation": "1/2 ÷ 2 = ?",
+          "acceptable_answers": [
+            "1/4",
+            "1/4",
+            "1/4."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q8",
+          "question_id": "G5M_FR_003_MIXED_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Divide 1/3 ÷ 2.",
+          "answer": "1/6",
+          "correct_answer": "1/6",
+          "misconception_tag": "reciprocal_overgeneralization",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/6.",
+          "read_aloud_text": "Divide 1 over 3  divided by  2.",
+          "question_audio": {
+            "text": "Divide 1 over 3  divided by  2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "dividend": "1/3",
+          "divisor": 2,
+          "denominator": 3,
+          "numerator": 1,
+          "equation": "1/3 ÷ 2 = ?",
+          "choices": [
+            "1/6",
+            "1/5",
+            "0.6666666666666666"
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q9",
+          "question_id": "G5M_FR_003_MIXED_Q9",
+          "question_type": "word_problem",
+          "visual_model": "word_problem_model",
+          "prompt": "A ribbon is 1/4 yard long and is shared equally by 3 students. What fraction of a yard does each student get?",
+          "answer": "1/12",
+          "correct_answer": "1/12",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/12.",
+          "read_aloud_text": "A ribbon is 1 over 4 yard long and is shared equally by 3 students. What fraction of a yard does each student get?",
+          "question_audio": {
+            "text": "A ribbon is 1 over 4 yard long and is shared equally by 3 students. What fraction of a yard does each student get?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            "1/4",
+            3
+          ],
+          "unknown_label": "quotient",
+          "dividend": "1/4",
+          "divisor": 3,
+          "acceptable_answers": [
+            "1/12",
+            "1/12",
+            "1/12."
+          ]
+        },
+        {
+          "id": "G5M_FR_003_MIXED_Q10",
+          "question_id": "G5M_FR_003_MIXED_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A 1/5 liter sample is poured equally into 2 cups. How much is in each cup?",
+          "answer": "1/10",
+          "correct_answer": "1/10",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name the operation and the fractions before solving.",
+            "Use the model to track equal parts and the size of one whole.",
+            "Simplify the final fraction when a common factor is visible."
+          ],
+          "feedback": {
+            "correct": "Yes! You used fraction reasoning and kept the size of the parts clear.",
+            "incorrect": "Try again. Check the operation, the denominator size, and whether the answer can be simplified."
+          },
+          "explanation": "The answer is 1/10.",
+          "read_aloud_text": "A 1 over 5 liter sample is poured equally into 2 cups. How much is in each cup?",
+          "question_audio": {
+            "text": "A 1 over 5 liter sample is poured equally into 2 cups. How much is in each cup?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "operation": "divide",
+          "knowns": [
+            "1/5",
+            2
+          ],
+          "unknown_label": "quotient",
+          "dividend": "1/5",
+          "divisor": 2,
+          "acceptable_answers": [
+            "1/10",
+            "1/10",
+            "1/10."
+          ]
+        }
+      ],
+      "focus": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to the fraction mission for Divide Unit Fractions and Whole Numbers. In this story, fractions are useful quantities, not just numbers on a page. Listen for the whole, the equal parts, and the question being asked.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "On this page, learn the main strategy for Divide Unit Fractions and Whole Numbers. Use fraction language such as unlike denominators, equivalent fractions, mixed numbers, products, and quotients. A model helps you see why the computation works.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch the example slowly before you calculate. First identify the operation, then connect the numbers to the visual model. Finally, explain the answer in a complete math sentence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "In the guided demo, build the fraction relationship step by step. Say the denominator as equal parts and the numerator as selected parts. Use the model to catch mistakes before answering.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This is the Practice page. Tap Read Question to hear the fraction problem read naturally. Then solve with the model, check equivalent fractions or operations, and choose or enter the answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This is the Challenge page. Tap Read Question before you solve. The problem may include a mixed number, a context, or a visual that asks you to reason beyond a single step.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This is the Checkpoint page. Tap Read Question, solve independently, and use your answer to show what you know. Check that the fraction is simplified and matches the story.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge page. Think about the models that helped most: bars, circles, area grids, equations, or division pictures. Celebrate the strategy you can now use again.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "The profile page saves your growth for this fraction skill. Review any misconception tags, then continue to the Skill Practice Center if you want more focused levels and a Mixed review. Choose a focused level for extra practice, or try Mixed when you are ready to combine strategies.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "badgeName": "Divide Unit Fractions and Whole Numbers Badge"
+}
