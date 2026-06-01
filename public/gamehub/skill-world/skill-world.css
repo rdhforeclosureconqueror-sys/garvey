@@ -506,3 +506,48 @@ button,input,select,textarea{font:inherit;max-width:100%}
 }
 .grade4-place-value-chart{grid-template-columns:repeat(7,minmax(74px,1fr));max-width:min(100%,760px);font-size:.92rem}.grade4-place-value-chart div{min-width:0;padding:10px 8px}.grade4-place-value-chart h4{font-size:.8rem;line-height:1.1}.grade4-place-value-chart strong{font-size:1.35rem}.grade4-place-value-chart small{display:block;overflow-wrap:anywhere}.grade4-place-value-chart .is-target-place{background:#fef3c7}.expanded-place-row{display:grid;grid-template-columns:repeat(7,minmax(54px,1fr));gap:6px;margin:12px auto;max-width:min(100%,720px)}.expanded-part{background:#eef2ff;border:2px solid #818cf8;border-radius:12px;padding:8px 6px;text-align:center}.expanded-part b{display:block;font-size:1.2rem}.expanded-part small{font-size:.78rem;overflow-wrap:anywhere}.expanded-part.zero-part{background:#f8fafc;border-style:dashed;color:#64748b}.large-number-line{grid-auto-columns:minmax(92px,1fr)}.grade4-rounding-line{grid-auto-columns:minmax(110px,1fr)}.rounding-tick b{white-space:nowrap}
 @media (max-width:700px){.grade4-place-value-chart{grid-template-columns:repeat(4,minmax(68px,1fr));max-width:100%}.expanded-place-row{grid-template-columns:repeat(4,minmax(58px,1fr))}.large-number-line{grid-auto-columns:minmax(86px,1fr)}.grade4-rounding-line{grid-auto-columns:minmax(96px,1fr)}}
+
+/* Grade 4 division and fraction-operation models. */
+.equal-groups-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .75rem;
+  max-width: 100%;
+  margin: .75rem auto;
+}
+.equal-groups-row.compact { gap: .5rem; }
+.equal-group-card,
+.remainder-leftovers {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: .35rem;
+  min-width: min(8rem, 44vw);
+  max-width: 100%;
+  padding: .7rem;
+  border: 2px solid #93c5fd;
+  border-radius: 18px;
+  background: #eff6ff;
+  box-shadow: 0 6px 12px rgba(15,23,42,.08);
+}
+.remainder-leftovers {
+  width: min(18rem, 100%);
+  margin: .75rem auto;
+  border-color: #fb923c;
+  background: #fff7ed;
+}
+.remainder-leftovers.none { border-color: #22c55e; background: #f0fdf4; }
+.remainder-model-visual .object-token,
+.division-model-visual .object-token,
+.multiplication-model-visual .object-token {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: .08rem;
+}
+.repeated-addition-visual .fraction-mini {
+  width: min(8rem, 36vw);
+  padding: .4rem;
+  border-radius: 16px;
+  background: #fff;
+}
