@@ -1,0 +1,2991 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade6-math-completion-plan.v1.json",
+    "completion_plan_doc": "docs/grade6_math_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01",
+    "readiness": [
+      "validated_skill_package",
+      "guided_mission",
+      "skill_practice_center",
+      "manifest_hub_exposure",
+      "voice_standard",
+      "cached_ai_audio_compatible",
+      "browser_speech_fallback"
+    ]
+  },
+  "skill_id": "G6M_RP_001",
+  "grade": 6,
+  "subject": "Math",
+  "domain": "Ratios and Proportional Relationships",
+  "skill": "Ratios and Unit Rates",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Help the Ratio Rally team set fair prices, compare travel speeds, and label recipe mixes before the market opens.",
+    "objective": "I can use ratio language, equivalent ratios, ratio tables, and unit rates to describe real situations.",
+    "key_vocabulary": [
+      "ratio",
+      "part-to-part",
+      "part-to-whole",
+      "equivalent ratio",
+      "ratio table",
+      "unit rate",
+      "per 1"
+    ],
+    "concept_explanation": "A ratio compares two quantities. Say the quantities in order, such as 3 to 4 or 3 for every 4. Equivalent ratios keep the same relationship. A unit rate compares a quantity to exactly 1 of another unit.",
+    "visual_model": "ratio_table",
+    "common_misconception": "A common mistake is reversing the order of a ratio or mixing part-to-part and part-to-whole comparisons.",
+    "real_world_connection": "Shoppers, runners, cooks, and readers use rates such as dollars per item, miles per hour, and pages per minute.",
+    "lesson_summary": "Keep ratio order and units clear. Scale both numbers for equivalent ratios, and divide to find per 1.",
+    "page_audio": {
+      "text": "Read This Page. A ratio can compare part to part, like 3 red beads to 4 blue beads. A ratio can compare part to whole, like 3 red beads to 7 total beads. Equivalent ratios multiply or divide both numbers by the same amount, and a unit rate tells how much for 1.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G6M_RP_001_WE1",
+      "text": "A club sells 12 dollars for 3 tickets. Divide 12 by 3 to find 4 dollars per ticket.",
+      "visual_model": "unit_rate_card",
+      "total_amount": 12,
+      "amount_unit": "dollars",
+      "total_units": 3,
+      "unit_label": "tickets",
+      "unit_rate": "4",
+      "correct_answer": "4 dollars per ticket",
+      "page_audio": {
+        "text": "Read This Page. Watch this unit rate example. Twelve dollars for 3 tickets means divide 12 dollars by 3 tickets. The answer is 4 dollars per ticket, which means 4 dollars for every 1 ticket.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "id": "G6M_RP_001_WE2",
+      "text": "The ratio of lemons to limes is 3 to 4. Multiplying both numbers by 2 gives 6 to 8, an equivalent ratio.",
+      "visual_model": "ratio_table",
+      "headers": [
+        "lemons",
+        "limes"
+      ],
+      "rows": [
+        [
+          3,
+          4
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          9,
+          12
+        ]
+      ],
+      "correct_answer": "6 to 8",
+      "page_audio": {
+        "text": "Read This Page. Watch the equivalent ratio table. Three lemons to 4 limes can become 6 lemons to 8 limes by multiplying both numbers by 2. The relationship stays the same.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Name both quantities in the same order as the question.",
+    "Use multiplication or division to keep the relationship the same.",
+    "Check the units: a unit rate always tells how much for 1."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G6M_RP_001_GP1",
+      "prompt": "There are 3 red flags and 4 blue flags. What is the ratio of red flags to blue flags?",
+      "question_type": "ratio_response",
+      "visual_model": "tape_diagram",
+      "support_type": "tape_diagram",
+      "correct_answer": "3:4",
+      "answer": "3:4",
+      "misconception_tag": "ratio_order_reversal",
+      "hints": [
+        "Name both quantities in the same order as the question.",
+        "Use multiplication or division to keep the relationship the same.",
+        "Check the units: a unit rate always tells how much for 1."
+      ],
+      "feedback": {
+        "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+        "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+      },
+      "explanation": "The answer is 3:4.",
+      "read_aloud_text": "There are 3 red flags and 4 blue flags. What is the ratio of red flags to blue flags?",
+      "question_audio": {
+        "text": "There are 3 red flags and 4 blue flags. What is the ratio of red flags to blue flags?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_GP1"
+      },
+      "ratio_values": [
+        3,
+        4
+      ],
+      "ratio_labels": [
+        "red flags",
+        "blue flags"
+      ],
+      "acceptable_answers": [
+        "3:4",
+        "3 to 4",
+        "3 red flags to 4 blue flags",
+        "3 for every 4"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6M_RP_001_AQ1",
+      "prompt": "A bike travels 24 miles in 2 hours. What is the unit rate in miles per hour?",
+      "question_type": "rate_response",
+      "visual_model": "unit_rate_card",
+      "support_type": "unit_rate_card",
+      "correct_answer": "12 miles per hour",
+      "answer": "12 miles per hour",
+      "misconception_tag": "unit_rate_confusion",
+      "hints": [
+        "Name both quantities in the same order as the question.",
+        "Use multiplication or division to keep the relationship the same.",
+        "Check the units: a unit rate always tells how much for 1."
+      ],
+      "feedback": {
+        "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+        "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+      },
+      "explanation": "The answer is 12 miles per hour.",
+      "read_aloud_text": "A bike travels 24 miles in 2 hours. What is the unit rate in miles per hour?",
+      "question_audio": {
+        "text": "A bike travels 24 miles in 2 hours. What is the unit rate in miles per hour?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_AQ1"
+      },
+      "total_amount": 24,
+      "amount_unit": "miles",
+      "total_units": 2,
+      "unit_label": "hours",
+      "unit_rate": "12 miles per hour",
+      "acceptable_answers": [
+        "12",
+        "12 mph",
+        "12 miles per hour",
+        "12 miles/hour"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6M_RP_001_CP1",
+      "prompt": "Which ratio is equivalent to 5 cups of juice for every 2 cups of water?",
+      "question_type": "multiple_choice",
+      "visual_model": "ratio_table",
+      "support_type": "ratio_table",
+      "correct_answer": "10:4",
+      "answer": "10:4",
+      "misconception_tag": "equivalent_ratio_error",
+      "hints": [
+        "Name both quantities in the same order as the question.",
+        "Use multiplication or division to keep the relationship the same.",
+        "Check the units: a unit rate always tells how much for 1."
+      ],
+      "feedback": {
+        "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+        "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+      },
+      "explanation": "The answer is 10:4.",
+      "read_aloud_text": "Which ratio is equivalent to 5 cups of juice for every 2 cups of water?",
+      "question_audio": {
+        "text": "Which ratio is equivalent to 5 cups of juice for every 2 cups of water?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_CP1"
+      },
+      "headers": [
+        "juice cups",
+        "water cups"
+      ],
+      "rows": [
+        [
+          5,
+          2
+        ],
+        [
+          10,
+          4
+        ],
+        [
+          15,
+          6
+        ]
+      ],
+      "choices": [
+        "10:4",
+        "7:4",
+        "5:7"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "ratio_order_reversal": "The ratio order was reversed. Say the quantities in the same order as the question.",
+    "part_part_whole_confusion": "A part-to-part ratio was mixed with a part-to-whole ratio. Identify whether the second number is another part or the total.",
+    "equivalent_ratio_error": "Both numbers were not multiplied or divided by the same factor. Scale both quantities together.",
+    "unit_rate_confusion": "The answer did not tell the amount for exactly 1 unit. Divide by the number of units and keep the unit words."
+  },
+  "review_bank": [
+    {
+      "question_id": "G6M_RP_001_LVL1_Q01",
+      "prompt": "Write the ratio of cats to dogs.",
+      "question_type": "multiple_choice",
+      "visual_model": "tape_diagram",
+      "support_type": "tape_diagram",
+      "correct_answer": "2:5",
+      "answer": "2:5",
+      "misconception_tag": "ratio_order_reversal",
+      "hints": [
+        "Name both quantities in the same order as the question.",
+        "Use multiplication or division to keep the relationship the same.",
+        "Check the units: a unit rate always tells how much for 1."
+      ],
+      "feedback": {
+        "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+        "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+      },
+      "explanation": "The answer is 2:5.",
+      "read_aloud_text": "Write the ratio of cats to dogs.",
+      "question_audio": {
+        "text": "Write the ratio of cats to dogs.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q01"
+      },
+      "ratio_values": [
+        2,
+        5
+      ],
+      "ratio_labels": [
+        "cats",
+        "dogs"
+      ],
+      "total": 7,
+      "choices": [
+        "2:5",
+        "5:2",
+        "2:7"
+      ],
+      "acceptable_answers": [
+        "2:5",
+        "2 to 5",
+        "2 for every 5",
+        "2 cats to 5 dogs"
+      ]
+    },
+    {
+      "question_id": "G6M_RP_001_LVL2_Q01",
+      "prompt": "Find an equivalent ratio to 3:4 by multiplying both numbers by 2.",
+      "question_type": "multiple_choice",
+      "visual_model": "ratio_table",
+      "support_type": "ratio_table",
+      "correct_answer": "6:8",
+      "answer": "6:8",
+      "misconception_tag": "equivalent_ratio_error",
+      "hints": [
+        "Name both quantities in the same order as the question.",
+        "Use multiplication or division to keep the relationship the same.",
+        "Check the units: a unit rate always tells how much for 1."
+      ],
+      "feedback": {
+        "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+        "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+      },
+      "explanation": "The answer is 6:8.",
+      "read_aloud_text": "Find an equivalent ratio to 3 to 4 by multiplying both numbers by 2.",
+      "question_audio": {
+        "text": "Find an equivalent ratio to 3 to 4 by multiplying both numbers by 2.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q01"
+      },
+      "headers": [
+        "first quantity",
+        "second quantity"
+      ],
+      "rows": [
+        [
+          3,
+          4
+        ],
+        [
+          6,
+          8
+        ]
+      ],
+      "choices": [
+        "6:8",
+        "5:6",
+        "8:6"
+      ],
+      "acceptable_answers": [
+        "6:8",
+        "6 to 8",
+        "6 for every 8"
+      ]
+    },
+    {
+      "question_id": "G6M_RP_001_LVL4_Q01",
+      "prompt": "12 dollars for 3 tickets. What is the unit rate?",
+      "question_type": "multiple_choice",
+      "visual_model": "unit_rate_card",
+      "support_type": "unit_rate_card",
+      "correct_answer": "4 dollars per ticket",
+      "answer": "4 dollars per ticket",
+      "misconception_tag": "unit_rate_confusion",
+      "hints": [
+        "Name both quantities in the same order as the question.",
+        "Use multiplication or division to keep the relationship the same.",
+        "Check the units: a unit rate always tells how much for 1."
+      ],
+      "feedback": {
+        "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+        "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+      },
+      "explanation": "The answer is 4 dollars per ticket.",
+      "read_aloud_text": "12 dollars for 3 tickets. What is the unit rate?",
+      "question_audio": {
+        "text": "12 dollars for 3 tickets. What is the unit rate?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q01"
+      },
+      "total_amount": 12,
+      "amount_unit": "dollars",
+      "total_units": 3,
+      "unit_label": "tickets",
+      "unit_rate": "4 dollars per ticket",
+      "choices": [
+        "4 dollars per ticket",
+        "12 dollars per ticket",
+        "3 dollars per ticket"
+      ],
+      "acceptable_answers": [
+        "4",
+        "4 dollars per ticket",
+        "4 per ticket"
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Ratio Rally Market",
+    "name": "Ratio Rally Market",
+    "mission_intro": "Help the Ratio Rally team compare mixes, prices, speeds, and reading rates before the market opens.",
+    "badge_name": "Ratio Rally Badge"
+  },
+  "support_type": "ratio_table",
+  "feedback_fields": [
+    "correct",
+    "incorrect",
+    "explanation",
+    "misconception_tag"
+  ],
+  "next_skill_id": "G6M_RP_002",
+  "remediation_skill_id": "G5M_FR_001",
+  "level_banks": [
+    {
+      "level_id": "G6M_RP_001_LVL1",
+      "label": "Level 1: Ratio Language",
+      "focus": "Use ratio language for part-to-part and part-to-whole comparisons.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_RP_001_LVL1_Q01",
+          "prompt": "Write the ratio of cats to dogs.",
+          "question_type": "multiple_choice",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "2:5",
+          "answer": "2:5",
+          "misconception_tag": "ratio_order_reversal",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 2:5.",
+          "read_aloud_text": "Write the ratio of cats to dogs.",
+          "question_audio": {
+            "text": "Write the ratio of cats to dogs.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q01"
+          },
+          "ratio_values": [
+            2,
+            5
+          ],
+          "ratio_labels": [
+            "cats",
+            "dogs"
+          ],
+          "total": 7,
+          "choices": [
+            "2:5",
+            "5:2",
+            "2:7"
+          ],
+          "acceptable_answers": [
+            "2:5",
+            "2 to 5",
+            "2 for every 5",
+            "2 cats to 5 dogs"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q02",
+          "prompt": "Write the ratio of girls to boys.",
+          "question_type": "multiple_choice",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "4:3",
+          "answer": "4:3",
+          "misconception_tag": "ratio_order_reversal",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 4:3.",
+          "read_aloud_text": "Write the ratio of girls to boys.",
+          "question_audio": {
+            "text": "Write the ratio of girls to boys.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q02"
+          },
+          "ratio_values": [
+            4,
+            3
+          ],
+          "ratio_labels": [
+            "girls",
+            "boys"
+          ],
+          "total": 7,
+          "choices": [
+            "4:3",
+            "3:4",
+            "4:7"
+          ],
+          "acceptable_answers": [
+            "4:3",
+            "4 to 3",
+            "4 for every 3",
+            "4 girls to 3 boys"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q03",
+          "prompt": "Write the ratio of red beads to total beads.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "3:7",
+          "answer": "3:7",
+          "misconception_tag": "part_part_whole_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 3:7.",
+          "read_aloud_text": "Write the ratio of red beads to total beads.",
+          "question_audio": {
+            "text": "Write the ratio of red beads to total beads.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q03"
+          },
+          "ratio_values": [
+            3,
+            7
+          ],
+          "ratio_labels": [
+            "red beads",
+            "total beads"
+          ],
+          "total": 7,
+          "acceptable_answers": [
+            "3:7",
+            "3 to 7",
+            "3 for every 7",
+            "3 red beads to 7 total beads"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q04",
+          "prompt": "Write the ratio of soccer balls to total balls.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "6:10",
+          "answer": "6:10",
+          "misconception_tag": "part_part_whole_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 6:10.",
+          "read_aloud_text": "Write the ratio of soccer balls to total balls.",
+          "question_audio": {
+            "text": "Write the ratio of soccer balls to total balls.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q04"
+          },
+          "ratio_values": [
+            6,
+            10
+          ],
+          "ratio_labels": [
+            "soccer balls",
+            "total balls"
+          ],
+          "total": 10,
+          "acceptable_answers": [
+            "6:10",
+            "6 to 10",
+            "6 for every 10",
+            "6 soccer balls to 10 total balls"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q05",
+          "prompt": "Write the ratio of apples to oranges.",
+          "question_type": "multiple_choice",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "5:2",
+          "answer": "5:2",
+          "misconception_tag": "ratio_order_reversal",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 5:2.",
+          "read_aloud_text": "Write the ratio of apples to oranges.",
+          "question_audio": {
+            "text": "Write the ratio of apples to oranges.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q05"
+          },
+          "ratio_values": [
+            5,
+            2
+          ],
+          "ratio_labels": [
+            "apples",
+            "oranges"
+          ],
+          "total": 7,
+          "choices": [
+            "5:2",
+            "2:5",
+            "5:7"
+          ],
+          "acceptable_answers": [
+            "5:2",
+            "5 to 2",
+            "5 for every 2",
+            "5 apples to 2 oranges"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q06",
+          "prompt": "Write the ratio of chairs to total seats.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "8:12",
+          "answer": "8:12",
+          "misconception_tag": "part_part_whole_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 8:12.",
+          "read_aloud_text": "Write the ratio of chairs to total seats.",
+          "question_audio": {
+            "text": "Write the ratio of chairs to total seats.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q06"
+          },
+          "ratio_values": [
+            8,
+            12
+          ],
+          "ratio_labels": [
+            "chairs",
+            "total seats"
+          ],
+          "total": 12,
+          "acceptable_answers": [
+            "8:12",
+            "8 to 12",
+            "8 for every 12",
+            "8 chairs to 12 total seats"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q07",
+          "prompt": "Write the ratio of morning votes to afternoon votes.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "7:9",
+          "answer": "7:9",
+          "misconception_tag": "ratio_order_reversal",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 7:9.",
+          "read_aloud_text": "Write the ratio of morning votes to afternoon votes.",
+          "question_audio": {
+            "text": "Write the ratio of morning votes to afternoon votes.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q07"
+          },
+          "ratio_values": [
+            7,
+            9
+          ],
+          "ratio_labels": [
+            "morning votes",
+            "afternoon votes"
+          ],
+          "total": 16,
+          "acceptable_answers": [
+            "7:9",
+            "7 to 9",
+            "7 for every 9",
+            "7 morning votes to 9 afternoon votes"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q08",
+          "prompt": "Write the ratio of green tiles to blue tiles.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "1:4",
+          "answer": "1:4",
+          "misconception_tag": "ratio_order_reversal",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 1:4.",
+          "read_aloud_text": "Write the ratio of green tiles to blue tiles.",
+          "question_audio": {
+            "text": "Write the ratio of green tiles to blue tiles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q08"
+          },
+          "ratio_values": [
+            1,
+            4
+          ],
+          "ratio_labels": [
+            "green tiles",
+            "blue tiles"
+          ],
+          "total": 5,
+          "acceptable_answers": [
+            "1:4",
+            "1 to 4",
+            "1 for every 4",
+            "1 green tiles to 4 blue tiles"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q09",
+          "prompt": "Write the ratio of pencils to markers.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "9:5",
+          "answer": "9:5",
+          "misconception_tag": "ratio_order_reversal",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 9:5.",
+          "read_aloud_text": "Write the ratio of pencils to markers.",
+          "question_audio": {
+            "text": "Write the ratio of pencils to markers.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q09"
+          },
+          "ratio_values": [
+            9,
+            5
+          ],
+          "ratio_labels": [
+            "pencils",
+            "markers"
+          ],
+          "total": 14,
+          "acceptable_answers": [
+            "9:5",
+            "9 to 5",
+            "9 for every 5",
+            "9 pencils to 5 markers"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL1_Q10",
+          "prompt": "Write the ratio of jazz songs to total songs.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "4:9",
+          "answer": "4:9",
+          "misconception_tag": "part_part_whole_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 4:9.",
+          "read_aloud_text": "Write the ratio of jazz songs to total songs.",
+          "question_audio": {
+            "text": "Write the ratio of jazz songs to total songs.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL1_Q10"
+          },
+          "ratio_values": [
+            4,
+            9
+          ],
+          "ratio_labels": [
+            "jazz songs",
+            "total songs"
+          ],
+          "total": 9,
+          "acceptable_answers": [
+            "4:9",
+            "4 to 9",
+            "4 for every 9",
+            "4 jazz songs to 9 total songs"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_RP_001_LVL2",
+      "label": "Level 2: Equivalent Ratios",
+      "focus": "Create and recognize equivalent ratios by scaling both quantities.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_RP_001_LVL2_Q01",
+          "prompt": "Find an equivalent ratio to 3:4 by multiplying both numbers by 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "6:8",
+          "answer": "6:8",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 6:8.",
+          "read_aloud_text": "Find an equivalent ratio to 3 to 4 by multiplying both numbers by 2.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 3 to 4 by multiplying both numbers by 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q01"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              3,
+              4
+            ],
+            [
+              6,
+              8
+            ]
+          ],
+          "choices": [
+            "6:8",
+            "5:6",
+            "8:6"
+          ],
+          "acceptable_answers": [
+            "6:8",
+            "6 to 8",
+            "6 for every 8"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q02",
+          "prompt": "Find an equivalent ratio to 2:5 by multiplying both numbers by 3.",
+          "question_type": "ratio_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "6:15",
+          "answer": "6:15",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 6:15.",
+          "read_aloud_text": "Find an equivalent ratio to 2 to 5 by multiplying both numbers by 3.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 2 to 5 by multiplying both numbers by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q02"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              2,
+              5
+            ],
+            [
+              6,
+              15
+            ]
+          ],
+          "acceptable_answers": [
+            "6:15",
+            "6 to 15",
+            "6 for every 15"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q03",
+          "prompt": "Find an equivalent ratio to 6:8 by multiplying both numbers by 2.",
+          "question_type": "ratio_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "12:16",
+          "answer": "12:16",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 12:16.",
+          "read_aloud_text": "Find an equivalent ratio to 6 to 8 by multiplying both numbers by 2.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 6 to 8 by multiplying both numbers by 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q03"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              6,
+              8
+            ],
+            [
+              12,
+              16
+            ]
+          ],
+          "acceptable_answers": [
+            "12:16",
+            "12 to 16",
+            "12 for every 16"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q04",
+          "prompt": "Find an equivalent ratio to 5:7 by multiplying both numbers by 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "10:14",
+          "answer": "10:14",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 10:14.",
+          "read_aloud_text": "Find an equivalent ratio to 5 to 7 by multiplying both numbers by 2.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 5 to 7 by multiplying both numbers by 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q04"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              5,
+              7
+            ],
+            [
+              10,
+              14
+            ]
+          ],
+          "choices": [
+            "10:14",
+            "7:9",
+            "14:10"
+          ],
+          "acceptable_answers": [
+            "10:14",
+            "10 to 14",
+            "10 for every 14"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q05",
+          "prompt": "Find an equivalent ratio to 4:9 by multiplying both numbers by 3.",
+          "question_type": "ratio_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "12:27",
+          "answer": "12:27",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 12:27.",
+          "read_aloud_text": "Find an equivalent ratio to 4 to 9 by multiplying both numbers by 3.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 4 to 9 by multiplying both numbers by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q05"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              4,
+              9
+            ],
+            [
+              12,
+              27
+            ]
+          ],
+          "acceptable_answers": [
+            "12:27",
+            "12 to 27",
+            "12 for every 27"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q06",
+          "prompt": "Find an equivalent ratio to 7:3 by multiplying both numbers by 2.",
+          "question_type": "ratio_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "14:6",
+          "answer": "14:6",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 14:6.",
+          "read_aloud_text": "Find an equivalent ratio to 7 to 3 by multiplying both numbers by 2.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 7 to 3 by multiplying both numbers by 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q06"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              7,
+              3
+            ],
+            [
+              14,
+              6
+            ]
+          ],
+          "acceptable_answers": [
+            "14:6",
+            "14 to 6",
+            "14 for every 6"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q07",
+          "prompt": "Find an equivalent ratio to 8:10 by multiplying both numbers by 3.",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "24:30",
+          "answer": "24:30",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 24:30.",
+          "read_aloud_text": "Find an equivalent ratio to 8 to 10 by multiplying both numbers by 3.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 8 to 10 by multiplying both numbers by 3.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q07"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              8,
+              10
+            ],
+            [
+              24,
+              30
+            ]
+          ],
+          "choices": [
+            "24:30",
+            "11:13",
+            "30:24"
+          ],
+          "acceptable_answers": [
+            "24:30",
+            "24 to 30",
+            "24 for every 30"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q08",
+          "prompt": "Find an equivalent ratio to 9:12 by multiplying both numbers by 2.",
+          "question_type": "ratio_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "18:24",
+          "answer": "18:24",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 18:24.",
+          "read_aloud_text": "Find an equivalent ratio to 9 to 12 by multiplying both numbers by 2.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 9 to 12 by multiplying both numbers by 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q08"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              9,
+              12
+            ],
+            [
+              18,
+              24
+            ]
+          ],
+          "acceptable_answers": [
+            "18:24",
+            "18 to 24",
+            "18 for every 24"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q09",
+          "prompt": "Find an equivalent ratio to 1:6 by multiplying both numbers by 4.",
+          "question_type": "ratio_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "4:24",
+          "answer": "4:24",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 4:24.",
+          "read_aloud_text": "Find an equivalent ratio to 1 to 6 by multiplying both numbers by 4.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 1 to 6 by multiplying both numbers by 4.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q09"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              1,
+              6
+            ],
+            [
+              4,
+              24
+            ]
+          ],
+          "acceptable_answers": [
+            "4:24",
+            "4 to 24",
+            "4 for every 24"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL2_Q10",
+          "prompt": "Find an equivalent ratio to 10:15 by multiplying both numbers by 2.",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "20:30",
+          "answer": "20:30",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 20:30.",
+          "read_aloud_text": "Find an equivalent ratio to 10 to 15 by multiplying both numbers by 2.",
+          "question_audio": {
+            "text": "Find an equivalent ratio to 10 to 15 by multiplying both numbers by 2.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL2_Q10"
+          },
+          "headers": [
+            "first quantity",
+            "second quantity"
+          ],
+          "rows": [
+            [
+              10,
+              15
+            ],
+            [
+              20,
+              30
+            ]
+          ],
+          "choices": [
+            "20:30",
+            "12:17",
+            "30:20"
+          ],
+          "acceptable_answers": [
+            "20:30",
+            "20 to 30",
+            "20 for every 30"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_RP_001_LVL3",
+      "label": "Level 3: Ratio Tables",
+      "focus": "Use ratio tables to find missing equivalent values.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_RP_001_LVL3_Q01",
+          "prompt": "In the ratio table, 2 cups flour match 3 cups sugar. How many cups flour match 12 cups sugar?",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "In the ratio table, 2 cups flour match 3 cups sugar. How many cups flour match 12 cups sugar?",
+          "question_audio": {
+            "text": "In the ratio table, 2 cups flour match 3 cups sugar. How many cups flour match 12 cups sugar?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q01"
+          },
+          "headers": [
+            "cups flour",
+            "cups sugar"
+          ],
+          "rows": [
+            [
+              2,
+              3
+            ],
+            [
+              "8",
+              12
+            ],
+            [
+              10,
+              15
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "choices": [
+            "8",
+            "6",
+            "12"
+          ],
+          "acceptable_answers": [
+            "8",
+            "8 cups flour"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q02",
+          "prompt": "In the ratio table, 5 notebooks match 1 packs. How many notebooks match 3 packs?",
+          "question_type": "short_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "15",
+          "answer": "15",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "In the ratio table, 5 notebooks match 1 packs. How many notebooks match 3 packs?",
+          "question_audio": {
+            "text": "In the ratio table, 5 notebooks match 1 packs. How many notebooks match 3 packs?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q02"
+          },
+          "headers": [
+            "notebooks",
+            "packs"
+          ],
+          "rows": [
+            [
+              5,
+              1
+            ],
+            [
+              "15",
+              3
+            ],
+            [
+              20,
+              4
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "acceptable_answers": [
+            "15",
+            "15 notebooks"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q03",
+          "prompt": "In the ratio table, 4 red blocks match 6 blue blocks. How many red blocks match 12 blue blocks?",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "In the ratio table, 4 red blocks match 6 blue blocks. How many red blocks match 12 blue blocks?",
+          "question_audio": {
+            "text": "In the ratio table, 4 red blocks match 6 blue blocks. How many red blocks match 12 blue blocks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q03"
+          },
+          "headers": [
+            "red blocks",
+            "blue blocks"
+          ],
+          "rows": [
+            [
+              4,
+              6
+            ],
+            [
+              "8",
+              12
+            ],
+            [
+              12,
+              18
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "choices": [
+            "8",
+            "6",
+            "12"
+          ],
+          "acceptable_answers": [
+            "8",
+            "8 red blocks"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q04",
+          "prompt": "In the ratio table, 7 miles match 2 minutes. How many miles match 8 minutes?",
+          "question_type": "short_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "28",
+          "answer": "28",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 28.",
+          "read_aloud_text": "In the ratio table, 7 miles match 2 minutes. How many miles match 8 minutes?",
+          "question_audio": {
+            "text": "In the ratio table, 7 miles match 2 minutes. How many miles match 8 minutes?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q04"
+          },
+          "headers": [
+            "miles",
+            "minutes"
+          ],
+          "rows": [
+            [
+              7,
+              2
+            ],
+            [
+              "28",
+              8
+            ],
+            [
+              35,
+              10
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "acceptable_answers": [
+            "28",
+            "28 miles"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q05",
+          "prompt": "In the ratio table, 3 lemons match 8 limes. How many lemons match 24 limes?",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "In the ratio table, 3 lemons match 8 limes. How many lemons match 24 limes?",
+          "question_audio": {
+            "text": "In the ratio table, 3 lemons match 8 limes. How many lemons match 24 limes?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q05"
+          },
+          "headers": [
+            "lemons",
+            "limes"
+          ],
+          "rows": [
+            [
+              3,
+              8
+            ],
+            [
+              "9",
+              24
+            ],
+            [
+              12,
+              32
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "choices": [
+            "9",
+            "6",
+            "24"
+          ],
+          "acceptable_answers": [
+            "9",
+            "9 lemons"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q06",
+          "prompt": "In the ratio table, 6 small shirts match 10 total shirts. How many small shirts match 20 total shirts?",
+          "question_type": "short_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "12",
+          "answer": "12",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "In the ratio table, 6 small shirts match 10 total shirts. How many small shirts match 20 total shirts?",
+          "question_audio": {
+            "text": "In the ratio table, 6 small shirts match 10 total shirts. How many small shirts match 20 total shirts?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q06"
+          },
+          "headers": [
+            "small shirts",
+            "total shirts"
+          ],
+          "rows": [
+            [
+              6,
+              10
+            ],
+            [
+              "12",
+              20
+            ],
+            [
+              18,
+              30
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "acceptable_answers": [
+            "12",
+            "12 small shirts"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q07",
+          "prompt": "In the ratio table, 9 pages match 4 minutes. How many pages match 8 minutes?",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "18",
+          "answer": "18",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 18.",
+          "read_aloud_text": "In the ratio table, 9 pages match 4 minutes. How many pages match 8 minutes?",
+          "question_audio": {
+            "text": "In the ratio table, 9 pages match 4 minutes. How many pages match 8 minutes?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q07"
+          },
+          "headers": [
+            "pages",
+            "minutes"
+          ],
+          "rows": [
+            [
+              9,
+              4
+            ],
+            [
+              "18",
+              8
+            ],
+            [
+              27,
+              12
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "choices": [
+            "18",
+            "11",
+            "8"
+          ],
+          "acceptable_answers": [
+            "18",
+            "18 pages"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q08",
+          "prompt": "In the ratio table, 8 tables match 5 umbrellas. How many tables match 15 umbrellas?",
+          "question_type": "short_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "24",
+          "answer": "24",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 24.",
+          "read_aloud_text": "In the ratio table, 8 tables match 5 umbrellas. How many tables match 15 umbrellas?",
+          "question_audio": {
+            "text": "In the ratio table, 8 tables match 5 umbrellas. How many tables match 15 umbrellas?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q08"
+          },
+          "headers": [
+            "tables",
+            "umbrellas"
+          ],
+          "rows": [
+            [
+              8,
+              5
+            ],
+            [
+              "24",
+              15
+            ],
+            [
+              32,
+              20
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "acceptable_answers": [
+            "24",
+            "24 tables"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q09",
+          "prompt": "In the ratio table, 2 spoons match 7 forks. How many spoons match 35 forks?",
+          "question_type": "multiple_choice",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "10",
+          "answer": "10",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 10.",
+          "read_aloud_text": "In the ratio table, 2 spoons match 7 forks. How many spoons match 35 forks?",
+          "question_audio": {
+            "text": "In the ratio table, 2 spoons match 7 forks. How many spoons match 35 forks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q09"
+          },
+          "headers": [
+            "spoons",
+            "forks"
+          ],
+          "rows": [
+            [
+              2,
+              7
+            ],
+            [
+              "10",
+              35
+            ],
+            [
+              12,
+              42
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "choices": [
+            "10",
+            "7",
+            "35"
+          ],
+          "acceptable_answers": [
+            "10",
+            "10 spoons"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL3_Q10",
+          "prompt": "In the ratio table, 11 points match 6 rounds. How many points match 12 rounds?",
+          "question_type": "short_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "22",
+          "answer": "22",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 22.",
+          "read_aloud_text": "In the ratio table, 11 points match 6 rounds. How many points match 12 rounds?",
+          "question_audio": {
+            "text": "In the ratio table, 11 points match 6 rounds. How many points match 12 rounds?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL3_Q10"
+          },
+          "headers": [
+            "points",
+            "rounds"
+          ],
+          "rows": [
+            [
+              11,
+              6
+            ],
+            [
+              "22",
+              12
+            ],
+            [
+              33,
+              18
+            ]
+          ],
+          "missing_cell": [
+            1,
+            0
+          ],
+          "acceptable_answers": [
+            "22",
+            "22 points"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_RP_001_LVL4",
+      "label": "Level 4: Unit Rates",
+      "focus": "Find dollars per item, miles per hour, and pages per minute.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_RP_001_LVL4_Q01",
+          "prompt": "12 dollars for 3 tickets. What is the unit rate?",
+          "question_type": "multiple_choice",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "4 dollars per ticket",
+          "answer": "4 dollars per ticket",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 4 dollars per ticket.",
+          "read_aloud_text": "12 dollars for 3 tickets. What is the unit rate?",
+          "question_audio": {
+            "text": "12 dollars for 3 tickets. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q01"
+          },
+          "total_amount": 12,
+          "amount_unit": "dollars",
+          "total_units": 3,
+          "unit_label": "tickets",
+          "unit_rate": "4 dollars per ticket",
+          "choices": [
+            "4 dollars per ticket",
+            "12 dollars per ticket",
+            "3 dollars per ticket"
+          ],
+          "acceptable_answers": [
+            "4",
+            "4 dollars per ticket",
+            "4 per ticket"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q02",
+          "prompt": "180 miles for 3 hours. What is the unit rate?",
+          "question_type": "multiple_choice",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "60 miles per hour",
+          "answer": "60 miles per hour",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 60 miles per hour.",
+          "read_aloud_text": "180 miles for 3 hours. What is the unit rate?",
+          "question_audio": {
+            "text": "180 miles for 3 hours. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q02"
+          },
+          "total_amount": 180,
+          "amount_unit": "miles",
+          "total_units": 3,
+          "unit_label": "hours",
+          "unit_rate": "60 miles per hour",
+          "choices": [
+            "60 miles per hour",
+            "180 miles per hour",
+            "3 miles per hour"
+          ],
+          "acceptable_answers": [
+            "60",
+            "60 miles per hour",
+            "60 per hour"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q03",
+          "prompt": "45 pages for 5 minutes. What is the unit rate?",
+          "question_type": "multiple_choice",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "9 pages per minute",
+          "answer": "9 pages per minute",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 9 pages per minute.",
+          "read_aloud_text": "45 pages for 5 minutes. What is the unit rate?",
+          "question_audio": {
+            "text": "45 pages for 5 minutes. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q03"
+          },
+          "total_amount": 45,
+          "amount_unit": "pages",
+          "total_units": 5,
+          "unit_label": "minutes",
+          "unit_rate": "9 pages per minute",
+          "choices": [
+            "9 pages per minute",
+            "45 pages per minute",
+            "5 pages per minute"
+          ],
+          "acceptable_answers": [
+            "9",
+            "9 pages per minute",
+            "9 per minute"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q04",
+          "prompt": "20 dollars for 4 notebooks. What is the unit rate?",
+          "question_type": "multiple_choice",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "5 dollars per notebook",
+          "answer": "5 dollars per notebook",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 5 dollars per notebook.",
+          "read_aloud_text": "20 dollars for 4 notebooks. What is the unit rate?",
+          "question_audio": {
+            "text": "20 dollars for 4 notebooks. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q04"
+          },
+          "total_amount": 20,
+          "amount_unit": "dollars",
+          "total_units": 4,
+          "unit_label": "notebooks",
+          "unit_rate": "5 dollars per notebook",
+          "choices": [
+            "5 dollars per notebook",
+            "20 dollars per notebook",
+            "4 dollars per notebook"
+          ],
+          "acceptable_answers": [
+            "5",
+            "5 dollars per notebook",
+            "5 per notebook"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q05",
+          "prompt": "150 miles for 6 hours. What is the unit rate?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "25 miles per hour",
+          "answer": "25 miles per hour",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 25 miles per hour.",
+          "read_aloud_text": "150 miles for 6 hours. What is the unit rate?",
+          "question_audio": {
+            "text": "150 miles for 6 hours. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q05"
+          },
+          "total_amount": 150,
+          "amount_unit": "miles",
+          "total_units": 6,
+          "unit_label": "hours",
+          "unit_rate": "25 miles per hour",
+          "acceptable_answers": [
+            "25",
+            "25 miles per hour",
+            "25 per hour"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q06",
+          "prompt": "72 pages for 8 minutes. What is the unit rate?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "9 pages per minute",
+          "answer": "9 pages per minute",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 9 pages per minute.",
+          "read_aloud_text": "72 pages for 8 minutes. What is the unit rate?",
+          "question_audio": {
+            "text": "72 pages for 8 minutes. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q06"
+          },
+          "total_amount": 72,
+          "amount_unit": "pages",
+          "total_units": 8,
+          "unit_label": "minutes",
+          "unit_rate": "9 pages per minute",
+          "acceptable_answers": [
+            "9",
+            "9 pages per minute",
+            "9 per minute"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q07",
+          "prompt": "36 dollars for 3 shirts. What is the unit rate?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "12 dollars per shirt",
+          "answer": "12 dollars per shirt",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 12 dollars per shirt.",
+          "read_aloud_text": "36 dollars for 3 shirts. What is the unit rate?",
+          "question_audio": {
+            "text": "36 dollars for 3 shirts. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q07"
+          },
+          "total_amount": 36,
+          "amount_unit": "dollars",
+          "total_units": 3,
+          "unit_label": "shirts",
+          "unit_rate": "12 dollars per shirt",
+          "acceptable_answers": [
+            "12",
+            "12 dollars per shirt",
+            "12 per shirt"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q08",
+          "prompt": "84 miles for 7 hours. What is the unit rate?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "12 miles per hour",
+          "answer": "12 miles per hour",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 12 miles per hour.",
+          "read_aloud_text": "84 miles for 7 hours. What is the unit rate?",
+          "question_audio": {
+            "text": "84 miles for 7 hours. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q08"
+          },
+          "total_amount": 84,
+          "amount_unit": "miles",
+          "total_units": 7,
+          "unit_label": "hours",
+          "unit_rate": "12 miles per hour",
+          "acceptable_answers": [
+            "12",
+            "12 miles per hour",
+            "12 per hour"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q09",
+          "prompt": "90 pages for 10 minutes. What is the unit rate?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "9 pages per minute",
+          "answer": "9 pages per minute",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 9 pages per minute.",
+          "read_aloud_text": "90 pages for 10 minutes. What is the unit rate?",
+          "question_audio": {
+            "text": "90 pages for 10 minutes. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q09"
+          },
+          "total_amount": 90,
+          "amount_unit": "pages",
+          "total_units": 10,
+          "unit_label": "minutes",
+          "unit_rate": "9 pages per minute",
+          "acceptable_answers": [
+            "9",
+            "9 pages per minute",
+            "9 per minute"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_LVL4_Q10",
+          "prompt": "30 dollars for 6 snacks. What is the unit rate?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "5 dollars per snack",
+          "answer": "5 dollars per snack",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 5 dollars per snack.",
+          "read_aloud_text": "30 dollars for 6 snacks. What is the unit rate?",
+          "question_audio": {
+            "text": "30 dollars for 6 snacks. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_LVL4_Q10"
+          },
+          "total_amount": 30,
+          "amount_unit": "dollars",
+          "total_units": 6,
+          "unit_label": "snacks",
+          "unit_rate": "5 dollars per snack",
+          "acceptable_answers": [
+            "5",
+            "5 dollars per snack",
+            "5 per snack"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_RP_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mix ratio language, tables, equivalent ratios, and unit rates.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_RP_001_MIXED_Q01",
+          "prompt": "Which says the ratio 3:4 in words?",
+          "question_type": "multiple_choice",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "3 to 4",
+          "answer": "3 to 4",
+          "misconception_tag": "ratio_order_reversal",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 3 to 4.",
+          "read_aloud_text": "Which says the ratio 3 to 4 in words?",
+          "question_audio": {
+            "text": "Which says the ratio 3 to 4 in words?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q01"
+          },
+          "ratio_values": [
+            3,
+            4
+          ],
+          "ratio_labels": [
+            "trail mix cups",
+            "pretzel cups"
+          ],
+          "choices": [
+            "3 to 4",
+            "4 to 3",
+            "3 out of 7"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q02",
+          "prompt": "A table shows 4 songs in 2 minutes. How many songs in 6 minutes at the same rate?",
+          "question_type": "short_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "12",
+          "answer": "12",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "A table shows 4 songs in 2 minutes. How many songs in 6 minutes at the same rate?",
+          "question_audio": {
+            "text": "A table shows 4 songs in 2 minutes. How many songs in 6 minutes at the same rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q02"
+          },
+          "headers": [
+            "songs",
+            "minutes"
+          ],
+          "rows": [
+            [
+              4,
+              2
+            ],
+            [
+              12,
+              6
+            ]
+          ],
+          "acceptable_answers": [
+            "12",
+            "12 songs"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q03",
+          "prompt": "A runner goes 15 miles in 3 hours. What is the unit rate?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "5 miles per hour",
+          "answer": "5 miles per hour",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 5 miles per hour.",
+          "read_aloud_text": "A runner goes 15 miles in 3 hours. What is the unit rate?",
+          "question_audio": {
+            "text": "A runner goes 15 miles in 3 hours. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q03"
+          },
+          "total_amount": 15,
+          "amount_unit": "miles",
+          "total_units": 3,
+          "unit_label": "hours",
+          "unit_rate": "5 miles per hour",
+          "acceptable_answers": [
+            "5",
+            "5 mph",
+            "5 miles per hour"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q04",
+          "prompt": "The ratio of pencils to pens is 2:5. Which is equivalent?",
+          "question_type": "multiple_choice",
+          "visual_model": "double_number_line",
+          "support_type": "double_number_line",
+          "correct_answer": "6:15",
+          "answer": "6:15",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 6:15.",
+          "read_aloud_text": "The ratio of pencils to pens is 2 to 5. Which is equivalent?",
+          "question_audio": {
+            "text": "The ratio of pencils to pens is 2 to 5. Which is equivalent?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q04"
+          },
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              4,
+              10
+            ],
+            [
+              6,
+              15
+            ]
+          ],
+          "top_label": "pencils",
+          "bottom_label": "pens",
+          "choices": [
+            "6:15",
+            "4:7",
+            "5:2"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q05",
+          "prompt": "There are 6 blue marbles and 10 total marbles. Write blue marbles to total marbles.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "6:10",
+          "answer": "6:10",
+          "misconception_tag": "part_part_whole_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 6:10.",
+          "read_aloud_text": "There are 6 blue marbles and 10 total marbles. Write blue marbles to total marbles.",
+          "question_audio": {
+            "text": "There are 6 blue marbles and 10 total marbles. Write blue marbles to total marbles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q05"
+          },
+          "ratio_values": [
+            6,
+            4
+          ],
+          "ratio_labels": [
+            "blue marbles",
+            "other marbles"
+          ],
+          "total": 10,
+          "acceptable_answers": [
+            "6:10",
+            "6 to 10",
+            "6 blue marbles to 10 total marbles"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q06",
+          "prompt": "24 dollars for 3 hats. What is the price per 1 hat?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "8 dollars per hat",
+          "answer": "8 dollars per hat",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 8 dollars per hat.",
+          "read_aloud_text": "24 dollars for 3 hats. What is the price per 1 hat?",
+          "question_audio": {
+            "text": "24 dollars for 3 hats. What is the price per 1 hat?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q06"
+          },
+          "total_amount": 24,
+          "amount_unit": "dollars",
+          "total_units": 3,
+          "unit_label": "hats",
+          "unit_rate": "8 dollars per hat",
+          "acceptable_answers": [
+            "8",
+            "8 dollars per hat",
+            "$8 per hat"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q07",
+          "prompt": "Use the double number line: 5 cups match 2 batches. How many cups match 6 batches?",
+          "question_type": "short_response",
+          "visual_model": "double_number_line",
+          "support_type": "double_number_line",
+          "correct_answer": "15",
+          "answer": "15",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "Use the double number line to  5 cups match 2 batches. How many cups match 6 batches?",
+          "question_audio": {
+            "text": "Use the double number line. 5 cups match 2 batches. How many cups match 6 batches?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q07"
+          },
+          "pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              5,
+              2
+            ],
+            [
+              10,
+              4
+            ],
+            [
+              15,
+              6
+            ]
+          ],
+          "top_label": "cups",
+          "bottom_label": "batches",
+          "acceptable_answers": [
+            "15",
+            "15 cups"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q08",
+          "prompt": "What is an equivalent ratio to 9:12 after dividing both numbers by 3?",
+          "question_type": "ratio_response",
+          "visual_model": "ratio_table",
+          "support_type": "ratio_table",
+          "correct_answer": "3:4",
+          "answer": "3:4",
+          "misconception_tag": "equivalent_ratio_error",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 3:4.",
+          "read_aloud_text": "What is an equivalent ratio to 9 to 12 after dividing both numbers by 3?",
+          "question_audio": {
+            "text": "What is an equivalent ratio to 9 to 12 after dividing both numbers by 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q08"
+          },
+          "headers": [
+            "first",
+            "second"
+          ],
+          "rows": [
+            [
+              9,
+              12
+            ],
+            [
+              3,
+              4
+            ]
+          ],
+          "acceptable_answers": [
+            "3:4",
+            "3 to 4",
+            "3 for every 4"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q09",
+          "prompt": "A student reads 48 pages in 6 minutes. What is the unit rate?",
+          "question_type": "rate_response",
+          "visual_model": "unit_rate_card",
+          "support_type": "unit_rate_card",
+          "correct_answer": "8 pages per minute",
+          "answer": "8 pages per minute",
+          "misconception_tag": "unit_rate_confusion",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 8 pages per minute.",
+          "read_aloud_text": "A student reads 48 pages in 6 minutes. What is the unit rate?",
+          "question_audio": {
+            "text": "A student reads 48 pages in 6 minutes. What is the unit rate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q09"
+          },
+          "total_amount": 48,
+          "amount_unit": "pages",
+          "total_units": 6,
+          "unit_label": "minutes",
+          "unit_rate": "8 pages per minute",
+          "acceptable_answers": [
+            "8",
+            "8 pages per minute",
+            "8 ppm"
+          ]
+        },
+        {
+          "question_id": "G6M_RP_001_MIXED_Q10",
+          "prompt": "The tape shows 4 drama books and 5 mystery books. Write drama books to mystery books.",
+          "question_type": "ratio_response",
+          "visual_model": "tape_diagram",
+          "support_type": "tape_diagram",
+          "correct_answer": "4:5",
+          "answer": "4:5",
+          "misconception_tag": "ratio_order_reversal",
+          "hints": [
+            "Name both quantities in the same order as the question.",
+            "Use multiplication or division to keep the relationship the same.",
+            "Check the units: a unit rate always tells how much for 1."
+          ],
+          "feedback": {
+            "correct": "Yes. Your ratio or rate keeps the quantities and units matched.",
+            "incorrect": "Try again. Match the order, use equivalent ratios, and check the unit words."
+          },
+          "explanation": "The answer is 4:5.",
+          "read_aloud_text": "The tape shows 4 drama books and 5 mystery books. Write drama books to mystery books.",
+          "question_audio": {
+            "text": "The tape shows 4 drama books and 5 mystery books. Write drama books to mystery books.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "cache_key": "skill-world:G6M_RP_001:question:G6M_RP_001_MIXED_Q10"
+          },
+          "ratio_values": [
+            4,
+            5
+          ],
+          "ratio_labels": [
+            "drama books",
+            "mystery books"
+          ],
+          "acceptable_answers": [
+            "4:5",
+            "4 to 5",
+            "4 drama books to 5 mystery books"
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to the Ratio Rally market. Your team compares fruit baskets, tickets, miles, and reading speeds. Ratios tell how two quantities are related. Today you will keep the words and numbers in the same order.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Read This Page. A ratio can compare part to part, like 3 red beads to 4 blue beads. A ratio can compare part to whole, like 3 red beads to 7 total beads. Equivalent ratios multiply or divide both numbers by the same amount, and a unit rate tells how much for 1.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Read This Page. Step one, read the quantities and units. Step two, write the ratio in the same order as the words. Step three, scale both numbers together or divide to find per 1. The final answer uses clear units, such as 4 dollars per ticket.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Read This Page. Watch the model connect the numbers. The table shows matching rows, the double number line lines up paired values, and the tape diagram keeps parts clear. Say the ratio naturally before you answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Read This Page. Practice one ratio question. Use the visual model first. Then tap Read Question to hear the question spoken naturally, and answer with the numbers and units in order.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge yourself with a rate question. Look for total amount and total units. Tap Read Question, divide to find per 1, and include the rate units.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Read This Page. This checkpoint checks your ratio and unit rate reasoning. Tap Read Question, explain which quantities match, and choose or type the answer that fits the model.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Read This Page. You completed the Ratio Rally mission. Celebrate careful ratio language, equivalent ratios, ratio tables, and unit rates. Your badge shows you can reason with relationships.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves stars, accuracy, hints, and misconception notes. Review any level that needs practice, then use Practice This Skill to strengthen ratios and unit rates.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "badgeName": "Ratio Rally Badge"
+}
