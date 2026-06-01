@@ -1,0 +1,1093 @@
+{
+  "version": "1.0",
+  "grade": "5",
+  "subject": "math",
+  "generated_from": "docs/grade5_math_completion_plan.md",
+  "status": "planning_only_no_packages_implemented",
+  "production_standard": {
+    "skill_package_json": true,
+    "skill_world_generator": true,
+    "guided_mission_sequence": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "minimum_levels": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Mixed"
+      ],
+      "questions_per_level": "10-12"
+    },
+    "manifest_hub_exposure": "All packages must appear through manifest/graph-driven discovery, not hardcoded placeholders.",
+    "voice_standard": {
+      "read_this_page_all_guided_screens": true,
+      "read_question_mission_practice_challenge_checkpoint": true,
+      "read_question_all_practice_center_questions": true,
+      "cached_ai_audio_route": "/api/skill-world/audio",
+      "browser_speech_fallback": true,
+      "natural_math_narration": true
+    },
+    "one_off_games_allowed": false,
+    "placeholder_cards_allowed": false
+  },
+  "renderer_assessment": {
+    "existing_grades_1_4_support_or_extension": [
+      {
+        "model": "place_value_chart",
+        "status": "extend",
+        "notes": "Reusable from Grades 1-4; Grade 5 needs millions through thousandths, powers-of-10 shifts, and decimal comparisons."
+      },
+      {
+        "model": "number_line",
+        "status": "extend",
+        "notes": "Reusable for decimals, rounding, fractions, and measurement data; Grade 5 needs thousandths ticks and fraction measurement labels."
+      },
+      {
+        "model": "rounding_model",
+        "status": "extend",
+        "notes": "Reusable midpoint model; Grade 5 needs decimal rounding to tenths, hundredths, and thousandths."
+      },
+      {
+        "model": "algorithm_steps",
+        "status": "extend",
+        "notes": "Grade 4 standard-algorithm renderer should support multi-digit multiplication/division and Grade 5 decimal alignment, products, and quotients."
+      },
+      {
+        "model": "partial_products_model",
+        "status": "supported_extend",
+        "notes": "Reusable for multiplication; Grade 5 needs larger factors and explicit connection to the standard algorithm."
+      },
+      {
+        "model": "area_model",
+        "status": "supported_extend",
+        "notes": "Reusable for multiplication and fraction products; Grade 5 fraction multiplication needs partitioned fractional regions."
+      },
+      {
+        "model": "division_model",
+        "status": "supported_extend",
+        "notes": "Reusable for quotients and remainders; Grade 5 needs fraction division contexts and unit-fraction language."
+      },
+      {
+        "model": "remainder_model",
+        "status": "supported",
+        "notes": "Reusable for interpreting division remainders in whole-number operations."
+      },
+      {
+        "model": "fraction_bar",
+        "status": "supported_extend",
+        "notes": "Reusable for unlike-denominator operations, fraction multiplication, and unit fraction division."
+      },
+      {
+        "model": "fraction_circle",
+        "status": "supported",
+        "notes": "Reusable for equivalent fractions and unlike-denominator addition/subtraction visuals."
+      },
+      {
+        "model": "equation_builder",
+        "status": "supported_extend",
+        "notes": "Reusable for expressions and fraction equations; Grade 5 needs parentheses, brackets, and braces support."
+      },
+      {
+        "model": "multiplication_model",
+        "status": "supported_extend",
+        "notes": "Reusable for whole-number times fraction and mixed number multiplication contexts."
+      },
+      {
+        "model": "word_problem_model",
+        "status": "supported_extend",
+        "notes": "Reusable across decimal, fraction, volume, and measurement word problems with unit labels."
+      },
+      {
+        "model": "measurement_conversion_table",
+        "status": "supported_extend",
+        "notes": "Grade 4 conversion table should extend to Grade 5 customary/metric conversions and multiplicative reasoning."
+      },
+      {
+        "model": "line_plot",
+        "status": "supported_extend",
+        "notes": "Reusable for fraction data; Grade 5 needs operations on fractional measurements from line plots."
+      },
+      {
+        "model": "pattern_table",
+        "status": "supported_extend",
+        "notes": "Grade 4 pattern table should support two rules, ordered-pair generation, and graphing connections."
+      },
+      {
+        "model": "shape_identification",
+        "status": "supported_extend",
+        "notes": "Reusable for 2D figure properties; Grade 5 needs hierarchical classification."
+      },
+      {
+        "model": "attribute_sort",
+        "status": "supported_extend",
+        "notes": "If present from earlier geometry work, extend to classify figures by multiple simultaneous properties."
+      }
+    ],
+    "new_renderers_needed": [
+      {
+        "model": "expression_builder",
+        "need": "Build numerical expressions with operations, parentheses, brackets, braces, variables-as-labels when needed, and speakable operation order."
+      },
+      {
+        "model": "coordinate_plane",
+        "need": "First-quadrant grid with labeled axes, origin, scale choices, accessible point descriptions, and mobile-friendly layout."
+      },
+      {
+        "model": "ordered_pair_plot",
+        "need": "Point plotting and ordered-pair interpretation with x-before-y emphasis and misconception feedback."
+      },
+      {
+        "model": "decimal_grid",
+        "need": "Tenths/hundredths/thousandths grids for decimal size, operations, and place-value comparisons."
+      },
+      {
+        "model": "fraction_area_model",
+        "need": "Overlapping partition area model for fraction-by-fraction products and mixed-number decomposition."
+      },
+      {
+        "model": "fraction_division_model",
+        "need": "Unit-fraction division visual showing sharing, measurement division, and whole-number/unit-fraction contexts."
+      },
+      {
+        "model": "volume_model",
+        "need": "Unit-cube volume visual with layers, rows, columns, and countable cubes."
+      },
+      {
+        "model": "rectangular_prism_model",
+        "need": "Length-width-height prism model with labeled dimensions, unit cubes, and V = l x w x h / V = B x h connections."
+      },
+      {
+        "model": "graph_interpretation",
+        "need": "Graph reading renderer for coordinate relationships, plotted patterns, and rule-to-graph explanations."
+      },
+      {
+        "model": "hierarchy_diagram",
+        "need": "Nested shape-category diagram for properties of polygons, triangles, quadrilaterals, rectangles, rhombi, and squares."
+      },
+      {
+        "model": "geometry_card_sort",
+        "need": "Card-sort renderer for classifying figures by attributes with accessible text alternatives."
+      }
+    ]
+  },
+  "schema_updates_needed": [
+    "Require generator mappings for Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+    "Require Grade 5 Math level_banks with four focused levels plus Mixed and 10-12 questions per level.",
+    "Enumerate or runtime-enforce all Grade 5 Math visual_model and question_type values.",
+    "Add metadata for expressions, order of operations, decimal place values, powers of 10, algorithms, fraction forms, coordinate pairs, volume units, shape attributes, acceptable equivalent forms, and voice narration.",
+    "Require manifest/graph/hub metadata and readiness checkpoint metadata before hub exposure."
+  ],
+  "acceptable_answer_needs": [
+    "numeric_normalization",
+    "decimal_normalization_and_trailing_zero_equivalence",
+    "expression_equivalence_and_operation_order",
+    "coordinate_pair_normalization",
+    "comparison_symbol_word_equivalence",
+    "rounding_tolerance_by_place",
+    "algorithm_step_validation",
+    "fraction_equivalence_mixed_and_improper_forms",
+    "measurement_unit_validation",
+    "volume_unit_normalization",
+    "geometry_attribute_and_sort_validation"
+  ],
+  "skills": [
+    {
+      "skill_id": "G5M_OA_001",
+      "title": "Expressions, Patterns, and the Coordinate Plane",
+      "domain": "Operations and Algebraic Thinking / Geometry",
+      "focus": "write and evaluate numerical expressions, analyze patterns, and graph ordered pairs",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Write Numerical Expressions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Evaluate Expressions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Generate and Analyze Patterns",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Coordinate Plane Ordered Pairs",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "expression_builder",
+        "pattern_table",
+        "coordinate_plane",
+        "ordered_pair_plot"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "expression_response",
+        "coordinate_response"
+      ],
+      "misconception_tags": [
+        "operation_order_confusion",
+        "parentheses_confusion",
+        "pattern_rule_error",
+        "coordinate_order_reversal"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_NBT_001",
+      "title": "Place Value With Decimals",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "understand place value from millions to thousandths and powers of 10",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Whole Number Place Value Review",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Decimal Place Value to Thousandths",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Powers of 10 and Place Value Shifts",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Compare and Round Decimals",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "place_value_chart",
+        "decimal_grid",
+        "number_line",
+        "rounding_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "comparison",
+        "rounding"
+      ],
+      "misconception_tags": [
+        "decimal_place_value_confusion",
+        "decimal_length_error",
+        "power_of_ten_shift_error",
+        "rounding_decimal_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_NBT_002",
+      "title": "Multi-Digit Whole Number Operations",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "fluently multiply and divide multi-digit whole numbers",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Multi-Digit Multiplication",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Partial Products and Area Models",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Multi-Digit Division",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Interpret Remainders",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "algorithm_steps",
+        "partial_products_model",
+        "area_model",
+        "division_model",
+        "remainder_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "multiplication_equation",
+        "division_equation"
+      ],
+      "misconception_tags": [
+        "digit_alignment_error",
+        "partial_products_confusion",
+        "quotient_place_value_error",
+        "remainder_interpretation_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_NBT_003",
+      "title": "Decimal Operations",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "add, subtract, multiply, and divide decimals to hundredths",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Add and Subtract Decimals",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Multiply Decimals",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Divide Decimals",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Decimal Word Problems",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "decimal_grid",
+        "place_value_chart",
+        "algorithm_steps",
+        "word_problem_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "decimal_response",
+        "word_problem"
+      ],
+      "misconception_tags": [
+        "decimal_alignment_error",
+        "decimal_product_size_error",
+        "decimal_quotient_error",
+        "decimal_word_problem_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_FR_001",
+      "title": "Add and Subtract Fractions With Unlike Denominators",
+      "domain": "Number and Operations—Fractions",
+      "focus": "add and subtract fractions and mixed numbers with unlike denominators",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Find Common Denominators",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Add Unlike Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Subtract Unlike Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Mixed Number Problems",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "fraction_circle",
+        "equation_builder",
+        "word_problem_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "fraction_response",
+        "word_problem"
+      ],
+      "misconception_tags": [
+        "common_denominator_confusion",
+        "denominator_addition_error",
+        "mixed_number_regrouping_error",
+        "fraction_simplification_gap"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_FR_002",
+      "title": "Multiply Fractions",
+      "domain": "Number and Operations—Fractions",
+      "focus": "multiply fractions by whole numbers, fractions by fractions, and mixed numbers",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Whole Number Times Fraction",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Fraction Times Fraction",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Area Models for Fraction Products",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Mixed Number Multiplication",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "fraction_area_model",
+        "multiplication_model",
+        "word_problem_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "fraction_response",
+        "multiplication_equation"
+      ],
+      "misconception_tags": [
+        "fraction_product_size_error",
+        "numerator_denominator_multiply_error",
+        "mixed_number_conversion_error",
+        "area_model_fraction_confusion"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_FR_003",
+      "title": "Divide Unit Fractions and Whole Numbers",
+      "domain": "Number and Operations—Fractions",
+      "focus": "divide unit fractions by whole numbers and whole numbers by unit fractions",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Unit Fraction Divided by Whole Number",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Whole Number Divided by Unit Fraction",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Visual Fraction Division",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Fraction Division Word Problems",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "division_model",
+        "fraction_division_model",
+        "word_problem_model"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "fraction_response",
+        "division_equation"
+      ],
+      "misconception_tags": [
+        "unit_fraction_division_confusion",
+        "whole_number_fraction_division_error",
+        "reciprocal_overgeneralization",
+        "fraction_division_context_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_MD_001",
+      "title": "Measurement Conversion, Volume, and Data",
+      "domain": "Measurement and Data",
+      "focus": "convert measurements, understand volume, and interpret line plots with fractions",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Measurement Conversions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Volume as Unit Cubes",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Volume Formulas",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Line Plots With Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "measurement_conversion_table",
+        "volume_model",
+        "rectangular_prism_model",
+        "line_plot"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "measurement",
+        "data_interpretation",
+        "volume_response"
+      ],
+      "misconception_tags": [
+        "unit_conversion_direction_error",
+        "volume_area_confusion",
+        "cube_unit_count_error",
+        "line_plot_fraction_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_GM_001",
+      "title": "Coordinate Plane and Graphing",
+      "domain": "Geometry",
+      "focus": "graph points in the first quadrant and interpret coordinate relationships",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Coordinate Plane Basics",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Ordered Pairs",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Graph Points",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Interpret Coordinate Patterns",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "coordinate_plane",
+        "ordered_pair_plot",
+        "pattern_table",
+        "graph_interpretation"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "coordinate_response"
+      ],
+      "misconception_tags": [
+        "coordinate_order_reversal",
+        "axis_confusion",
+        "origin_confusion",
+        "graph_pattern_error"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    },
+    {
+      "skill_id": "G5M_GM_002",
+      "title": "Classify Two-Dimensional Figures",
+      "domain": "Geometry",
+      "focus": "classify 2D figures into categories based on properties",
+      "guided_mission": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks": [
+        {
+          "level": "Level 1",
+          "title": "Polygons and Attributes",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 2",
+          "title": "Triangles",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 3",
+          "title": "Quadrilaterals",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Level 4",
+          "title": "Hierarchies of Shapes",
+          "question_count_required": "10-12"
+        },
+        {
+          "level": "Mixed",
+          "title": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "shape_identification",
+        "attribute_sort",
+        "hierarchy_diagram",
+        "geometry_card_sort"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sorting",
+        "geometry_response"
+      ],
+      "misconception_tags": [
+        "attribute_overgeneralization",
+        "triangle_classification_error",
+        "quadrilateral_hierarchy_confusion",
+        "shape_property_confusion"
+      ],
+      "voice_requirements": {
+        "read_this_page_all_guided_screens": true,
+        "read_question_mission_practice_challenge_checkpoint": true,
+        "read_question_all_practice_center_questions": true,
+        "cached_ai_audio_route": "/api/skill-world/audio",
+        "browser_speech_fallback": true,
+        "natural_math_narration": true
+      },
+      "package_acceptance": [
+        "production SkillPackage validates",
+        "renders without fallback placeholders",
+        "appears through manifest-driven Grade 5 Math hub exposure",
+        "includes Story through Profile Guided Mission",
+        "includes four focused Practice Center levels plus Mixed"
+      ]
+    }
+  ],
+  "backlog": [
+    {
+      "id": "G5M-INF-001",
+      "title": "Finalize Grade 5 Math SkillPackage schema/runtime contract",
+      "priority": "P0",
+      "type": "SCHEMA_UPDATE",
+      "owner": "platform/schema",
+      "depends_on": [],
+      "acceptance_criteria": [
+        "Schema or registry mappings cover every Grade 5 visual_model and question_type in this plan.",
+        "Validation rejects packages without Story through Profile guided mission source data or deterministic generator mappings.",
+        "Validation rejects Practice Center level_banks that do not include four focused levels plus Mixed with 10-12 questions each.",
+        "Grade 5 package metadata includes domain, focus, standards tags, misconception tags, voice metadata, acceptable-answer metadata, and manifest exposure metadata."
+      ]
+    },
+    {
+      "id": "G5M-INF-002",
+      "title": "Build or extend Grade 5 Math visual renderers",
+      "priority": "P0",
+      "type": "RENDERER_UPDATE",
+      "owner": "skill-world/renderers",
+      "depends_on": [
+        "G5M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Renderer registry covers supported/extended and new Grade 5 visual models without fallback placeholder output.",
+        "Each renderer has a canonical fixture and test asserting data-renderer output.",
+        "Math-specific renderers expose aria labels and speakable descriptions for voice narration.",
+        "Coordinate, fraction, decimal, volume, and geometry renderers work on mobile and desktop."
+      ]
+    },
+    {
+      "id": "G5M-INF-003",
+      "title": "Guarantee Skill Practice Center generation from level_banks",
+      "priority": "P0",
+      "type": "PRACTICE_CENTER_GENERATOR",
+      "owner": "skill-world/generator",
+      "depends_on": [
+        "G5M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Every Grade 5 Math package exposes Level 1, Level 2, Level 3, Level 4, and Mixed from package data.",
+        "Each level renders 10-12 production questions, mastery state, feedback, and Read Question controls.",
+        "No Skill Practice Center cards or questions are hardcoded outside package/manifest data."
+      ]
+    },
+    {
+      "id": "G5M-INF-004",
+      "title": "Wire Grade 5 Math packages through manifest/graph/hub discovery",
+      "priority": "P0",
+      "type": "MANIFEST_HUB_EXPOSURE",
+      "owner": "gamehub/content",
+      "depends_on": [
+        "G5M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Grade 5 Math appears only after packages are listed in the content manifest/graph.",
+        "Hub cards use SkillPackage metadata, not hardcoded placeholders.",
+        "Readiness checkpoints prevent incomplete packages from appearing as production-ready."
+      ]
+    },
+    {
+      "id": "G5M-INF-005",
+      "title": "Implement full Grade 5 Math voice standard",
+      "priority": "P0",
+      "type": "VOICE_AUDIO",
+      "owner": "skill-world/audio",
+      "depends_on": [
+        "G5M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Every guided mission screen includes Read This Page text and label.",
+        "Practice, Challenge, and Checkpoint questions include Read Question text.",
+        "All Practice Center questions include Read Question text.",
+        "Narration routes through /api/skill-world/audio when cached AI audio is available and falls back to browser speech when not available.",
+        "Math symbols, parentheses, exponents/powers of 10, decimals, fractions, ordered pairs, comparison signs, units, and volume formulas are spoken naturally."
+      ]
+    },
+    {
+      "id": "G5M-INF-006",
+      "title": "Add Grade 5 acceptable-answer normalization",
+      "priority": "P0",
+      "type": "ANSWER_VALIDATION",
+      "owner": "skill-world/runtime",
+      "depends_on": [
+        "G5M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Numeric answers normalize commas, decimals, trailing zeros, words, equations, and standard notation where appropriate.",
+        "Expression responses validate equivalent expressions where safe and preserve order-of-operations intent.",
+        "Coordinate answers normalize parentheses, commas, spacing, and x/y order.",
+        "Fraction answers normalize equivalent fractions, mixed numbers, improper fractions, and spacing.",
+        "Measurement and volume answers validate required units and conversion equivalence.",
+        "Geometry sorting responses validate all acceptable category placements."
+      ]
+    },
+    {
+      "id": "G5M-PKG-001",
+      "title": "Produce Grade 5 Math packages in dependency order after infrastructure readiness",
+      "priority": "P1",
+      "type": "CONTENT_IMPLEMENTATION",
+      "owner": "curriculum/content",
+      "depends_on": [
+        "G5M-INF-001",
+        "G5M-INF-002",
+        "G5M-INF-003",
+        "G5M-INF-004",
+        "G5M-INF-005",
+        "G5M-INF-006"
+      ],
+      "acceptance_criteria": [
+        "Implement the ten Grade 5 SkillPackages listed in this plan only after infrastructure readiness.",
+        "Each package includes complete Guided Mission source data and Practice Center level_banks.",
+        "Each package passes schema, renderer, voice, answer-validation, manifest, and readiness checks before production exposure."
+      ]
+    }
+  ]
+}
