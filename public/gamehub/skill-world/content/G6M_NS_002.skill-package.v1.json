@@ -1,0 +1,2796 @@
+{
+  "skill_id": "G6M_NS_002",
+  "grade": 6,
+  "subject": "Math",
+  "domain": "The Number System",
+  "skill": "Multi-Digit Decimal Operations",
+  "badgeName": "Decimal Operations Fluency Badge",
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade6-math-completion-plan.v1.json",
+    "completion_plan_doc": "docs/grade6_math_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01",
+    "readiness": [
+      "validated_skill_package",
+      "guided_mission",
+      "skill_practice_center",
+      "manifest_hub_exposure",
+      "voice_standard",
+      "cached_ai_audio_compatible",
+      "browser_speech_fallback"
+    ]
+  },
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "feedback_fields": [
+    "correct",
+    "incorrect",
+    "misconception_tag"
+  ],
+  "next_skill_id": null,
+  "remediation_skill_id": null,
+  "lesson": {
+    "story_mission": "Help the City Workshop total costs, measure materials, multiply prices, and divide supplies with decimals.",
+    "objective": "I can fluently add, subtract, multiply, and divide multi-digit decimals.",
+    "key_vocabulary": [
+      "decimal point",
+      "place value",
+      "sum",
+      "difference",
+      "product",
+      "quotient",
+      "estimate"
+    ],
+    "concept_explanation": "Decimal operations use place value. Add and subtract by aligning decimal points, multiply then place the decimal using factors, and divide by making the divisor a whole number when needed.",
+    "visual_model": "place_value_chart",
+    "common_misconception": "A common mistake is ignoring place value or placing the decimal point without estimating.",
+    "real_world_connection": "Money, metric measurement, sports times, and recipes all use decimal operations.",
+    "lesson_summary": "Estimate first, use the correct operation, compute carefully, and compare the result to the estimate.",
+    "page_audio": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Decimal operations depend on place value. Align decimal points for addition and subtraction. For multiplication and division, estimate first so the decimal point lands in a reasonable place."
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G6M_NS_002_WE1",
+      "text": "Add 14.6 and 3.28 by aligning decimal points. The sum is 17.88.",
+      "visual_model": "algorithm_steps",
+      "operands": [
+        "14.6",
+        "3.28"
+      ],
+      "operation": "+",
+      "correct_answer": "17.88",
+      "algorithm_steps": [
+        "Write 14.60 above 3.28.",
+        "Add hundredths, tenths, ones, and tens.",
+        "Keep the decimal point aligned in the sum."
+      ],
+      "page_audio": {
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Read This Page. Watch the decimal addition example. Write fourteen and six tenths as fourteen and sixty hundredths. Align the decimal points, add each place, and the final answer is seventeen and eighty-eight hundredths."
+      }
+    },
+    {
+      "id": "G6M_NS_002_WE2",
+      "text": "Divide 9.6 by 3. The quotient is 3.2 because 3 groups of 3.2 make 9.6.",
+      "visual_model": "estimation_number_line",
+      "exact": 3.2,
+      "estimate": 3,
+      "min": 0,
+      "max": 5,
+      "correct_answer": "3.2",
+      "page_audio": {
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Read This Page. Watch the decimal division example. Nine and six tenths divided by 3 is close to 9 divided by 3, so the answer should be near 3. The exact quotient is three and two tenths."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Estimate the size of the answer.",
+    "Line up place values or rewrite the divisor as a whole number.",
+    "Use the operation named by the situation and check the decimal point."
+  ],
+  "misconception_bank": {
+    "decimal_alignment_error": "Decimal points were not aligned for addition or subtraction.",
+    "decimal_product_size_error": "The product decimal point was placed without checking the size of the factors.",
+    "decimal_quotient_error": "The divisor or quotient decimal was moved incorrectly.",
+    "operation_choice_error": "The situation called for a different operation."
+  },
+  "game_theme": {
+    "title": "Decimal City Workshop",
+    "name": "Decimal City Workshop",
+    "mission_intro": "Help the City Workshop total costs, measure materials, multiply prices, and divide supplies with decimals.",
+    "badge_name": "Decimal Operations Fluency Badge"
+  },
+  "page_audio": {
+    "story": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Welcome to Decimal City Workshop. You will solve mission problems with models, words, and careful checking. Listen for decimal points, place value, products, quotients, and estimates so each answer fits the situation."
+    },
+    "lesson": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. This lesson teaches decimal points, place value, products, quotients, and estimates. Read the quantities, name the operation, and connect the symbols to the visual model. A good answer explains what the number means."
+    },
+    "watch": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Step one, read the situation and mark the values. Step two, use the model to show the operation. Step three, compute and check whether the final answer is reasonable."
+    },
+    "demo": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. In the demo, build the model before answering. Say the important math words out loud and notice how each part of the picture matches the equation. Then explain the answer in one sentence."
+    },
+    "practice": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Practice with one supported question. Tap Read Question to hear the problem, then use the model and type or choose the answer. Check units, signs, and values before moving on."
+    },
+    "challenge": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. The challenge asks you to choose a strategy with less support. Tap Read Question, compare the visual to the equation, and avoid common mistakes before submitting."
+    },
+    "checkpoint": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. The checkpoint shows what you can do independently. Tap Read Question, solve carefully, and use your answer to prove you understand decimal points, place value, products, quotients, and estimates."
+    },
+    "badge": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. You completed the Multi-Digit Decimal Operations mission. Celebrate the models, explanations, and accurate answers you used today. The badge marks readiness for more Number System work."
+    },
+    "profile": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Your profile saves stars, accuracy, hints, and misconception notes. Use Practice This Skill for focused levels and Mixed review so decimal points, place value, products, quotients, and estimates stay strong."
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G6M_NS_002_LVL1",
+      "label": "Level 1: Add and Subtract Decimals",
+      "focus": "Add and subtract decimals by aligning place values.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_002_LVL1_Q01",
+          "prompt": "Compute 8.45 + 6.7.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "15.15",
+          "answer": "15.15",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 15.15.",
+          "read_aloud_text": "Compute 8.45 + 6.7.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 8.45 + 6.7.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q01"
+          },
+          "acceptable_answers": [
+            "15.15",
+            "15.15"
+          ],
+          "operands": [
+            "8.45",
+            "6.7"
+          ],
+          "operation": "+",
+          "exact": "15.15",
+          "estimate": 15,
+          "min": 0,
+          "max": 18,
+          "decimal_label": "15.15 shaded by place value",
+          "grid_base": 100,
+          "shaded": 15,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q02",
+          "prompt": "Compute 19.2 - 4.86.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "14.34",
+          "answer": "14.34",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 14.34.",
+          "read_aloud_text": "Compute 19.2 - 4.86.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 19.2 - 4.86.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q02"
+          },
+          "acceptable_answers": [
+            "14.34",
+            "14.34"
+          ],
+          "operands": [],
+          "operation": "\u2212",
+          "exact": "14.34",
+          "estimate": 14,
+          "min": 0,
+          "max": 17,
+          "decimal_label": "14.34 shaded by place value",
+          "grid_base": 100,
+          "shaded": 34,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q03",
+          "prompt": "Compute 23.75 + 5.09.",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "28.84",
+          "answer": "28.84",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 28.84.",
+          "read_aloud_text": "Compute 23.75 + 5.09.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 23.75 + 5.09.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q03"
+          },
+          "acceptable_answers": [
+            "28.84",
+            "28.84"
+          ],
+          "operands": [
+            "23.75",
+            "5.09"
+          ],
+          "operation": "+",
+          "exact": "28.84",
+          "estimate": 29,
+          "min": 0,
+          "max": 31,
+          "decimal_label": "28.84 shaded by place value",
+          "grid_base": 100,
+          "shaded": 84,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q04",
+          "prompt": "Compute 30.4 - 12.18.",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "18.22",
+          "answer": "18.22",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 18.22.",
+          "read_aloud_text": "Compute 30.4 - 12.18.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 30.4 - 12.18.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q04"
+          },
+          "choices": [
+            "18.22",
+            "19.32",
+            "17.32"
+          ],
+          "operands": [],
+          "operation": "\u2212",
+          "exact": "18.22",
+          "estimate": 18,
+          "min": 0,
+          "max": 21,
+          "decimal_label": "18.22 shaded by place value",
+          "grid_base": 100,
+          "shaded": 22,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q05",
+          "prompt": "Compute 7.08 + 16.5.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "23.58",
+          "answer": "23.58",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 23.58.",
+          "read_aloud_text": "Compute 7.08 + 16.5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7.08 + 16.5.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q05"
+          },
+          "acceptable_answers": [
+            "23.58",
+            "23.58"
+          ],
+          "operands": [
+            "7.08",
+            "16.5"
+          ],
+          "operation": "+",
+          "exact": "23.58",
+          "estimate": 24,
+          "min": 0,
+          "max": 26,
+          "decimal_label": "23.58 shaded by place value",
+          "grid_base": 100,
+          "shaded": 58,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q06",
+          "prompt": "Compute 41.6 - 9.73.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "31.87",
+          "answer": "31.87",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 31.87.",
+          "read_aloud_text": "Compute 41.6 - 9.73.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 41.6 - 9.73.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q06"
+          },
+          "acceptable_answers": [
+            "31.87",
+            "31.87"
+          ],
+          "operands": [],
+          "operation": "\u2212",
+          "exact": "31.87",
+          "estimate": 32,
+          "min": 0,
+          "max": 34,
+          "decimal_label": "31.87 shaded by place value",
+          "grid_base": 100,
+          "shaded": 87,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q07",
+          "prompt": "Compute 12.35 + 0.48.",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "12.83",
+          "answer": "12.83",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 12.83.",
+          "read_aloud_text": "Compute 12.35 + 0.48.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 12.35 + 0.48.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q07"
+          },
+          "acceptable_answers": [
+            "12.83",
+            "12.83"
+          ],
+          "operands": [
+            "12.35",
+            "0.48"
+          ],
+          "operation": "+",
+          "exact": "12.83",
+          "estimate": 13,
+          "min": 0,
+          "max": 15,
+          "decimal_label": "12.83 shaded by place value",
+          "grid_base": 100,
+          "shaded": 83,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q08",
+          "prompt": "Compute 18.04 - 3.6.",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "14.44",
+          "answer": "14.44",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 14.44.",
+          "read_aloud_text": "Compute 18.04 - 3.6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 18.04 - 3.6.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q08"
+          },
+          "choices": [
+            "14.44",
+            "15.54",
+            "13.54"
+          ],
+          "operands": [],
+          "operation": "\u2212",
+          "exact": "14.44",
+          "estimate": 14,
+          "min": 0,
+          "max": 17,
+          "decimal_label": "14.44 shaded by place value",
+          "grid_base": 100,
+          "shaded": 44,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q09",
+          "prompt": "Compute 25.7 + 14.06.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "39.76",
+          "answer": "39.76",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 39.76.",
+          "read_aloud_text": "Compute 25.7 + 14.06.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 25.7 + 14.06.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q09"
+          },
+          "acceptable_answers": [
+            "39.76",
+            "39.76"
+          ],
+          "operands": [
+            "25.7",
+            "14.06"
+          ],
+          "operation": "+",
+          "exact": "39.76",
+          "estimate": 40,
+          "min": 0,
+          "max": 42,
+          "decimal_label": "39.76 shaded by place value",
+          "grid_base": 100,
+          "shaded": 76,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL1_Q10",
+          "prompt": "Compute 50.25 - 8.8.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "41.45",
+          "answer": "41.45",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 41.45.",
+          "read_aloud_text": "Compute 50.25 - 8.8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 50.25 - 8.8.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q10"
+          },
+          "acceptable_answers": [
+            "41.45",
+            "41.45"
+          ],
+          "operands": [],
+          "operation": "\u2212",
+          "exact": "41.45",
+          "estimate": 41,
+          "min": 0,
+          "max": 44,
+          "decimal_label": "41.45 shaded by place value",
+          "grid_base": 100,
+          "shaded": 45,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_002_LVL2",
+      "label": "Level 2: Multiply Decimals",
+      "focus": "Multiply decimals and place the decimal point reasonably.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_002_LVL2_Q01",
+          "prompt": "Compute 2.4 \u00d7 3.5.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "8.4",
+          "answer": "8.4",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.4.",
+          "read_aloud_text": "Compute 2.4 \u00d7 3.5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 2.4 \u00d7 3.5.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q01"
+          },
+          "acceptable_answers": [
+            "8.4",
+            "8.4"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "8.4",
+          "estimate": 8,
+          "min": 0,
+          "max": 11,
+          "decimal_label": "8.4 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q02",
+          "prompt": "Compute 6.2 \u00d7 1.4.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "8.68",
+          "answer": "8.68",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.68.",
+          "read_aloud_text": "Compute 6.2 \u00d7 1.4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 6.2 \u00d7 1.4.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q02"
+          },
+          "acceptable_answers": [
+            "8.68",
+            "8.68"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "8.68",
+          "estimate": 9,
+          "min": 0,
+          "max": 11,
+          "decimal_label": "8.68 shaded by place value",
+          "grid_base": 100,
+          "shaded": 68,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q03",
+          "prompt": "Compute 0.75 \u00d7 8.",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "Compute 0.75 \u00d7 8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 0.75 \u00d7 8.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q03"
+          },
+          "acceptable_answers": [
+            "6",
+            "6.0"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "6",
+          "estimate": 6,
+          "min": 0,
+          "max": 8,
+          "decimal_label": "6 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q04",
+          "prompt": "Compute 3.6 \u00d7 2.5.",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "Compute 3.6 \u00d7 2.5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3.6 \u00d7 2.5.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q04"
+          },
+          "choices": [
+            "9",
+            "10.1",
+            "8.1"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "9",
+          "estimate": 9,
+          "min": 0,
+          "max": 11,
+          "decimal_label": "9 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q05",
+          "prompt": "Compute 4.8 \u00d7 1.2.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "5.76",
+          "answer": "5.76",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5.76.",
+          "read_aloud_text": "Compute 4.8 \u00d7 1.2.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 4.8 \u00d7 1.2.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q05"
+          },
+          "acceptable_answers": [
+            "5.76",
+            "5.76"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "5.76",
+          "estimate": 6,
+          "min": 0,
+          "max": 8,
+          "decimal_label": "5.76 shaded by place value",
+          "grid_base": 100,
+          "shaded": 76,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q06",
+          "prompt": "Compute 7.5 \u00d7 0.6.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "4.5",
+          "answer": "4.5",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.5.",
+          "read_aloud_text": "Compute 7.5 \u00d7 0.6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7.5 \u00d7 0.6.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q06"
+          },
+          "acceptable_answers": [
+            "4.5",
+            "4.5"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "4.5",
+          "estimate": 4,
+          "min": 0,
+          "max": 7,
+          "decimal_label": "4.5 shaded by place value",
+          "grid_base": 100,
+          "shaded": 50,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q07",
+          "prompt": "Compute 1.25 \u00d7 4.4.",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "5.5",
+          "answer": "5.5",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5.5.",
+          "read_aloud_text": "Compute 1.25 \u00d7 4.4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 1.25 \u00d7 4.4.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q07"
+          },
+          "acceptable_answers": [
+            "5.5",
+            "5.5"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "5.5",
+          "estimate": 6,
+          "min": 0,
+          "max": 8,
+          "decimal_label": "5.5 shaded by place value",
+          "grid_base": 100,
+          "shaded": 50,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q08",
+          "prompt": "Compute 9.6 \u00d7 0.5.",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "4.8",
+          "answer": "4.8",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.8.",
+          "read_aloud_text": "Compute 9.6 \u00d7 0.5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 9.6 \u00d7 0.5.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q08"
+          },
+          "choices": [
+            "4.8",
+            "5.9",
+            "3.9"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "4.8",
+          "estimate": 5,
+          "min": 0,
+          "max": 7,
+          "decimal_label": "4.8 shaded by place value",
+          "grid_base": 100,
+          "shaded": 80,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q09",
+          "prompt": "Compute 2.75 \u00d7 3.2.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "8.8",
+          "answer": "8.8",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.8.",
+          "read_aloud_text": "Compute 2.75 \u00d7 3.2.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 2.75 \u00d7 3.2.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q09"
+          },
+          "acceptable_answers": [
+            "8.8",
+            "8.8"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "8.8",
+          "estimate": 9,
+          "min": 0,
+          "max": 11,
+          "decimal_label": "8.8 shaded by place value",
+          "grid_base": 100,
+          "shaded": 80,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL2_Q10",
+          "prompt": "Compute 5.4 \u00d7 2.1.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "11.34",
+          "answer": "11.34",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 11.34.",
+          "read_aloud_text": "Compute 5.4 \u00d7 2.1.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5.4 \u00d7 2.1.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q10"
+          },
+          "acceptable_answers": [
+            "11.34",
+            "11.34"
+          ],
+          "operands": [],
+          "operation": "\u00d7",
+          "exact": "11.34",
+          "estimate": 11,
+          "min": 0,
+          "max": 14,
+          "decimal_label": "11.34 shaded by place value",
+          "grid_base": 100,
+          "shaded": 34,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_002_LVL3",
+      "label": "Level 3: Divide Decimals",
+      "focus": "Divide decimals by whole numbers and decimals.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_002_LVL3_Q01",
+          "prompt": "Compute 9.6 \u00f7 3.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "3.2",
+          "answer": "3.2",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 3.2.",
+          "read_aloud_text": "Compute 9.6 \u00f7 3.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 9.6 \u00f7 3.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q01"
+          },
+          "acceptable_answers": [
+            "3.2",
+            "3.2"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "3.2",
+          "estimate": 3,
+          "min": 0,
+          "max": 6,
+          "decimal_label": "3.2 shaded by place value",
+          "grid_base": 100,
+          "shaded": 20,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q02",
+          "prompt": "Compute 14.4 \u00f7 1.2.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "12",
+          "answer": "12",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 12.",
+          "read_aloud_text": "Compute 14.4 \u00f7 1.2.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 14.4 \u00f7 1.2.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q02"
+          },
+          "acceptable_answers": [
+            "12",
+            "12.0"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "12",
+          "estimate": 12,
+          "min": 0,
+          "max": 14,
+          "decimal_label": "12 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q03",
+          "prompt": "Compute 6.25 \u00f7 0.5.",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "12.5",
+          "answer": "12.5",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 12.5.",
+          "read_aloud_text": "Compute 6.25 \u00f7 0.5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 6.25 \u00f7 0.5.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q03"
+          },
+          "acceptable_answers": [
+            "12.5",
+            "12.5"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "12.5",
+          "estimate": 12,
+          "min": 0,
+          "max": 15,
+          "decimal_label": "12.5 shaded by place value",
+          "grid_base": 100,
+          "shaded": 50,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q04",
+          "prompt": "Compute 18.9 \u00f7 2.7.",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "7",
+          "answer": "7",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "Compute 18.9 \u00f7 2.7.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 18.9 \u00f7 2.7.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q04"
+          },
+          "choices": [
+            "7",
+            "8.1",
+            "6.1"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "7",
+          "estimate": 7,
+          "min": 0,
+          "max": 9,
+          "decimal_label": "7 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q05",
+          "prompt": "Compute 4.8 \u00f7 0.6.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Compute 4.8 \u00f7 0.6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 4.8 \u00f7 0.6.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q05"
+          },
+          "acceptable_answers": [
+            "8",
+            "8.0"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "8",
+          "estimate": 8,
+          "min": 0,
+          "max": 10,
+          "decimal_label": "8 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q06",
+          "prompt": "Compute 22.5 \u00f7 1.5.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "15",
+          "answer": "15",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "Compute 22.5 \u00f7 1.5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 22.5 \u00f7 1.5.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q06"
+          },
+          "acceptable_answers": [
+            "15",
+            "15.0"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "15",
+          "estimate": 15,
+          "min": 0,
+          "max": 17,
+          "decimal_label": "15 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q07",
+          "prompt": "Compute 7.35 \u00f7 0.7.",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "10.5",
+          "answer": "10.5",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 10.5.",
+          "read_aloud_text": "Compute 7.35 \u00f7 0.7.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7.35 \u00f7 0.7.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q07"
+          },
+          "acceptable_answers": [
+            "10.5",
+            "10.5"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "10.5",
+          "estimate": 10,
+          "min": 0,
+          "max": 13,
+          "decimal_label": "10.5 shaded by place value",
+          "grid_base": 100,
+          "shaded": 50,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q08",
+          "prompt": "Compute 31.2 \u00f7 4.",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "7.8",
+          "answer": "7.8",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7.8.",
+          "read_aloud_text": "Compute 31.2 \u00f7 4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 31.2 \u00f7 4.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q08"
+          },
+          "choices": [
+            "7.8",
+            "8.9",
+            "6.9"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "7.8",
+          "estimate": 8,
+          "min": 0,
+          "max": 10,
+          "decimal_label": "7.8 shaded by place value",
+          "grid_base": 100,
+          "shaded": 80,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q09",
+          "prompt": "Compute 5.6 \u00f7 0.8.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "7",
+          "answer": "7",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7.",
+          "read_aloud_text": "Compute 5.6 \u00f7 0.8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5.6 \u00f7 0.8.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q09"
+          },
+          "acceptable_answers": [
+            "7",
+            "7.0"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "7",
+          "estimate": 7,
+          "min": 0,
+          "max": 9,
+          "decimal_label": "7 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL3_Q10",
+          "prompt": "Compute 12.96 \u00f7 1.8.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "7.2",
+          "answer": "7.2",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7.2.",
+          "read_aloud_text": "Compute 12.96 \u00f7 1.8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 12.96 \u00f7 1.8.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL3_Q10"
+          },
+          "acceptable_answers": [
+            "7.2",
+            "7.2"
+          ],
+          "operands": [],
+          "operation": "\u00f7",
+          "exact": "7.2",
+          "estimate": 7,
+          "min": 0,
+          "max": 10,
+          "decimal_label": "7.2 shaded by place value",
+          "grid_base": 100,
+          "shaded": 20,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_002_LVL4",
+      "label": "Level 4: Decimal Operation Word Problems",
+      "focus": "Choose and solve decimal operations in context.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_002_LVL4_Q01",
+          "prompt": "A ribbon is 8.45 m and another is 6.7 m. What is the total length?",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "15.15",
+          "answer": "15.15",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 15.15.",
+          "read_aloud_text": "A ribbon is 8.45 m and another is 6.7 m. What is the total length?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A ribbon is 8.45 m and another is 6.7 m. What is the total length?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q01"
+          },
+          "acceptable_answers": [
+            "15.15",
+            "15.15"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "15.15",
+          "estimate": 15,
+          "min": 0,
+          "max": 18,
+          "decimal_label": "15.15 shaded by place value",
+          "grid_base": 100,
+          "shaded": 15,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q02",
+          "prompt": "A runner goes 19.2 miles and then 4.86 fewer miles. What distance remains?",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "14.34",
+          "answer": "14.34",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 14.34.",
+          "read_aloud_text": "A runner goes 19.2 miles and then 4.86 fewer miles. What distance remains?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A runner goes 19.2 miles and then 4.86 fewer miles. What distance remains?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q02"
+          },
+          "acceptable_answers": [
+            "14.34",
+            "14.34"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "14.34",
+          "estimate": 14,
+          "min": 0,
+          "max": 17,
+          "decimal_label": "14.34 shaded by place value",
+          "grid_base": 100,
+          "shaded": 34,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q03",
+          "prompt": "Each notebook costs $2.40. What do 3.5 notebooks cost at the same rate?",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "8.4",
+          "answer": "8.4",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.4.",
+          "read_aloud_text": "Each notebook costs $2.40. What do 3.5 notebooks cost at the same rate?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Each notebook costs $2.40. What do 3.5 notebooks cost at the same rate?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q03"
+          },
+          "acceptable_answers": [
+            "8.4",
+            "8.4"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "8.4",
+          "estimate": 8,
+          "min": 0,
+          "max": 11,
+          "decimal_label": "8.4 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q04",
+          "prompt": "Share 9.6 liters equally among 3 tanks. How many liters per tank?",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "3.2",
+          "answer": "3.2",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 3.2.",
+          "read_aloud_text": "Share 9.6 liters equally among 3 tanks. How many liters per tank?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Share 9.6 liters equally among 3 tanks. How many liters per tank?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q04"
+          },
+          "choices": [
+            "3.2",
+            "4.3",
+            "2.3"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "3.2",
+          "estimate": 3,
+          "min": 0,
+          "max": 6,
+          "decimal_label": "3.2 shaded by place value",
+          "grid_base": 100,
+          "shaded": 20,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q05",
+          "prompt": "A board is 23.75 cm plus 5.09 cm. What is the length?",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "28.84",
+          "answer": "28.84",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 28.84.",
+          "read_aloud_text": "A board is 23.75 cm plus 5.09 cm. What is the length?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A board is 23.75 cm plus 5.09 cm. What is the length?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q05"
+          },
+          "acceptable_answers": [
+            "28.84",
+            "28.84"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "28.84",
+          "estimate": 29,
+          "min": 0,
+          "max": 31,
+          "decimal_label": "28.84 shaded by place value",
+          "grid_base": 100,
+          "shaded": 84,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q06",
+          "prompt": "A bag has 30.4 kg and 12.18 kg are used. How many kilograms remain?",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "18.22",
+          "answer": "18.22",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 18.22.",
+          "read_aloud_text": "A bag has 30.4 kg and 12.18 kg are used. How many kilograms remain?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A bag has 30.4 kg and 12.18 kg are used. How many kilograms remain?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q06"
+          },
+          "acceptable_answers": [
+            "18.22",
+            "18.22"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "18.22",
+          "estimate": 18,
+          "min": 0,
+          "max": 21,
+          "decimal_label": "18.22 shaded by place value",
+          "grid_base": 100,
+          "shaded": 22,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q07",
+          "prompt": "A fabric strip of 4.8 m is cut into 0.6 m pieces. How many pieces?",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "A fabric strip of 4.8 m is cut into 0.6 m pieces. How many pieces?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A fabric strip of 4.8 m is cut into 0.6 m pieces. How many pieces?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q07"
+          },
+          "acceptable_answers": [
+            "8",
+            "8.0"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "8",
+          "estimate": 8,
+          "min": 0,
+          "max": 10,
+          "decimal_label": "8 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q08",
+          "prompt": "Each lap is 7.5 km. How far are 0.6 lap equivalents?",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "4.5",
+          "answer": "4.5",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.5.",
+          "read_aloud_text": "Each lap is 7.5 km. How far are 0.6 lap equivalents?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Each lap is 7.5 km. How far are 0.6 lap equivalents?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q08"
+          },
+          "choices": [
+            "4.5",
+            "5.6",
+            "3.6"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "4.5",
+          "estimate": 4,
+          "min": 0,
+          "max": 7,
+          "decimal_label": "4.5 shaded by place value",
+          "grid_base": 100,
+          "shaded": 50,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q09",
+          "prompt": "A price of $22.50 is split into 1.5 equal shares. What is each share?",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "15",
+          "answer": "15",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "A price of $22.50 is split into 1.5 equal shares. What is each share?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A price of $22.50 is split into 1.5 equal shares. What is each share?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q09"
+          },
+          "acceptable_answers": [
+            "15",
+            "15.0"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "15",
+          "estimate": 15,
+          "min": 0,
+          "max": 17,
+          "decimal_label": "15 shaded by place value",
+          "grid_base": 100,
+          "shaded": 40,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL4_Q10",
+          "prompt": "Two masses are 25.7 g and 14.06 g. What is the total?",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "39.76",
+          "answer": "39.76",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 39.76.",
+          "read_aloud_text": "Two masses are 25.7 g and 14.06 g. What is the total?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Two masses are 25.7 g and 14.06 g. What is the total?",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL4_Q10"
+          },
+          "acceptable_answers": [
+            "39.76",
+            "39.76"
+          ],
+          "operands": [],
+          "operation": "+",
+          "exact": "39.76",
+          "estimate": 40,
+          "min": 0,
+          "max": 42,
+          "decimal_label": "39.76 shaded by place value",
+          "grid_base": 100,
+          "shaded": 76,
+          "algorithm_steps": [
+            "Estimate first.",
+            "Use place value to compute.",
+            "Compare the exact answer to the estimate."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_002_MIXED",
+      "label": "Mixed",
+      "focus": "Review all decimal operations and operation choices.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_002_LVL5_Q01",
+          "prompt": "Compute 8.45 + 6.7.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "15.15",
+          "answer": "15.15",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 15.15.",
+          "read_aloud_text": "Compute 8.45 + 6.7.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 8.45 + 6.7.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q01"
+          },
+          "acceptable_answers": [
+            "15.15",
+            "15.15"
+          ],
+          "exact": "15.15",
+          "estimate": 15,
+          "min": 0,
+          "max": 18,
+          "grid_base": 100,
+          "shaded": 15,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q02",
+          "prompt": "Compute 19.2 - 4.86.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "14.34",
+          "answer": "14.34",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 14.34.",
+          "read_aloud_text": "Compute 19.2 - 4.86.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 19.2 - 4.86.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q02"
+          },
+          "acceptable_answers": [
+            "14.34",
+            "14.34"
+          ],
+          "exact": "14.34",
+          "estimate": 14,
+          "min": 0,
+          "max": 17,
+          "grid_base": 100,
+          "shaded": 34,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q03",
+          "prompt": "Compute 23.75 + 5.09.",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "28.84",
+          "answer": "28.84",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 28.84.",
+          "read_aloud_text": "Compute 23.75 + 5.09.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 23.75 + 5.09.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q03"
+          },
+          "acceptable_answers": [
+            "28.84",
+            "28.84"
+          ],
+          "exact": "28.84",
+          "estimate": 29,
+          "min": 0,
+          "max": 31,
+          "grid_base": 100,
+          "shaded": 84,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q04",
+          "prompt": "Compute 30.4 - 12.18.",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "18.22",
+          "answer": "18.22",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 18.22.",
+          "read_aloud_text": "Compute 30.4 - 12.18.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 30.4 - 12.18.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q04"
+          },
+          "choices": [
+            "18.22",
+            "19.02",
+            "17.62"
+          ],
+          "exact": "18.22",
+          "estimate": 18,
+          "min": 0,
+          "max": 21,
+          "grid_base": 100,
+          "shaded": 22,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q05",
+          "prompt": "Compute 7.08 + 16.5.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "23.58",
+          "answer": "23.58",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 23.58.",
+          "read_aloud_text": "Compute 7.08 + 16.5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7.08 + 16.5.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q05"
+          },
+          "acceptable_answers": [
+            "23.58",
+            "23.58"
+          ],
+          "exact": "23.58",
+          "estimate": 24,
+          "min": 0,
+          "max": 26,
+          "grid_base": 100,
+          "shaded": 58,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q06",
+          "prompt": "Compute 41.6 - 9.73.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "31.87",
+          "answer": "31.87",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 31.87.",
+          "read_aloud_text": "Compute 41.6 - 9.73.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 41.6 - 9.73.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q06"
+          },
+          "acceptable_answers": [
+            "31.87",
+            "31.87"
+          ],
+          "exact": "31.87",
+          "estimate": 32,
+          "min": 0,
+          "max": 34,
+          "grid_base": 100,
+          "shaded": 87,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q07",
+          "prompt": "Compute 12.35 + 0.48.",
+          "question_type": "word_problem",
+          "visual_model": "estimation_number_line",
+          "support_type": "estimation_number_line",
+          "correct_answer": "12.83",
+          "answer": "12.83",
+          "misconception_tag": "decimal_alignment_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 12.83.",
+          "read_aloud_text": "Compute 12.35 + 0.48.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 12.35 + 0.48.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q07"
+          },
+          "acceptable_answers": [
+            "12.83",
+            "12.83"
+          ],
+          "exact": "12.83",
+          "estimate": 13,
+          "min": 0,
+          "max": 15,
+          "grid_base": 100,
+          "shaded": 83,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q08",
+          "prompt": "Compute 18.04 - 3.6.",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "support_type": "place_value_chart",
+          "correct_answer": "14.44",
+          "answer": "14.44",
+          "misconception_tag": "decimal_product_size_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 14.44.",
+          "read_aloud_text": "Compute 18.04 - 3.6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 18.04 - 3.6.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q08"
+          },
+          "choices": [
+            "14.44",
+            "15.24",
+            "13.84"
+          ],
+          "exact": "14.44",
+          "estimate": 14,
+          "min": 0,
+          "max": 17,
+          "grid_base": 100,
+          "shaded": 44,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q09",
+          "prompt": "Compute 25.7 + 14.06.",
+          "question_type": "short_response",
+          "visual_model": "algorithm_steps",
+          "support_type": "algorithm_steps",
+          "correct_answer": "39.76",
+          "answer": "39.76",
+          "misconception_tag": "decimal_quotient_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 39.76.",
+          "read_aloud_text": "Compute 25.7 + 14.06.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 25.7 + 14.06.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q09"
+          },
+          "acceptable_answers": [
+            "39.76",
+            "39.76"
+          ],
+          "exact": "39.76",
+          "estimate": 40,
+          "min": 0,
+          "max": 42,
+          "grid_base": 100,
+          "shaded": 76,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        },
+        {
+          "question_id": "G6M_NS_002_LVL5_Q10",
+          "prompt": "Compute 50.25 - 8.8.",
+          "question_type": "decimal_response",
+          "visual_model": "decimal_grid",
+          "support_type": "decimal_grid",
+          "correct_answer": "41.45",
+          "answer": "41.45",
+          "misconception_tag": "operation_choice_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 41.45.",
+          "read_aloud_text": "Compute 50.25 - 8.8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 50.25 - 8.8.",
+            "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q10"
+          },
+          "acceptable_answers": [
+            "41.45",
+            "41.45"
+          ],
+          "exact": "41.45",
+          "estimate": 41,
+          "min": 0,
+          "max": 44,
+          "grid_base": 100,
+          "shaded": 45,
+          "algorithm_steps": [
+            "Estimate.",
+            "Compute by place value.",
+            "Check decimal placement."
+          ]
+        }
+      ]
+    }
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G6M_NS_002_LVL1_Q01",
+      "prompt": "Compute 8.45 + 6.7.",
+      "question_type": "short_response",
+      "visual_model": "algorithm_steps",
+      "support_type": "algorithm_steps",
+      "correct_answer": "15.15",
+      "answer": "15.15",
+      "misconception_tag": "decimal_quotient_error",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is 15.15.",
+      "read_aloud_text": "Compute 8.45 + 6.7.",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Compute 8.45 + 6.7.",
+        "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL1_Q01"
+      },
+      "acceptable_answers": [
+        "15.15",
+        "15.15"
+      ],
+      "operands": [
+        "8.45",
+        "6.7"
+      ],
+      "operation": "+",
+      "exact": "15.15",
+      "estimate": 15,
+      "min": 0,
+      "max": 18,
+      "decimal_label": "15.15 shaded by place value",
+      "grid_base": 100,
+      "shaded": 15,
+      "algorithm_steps": [
+        "Estimate first.",
+        "Use place value to compute.",
+        "Compare the exact answer to the estimate."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6M_NS_002_LVL2_Q01",
+      "prompt": "Compute 2.4 \u00d7 3.5.",
+      "question_type": "short_response",
+      "visual_model": "algorithm_steps",
+      "support_type": "algorithm_steps",
+      "correct_answer": "8.4",
+      "answer": "8.4",
+      "misconception_tag": "operation_choice_error",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is 8.4.",
+      "read_aloud_text": "Compute 2.4 \u00d7 3.5.",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Compute 2.4 \u00d7 3.5.",
+        "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL2_Q01"
+      },
+      "acceptable_answers": [
+        "8.4",
+        "8.4"
+      ],
+      "operands": [],
+      "operation": "\u00d7",
+      "exact": "8.4",
+      "estimate": 8,
+      "min": 0,
+      "max": 11,
+      "decimal_label": "8.4 shaded by place value",
+      "grid_base": 100,
+      "shaded": 40,
+      "algorithm_steps": [
+        "Estimate first.",
+        "Use place value to compute.",
+        "Compare the exact answer to the estimate."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6M_NS_002_LVL5_Q01",
+      "prompt": "Compute 8.45 + 6.7.",
+      "question_type": "short_response",
+      "visual_model": "algorithm_steps",
+      "support_type": "algorithm_steps",
+      "correct_answer": "15.15",
+      "answer": "15.15",
+      "misconception_tag": "decimal_quotient_error",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is 15.15.",
+      "read_aloud_text": "Compute 8.45 + 6.7.",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Compute 8.45 + 6.7.",
+        "cache_key": "skill-world:G6M_NS_002:question:G6M_NS_002_LVL5_Q01"
+      },
+      "acceptable_answers": [
+        "15.15",
+        "15.15"
+      ],
+      "exact": "15.15",
+      "estimate": 15,
+      "min": 0,
+      "max": 18,
+      "grid_base": 100,
+      "shaded": 15,
+      "algorithm_steps": [
+        "Estimate.",
+        "Compute by place value.",
+        "Check decimal placement."
+      ]
+    }
+  ],
+  "review_bank": [],
+  "support_type": "algorithm_steps"
+}

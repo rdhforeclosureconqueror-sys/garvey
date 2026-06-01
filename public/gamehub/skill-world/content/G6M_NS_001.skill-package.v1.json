@@ -1,0 +1,2363 @@
+{
+  "skill_id": "G6M_NS_001",
+  "grade": 6,
+  "subject": "Math",
+  "domain": "The Number System",
+  "skill": "Dividing Fractions",
+  "badgeName": "Fraction Division Navigator Badge",
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade6-math-completion-plan.v1.json",
+    "completion_plan_doc": "docs/grade6_math_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01",
+    "readiness": [
+      "validated_skill_package",
+      "guided_mission",
+      "skill_practice_center",
+      "manifest_hub_exposure",
+      "voice_standard",
+      "cached_ai_audio_compatible",
+      "browser_speech_fallback"
+    ]
+  },
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "feedback_fields": [
+    "correct",
+    "incorrect",
+    "misconception_tag"
+  ],
+  "next_skill_id": null,
+  "remediation_skill_id": null,
+  "lesson": {
+    "story_mission": "Help the Trail Mix Lab split fractional batches into fair servings and explain how many groups fit.",
+    "objective": "I can divide fractions by fractions and solve real-world fraction division problems.",
+    "key_vocabulary": [
+      "dividend",
+      "divisor",
+      "quotient",
+      "reciprocal",
+      "fraction division",
+      "unit fraction"
+    ],
+    "concept_explanation": "Dividing by a fraction asks how many groups of the divisor fit in the dividend. A visual model partitions the same whole, and the reciprocal rule gives the same quotient.",
+    "visual_model": "fraction_division_model",
+    "common_misconception": "A common mistake is swapping the dividend and divisor or flipping both fractions instead of only using the reciprocal of the divisor.",
+    "real_world_connection": "Recipes, lengths of ribbon, and shared supplies often ask how many fractional-size groups fit in a fractional amount.",
+    "lesson_summary": "Keep the dividend first, model equal-size groups, and check quotient size.",
+    "page_audio": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Dividing fractions asks how many groups of one fraction fit inside another fraction. Say three fourths divided by one eighth as how many one eighth groups are in three fourths. Use common partitions, then connect the model to multiplying by the reciprocal."
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G6M_NS_001_WE1",
+      "text": "Three fourths divided by one eighth asks how many one eighth pieces fit in three fourths. Six one eighth pieces fit.",
+      "visual_model": "fraction_division_model",
+      "dividend": "3/4",
+      "divisor": "1/8",
+      "equation": "3/4 \u00f7 1/8 = 6",
+      "correct_answer": "6",
+      "page_audio": {
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Read This Page. Watch three fourths divided by one eighth. Partition the whole into eighths, shade six eighths for three fourths, and count groups of one eighth. The final answer is 6."
+      }
+    },
+    {
+      "id": "G6M_NS_001_WE2",
+      "text": "Two thirds divided by one sixth equals 4 because four one sixth pieces make two thirds.",
+      "visual_model": "fraction_bar",
+      "numerator": 2,
+      "denominator": 3,
+      "correct_answer": "4",
+      "page_audio": {
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Read This Page. Watch the fraction bar. Two thirds is the dividend, and one sixth is the group size. When the same whole is partitioned into sixths, two thirds covers four sixths, so the answer is 4."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Identify the dividend and divisor.",
+    "Use a visual group size or multiply by the reciprocal.",
+    "Ask whether the quotient should be greater than or less than the dividend."
+  ],
+  "misconception_bank": {
+    "divisor_dividend_confusion": "The dividend and divisor were switched. Keep the amount being divided first.",
+    "reciprocal_misuse": "The reciprocal was used incorrectly. Divide by multiplying by the reciprocal of the divisor only.",
+    "fraction_division_context_error": "The context was interpreted as sharing instead of measuring groups. Ask how many groups or how much in each group.",
+    "quotient_size_confusion": "The quotient size was not checked. Dividing by a fraction less than 1 can make a larger quotient."
+  },
+  "game_theme": {
+    "title": "Fraction Division Trail Lab",
+    "name": "Fraction Division Trail Lab",
+    "mission_intro": "Help the Trail Mix Lab split fractional batches into fair servings and explain how many groups fit.",
+    "badge_name": "Fraction Division Navigator Badge"
+  },
+  "page_audio": {
+    "story": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Welcome to Fraction Division Trail Lab. You will solve mission problems with models, words, and careful checking. Listen for dividends, divisors, reciprocals, fraction bars, and quotients so each answer fits the situation."
+    },
+    "lesson": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. This lesson teaches dividends, divisors, reciprocals, fraction bars, and quotients. Read the quantities, name the operation, and connect the symbols to the visual model. A good answer explains what the number means."
+    },
+    "watch": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Step one, read the situation and mark the values. Step two, use the model to show the operation. Step three, compute and check whether the final answer is reasonable."
+    },
+    "demo": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. In the demo, build the model before answering. Say the important math words out loud and notice how each part of the picture matches the equation. Then explain the answer in one sentence."
+    },
+    "practice": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Practice with one supported question. Tap Read Question to hear the problem, then use the model and type or choose the answer. Check units, signs, and values before moving on."
+    },
+    "challenge": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. The challenge asks you to choose a strategy with less support. Tap Read Question, compare the visual to the equation, and avoid common mistakes before submitting."
+    },
+    "checkpoint": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. The checkpoint shows what you can do independently. Tap Read Question, solve carefully, and use your answer to prove you understand dividends, divisors, reciprocals, fraction bars, and quotients."
+    },
+    "badge": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. You completed the Dividing Fractions mission. Celebrate the models, explanations, and accurate answers you used today. The badge marks readiness for more Number System work."
+    },
+    "profile": {
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "text": "Read This Page. Your profile saves stars, accuracy, hints, and misconception notes. Use Practice This Skill for focused levels and Mixed review so dividends, divisors, reciprocals, fraction bars, and quotients stay strong."
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G6M_NS_001_LVL1",
+      "label": "Level 1: Fraction Division Meaning",
+      "focus": "Interpret fraction division as how many groups fit.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_001_LVL1_Q01",
+          "prompt": "Compute 3/4 \u00f7 1/8.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "Compute 3/4 \u00f7 1/8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/4 \u00f7 1/8.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q01"
+          },
+          "acceptable_answers": [
+            "6"
+          ],
+          "dividend": "3/4",
+          "divisor": "1/8",
+          "equation": "3/4 \u00f7 1/8 = 6",
+          "numerator": 3,
+          "denominator": 4
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q02",
+          "prompt": "Compute 2/3 \u00f7 1/6.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Compute 2/3 \u00f7 1/6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 2/3 \u00f7 1/6.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q02"
+          },
+          "acceptable_answers": [
+            "4"
+          ],
+          "dividend": "2/3",
+          "divisor": "1/6",
+          "equation": "2/3 \u00f7 1/6 = 4",
+          "numerator": 2,
+          "denominator": 3
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q03",
+          "prompt": "Compute 5/6 \u00f7 1/3.",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "5/2",
+          "answer": "5/2",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5/2.",
+          "read_aloud_text": "Compute 5/6 \u00f7 1/3.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/6 \u00f7 1/3.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q03"
+          },
+          "acceptable_answers": [
+            "5/2",
+            "5 over 2",
+            "5 out of 2"
+          ],
+          "dividend": "5/6",
+          "divisor": "1/3",
+          "equation": "5/6 \u00f7 1/3 = 5/2",
+          "numerator": 5,
+          "denominator": 6
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q04",
+          "prompt": "Compute 4/5 \u00f7 1/10.",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Compute 4/5 \u00f7 1/10.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 4/5 \u00f7 1/10.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q04"
+          },
+          "choices": [
+            "8",
+            "1/8",
+            "2/25"
+          ],
+          "acceptable_answers": [
+            "8"
+          ],
+          "dividend": "4/5",
+          "divisor": "1/10",
+          "equation": "4/5 \u00f7 1/10 = 8",
+          "numerator": 4,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q05",
+          "prompt": "Compute 7/8 \u00f7 1/4.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "7/2",
+          "answer": "7/2",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7/2.",
+          "read_aloud_text": "Compute 7/8 \u00f7 1/4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7/8 \u00f7 1/4.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q05"
+          },
+          "acceptable_answers": [
+            "7/2",
+            "7 over 2",
+            "7 out of 2"
+          ],
+          "dividend": "7/8",
+          "divisor": "1/4",
+          "equation": "7/8 \u00f7 1/4 = 7/2",
+          "numerator": 7,
+          "denominator": 8
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q06",
+          "prompt": "Compute 3/5 \u00f7 1/10.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "Compute 3/5 \u00f7 1/10.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/5 \u00f7 1/10.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q06"
+          },
+          "acceptable_answers": [
+            "6"
+          ],
+          "dividend": "3/5",
+          "divisor": "1/10",
+          "equation": "3/5 \u00f7 1/10 = 6",
+          "numerator": 3,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q07",
+          "prompt": "Compute 5/8 \u00f7 1/8.",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "Compute 5/8 \u00f7 1/8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/8 \u00f7 1/8.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q07"
+          },
+          "acceptable_answers": [
+            "5"
+          ],
+          "dividend": "5/8",
+          "divisor": "1/8",
+          "equation": "5/8 \u00f7 1/8 = 5",
+          "numerator": 5,
+          "denominator": 8
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q08",
+          "prompt": "Compute 2/5 \u00f7 1/5.",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "Compute 2/5 \u00f7 1/5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 2/5 \u00f7 1/5.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q08"
+          },
+          "choices": [
+            "2",
+            "1/2",
+            "2/25"
+          ],
+          "acceptable_answers": [
+            "2"
+          ],
+          "dividend": "2/5",
+          "divisor": "1/5",
+          "equation": "2/5 \u00f7 1/5 = 2",
+          "numerator": 2,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q09",
+          "prompt": "Compute 9/10 \u00f7 1/10.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "9",
+          "answer": "9",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 9.",
+          "read_aloud_text": "Compute 9/10 \u00f7 1/10.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 9/10 \u00f7 1/10.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q09"
+          },
+          "acceptable_answers": [
+            "9"
+          ],
+          "dividend": "9/10",
+          "divisor": "1/10",
+          "equation": "9/10 \u00f7 1/10 = 9",
+          "numerator": 9,
+          "denominator": 10
+        },
+        {
+          "question_id": "G6M_NS_001_LVL1_Q10",
+          "prompt": "Compute 1/2 \u00f7 1/6.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Compute 1/2 \u00f7 1/6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 1/2 \u00f7 1/6.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q10"
+          },
+          "acceptable_answers": [
+            "3"
+          ],
+          "dividend": "1/2",
+          "divisor": "1/6",
+          "equation": "1/2 \u00f7 1/6 = 3",
+          "numerator": 1,
+          "denominator": 2
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_001_LVL2",
+      "label": "Level 2: Visual Fraction Division",
+      "focus": "Use common partitions and number lines to model fraction division.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_001_LVL2_Q01",
+          "prompt": "Compute 2/3 \u00f7 1/4.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "8/3",
+          "answer": "8/3",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8/3.",
+          "read_aloud_text": "Compute 2/3 \u00f7 1/4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 2/3 \u00f7 1/4.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q01"
+          },
+          "acceptable_answers": [
+            "8/3",
+            "8 over 3",
+            "8 out of 3"
+          ],
+          "dividend": "2/3",
+          "divisor": "1/4",
+          "equation": "2/3 \u00f7 1/4 = 8/3",
+          "numerator": 2,
+          "denominator": 3
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q02",
+          "prompt": "Compute 3/4 \u00f7 1/6.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "9/2",
+          "answer": "9/2",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 9/2.",
+          "read_aloud_text": "Compute 3/4 \u00f7 1/6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/4 \u00f7 1/6.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q02"
+          },
+          "acceptable_answers": [
+            "9/2",
+            "9 over 2",
+            "9 out of 2"
+          ],
+          "dividend": "3/4",
+          "divisor": "1/6",
+          "equation": "3/4 \u00f7 1/6 = 9/2",
+          "numerator": 3,
+          "denominator": 4
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q03",
+          "prompt": "Compute 5/6 \u00f7 1/2.",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "5/3",
+          "answer": "5/3",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5/3.",
+          "read_aloud_text": "Compute 5/6 \u00f7 1/2.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/6 \u00f7 1/2.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q03"
+          },
+          "acceptable_answers": [
+            "5/3",
+            "5 over 3",
+            "5 out of 3"
+          ],
+          "dividend": "5/6",
+          "divisor": "1/2",
+          "equation": "5/6 \u00f7 1/2 = 5/3",
+          "numerator": 5,
+          "denominator": 6
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q04",
+          "prompt": "Compute 4/5 \u00f7 2/5.",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "Compute 4/5 \u00f7 2/5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 4/5 \u00f7 2/5.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q04"
+          },
+          "choices": [
+            "2",
+            "1/2",
+            "8/25"
+          ],
+          "acceptable_answers": [
+            "2"
+          ],
+          "dividend": "4/5",
+          "divisor": "2/5",
+          "equation": "4/5 \u00f7 2/5 = 2",
+          "numerator": 4,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q05",
+          "prompt": "Compute 7/8 \u00f7 1/2.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "7/4",
+          "answer": "7/4",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7/4.",
+          "read_aloud_text": "Compute 7/8 \u00f7 1/2.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7/8 \u00f7 1/2.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q05"
+          },
+          "acceptable_answers": [
+            "7/4",
+            "7 over 4",
+            "7 out of 4"
+          ],
+          "dividend": "7/8",
+          "divisor": "1/2",
+          "equation": "7/8 \u00f7 1/2 = 7/4",
+          "numerator": 7,
+          "denominator": 8
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q06",
+          "prompt": "Compute 3/5 \u00f7 1/4.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "12/5",
+          "answer": "12/5",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 12/5.",
+          "read_aloud_text": "Compute 3/5 \u00f7 1/4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/5 \u00f7 1/4.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q06"
+          },
+          "acceptable_answers": [
+            "12/5",
+            "12 over 5",
+            "12 out of 5"
+          ],
+          "dividend": "3/5",
+          "divisor": "1/4",
+          "equation": "3/5 \u00f7 1/4 = 12/5",
+          "numerator": 3,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q07",
+          "prompt": "Compute 5/6 \u00f7 1/6.",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "Compute 5/6 \u00f7 1/6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/6 \u00f7 1/6.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q07"
+          },
+          "acceptable_answers": [
+            "5"
+          ],
+          "dividend": "5/6",
+          "divisor": "1/6",
+          "equation": "5/6 \u00f7 1/6 = 5",
+          "numerator": 5,
+          "denominator": 6
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q08",
+          "prompt": "Compute 1/2 \u00f7 1/8.",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Compute 1/2 \u00f7 1/8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 1/2 \u00f7 1/8.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q08"
+          },
+          "choices": [
+            "4",
+            "1/4",
+            "1/16"
+          ],
+          "acceptable_answers": [
+            "4"
+          ],
+          "dividend": "1/2",
+          "divisor": "1/8",
+          "equation": "1/2 \u00f7 1/8 = 4",
+          "numerator": 1,
+          "denominator": 2
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q09",
+          "prompt": "Compute 2/3 \u00f7 1/3.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "Compute 2/3 \u00f7 1/3.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 2/3 \u00f7 1/3.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q09"
+          },
+          "acceptable_answers": [
+            "2"
+          ],
+          "dividend": "2/3",
+          "divisor": "1/3",
+          "equation": "2/3 \u00f7 1/3 = 2",
+          "numerator": 2,
+          "denominator": 3
+        },
+        {
+          "question_id": "G6M_NS_001_LVL2_Q10",
+          "prompt": "Compute 3/4 \u00f7 1/4.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "Compute 3/4 \u00f7 1/4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/4 \u00f7 1/4.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL2_Q10"
+          },
+          "acceptable_answers": [
+            "3"
+          ],
+          "dividend": "3/4",
+          "divisor": "1/4",
+          "equation": "3/4 \u00f7 1/4 = 3",
+          "numerator": 3,
+          "denominator": 4
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_001_LVL3",
+      "label": "Level 3: Divide Fractions by Fractions",
+      "focus": "Divide fractions by fractions using the reciprocal rule.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_001_LVL3_Q01",
+          "prompt": "Compute 3/5 \u00f7 2/5.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "3/2",
+          "answer": "3/2",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 3/2.",
+          "read_aloud_text": "Compute 3/5 \u00f7 2/5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/5 \u00f7 2/5.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q01"
+          },
+          "acceptable_answers": [
+            "3/2",
+            "3 over 2",
+            "3 out of 2"
+          ],
+          "dividend": "3/5",
+          "divisor": "2/5",
+          "equation": "3/5 \u00f7 2/5 = 3/2",
+          "numerator": 3,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q02",
+          "prompt": "Compute 4/7 \u00f7 2/7.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "Compute 4/7 \u00f7 2/7.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 4/7 \u00f7 2/7.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q02"
+          },
+          "acceptable_answers": [
+            "2"
+          ],
+          "dividend": "4/7",
+          "divisor": "2/7",
+          "equation": "4/7 \u00f7 2/7 = 2",
+          "numerator": 4,
+          "denominator": 7
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q03",
+          "prompt": "Compute 5/6 \u00f7 2/3.",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "5/4",
+          "answer": "5/4",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5/4.",
+          "read_aloud_text": "Compute 5/6 \u00f7 2/3.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/6 \u00f7 2/3.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q03"
+          },
+          "acceptable_answers": [
+            "5/4",
+            "5 over 4",
+            "5 out of 4"
+          ],
+          "dividend": "5/6",
+          "divisor": "2/3",
+          "equation": "5/6 \u00f7 2/3 = 5/4",
+          "numerator": 5,
+          "denominator": 6
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q04",
+          "prompt": "Compute 7/9 \u00f7 1/3.",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "7/3",
+          "answer": "7/3",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7/3.",
+          "read_aloud_text": "Compute 7/9 \u00f7 1/3.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7/9 \u00f7 1/3.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q04"
+          },
+          "choices": [
+            "7/3",
+            "3/7",
+            "7/27"
+          ],
+          "acceptable_answers": [
+            "7/3",
+            "7 over 3",
+            "7 out of 3"
+          ],
+          "dividend": "7/9",
+          "divisor": "1/3",
+          "equation": "7/9 \u00f7 1/3 = 7/3",
+          "numerator": 7,
+          "denominator": 9
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q05",
+          "prompt": "Compute 3/4 \u00f7 2/3.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "9/8",
+          "answer": "9/8",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 9/8.",
+          "read_aloud_text": "Compute 3/4 \u00f7 2/3.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/4 \u00f7 2/3.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q05"
+          },
+          "acceptable_answers": [
+            "9/8",
+            "9 over 8",
+            "9 out of 8"
+          ],
+          "dividend": "3/4",
+          "divisor": "2/3",
+          "equation": "3/4 \u00f7 2/3 = 9/8",
+          "numerator": 3,
+          "denominator": 4
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q06",
+          "prompt": "Compute 5/8 \u00f7 1/4.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "5/2",
+          "answer": "5/2",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5/2.",
+          "read_aloud_text": "Compute 5/8 \u00f7 1/4.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/8 \u00f7 1/4.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q06"
+          },
+          "acceptable_answers": [
+            "5/2",
+            "5 over 2",
+            "5 out of 2"
+          ],
+          "dividend": "5/8",
+          "divisor": "1/4",
+          "equation": "5/8 \u00f7 1/4 = 5/2",
+          "numerator": 5,
+          "denominator": 8
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q07",
+          "prompt": "Compute 2/3 \u00f7 3/8.",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "16/9",
+          "answer": "16/9",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 16/9.",
+          "read_aloud_text": "Compute 2/3 \u00f7 3/8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 2/3 \u00f7 3/8.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q07"
+          },
+          "acceptable_answers": [
+            "16/9",
+            "16 over 9",
+            "16 out of 9"
+          ],
+          "dividend": "2/3",
+          "divisor": "3/8",
+          "equation": "2/3 \u00f7 3/8 = 16/9",
+          "numerator": 2,
+          "denominator": 3
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q08",
+          "prompt": "Compute 4/5 \u00f7 2/3.",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "6/5",
+          "answer": "6/5",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6/5.",
+          "read_aloud_text": "Compute 4/5 \u00f7 2/3.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 4/5 \u00f7 2/3.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q08"
+          },
+          "choices": [
+            "6/5",
+            "5/6",
+            "8/15"
+          ],
+          "acceptable_answers": [
+            "6/5",
+            "6 over 5",
+            "6 out of 5"
+          ],
+          "dividend": "4/5",
+          "divisor": "2/3",
+          "equation": "4/5 \u00f7 2/3 = 6/5",
+          "numerator": 4,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q09",
+          "prompt": "Compute 7/10 \u00f7 1/5.",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "7/2",
+          "answer": "7/2",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7/2.",
+          "read_aloud_text": "Compute 7/10 \u00f7 1/5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7/10 \u00f7 1/5.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q09"
+          },
+          "acceptable_answers": [
+            "7/2",
+            "7 over 2",
+            "7 out of 2"
+          ],
+          "dividend": "7/10",
+          "divisor": "1/5",
+          "equation": "7/10 \u00f7 1/5 = 7/2",
+          "numerator": 7,
+          "denominator": 10
+        },
+        {
+          "question_id": "G6M_NS_001_LVL3_Q10",
+          "prompt": "Compute 5/12 \u00f7 1/6.",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "5/2",
+          "answer": "5/2",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5/2.",
+          "read_aloud_text": "Compute 5/12 \u00f7 1/6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/12 \u00f7 1/6.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q10"
+          },
+          "acceptable_answers": [
+            "5/2",
+            "5 over 2",
+            "5 out of 2"
+          ],
+          "dividend": "5/12",
+          "divisor": "1/6",
+          "equation": "5/12 \u00f7 1/6 = 5/2",
+          "numerator": 5,
+          "denominator": 12
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_001_LVL4",
+      "label": "Level 4: Fraction Division Word Problems",
+      "focus": "Solve real-world fraction division problems.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_001_LVL4_Q01",
+          "prompt": "A recipe has 3/4 cup of spice. Each packet uses 1/8 cup. How many packets can be made?",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "A recipe has 3/4 cup of spice. Each packet uses 1/8 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 3/4 cup of spice. Each packet uses 1/8 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q01"
+          },
+          "acceptable_answers": [
+            "6"
+          ],
+          "dividend": "3/4",
+          "divisor": "1/8",
+          "equation": "3/4 \u00f7 1/8 = 6",
+          "numerator": 3,
+          "denominator": 4
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q02",
+          "prompt": "A recipe has 5/6 cup of spice. Each packet uses 1/6 cup. How many packets can be made?",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "A recipe has 5/6 cup of spice. Each packet uses 1/6 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 5/6 cup of spice. Each packet uses 1/6 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q02"
+          },
+          "acceptable_answers": [
+            "5"
+          ],
+          "dividend": "5/6",
+          "divisor": "1/6",
+          "equation": "5/6 \u00f7 1/6 = 5",
+          "numerator": 5,
+          "denominator": 6
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q03",
+          "prompt": "A recipe has 2/3 cup of spice. Each packet uses 1/9 cup. How many packets can be made?",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "A recipe has 2/3 cup of spice. Each packet uses 1/9 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 2/3 cup of spice. Each packet uses 1/9 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q03"
+          },
+          "acceptable_answers": [
+            "6"
+          ],
+          "dividend": "2/3",
+          "divisor": "1/9",
+          "equation": "2/3 \u00f7 1/9 = 6",
+          "numerator": 2,
+          "denominator": 3
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q04",
+          "prompt": "A recipe has 7/8 cup of spice. Each packet uses 1/4 cup. How many packets can be made?",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "7/2",
+          "answer": "7/2",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7/2.",
+          "read_aloud_text": "A recipe has 7/8 cup of spice. Each packet uses 1/4 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 7/8 cup of spice. Each packet uses 1/4 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q04"
+          },
+          "choices": [
+            "7/2",
+            "2/7",
+            "7/32"
+          ],
+          "acceptable_answers": [
+            "7/2",
+            "7 over 2",
+            "7 out of 2"
+          ],
+          "dividend": "7/8",
+          "divisor": "1/4",
+          "equation": "7/8 \u00f7 1/4 = 7/2",
+          "numerator": 7,
+          "denominator": 8
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q05",
+          "prompt": "A recipe has 4/5 cup of spice. Each packet uses 2/5 cup. How many packets can be made?",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "2",
+          "answer": "2",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "A recipe has 4/5 cup of spice. Each packet uses 2/5 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 4/5 cup of spice. Each packet uses 2/5 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q05"
+          },
+          "acceptable_answers": [
+            "2"
+          ],
+          "dividend": "4/5",
+          "divisor": "2/5",
+          "equation": "4/5 \u00f7 2/5 = 2",
+          "numerator": 4,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q06",
+          "prompt": "A recipe has 3/5 cup of spice. Each packet uses 1/10 cup. How many packets can be made?",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "A recipe has 3/5 cup of spice. Each packet uses 1/10 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 3/5 cup of spice. Each packet uses 1/10 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q06"
+          },
+          "acceptable_answers": [
+            "6"
+          ],
+          "dividend": "3/5",
+          "divisor": "1/10",
+          "equation": "3/5 \u00f7 1/10 = 6",
+          "numerator": 3,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q07",
+          "prompt": "A recipe has 5/6 cup of spice. Each packet uses 1/3 cup. How many packets can be made?",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "5/2",
+          "answer": "5/2",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5/2.",
+          "read_aloud_text": "A recipe has 5/6 cup of spice. Each packet uses 1/3 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 5/6 cup of spice. Each packet uses 1/3 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q07"
+          },
+          "acceptable_answers": [
+            "5/2",
+            "5 over 2",
+            "5 out of 2"
+          ],
+          "dividend": "5/6",
+          "divisor": "1/3",
+          "equation": "5/6 \u00f7 1/3 = 5/2",
+          "numerator": 5,
+          "denominator": 6
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q08",
+          "prompt": "A recipe has 2/3 cup of spice. Each packet uses 1/6 cup. How many packets can be made?",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "A recipe has 2/3 cup of spice. Each packet uses 1/6 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 2/3 cup of spice. Each packet uses 1/6 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q08"
+          },
+          "choices": [
+            "4",
+            "1/4",
+            "1/9"
+          ],
+          "acceptable_answers": [
+            "4"
+          ],
+          "dividend": "2/3",
+          "divisor": "1/6",
+          "equation": "2/3 \u00f7 1/6 = 4",
+          "numerator": 2,
+          "denominator": 3
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q09",
+          "prompt": "A recipe has 7/10 cup of spice. Each packet uses 1/5 cup. How many packets can be made?",
+          "question_type": "short_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "7/2",
+          "answer": "7/2",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7/2.",
+          "read_aloud_text": "A recipe has 7/10 cup of spice. Each packet uses 1/5 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 7/10 cup of spice. Each packet uses 1/5 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q09"
+          },
+          "acceptable_answers": [
+            "7/2",
+            "7 over 2",
+            "7 out of 2"
+          ],
+          "dividend": "7/10",
+          "divisor": "1/5",
+          "equation": "7/10 \u00f7 1/5 = 7/2",
+          "numerator": 7,
+          "denominator": 10
+        },
+        {
+          "question_id": "G6M_NS_001_LVL4_Q10",
+          "prompt": "A recipe has 5/8 cup of spice. Each packet uses 1/8 cup. How many packets can be made?",
+          "question_type": "fraction_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "A recipe has 5/8 cup of spice. Each packet uses 1/8 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 5/8 cup of spice. Each packet uses 1/8 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL4_Q10"
+          },
+          "acceptable_answers": [
+            "5"
+          ],
+          "dividend": "5/8",
+          "divisor": "1/8",
+          "equation": "5/8 \u00f7 1/8 = 5",
+          "numerator": 5,
+          "denominator": 8
+        }
+      ]
+    },
+    {
+      "level_id": "G6M_NS_001_MIXED",
+      "label": "Mixed",
+      "focus": "Review all fraction division meanings, models, procedures, and contexts.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G6M_NS_001_LVL5_Q01",
+          "prompt": "Compute 3/4 \u00f7 1/8.",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "Compute 3/4 \u00f7 1/8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/4 \u00f7 1/8.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q01"
+          },
+          "acceptable_answers": [
+            "6"
+          ],
+          "dividend": "3/4",
+          "divisor": "1/8",
+          "equation": "3/4 \u00f7 1/8 = 6",
+          "numerator": 3,
+          "denominator": 4
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q02",
+          "prompt": "Compute 3/5 \u00f7 2/5.",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "3/2",
+          "answer": "3/2",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 3/2.",
+          "read_aloud_text": "Compute 3/5 \u00f7 2/5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 3/5 \u00f7 2/5.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q02"
+          },
+          "acceptable_answers": [
+            "3/2",
+            "3 over 2",
+            "3 out of 2"
+          ],
+          "dividend": "3/5",
+          "divisor": "2/5",
+          "equation": "3/5 \u00f7 2/5 = 3/2",
+          "numerator": 3,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q03",
+          "prompt": "A recipe has 5/6 cup of spice. Each packet uses 1/2 cup. How many packets can be made?",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "5/3",
+          "answer": "5/3",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5/3.",
+          "read_aloud_text": "A recipe has 5/6 cup of spice. Each packet uses 1/2 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 5/6 cup of spice. Each packet uses 1/2 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q03"
+          },
+          "acceptable_answers": [
+            "5/3",
+            "5 over 3",
+            "5 out of 3"
+          ],
+          "dividend": "5/6",
+          "divisor": "1/2",
+          "equation": "5/6 \u00f7 1/2 = 5/3",
+          "numerator": 5,
+          "denominator": 6
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q04",
+          "prompt": "Compute 4/5 \u00f7 1/10.",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "8",
+          "answer": "8",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 8.",
+          "read_aloud_text": "Compute 4/5 \u00f7 1/10.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 4/5 \u00f7 1/10.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q04"
+          },
+          "choices": [
+            "8",
+            "1/8",
+            "2/25"
+          ],
+          "acceptable_answers": [
+            "8"
+          ],
+          "dividend": "4/5",
+          "divisor": "1/10",
+          "equation": "4/5 \u00f7 1/10 = 8",
+          "numerator": 4,
+          "denominator": 5
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q05",
+          "prompt": "Compute 2/3 \u00f7 1/6.",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "Compute 2/3 \u00f7 1/6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 2/3 \u00f7 1/6.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q05"
+          },
+          "acceptable_answers": [
+            "4"
+          ],
+          "dividend": "2/3",
+          "divisor": "1/6",
+          "equation": "2/3 \u00f7 1/6 = 4",
+          "numerator": 2,
+          "denominator": 3
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q06",
+          "prompt": "A recipe has 7/8 cup of spice. Each packet uses 1/4 cup. How many packets can be made?",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "7/2",
+          "answer": "7/2",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7/2.",
+          "read_aloud_text": "A recipe has 7/8 cup of spice. Each packet uses 1/4 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 7/8 cup of spice. Each packet uses 1/4 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q06"
+          },
+          "acceptable_answers": [
+            "7/2",
+            "7 over 2",
+            "7 out of 2"
+          ],
+          "dividend": "7/8",
+          "divisor": "1/4",
+          "equation": "7/8 \u00f7 1/4 = 7/2",
+          "numerator": 7,
+          "denominator": 8
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q07",
+          "prompt": "Compute 5/12 \u00f7 1/6.",
+          "question_type": "division_equation",
+          "visual_model": "word_problem_model",
+          "support_type": "word_problem_model",
+          "correct_answer": "5/2",
+          "answer": "5/2",
+          "misconception_tag": "divisor_dividend_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5/2.",
+          "read_aloud_text": "Compute 5/12 \u00f7 1/6.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/12 \u00f7 1/6.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q07"
+          },
+          "acceptable_answers": [
+            "5/2",
+            "5 over 2",
+            "5 out of 2"
+          ],
+          "dividend": "5/12",
+          "divisor": "1/6",
+          "equation": "5/12 \u00f7 1/6 = 5/2",
+          "numerator": 5,
+          "denominator": 12
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q08",
+          "prompt": "Compute 7/10 \u00f7 1/5.",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_division_model",
+          "support_type": "fraction_division_model",
+          "correct_answer": "7/2",
+          "answer": "7/2",
+          "misconception_tag": "reciprocal_misuse",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 7/2.",
+          "read_aloud_text": "Compute 7/10 \u00f7 1/5.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 7/10 \u00f7 1/5.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q08"
+          },
+          "choices": [
+            "7/2",
+            "2/7",
+            "7/50"
+          ],
+          "acceptable_answers": [
+            "7/2",
+            "7 over 2",
+            "7 out of 2"
+          ],
+          "dividend": "7/10",
+          "divisor": "1/5",
+          "equation": "7/10 \u00f7 1/5 = 7/2",
+          "numerator": 7,
+          "denominator": 10
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q09",
+          "prompt": "A recipe has 2/3 cup of spice. Each packet uses 3/8 cup. How many packets can be made?",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_bar",
+          "support_type": "fraction_bar",
+          "correct_answer": "16/9",
+          "answer": "16/9",
+          "misconception_tag": "fraction_division_context_error",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 16/9.",
+          "read_aloud_text": "A recipe has 2/3 cup of spice. Each packet uses 3/8 cup. How many packets can be made?",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "A recipe has 2/3 cup of spice. Each packet uses 3/8 cup. How many packets can be made?",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q09"
+          },
+          "acceptable_answers": [
+            "16/9",
+            "16 over 9",
+            "16 out of 9"
+          ],
+          "dividend": "2/3",
+          "divisor": "3/8",
+          "equation": "2/3 \u00f7 3/8 = 16/9",
+          "numerator": 2,
+          "denominator": 3
+        },
+        {
+          "question_id": "G6M_NS_001_LVL5_Q10",
+          "prompt": "Compute 5/8 \u00f7 1/8.",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "quotient_size_confusion",
+          "hints": [
+            "Name what the question asks.",
+            "Use the visual model to set up the math.",
+            "Check that the answer is reasonable."
+          ],
+          "feedback": {
+            "correct": "Yes. Your answer matches the model and the question.",
+            "incorrect": "Try again. Recheck the operation, units, signs, or model."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "Compute 5/8 \u00f7 1/8.",
+          "question_audio": {
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "text": "Compute 5/8 \u00f7 1/8.",
+            "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q10"
+          },
+          "acceptable_answers": [
+            "5"
+          ],
+          "dividend": "5/8",
+          "divisor": "1/8",
+          "equation": "5/8 \u00f7 1/8 = 5",
+          "numerator": 5,
+          "denominator": 8
+        }
+      ]
+    }
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G6M_NS_001_LVL1_Q01",
+      "prompt": "Compute 3/4 \u00f7 1/8.",
+      "question_type": "short_response",
+      "visual_model": "fraction_bar",
+      "support_type": "fraction_bar",
+      "correct_answer": "6",
+      "answer": "6",
+      "misconception_tag": "fraction_division_context_error",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is 6.",
+      "read_aloud_text": "Compute 3/4 \u00f7 1/8.",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Compute 3/4 \u00f7 1/8.",
+        "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL1_Q01"
+      },
+      "acceptable_answers": [
+        "6"
+      ],
+      "dividend": "3/4",
+      "divisor": "1/8",
+      "equation": "3/4 \u00f7 1/8 = 6",
+      "numerator": 3,
+      "denominator": 4
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6M_NS_001_LVL3_Q01",
+      "prompt": "Compute 3/5 \u00f7 2/5.",
+      "question_type": "short_response",
+      "visual_model": "fraction_bar",
+      "support_type": "fraction_bar",
+      "correct_answer": "3/2",
+      "answer": "3/2",
+      "misconception_tag": "divisor_dividend_confusion",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is 3/2.",
+      "read_aloud_text": "Compute 3/5 \u00f7 2/5.",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Compute 3/5 \u00f7 2/5.",
+        "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL3_Q01"
+      },
+      "acceptable_answers": [
+        "3/2",
+        "3 over 2",
+        "3 out of 2"
+      ],
+      "dividend": "3/5",
+      "divisor": "2/5",
+      "equation": "3/5 \u00f7 2/5 = 3/2",
+      "numerator": 3,
+      "denominator": 5
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6M_NS_001_LVL5_Q01",
+      "prompt": "Compute 3/4 \u00f7 1/8.",
+      "question_type": "fraction_response",
+      "visual_model": "fraction_bar",
+      "support_type": "fraction_bar",
+      "correct_answer": "6",
+      "answer": "6",
+      "misconception_tag": "fraction_division_context_error",
+      "hints": [
+        "Name what the question asks.",
+        "Use the visual model to set up the math.",
+        "Check that the answer is reasonable."
+      ],
+      "feedback": {
+        "correct": "Yes. Your answer matches the model and the question.",
+        "incorrect": "Try again. Recheck the operation, units, signs, or model."
+      },
+      "explanation": "The answer is 6.",
+      "read_aloud_text": "Compute 3/4 \u00f7 1/8.",
+      "question_audio": {
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "text": "Compute 3/4 \u00f7 1/8.",
+        "cache_key": "skill-world:G6M_NS_001:question:G6M_NS_001_LVL5_Q01"
+      },
+      "acceptable_answers": [
+        "6"
+      ],
+      "dividend": "3/4",
+      "divisor": "1/8",
+      "equation": "3/4 \u00f7 1/8 = 6",
+      "numerator": 3,
+      "denominator": 4
+    }
+  ],
+  "review_bank": [],
+  "support_type": "fraction_division_model"
+}
