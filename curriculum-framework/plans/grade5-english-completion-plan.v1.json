@@ -1,0 +1,1011 @@
+{
+  "plan_id": "grade5-english-completion-plan.v1",
+  "grade": 5,
+  "subject": "English",
+  "status": "planning_backlog_only_do_not_implement_all_packages_yet",
+  "production_standard": {
+    "skill_package_json": true,
+    "skill_world_generator": true,
+    "guided_mission_flow": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "focused_level_count_min": 4,
+      "mixed_level_required": true,
+      "questions_per_level_min": 10,
+      "questions_per_level_max": 12
+    },
+    "manifest_driven_hub_exposure": true,
+    "full_voice_standard": true,
+    "cached_ai_audio_route": "/api/skill-world/audio",
+    "browser_speech_fallback": true,
+    "no_one_off_games": true,
+    "no_placeholder_cards": true
+  },
+  "renderer_fit_decision": {
+    "decision": "partial_support",
+    "summary": "Existing Grades 1-4 English renderers support nearly all Grade 5 English needs, including roots/affixes, fluency, vocabulary, text evidence, literature, informational text structures, writing, grammar, and conventions. Grade 5 informational integration requires one new reusable renderer: compare_texts_panel.",
+    "reusable_renderers": [
+      "character_trait_chart",
+      "context_sentence",
+      "detail_cards",
+      "dialogue_builder",
+      "event_cards",
+      "evidence_highlight",
+      "fact_cards",
+      "figurative_language_card",
+      "fluency_meter",
+      "grammar_highlight",
+      "main_idea_web",
+      "morpheme_tiles",
+      "opinion_reason_chart",
+      "paragraph_builder",
+      "phrase_builder",
+      "punctuation_marker",
+      "question_card",
+      "sentence_builder",
+      "sentence_card",
+      "sentence_combiner",
+      "sentence_highlight",
+      "short_passage",
+      "story_map",
+      "story_sequence",
+      "syllable_break",
+      "text_evidence_builder",
+      "text_feature_map",
+      "text_structure_chart",
+      "theme_tracker",
+      "topic_detail_chart",
+      "vocabulary_match",
+      "word_builder",
+      "word_parts",
+      "word_scale",
+      "writing_checklist"
+    ],
+    "new_renderers_required": [
+      {
+        "visual_model": "compare_texts_panel",
+        "purpose": "Display two short texts or source panels side by side with shared topic, key details, evidence slots, compare/contrast prompts, and synthesis guidance for integrating information from multiple texts or features."
+      }
+    ]
+  },
+  "schema_updates_needed": [
+    "Add `compare_texts_panel` to the SkillPackage schema/runtime visual model allowlist and visual model registry before authoring G5E_RC_003 dependent items.",
+    "Confirm Grade 5 English reuses existing visual models already present in the Grade 4 English runtime: `figurative_language_card`, `text_structure_chart`, `fluency_meter`, `text_evidence_builder`, `character_trait_chart`, `theme_tracker`, `text_feature_map`, `dialogue_builder`, `grammar_highlight`, and `sentence_combiner`.",
+    "Keep validation strict for Grade 5 literacy `level_banks`: exactly the four named focused levels plus Mixed for this plan, 10-12 questions per level, stable level ids, mastery threshold metadata, and no placeholder cards.",
+    "Confirm question-type handling for `multiple_choice`, `short_response`, `word_building`, `sentence_completion`, `vocabulary_match`, `text_evidence`, `sequencing`, `detail_match`, `writing_response`, and `editing`.",
+    "Add or document Grade 5 English metadata for syllable divisions, roots/affixes, morphology, fluency phrasing, expression cues, context clue spans, figurative language labels, adages/proverbs, evidence spans, narrator point of view, text structures, text features, source integration, writing rubric dimensions, grammar targets, and acceptable answer forms.",
+    "Require stable audio keys/text fields for page narration, question narration, listen audio, cached AI audio, and browser fallback text in every package."
+  ],
+  "writing_validation_updates_needed": [
+    "Opinion writing validation must check for a clear opinion, logically ordered reasons, relevant evidence, linking words/phrases, and a conclusion.",
+    "Informative writing validation must check topic introduction, accurate facts/definitions/details, formatting or linking words when prompted, domain vocabulary, and a conclusion.",
+    "Narrative writing validation must check event sequence, pacing, descriptive details, dialogue conventions, transitions, and closure.",
+    "Grammar/conventions validation must support conjunctions, prepositions, interjections, verb tense consistency, commas, quotation marks, punctuation, spelling patterns, fragments/run-ons, and sentence combining quality.",
+    "Short-response and writing-response validation should run deterministic rubric checks first, then optional review hooks only when privacy, safety, and teacher-review policies are defined.",
+    "Text-evidence responses must validate selected or cited evidence spans, quote accuracy, and distinguish supported inference from unsupported guessing."
+  ],
+  "voice_requirements": [
+    "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+    "Read Question is required on mission Practice, Challenge, and Checkpoint questions.",
+    "Read Question is required on every Skill Practice Center question across all focused levels and Mixed.",
+    "Listen audio is required where pronunciation, fluency, vocabulary, sentence reading, passage reading, or writing examples improve the task.",
+    "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+    "Browser speech fallback must read the same page, question, and listen text when cached AI audio is unavailable or disabled.",
+    "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, idioms, adages, proverbs, quoted evidence, and writing examples naturally."
+  ],
+  "passage_and_listen_audio_needs": [
+    "Word-analysis packages need listen audio for multisyllable words, roots, affixes, syllable breaks, and word-building examples.",
+    "Fluency packages need listenable model sentences/passages for accuracy, phrasing, punctuation, expression, and repeated reading with meaning.",
+    "Vocabulary packages need listen audio for target words, idioms, similes, metaphors, adages, proverbs, example sentences, and shades-of-meaning comparisons.",
+    "Reading comprehension/literature/informational packages need listen audio for short passages, question stems, evidence options, selected quoted text spans, and paired text panels.",
+    "Writing and language packages need listen audio for model sentences, dialogue, paragraph examples, editing prompts, and sentence-combining options."
+  ],
+  "question_type_backlog": [
+    "detail_match",
+    "editing",
+    "multiple_choice",
+    "sentence_completion",
+    "sequencing",
+    "short_response",
+    "text_evidence",
+    "vocabulary_match",
+    "word_building",
+    "writing_response"
+  ],
+  "skills": [
+    {
+      "skill_id": "G5E_RF_001",
+      "title": "Multisyllable Word Reading, Roots, and Affixes",
+      "domain": "Reading Foundations / Word Analysis",
+      "focus": "decode and understand multisyllable words using Greek/Latin roots, affixes, syllables, and morphology",
+      "levels": [
+        "Syllable Patterns",
+        "Prefixes and Suffixes",
+        "Greek and Latin Roots",
+        "Decode Multisyllable Words",
+        "Mixed"
+      ],
+      "visual_models": [
+        "syllable_break",
+        "word_parts",
+        "morpheme_tiles",
+        "word_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "word_building"
+      ],
+      "misconception_tags": [
+        "syllable_division_error",
+        "affix_meaning_confusion",
+        "root_meaning_confusion",
+        "multisyllable_guessing"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_RF_001_LVL1",
+          "label": "Level 1: Syllable Patterns",
+          "focus": "Practice syllable patterns for decode and understand multisyllable words using Greek/Latin roots, affixes, syllables, and morphology.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RF_001_LVL2",
+          "label": "Level 2: Prefixes and Suffixes",
+          "focus": "Practice prefixes and suffixes for decode and understand multisyllable words using Greek/Latin roots, affixes, syllables, and morphology.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RF_001_LVL3",
+          "label": "Level 3: Greek and Latin Roots",
+          "focus": "Practice greek and latin roots for decode and understand multisyllable words using Greek/Latin roots, affixes, syllables, and morphology.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RF_001_LVL4",
+          "label": "Level 4: Decode Multisyllable Words",
+          "focus": "Practice decode multisyllable words for decode and understand multisyllable words using Greek/Latin roots, affixes, syllables, and morphology.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RF_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for decode and understand multisyllable words using Greek/Latin roots, affixes, syllables, and morphology.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_FL_001",
+      "title": "Reading Fluency and Expression With Complex Text",
+      "domain": "Fluency",
+      "focus": "read grade-level prose and informational text with accuracy, rate, phrasing, and expression",
+      "levels": [
+        "Accuracy",
+        "Phrasing and Rate",
+        "Punctuation and Expression",
+        "Repeated Reading With Meaning",
+        "Mixed"
+      ],
+      "visual_models": [
+        "sentence_card",
+        "sentence_highlight",
+        "phrase_builder",
+        "fluency_meter"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "skips_words",
+        "phrase_chunking_error",
+        "punctuation_ignored",
+        "expression_flat_reading"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_FL_001_LVL1",
+          "label": "Level 1: Accuracy",
+          "focus": "Practice accuracy for read grade-level prose and informational text with accuracy, rate, phrasing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_FL_001_LVL2",
+          "label": "Level 2: Phrasing and Rate",
+          "focus": "Practice phrasing and rate for read grade-level prose and informational text with accuracy, rate, phrasing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_FL_001_LVL3",
+          "label": "Level 3: Punctuation and Expression",
+          "focus": "Practice punctuation and expression for read grade-level prose and informational text with accuracy, rate, phrasing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_FL_001_LVL4",
+          "label": "Level 4: Repeated Reading With Meaning",
+          "focus": "Practice repeated reading with meaning for read grade-level prose and informational text with accuracy, rate, phrasing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_FL_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for read grade-level prose and informational text with accuracy, rate, phrasing, and expression.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_VOC_001",
+      "title": "Vocabulary, Context Clues, and Figurative Language",
+      "domain": "Vocabulary / Language",
+      "focus": "determine word meaning using context, roots/affixes, synonyms/antonyms, idioms, similes, metaphors, adages, and proverbs",
+      "levels": [
+        "Context Clues",
+        "Roots, Affixes, and Word Relationships",
+        "Synonyms, Antonyms, and Shades",
+        "Figurative Language, Adages, and Proverbs",
+        "Mixed"
+      ],
+      "visual_models": [
+        "context_sentence",
+        "vocabulary_match",
+        "word_scale",
+        "figurative_language_card"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "vocabulary_match"
+      ],
+      "misconception_tags": [
+        "context_clue_ignored",
+        "literal_vs_figurative_confusion",
+        "adage_proverb_confusion",
+        "shade_of_meaning_confusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_VOC_001_LVL1",
+          "label": "Level 1: Context Clues",
+          "focus": "Practice context clues for determine word meaning using context, roots/affixes, synonyms/antonyms, idioms, similes, metaphors, adages, and proverbs.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_VOC_001_LVL2",
+          "label": "Level 2: Roots, Affixes, and Word Relationships",
+          "focus": "Practice roots, affixes, and word relationships for determine word meaning using context, roots/affixes, synonyms/antonyms, idioms, similes, metaphors, adages, and proverbs.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_VOC_001_LVL3",
+          "label": "Level 3: Synonyms, Antonyms, and Shades",
+          "focus": "Practice synonyms, antonyms, and shades for determine word meaning using context, roots/affixes, synonyms/antonyms, idioms, similes, metaphors, adages, and proverbs.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_VOC_001_LVL4",
+          "label": "Level 4: Figurative Language, Adages, and Proverbs",
+          "focus": "Practice figurative language, adages, and proverbs for determine word meaning using context, roots/affixes, synonyms/antonyms, idioms, similes, metaphors, adages, and proverbs.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_VOC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for determine word meaning using context, roots/affixes, synonyms/antonyms, idioms, similes, metaphors, adages, and proverbs.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_RC_001",
+      "title": "Quote Accurately and Use Text Evidence",
+      "domain": "Reading Comprehension",
+      "focus": "quote accurately from a text and answer literal/inferential questions using evidence",
+      "levels": [
+        "Literal Questions",
+        "Inferential Questions",
+        "Quote Text Evidence",
+        "Explain With Evidence",
+        "Mixed"
+      ],
+      "visual_models": [
+        "short_passage",
+        "question_card",
+        "evidence_highlight",
+        "text_evidence_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "text_evidence"
+      ],
+      "misconception_tags": [
+        "unsupported_answer",
+        "inference_without_evidence",
+        "inaccurate_quote",
+        "misses_text_evidence"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_RC_001_LVL1",
+          "label": "Level 1: Literal Questions",
+          "focus": "Practice literal questions for quote accurately from a text and answer literal/inferential questions using evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_001_LVL2",
+          "label": "Level 2: Inferential Questions",
+          "focus": "Practice inferential questions for quote accurately from a text and answer literal/inferential questions using evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_001_LVL3",
+          "label": "Level 3: Quote Text Evidence",
+          "focus": "Practice quote text evidence for quote accurately from a text and answer literal/inferential questions using evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_001_LVL4",
+          "label": "Level 4: Explain With Evidence",
+          "focus": "Practice explain with evidence for quote accurately from a text and answer literal/inferential questions using evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for quote accurately from a text and answer literal/inferential questions using evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_RC_002",
+      "title": "Theme, Character, and Story Structure",
+      "domain": "Reading Literature",
+      "focus": "compare characters, settings, events, themes, narrator point of view, and story structure",
+      "levels": [
+        "Characters and Settings",
+        "Plot and Story Structure",
+        "Theme and Character Response",
+        "Point of View and Comparison",
+        "Mixed"
+      ],
+      "visual_models": [
+        "story_map",
+        "character_trait_chart",
+        "event_cards",
+        "theme_tracker"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sequencing",
+        "text_evidence"
+      ],
+      "misconception_tags": [
+        "character_trait_confusion",
+        "theme_detail_confusion",
+        "point_of_view_confusion",
+        "story_structure_confusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_RC_002_LVL1",
+          "label": "Level 1: Characters and Settings",
+          "focus": "Practice characters and settings for compare characters, settings, events, themes, narrator point of view, and story structure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_002_LVL2",
+          "label": "Level 2: Plot and Story Structure",
+          "focus": "Practice plot and story structure for compare characters, settings, events, themes, narrator point of view, and story structure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_002_LVL3",
+          "label": "Level 3: Theme and Character Response",
+          "focus": "Practice theme and character response for compare characters, settings, events, themes, narrator point of view, and story structure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_002_LVL4",
+          "label": "Level 4: Point of View and Comparison",
+          "focus": "Practice point of view and comparison for compare characters, settings, events, themes, narrator point of view, and story structure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for compare characters, settings, events, themes, narrator point of view, and story structure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_RC_003",
+      "title": "Main Idea, Text Structure, and Integrating Information",
+      "domain": "Reading Informational Text",
+      "focus": "determine main idea, summarize key details, compare text structures, and integrate information from multiple texts/features",
+      "levels": [
+        "Main Idea and Summary",
+        "Key Details and Evidence",
+        "Text Structure and Features",
+        "Integrate Information",
+        "Mixed"
+      ],
+      "visual_models": [
+        "short_passage",
+        "main_idea_web",
+        "detail_cards",
+        "text_feature_map",
+        "text_structure_chart",
+        "compare_texts_panel"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "text_evidence",
+        "detail_match"
+      ],
+      "misconception_tags": [
+        "topic_main_idea_confusion",
+        "summary_too_detailed",
+        "text_structure_confusion",
+        "integration_error"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_RC_003_LVL1",
+          "label": "Level 1: Main Idea and Summary",
+          "focus": "Practice main idea and summary for determine main idea, summarize key details, compare text structures, and integrate information from multiple texts/features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_003_LVL2",
+          "label": "Level 2: Key Details and Evidence",
+          "focus": "Practice key details and evidence for determine main idea, summarize key details, compare text structures, and integrate information from multiple texts/features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_003_LVL3",
+          "label": "Level 3: Text Structure and Features",
+          "focus": "Practice text structure and features for determine main idea, summarize key details, compare text structures, and integrate information from multiple texts/features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_003_LVL4",
+          "label": "Level 4: Integrate Information",
+          "focus": "Practice integrate information for determine main idea, summarize key details, compare text structures, and integrate information from multiple texts/features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_RC_003_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for determine main idea, summarize key details, compare text structures, and integrate information from multiple texts/features.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_WR_001",
+      "title": "Opinion Writing With Reasons and Evidence",
+      "domain": "Writing / Composition",
+      "focus": "write opinion pieces with reasons, evidence, linking words, and conclusion",
+      "levels": [
+        "State an Opinion",
+        "Support With Reasons and Evidence",
+        "Linking Words and Conclusion",
+        "Build Opinion Essay",
+        "Mixed"
+      ],
+      "visual_models": [
+        "opinion_reason_chart",
+        "paragraph_builder",
+        "writing_checklist",
+        "sentence_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "missing_opinion",
+        "weak_reason",
+        "missing_evidence",
+        "missing_conclusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_WR_001_LVL1",
+          "label": "Level 1: State an Opinion",
+          "focus": "Practice state an opinion for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_001_LVL2",
+          "label": "Level 2: Support With Reasons and Evidence",
+          "focus": "Practice support with reasons and evidence for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_001_LVL3",
+          "label": "Level 3: Linking Words and Conclusion",
+          "focus": "Practice linking words and conclusion for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_001_LVL4",
+          "label": "Level 4: Build Opinion Essay",
+          "focus": "Practice build opinion essay for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for write opinion pieces with reasons, evidence, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_WR_002",
+      "title": "Informative Writing With Facts, Definitions, and Details",
+      "domain": "Writing / Composition",
+      "focus": "write informative/explanatory text with topic, facts, definitions, details, formatting, linking words, and conclusion",
+      "levels": [
+        "Choose a Topic",
+        "Add Facts, Definitions, and Details",
+        "Organize With Linking Words and Formatting",
+        "Build Informative Essay",
+        "Mixed"
+      ],
+      "visual_models": [
+        "topic_detail_chart",
+        "fact_cards",
+        "paragraph_builder",
+        "writing_checklist"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "missing_topic",
+        "unsupported_fact",
+        "missing_detail",
+        "weak_organization"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_WR_002_LVL1",
+          "label": "Level 1: Choose a Topic",
+          "focus": "Practice choose a topic for write informative/explanatory text with topic, facts, definitions, details, formatting, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_002_LVL2",
+          "label": "Level 2: Add Facts, Definitions, and Details",
+          "focus": "Practice add facts, definitions, and details for write informative/explanatory text with topic, facts, definitions, details, formatting, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_002_LVL3",
+          "label": "Level 3: Organize With Linking Words and Formatting",
+          "focus": "Practice organize with linking words and formatting for write informative/explanatory text with topic, facts, definitions, details, formatting, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_002_LVL4",
+          "label": "Level 4: Build Informative Essay",
+          "focus": "Practice build informative essay for write informative/explanatory text with topic, facts, definitions, details, formatting, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for write informative/explanatory text with topic, facts, definitions, details, formatting, linking words, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_WR_003",
+      "title": "Narrative Writing With Dialogue, Description, and Pacing",
+      "domain": "Writing / Composition",
+      "focus": "write narratives with sequence, dialogue, description, pacing, transitions, and closure",
+      "levels": [
+        "Sequence Events",
+        "Add Description and Pacing",
+        "Dialogue and Transitions",
+        "Build Narrative",
+        "Mixed"
+      ],
+      "visual_models": [
+        "story_sequence",
+        "event_cards",
+        "paragraph_builder",
+        "dialogue_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sequencing"
+      ],
+      "misconception_tags": [
+        "event_order_error",
+        "missing_description",
+        "dialogue_punctuation_error",
+        "pacing_gap"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_WR_003_LVL1",
+          "label": "Level 1: Sequence Events",
+          "focus": "Practice sequence events for write narratives with sequence, dialogue, description, pacing, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_003_LVL2",
+          "label": "Level 2: Add Description and Pacing",
+          "focus": "Practice add description and pacing for write narratives with sequence, dialogue, description, pacing, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_003_LVL3",
+          "label": "Level 3: Dialogue and Transitions",
+          "focus": "Practice dialogue and transitions for write narratives with sequence, dialogue, description, pacing, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_003_LVL4",
+          "label": "Level 4: Build Narrative",
+          "focus": "Practice build narrative for write narratives with sequence, dialogue, description, pacing, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_WR_003_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for write narratives with sequence, dialogue, description, pacing, transitions, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    },
+    {
+      "skill_id": "G5E_LANG_001",
+      "title": "Grammar, Conventions, and Sentence Combining",
+      "domain": "Language",
+      "focus": "use conjunctions, prepositions, interjections, verb tense consistency, commas, quotation marks, punctuation, spelling patterns, and sentence combining",
+      "levels": [
+        "Capitalization, Punctuation, and Spelling",
+        "Commas and Quotation Marks",
+        "Grammar and Verb Tense",
+        "Sentence Combining and Style",
+        "Mixed"
+      ],
+      "visual_models": [
+        "sentence_builder",
+        "punctuation_marker",
+        "grammar_highlight",
+        "sentence_combiner"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sentence_completion",
+        "editing"
+      ],
+      "misconception_tags": [
+        "punctuation_error",
+        "verb_tense_error",
+        "comma_usage_error",
+        "sentence_fragment"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G5E_LANG_001_LVL1",
+          "label": "Level 1: Capitalization, Punctuation, and Spelling",
+          "focus": "Practice capitalization, punctuation, and spelling for use conjunctions, prepositions, interjections, verb tense consistency, commas, quotation marks, punctuation, spelling patterns, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_LANG_001_LVL2",
+          "label": "Level 2: Commas and Quotation Marks",
+          "focus": "Practice commas and quotation marks for use conjunctions, prepositions, interjections, verb tense consistency, commas, quotation marks, punctuation, spelling patterns, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_LANG_001_LVL3",
+          "label": "Level 3: Grammar and Verb Tense",
+          "focus": "Practice grammar and verb tense for use conjunctions, prepositions, interjections, verb tense consistency, commas, quotation marks, punctuation, spelling patterns, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_LANG_001_LVL4",
+          "label": "Level 4: Sentence Combining and Style",
+          "focus": "Practice sentence combining and style for use conjunctions, prepositions, interjections, verb tense consistency, commas, quotation marks, punctuation, spelling patterns, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G5E_LANG_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 5 objectives for use conjunctions, prepositions, interjections, verb tense consistency, commas, quotation marks, punctuation, spelling patterns, and sentence combining.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ]
+    }
+  ],
+  "contractor_backlog": [
+    {
+      "phase": "1_renderer_schema_readiness",
+      "tasks": [
+        "Add and test `compare_texts_panel` as a reusable visual model, not a one-off game.",
+        "Update visual-model allowlists/schema/runtime registry for `compare_texts_panel`.",
+        "Verify all listed Grade 5 question types render and validate in Guided Mission and Skill Practice Center contexts.",
+        "Document item metadata requirements for quote accuracy, source integration, writing rubrics, morphology, and listen audio."
+      ]
+    },
+    {
+      "phase": "2_package_authoring",
+      "tasks": [
+        "Author production SkillPackage JSON for each of the 10 Grade 5 English skills.",
+        "For every package, create Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile content.",
+        "For every package, author four focused level banks plus Mixed with 10-12 production questions per level.",
+        "Attach supported visual models, question types, misconception tags, validation data, feedback, and voice metadata to every item."
+      ]
+    },
+    {
+      "phase": "3_voice_audio",
+      "tasks": [
+        "Add Read This Page text and audio keys for every guided mission screen.",
+        "Add Read Question text and audio keys for mission Practice, Challenge, Checkpoint, and all Skill Practice Center questions.",
+        "Add Listen audio assets/keys for fluency, vocabulary, sentence reading, passage reading, pronunciation, dialogue, and writing-example items.",
+        "Verify cached AI audio compatibility through `/api/skill-world/audio` and browser speech fallback parity."
+      ]
+    },
+    {
+      "phase": "4_manifest_hub_exposure",
+      "tasks": [
+        "Register completed packages in the Skill World content manifest only after package validation passes.",
+        "Verify hub cards are manifest-driven and do not use hardcoded Grade 5 English placeholders.",
+        "Confirm no package ships as a one-off game or placeholder card."
+      ]
+    },
+    {
+      "phase": "5_validation_qa",
+      "tasks": [
+        "Run JSON validation for each SkillPackage and this plan JSON.",
+        "Run Skill World generator smoke tests for Guided Mission and Skill Practice Center for all Grade 5 English packages.",
+        "Run renderer smoke tests for all Grade 5 visual models, especially `compare_texts_panel`.",
+        "Run voice QA for cached audio, browser fallback, Read This Page, Read Question, and Listen audio coverage.",
+        "Run content QA for grade appropriateness, misconception coverage, evidence accuracy, writing rubric behavior, and no placeholder copy."
+      ]
+    }
+  ]
+}
