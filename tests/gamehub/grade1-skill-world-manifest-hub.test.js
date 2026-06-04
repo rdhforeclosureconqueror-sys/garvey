@@ -18,6 +18,7 @@ const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001',
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
 const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2E_RC_001', 'G2E_RC_002', 'G2E_RC_003', 'G2E_WR_001', 'G2E_WR_002', 'G2E_WR_003', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
 const requiredGrade3EnglishSkillIds = ['G3E_RF_001', 'G3E_FL_001', 'G3E_VOC_001', 'G3E_RC_001', 'G3E_RC_002', 'G3E_RC_003', 'G3E_WR_001', 'G3E_WR_002', 'G3E_WR_003', 'G3E_LANG_001'];
+const requiredGrade4EnglishFinalSkillIds = ['G4E_WR_001', 'G4E_WR_002', 'G4E_WR_003', 'G4E_LANG_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -260,6 +261,40 @@ test('Grade 3 English Skill World package appears from manifest for the hub', ()
     assert.equal(`/skill-world/${encodeURIComponent(g3e.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
   }
   assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});
+
+
+test('Final Grade 4 English writing and language packages appear from manifest for the hub', () => {
+  const expected = new Map([
+    ['G4E_WR_001', { domain: 'Writing / Composition', skill: 'Opinion Writing With Reasons and Evidence' }],
+    ['G4E_WR_002', { domain: 'Writing / Composition', skill: 'Informative Writing With Facts and Details' }],
+    ['G4E_WR_003', { domain: 'Writing / Composition', skill: 'Narrative Writing With Dialogue and Description' }],
+    ['G4E_LANG_001', { domain: 'Language', skill: 'Grammar, Conventions, and Sentence Combining' }]
+  ]);
+  for (const skillId of requiredGrade4EnglishFinalSkillIds) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
+  const packages = manifest.packages.map(readPackage);
+  const finalGrade4EnglishPackages = packages.filter((pkg) => requiredGrade4EnglishFinalSkillIds.includes(pkg.skill_id));
+  assert.deepEqual(finalGrade4EnglishPackages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade4EnglishFinalSkillIds].sort());
+  for (const [skillId, details] of expected.entries()) {
+    const pkg = finalGrade4EnglishPackages.find((item) => item.skill_id === skillId);
+    assert.ok(pkg, `${skillId} package loads from manifest`);
+    assert.equal(pkg.grade, 4);
+    assert.equal(pkg.subject, 'English');
+    assert.equal(pkg.domain, details.domain);
+    assert.equal(pkg.skill, details.skill);
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(pkg.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
+  }
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });

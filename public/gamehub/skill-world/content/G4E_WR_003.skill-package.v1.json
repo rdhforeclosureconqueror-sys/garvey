@@ -1,0 +1,4199 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade4-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade4_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-04"
+  },
+  "skill_id": "G4E_WR_003",
+  "grade": 4,
+  "subject": "English",
+  "domain": "Writing / Composition",
+  "skill": "Narrative Writing With Dialogue and Description",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Story Trail crew to shape events, dialogue, and description into Grade 4 narratives.",
+    "objective": "I can sequence events, add description, use dialogue and transitions, and write a clear narrative closure.",
+    "key_vocabulary": [
+      "sequence",
+      "event",
+      "description",
+      "dialogue",
+      "transition",
+      "closure"
+    ],
+    "concept_explanation": "Narrative writing tells events in order, uses description and dialogue to show characters, includes transitions, and ends with closure.",
+    "visual_model": "story_sequence",
+    "common_misconception": "Some writers list events without order, description, dialogue punctuation, or a satisfying ending.",
+    "real_world_connection": "Grade 4 writers use this skill for reading responses, science notes, social studies projects, and stories classmates can follow.",
+    "lesson_summary": "Narrative writing tells events in order, uses description and dialogue to show characters, includes transitions, and ends with closure.",
+    "mini_lesson": "Read the prompt, plan the needed parts, draft a clear answer, and reread with the checklist before you submit."
+  },
+  "worked_examples": [
+    {
+      "example_id": "G4E_WR_003_WE1",
+      "prompt": "Study the model and name why it works.",
+      "visual_model": "story_sequence",
+      "support_type": "story_sequence",
+      "correct_answer": "The model includes the required parts and is easy for a reader to follow.",
+      "explanation": "The model names the purpose, includes support, and rereads for clarity.",
+      "audio": {
+        "text": "The model includes the required parts and is easy for a reader to follow.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "example_id": "G4E_WR_003_WE2",
+      "prompt": "Revise the draft using the checklist.",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "A stronger draft adds the missing part and checks conventions.",
+      "explanation": "Revision improves meaning and correctness without changing the writer\u2019s voice.",
+      "audio": {
+        "text": "A stronger draft adds the missing part and checks conventions.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the prompt and name the writing or grammar job.",
+    "Use the visual model and checklist before you answer.",
+    "Reread to make sure your answer is clear and complete."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G4E_WR_003_GUIDED_PRACTICE_Q01",
+      "prompt": "Put the lost kite events in the best narrative order.",
+      "question_type": "sequencing",
+      "visual_model": "story_sequence",
+      "support_type": "story_sequence",
+      "correct_answer": "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset",
+      "acceptable_answers": [
+        "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset",
+        "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset"
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "event_order_error",
+      "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+      "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+      "question_audio": {
+        "text": "Put the lost kite events in the best narrative order.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "events": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "sequence": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "dialogue_lines": [
+        "Maya: We can solve this",
+        "Leo: Let us work together"
+      ],
+      "validation_checks": [
+        "narrative_sequence_present",
+        "complete_sentence"
+      ],
+      "writing_checks": [
+        "narrative_sequence_present",
+        "complete_sentence"
+      ],
+      "writing_validation": {
+        "mode": "narrative",
+        "required_checks": [
+          "narrative_sequence_present",
+          "complete_sentence"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset"
+      }
+    },
+    {
+      "question_id": "G4E_WR_003_GUIDED_PRACTICE_Q02",
+      "prompt": "Add a descriptive sentence for the middle of a narrative about a lost kite.",
+      "question_type": "short_response",
+      "visual_model": "event_cards",
+      "support_type": "event_cards",
+      "correct_answer": "The air felt cool and bright as the character studied every clue in the lost kite.",
+      "acceptable_answers": [
+        "The air felt cool and bright as the character studied every clue in the lost kite.",
+        "The air felt cool and bright as the character studied every clue in the lost kite."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "missing_description",
+      "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+      "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+      "question_audio": {
+        "text": "Add a descriptive sentence for the middle of a narrative about a lost kite.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "The air felt cool and bright as the character studied every clue in the lost kite.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "events": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "sequence": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "dialogue_lines": [
+        "Maya: We can solve this",
+        "Leo: Let us work together"
+      ],
+      "validation_checks": [
+        "description_present",
+        "complete_sentence",
+        "capitalization",
+        "punctuation"
+      ],
+      "writing_checks": [
+        "description_present",
+        "complete_sentence",
+        "capitalization",
+        "punctuation"
+      ],
+      "writing_validation": {
+        "mode": "narrative",
+        "required_checks": [
+          "description_present",
+          "complete_sentence",
+          "capitalization",
+          "punctuation"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "The air felt cool and bright as the character studied every clue in the lost kite."
+      }
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G4E_WR_003_ADAPTIVE_QUESTION_BANK_Q01",
+      "prompt": "Which sentence uses dialogue punctuation correctly for a lost kite story?",
+      "question_type": "multiple_choice",
+      "visual_model": "dialogue_builder",
+      "support_type": "dialogue_builder",
+      "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+      "acceptable_answers": [
+        "\"We can solve this,\" Maya said, \"if we work together.\"",
+        "\"We can solve this,\" the narrator said, \"if we work together.\""
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "dialogue_punctuation_error",
+      "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+      "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+      "question_audio": {
+        "text": "Which sentence uses dialogue punctuation correctly for a lost kite story?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "events": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "sequence": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "dialogue_lines": [
+        "Maya: We can solve this",
+        "Leo: Let us work together"
+      ],
+      "validation_checks": [
+        "dialogue_punctuation",
+        "capitalization",
+        "punctuation"
+      ],
+      "writing_checks": [
+        "dialogue_punctuation",
+        "capitalization",
+        "punctuation"
+      ],
+      "writing_validation": {
+        "mode": "narrative",
+        "required_checks": [
+          "dialogue_punctuation",
+          "capitalization",
+          "punctuation"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+      },
+      "choices": [
+        "\"We can solve this,\" Maya said, \"if we work together.\"",
+        "We can solve this, Maya said, if we work together.",
+        "\"We can solve this, Maya said, if we work together.\""
+      ]
+    },
+    {
+      "question_id": "G4E_WR_003_ADAPTIVE_QUESTION_BANK_Q02",
+      "prompt": "Write a short narrative about a lost kite. Include sequenced events, description, dialogue, transitions, and closure.",
+      "question_type": "writing_response",
+      "visual_model": "paragraph_builder",
+      "support_type": "paragraph_builder",
+      "correct_answer": "First, the lost kite began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+      "acceptable_answers": [
+        "First, the lost kite began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+        "First, the lost kite began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "missing_closure",
+      "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+      "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+      "question_audio": {
+        "text": "Write a short narrative about a lost kite. Include sequenced events, description, dialogue, transitions, and closure.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "First, the lost kite began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "events": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "sequence": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "dialogue_lines": [
+        "Maya: We can solve this",
+        "Leo: Let us work together"
+      ],
+      "validation_checks": [
+        "narrative_sequence_present",
+        "description_present",
+        "dialogue_punctuation",
+        "conclusion_present",
+        "complete_sentence"
+      ],
+      "writing_checks": [
+        "narrative_sequence_present",
+        "description_present",
+        "dialogue_punctuation",
+        "conclusion_present",
+        "complete_sentence"
+      ],
+      "writing_validation": {
+        "mode": "narrative",
+        "required_checks": [
+          "narrative_sequence_present",
+          "description_present",
+          "dialogue_punctuation",
+          "conclusion_present",
+          "complete_sentence"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "First, the lost kite began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G4E_WR_003_CHECKPOINT_Q01",
+      "prompt": "Improve the narrative about a lost kite by adding order, description, dialogue punctuation, or closure.",
+      "question_type": "sequencing",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+      "acceptable_answers": [
+        "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+        "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "event_order_error",
+      "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+      "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+      "question_audio": {
+        "text": "Improve the narrative about a lost kite by adding order, description, dialogue punctuation, or closure.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "events": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "sequence": [
+        "The lost kite began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "dialogue_lines": [
+        "Maya: We can solve this",
+        "Leo: Let us work together"
+      ],
+      "validation_checks": [
+        "narrative_sequence_present",
+        "description_present",
+        "dialogue_punctuation",
+        "conclusion_present"
+      ],
+      "writing_checks": [
+        "narrative_sequence_present",
+        "description_present",
+        "dialogue_punctuation",
+        "conclusion_present"
+      ],
+      "writing_validation": {
+        "mode": "narrative",
+        "required_checks": [
+          "narrative_sequence_present",
+          "description_present",
+          "dialogue_punctuation",
+          "conclusion_present"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+      }
+    },
+    {
+      "question_id": "G4E_WR_003_CHECKPOINT_Q02",
+      "prompt": "Improve the narrative about a rainy hike by adding order, description, dialogue punctuation, or closure.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+      "acceptable_answers": [
+        "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+        "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "missing_description",
+      "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+      "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+      "question_audio": {
+        "text": "Improve the narrative about a rainy hike by adding order, description, dialogue punctuation, or closure.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "events": [
+        "The rainy hike began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "sequence": [
+        "The rainy hike began with a problem",
+        "The character made a brave choice",
+        "The problem was solved before sunset"
+      ],
+      "dialogue_lines": [
+        "Maya: We can solve this",
+        "Leo: Let us work together"
+      ],
+      "validation_checks": [
+        "narrative_sequence_present",
+        "description_present",
+        "dialogue_punctuation",
+        "conclusion_present"
+      ],
+      "writing_checks": [
+        "narrative_sequence_present",
+        "description_present",
+        "dialogue_punctuation",
+        "conclusion_present"
+      ],
+      "writing_validation": {
+        "mode": "narrative",
+        "required_checks": [
+          "narrative_sequence_present",
+          "description_present",
+          "dialogue_punctuation",
+          "conclusion_present"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+      }
+    }
+  ],
+  "misconception_bank": {
+    "event_order_error": {
+      "description": "event order error",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "missing_description": {
+      "description": "missing description",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "dialogue_punctuation_error": {
+      "description": "dialogue punctuation error",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "missing_closure": {
+      "description": "missing closure",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    }
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Story Trail",
+    "mission_intro": "Join the Story Trail crew to shape events, dialogue, and description into Grade 4 narratives.",
+    "badge_name": "Narrative Writing With Dialogue and Description Badge",
+    "name": "Story Trail"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": "G3E_WR_001",
+  "level_banks": [
+    {
+      "level_id": "G4E_WR_003_LVL1",
+      "label": "Level 1: Sequence Events",
+      "focus": "Sequence Events for narrative writing.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_003_LVL1_Q01",
+          "prompt": "Put the lost kite events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the lost kite events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The lost kite began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q02",
+          "prompt": "Put the rainy hike events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The rainy hike began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The rainy hike began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The rainy hike began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the rainy hike events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The rainy hike began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The rainy hike began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q03",
+          "prompt": "Put the science fair surprise events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The science fair surprise began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The science fair surprise began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The science fair surprise began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the science fair surprise events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The science fair surprise began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The science fair surprise began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q04",
+          "prompt": "Put the new neighbor events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The new neighbor began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The new neighbor began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The new neighbor began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the new neighbor events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The new neighbor began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The new neighbor began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q05",
+          "prompt": "Put the soccer final events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The soccer final began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The soccer final began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The soccer final began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the soccer final events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The soccer final began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The soccer final began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q06",
+          "prompt": "Put the mystery map events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The mystery map began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The mystery map began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The mystery map began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the mystery map events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The mystery map began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The mystery map began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q07",
+          "prompt": "Put the campfire story events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The campfire story began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The campfire story began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The campfire story began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the campfire story events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The campfire story began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The campfire story began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q08",
+          "prompt": "Put the library lock-in events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The library lock-in began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The library lock-in began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The library lock-in began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the library lock-in events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The library lock-in began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The library lock-in began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q09",
+          "prompt": "Put the garden rescue events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The garden rescue began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The garden rescue began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The garden rescue began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the garden rescue events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The garden rescue began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The garden rescue began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL1_Q10",
+          "prompt": "Put the robot helper events in the best narrative order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "The robot helper began with a problem; The character made a brave choice; The problem was solved before sunset",
+          "acceptable_answers": [
+            "The robot helper began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "The robot helper began with a problem; The character made a brave choice; The problem was solved before sunset"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Put the robot helper events in the best narrative order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The robot helper began with a problem; The character made a brave choice; The problem was solved before sunset",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The robot helper began with a problem; The character made a brave choice; The problem was solved before sunset"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_WR_003_LVL2",
+      "label": "Level 2: Add Description",
+      "focus": "Add Description for narrative writing.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_003_LVL2_Q01",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a lost kite.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the lost kite.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the lost kite.",
+            "The air felt cool and bright as the character studied every clue in the lost kite."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a lost kite.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the lost kite.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the lost kite."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q02",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a rainy hike.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the rainy hike.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the rainy hike.",
+            "The air felt cool and bright as the character studied every clue in the rainy hike."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a rainy hike.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the rainy hike.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the rainy hike."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q03",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a science fair surprise.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the science fair surprise.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the science fair surprise.",
+            "The air felt cool and bright as the character studied every clue in the science fair surprise."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a science fair surprise.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the science fair surprise.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the science fair surprise."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q04",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a new neighbor.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the new neighbor.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the new neighbor.",
+            "The air felt cool and bright as the character studied every clue in the new neighbor."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a new neighbor.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the new neighbor.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the new neighbor."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q05",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a soccer final.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the soccer final.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the soccer final.",
+            "The air felt cool and bright as the character studied every clue in the soccer final."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a soccer final.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the soccer final.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the soccer final."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q06",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a mystery map.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the mystery map.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the mystery map.",
+            "The air felt cool and bright as the character studied every clue in the mystery map."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a mystery map.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the mystery map.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the mystery map."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q07",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a campfire story.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the campfire story.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the campfire story.",
+            "The air felt cool and bright as the character studied every clue in the campfire story."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a campfire story.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the campfire story.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the campfire story."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q08",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a library lock-in.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the library lock-in.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the library lock-in.",
+            "The air felt cool and bright as the character studied every clue in the library lock-in."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a library lock-in.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the library lock-in.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the library lock-in."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q09",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a garden rescue.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the garden rescue.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the garden rescue.",
+            "The air felt cool and bright as the character studied every clue in the garden rescue."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a garden rescue.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the garden rescue.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the garden rescue."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL2_Q10",
+          "prompt": "Add a descriptive sentence for the middle of a narrative about a robot helper.",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "The air felt cool and bright as the character studied every clue in the robot helper.",
+          "acceptable_answers": [
+            "The air felt cool and bright as the character studied every clue in the robot helper.",
+            "The air felt cool and bright as the character studied every clue in the robot helper."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Add a descriptive sentence for the middle of a narrative about a robot helper.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The air felt cool and bright as the character studied every clue in the robot helper.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "description_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "description_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The air felt cool and bright as the character studied every clue in the robot helper."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_WR_003_LVL3",
+      "label": "Level 3: Dialogue and Transitions",
+      "focus": "Dialogue and Transitions for narrative writing.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_003_LVL3_Q01",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a lost kite story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a lost kite story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q02",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a rainy hike story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a rainy hike story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q03",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a science fair surprise story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a science fair surprise story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q04",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a new neighbor story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a new neighbor story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q05",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a soccer final story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a soccer final story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q06",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a mystery map story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a mystery map story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q07",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a campfire story story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a campfire story story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q08",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a library lock-in story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a library lock-in story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q09",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a garden rescue story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a garden rescue story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_LVL3_Q10",
+          "prompt": "Which sentence uses dialogue punctuation correctly for a robot helper story?",
+          "question_type": "multiple_choice",
+          "visual_model": "dialogue_builder",
+          "support_type": "dialogue_builder",
+          "correct_answer": "\"We can solve this,\" Maya said, \"if we work together.\"",
+          "acceptable_answers": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "\"We can solve this,\" the narrator said, \"if we work together.\""
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Which sentence uses dialogue punctuation correctly for a robot helper story?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "dialogue_punctuation",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"We can solve this,\" Maya said, \"if we work together.\""
+          },
+          "choices": [
+            "\"We can solve this,\" Maya said, \"if we work together.\"",
+            "We can solve this, Maya said, if we work together.",
+            "\"We can solve this, Maya said, if we work together.\""
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_WR_003_LVL4",
+      "label": "Level 4: Build Narrative",
+      "focus": "Build Narrative for narrative writing.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_003_LVL4_Q01",
+          "prompt": "Write a short narrative about a lost kite. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the lost kite began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the lost kite began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the lost kite began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a lost kite. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the lost kite began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the lost kite began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q02",
+          "prompt": "Write a short narrative about a rainy hike. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the rainy hike began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the rainy hike began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the rainy hike began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a rainy hike. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the rainy hike began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the rainy hike began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q03",
+          "prompt": "Write a short narrative about a science fair surprise. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the science fair surprise began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the science fair surprise began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the science fair surprise began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a science fair surprise. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the science fair surprise began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the science fair surprise began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q04",
+          "prompt": "Write a short narrative about a new neighbor. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the new neighbor began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the new neighbor began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the new neighbor began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a new neighbor. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the new neighbor began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the new neighbor began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q05",
+          "prompt": "Write a short narrative about a soccer final. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the soccer final began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the soccer final began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the soccer final began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a soccer final. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the soccer final began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the soccer final began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q06",
+          "prompt": "Write a short narrative about a mystery map. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the mystery map began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the mystery map began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the mystery map began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a mystery map. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the mystery map began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the mystery map began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q07",
+          "prompt": "Write a short narrative about a campfire story. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the campfire story began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the campfire story began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the campfire story began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a campfire story. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the campfire story began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the campfire story began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q08",
+          "prompt": "Write a short narrative about a library lock-in. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the library lock-in began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the library lock-in began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the library lock-in began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a library lock-in. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the library lock-in began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the library lock-in began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q09",
+          "prompt": "Write a short narrative about a garden rescue. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the garden rescue began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the garden rescue began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the garden rescue began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a garden rescue. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the garden rescue began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the garden rescue began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_LVL4_Q10",
+          "prompt": "Write a short narrative about a robot helper. Include sequenced events, description, dialogue, transitions, and closure.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "First, the robot helper began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+          "acceptable_answers": [
+            "First, the robot helper began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "First, the robot helper began with a problem. The air felt cool and bright as the narrator studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Write a short narrative about a robot helper. Include sequenced events, description, dialogue, transitions, and closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the robot helper began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the robot helper began with a problem. The air felt cool and bright as Maya studied every clue. \"We can solve this,\" she said. After the team worked together, the problem was solved before sunset, and everyone felt proud."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_WR_003_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed for narrative writing.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_003_MIXED_Q01",
+          "prompt": "Improve the narrative about a lost kite by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "sequencing",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a lost kite by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The lost kite began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the lost kite began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q02",
+          "prompt": "Improve the narrative about a rainy hike by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a rainy hike by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The rainy hike began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the rainy hike began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q03",
+          "prompt": "Improve the narrative about a science fair surprise by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "multiple_choice",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the science fair surprise began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the science fair surprise began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the science fair surprise began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a science fair surprise by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the science fair surprise began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The science fair surprise began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the science fair surprise began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          },
+          "choices": [
+            "First, the science fair surprise began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "The problem, the ending, then the start happened.",
+            "A character was there."
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q04",
+          "prompt": "Improve the narrative about a new neighbor by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "writing_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the new neighbor began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the new neighbor began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the new neighbor began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a new neighbor by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the new neighbor began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The new neighbor began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the new neighbor began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q05",
+          "prompt": "Improve the narrative about a soccer final by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "sequencing",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the soccer final began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the soccer final began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the soccer final began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a soccer final by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the soccer final began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The soccer final began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the soccer final began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q06",
+          "prompt": "Improve the narrative about a mystery map by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the mystery map began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the mystery map began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the mystery map began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a mystery map by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the mystery map began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The mystery map began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the mystery map began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q07",
+          "prompt": "Improve the narrative about a campfire story by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "multiple_choice",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the campfire story began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the campfire story began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the campfire story began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "dialogue_punctuation_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a campfire story by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the campfire story began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The campfire story began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the campfire story began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          },
+          "choices": [
+            "First, the campfire story began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "The problem, the ending, then the start happened.",
+            "A character was there."
+          ]
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q08",
+          "prompt": "Improve the narrative about a library lock-in by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "writing_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the library lock-in began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the library lock-in began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the library lock-in began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_closure",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a library lock-in by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the library lock-in began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The library lock-in began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the library lock-in began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q09",
+          "prompt": "Improve the narrative about a garden rescue by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "sequencing",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the garden rescue began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the garden rescue began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the garden rescue began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "event_order_error",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a garden rescue by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the garden rescue began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The garden rescue began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the garden rescue began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          }
+        },
+        {
+          "question_id": "G4E_WR_003_MIXED_Q10",
+          "prompt": "Improve the narrative about a robot helper by adding order, description, dialogue punctuation, or closure.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "First, the robot helper began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+          "acceptable_answers": [
+            "First, the robot helper began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "First, the robot helper began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_description",
+          "explanation": "A strong narrative keeps events in order, adds sensory description, punctuates dialogue, and closes the experience.",
+          "feedback": "Great story move \u2014 your narrative gives readers a clear path.",
+          "question_audio": {
+            "text": "Improve the narrative about a robot helper by adding order, description, dialogue punctuation, or closure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "First, the robot helper began with a problem; then the character made a brave choice; finally, the problem was solved before sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "events": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "sequence": [
+            "The robot helper began with a problem",
+            "The character made a brave choice",
+            "The problem was solved before sunset"
+          ],
+          "dialogue_lines": [
+            "Maya: We can solve this",
+            "Leo: Let us work together"
+          ],
+          "validation_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "narrative_sequence_present",
+            "description_present",
+            "dialogue_punctuation",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "narrative",
+            "required_checks": [
+              "narrative_sequence_present",
+              "description_present",
+              "dialogue_punctuation",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "First, the robot helper began with a problem; then the character made a brave choice; finally, the problem was solved before sunset."
+          }
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to the Grade 4 writing studio for Narrative Writing With Dialogue and Description. You will plan, test, revise, and explain choices the way a real author does. Press Start Mission when you are ready to build a clear response.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Read This Page. This mini lesson teaches i can sequence events, add description, use dialogue and transitions, and write a clear narrative closure. First, study the model. Then name the parts that make the writing or sentence work. Press Next after you can explain the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Read This Page. On this Watch page, listen to the teacher think aloud. Notice how the model checks the prompt, chooses useful words, and avoids a common mistake. Press Next to try a supported demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Read This Page. This demo is a safe practice round. Read the sentence or paragraph aloud, point to the evidence in the visual model, and decide what needs to be added or revised. Press Next when you are ready for Practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Read This Page. Practice time. Read the item, use the visual model, and press Read Question if you want the exact prompt read aloud. Use Listen for model sentences, paragraph examples, dialogue, or grammar support before you answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge time asks you to use i can sequence events, add description, use dialogue and transitions, and write a clear narrative closure with less help. Press Read Question for the prompt, use Listen when hearing the sentence helps, and check that your response matches every part of the task.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Read This Page. Checkpoint time shows what you can do independently. Press Read Question if you want narration and use Listen for model language support. Answer carefully, then review the feedback and misconception notes.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Read This Page. This badge celebrates your Grade 4 work on Narrative Writing With Dialogue and Description. You practiced planning, revising, and checking your words for readers. Keep using the strategy in class writing, reading responses, and projects.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves stars, accuracy, hints, and level progress. If one level needs more work, choose Practice This Skill and return to the Skill Practice Center. Strong writers revise one focused skill at a time.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

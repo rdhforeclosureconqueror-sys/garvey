@@ -1,0 +1,3967 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade4-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade4_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-04"
+  },
+  "skill_id": "G4E_LANG_001",
+  "grade": 4,
+  "subject": "English",
+  "domain": "Language",
+  "skill": "Grammar, Conventions, and Sentence Combining",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Sentence Lab team to edit and combine Grade 4 sentences with care.",
+    "objective": "I can edit capitalization, punctuation, commas, quotation marks, verb tense, complete sentences, and combine related ideas.",
+    "key_vocabulary": [
+      "capitalization",
+      "punctuation",
+      "comma",
+      "quotation mark",
+      "verb tense",
+      "complete sentence",
+      "sentence combining"
+    ],
+    "concept_explanation": "Language conventions help readers understand meaning; strong editors check capitals, punctuation, verb tense, complete sentences, and combined ideas.",
+    "visual_model": "grammar_highlight",
+    "common_misconception": "Some writers fix one convention but leave capitalization, punctuation, tense, fragments, or sentence combining errors unchecked.",
+    "real_world_connection": "Grade 4 writers use this skill for reading responses, science notes, social studies projects, and stories classmates can follow.",
+    "lesson_summary": "Language conventions help readers understand meaning; strong editors check capitals, punctuation, verb tense, complete sentences, and combined ideas.",
+    "mini_lesson": "Read the prompt, plan the needed parts, draft a clear answer, and reread with the checklist before you submit."
+  },
+  "worked_examples": [
+    {
+      "example_id": "G4E_LANG_001_WE1",
+      "prompt": "Study the model and name why it works.",
+      "visual_model": "grammar_highlight",
+      "support_type": "grammar_highlight",
+      "correct_answer": "The model includes the required parts and is easy for a reader to follow.",
+      "explanation": "The model names the purpose, includes support, and rereads for clarity.",
+      "audio": {
+        "text": "The model includes the required parts and is easy for a reader to follow.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "example_id": "G4E_LANG_001_WE2",
+      "prompt": "Revise the draft using the checklist.",
+      "visual_model": "grammar_highlight",
+      "support_type": "grammar_highlight",
+      "correct_answer": "A stronger draft adds the missing part and checks conventions.",
+      "explanation": "Revision improves meaning and correctness without changing the writer\u2019s voice.",
+      "audio": {
+        "text": "A stronger draft adds the missing part and checks conventions.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the prompt and name the writing or grammar job.",
+    "Use the visual model and checklist before you answer.",
+    "Reread to make sure your answer is clear and complete."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G4E_LANG_001_GUIDED_PRACTICE_Q01",
+      "prompt": "Edit the sentence for capitalization and end punctuation: mia studies the moon",
+      "question_type": "editing",
+      "visual_model": "punctuation_marker",
+      "support_type": "punctuation_marker",
+      "correct_answer": "Mia studies the moon.",
+      "acceptable_answers": [
+        "Mia studies the moon."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "capitalization_error",
+      "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+      "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+      "question_audio": {
+        "text": "Edit the sentence for capitalization and end punctuation: mia studies the moon",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Mia studies the moon.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "Mia studies the moon.",
+      "grammar_targets": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence"
+      ],
+      "sentence_parts": [
+        "Mia studies the moon.",
+        "It has an important detail."
+      ],
+      "combined_sentence": "Mia studies the moon.",
+      "validation_checks": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence"
+      ],
+      "writing_checks": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence"
+      ],
+      "writing_validation": {
+        "mode": "language",
+        "required_checks": [
+          "capitalization",
+          "punctuation",
+          "complete_sentence"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "Mia studies the moon."
+      },
+      "choices": [
+        "Mia studies the moon.",
+        "mia studies the moon.",
+        "mia studies the moon."
+      ]
+    },
+    {
+      "question_id": "G4E_LANG_001_GUIDED_PRACTICE_Q02",
+      "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+      "question_type": "multiple_choice",
+      "visual_model": "punctuation_marker",
+      "support_type": "punctuation_marker",
+      "correct_answer": "\"Please bring the map,\" said Sam.",
+      "acceptable_answers": [
+        "\"Please bring the map,\" said Sam."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "punctuation_error",
+      "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+      "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+      "question_audio": {
+        "text": "Choose the sentence with commas and quotation marks used correctly.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "\"Please bring the map,\" said Sam.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "\"Please bring the map,\" said Sam.",
+      "grammar_targets": [
+        "dialogue_punctuation",
+        "punctuation"
+      ],
+      "sentence_parts": [
+        "Mia studies the moon.",
+        "It has an important detail."
+      ],
+      "combined_sentence": "\"Please bring the map,\" said Sam.",
+      "validation_checks": [
+        "dialogue_punctuation",
+        "punctuation"
+      ],
+      "writing_checks": [
+        "dialogue_punctuation",
+        "punctuation"
+      ],
+      "writing_validation": {
+        "mode": "language",
+        "required_checks": [
+          "dialogue_punctuation",
+          "punctuation"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "\"Please bring the map,\" said Sam."
+      },
+      "choices": [
+        "\"Please bring the map,\" said Sam.",
+        "\"Please bring the map, said Sam.\"",
+        "Please bring the map, said Sam."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G4E_LANG_001_ADAPTIVE_QUESTION_BANK_Q01",
+      "prompt": "Complete the sentence with the correct verb tense: Yesterday, Mia ___ carefully.",
+      "question_type": "sentence_completion",
+      "visual_model": "grammar_highlight",
+      "support_type": "grammar_highlight",
+      "correct_answer": "studied",
+      "acceptable_answers": [
+        "studied"
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "verb_tense_error",
+      "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+      "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+      "question_audio": {
+        "text": "Complete the sentence with the correct verb tense: Yesterday, Mia ___ carefully.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "studied",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "studied",
+      "grammar_targets": [
+        "verb_tense",
+        "complete_sentence"
+      ],
+      "sentence_parts": [
+        "Mia studies the moon.",
+        "It has an important detail."
+      ],
+      "combined_sentence": "studied",
+      "validation_checks": [
+        "verb_tense",
+        "complete_sentence"
+      ],
+      "writing_checks": [
+        "verb_tense",
+        "complete_sentence"
+      ],
+      "writing_validation": {
+        "mode": "language",
+        "required_checks": [
+          "verb_tense",
+          "complete_sentence"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "studied"
+      }
+    },
+    {
+      "question_id": "G4E_LANG_001_ADAPTIVE_QUESTION_BANK_Q02",
+      "prompt": "Combine these sentences without losing meaning: Mia studies the moon. It has an important detail.",
+      "question_type": "short_response",
+      "visual_model": "sentence_combiner",
+      "support_type": "sentence_combiner",
+      "correct_answer": "Mia studies the moon, and it has an important detail.",
+      "acceptable_answers": [
+        "Mia studies the moon, and it has an important detail."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "sentence_fragment",
+      "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+      "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+      "question_audio": {
+        "text": "Combine these sentences without losing meaning: Mia studies the moon. It has an important detail.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Mia studies the moon, and it has an important detail.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "Mia studies the moon, and it has an important detail.",
+      "grammar_targets": [
+        "sentence_combining",
+        "complete_sentence",
+        "punctuation"
+      ],
+      "sentence_parts": [
+        "Mia studies the moon.",
+        "It has an important detail."
+      ],
+      "combined_sentence": "Mia studies the moon, and it has an important detail.",
+      "validation_checks": [
+        "sentence_combining",
+        "complete_sentence",
+        "punctuation"
+      ],
+      "writing_checks": [
+        "sentence_combining",
+        "complete_sentence",
+        "punctuation"
+      ],
+      "writing_validation": {
+        "mode": "language",
+        "required_checks": [
+          "sentence_combining",
+          "complete_sentence",
+          "punctuation"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "Mia studies the moon, and it has an important detail."
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G4E_LANG_001_CHECKPOINT_Q01",
+      "prompt": "Fix or combine this Grade 4 sentence item: mia studies the moon",
+      "question_type": "editing",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "Mia studies the moon.",
+      "acceptable_answers": [
+        "Mia studies the moon."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "capitalization_error",
+      "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+      "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+      "question_audio": {
+        "text": "Fix or combine this Grade 4 sentence item: mia studies the moon",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Mia studies the moon.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "Mia studies the moon.",
+      "grammar_targets": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence",
+        "verb_tense",
+        "sentence_combining"
+      ],
+      "sentence_parts": [
+        "Mia studies the moon.",
+        "It has an important detail."
+      ],
+      "combined_sentence": "Mia studies the moon.",
+      "validation_checks": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence",
+        "verb_tense",
+        "sentence_combining"
+      ],
+      "writing_checks": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence",
+        "verb_tense",
+        "sentence_combining"
+      ],
+      "writing_validation": {
+        "mode": "language",
+        "required_checks": [
+          "capitalization",
+          "punctuation",
+          "complete_sentence",
+          "verb_tense",
+          "sentence_combining"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "Mia studies the moon."
+      },
+      "choices": [
+        "Mia studies the moon.",
+        "mia studies the moon.",
+        "mia studies the moon."
+      ]
+    },
+    {
+      "question_id": "G4E_LANG_001_CHECKPOINT_Q02",
+      "prompt": "Fix or combine this Grade 4 sentence item: our class visited the museum",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "Our class visited the museum.",
+      "acceptable_answers": [
+        "Our class visited the museum."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "punctuation_error",
+      "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+      "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+      "question_audio": {
+        "text": "Fix or combine this Grade 4 sentence item: our class visited the museum",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Our class visited the museum.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "sentence": "Our class visited the museum.",
+      "grammar_targets": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence",
+        "verb_tense",
+        "sentence_combining"
+      ],
+      "sentence_parts": [
+        "Our class visited the museum.",
+        "It has an important detail."
+      ],
+      "combined_sentence": "Our class visited the museum.",
+      "validation_checks": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence",
+        "verb_tense",
+        "sentence_combining"
+      ],
+      "writing_checks": [
+        "capitalization",
+        "punctuation",
+        "complete_sentence",
+        "verb_tense",
+        "sentence_combining"
+      ],
+      "writing_validation": {
+        "mode": "language",
+        "required_checks": [
+          "capitalization",
+          "punctuation",
+          "complete_sentence",
+          "verb_tense",
+          "sentence_combining"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "Our class visited the museum."
+      },
+      "choices": [
+        "Our class visited the museum.",
+        "our class visited the museum.",
+        "our class visited the museum."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "capitalization_error": {
+      "description": "capitalization error",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "punctuation_error": {
+      "description": "punctuation error",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "verb_tense_error": {
+      "description": "verb tense error",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "sentence_fragment": {
+      "description": "sentence fragment",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    }
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Sentence Lab",
+    "mission_intro": "Join the Sentence Lab team to edit and combine Grade 4 sentences with care.",
+    "badge_name": "Grammar, Conventions, and Sentence Combining Badge",
+    "name": "Sentence Lab"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": "G3E_LANG_001",
+  "level_banks": [
+    {
+      "level_id": "G4E_LANG_001_LVL1",
+      "label": "Level 1: Capitalization and Punctuation",
+      "focus": "Capitalization and Punctuation for Grade 4 language conventions.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q01",
+          "prompt": "Edit the sentence for capitalization and end punctuation: mia studies the moon",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "Mia studies the moon.",
+          "acceptable_answers": [
+            "Mia studies the moon."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: mia studies the moon",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Mia studies the moon.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Mia studies the moon.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Mia studies the moon.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Mia studies the moon.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Mia studies the moon."
+          },
+          "choices": [
+            "Mia studies the moon.",
+            "mia studies the moon.",
+            "mia studies the moon."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q02",
+          "prompt": "Edit the sentence for capitalization and end punctuation: our class visited the museum",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "Our class visited the museum.",
+          "acceptable_answers": [
+            "Our class visited the museum."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: our class visited the museum",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Our class visited the museum.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Our class visited the museum.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Our class visited the museum.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Our class visited the museum.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Our class visited the museum."
+          },
+          "choices": [
+            "Our class visited the museum.",
+            "our class visited the museum.",
+            "our class visited the museum."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q03",
+          "prompt": "Edit the sentence for capitalization and end punctuation: did sam bring the map",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "Did Sam bring the map?",
+          "acceptable_answers": [
+            "Did Sam bring the map?"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: did sam bring the map",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Did Sam bring the map?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Did Sam bring the map?",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Did Sam bring the map?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Did Sam bring the map?",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Did Sam bring the map?"
+          },
+          "choices": [
+            "Did Sam bring the map?",
+            "did sam bring the map.",
+            "did sam bring the map?"
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q04",
+          "prompt": "Edit the sentence for capitalization and end punctuation: the hikers found a trail",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "The hikers found a trail.",
+          "acceptable_answers": [
+            "The hikers found a trail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: the hikers found a trail",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The hikers found a trail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The hikers found a trail.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "The hikers found a trail.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "The hikers found a trail.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The hikers found a trail."
+          },
+          "choices": [
+            "The hikers found a trail.",
+            "the hikers found a trail.",
+            "the hikers found a trail."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q05",
+          "prompt": "Edit the sentence for capitalization and end punctuation: my brother reads comics",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "My brother reads comics.",
+          "acceptable_answers": [
+            "My brother reads comics."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: my brother reads comics",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "My brother reads comics.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "My brother reads comics.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "My brother reads comics.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "My brother reads comics.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "My brother reads comics."
+          },
+          "choices": [
+            "My brother reads comics.",
+            "my brother reads comics.",
+            "my brother reads comics."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q06",
+          "prompt": "Edit the sentence for capitalization and end punctuation: we planted beans in april",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "We planted beans in April.",
+          "acceptable_answers": [
+            "We planted beans in April."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: we planted beans in april",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "We planted beans in April.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "We planted beans in April.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "We planted beans in April.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "We planted beans in April.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "We planted beans in April."
+          },
+          "choices": [
+            "We planted beans in April.",
+            "we planted beans in april.",
+            "we planted beans in april."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q07",
+          "prompt": "Edit the sentence for capitalization and end punctuation: aunt rosa lives in denver",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "Aunt Rosa lives in Denver.",
+          "acceptable_answers": [
+            "Aunt Rosa lives in Denver."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: aunt rosa lives in denver",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Aunt Rosa lives in Denver.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Aunt Rosa lives in Denver.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Aunt Rosa lives in Denver.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Aunt Rosa lives in Denver.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Aunt Rosa lives in Denver."
+          },
+          "choices": [
+            "Aunt Rosa lives in Denver.",
+            "aunt rosa lives in denver.",
+            "aunt rosa lives in denver."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q08",
+          "prompt": "Edit the sentence for capitalization and end punctuation: the team cheered loudly",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "The team cheered loudly.",
+          "acceptable_answers": [
+            "The team cheered loudly."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: the team cheered loudly",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The team cheered loudly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The team cheered loudly.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "The team cheered loudly.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "The team cheered loudly.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The team cheered loudly."
+          },
+          "choices": [
+            "The team cheered loudly.",
+            "the team cheered loudly.",
+            "the team cheered loudly."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q09",
+          "prompt": "Edit the sentence for capitalization and end punctuation: where is the library",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "Where is the library?",
+          "acceptable_answers": [
+            "Where is the library?"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: where is the library",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Where is the library?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Where is the library?",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Where is the library?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Where is the library?",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Where is the library?"
+          },
+          "choices": [
+            "Where is the library?",
+            "where is the library.",
+            "where is the library?"
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL1_Q10",
+          "prompt": "Edit the sentence for capitalization and end punctuation: please close the gate",
+          "question_type": "editing",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "Please close the gate.",
+          "acceptable_answers": [
+            "Please close the gate."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Edit the sentence for capitalization and end punctuation: please close the gate",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Please close the gate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Please close the gate.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Please close the gate.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Please close the gate.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Please close the gate."
+          },
+          "choices": [
+            "Please close the gate.",
+            "please close the gate.",
+            "please close the gate."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_LANG_001_LVL2",
+      "label": "Level 2: Commas and Quotation Marks",
+      "focus": "Commas and Quotation Marks for Grade 4 language conventions.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q01",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Mia studies the moon.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q02",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Our class visited the museum.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q03",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Did Sam bring the map?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q04",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "The hikers found a trail.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q05",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "My brother reads comics.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q06",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "We planted beans in April.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q07",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Aunt Rosa lives in Denver.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q08",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "The team cheered loudly.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q09",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Where is the library?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL2_Q10",
+          "prompt": "Choose the sentence with commas and quotation marks used correctly.",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "\"Please bring the map,\" said Sam.",
+          "acceptable_answers": [
+            "\"Please bring the map,\" said Sam."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Choose the sentence with commas and quotation marks used correctly.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "\"Please bring the map,\" said Sam.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "\"Please bring the map,\" said Sam.",
+          "grammar_targets": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Please close the gate.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "\"Please bring the map,\" said Sam.",
+          "validation_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "dialogue_punctuation",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "dialogue_punctuation",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "\"Please bring the map,\" said Sam."
+          },
+          "choices": [
+            "\"Please bring the map,\" said Sam.",
+            "\"Please bring the map, said Sam.\"",
+            "Please bring the map, said Sam."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_LANG_001_LVL3",
+      "label": "Level 3: Grammar and Verb Tense",
+      "focus": "Grammar and Verb Tense for Grade 4 language conventions.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q01",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, Mia ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, Mia ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Mia studies the moon.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q02",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, Our ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, Our ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Our class visited the museum.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q03",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, Did ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, Did ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Did Sam bring the map?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q04",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, The ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, The ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "The hikers found a trail.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q05",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, My ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, My ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "My brother reads comics.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q06",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, We ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, We ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "We planted beans in April.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q07",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, Aunt ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, Aunt ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Aunt Rosa lives in Denver.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q08",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, The ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, The ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "The team cheered loudly.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q09",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, Where ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, Where ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Where is the library?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL3_Q10",
+          "prompt": "Complete the sentence with the correct verb tense: Yesterday, Please ___ carefully.",
+          "question_type": "sentence_completion",
+          "visual_model": "grammar_highlight",
+          "support_type": "grammar_highlight",
+          "correct_answer": "studied",
+          "acceptable_answers": [
+            "studied"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Complete the sentence with the correct verb tense: Yesterday, Please ___ carefully.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "studied",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "studied",
+          "grammar_targets": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "sentence_parts": [
+            "Please close the gate.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "studied",
+          "validation_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "verb_tense",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "verb_tense",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "studied"
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_LANG_001_LVL4",
+      "label": "Level 4: Sentence Combining",
+      "focus": "Sentence Combining for Grade 4 language conventions.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q01",
+          "prompt": "Combine these sentences without losing meaning: Mia studies the moon. It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "Mia studies the moon, and it has an important detail.",
+          "acceptable_answers": [
+            "Mia studies the moon, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: Mia studies the moon. It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Mia studies the moon, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Mia studies the moon, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Mia studies the moon.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Mia studies the moon, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Mia studies the moon, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q02",
+          "prompt": "Combine these sentences without losing meaning: Our class visited the museum. It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "Our class visited the museum, and it has an important detail.",
+          "acceptable_answers": [
+            "Our class visited the museum, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: Our class visited the museum. It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Our class visited the museum, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Our class visited the museum, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Our class visited the museum.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Our class visited the museum, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Our class visited the museum, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q03",
+          "prompt": "Combine these sentences without losing meaning: Did Sam bring the map? It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "Did Sam bring the map, and it has an important detail.",
+          "acceptable_answers": [
+            "Did Sam bring the map, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: Did Sam bring the map? It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Did Sam bring the map, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Did Sam bring the map, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Did Sam bring the map?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Did Sam bring the map, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Did Sam bring the map, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q04",
+          "prompt": "Combine these sentences without losing meaning: The hikers found a trail. It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "The hikers found a trail, and it has an important detail.",
+          "acceptable_answers": [
+            "The hikers found a trail, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: The hikers found a trail. It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The hikers found a trail, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The hikers found a trail, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "The hikers found a trail.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "The hikers found a trail, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The hikers found a trail, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q05",
+          "prompt": "Combine these sentences without losing meaning: My brother reads comics. It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "My brother reads comics, and it has an important detail.",
+          "acceptable_answers": [
+            "My brother reads comics, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: My brother reads comics. It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "My brother reads comics, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "My brother reads comics, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "My brother reads comics.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "My brother reads comics, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "My brother reads comics, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q06",
+          "prompt": "Combine these sentences without losing meaning: We planted beans in April. It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "We planted beans in April, and it has an important detail.",
+          "acceptable_answers": [
+            "We planted beans in April, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: We planted beans in April. It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "We planted beans in April, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "We planted beans in April, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "We planted beans in April.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "We planted beans in April, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "We planted beans in April, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q07",
+          "prompt": "Combine these sentences without losing meaning: Aunt Rosa lives in Denver. It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "Aunt Rosa lives in Denver, and it has an important detail.",
+          "acceptable_answers": [
+            "Aunt Rosa lives in Denver, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: Aunt Rosa lives in Denver. It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Aunt Rosa lives in Denver, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Aunt Rosa lives in Denver, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Aunt Rosa lives in Denver.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Aunt Rosa lives in Denver, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Aunt Rosa lives in Denver, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q08",
+          "prompt": "Combine these sentences without losing meaning: The team cheered loudly. It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "The team cheered loudly, and it has an important detail.",
+          "acceptable_answers": [
+            "The team cheered loudly, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: The team cheered loudly. It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The team cheered loudly, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The team cheered loudly, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "The team cheered loudly.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "The team cheered loudly, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The team cheered loudly, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q09",
+          "prompt": "Combine these sentences without losing meaning: Where is the library? It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "Where is the library, and it has an important detail.",
+          "acceptable_answers": [
+            "Where is the library, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: Where is the library? It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Where is the library, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Where is the library, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Where is the library?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Where is the library, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Where is the library, and it has an important detail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_LVL4_Q10",
+          "prompt": "Combine these sentences without losing meaning: Please close the gate. It has an important detail.",
+          "question_type": "short_response",
+          "visual_model": "sentence_combiner",
+          "support_type": "sentence_combiner",
+          "correct_answer": "Please close the gate, and it has an important detail.",
+          "acceptable_answers": [
+            "Please close the gate, and it has an important detail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Combine these sentences without losing meaning: Please close the gate. It has an important detail.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Please close the gate, and it has an important detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Please close the gate, and it has an important detail.",
+          "grammar_targets": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "sentence_parts": [
+            "Please close the gate.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Please close the gate, and it has an important detail.",
+          "validation_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "sentence_combining",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "sentence_combining",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Please close the gate, and it has an important detail."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_LANG_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed for Grade 4 language conventions.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q01",
+          "prompt": "Fix or combine this Grade 4 sentence item: mia studies the moon",
+          "question_type": "editing",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Mia studies the moon.",
+          "acceptable_answers": [
+            "Mia studies the moon."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: mia studies the moon",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Mia studies the moon.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Mia studies the moon.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "Mia studies the moon.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Mia studies the moon.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Mia studies the moon."
+          },
+          "choices": [
+            "Mia studies the moon.",
+            "mia studies the moon.",
+            "mia studies the moon."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q02",
+          "prompt": "Fix or combine this Grade 4 sentence item: our class visited the museum",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Our class visited the museum.",
+          "acceptable_answers": [
+            "Our class visited the museum."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: our class visited the museum",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Our class visited the museum.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Our class visited the museum.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "Our class visited the museum.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Our class visited the museum.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Our class visited the museum."
+          },
+          "choices": [
+            "Our class visited the museum.",
+            "our class visited the museum.",
+            "our class visited the museum."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q03",
+          "prompt": "Fix or combine this Grade 4 sentence item: did sam bring the map",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Did Sam bring the map?",
+          "acceptable_answers": [
+            "Did Sam bring the map?"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: did sam bring the map",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Did Sam bring the map?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Did Sam bring the map?",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "Did Sam bring the map?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Did Sam bring the map?",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Did Sam bring the map?"
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q04",
+          "prompt": "Fix or combine this Grade 4 sentence item: the hikers found a trail",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The hikers found a trail.",
+          "acceptable_answers": [
+            "The hikers found a trail."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: the hikers found a trail",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The hikers found a trail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The hikers found a trail.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "The hikers found a trail.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "The hikers found a trail.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The hikers found a trail."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q05",
+          "prompt": "Fix or combine this Grade 4 sentence item: my brother reads comics",
+          "question_type": "editing",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "My brother reads comics.",
+          "acceptable_answers": [
+            "My brother reads comics."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: my brother reads comics",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "My brother reads comics.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "My brother reads comics.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "My brother reads comics.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "My brother reads comics.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "My brother reads comics."
+          },
+          "choices": [
+            "My brother reads comics.",
+            "my brother reads comics.",
+            "my brother reads comics."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q06",
+          "prompt": "Fix or combine this Grade 4 sentence item: we planted beans in april",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "We planted beans in April.",
+          "acceptable_answers": [
+            "We planted beans in April."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: we planted beans in april",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "We planted beans in April.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "We planted beans in April.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "We planted beans in April.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "We planted beans in April.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "We planted beans in April."
+          },
+          "choices": [
+            "We planted beans in April.",
+            "we planted beans in april.",
+            "we planted beans in april."
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q07",
+          "prompt": "Fix or combine this Grade 4 sentence item: aunt rosa lives in denver",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Aunt Rosa lives in Denver.",
+          "acceptable_answers": [
+            "Aunt Rosa lives in Denver."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "verb_tense_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: aunt rosa lives in denver",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Aunt Rosa lives in Denver.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Aunt Rosa lives in Denver.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "Aunt Rosa lives in Denver.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Aunt Rosa lives in Denver.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Aunt Rosa lives in Denver."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q08",
+          "prompt": "Fix or combine this Grade 4 sentence item: the team cheered loudly",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The team cheered loudly.",
+          "acceptable_answers": [
+            "The team cheered loudly."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: the team cheered loudly",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The team cheered loudly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "The team cheered loudly.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "The team cheered loudly.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "The team cheered loudly.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The team cheered loudly."
+          }
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q09",
+          "prompt": "Fix or combine this Grade 4 sentence item: where is the library",
+          "question_type": "editing",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Where is the library?",
+          "acceptable_answers": [
+            "Where is the library?"
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "capitalization_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: where is the library",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Where is the library?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Where is the library?",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "Where is the library?",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Where is the library?",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Where is the library?"
+          },
+          "choices": [
+            "Where is the library?",
+            "where is the library.",
+            "where is the library?"
+          ]
+        },
+        {
+          "question_id": "G4E_LANG_001_MIXED_Q10",
+          "prompt": "Fix or combine this Grade 4 sentence item: please close the gate",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Please close the gate.",
+          "acceptable_answers": [
+            "Please close the gate."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "punctuation_error",
+          "explanation": "Correct conventions make the sentence clear, complete, and easy to read.",
+          "feedback": "Careful editing \u2014 your sentence is clearer for the reader.",
+          "question_audio": {
+            "text": "Fix or combine this Grade 4 sentence item: please close the gate",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Please close the gate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "sentence": "Please close the gate.",
+          "grammar_targets": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "sentence_parts": [
+            "Please close the gate.",
+            "It has an important detail."
+          ],
+          "combined_sentence": "Please close the gate.",
+          "validation_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_checks": [
+            "capitalization",
+            "punctuation",
+            "complete_sentence",
+            "verb_tense",
+            "sentence_combining"
+          ],
+          "writing_validation": {
+            "mode": "language",
+            "required_checks": [
+              "capitalization",
+              "punctuation",
+              "complete_sentence",
+              "verb_tense",
+              "sentence_combining"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Please close the gate."
+          },
+          "choices": [
+            "Please close the gate.",
+            "please close the gate.",
+            "please close the gate."
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to the Grade 4 writing studio for Grammar, Conventions, and Sentence Combining. You will plan, test, revise, and explain choices the way a real author does. Press Start Mission when you are ready to build a clear response.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Read This Page. This mini lesson teaches i can edit capitalization, punctuation, commas, quotation marks, verb tense, complete sentences, and combine related ideas. First, study the model. Then name the parts that make the writing or sentence work. Press Next after you can explain the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Read This Page. On this Watch page, listen to the teacher think aloud. Notice how the model checks the prompt, chooses useful words, and avoids a common mistake. Press Next to try a supported demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Read This Page. This demo is a safe practice round. Read the sentence or paragraph aloud, point to the evidence in the visual model, and decide what needs to be added or revised. Press Next when you are ready for Practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Read This Page. Practice time. Read the item, use the visual model, and press Read Question if you want the exact prompt read aloud. Use Listen for model sentences, paragraph examples, dialogue, or grammar support before you answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge time asks you to use i can edit capitalization, punctuation, commas, quotation marks, verb tense, complete sentences, and combine related ideas with less help. Press Read Question for the prompt, use Listen when hearing the sentence helps, and check that your response matches every part of the task.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Read This Page. Checkpoint time shows what you can do independently. Press Read Question if you want narration and use Listen for model language support. Answer carefully, then review the feedback and misconception notes.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Read This Page. This badge celebrates your Grade 4 work on Grammar, Conventions, and Sentence Combining. You practiced planning, revising, and checking your words for readers. Keep using the strategy in class writing, reading responses, and projects.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves stars, accuracy, hints, and level progress. If one level needs more work, choose Practice This Skill and return to the Skill Practice Center. Strong writers revise one focused skill at a time.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

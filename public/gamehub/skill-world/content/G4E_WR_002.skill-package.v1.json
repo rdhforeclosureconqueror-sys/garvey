@@ -1,0 +1,4028 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade4-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade4_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-04"
+  },
+  "skill_id": "G4E_WR_002",
+  "grade": 4,
+  "subject": "English",
+  "domain": "Writing / Composition",
+  "skill": "Informative Writing With Facts and Details",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Information Desk team to turn researched facts into clear Grade 4 paragraphs.",
+    "objective": "I can introduce a topic, add accurate facts, definitions, and details, use linking words or formatting, and write a conclusion.",
+    "key_vocabulary": [
+      "topic",
+      "fact",
+      "definition",
+      "detail",
+      "formatting",
+      "conclusion"
+    ],
+    "concept_explanation": "Informative writing teaches a reader by introducing a topic, grouping facts and details, using helpful linking words or formatting, and closing clearly.",
+    "visual_model": "topic_detail_chart",
+    "common_misconception": "Some writers name a topic but do not add accurate facts, definitions, details, or a closing.",
+    "real_world_connection": "Grade 4 writers use this skill for reading responses, science notes, social studies projects, and stories classmates can follow.",
+    "lesson_summary": "Informative writing teaches a reader by introducing a topic, grouping facts and details, using helpful linking words or formatting, and closing clearly.",
+    "mini_lesson": "Read the prompt, plan the needed parts, draft a clear answer, and reread with the checklist before you submit."
+  },
+  "worked_examples": [
+    {
+      "example_id": "G4E_WR_002_WE1",
+      "prompt": "Study the model and name why it works.",
+      "visual_model": "topic_detail_chart",
+      "support_type": "topic_detail_chart",
+      "correct_answer": "The model includes the required parts and is easy for a reader to follow.",
+      "explanation": "The model names the purpose, includes support, and rereads for clarity.",
+      "audio": {
+        "text": "The model includes the required parts and is easy for a reader to follow.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "example_id": "G4E_WR_002_WE2",
+      "prompt": "Revise the draft using the checklist.",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "A stronger draft adds the missing part and checks conventions.",
+      "explanation": "Revision improves meaning and correctness without changing the writer\u2019s voice.",
+      "audio": {
+        "text": "A stronger draft adds the missing part and checks conventions.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the prompt and name the writing or grammar job.",
+    "Use the visual model and checklist before you answer.",
+    "Reread to make sure your answer is clear and complete."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G4E_WR_002_GUIDED_PRACTICE_Q01",
+      "prompt": "Which sentence is the best topic sentence for an informative paragraph about honeybees?",
+      "question_type": "multiple_choice",
+      "visual_model": "topic_detail_chart",
+      "support_type": "topic_detail_chart",
+      "correct_answer": "Honeybees are interesting to study because they have important features.",
+      "acceptable_answers": [
+        "Honeybees are interesting to study because they have important features.",
+        "Honeybees are important to study because they have important features."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "missing_topic",
+      "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+      "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+      "question_audio": {
+        "text": "Which sentence is the best topic sentence for an informative paragraph about honeybees?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Honeybees are interesting to study because they have important features.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "topic": "honeybees",
+      "details": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "facts": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "validation_checks": [
+        "topic_present",
+        "complete_sentence",
+        "capitalization",
+        "punctuation"
+      ],
+      "writing_checks": [
+        "topic_present",
+        "complete_sentence",
+        "capitalization",
+        "punctuation"
+      ],
+      "writing_validation": {
+        "mode": "informative",
+        "required_checks": [
+          "topic_present",
+          "complete_sentence",
+          "capitalization",
+          "punctuation"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "Honeybees are interesting to study because they have important features."
+      },
+      "choices": [
+        "Honeybees are interesting to study because they have important features.",
+        "I think honeybees are the best.",
+        "Wow, honeybees!"
+      ]
+    },
+    {
+      "question_id": "G4E_WR_002_GUIDED_PRACTICE_Q02",
+      "prompt": "Write one fact and one detail about honeybees.",
+      "question_type": "short_response",
+      "visual_model": "fact_cards",
+      "support_type": "fact_cards",
+      "correct_answer": "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen.",
+      "acceptable_answers": [
+        "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen.",
+        "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "unsupported_fact",
+      "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+      "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+      "question_audio": {
+        "text": "Write one fact and one detail about honeybees.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "topic": "honeybees",
+      "details": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "facts": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "validation_checks": [
+        "facts_details_present",
+        "detail_present",
+        "complete_sentence"
+      ],
+      "writing_checks": [
+        "facts_details_present",
+        "detail_present",
+        "complete_sentence"
+      ],
+      "writing_validation": {
+        "mode": "informative",
+        "required_checks": [
+          "facts_details_present",
+          "detail_present",
+          "complete_sentence"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen."
+      }
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G4E_WR_002_ADAPTIVE_QUESTION_BANK_Q01",
+      "prompt": "Complete the informative sentence with a linking word or formatting clue about honeybees.",
+      "question_type": "sentence_completion",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "For example, honeybees pollinate flowers.",
+      "acceptable_answers": [
+        "For example, honeybees pollinate flowers.",
+        "For example, honeybees pollinate flowers."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "missing_detail",
+      "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+      "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+      "question_audio": {
+        "text": "Complete the informative sentence with a linking word or formatting clue about honeybees.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "For example, honeybees pollinate flowers.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "topic": "honeybees",
+      "details": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "facts": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "validation_checks": [
+        "linking_word_present",
+        "fact_present",
+        "complete_sentence",
+        "punctuation"
+      ],
+      "writing_checks": [
+        "linking_word_present",
+        "fact_present",
+        "complete_sentence",
+        "punctuation"
+      ],
+      "writing_validation": {
+        "mode": "informative",
+        "required_checks": [
+          "linking_word_present",
+          "fact_present",
+          "complete_sentence",
+          "punctuation"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "For example, honeybees pollinate flowers."
+      }
+    },
+    {
+      "question_id": "G4E_WR_002_ADAPTIVE_QUESTION_BANK_Q02",
+      "prompt": "Write an informative paragraph about honeybees. Include a topic sentence, facts or definitions, details, and a conclusion.",
+      "question_type": "writing_response",
+      "visual_model": "paragraph_builder",
+      "support_type": "paragraph_builder",
+      "correct_answer": "Honeybees are interesting to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter.",
+      "acceptable_answers": [
+        "Honeybees are interesting to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter.",
+        "Honeybees are important to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "missing_conclusion",
+      "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+      "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+      "question_audio": {
+        "text": "Write an informative paragraph about honeybees. Include a topic sentence, facts or definitions, details, and a conclusion.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Honeybees are interesting to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "topic": "honeybees",
+      "details": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "facts": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "validation_checks": [
+        "topic_present",
+        "facts_details_present",
+        "conclusion_present",
+        "complete_sentence",
+        "capitalization",
+        "punctuation"
+      ],
+      "writing_checks": [
+        "topic_present",
+        "facts_details_present",
+        "conclusion_present",
+        "complete_sentence",
+        "capitalization",
+        "punctuation"
+      ],
+      "writing_validation": {
+        "mode": "informative",
+        "required_checks": [
+          "topic_present",
+          "facts_details_present",
+          "conclusion_present",
+          "complete_sentence",
+          "capitalization",
+          "punctuation"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "Honeybees are interesting to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter."
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G4E_WR_002_CHECKPOINT_Q01",
+      "prompt": "Improve the informative writing about honeybees by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+      "question_type": "multiple_choice",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees.",
+      "acceptable_answers": [
+        "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees.",
+        "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "missing_topic",
+      "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+      "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+      "question_audio": {
+        "text": "Improve the informative writing about honeybees by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "topic": "honeybees",
+      "details": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "facts": [
+        "Honeybees pollinate flowers.",
+        "A colony has workers, drones, and a queen."
+      ],
+      "validation_checks": [
+        "topic_present",
+        "facts_details_present",
+        "detail_present",
+        "conclusion_present"
+      ],
+      "writing_checks": [
+        "topic_present",
+        "facts_details_present",
+        "detail_present",
+        "conclusion_present"
+      ],
+      "writing_validation": {
+        "mode": "informative",
+        "required_checks": [
+          "topic_present",
+          "facts_details_present",
+          "detail_present",
+          "conclusion_present"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees."
+      },
+      "choices": [
+        "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees.",
+        "I love honeybees the most.",
+        "Honeybees!"
+      ]
+    },
+    {
+      "question_id": "G4E_WR_002_CHECKPOINT_Q02",
+      "prompt": "Improve the informative writing about volcanoes by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes.",
+      "acceptable_answers": [
+        "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes.",
+        "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes."
+      ],
+      "hints": [
+        "Read the prompt and name the writing or grammar job.",
+        "Use the visual model and checklist before you answer.",
+        "Reread to make sure your answer is clear and complete."
+      ],
+      "misconception_tag": "unsupported_fact",
+      "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+      "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+      "question_audio": {
+        "text": "Improve the informative writing about volcanoes by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "topic": "volcanoes",
+      "details": [
+        "Magma is melted rock below Earth\u2019s surface.",
+        "Lava can build new land after it cools."
+      ],
+      "facts": [
+        "Magma is melted rock below Earth\u2019s surface.",
+        "Lava can build new land after it cools."
+      ],
+      "validation_checks": [
+        "topic_present",
+        "facts_details_present",
+        "detail_present",
+        "conclusion_present"
+      ],
+      "writing_checks": [
+        "topic_present",
+        "facts_details_present",
+        "detail_present",
+        "conclusion_present"
+      ],
+      "writing_validation": {
+        "mode": "informative",
+        "required_checks": [
+          "topic_present",
+          "facts_details_present",
+          "detail_present",
+          "conclusion_present"
+        ],
+        "do_not_over_penalize": true,
+        "sample_answer": "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes."
+      }
+    }
+  ],
+  "misconception_bank": {
+    "missing_topic": {
+      "description": "missing topic",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "unsupported_fact": {
+      "description": "unsupported fact",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "missing_detail": {
+      "description": "missing detail",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    },
+    "missing_conclusion": {
+      "description": "missing conclusion",
+      "fix": "Use the checklist to identify and revise this part before submitting."
+    }
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Information Desk",
+    "mission_intro": "Join the Information Desk team to turn researched facts into clear Grade 4 paragraphs.",
+    "badge_name": "Informative Writing With Facts and Details Badge",
+    "name": "Information Desk"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": "G3E_WR_001",
+  "level_banks": [
+    {
+      "level_id": "G4E_WR_002_LVL1",
+      "label": "Level 1: Choose a Topic",
+      "focus": "Choose a Topic for informative writing.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_002_LVL1_Q01",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about honeybees?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "Honeybees are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "Honeybees are interesting to study because they have important features.",
+            "Honeybees are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about honeybees?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Honeybees are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "honeybees",
+          "details": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "facts": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Honeybees are interesting to study because they have important features."
+          },
+          "choices": [
+            "Honeybees are interesting to study because they have important features.",
+            "I think honeybees are the best.",
+            "Wow, honeybees!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q02",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about volcanoes?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "Volcanoes are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "Volcanoes are interesting to study because they have important features.",
+            "Volcanoes are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about volcanoes?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Volcanoes are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "volcanoes",
+          "details": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "facts": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Volcanoes are interesting to study because they have important features."
+          },
+          "choices": [
+            "Volcanoes are interesting to study because they have important features.",
+            "I think volcanoes are the best.",
+            "Wow, volcanoes!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q03",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about rain forests?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "Rain Forests are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "Rain Forests are interesting to study because they have important features.",
+            "Rain Forests are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about rain forests?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain Forests are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "rain forests",
+          "details": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "facts": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Rain Forests are interesting to study because they have important features."
+          },
+          "choices": [
+            "Rain Forests are interesting to study because they have important features.",
+            "I think rain forests are the best.",
+            "Wow, rain forests!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q04",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about electric circuits?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "Electric Circuits are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "Electric Circuits are interesting to study because they have important features.",
+            "Electric Circuits are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about electric circuits?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Electric Circuits are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "electric circuits",
+          "details": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "facts": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Electric Circuits are interesting to study because they have important features."
+          },
+          "choices": [
+            "Electric Circuits are interesting to study because they have important features.",
+            "I think electric circuits are the best.",
+            "Wow, electric circuits!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q05",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about state parks?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "State Parks are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "State Parks are interesting to study because they have important features.",
+            "State Parks are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about state parks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "State Parks are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "state parks",
+          "details": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "facts": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "State Parks are interesting to study because they have important features."
+          },
+          "choices": [
+            "State Parks are interesting to study because they have important features.",
+            "I think state parks are the best.",
+            "Wow, state parks!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q06",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about sea turtles?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "Sea Turtles are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "Sea Turtles are interesting to study because they have important features.",
+            "Sea Turtles are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about sea turtles?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Sea Turtles are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "sea turtles",
+          "details": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "facts": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Sea Turtles are interesting to study because they have important features."
+          },
+          "choices": [
+            "Sea Turtles are interesting to study because they have important features.",
+            "I think sea turtles are the best.",
+            "Wow, sea turtles!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q07",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about weather maps?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "Weather Maps are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "Weather Maps are interesting to study because they have important features.",
+            "Weather Maps are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about weather maps?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Weather Maps are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "weather maps",
+          "details": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "facts": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Weather Maps are interesting to study because they have important features."
+          },
+          "choices": [
+            "Weather Maps are interesting to study because they have important features.",
+            "I think weather maps are the best.",
+            "Wow, weather maps!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q08",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about the water cycle?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "The Water Cycle are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "The Water Cycle are interesting to study because they have important features.",
+            "The Water Cycle are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about the water cycle?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The Water Cycle are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the water cycle",
+          "details": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "facts": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The Water Cycle are interesting to study because they have important features."
+          },
+          "choices": [
+            "The Water Cycle are interesting to study because they have important features.",
+            "I think the water cycle are the best.",
+            "Wow, the water cycle!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q09",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about community gardens?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "Community Gardens are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "Community Gardens are interesting to study because they have important features.",
+            "Community Gardens are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about community gardens?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Community Gardens are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "community gardens",
+          "details": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "facts": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Community Gardens are interesting to study because they have important features."
+          },
+          "choices": [
+            "Community Gardens are interesting to study because they have important features.",
+            "I think community gardens are the best.",
+            "Wow, community gardens!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_LVL1_Q10",
+          "prompt": "Which sentence is the best topic sentence for an informative paragraph about the moon?",
+          "question_type": "multiple_choice",
+          "visual_model": "topic_detail_chart",
+          "support_type": "topic_detail_chart",
+          "correct_answer": "The Moon are interesting to study because they have important features.",
+          "acceptable_answers": [
+            "The Moon are interesting to study because they have important features.",
+            "The Moon are important to study because they have important features."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Which sentence is the best topic sentence for an informative paragraph about the moon?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The Moon are interesting to study because they have important features.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the moon",
+          "details": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "facts": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The Moon are interesting to study because they have important features."
+          },
+          "choices": [
+            "The Moon are interesting to study because they have important features.",
+            "I think the moon are the best.",
+            "Wow, the moon!"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_WR_002_LVL2",
+      "label": "Level 2: Add Facts, Definitions, and Details",
+      "focus": "Add Facts, Definitions, and Details for informative writing.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_002_LVL2_Q01",
+          "prompt": "Write one fact and one detail about honeybees.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen.",
+          "acceptable_answers": [
+            "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen.",
+            "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about honeybees.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "honeybees",
+          "details": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "facts": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that honeybees pollinate flowers. A helpful detail is that a colony has workers, drones, and a queen."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q02",
+          "prompt": "Write one fact and one detail about volcanoes.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that magma is melted rock below earth\u2019s surface. A helpful detail is that lava can build new land after it cools.",
+          "acceptable_answers": [
+            "One fact is that magma is melted rock below earth\u2019s surface. A helpful detail is that lava can build new land after it cools.",
+            "One fact is that magma is melted rock below earth\u2019s surface. A helpful detail is that lava can build new land after it cools."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about volcanoes.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that magma is melted rock below earth\u2019s surface. A helpful detail is that lava can build new land after it cools.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "volcanoes",
+          "details": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "facts": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that magma is melted rock below earth\u2019s surface. A helpful detail is that lava can build new land after it cools."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q03",
+          "prompt": "Write one fact and one detail about rain forests.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that rain forests can be observed and studied. A helpful detail is that scientists collect evidence about rain forests.",
+          "acceptable_answers": [
+            "One fact is that rain forests can be observed and studied. A helpful detail is that scientists collect evidence about rain forests.",
+            "One fact is that rain forests can be observed and studied. A helpful detail is that scientists collect evidence about rain forests."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about rain forests.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that rain forests can be observed and studied. A helpful detail is that scientists collect evidence about rain forests.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "rain forests",
+          "details": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "facts": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that rain forests can be observed and studied. A helpful detail is that scientists collect evidence about rain forests."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q04",
+          "prompt": "Write one fact and one detail about electric circuits.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that electric circuits can be observed and studied. A helpful detail is that scientists collect evidence about electric circuits.",
+          "acceptable_answers": [
+            "One fact is that electric circuits can be observed and studied. A helpful detail is that scientists collect evidence about electric circuits.",
+            "One fact is that electric circuits can be observed and studied. A helpful detail is that scientists collect evidence about electric circuits."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about electric circuits.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that electric circuits can be observed and studied. A helpful detail is that scientists collect evidence about electric circuits.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "electric circuits",
+          "details": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "facts": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that electric circuits can be observed and studied. A helpful detail is that scientists collect evidence about electric circuits."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q05",
+          "prompt": "Write one fact and one detail about state parks.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that state parks can be observed and studied. A helpful detail is that scientists collect evidence about state parks.",
+          "acceptable_answers": [
+            "One fact is that state parks can be observed and studied. A helpful detail is that scientists collect evidence about state parks.",
+            "One fact is that state parks can be observed and studied. A helpful detail is that scientists collect evidence about state parks."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about state parks.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that state parks can be observed and studied. A helpful detail is that scientists collect evidence about state parks.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "state parks",
+          "details": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "facts": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that state parks can be observed and studied. A helpful detail is that scientists collect evidence about state parks."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q06",
+          "prompt": "Write one fact and one detail about sea turtles.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that sea turtles can be observed and studied. A helpful detail is that scientists collect evidence about sea turtles.",
+          "acceptable_answers": [
+            "One fact is that sea turtles can be observed and studied. A helpful detail is that scientists collect evidence about sea turtles.",
+            "One fact is that sea turtles can be observed and studied. A helpful detail is that scientists collect evidence about sea turtles."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about sea turtles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that sea turtles can be observed and studied. A helpful detail is that scientists collect evidence about sea turtles.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "sea turtles",
+          "details": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "facts": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that sea turtles can be observed and studied. A helpful detail is that scientists collect evidence about sea turtles."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q07",
+          "prompt": "Write one fact and one detail about weather maps.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that weather maps can be observed and studied. A helpful detail is that scientists collect evidence about weather maps.",
+          "acceptable_answers": [
+            "One fact is that weather maps can be observed and studied. A helpful detail is that scientists collect evidence about weather maps.",
+            "One fact is that weather maps can be observed and studied. A helpful detail is that scientists collect evidence about weather maps."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about weather maps.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that weather maps can be observed and studied. A helpful detail is that scientists collect evidence about weather maps.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "weather maps",
+          "details": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "facts": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that weather maps can be observed and studied. A helpful detail is that scientists collect evidence about weather maps."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q08",
+          "prompt": "Write one fact and one detail about the water cycle.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that the water cycle can be observed and studied. A helpful detail is that scientists collect evidence about the water cycle.",
+          "acceptable_answers": [
+            "One fact is that the water cycle can be observed and studied. A helpful detail is that scientists collect evidence about the water cycle.",
+            "One fact is that the water cycle can be observed and studied. A helpful detail is that scientists collect evidence about the water cycle."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about the water cycle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that the water cycle can be observed and studied. A helpful detail is that scientists collect evidence about the water cycle.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the water cycle",
+          "details": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "facts": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that the water cycle can be observed and studied. A helpful detail is that scientists collect evidence about the water cycle."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q09",
+          "prompt": "Write one fact and one detail about community gardens.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that community gardens can be observed and studied. A helpful detail is that scientists collect evidence about community gardens.",
+          "acceptable_answers": [
+            "One fact is that community gardens can be observed and studied. A helpful detail is that scientists collect evidence about community gardens.",
+            "One fact is that community gardens can be observed and studied. A helpful detail is that scientists collect evidence about community gardens."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about community gardens.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that community gardens can be observed and studied. A helpful detail is that scientists collect evidence about community gardens.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "community gardens",
+          "details": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "facts": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that community gardens can be observed and studied. A helpful detail is that scientists collect evidence about community gardens."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL2_Q10",
+          "prompt": "Write one fact and one detail about the moon.",
+          "question_type": "short_response",
+          "visual_model": "fact_cards",
+          "support_type": "fact_cards",
+          "correct_answer": "One fact is that the moon can be observed and studied. A helpful detail is that scientists collect evidence about the moon.",
+          "acceptable_answers": [
+            "One fact is that the moon can be observed and studied. A helpful detail is that scientists collect evidence about the moon.",
+            "One fact is that the moon can be observed and studied. A helpful detail is that scientists collect evidence about the moon."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write one fact and one detail about the moon.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "One fact is that the moon can be observed and studied. A helpful detail is that scientists collect evidence about the moon.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the moon",
+          "details": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "facts": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "validation_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_checks": [
+            "facts_details_present",
+            "detail_present",
+            "complete_sentence"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "facts_details_present",
+              "detail_present",
+              "complete_sentence"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "One fact is that the moon can be observed and studied. A helpful detail is that scientists collect evidence about the moon."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_WR_002_LVL3",
+      "label": "Level 3: Use Linking Words and Formatting",
+      "focus": "Use Linking Words and Formatting for informative writing.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_002_LVL3_Q01",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about honeybees.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, honeybees pollinate flowers.",
+          "acceptable_answers": [
+            "For example, honeybees pollinate flowers.",
+            "For example, honeybees pollinate flowers."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about honeybees.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, honeybees pollinate flowers.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "honeybees",
+          "details": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "facts": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, honeybees pollinate flowers."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q02",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about volcanoes.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, magma is melted rock below earth\u2019s surface.",
+          "acceptable_answers": [
+            "For example, magma is melted rock below earth\u2019s surface.",
+            "For example, magma is melted rock below earth\u2019s surface."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about volcanoes.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, magma is melted rock below earth\u2019s surface.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "volcanoes",
+          "details": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "facts": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, magma is melted rock below earth\u2019s surface."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q03",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about rain forests.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, rain forests can be observed and studied.",
+          "acceptable_answers": [
+            "For example, rain forests can be observed and studied.",
+            "For example, rain forests can be observed and studied."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about rain forests.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, rain forests can be observed and studied.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "rain forests",
+          "details": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "facts": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, rain forests can be observed and studied."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q04",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about electric circuits.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, electric circuits can be observed and studied.",
+          "acceptable_answers": [
+            "For example, electric circuits can be observed and studied.",
+            "For example, electric circuits can be observed and studied."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about electric circuits.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, electric circuits can be observed and studied.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "electric circuits",
+          "details": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "facts": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, electric circuits can be observed and studied."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q05",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about state parks.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, state parks can be observed and studied.",
+          "acceptable_answers": [
+            "For example, state parks can be observed and studied.",
+            "For example, state parks can be observed and studied."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about state parks.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, state parks can be observed and studied.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "state parks",
+          "details": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "facts": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, state parks can be observed and studied."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q06",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about sea turtles.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, sea turtles can be observed and studied.",
+          "acceptable_answers": [
+            "For example, sea turtles can be observed and studied.",
+            "For example, sea turtles can be observed and studied."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about sea turtles.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, sea turtles can be observed and studied.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "sea turtles",
+          "details": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "facts": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, sea turtles can be observed and studied."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q07",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about weather maps.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, weather maps can be observed and studied.",
+          "acceptable_answers": [
+            "For example, weather maps can be observed and studied.",
+            "For example, weather maps can be observed and studied."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about weather maps.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, weather maps can be observed and studied.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "weather maps",
+          "details": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "facts": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, weather maps can be observed and studied."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q08",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about the water cycle.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, the water cycle can be observed and studied.",
+          "acceptable_answers": [
+            "For example, the water cycle can be observed and studied.",
+            "For example, the water cycle can be observed and studied."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about the water cycle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, the water cycle can be observed and studied.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the water cycle",
+          "details": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "facts": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, the water cycle can be observed and studied."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q09",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about community gardens.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, community gardens can be observed and studied.",
+          "acceptable_answers": [
+            "For example, community gardens can be observed and studied.",
+            "For example, community gardens can be observed and studied."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about community gardens.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, community gardens can be observed and studied.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "community gardens",
+          "details": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "facts": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, community gardens can be observed and studied."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL3_Q10",
+          "prompt": "Complete the informative sentence with a linking word or formatting clue about the moon.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "For example, the moon can be observed and studied.",
+          "acceptable_answers": [
+            "For example, the moon can be observed and studied.",
+            "For example, the moon can be observed and studied."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Complete the informative sentence with a linking word or formatting clue about the moon.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "For example, the moon can be observed and studied.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the moon",
+          "details": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "facts": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "validation_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "linking_word_present",
+            "fact_present",
+            "complete_sentence",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "linking_word_present",
+              "fact_present",
+              "complete_sentence",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "For example, the moon can be observed and studied."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_WR_002_LVL4",
+      "label": "Level 4: Build Informative Paragraph",
+      "focus": "Build Informative Paragraph for informative writing.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_002_LVL4_Q01",
+          "prompt": "Write an informative paragraph about honeybees. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "Honeybees are interesting to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter.",
+          "acceptable_answers": [
+            "Honeybees are interesting to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter.",
+            "Honeybees are important to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about honeybees. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Honeybees are interesting to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "honeybees",
+          "details": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "facts": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Honeybees are interesting to study because they have important features. Honeybees pollinate flowers. A colony has workers, drones, and a queen. These details show why honeybees matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q02",
+          "prompt": "Write an informative paragraph about volcanoes. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "Volcanoes are interesting to study because they have important features. Magma is melted rock below Earth\u2019s surface. Lava can build new land after it cools. These details show why volcanoes matter.",
+          "acceptable_answers": [
+            "Volcanoes are interesting to study because they have important features. Magma is melted rock below Earth\u2019s surface. Lava can build new land after it cools. These details show why volcanoes matter.",
+            "Volcanoes are important to study because they have important features. Magma is melted rock below Earth\u2019s surface. Lava can build new land after it cools. These details show why volcanoes matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about volcanoes. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Volcanoes are interesting to study because they have important features. Magma is melted rock below Earth\u2019s surface. Lava can build new land after it cools. These details show why volcanoes matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "volcanoes",
+          "details": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "facts": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Volcanoes are interesting to study because they have important features. Magma is melted rock below Earth\u2019s surface. Lava can build new land after it cools. These details show why volcanoes matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q03",
+          "prompt": "Write an informative paragraph about rain forests. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "Rain Forests are interesting to study because they have important features. Rain Forests can be observed and studied. Scientists collect evidence about rain forests. These details show why rain forests matter.",
+          "acceptable_answers": [
+            "Rain Forests are interesting to study because they have important features. Rain Forests can be observed and studied. Scientists collect evidence about rain forests. These details show why rain forests matter.",
+            "Rain Forests are important to study because they have important features. Rain Forests can be observed and studied. Scientists collect evidence about rain forests. These details show why rain forests matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about rain forests. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain Forests are interesting to study because they have important features. Rain Forests can be observed and studied. Scientists collect evidence about rain forests. These details show why rain forests matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "rain forests",
+          "details": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "facts": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Rain Forests are interesting to study because they have important features. Rain Forests can be observed and studied. Scientists collect evidence about rain forests. These details show why rain forests matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q04",
+          "prompt": "Write an informative paragraph about electric circuits. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "Electric Circuits are interesting to study because they have important features. Electric Circuits can be observed and studied. Scientists collect evidence about electric circuits. These details show why electric circuits matter.",
+          "acceptable_answers": [
+            "Electric Circuits are interesting to study because they have important features. Electric Circuits can be observed and studied. Scientists collect evidence about electric circuits. These details show why electric circuits matter.",
+            "Electric Circuits are important to study because they have important features. Electric Circuits can be observed and studied. Scientists collect evidence about electric circuits. These details show why electric circuits matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about electric circuits. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Electric Circuits are interesting to study because they have important features. Electric Circuits can be observed and studied. Scientists collect evidence about electric circuits. These details show why electric circuits matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "electric circuits",
+          "details": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "facts": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Electric Circuits are interesting to study because they have important features. Electric Circuits can be observed and studied. Scientists collect evidence about electric circuits. These details show why electric circuits matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q05",
+          "prompt": "Write an informative paragraph about state parks. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "State Parks are interesting to study because they have important features. State Parks can be observed and studied. Scientists collect evidence about state parks. These details show why state parks matter.",
+          "acceptable_answers": [
+            "State Parks are interesting to study because they have important features. State Parks can be observed and studied. Scientists collect evidence about state parks. These details show why state parks matter.",
+            "State Parks are important to study because they have important features. State Parks can be observed and studied. Scientists collect evidence about state parks. These details show why state parks matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about state parks. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "State Parks are interesting to study because they have important features. State Parks can be observed and studied. Scientists collect evidence about state parks. These details show why state parks matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "state parks",
+          "details": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "facts": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "State Parks are interesting to study because they have important features. State Parks can be observed and studied. Scientists collect evidence about state parks. These details show why state parks matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q06",
+          "prompt": "Write an informative paragraph about sea turtles. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "Sea Turtles are interesting to study because they have important features. Sea Turtles can be observed and studied. Scientists collect evidence about sea turtles. These details show why sea turtles matter.",
+          "acceptable_answers": [
+            "Sea Turtles are interesting to study because they have important features. Sea Turtles can be observed and studied. Scientists collect evidence about sea turtles. These details show why sea turtles matter.",
+            "Sea Turtles are important to study because they have important features. Sea Turtles can be observed and studied. Scientists collect evidence about sea turtles. These details show why sea turtles matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about sea turtles. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Sea Turtles are interesting to study because they have important features. Sea Turtles can be observed and studied. Scientists collect evidence about sea turtles. These details show why sea turtles matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "sea turtles",
+          "details": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "facts": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Sea Turtles are interesting to study because they have important features. Sea Turtles can be observed and studied. Scientists collect evidence about sea turtles. These details show why sea turtles matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q07",
+          "prompt": "Write an informative paragraph about weather maps. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "Weather Maps are interesting to study because they have important features. Weather Maps can be observed and studied. Scientists collect evidence about weather maps. These details show why weather maps matter.",
+          "acceptable_answers": [
+            "Weather Maps are interesting to study because they have important features. Weather Maps can be observed and studied. Scientists collect evidence about weather maps. These details show why weather maps matter.",
+            "Weather Maps are important to study because they have important features. Weather Maps can be observed and studied. Scientists collect evidence about weather maps. These details show why weather maps matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about weather maps. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Weather Maps are interesting to study because they have important features. Weather Maps can be observed and studied. Scientists collect evidence about weather maps. These details show why weather maps matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "weather maps",
+          "details": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "facts": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Weather Maps are interesting to study because they have important features. Weather Maps can be observed and studied. Scientists collect evidence about weather maps. These details show why weather maps matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q08",
+          "prompt": "Write an informative paragraph about the water cycle. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "The Water Cycle are interesting to study because they have important features. The Water Cycle can be observed and studied. Scientists collect evidence about the water cycle. These details show why the water cycle matter.",
+          "acceptable_answers": [
+            "The Water Cycle are interesting to study because they have important features. The Water Cycle can be observed and studied. Scientists collect evidence about the water cycle. These details show why the water cycle matter.",
+            "The Water Cycle are important to study because they have important features. The Water Cycle can be observed and studied. Scientists collect evidence about the water cycle. These details show why the water cycle matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about the water cycle. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The Water Cycle are interesting to study because they have important features. The Water Cycle can be observed and studied. Scientists collect evidence about the water cycle. These details show why the water cycle matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the water cycle",
+          "details": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "facts": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The Water Cycle are interesting to study because they have important features. The Water Cycle can be observed and studied. Scientists collect evidence about the water cycle. These details show why the water cycle matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q09",
+          "prompt": "Write an informative paragraph about community gardens. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "Community Gardens are interesting to study because they have important features. Community Gardens can be observed and studied. Scientists collect evidence about community gardens. These details show why community gardens matter.",
+          "acceptable_answers": [
+            "Community Gardens are interesting to study because they have important features. Community Gardens can be observed and studied. Scientists collect evidence about community gardens. These details show why community gardens matter.",
+            "Community Gardens are important to study because they have important features. Community Gardens can be observed and studied. Scientists collect evidence about community gardens. These details show why community gardens matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about community gardens. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Community Gardens are interesting to study because they have important features. Community Gardens can be observed and studied. Scientists collect evidence about community gardens. These details show why community gardens matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "community gardens",
+          "details": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "facts": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Community Gardens are interesting to study because they have important features. Community Gardens can be observed and studied. Scientists collect evidence about community gardens. These details show why community gardens matter."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_LVL4_Q10",
+          "prompt": "Write an informative paragraph about the moon. Include a topic sentence, facts or definitions, details, and a conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "paragraph_builder",
+          "support_type": "paragraph_builder",
+          "correct_answer": "The Moon are interesting to study because they have important features. The Moon can be observed and studied. Scientists collect evidence about the moon. These details show why the moon matter.",
+          "acceptable_answers": [
+            "The Moon are interesting to study because they have important features. The Moon can be observed and studied. Scientists collect evidence about the moon. These details show why the moon matter.",
+            "The Moon are important to study because they have important features. The Moon can be observed and studied. Scientists collect evidence about the moon. These details show why the moon matter."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Write an informative paragraph about the moon. Include a topic sentence, facts or definitions, details, and a conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The Moon are interesting to study because they have important features. The Moon can be observed and studied. Scientists collect evidence about the moon. These details show why the moon matter.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the moon",
+          "details": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "facts": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "conclusion_present",
+            "complete_sentence",
+            "capitalization",
+            "punctuation"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "conclusion_present",
+              "complete_sentence",
+              "capitalization",
+              "punctuation"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The Moon are interesting to study because they have important features. The Moon can be observed and studied. Scientists collect evidence about the moon. These details show why the moon matter."
+          }
+        }
+      ]
+    },
+    {
+      "level_id": "G4E_WR_002_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed for informative writing.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G4E_WR_002_MIXED_Q01",
+          "prompt": "Improve the informative writing about honeybees by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "multiple_choice",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees.",
+          "acceptable_answers": [
+            "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees.",
+            "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about honeybees by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "honeybees",
+          "details": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "facts": [
+            "Honeybees pollinate flowers.",
+            "A colony has workers, drones, and a queen."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees."
+          },
+          "choices": [
+            "Honeybees are worth studying. For example, honeybees pollinate flowers. This fact helps readers understand honeybees.",
+            "I love honeybees the most.",
+            "Honeybees!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q02",
+          "prompt": "Improve the informative writing about volcanoes by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes.",
+          "acceptable_answers": [
+            "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes.",
+            "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about volcanoes by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "volcanoes",
+          "details": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "facts": [
+            "Magma is melted rock below Earth\u2019s surface.",
+            "Lava can build new land after it cools."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Volcanoes are worth studying. For example, magma is melted rock below earth\u2019s surface. This fact helps readers understand volcanoes."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q03",
+          "prompt": "Improve the informative writing about rain forests by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "sentence_completion",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Rain Forests are worth studying. For example, rain forests can be observed and studied. This fact helps readers understand rain forests.",
+          "acceptable_answers": [
+            "Rain Forests are worth studying. For example, rain forests can be observed and studied. This fact helps readers understand rain forests.",
+            "Rain Forests are worth studying. For example, rain forests can be observed and studied. This fact helps readers understand rain forests."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about rain forests by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain Forests are worth studying. For example, rain forests can be observed and studied. This fact helps readers understand rain forests.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "rain forests",
+          "details": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "facts": [
+            "Rain Forests can be observed and studied.",
+            "Scientists collect evidence about rain forests."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Rain Forests are worth studying. For example, rain forests can be observed and studied. This fact helps readers understand rain forests."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q04",
+          "prompt": "Improve the informative writing about electric circuits by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Electric Circuits are worth studying. For example, electric circuits can be observed and studied. This fact helps readers understand electric circuits.",
+          "acceptable_answers": [
+            "Electric Circuits are worth studying. For example, electric circuits can be observed and studied. This fact helps readers understand electric circuits.",
+            "Electric Circuits are worth studying. For example, electric circuits can be observed and studied. This fact helps readers understand electric circuits."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about electric circuits by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Electric Circuits are worth studying. For example, electric circuits can be observed and studied. This fact helps readers understand electric circuits.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "electric circuits",
+          "details": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "facts": [
+            "Electric Circuits can be observed and studied.",
+            "Scientists collect evidence about electric circuits."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Electric Circuits are worth studying. For example, electric circuits can be observed and studied. This fact helps readers understand electric circuits."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q05",
+          "prompt": "Improve the informative writing about state parks by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "multiple_choice",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "State Parks are worth studying. For example, state parks can be observed and studied. This fact helps readers understand state parks.",
+          "acceptable_answers": [
+            "State Parks are worth studying. For example, state parks can be observed and studied. This fact helps readers understand state parks.",
+            "State Parks are worth studying. For example, state parks can be observed and studied. This fact helps readers understand state parks."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about state parks by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "State Parks are worth studying. For example, state parks can be observed and studied. This fact helps readers understand state parks.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "state parks",
+          "details": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "facts": [
+            "State Parks can be observed and studied.",
+            "Scientists collect evidence about state parks."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "State Parks are worth studying. For example, state parks can be observed and studied. This fact helps readers understand state parks."
+          },
+          "choices": [
+            "State Parks are worth studying. For example, state parks can be observed and studied. This fact helps readers understand state parks.",
+            "I love state parks the most.",
+            "State Parks!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q06",
+          "prompt": "Improve the informative writing about sea turtles by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Sea Turtles are worth studying. For example, sea turtles can be observed and studied. This fact helps readers understand sea turtles.",
+          "acceptable_answers": [
+            "Sea Turtles are worth studying. For example, sea turtles can be observed and studied. This fact helps readers understand sea turtles.",
+            "Sea Turtles are worth studying. For example, sea turtles can be observed and studied. This fact helps readers understand sea turtles."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about sea turtles by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Sea Turtles are worth studying. For example, sea turtles can be observed and studied. This fact helps readers understand sea turtles.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "sea turtles",
+          "details": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "facts": [
+            "Sea Turtles can be observed and studied.",
+            "Scientists collect evidence about sea turtles."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Sea Turtles are worth studying. For example, sea turtles can be observed and studied. This fact helps readers understand sea turtles."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q07",
+          "prompt": "Improve the informative writing about weather maps by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "sentence_completion",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Weather Maps are worth studying. For example, weather maps can be observed and studied. This fact helps readers understand weather maps.",
+          "acceptable_answers": [
+            "Weather Maps are worth studying. For example, weather maps can be observed and studied. This fact helps readers understand weather maps.",
+            "Weather Maps are worth studying. For example, weather maps can be observed and studied. This fact helps readers understand weather maps."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_detail",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about weather maps by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Weather Maps are worth studying. For example, weather maps can be observed and studied. This fact helps readers understand weather maps.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "weather maps",
+          "details": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "facts": [
+            "Weather Maps can be observed and studied.",
+            "Scientists collect evidence about weather maps."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Weather Maps are worth studying. For example, weather maps can be observed and studied. This fact helps readers understand weather maps."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q08",
+          "prompt": "Improve the informative writing about the water cycle by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "writing_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "The Water Cycle are worth studying. For example, the water cycle can be observed and studied. This fact helps readers understand the water cycle.",
+          "acceptable_answers": [
+            "The Water Cycle are worth studying. For example, the water cycle can be observed and studied. This fact helps readers understand the water cycle.",
+            "The Water Cycle are worth studying. For example, the water cycle can be observed and studied. This fact helps readers understand the water cycle."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_conclusion",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about the water cycle by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The Water Cycle are worth studying. For example, the water cycle can be observed and studied. This fact helps readers understand the water cycle.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the water cycle",
+          "details": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "facts": [
+            "The Water Cycle can be observed and studied.",
+            "Scientists collect evidence about the water cycle."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The Water Cycle are worth studying. For example, the water cycle can be observed and studied. This fact helps readers understand the water cycle."
+          }
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q09",
+          "prompt": "Improve the informative writing about community gardens by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "multiple_choice",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Community Gardens are worth studying. For example, community gardens can be observed and studied. This fact helps readers understand community gardens.",
+          "acceptable_answers": [
+            "Community Gardens are worth studying. For example, community gardens can be observed and studied. This fact helps readers understand community gardens.",
+            "Community Gardens are worth studying. For example, community gardens can be observed and studied. This fact helps readers understand community gardens."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "missing_topic",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about community gardens by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Community Gardens are worth studying. For example, community gardens can be observed and studied. This fact helps readers understand community gardens.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "community gardens",
+          "details": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "facts": [
+            "Community Gardens can be observed and studied.",
+            "Scientists collect evidence about community gardens."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "Community Gardens are worth studying. For example, community gardens can be observed and studied. This fact helps readers understand community gardens."
+          },
+          "choices": [
+            "Community Gardens are worth studying. For example, community gardens can be observed and studied. This fact helps readers understand community gardens.",
+            "I love community gardens the most.",
+            "Community Gardens!"
+          ]
+        },
+        {
+          "question_id": "G4E_WR_002_MIXED_Q10",
+          "prompt": "Improve the informative writing about the moon by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "The Moon are worth studying. For example, the moon can be observed and studied. This fact helps readers understand the moon.",
+          "acceptable_answers": [
+            "The Moon are worth studying. For example, the moon can be observed and studied. This fact helps readers understand the moon.",
+            "The Moon are worth studying. For example, the moon can be observed and studied. This fact helps readers understand the moon."
+          ],
+          "hints": [
+            "Read the prompt and name the writing or grammar job.",
+            "Use the visual model and checklist before you answer.",
+            "Reread to make sure your answer is clear and complete."
+          ],
+          "misconception_tag": "unsupported_fact",
+          "explanation": "A strong informative response teaches the topic with facts, definitions, details, and a clear ending.",
+          "feedback": "Clear informative writing \u2014 your facts and details help the reader learn.",
+          "question_audio": {
+            "text": "Improve the informative writing about the moon by adding the missing topic, fact, detail, formatting clue, or conclusion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "The Moon are worth studying. For example, the moon can be observed and studied. This fact helps readers understand the moon.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "topic": "the moon",
+          "details": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "facts": [
+            "The Moon can be observed and studied.",
+            "Scientists collect evidence about the moon."
+          ],
+          "validation_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_checks": [
+            "topic_present",
+            "facts_details_present",
+            "detail_present",
+            "conclusion_present"
+          ],
+          "writing_validation": {
+            "mode": "informative",
+            "required_checks": [
+              "topic_present",
+              "facts_details_present",
+              "detail_present",
+              "conclusion_present"
+            ],
+            "do_not_over_penalize": true,
+            "sample_answer": "The Moon are worth studying. For example, the moon can be observed and studied. This fact helps readers understand the moon."
+          }
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to the Grade 4 writing studio for Informative Writing With Facts and Details. You will plan, test, revise, and explain choices the way a real author does. Press Start Mission when you are ready to build a clear response.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Read This Page. This mini lesson teaches i can introduce a topic, add accurate facts, definitions, and details, use linking words or formatting, and write a conclusion. First, study the model. Then name the parts that make the writing or sentence work. Press Next after you can explain the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Read This Page. On this Watch page, listen to the teacher think aloud. Notice how the model checks the prompt, chooses useful words, and avoids a common mistake. Press Next to try a supported demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Read This Page. This demo is a safe practice round. Read the sentence or paragraph aloud, point to the evidence in the visual model, and decide what needs to be added or revised. Press Next when you are ready for Practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Read This Page. Practice time. Read the item, use the visual model, and press Read Question if you want the exact prompt read aloud. Use Listen for model sentences, paragraph examples, dialogue, or grammar support before you answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge time asks you to use i can introduce a topic, add accurate facts, definitions, and details, use linking words or formatting, and write a conclusion with less help. Press Read Question for the prompt, use Listen when hearing the sentence helps, and check that your response matches every part of the task.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Read This Page. Checkpoint time shows what you can do independently. Press Read Question if you want narration and use Listen for model language support. Answer carefully, then review the feedback and misconception notes.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Read This Page. This badge celebrates your Grade 4 work on Informative Writing With Facts and Details. You practiced planning, revising, and checking your words for readers. Keep using the strategy in class writing, reading responses, and projects.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves stars, accuracy, hints, and level progress. If one level needs more work, choose Practice This Skill and return to the Skill Practice Center. Strong writers revise one focused skill at a time.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

@@ -2179,6 +2179,50 @@ const g4EnglishBatchPackages = [
     tags: ['topic_main_idea_confusion', 'detail_selection_error', 'text_structure_confusion', 'text_feature_confusion'],
     listenPattern: /short_passage|main_idea_web|detail_cards|text_feature_map|text_structure_chart/,
     pkg: load('G4E_RC_003')
+  },
+  {
+    id: 'G4E_WR_001',
+    domain: 'Writing / Composition',
+    skill: 'Opinion Writing With Reasons and Evidence',
+    labels: ['Level 1: State an Opinion', 'Level 2: Support With Reasons and Evidence', 'Level 3: Linking Words and Conclusion', 'Level 4: Build Opinion Paragraph', 'Mixed'],
+    visuals: ['opinion_reason_chart', 'paragraph_builder', 'writing_checklist', 'sentence_builder'],
+    types: ['multiple_choice', 'short_response', 'writing_response', 'sentence_completion'],
+    tags: ['missing_opinion', 'weak_reason', 'missing_evidence', 'missing_conclusion'],
+    listenPattern: /opinion_reason_chart|paragraph_builder|writing_checklist|sentence_builder/,
+    pkg: load('G4E_WR_001')
+  },
+  {
+    id: 'G4E_WR_002',
+    domain: 'Writing / Composition',
+    skill: 'Informative Writing With Facts and Details',
+    labels: ['Level 1: Choose a Topic', 'Level 2: Add Facts, Definitions, and Details', 'Level 3: Use Linking Words and Formatting', 'Level 4: Build Informative Paragraph', 'Mixed'],
+    visuals: ['topic_detail_chart', 'fact_cards', 'paragraph_builder', 'writing_checklist'],
+    types: ['multiple_choice', 'short_response', 'writing_response', 'sentence_completion'],
+    tags: ['missing_topic', 'unsupported_fact', 'missing_detail', 'missing_conclusion'],
+    listenPattern: /topic_detail_chart|fact_cards|paragraph_builder|writing_checklist/,
+    pkg: load('G4E_WR_002')
+  },
+  {
+    id: 'G4E_WR_003',
+    domain: 'Writing / Composition',
+    skill: 'Narrative Writing With Dialogue and Description',
+    labels: ['Level 1: Sequence Events', 'Level 2: Add Description', 'Level 3: Dialogue and Transitions', 'Level 4: Build Narrative', 'Mixed'],
+    visuals: ['story_sequence', 'event_cards', 'paragraph_builder', 'dialogue_builder'],
+    types: ['multiple_choice', 'short_response', 'writing_response', 'sequencing'],
+    tags: ['event_order_error', 'missing_description', 'dialogue_punctuation_error', 'missing_closure'],
+    listenPattern: /story_sequence|event_cards|paragraph_builder|dialogue_builder/,
+    pkg: load('G4E_WR_003')
+  },
+  {
+    id: 'G4E_LANG_001',
+    domain: 'Language',
+    skill: 'Grammar, Conventions, and Sentence Combining',
+    labels: ['Level 1: Capitalization and Punctuation', 'Level 2: Commas and Quotation Marks', 'Level 3: Grammar and Verb Tense', 'Level 4: Sentence Combining', 'Mixed'],
+    visuals: ['sentence_builder', 'punctuation_marker', 'grammar_highlight', 'sentence_combiner'],
+    types: ['multiple_choice', 'short_response', 'sentence_completion', 'editing'],
+    tags: ['capitalization_error', 'punctuation_error', 'verb_tense_error', 'sentence_fragment'],
+    listenPattern: /sentence_builder|punctuation_marker|grammar_highlight|sentence_combiner/,
+    pkg: load('G4E_LANG_001')
   }
 ];
 
@@ -2200,7 +2244,13 @@ for (const spec of g4EnglishBatchPackages) {
   spec.visuals.forEach((visual) => assert.ok(allQuestions.some((q) => q.visual_model === visual), `${id} includes ${visual}`));
   spec.types.forEach((type) => assert.ok(allQuestions.some((q) => q.question_type === type), `${id} includes ${type}`));
   spec.tags.forEach((tag) => assert.ok(pkg.misconception_bank[tag], `${id} includes misconception ${tag}`));
-  assert.ok(allQuestions.filter((q) => q.question_type === 'short_response' || q.question_type === 'sentence_completion' || q.question_type === 'text_evidence' || q.question_type === 'vocabulary_match').every((q) => Array.isArray(q.acceptable_answers) && q.acceptable_answers.length > 0), `${id} constructed-response items have acceptable_answers`);
+  assert.ok(allQuestions.filter((q) => q.question_type === 'short_response' || q.question_type === 'sentence_completion' || q.question_type === 'text_evidence' || q.question_type === 'vocabulary_match' || q.question_type === 'writing_response' || q.question_type === 'editing' || q.question_type === 'sequencing').every((q) => Array.isArray(q.acceptable_answers) && q.acceptable_answers.length > 0), `${id} constructed-response items have acceptable_answers`);
+  if (/^G4E_(WR|LANG)_/.test(id)) {
+    const validationQuestions = allQuestions.filter((q) => ['short_response', 'sentence_completion', 'writing_response', 'editing'].includes(q.question_type));
+    assert.ok(validationQuestions.length > 0, `${id} has writing or language validation questions`);
+    assert.ok(validationQuestions.every((q) => Array.isArray(q.validation_checks) && q.validation_checks.length > 0), `${id} writing validation checks exist`);
+    assert.ok(validationQuestions.every((q) => q.writing_validation?.sample_answer && q.writing_validation?.do_not_over_penalize === true), `${id} has child-friendly writing validation sample answers`);
+  }
   ['story', 'lesson', 'watch', 'demo', 'practice', 'challenge', 'checkpoint', 'badge', 'profile'].forEach((screen) => {
     const narration = pkg.page_audio?.[screen];
     assert.ok(narration?.text, `${id} has Read This Page narration for ${screen}`);
@@ -2221,7 +2271,7 @@ for (const spec of g4EnglishBatchPackages) {
   assert.match(drillHtml, new RegExp(spec.labels[0]), `${id} drill renders first focused level`);
 }
 
-['figurative_language_card', 'fluency_meter', 'text_evidence_builder', 'story_map', 'character_trait_chart', 'theme_tracker', 'text_structure_chart', 'text_feature_map'].forEach((visual) => {
+['figurative_language_card', 'fluency_meter', 'text_evidence_builder', 'story_map', 'character_trait_chart', 'theme_tracker', 'text_structure_chart', 'text_feature_map', 'opinion_reason_chart', 'paragraph_builder', 'writing_checklist', 'sentence_builder', 'topic_detail_chart', 'fact_cards', 'event_cards', 'dialogue_builder', 'punctuation_marker', 'grammar_highlight', 'sentence_combiner'].forEach((visual) => {
   const question = g4EnglishBatchPackages.flatMap(({ pkg }) => [...(pkg.guided_practice || []), ...(pkg.adaptive_question_bank || []), ...(pkg.checkpoint || []), ...(pkg.level_banks || []).flatMap((level) => level.questions || [])]).find((q) => q.visual_model === visual);
   assert.ok(question, `${visual} has a Grade 4 English fixture question`);
   assert.match(VisualRegistry.render(question), new RegExp(`data-renderer="${visual}"`), `${visual} renderer output exists`);
