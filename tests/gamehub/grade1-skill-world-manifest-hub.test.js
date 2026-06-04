@@ -613,7 +613,9 @@ test('Grade 4 English fluency vocabulary comprehension packages appear from mani
   const expected = new Map([
     ['G4E_FL_001', { domain: 'Fluency', skill: 'Reading Fluency, Accuracy, and Expression' }],
     ['G4E_VOC_001', { domain: 'Vocabulary / Language', skill: 'Vocabulary, Context Clues, and Figurative Language' }],
-    ['G4E_RC_001', { domain: 'Reading Comprehension', skill: 'Ask and Answer Questions With Text Evidence' }]
+    ['G4E_RC_001', { domain: 'Reading Comprehension', skill: 'Ask and Answer Questions With Text Evidence' }],
+    ['G4E_RC_002', { domain: 'Reading Literature', skill: 'Story Elements, Theme, and Character Analysis' }],
+    ['G4E_RC_003', { domain: 'Reading Informational Text', skill: 'Main Idea, Key Details, and Text Structure' }]
   ]);
   for (const skillId of expected.keys()) {
     assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);

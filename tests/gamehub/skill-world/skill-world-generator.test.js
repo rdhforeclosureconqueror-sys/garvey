@@ -2157,6 +2157,28 @@ const g4EnglishBatchPackages = [
     tags: ['unsupported_answer', 'inference_without_evidence', 'misses_text_evidence', 'question_word_confusion'],
     listenPattern: /short_passage|evidence_highlight|text_evidence_builder/,
     pkg: load('G4E_RC_001')
+  },
+  {
+    id: 'G4E_RC_002',
+    domain: 'Reading Literature',
+    skill: 'Story Elements, Theme, and Character Analysis',
+    labels: ['Level 1: Characters and Setting', 'Level 2: Plot and Problem/Solution', 'Level 3: Character Traits and Point of View', 'Level 4: Theme / Lesson', 'Mixed'],
+    visuals: ['story_map', 'character_trait_chart', 'event_cards', 'theme_tracker'],
+    types: ['multiple_choice', 'short_response', 'sequencing', 'text_evidence'],
+    tags: ['character_trait_confusion', 'point_of_view_confusion', 'theme_detail_confusion', 'sequence_order_error'],
+    listenPattern: /story_map|character_trait_chart|event_cards|theme_tracker/,
+    pkg: load('G4E_RC_002')
+  },
+  {
+    id: 'G4E_RC_003',
+    domain: 'Reading Informational Text',
+    skill: 'Main Idea, Key Details, and Text Structure',
+    labels: ['Level 1: Topic and Main Idea', 'Level 2: Key Details and Summary', 'Level 3: Text Structure', 'Level 4: Text Features', 'Mixed'],
+    visuals: ['short_passage', 'main_idea_web', 'detail_cards', 'text_feature_map', 'text_structure_chart'],
+    types: ['multiple_choice', 'short_response', 'text_evidence', 'detail_match'],
+    tags: ['topic_main_idea_confusion', 'detail_selection_error', 'text_structure_confusion', 'text_feature_confusion'],
+    listenPattern: /short_passage|main_idea_web|detail_cards|text_feature_map|text_structure_chart/,
+    pkg: load('G4E_RC_003')
   }
 ];
 
@@ -2199,7 +2221,7 @@ for (const spec of g4EnglishBatchPackages) {
   assert.match(drillHtml, new RegExp(spec.labels[0]), `${id} drill renders first focused level`);
 }
 
-['figurative_language_card', 'fluency_meter', 'text_evidence_builder'].forEach((visual) => {
+['figurative_language_card', 'fluency_meter', 'text_evidence_builder', 'story_map', 'character_trait_chart', 'theme_tracker', 'text_structure_chart', 'text_feature_map'].forEach((visual) => {
   const question = g4EnglishBatchPackages.flatMap(({ pkg }) => [...(pkg.guided_practice || []), ...(pkg.adaptive_question_bank || []), ...(pkg.checkpoint || []), ...(pkg.level_banks || []).flatMap((level) => level.questions || [])]).find((q) => q.visual_model === visual);
   assert.ok(question, `${visual} has a Grade 4 English fixture question`);
   assert.match(VisualRegistry.render(question), new RegExp(`data-renderer="${visual}"`), `${visual} renderer output exists`);
