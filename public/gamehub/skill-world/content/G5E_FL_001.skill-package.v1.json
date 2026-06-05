@@ -1,0 +1,3716 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade5-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade5_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-05",
+    "production_metadata": {
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "audio_contract": "cached AI audio first with browser speech fallback; all audio fields optional",
+      "skill_practice_center": true
+    }
+  },
+  "skill_id": "G5E_FL_001",
+  "grade": 5,
+  "subject": "English",
+  "domain": "Fluency",
+  "skill": "Reading Fluency and Expression With Complex Text",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    3,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Enter Fluency Theater, where Grade 5 readers rehearse complex sentences and passages so accuracy, rate, phrasing, punctuation, expression, and meaning work together.",
+    "objective": "I can read Grade 5 prose and informational text with accuracy, appropriate rate, phrasing, punctuation, and expression.",
+    "key_vocabulary": [
+      "accuracy",
+      "rate",
+      "phrasing",
+      "punctuation",
+      "expression",
+      "repeated reading",
+      "meaning"
+    ],
+    "concept_explanation": "Fluent readers do not simply read quickly. They preserve exact words, group words into meaningful phrases, slow down for complex ideas, use punctuation as voice directions, and reread to make meaning clearer.",
+    "visual_model": "fluency_meter",
+    "common_misconception": "Readers may skip small words, break phrases in awkward places, ignore punctuation, or use a flat voice that hides the author’s meaning.",
+    "real_world_connection": "Fluency helps when reading novels, articles, primary sources, science explanations, speeches, and directions aloud or silently.",
+    "lesson_summary": "Read accurately, use a clear rate, phrase ideas smoothly, follow punctuation, reread with purpose, and match expression to meaning.",
+    "mini_lesson": "First read for exact words. Then mark phrase groups and punctuation. Finally reread with a voice that fits the text and supports comprehension.",
+    "audio": {
+      "text": "accuracy, rate, phrasing, punctuation, expression, repeated reading, meaning",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "student_prompt": "Listen, then say the fluency words aloud."
+    }
+  },
+  "worked_examples": [
+    {
+      "question_id": "G5E_FL_001_LVL1_Q01",
+      "prompt": "Which word must be read exactly as printed in the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "delicate",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "The printed word is delicate, so accurate reading keeps that exact word.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Which word must be read exactly as printed in the sentence? Choices: delicate, distant, difficult.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "The delicate fern curled tightly during the unexpected frost.",
+      "text": "The delicate fern curled tightly during the unexpected frost.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The delicate fern curled tightly during the unexpected frost.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "choices": [
+        "delicate",
+        "distant",
+        "difficult"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL2_Q02",
+      "prompt": "Choose the best phrase grouping for smooth reading.",
+      "question_type": "multiple_choice",
+      "visual_model": "phrase_builder",
+      "support_type": "phrase_builder",
+      "correct_answer": "The young inventor / tested her design / before the science fair.",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "The best grouping keeps subject, action, and time phrase together.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Choose the best phrase grouping for smooth reading. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair..",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "The young inventor tested her design before the science fair.",
+      "text": "The young inventor tested her design before the science fair.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The young inventor tested her design before the science fair.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "choices": [
+        "The young inventor / tested her design / before the science fair.",
+        "The young / inventor tested / her design before / the science fair.",
+        "The young inventor tested / her / design before the / science fair."
+      ],
+      "phrase_chunks": [
+        "The young inventor",
+        "tested her design",
+        "before the science fair"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL3_Q03",
+      "prompt": "Type the punctuation mark that signals strong surprise in this sentence.",
+      "question_type": "short_response",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "exclamation point",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "punctuation_ignored",
+      "explanation": "The exclamation point tells the reader to use an excited or surprised voice.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Type the punctuation mark that signals strong surprise in this sentence.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "What an astonishing discovery the class made!",
+      "text": "What an astonishing discovery the class made!",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "What an astonishing discovery the class made!",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "acceptable_answers": [
+        "exclamation point",
+        "!",
+        "exclamation mark"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "First, read every word exactly as printed.",
+    "Next, group words that belong together and notice punctuation marks.",
+    "Finally, reread with a voice that matches the meaning of the text."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G5E_FL_001_LVL1_Q02",
+      "prompt": "Which small word changes the meaning if it is skipped?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "not",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "Skipping not reverses the meaning, so it must be read accurately.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Which small word changes the meaning if it is skipped? Choices: not, the, river.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "The hikers did not cross the river until the ranger returned.",
+      "text": "The hikers did not cross the river until the ranger returned.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The hikers did not cross the river until the ranger returned.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "choices": [
+        "not",
+        "the",
+        "river"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL2_Q03",
+      "prompt": "Type the phrase that tells where the volunteers planted trees.",
+      "question_type": "short_response",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "along the creek bank",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "Along the creek bank is the location phrase and should be read as a unit.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Type the phrase that tells where the volunteers planted trees.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "Before lunch, the volunteers planted trees along the creek bank.",
+      "text": "Before lunch, the volunteers planted trees along the creek bank.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "Before lunch, the volunteers planted trees along the creek bank.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "acceptable_answers": [
+        "along the creek bank",
+        "the creek bank",
+        "creek bank"
+      ],
+      "phrase_chunks": [
+        "Before lunch",
+        "the volunteers planted trees",
+        "along the creek bank"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL3_Q04",
+      "prompt": "Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point.",
+      "question_type": "sentence_completion",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "excitement",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "expression_flat_reading",
+      "explanation": "An exclamation point usually calls for energy or excitement.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "The line should be read with excitement because it ends in an exclamation point.",
+      "text": "The line should be read with excitement because it ends in an exclamation point.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The line should be read with excitement because it ends in an exclamation point.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "acceptable_answers": [
+        "excitement",
+        "energy",
+        "enthusiasm"
+      ],
+      "blank_sentence": "The line should be read with ___ because it ends in an exclamation point."
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G5E_FL_001_LVL4_Q01",
+      "prompt": "After a first read with two skipped words, what should the reader do next?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "reread to fix accuracy before adding expression",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "Repeated reading begins by correcting missed words so meaning is accurate.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "After a first read with two skipped words, what should the reader do next? Choices: reread to fix accuracy before adding expression, read faster to finish, ignore the skipped words.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "text": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+      "fluency_scores": {
+        "accuracy": 88,
+        "smoothness": 82,
+        "expression": 76
+      },
+      "audio": {
+        "text": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "passage": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+      "choices": [
+        "reread to fix accuracy before adding expression",
+        "read faster to finish",
+        "ignore the skipped words"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL4_Q04",
+      "prompt": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+      "question_type": "sentence_completion",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "expression",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "expression_flat_reading",
+      "explanation": "Repeated reading should improve expression so the voice supports meaning.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "text": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "passage": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+      "acceptable_answers": [
+        "expression",
+        "voice",
+        "tone"
+      ],
+      "blank_sentence": "On the third read, match your ___ to the author’s meaning."
+    },
+    {
+      "question_id": "G5E_FL_001_MIXED_Q03",
+      "prompt": "How should your voice change at the question mark?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "rise slightly to show a question",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "punctuation_ignored",
+      "explanation": "A question mark signals a questioning voice, often with a slight rise.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "How should your voice change at the question mark? Choices: rise slightly to show a question, stay completely flat, speed up and ignore the mark.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "Could the tiny seedling survive the dry summer?",
+      "text": "Could the tiny seedling survive the dry summer?",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "Could the tiny seedling survive the dry summer?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "choices": [
+        "rise slightly to show a question",
+        "stay completely flat",
+        "speed up and ignore the mark"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_MIXED_Q10",
+      "prompt": "Which expression best fits the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "calm wonder",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "expression_flat_reading",
+      "explanation": "The image of stars shimmering suggests calm wonder, not a flat voice.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Which expression best fits the sentence? Choices: calm wonder, angry shouting, flat robot voice.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "Above the desert, millions of stars shimmered in the cold night sky.",
+      "text": "Above the desert, millions of stars shimmered in the cold night sky.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "Above the desert, millions of stars shimmered in the cold night sky.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "choices": [
+        "calm wonder",
+        "angry shouting",
+        "flat robot voice"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G5E_FL_001_LVL1_Q05",
+      "prompt": "Which word should be read after “ancient” in the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "maps",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "The sentence says ancient maps, so maps is the accurate next word.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Which word should be read after “ancient” in the sentence? Choices: maps, marks, masks.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "The ancient maps revealed a safer route through the valley.",
+      "text": "The ancient maps revealed a safer route through the valley.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The ancient maps revealed a safer route through the valley.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "choices": [
+        "maps",
+        "marks",
+        "masks"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL2_Q08",
+      "prompt": "Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves.",
+      "question_type": "sentence_completion",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "scarred",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "Scarred begins the interrupting phrase that should be read with pauses.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "The oak tree, scarred by lightning, still produced new leaves.",
+      "text": "The oak tree, scarred by lightning, still produced new leaves.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The oak tree, scarred by lightning, still produced new leaves.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "acceptable_answers": [
+        "scarred"
+      ],
+      "phrase_chunks": [
+        "The oak tree",
+        "scarred by lightning",
+        "still produced new leaves"
+      ],
+      "blank_sentence": "The oak tree, ___ by lightning, still produced new leaves."
+    },
+    {
+      "question_id": "G5E_FL_001_LVL3_Q07",
+      "prompt": "Type the word that tells the speaker’s feeling.",
+      "question_type": "short_response",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "whispered",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "expression_flat_reading",
+      "explanation": "Whispered tells the reader to use a quiet voice.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Type the word that tells the speaker’s feeling.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "“Please do not wake the baby,” Elena whispered.",
+      "text": "“Please do not wake the baby,” Elena whispered.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "“Please do not wake the baby,” Elena whispered.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "acceptable_answers": [
+        "whispered"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL4_Q07",
+      "prompt": "Type the phrase that should sound hopeful in the reread.",
+      "question_type": "short_response",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "new shoots appeared",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "expression_flat_reading",
+      "explanation": "New shoots appeared signals recovery and should be read with a hopeful tone.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Type the phrase that should sound hopeful in the reread.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "text": "After weeks of ash and smoke, new shoots appeared at the edge of the burned forest.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "After weeks of ash and smoke, new shoots appeared at the edge of the burned forest.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "passage": "After weeks of ash and smoke, new shoots appeared at the edge of the burned forest.",
+      "acceptable_answers": [
+        "new shoots appeared",
+        "shoots appeared"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "skips_words": {
+      "description": "The reader omits, substitutes, or changes printed words.",
+      "feedback": "Point to each word and reread the sentence exactly as written before improving speed or expression.",
+      "remediation": "Return to Level 1: Accuracy."
+    },
+    "phrase_chunking_error": {
+      "description": "The reader breaks a sentence in places that interrupt meaning or rate.",
+      "feedback": "Find who or what the sentence is about, then group words that tell one idea together.",
+      "remediation": "Return to Level 2: Phrasing and Rate."
+    },
+    "punctuation_ignored": {
+      "description": "The reader reads through commas, periods, question marks, or other punctuation without useful pauses or voice changes.",
+      "feedback": "Treat punctuation as directions for pausing, stopping, or changing your voice.",
+      "remediation": "Return to Level 3: Punctuation and Expression."
+    },
+    "expression_flat_reading": {
+      "description": "The reader uses the same flat tone even when the text shows feeling, dialogue, suspense, or importance.",
+      "feedback": "Ask what the words mean and how the speaker or narrator might sound, then reread with matching expression.",
+      "remediation": "Practice expression with repeated reading."
+    }
+  },
+  "review_bank": [
+    {
+      "question_id": "G5E_FL_001_LVL1_Q03",
+      "prompt": "Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour.",
+      "question_type": "short_response",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "temperature",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "skips_words",
+      "explanation": "The word temperature is the exact word named in the sentence.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "The scientist recorded the temperature every hour.",
+      "text": "The scientist recorded the temperature every hour.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The scientist recorded the temperature every hour.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "acceptable_answers": [
+        "temperature",
+        "the word temperature"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL2_Q06",
+      "prompt": "Which phrase should be kept together to show cause?",
+      "question_type": "multiple_choice",
+      "visual_model": "phrase_builder",
+      "support_type": "phrase_builder",
+      "correct_answer": "Because the bridge was closed",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "The opening cause phrase belongs together before the pause.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Which phrase should be kept together to show cause? Choices: Because the bridge was closed, closed the buses, alternate roads.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "Because the bridge was closed, the buses followed alternate roads.",
+      "text": "Because the bridge was closed, the buses followed alternate roads.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "Because the bridge was closed, the buses followed alternate roads.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "choices": [
+        "Because the bridge was closed",
+        "closed the buses",
+        "alternate roads"
+      ],
+      "phrase_chunks": [
+        "Because the bridge was closed",
+        "the buses followed",
+        "alternate roads"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL3_Q05",
+      "prompt": "What should you do at the comma after “Meanwhile”?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "pause briefly",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "punctuation_ignored",
+      "explanation": "The comma after Meanwhile cues a brief pause.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "What should you do at the comma after “Meanwhile”? Choices: pause briefly, skip the next word, read louder until the period.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "sentence": "Meanwhile, the tide crept higher against the seawall.",
+      "text": "Meanwhile, the tide crept higher against the seawall.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "Meanwhile, the tide crept higher against the seawall.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "choices": [
+        "pause briefly",
+        "skip the next word",
+        "read louder until the period"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_LVL4_Q06",
+      "prompt": "Which rereading plan best supports meaning?",
+      "question_type": "multiple_choice",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "read once for words, again for phrases, and again for expression",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "A purposeful repeated-reading plan builds accuracy, phrasing, and expression.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Which rereading plan best supports meaning? Choices: read once for words, again for phrases, and again for expression, read once as fast as possible, read only the first and last sentence.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "text": "During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "passage": "During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.",
+      "choices": [
+        "read once for words, again for phrases, and again for expression",
+        "read once as fast as possible",
+        "read only the first and last sentence"
+      ]
+    },
+    {
+      "question_id": "G5E_FL_001_MIXED_Q08",
+      "prompt": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+      "question_type": "sentence_completion",
+      "visual_model": "fluency_meter",
+      "support_type": "fluency_meter",
+      "correct_answer": "expression",
+      "hints": [
+        "First, read every word exactly as printed.",
+        "Next, group words that belong together and notice punctuation marks.",
+        "Finally, reread with a voice that matches the meaning of the text."
+      ],
+      "misconception_tag": "expression_flat_reading",
+      "explanation": "Repeated reading should improve expression so the voice supports meaning.",
+      "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+      "question_audio": {
+        "text": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true
+      },
+      "text": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+      "fluency_scores": {
+        "accuracy": 92,
+        "smoothness": 86,
+        "expression": 84
+      },
+      "audio": {
+        "text": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+      },
+      "repeat_after_me": true,
+      "audio_required": false,
+      "passage": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+      "acceptable_answers": [
+        "expression",
+        "voice",
+        "tone"
+      ],
+      "blank_sentence": "On the third read, match your ___ to the author’s meaning."
+    }
+  ],
+  "game_theme": {
+    "title": "Fluency Theater: Complex Text Rehearsal",
+    "mission_intro": "Rehearse Grade 5 prose and informational text until every word, phrase, pause, and tone helps the audience understand.",
+    "badge_name": "Complex Text Fluency Badge",
+    "map_icon": "🎙️",
+    "colors": {
+      "primary": "#27548a",
+      "secondary": "#f0b429",
+      "accent": "#5c946e"
+    },
+    "unlock_message": "You can now rehearse complex Grade 5 passages in the Skill Practice Center."
+  },
+  "next_skill_id": "G5E_VOC_001",
+  "remediation_skill_id": "G5E_RF_001",
+  "level_banks": [
+    {
+      "level_id": "G5E_FL_001_LVL1",
+      "label": "Level 1: Accuracy",
+      "focus": "Accuracy",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G5E_FL_001_LVL1_Q01",
+          "prompt": "Which word must be read exactly as printed in the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "delicate",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The printed word is delicate, so accurate reading keeps that exact word.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which word must be read exactly as printed in the sentence? Choices: delicate, distant, difficult.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The delicate fern curled tightly during the unexpected frost.",
+          "text": "The delicate fern curled tightly during the unexpected frost.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The delicate fern curled tightly during the unexpected frost.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "delicate",
+            "distant",
+            "difficult"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q02",
+          "prompt": "Which small word changes the meaning if it is skipped?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "not",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Skipping not reverses the meaning, so it must be read accurately.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which small word changes the meaning if it is skipped? Choices: not, the, river.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The hikers did not cross the river until the ranger returned.",
+          "text": "The hikers did not cross the river until the ranger returned.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The hikers did not cross the river until the ranger returned.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "not",
+            "the",
+            "river"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q03",
+          "prompt": "Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "temperature",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The word temperature is the exact word named in the sentence.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The scientist recorded the temperature every hour.",
+          "text": "The scientist recorded the temperature every hour.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The scientist recorded the temperature every hour.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "temperature",
+            "the word temperature"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q04",
+          "prompt": "Complete the sentence with the missing word: The committee reviewed the ___ before voting.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "proposal",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Accurate reading uses proposal, not a similar-looking word.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the sentence with the missing word: The committee reviewed the ___ before voting.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The committee reviewed the proposal before voting.",
+          "text": "The committee reviewed the proposal before voting.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The committee reviewed the proposal before voting.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "proposal",
+            "the proposal"
+          ],
+          "blank_sentence": "The committee reviewed the ___ before voting."
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q05",
+          "prompt": "Which word should be read after “ancient” in the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "maps",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The sentence says ancient maps, so maps is the accurate next word.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which word should be read after “ancient” in the sentence? Choices: maps, marks, masks.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The ancient maps revealed a safer route through the valley.",
+          "text": "The ancient maps revealed a safer route through the valley.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The ancient maps revealed a safer route through the valley.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "maps",
+            "marks",
+            "masks"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q06",
+          "prompt": "Which two-word phrase appears exactly in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "solar panels",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Solar panels is printed exactly in the sentence.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which two-word phrase appears exactly in the passage? Choices: solar panels, silver pencils, silent planets.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "New solar panels helped the school reduce its electricity use.",
+          "text": "New solar panels helped the school reduce its electricity use.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "New solar panels helped the school reduce its electricity use.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "solar panels",
+            "silver pencils",
+            "silent planets"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q07",
+          "prompt": "Type the word that should not be changed to “desert.”",
+          "question_type": "short_response",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "dessert",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Dessert and desert look similar, but the sentence prints dessert.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Type the word that should not be changed to “desert.”",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "For the celebration, Maya baked a peach dessert with cinnamon.",
+          "text": "For the celebration, Maya baked a peach dessert with cinnamon.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "For the celebration, Maya baked a peach dessert with cinnamon.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "dessert"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q08",
+          "prompt": "Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "practical",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Practical is the exact adjective in the sentence.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The mayor announced a practical plan for safer bike lanes.",
+          "text": "The mayor announced a practical plan for safer bike lanes.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The mayor announced a practical plan for safer bike lanes.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "practical"
+          ],
+          "blank_sentence": "The mayor announced a ___ plan for safer bike lanes."
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q09",
+          "prompt": "Which word in the sentence names the tool?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "microscope",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The tool named in the sentence is microscope.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which word in the sentence names the tool? Choices: microscope, microphone, telescope.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Under the microscope, the pond water looked alive with motion.",
+          "text": "Under the microscope, the pond water looked alive with motion.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Under the microscope, the pond water looked alive with motion.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "microscope",
+            "microphone",
+            "telescope"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL1_Q10",
+          "prompt": "Which word completes the quote accurately: “The current carried the ___ downstream.”",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "branch",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The sentence says branch, so fluent accuracy keeps that word.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which word completes the quote accurately: “The current carried the ___ downstream.”",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The current carried the branch downstream.",
+          "text": "The current carried the branch downstream.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The current carried the branch downstream.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "branch",
+            "the branch"
+          ],
+          "blank_sentence": "The current carried the ___ downstream."
+        }
+      ]
+    },
+    {
+      "level_id": "G5E_FL_001_LVL2",
+      "label": "Level 2: Phrasing and Rate",
+      "focus": "Phrasing and Rate",
+      "difficulty": 3.2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G5E_FL_001_LVL2_Q01",
+          "prompt": "Which phrase chunk should be read together first?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "After the final bell",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "After the final bell is an opening phrase that belongs together before the comma.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which phrase chunk should be read together first? Choices: After the final bell, bell the students, quietly into.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "After the final bell, the students walked quietly into the courtyard.",
+          "text": "After the final bell, the students walked quietly into the courtyard.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "After the final bell, the students walked quietly into the courtyard.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "After the final bell",
+            "bell the students",
+            "quietly into"
+          ],
+          "phrase_chunks": [
+            "After the final bell",
+            "the students walked quietly",
+            "into the courtyard"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q02",
+          "prompt": "Choose the best phrase grouping for smooth reading.",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "The young inventor / tested her design / before the science fair.",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The best grouping keeps subject, action, and time phrase together.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Choose the best phrase grouping for smooth reading. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The young inventor tested her design before the science fair.",
+          "text": "The young inventor tested her design before the science fair.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The young inventor tested her design before the science fair.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "The young inventor / tested her design / before the science fair.",
+            "The young / inventor tested / her design before / the science fair.",
+            "The young inventor tested / her / design before the / science fair."
+          ],
+          "phrase_chunks": [
+            "The young inventor",
+            "tested her design",
+            "before the science fair"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q03",
+          "prompt": "Type the phrase that tells where the volunteers planted trees.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "along the creek bank",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "Along the creek bank is the location phrase and should be read as a unit.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Type the phrase that tells where the volunteers planted trees.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Before lunch, the volunteers planted trees along the creek bank.",
+          "text": "Before lunch, the volunteers planted trees along the creek bank.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Before lunch, the volunteers planted trees along the creek bank.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "along the creek bank",
+            "the creek bank",
+            "creek bank"
+          ],
+          "phrase_chunks": [
+            "Before lunch",
+            "the volunteers planted trees",
+            "along the creek bank"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q04",
+          "prompt": "Complete the phrase chunk: During the long winter, the ___ stored extra grain.",
+          "question_type": "sentence_completion",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "village",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The phrase the village stored belongs together for smooth reading.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the phrase chunk: During the long winter, the ___ stored extra grain.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "During the long winter, the village stored extra grain.",
+          "text": "During the long winter, the village stored extra grain.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "During the long winter, the village stored extra grain.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "village",
+            "the village"
+          ],
+          "phrase_chunks": [
+            "During the long winter",
+            "the village stored",
+            "extra grain"
+          ],
+          "blank_sentence": "During the long winter, the ___ stored extra grain."
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q05",
+          "prompt": "Which reading rate best fits an informational sentence with important facts?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "steady and clear",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "A steady, clear rate helps listeners understand the facts.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which reading rate best fits an informational sentence with important facts? Choices: steady and clear, rushed and breathless, so slow that each word is separated.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Evaporation occurs when heat changes liquid water into vapor.",
+          "text": "Evaporation occurs when heat changes liquid water into vapor.",
+          "fluency_scores": {
+            "accuracy": 94,
+            "smoothness": 88,
+            "expression": 80
+          },
+          "audio": {
+            "text": "Evaporation occurs when heat changes liquid water into vapor.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "steady and clear",
+            "rushed and breathless",
+            "so slow that each word is separated"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q06",
+          "prompt": "Which phrase should be kept together to show cause?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "Because the bridge was closed",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The opening cause phrase belongs together before the pause.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which phrase should be kept together to show cause? Choices: Because the bridge was closed, closed the buses, alternate roads.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Because the bridge was closed, the buses followed alternate roads.",
+          "text": "Because the bridge was closed, the buses followed alternate roads.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Because the bridge was closed, the buses followed alternate roads.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "Because the bridge was closed",
+            "closed the buses",
+            "alternate roads"
+          ],
+          "phrase_chunks": [
+            "Because the bridge was closed",
+            "the buses followed",
+            "alternate roads"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q07",
+          "prompt": "Type the two-word phrase that tells how the speaker answered.",
+          "question_type": "short_response",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "with confidence",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "With confidence describes how Priya answered and should be read smoothly.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Type the two-word phrase that tells how the speaker answered.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "After studying the evidence, Priya answered with confidence.",
+          "text": "After studying the evidence, Priya answered with confidence.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "After studying the evidence, Priya answered with confidence.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "with confidence",
+            "confidence"
+          ],
+          "phrase_chunks": [
+            "After studying the evidence",
+            "Priya answered",
+            "with confidence"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q08",
+          "prompt": "Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "scarred",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "Scarred begins the interrupting phrase that should be read with pauses.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The oak tree, scarred by lightning, still produced new leaves.",
+          "text": "The oak tree, scarred by lightning, still produced new leaves.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The oak tree, scarred by lightning, still produced new leaves.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "scarred"
+          ],
+          "phrase_chunks": [
+            "The oak tree",
+            "scarred by lightning",
+            "still produced new leaves"
+          ],
+          "blank_sentence": "The oak tree, ___ by lightning, still produced new leaves."
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q09",
+          "prompt": "Which chunking shows a natural pause after the introduction?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "In the museum basement, / archivists protected fragile letters.",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The comma marks a natural pause after the opening phrase.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which chunking shows a natural pause after the introduction? Choices: In the museum basement, / archivists protected fragile letters., In the / museum basement archivists / protected fragile letters., In the museum / basement archivists protected / fragile letters..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "In the museum basement, archivists protected fragile letters.",
+          "text": "In the museum basement, archivists protected fragile letters.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "In the museum basement, archivists protected fragile letters.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "In the museum basement, / archivists protected fragile letters.",
+            "In the / museum basement archivists / protected fragile letters.",
+            "In the museum / basement archivists protected / fragile letters."
+          ],
+          "phrase_chunks": [
+            "In the museum basement",
+            "archivists protected",
+            "fragile letters"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL2_Q10",
+          "prompt": "Which pace helps a listener follow a complex sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "pause briefly at phrase breaks",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "Brief pauses at phrase breaks make a complex sentence easier to understand.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which pace helps a listener follow a complex sentence? Choices: pause briefly at phrase breaks, race to finish quickly, stop after every single word.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Although the trail was steep, the view from the ridge inspired everyone.",
+          "text": "Although the trail was steep, the view from the ridge inspired everyone.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Although the trail was steep, the view from the ridge inspired everyone.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "pause briefly at phrase breaks",
+            "race to finish quickly",
+            "stop after every single word"
+          ],
+          "phrase_chunks": [
+            "Although the trail was steep",
+            "the view from the ridge",
+            "inspired everyone"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5E_FL_001_LVL3",
+      "label": "Level 3: Punctuation and Expression",
+      "focus": "Punctuation and Expression",
+      "difficulty": 3.4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G5E_FL_001_LVL3_Q01",
+          "prompt": "How should your voice change at the question mark?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "rise slightly to show a question",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "A question mark signals a questioning voice, often with a slight rise.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "How should your voice change at the question mark? Choices: rise slightly to show a question, stay completely flat, speed up and ignore the mark.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Could the tiny seedling survive the dry summer?",
+          "text": "Could the tiny seedling survive the dry summer?",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Could the tiny seedling survive the dry summer?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "rise slightly to show a question",
+            "stay completely flat",
+            "speed up and ignore the mark"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q02",
+          "prompt": "Which punctuation tells you to pause between items in the list?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "commas",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "Commas separate list items and cue small pauses.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which punctuation tells you to pause between items in the list? Choices: commas, apostrophes, capital letters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The explorers packed rope, lanterns, maps, and extra water.",
+          "text": "The explorers packed rope, lanterns, maps, and extra water.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The explorers packed rope, lanterns, maps, and extra water.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "commas",
+            "apostrophes",
+            "capital letters"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q03",
+          "prompt": "Type the punctuation mark that signals strong surprise in this sentence.",
+          "question_type": "short_response",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "exclamation point",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The exclamation point tells the reader to use an excited or surprised voice.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Type the punctuation mark that signals strong surprise in this sentence.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "What an astonishing discovery the class made!",
+          "text": "What an astonishing discovery the class made!",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "What an astonishing discovery the class made!",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "exclamation point",
+            "!",
+            "exclamation mark"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q04",
+          "prompt": "Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point.",
+          "question_type": "sentence_completion",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "excitement",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "An exclamation point usually calls for energy or excitement.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The line should be read with excitement because it ends in an exclamation point.",
+          "text": "The line should be read with excitement because it ends in an exclamation point.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The line should be read with excitement because it ends in an exclamation point.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "excitement",
+            "energy",
+            "enthusiasm"
+          ],
+          "blank_sentence": "The line should be read with ___ because it ends in an exclamation point."
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q05",
+          "prompt": "What should you do at the comma after “Meanwhile”?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "pause briefly",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The comma after Meanwhile cues a brief pause.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "What should you do at the comma after “Meanwhile”? Choices: pause briefly, skip the next word, read louder until the period.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Meanwhile, the tide crept higher against the seawall.",
+          "text": "Meanwhile, the tide crept higher against the seawall.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Meanwhile, the tide crept higher against the seawall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "pause briefly",
+            "skip the next word",
+            "read louder until the period"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q06",
+          "prompt": "Which voice best matches the dialogue?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "worried and urgent",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The words storm, closer, and warned suggest a worried, urgent voice.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which voice best matches the dialogue? Choices: worried and urgent, sleepy and bored, silly and playful.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "“The storm is moving closer,” Dad warned.",
+          "text": "“The storm is moving closer,” Dad warned.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "“The storm is moving closer,” Dad warned.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "worried and urgent",
+            "sleepy and bored",
+            "silly and playful"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q07",
+          "prompt": "Type the word that tells the speaker’s feeling.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "whispered",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "Whispered tells the reader to use a quiet voice.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Type the word that tells the speaker’s feeling.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "“Please do not wake the baby,” Elena whispered.",
+          "text": "“Please do not wake the baby,” Elena whispered.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "“Please do not wake the baby,” Elena whispered.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "whispered"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q08",
+          "prompt": "Complete the sentence: Parentheses often signal information to read in a slightly ___ voice.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "lower",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "Parentheses set off extra information, often read a little softer or lower.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the sentence: Parentheses often signal information to read in a slightly ___ voice.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The moon jellyfish (which has no brain) drifts through warm coastal water.",
+          "text": "The moon jellyfish (which has no brain) drifts through warm coastal water.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The moon jellyfish (which has no brain) drifts through warm coastal water.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "acceptable_answers": [
+            "lower",
+            "quieter",
+            "softer"
+          ],
+          "blank_sentence": "Parentheses often signal information to read in a slightly ___ voice."
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q09",
+          "prompt": "Which punctuation creates the longest stop?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "period",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "A period ends a sentence and cues a full stop.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which punctuation creates the longest stop? Choices: period, comma, quotation mark.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The final lantern flickered. Then the room became dark.",
+          "text": "The final lantern flickered. Then the room became dark.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The final lantern flickered. Then the room became dark.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "period",
+            "comma",
+            "quotation mark"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL3_Q10",
+          "prompt": "Which expression best fits the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "calm wonder",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The image of stars shimmering suggests calm wonder, not a flat voice.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which expression best fits the sentence? Choices: calm wonder, angry shouting, flat robot voice.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Above the desert, millions of stars shimmered in the cold night sky.",
+          "text": "Above the desert, millions of stars shimmered in the cold night sky.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Above the desert, millions of stars shimmered in the cold night sky.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "calm wonder",
+            "angry shouting",
+            "flat robot voice"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5E_FL_001_LVL4",
+      "label": "Level 4: Repeated Reading With Meaning",
+      "focus": "Repeated Reading With Meaning",
+      "difficulty": 3.6,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G5E_FL_001_LVL4_Q01",
+          "prompt": "After a first read with two skipped words, what should the reader do next?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "reread to fix accuracy before adding expression",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Repeated reading begins by correcting missed words so meaning is accurate.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "After a first read with two skipped words, what should the reader do next? Choices: reread to fix accuracy before adding expression, read faster to finish, ignore the skipped words.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+          "fluency_scores": {
+            "accuracy": 88,
+            "smoothness": 82,
+            "expression": 76
+          },
+          "audio": {
+            "text": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+          "choices": [
+            "reread to fix accuracy before adding expression",
+            "read faster to finish",
+            "ignore the skipped words"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q02",
+          "prompt": "Which goal fits a second reading of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "make the phrase groups smoother while keeping every word accurate",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "A second reading should improve phrasing without changing the author’s words.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which goal fits a second reading of this passage? Choices: make the phrase groups smoother while keeping every word accurate, change difficult words to easier words, skip descriptive phrases.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "The glacier moved slowly, carving a wide valley and leaving polished stones behind.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The glacier moved slowly, carving a wide valley and leaving polished stones behind.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "The glacier moved slowly, carving a wide valley and leaving polished stones behind.",
+          "choices": [
+            "make the phrase groups smoother while keeping every word accurate",
+            "change difficult words to easier words",
+            "skip descriptive phrases"
+          ],
+          "phrase_chunks": [
+            "The glacier moved slowly",
+            "carving a wide valley",
+            "and leaving polished stones behind"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q03",
+          "prompt": "Type one thing a reader should improve on a reread after ignoring commas.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "pauses",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "If commas were ignored, the reread should add brief pauses at punctuation.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Type one thing a reader should improve on a reread after ignoring commas.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "When the debate ended, the council members thanked the students, collected their notes, and scheduled another meeting.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "When the debate ended, the council members thanked the students, collected their notes, and scheduled another meeting.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "When the debate ended, the council members thanked the students, collected their notes, and scheduled another meeting.",
+          "acceptable_answers": [
+            "pauses",
+            "pause at commas",
+            "comma pauses",
+            "punctuation",
+            "read the commas"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q04",
+          "prompt": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+          "question_type": "sentence_completion",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "expression",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "Repeated reading should improve expression so the voice supports meaning.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+          "acceptable_answers": [
+            "expression",
+            "voice",
+            "tone"
+          ],
+          "blank_sentence": "On the third read, match your ___ to the author’s meaning."
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q05",
+          "prompt": "Which score should improve first if the reader says “manufacture” as “manufature”?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "accuracy",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Misreading a word is an accuracy issue.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which score should improve first if the reader says “manufacture” as “manufature”? Choices: accuracy, volume, background music.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "Manufacturers inspected each bicycle carefully before shipping it to stores.",
+          "fluency_scores": {
+            "accuracy": 72,
+            "smoothness": 80,
+            "expression": 78
+          },
+          "audio": {
+            "text": "Manufacturers inspected each bicycle carefully before shipping it to stores.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "Manufacturers inspected each bicycle carefully before shipping it to stores.",
+          "choices": [
+            "accuracy",
+            "volume",
+            "background music"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q06",
+          "prompt": "Which rereading plan best supports meaning?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "read once for words, again for phrases, and again for expression",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "A purposeful repeated-reading plan builds accuracy, phrasing, and expression.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which rereading plan best supports meaning? Choices: read once for words, again for phrases, and again for expression, read once as fast as possible, read only the first and last sentence.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.",
+          "choices": [
+            "read once for words, again for phrases, and again for expression",
+            "read once as fast as possible",
+            "read only the first and last sentence"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q07",
+          "prompt": "Type the phrase that should sound hopeful in the reread.",
+          "question_type": "short_response",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "new shoots appeared",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "New shoots appeared signals recovery and should be read with a hopeful tone.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Type the phrase that should sound hopeful in the reread.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "After weeks of ash and smoke, new shoots appeared at the edge of the burned forest.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "After weeks of ash and smoke, new shoots appeared at the edge of the burned forest.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "After weeks of ash and smoke, new shoots appeared at the edge of the burned forest.",
+          "acceptable_answers": [
+            "new shoots appeared",
+            "shoots appeared"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q08",
+          "prompt": "Complete the sentence: Repeated reading is not just faster reading; it should improve ___.",
+          "question_type": "sentence_completion",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "meaning",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "Fluency supports understanding, so rereading should improve meaning.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the sentence: Repeated reading is not just faster reading; it should improve ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "A fluent reader rereads so the words, pauses, and tone make the passage easier to understand.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "A fluent reader rereads so the words, pauses, and tone make the passage easier to understand.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "A fluent reader rereads so the words, pauses, and tone make the passage easier to understand.",
+          "acceptable_answers": [
+            "meaning",
+            "understanding",
+            "comprehension"
+          ],
+          "blank_sentence": "Repeated reading is not just faster reading; it should improve ___."
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q09",
+          "prompt": "Which change would make the second read stronger?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "pause after the opening phrase and stress key words",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "Pausing and stressing key words helps the listener follow the meaning.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which change would make the second read stronger? Choices: pause after the opening phrase and stress key words, skip the opening phrase, read every word in the same flat tone.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "At the edge of the harbor, workers repaired the lighthouse before the fog returned.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "At the edge of the harbor, workers repaired the lighthouse before the fog returned.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "At the edge of the harbor, workers repaired the lighthouse before the fog returned.",
+          "choices": [
+            "pause after the opening phrase and stress key words",
+            "skip the opening phrase",
+            "read every word in the same flat tone"
+          ],
+          "phrase_chunks": [
+            "At the edge of the harbor",
+            "workers repaired the lighthouse",
+            "before the fog returned"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_LVL4_Q10",
+          "prompt": "Which evidence shows fluency improved after rereading?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "The reader kept all words accurate and sounded more like the passage felt.",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "Improved fluency combines accuracy, smoothness, punctuation, and expression.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which evidence shows fluency improved after rereading? Choices: The reader kept all words accurate and sounded more like the passage felt., The reader skipped longer words but finished sooner., The reader read louder without noticing punctuation..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "The old library reopened at sunrise, and neighbors lined the sidewalk with smiles.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The old library reopened at sunrise, and neighbors lined the sidewalk with smiles.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "The old library reopened at sunrise, and neighbors lined the sidewalk with smiles.",
+          "choices": [
+            "The reader kept all words accurate and sounded more like the passage felt.",
+            "The reader skipped longer words but finished sooner.",
+            "The reader read louder without noticing punctuation."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5E_FL_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed fluency accuracy, phrasing, punctuation, expression, and repeated reading",
+      "difficulty": 3.8,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G5E_FL_001_MIXED_Q01",
+          "prompt": "Which small word changes the meaning if it is skipped?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "not",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Skipping not reverses the meaning, so it must be read accurately.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which small word changes the meaning if it is skipped? Choices: not, the, river.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The hikers did not cross the river until the ranger returned.",
+          "text": "The hikers did not cross the river until the ranger returned.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The hikers did not cross the river until the ranger returned.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "not",
+            "the",
+            "river"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q02",
+          "prompt": "Choose the best phrase grouping for smooth reading.",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "The young inventor / tested her design / before the science fair.",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The best grouping keeps subject, action, and time phrase together.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Choose the best phrase grouping for smooth reading. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair..",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "The young inventor tested her design before the science fair.",
+          "text": "The young inventor tested her design before the science fair.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The young inventor tested her design before the science fair.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "The young inventor / tested her design / before the science fair.",
+            "The young / inventor tested / her design before / the science fair.",
+            "The young inventor tested / her / design before the / science fair."
+          ],
+          "phrase_chunks": [
+            "The young inventor",
+            "tested her design",
+            "before the science fair"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q03",
+          "prompt": "How should your voice change at the question mark?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "rise slightly to show a question",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "A question mark signals a questioning voice, often with a slight rise.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "How should your voice change at the question mark? Choices: rise slightly to show a question, stay completely flat, speed up and ignore the mark.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Could the tiny seedling survive the dry summer?",
+          "text": "Could the tiny seedling survive the dry summer?",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Could the tiny seedling survive the dry summer?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "rise slightly to show a question",
+            "stay completely flat",
+            "speed up and ignore the mark"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q04",
+          "prompt": "After a first read with two skipped words, what should the reader do next?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "reread to fix accuracy before adding expression",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "Repeated reading begins by correcting missed words so meaning is accurate.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "After a first read with two skipped words, what should the reader do next? Choices: reread to fix accuracy before adding expression, read faster to finish, ignore the skipped words.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+          "fluency_scores": {
+            "accuracy": 88,
+            "smoothness": 82,
+            "expression": 76
+          },
+          "audio": {
+            "text": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
+          "choices": [
+            "reread to fix accuracy before adding expression",
+            "read faster to finish",
+            "ignore the skipped words"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q05",
+          "prompt": "Which word in the sentence names the tool?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "microscope",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "skips_words",
+          "explanation": "The tool named in the sentence is microscope.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which word in the sentence names the tool? Choices: microscope, microphone, telescope.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Under the microscope, the pond water looked alive with motion.",
+          "text": "Under the microscope, the pond water looked alive with motion.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Under the microscope, the pond water looked alive with motion.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "microscope",
+            "microphone",
+            "telescope"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q06",
+          "prompt": "Which phrase should be kept together to show cause?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "Because the bridge was closed",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "The opening cause phrase belongs together before the pause.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which phrase should be kept together to show cause? Choices: Because the bridge was closed, closed the buses, alternate roads.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Because the bridge was closed, the buses followed alternate roads.",
+          "text": "Because the bridge was closed, the buses followed alternate roads.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Because the bridge was closed, the buses followed alternate roads.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "Because the bridge was closed",
+            "closed the buses",
+            "alternate roads"
+          ],
+          "phrase_chunks": [
+            "Because the bridge was closed",
+            "the buses followed",
+            "alternate roads"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q07",
+          "prompt": "Which voice best matches the dialogue?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "worried and urgent",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The words storm, closer, and warned suggest a worried, urgent voice.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which voice best matches the dialogue? Choices: worried and urgent, sleepy and bored, silly and playful.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "“The storm is moving closer,” Dad warned.",
+          "text": "“The storm is moving closer,” Dad warned.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "“The storm is moving closer,” Dad warned.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "worried and urgent",
+            "sleepy and bored",
+            "silly and playful"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q08",
+          "prompt": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+          "question_type": "sentence_completion",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "expression",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "Repeated reading should improve expression so the voice supports meaning.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "text": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "passage": "The rescued seal hesitated, then slid toward the waves as the crowd cheered.",
+          "acceptable_answers": [
+            "expression",
+            "voice",
+            "tone"
+          ],
+          "blank_sentence": "On the third read, match your ___ to the author’s meaning."
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q09",
+          "prompt": "Which pace helps a listener follow a complex sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "pause briefly at phrase breaks",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "Brief pauses at phrase breaks make a complex sentence easier to understand.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which pace helps a listener follow a complex sentence? Choices: pause briefly at phrase breaks, race to finish quickly, stop after every single word.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Although the trail was steep, the view from the ridge inspired everyone.",
+          "text": "Although the trail was steep, the view from the ridge inspired everyone.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Although the trail was steep, the view from the ridge inspired everyone.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "pause briefly at phrase breaks",
+            "race to finish quickly",
+            "stop after every single word"
+          ],
+          "phrase_chunks": [
+            "Although the trail was steep",
+            "the view from the ridge",
+            "inspired everyone"
+          ]
+        },
+        {
+          "question_id": "G5E_FL_001_MIXED_Q10",
+          "prompt": "Which expression best fits the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "calm wonder",
+          "hints": [
+            "First, read every word exactly as printed.",
+            "Next, group words that belong together and notice punctuation marks.",
+            "Finally, reread with a voice that matches the meaning of the text."
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "explanation": "The image of stars shimmering suggests calm wonder, not a flat voice.",
+          "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
+          "question_audio": {
+            "text": "Which expression best fits the sentence? Choices: calm wonder, angry shouting, flat robot voice.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true
+          },
+          "sentence": "Above the desert, millions of stars shimmered in the cold night sky.",
+          "text": "Above the desert, millions of stars shimmered in the cold night sky.",
+          "fluency_scores": {
+            "accuracy": 92,
+            "smoothness": 86,
+            "expression": 84
+          },
+          "audio": {
+            "text": "Above the desert, millions of stars shimmered in the cold night sky.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "student_prompt": "Listen to the model, then repeat the sentence or passage with the same fluent reading."
+          },
+          "repeat_after_me": true,
+          "audio_required": false,
+          "choices": [
+            "calm wonder",
+            "angry shouting",
+            "flat robot voice"
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to the Grade 5 Fluency Theater for complex text. You will learn to read every word accurately, choose a useful rate, follow punctuation, and make your voice match meaning. Press Start Mission when you are ready to rehearse like a thoughtful reader.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    },
+    "lesson": {
+      "text": "Read This Page. This mini lesson teaches fluent reading with complex prose and informational text. First, read accurately so no small word changes meaning. Next, group words into phrases and use punctuation as traffic signs for your voice. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    },
+    "watch": {
+      "text": "Read This Page. On this Watch page, listen to a model reader think aloud. Notice how the reader checks exact words, pauses at commas, and changes expression when a sentence asks a question or shows strong feeling. Press Next for the demo.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    },
+    "demo": {
+      "text": "Read This Page. This demo is a safe rehearsal. Read the sentence, press Listen for a model, repeat after the model when helpful, and explain which fluency move improves understanding. Press Next when you are ready for Practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    },
+    "practice": {
+      "text": "Read This Page. Practice time. Read the item, use the visual model, and press Read Question if you want the prompt read aloud. Press Listen to hear the sentence or passage before you answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge time asks you to use accuracy, phrasing, punctuation, expression, and repeated reading with less help. Press Read Question for the prompt and Listen for model audio before you choose or write your answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    },
+    "checkpoint": {
+      "text": "Read This Page. Checkpoint time shows what you can do independently. Press Read Question if you want narration, use Listen for sentences and passages, and check that your answer matches the text and fluency goal.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    },
+    "badge": {
+      "text": "Read This Page. This badge celebrates your Grade 5 fluency work. You practiced reading complex sentences and passages with accurate words, smooth phrasing, punctuation pauses, expression, and meaningful rereading. Press Next to see your profile.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves stars, accuracy, hints, and level progress. If one level needs more work, choose Practice This Skill and return to the Skill Practice Center. Fluent readers keep rehearsing with purpose.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true
+    }
+  }
+}
