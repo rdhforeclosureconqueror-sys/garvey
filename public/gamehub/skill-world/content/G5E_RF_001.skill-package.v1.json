@@ -1,0 +1,3295 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade5-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade5_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-05",
+    "content_note": "First Grade 5 English production proof SkillPackage only."
+  },
+  "skill_id": "G5E_RF_001",
+  "grade": 5,
+  "subject": "English",
+  "domain": "Reading Foundations / Word Analysis",
+  "skill": "Multisyllable Word Reading, Roots, and Affixes",
+  "mastery_threshold": 0.82,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Enter the Word Observatory, where long academic words become readable when you split syllables, identify roots and affixes, and blend the parts with meaning.",
+    "objective": "I can decode and understand multisyllable words using syllable patterns, prefixes, suffixes, and Greek and Latin roots.",
+    "key_vocabulary": [
+      "syllable pattern",
+      "prefix",
+      "suffix",
+      "root",
+      "affix",
+      "morpheme",
+      "Greek root",
+      "Latin root",
+      "decode",
+      "pronunciation"
+    ],
+    "concept_explanation": "Fifth-grade readers do not need to guess at long words. They scan for prefixes and suffixes, find Greek or Latin roots, divide the remaining word into readable syllables, pronounce each part, blend the word smoothly, and check the meaning in context.",
+    "visual_model": "word_parts",
+    "common_misconception": "A reader may divide syllables in the wrong place, mix up affix meanings, forget a root meaning, or guess a multisyllable word from its beginning instead of decoding every meaningful part.",
+    "real_world_connection": "Word analysis helps you read science words like photosynthesis, social studies words like transportation, and new book vocabulary independently.",
+    "lesson_summary": "Look for affixes and roots, split the rest into syllables, read every part, blend the word, and check the meaning.",
+    "mini_lesson": "Step 1: circle any prefix or suffix. Step 2: underline the root or base word. Step 3: divide the rest into syllables. Step 4: pronounce each part, blend the whole word, and ask whether the meaning fits.",
+    "audio": {
+      "text": "multisyllable, prefix, suffix, roots, affixes, morphology, pronunciation",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first",
+      "student_prompt": "Listen, then say the word or word parts with me."
+    }
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: observation splits into ob | ser | va | tion. Read each syllable, then blend: observation.",
+      "correct_answer": "ob-ser-va-tion",
+      "visual_model": "syllable_break",
+      "word": "observation",
+      "syllables": [
+        "ob",
+        "ser",
+        "va",
+        "tion"
+      ],
+      "syllable_types": [
+        "closed",
+        "r-controlled",
+        "open",
+        "suffix syllable"
+      ],
+      "audio": {
+        "text": "observation. ob, ser, va, tion. observation.",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      }
+    },
+    {
+      "text": "Demo: preview has pre- plus view. Pre- means before, so preview means to view before.",
+      "correct_answer": "view before",
+      "visual_model": "word_parts",
+      "word": "preview",
+      "word_parts": [
+        "pre-",
+        "view"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word"
+      ],
+      "part_meanings": [
+        "before",
+        "look at"
+      ],
+      "audio": {
+        "text": "preview. pre means before. view means look at. preview means view before.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      }
+    },
+    {
+      "text": "Practice: biography uses bio, meaning life, and graph, meaning write. A biography is writing about a life.",
+      "correct_answer": "life writing",
+      "visual_model": "morpheme_tiles",
+      "word": "biography",
+      "morphemes": [
+        "bio",
+        "graph",
+        "y"
+      ],
+      "part_meanings": [
+        "life",
+        "write",
+        "thing or study"
+      ],
+      "audio": {
+        "text": "biography. bio means life. graph means write. biography.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      }
+    },
+    {
+      "text": "Challenge: irresponsible is built from ir-, response, and -ible. Ir- means not, and -ible means able to be.",
+      "correct_answer": "irresponsible",
+      "visual_model": "word_builder",
+      "word": "irresponsible",
+      "tiles": [
+        "ir-",
+        "response",
+        "-ible"
+      ],
+      "part_meanings": [
+        "not",
+        "answer or act",
+        "able to be"
+      ],
+      "audio": {
+        "text": "ir plus response plus ible makes irresponsible.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Slow down and look for meaningful word parts before you guess.",
+    "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+    "Blend the parts and check that the meaning fits the sentence or word-building clue."
+  ],
+  "misconception_bank": {
+    "syllable_division_error": {
+      "description": "The reader splits a multisyllable word at an unhelpful place or ignores vowel patterns.",
+      "teacher_move": "Have the learner clap syllables, mark vowels, and read each chunk before blending."
+    },
+    "affix_meaning_confusion": {
+      "description": "The learner confuses a prefix or suffix meaning, such as pre- with re- or -able with -ful.",
+      "teacher_move": "Use prefix/base/suffix tiles and ask what each affix contributes to the word."
+    },
+    "root_meaning_confusion": {
+      "description": "The learner memorizes the whole word but misses the Greek or Latin root meaning.",
+      "teacher_move": "Compare several words with the same root and name the shared meaning."
+    },
+    "multisyllable_guessing": {
+      "description": "The learner guesses from the first letters instead of decoding all word parts.",
+      "teacher_move": "Cover and reveal the word part by part; require read, blend, and meaning-check steps."
+    }
+  },
+  "review_bank": [
+    {
+      "prompt": "Review the root port.",
+      "answer": "carry",
+      "audio": {
+        "text": "port means carry, as in transport and portable.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      }
+    },
+    {
+      "prompt": "Review the prefix mis-.",
+      "answer": "wrong or badly",
+      "audio": {
+        "text": "mis means wrong or badly, as in misread and misunderstand.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      }
+    },
+    {
+      "prompt": "Review syllable decoding.",
+      "answer": "split, read, blend, check meaning",
+      "audio": {
+        "text": "Split the word, read each chunk, blend the word, and check the meaning.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      }
+    }
+  ],
+  "game_theme": {
+    "title": "Word Observatory",
+    "name": "Word Observatory",
+    "mission_intro": "Decode the Observatory's long word signals by using syllables, roots, affixes, and morphology.",
+    "badge_name": "Word Analysis Navigator",
+    "background": "star-map word lab",
+    "tokens": "morpheme tiles"
+  },
+  "next_skill_id": "G5E_FL_001",
+  "remediation_skill_id": "G4E_RF_001",
+  "page_audio": {
+    "story": {
+      "text": "Welcome to the Word Observatory. Today you will learn how expert readers handle long words without guessing. You will use syllables, roots, prefixes, and suffixes like tools on a star map.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches a repeatable decoding routine. First find prefixes and suffixes. Then look for a Greek or Latin root. Next split the remaining word into syllables, read every part, blend the word, and check the meaning.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Watch carefully as the tutor breaks a long word into readable chunks. Notice that the goal is not just to pronounce the word; it is also to understand what the parts mean.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Now try the routine with guidance. Say each word part, name what it means when you can, and blend the full word smoothly before choosing an answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "In practice, pause before answering. Use the visual model to split, build, or explain the word. Reading all parts prevents multisyllable guessing.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "The challenge asks you to combine decoding and meaning. Use roots and affixes to make a smart choice, then check that the pronunciation and meaning both work.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This checkpoint checks whether you can apply the word analysis routine independently. Read the question, study the word parts, answer, and explain your thinking to yourself.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You earned the Word Analysis Navigator badge when you showed that long words can be decoded part by part. Keep using this routine in science, social studies, and novels.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Your profile will remember this skill as word analysis practice. Continue to the Skill Practice Center to build speed, accuracy, and confidence with new multisyllable words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "g5e_rf_001_l1",
+      "label": "Level 1: Syllable Patterns",
+      "focus": "Use syllable patterns to divide and pronounce Grade 5 multisyllable words.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G5E_RF_001_L1_Q01",
+          "prompt": "Which syllable break helps you read evaporation?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "e-vap-o-ra-tion",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is e-vap-o-ra-tion. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read evaporation? Choices: e-vap-o-ra-tion, ev-aporation, evaporati-on.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "e-vap-o-ra-tion",
+            "ev-aporation",
+            "evaporati-on"
+          ],
+          "audio": {
+            "text": "evaporation. e, vap, o, ra, tion. evaporation.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "evaporation",
+          "syllables": [
+            "e",
+            "vap",
+            "o",
+            "ra",
+            "tion"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "open",
+            "open",
+            "suffix syllable"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q02",
+          "prompt": "Which syllable break helps you read community?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "com-mu-ni-ty",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is com-mu-ni-ty. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read community? Choices: com-mu-ni-ty, co-mmunity, communi-ty.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "com-mu-ni-ty",
+            "co-mmunity",
+            "communi-ty"
+          ],
+          "audio": {
+            "text": "community. com, mu, ni, ty. community.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "community",
+          "syllables": [
+            "com",
+            "mu",
+            "ni",
+            "ty"
+          ],
+          "syllable_types": [
+            "closed",
+            "open",
+            "open",
+            "open"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q03",
+          "prompt": "Which syllable break helps you read reliable?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "re-li-a-ble",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is re-li-a-ble. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read reliable? Choices: re-li-a-ble, re-liable, reliab-le.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "re-li-a-ble",
+            "re-liable",
+            "reliab-le"
+          ],
+          "audio": {
+            "text": "reliable. re, li, a, ble. reliable.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "reliable",
+          "syllables": [
+            "re",
+            "li",
+            "a",
+            "ble"
+          ],
+          "syllable_types": [
+            "open",
+            "open",
+            "open",
+            "consonant-le"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q04",
+          "prompt": "Which syllable break helps you read fortunate?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "for-tu-nate",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is for-tu-nate. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read fortunate? Choices: for-tu-nate, fo-rtunate, fortuna-te.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "for-tu-nate",
+            "fo-rtunate",
+            "fortuna-te"
+          ],
+          "audio": {
+            "text": "fortunate. for, tu, nate. fortunate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "fortunate",
+          "syllables": [
+            "for",
+            "tu",
+            "nate"
+          ],
+          "syllable_types": [
+            "r-controlled",
+            "open",
+            "silent-e"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q05",
+          "prompt": "Which syllable break helps you read investigate?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "in-ves-ti-gate",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is in-ves-ti-gate. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read investigate? Choices: in-ves-ti-gate, in-vestigate, investiga-te.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "in-ves-ti-gate",
+            "in-vestigate",
+            "investiga-te"
+          ],
+          "audio": {
+            "text": "investigate. in, ves, ti, gate. investigate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "investigate",
+          "syllables": [
+            "in",
+            "ves",
+            "ti",
+            "gate"
+          ],
+          "syllable_types": [
+            "closed",
+            "closed",
+            "open",
+            "silent-e"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q06",
+          "prompt": "Which syllable break helps you read democracy?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "de-moc-ra-cy",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is de-moc-ra-cy. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read democracy? Choices: de-moc-ra-cy, de-mocracy, democra-cy.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "de-moc-ra-cy",
+            "de-mocracy",
+            "democra-cy"
+          ],
+          "audio": {
+            "text": "democracy. de, moc, ra, cy. democracy.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "democracy",
+          "syllables": [
+            "de",
+            "moc",
+            "ra",
+            "cy"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "open",
+            "open"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q07",
+          "prompt": "Which syllable break helps you read electricity?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "e-lec-tric-i-ty",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is e-lec-tric-i-ty. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read electricity? Choices: e-lec-tric-i-ty, el-ectricity, electrici-ty.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "e-lec-tric-i-ty",
+            "el-ectricity",
+            "electrici-ty"
+          ],
+          "audio": {
+            "text": "electricity. e, lec, tric, i, ty. electricity.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "electricity",
+          "syllables": [
+            "e",
+            "lec",
+            "tric",
+            "i",
+            "ty"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "closed",
+            "open",
+            "open"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q08",
+          "prompt": "Which syllable break helps you read temperature?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "tem-per-a-ture",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is tem-per-a-ture. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read temperature? Choices: tem-per-a-ture, te-mperature, temperatu-re.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "tem-per-a-ture",
+            "te-mperature",
+            "temperatu-re"
+          ],
+          "audio": {
+            "text": "temperature. tem, per, a, ture. temperature.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "temperature",
+          "syllables": [
+            "tem",
+            "per",
+            "a",
+            "ture"
+          ],
+          "syllable_types": [
+            "closed",
+            "r-controlled",
+            "open",
+            "r-controlled"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q09",
+          "prompt": "Which syllable break helps you read illustrate?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "il-lus-trate",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is il-lus-trate. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read illustrate? Choices: il-lus-trate, il-lustrate, illustra-te.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "il-lus-trate",
+            "il-lustrate",
+            "illustra-te"
+          ],
+          "audio": {
+            "text": "illustrate. il, lus, trate. illustrate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "illustrate",
+          "syllables": [
+            "il",
+            "lus",
+            "trate"
+          ],
+          "syllable_types": [
+            "closed",
+            "closed",
+            "silent-e"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L1_Q10",
+          "prompt": "Which syllable break helps you read opportunity?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "op-por-tu-ni-ty",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is op-por-tu-ni-ty. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read opportunity? Choices: op-por-tu-ni-ty, op-portunity, opportuni-ty.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "op-por-tu-ni-ty",
+            "op-portunity",
+            "opportuni-ty"
+          ],
+          "audio": {
+            "text": "opportunity. op, por, tu, ni, ty. opportunity.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "opportunity",
+          "syllables": [
+            "op",
+            "por",
+            "tu",
+            "ni",
+            "ty"
+          ],
+          "syllable_types": [
+            "closed",
+            "r-controlled",
+            "open",
+            "open",
+            "open"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "g5e_rf_001_l2",
+      "label": "Level 2: Prefixes and Suffixes",
+      "focus": "Use prefixes and suffixes to decode and explain word meanings.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.82,
+      "questions": [
+        {
+          "question_id": "G5E_RF_001_L2_Q01",
+          "prompt": "In misinterpret, what does mis- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "wrongly",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is wrongly. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In misinterpret, what does mis- mean? Choices: wrongly, after, many.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "wrongly",
+            "after",
+            "many"
+          ],
+          "audio": {
+            "text": "misinterpret. mis- means wrongly. interpret means explain meaning. misinterpret.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "misinterpret",
+          "word_parts": [
+            "mis-",
+            "interpret"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "wrongly",
+            "explain meaning"
+          ],
+          "acceptable_answers": [
+            "wrongly interpret"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q02",
+          "prompt": "In submarine, what does sub- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "under",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is under. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In submarine, what does sub- mean? Choices: under, after, many.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "under",
+            "after",
+            "many"
+          ],
+          "audio": {
+            "text": "submarine. sub- means under. marine means sea. submarine.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "submarine",
+          "word_parts": [
+            "sub-",
+            "marine"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "under",
+            "sea"
+          ],
+          "acceptable_answers": [
+            "under the sea"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q03",
+          "prompt": "What does prediction mean based on its word parts?",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "saying before",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is saying before. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "What does prediction mean based on its word parts?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "saying before"
+          ],
+          "audio": {
+            "text": "prediction. pre- means before. dict means say. -ion means act or result. prediction.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "prediction",
+          "word_parts": [
+            "pre-",
+            "dict",
+            "-ion"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "before",
+            "say",
+            "act or result"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q04",
+          "prompt": "In careless, what does -less mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "without",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is without. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In careless, what does -less mean? Choices: without, after, many.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "without",
+            "after",
+            "many"
+          ],
+          "audio": {
+            "text": "careless. care means attention. -less means without. careless.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "careless",
+          "word_parts": [
+            "care",
+            "-less"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "attention",
+            "without"
+          ],
+          "acceptable_answers": [
+            "without care"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q05",
+          "prompt": "In hopeful, what does -ful mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "full of",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is full of. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In hopeful, what does -ful mean? Choices: full of, after, many.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "full of",
+            "after",
+            "many"
+          ],
+          "audio": {
+            "text": "hopeful. hope means wish. -ful means full of. hopeful.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "hopeful",
+          "word_parts": [
+            "hope",
+            "-ful"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "wish",
+            "full of"
+          ],
+          "acceptable_answers": [
+            "full of hope"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q06",
+          "prompt": "Build the word that means write again.",
+          "question_type": "word_building",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "rewrite",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is rewrite. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build the word that means write again.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "rewrite"
+          ],
+          "audio": {
+            "text": "rewrite. re- means again. write means write. rewrite.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "rewrite",
+          "word_parts": [
+            "re-",
+            "write"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "again",
+            "write"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q07",
+          "prompt": "What does disagreeable mean based on its word parts?",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "not easy to agree with",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is not easy to agree with. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "What does disagreeable mean based on its word parts?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "not easy to agree with"
+          ],
+          "audio": {
+            "text": "disagreeable. dis- means not or opposite. agree means agree. -able means able to be. disagreeable.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "disagreeable",
+          "word_parts": [
+            "dis-",
+            "agree",
+            "-able"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "not or opposite",
+            "agree",
+            "able to be"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q08",
+          "prompt": "What does portable mean based on its word parts?",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "able to be carried",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is able to be carried. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "What does portable mean based on its word parts?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "able to be carried",
+            "can be carried",
+            "can be carried"
+          ],
+          "audio": {
+            "text": "portable. port means carry. -able means able to be. portable.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "portable",
+          "word_parts": [
+            "port",
+            "-able"
+          ],
+          "part_roles": [
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "carry",
+            "able to be"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q09",
+          "prompt": "In nonfiction, what does non- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "not",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is not. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In nonfiction, what does non- mean? Choices: not, after, many.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "not",
+            "after",
+            "many"
+          ],
+          "audio": {
+            "text": "nonfiction. non- means not. fiction means made-up writing. nonfiction.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "nonfiction",
+          "word_parts": [
+            "non-",
+            "fiction"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "not",
+            "made-up writing"
+          ],
+          "acceptable_answers": [
+            "not fiction"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L2_Q10",
+          "prompt": "Build the word that means one who teaches.",
+          "question_type": "word_building",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "teacher",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is teacher. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build the word that means one who teaches.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "teacher"
+          ],
+          "audio": {
+            "text": "teacher. teach means teach. -er means one who. teacher.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "teacher",
+          "word_parts": [
+            "teach",
+            "-er"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "teach",
+            "one who"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "g5e_rf_001_l3",
+      "label": "Level 3: Greek and Latin Roots",
+      "focus": "Use common Greek and Latin roots to read and understand academic words.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.82,
+      "questions": [
+        {
+          "question_id": "G5E_RF_001_L3_Q01",
+          "prompt": "In autograph, what does the root graph mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "write",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is write. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In autograph, what does the root graph mean? Choices: write, many, turn.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "write",
+            "many",
+            "turn"
+          ],
+          "audio": {
+            "text": "autograph. auto means self. graph means write. autograph.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "autograph",
+          "morphemes": [
+            "auto",
+            "graph"
+          ],
+          "part_meanings": [
+            "self",
+            "write"
+          ],
+          "acceptable_answers": [
+            "writing by oneself or a signature"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q02",
+          "prompt": "Use the roots to explain what biology means.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "study of life",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is study of life. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Use the roots to explain what biology means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "study of life"
+          ],
+          "audio": {
+            "text": "biology. bio means life. logy means study of. biology.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "biology",
+          "morphemes": [
+            "bio",
+            "logy"
+          ],
+          "part_meanings": [
+            "life",
+            "study of"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q03",
+          "prompt": "In telephone, what does the root tele mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "far",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is far. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In telephone, what does the root tele mean? Choices: far, many, turn.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "far",
+            "many",
+            "turn"
+          ],
+          "audio": {
+            "text": "telephone. tele means far. phone means sound. telephone.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "telephone",
+          "morphemes": [
+            "tele",
+            "phone"
+          ],
+          "part_meanings": [
+            "far",
+            "sound"
+          ],
+          "acceptable_answers": [
+            "sound from far away"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q04",
+          "prompt": "Use the roots to explain what transport means.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "carry across",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is carry across. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Use the roots to explain what transport means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "carry across"
+          ],
+          "audio": {
+            "text": "transport. trans means across. port means carry. transport.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "transport",
+          "morphemes": [
+            "trans",
+            "port"
+          ],
+          "part_meanings": [
+            "across",
+            "carry"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q05",
+          "prompt": "Build the word from these morphemes: spect + ator.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "spectator",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is spectator. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build the word from these morphemes: spect + ator.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "spectator"
+          ],
+          "audio": {
+            "text": "spectator. spect means look. ator means one who. spectator.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "spectator",
+          "morphemes": [
+            "spect",
+            "ator"
+          ],
+          "part_meanings": [
+            "look",
+            "one who"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q06",
+          "prompt": "In microscope, what does the root micro mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "small",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is small. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In microscope, what does the root micro mean? Choices: small, many, turn.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "small",
+            "many",
+            "turn"
+          ],
+          "audio": {
+            "text": "microscope. micro means small. scope means look at. microscope.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "microscope",
+          "morphemes": [
+            "micro",
+            "scope"
+          ],
+          "part_meanings": [
+            "small",
+            "look at"
+          ],
+          "acceptable_answers": [
+            "tool to look at small things"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q07",
+          "prompt": "In geology, what does the root geo mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "earth",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is earth. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In geology, what does the root geo mean? Choices: earth, many, turn.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "earth",
+            "many",
+            "turn"
+          ],
+          "audio": {
+            "text": "geology. geo means earth. logy means study of. geology.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "geology",
+          "morphemes": [
+            "geo",
+            "logy"
+          ],
+          "part_meanings": [
+            "earth",
+            "study of"
+          ],
+          "acceptable_answers": [
+            "study of Earth"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q08",
+          "prompt": "Use the roots to explain what dictation means.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "the act of saying words to be written",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is the act of saying words to be written. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Use the roots to explain what dictation means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "the act of saying words to be written"
+          ],
+          "audio": {
+            "text": "dictation. dict means say. ation means act or result. dictation.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "dictation",
+          "morphemes": [
+            "dict",
+            "ation"
+          ],
+          "part_meanings": [
+            "say",
+            "act or result"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q09",
+          "prompt": "Build the word from these morphemes: aqua + rium.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "aquarium",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is aquarium. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build the word from these morphemes: aqua + rium.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "aquarium"
+          ],
+          "audio": {
+            "text": "aquarium. aqua means water. rium means place. aquarium.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "aquarium",
+          "morphemes": [
+            "aqua",
+            "rium"
+          ],
+          "part_meanings": [
+            "water",
+            "place"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L3_Q10",
+          "prompt": "In chronology, what does the root chron mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "time",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is time. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In chronology, what does the root chron mean? Choices: time, many, turn.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "time",
+            "many",
+            "turn"
+          ],
+          "audio": {
+            "text": "chronology. chron means time. logy means study/order. chronology.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "chronology",
+          "morphemes": [
+            "chron",
+            "logy"
+          ],
+          "part_meanings": [
+            "time",
+            "study/order"
+          ],
+          "acceptable_answers": [
+            "order by time"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "g5e_rf_001_l4",
+      "label": "Level 4: Decode Multisyllable Words",
+      "focus": "Combine syllables, roots, affixes, and blending to decode long academic words.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.84,
+      "questions": [
+        {
+          "question_id": "G5E_RF_001_L4_Q01",
+          "prompt": "Build and read the multisyllable word from these parts: un- + pre- + dict + -able.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "unpredictable",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is unpredictable. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build and read the multisyllable word from these parts: un- + pre- + dict + -able.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "unpredictable"
+          ],
+          "audio": {
+            "text": "unpredictable. un- plus pre- plus dict plus -able makes unpredictable.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "unpredictable",
+          "tiles": [
+            "un-",
+            "pre-",
+            "dict",
+            "-able"
+          ],
+          "part_meanings": [
+            "not",
+            "before",
+            "say",
+            "able to be"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q02",
+          "prompt": "Decode photosynthesis and explain its meaning from the parts.",
+          "question_type": "short_response",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "plants putting together food with light",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is plants putting together food with light. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Decode photosynthesis and explain its meaning from the parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "plants putting together food with light"
+          ],
+          "audio": {
+            "text": "photosynthesis. photo plus syn plus thesis makes photosynthesis.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "photosynthesis",
+          "tiles": [
+            "photo",
+            "syn",
+            "thesis"
+          ],
+          "part_meanings": [
+            "light",
+            "together",
+            "putting"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q03",
+          "prompt": "Which word do these parts build: re- + con + sider + -ation?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "reconsideration",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is reconsideration. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which word do these parts build: re- + con + sider + -ation? Choices: reconsideration, reconsiderasion, reconsi.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "reconsideration",
+            "reconsiderasion",
+            "reconsi"
+          ],
+          "audio": {
+            "text": "reconsideration. re- plus con plus sider plus -ation makes reconsideration.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "reconsideration",
+          "tiles": [
+            "re-",
+            "con",
+            "sider",
+            "-ation"
+          ],
+          "part_meanings": [
+            "again",
+            "with",
+            "think",
+            "act or result"
+          ],
+          "acceptable_answers": [
+            "thinking about again"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q04",
+          "prompt": "Build and read the multisyllable word from these parts: mis- + com + mun + ica + tion.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "miscommunication",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is miscommunication. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build and read the multisyllable word from these parts: mis- + com + mun + ica + tion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "miscommunication"
+          ],
+          "audio": {
+            "text": "miscommunication. mis- plus com plus mun plus ica plus tion makes miscommunication.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "miscommunication",
+          "tiles": [
+            "mis-",
+            "com",
+            "mun",
+            "ica",
+            "tion"
+          ],
+          "part_meanings": [
+            "wrongly",
+            "together",
+            "share",
+            "make",
+            "act or result"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q05",
+          "prompt": "Decode geothermal and explain its meaning from the parts.",
+          "question_type": "short_response",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "related to Earth heat",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is related to Earth heat. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Decode geothermal and explain its meaning from the parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "related to Earth heat"
+          ],
+          "audio": {
+            "text": "geothermal. geo plus therm plus al makes geothermal.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "geothermal",
+          "tiles": [
+            "geo",
+            "therm",
+            "al"
+          ],
+          "part_meanings": [
+            "earth",
+            "heat",
+            "related to"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q06",
+          "prompt": "Build and read the multisyllable word from these parts: auto + bio + graph + y.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "autobiography",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is autobiography. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build and read the multisyllable word from these parts: auto + bio + graph + y.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "autobiography"
+          ],
+          "audio": {
+            "text": "autobiography. auto plus bio plus graph plus y makes autobiography.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "autobiography",
+          "tiles": [
+            "auto",
+            "bio",
+            "graph",
+            "y"
+          ],
+          "part_meanings": [
+            "self",
+            "life",
+            "write",
+            "thing"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q07",
+          "prompt": "Which word do these parts build: un- + com + fort + -able?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "uncomfortable",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is uncomfortable. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which word do these parts build: un- + com + fort + -able? Choices: uncomfortable, misuncomfortable, uncomf.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "uncomfortable",
+            "misuncomfortable",
+            "uncomf"
+          ],
+          "audio": {
+            "text": "uncomfortable. un- plus com plus fort plus -able makes uncomfortable.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "uncomfortable",
+          "tiles": [
+            "un-",
+            "com",
+            "fort",
+            "-able"
+          ],
+          "part_meanings": [
+            "not",
+            "with",
+            "strength/ease",
+            "able to be"
+          ],
+          "acceptable_answers": [
+            "not comfortable"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q08",
+          "prompt": "Build and read the multisyllable word from these parts: trans + port + a + tion.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "transportation",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is transportation. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build and read the multisyllable word from these parts: trans + port + a + tion.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "transportation"
+          ],
+          "audio": {
+            "text": "transportation. trans plus port plus a plus tion makes transportation.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "transportation",
+          "tiles": [
+            "trans",
+            "port",
+            "a",
+            "tion"
+          ],
+          "part_meanings": [
+            "across",
+            "carry",
+            "connecting vowel",
+            "act or process"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q09",
+          "prompt": "Decode counterproductive and explain its meaning from the parts.",
+          "question_type": "short_response",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "working against the goal",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is working against the goal. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Decode counterproductive and explain its meaning from the parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "working against the goal"
+          ],
+          "audio": {
+            "text": "counterproductive. counter- plus product plus -ive makes counterproductive.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "counterproductive",
+          "tiles": [
+            "counter-",
+            "product",
+            "-ive"
+          ],
+          "part_meanings": [
+            "against",
+            "make",
+            "tending to"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_L4_Q10",
+          "prompt": "Which word do these parts build: re + spon + si + bil + i + ty?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "responsibility",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is responsibility. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which word do these parts build: re + spon + si + bil + i + ty? Choices: responsibility, misresponsibility, respons.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "responsibility",
+            "misresponsibility",
+            "respons"
+          ],
+          "audio": {
+            "text": "responsibility. re plus spon plus si plus bil plus i plus ty makes responsibility.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "responsibility",
+          "tiles": [
+            "re",
+            "spon",
+            "si",
+            "bil",
+            "i",
+            "ty"
+          ],
+          "part_meanings": [
+            "syllable",
+            "syllable",
+            "syllable",
+            "syllable",
+            "syllable",
+            "state of"
+          ],
+          "acceptable_answers": [
+            "responsibility"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "g5e_rf_001_mixed",
+      "label": "Mixed",
+      "focus": "Mix syllable patterns, affixes, Greek/Latin roots, and multisyllable decoding.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.84,
+      "questions": [
+        {
+          "question_id": "G5E_RF_001_MIX_Q01",
+          "prompt": "Which syllable break helps you read community?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "com-mu-ni-ty",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is com-mu-ni-ty. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read community? Choices: com-mu-ni-ty, co-mmunity, communi-ty.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "com-mu-ni-ty",
+            "co-mmunity",
+            "communi-ty"
+          ],
+          "audio": {
+            "text": "community. com, mu, ni, ty. community.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "community",
+          "syllables": [
+            "com",
+            "mu",
+            "ni",
+            "ty"
+          ],
+          "syllable_types": [
+            "closed",
+            "open",
+            "open",
+            "open"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q02",
+          "prompt": "What does prediction mean based on its word parts?",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "saying before",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is saying before. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "What does prediction mean based on its word parts?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "saying before"
+          ],
+          "audio": {
+            "text": "prediction. pre- means before. dict means say. -ion means act or result. prediction.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "prediction",
+          "word_parts": [
+            "pre-",
+            "dict",
+            "-ion"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "before",
+            "say",
+            "act or result"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q03",
+          "prompt": "Use the roots to explain what transport means.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "carry across",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is carry across. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Use the roots to explain what transport means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "carry across"
+          ],
+          "audio": {
+            "text": "transport. trans means across. port means carry. transport.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "transport",
+          "morphemes": [
+            "trans",
+            "port"
+          ],
+          "part_meanings": [
+            "across",
+            "carry"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q04",
+          "prompt": "Build and read the multisyllable word from these parts: un- + pre- + dict + -able.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "unpredictable",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is unpredictable. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build and read the multisyllable word from these parts: un- + pre- + dict + -able.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "unpredictable"
+          ],
+          "audio": {
+            "text": "unpredictable. un- plus pre- plus dict plus -able makes unpredictable.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "unpredictable",
+          "tiles": [
+            "un-",
+            "pre-",
+            "dict",
+            "-able"
+          ],
+          "part_meanings": [
+            "not",
+            "before",
+            "say",
+            "able to be"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q05",
+          "prompt": "Which syllable break helps you read electricity?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "e-lec-tric-i-ty",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is e-lec-tric-i-ty. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read electricity? Choices: e-lec-tric-i-ty, el-ectricity, electrici-ty.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "e-lec-tric-i-ty",
+            "el-ectricity",
+            "electrici-ty"
+          ],
+          "audio": {
+            "text": "electricity. e, lec, tric, i, ty. electricity.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "electricity",
+          "syllables": [
+            "e",
+            "lec",
+            "tric",
+            "i",
+            "ty"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "closed",
+            "open",
+            "open"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q06",
+          "prompt": "What does portable mean based on its word parts?",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "able to be carried",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is able to be carried. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "What does portable mean based on its word parts?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "able to be carried",
+            "can be carried",
+            "can be carried"
+          ],
+          "audio": {
+            "text": "portable. port means carry. -able means able to be. portable.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "portable",
+          "word_parts": [
+            "port",
+            "-able"
+          ],
+          "part_roles": [
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "carry",
+            "able to be"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q07",
+          "prompt": "In microscope, what does the root micro mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "small",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "root_meaning_confusion",
+          "explanation": "The answer is small. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "In microscope, what does the root micro mean? Choices: small, many, turn.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "small",
+            "many",
+            "turn"
+          ],
+          "audio": {
+            "text": "microscope. micro means small. scope means look at. microscope.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "microscope",
+          "morphemes": [
+            "micro",
+            "scope"
+          ],
+          "part_meanings": [
+            "small",
+            "look at"
+          ],
+          "acceptable_answers": [
+            "tool to look at small things"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q08",
+          "prompt": "Build and read the multisyllable word from these parts: auto + bio + graph + y.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "autobiography",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is autobiography. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Build and read the multisyllable word from these parts: auto + bio + graph + y.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "autobiography"
+          ],
+          "audio": {
+            "text": "autobiography. auto plus bio plus graph plus y makes autobiography.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "autobiography",
+          "tiles": [
+            "auto",
+            "bio",
+            "graph",
+            "y"
+          ],
+          "part_meanings": [
+            "self",
+            "life",
+            "write",
+            "thing"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q09",
+          "prompt": "Which syllable break helps you read illustrate?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "il-lus-trate",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "syllable_division_error",
+          "explanation": "The answer is il-lus-trate. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Which syllable break helps you read illustrate? Choices: il-lus-trate, il-lustrate, illustra-te.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "il-lus-trate",
+            "il-lustrate",
+            "illustra-te"
+          ],
+          "audio": {
+            "text": "illustrate. il, lus, trate. illustrate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "illustrate",
+          "syllables": [
+            "il",
+            "lus",
+            "trate"
+          ],
+          "syllable_types": [
+            "closed",
+            "closed",
+            "silent-e"
+          ]
+        },
+        {
+          "question_id": "G5E_RF_001_MIX_Q10",
+          "prompt": "Decode counterproductive and explain its meaning from the parts.",
+          "question_type": "short_response",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "working against the goal",
+          "hints": [
+            "Slow down and look for meaningful word parts before you guess.",
+            "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+            "Blend the parts and check that the meaning fits the sentence or word-building clue."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is working against the goal. Use the word parts first, then blend and check meaning.",
+          "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+          "question_audio": {
+            "text": "Decode counterproductive and explain its meaning from the parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "working against the goal"
+          ],
+          "audio": {
+            "text": "counterproductive. counter- plus product plus -ive makes counterproductive.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first",
+            "student_prompt": "Listen, then say the word or word parts with me."
+          },
+          "word": "counterproductive",
+          "tiles": [
+            "counter-",
+            "product",
+            "-ive"
+          ],
+          "part_meanings": [
+            "against",
+            "make",
+            "tending to"
+          ]
+        }
+      ]
+    }
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G5E_RF_001_GP_Q01",
+      "prompt": "Which syllable break helps you read evaporation?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "e-vap-o-ra-tion",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "syllable_division_error",
+      "explanation": "The answer is e-vap-o-ra-tion. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "Which syllable break helps you read evaporation? Choices: e-vap-o-ra-tion, ev-aporation, evaporati-on.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "e-vap-o-ra-tion",
+        "ev-aporation",
+        "evaporati-on"
+      ],
+      "audio": {
+        "text": "evaporation. e, vap, o, ra, tion. evaporation.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "evaporation",
+      "syllables": [
+        "e",
+        "vap",
+        "o",
+        "ra",
+        "tion"
+      ],
+      "syllable_types": [
+        "open",
+        "closed",
+        "open",
+        "open",
+        "suffix syllable"
+      ]
+    },
+    {
+      "question_id": "G5E_RF_001_GP_Q02",
+      "prompt": "In misinterpret, what does mis- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "wrongly",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is wrongly. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "In misinterpret, what does mis- mean? Choices: wrongly, after, many.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "wrongly",
+        "after",
+        "many"
+      ],
+      "audio": {
+        "text": "misinterpret. mis- means wrongly. interpret means explain meaning. misinterpret.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "misinterpret",
+      "word_parts": [
+        "mis-",
+        "interpret"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word"
+      ],
+      "part_meanings": [
+        "wrongly",
+        "explain meaning"
+      ],
+      "acceptable_answers": [
+        "wrongly interpret"
+      ]
+    },
+    {
+      "question_id": "G5E_RF_001_GP_Q03",
+      "prompt": "In autograph, what does the root graph mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "write",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "root_meaning_confusion",
+      "explanation": "The answer is write. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "In autograph, what does the root graph mean? Choices: write, many, turn.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "write",
+        "many",
+        "turn"
+      ],
+      "audio": {
+        "text": "autograph. auto means self. graph means write. autograph.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "autograph",
+      "morphemes": [
+        "auto",
+        "graph"
+      ],
+      "part_meanings": [
+        "self",
+        "write"
+      ],
+      "acceptable_answers": [
+        "writing by oneself or a signature"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G5E_RF_001_CP_Q01",
+      "prompt": "Which syllable break helps you read reliable?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "re-li-a-ble",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "syllable_division_error",
+      "explanation": "The answer is re-li-a-ble. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "Which syllable break helps you read reliable? Choices: re-li-a-ble, re-liable, reliab-le.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "re-li-a-ble",
+        "re-liable",
+        "reliab-le"
+      ],
+      "audio": {
+        "text": "reliable. re, li, a, ble. reliable.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "reliable",
+      "syllables": [
+        "re",
+        "li",
+        "a",
+        "ble"
+      ],
+      "syllable_types": [
+        "open",
+        "open",
+        "open",
+        "consonant-le"
+      ]
+    },
+    {
+      "question_id": "G5E_RF_001_CP_Q02",
+      "prompt": "What does disagreeable mean based on its word parts?",
+      "question_type": "short_response",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "not easy to agree with",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is not easy to agree with. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "What does disagreeable mean based on its word parts?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "not easy to agree with"
+      ],
+      "audio": {
+        "text": "disagreeable. dis- means not or opposite. agree means agree. -able means able to be. disagreeable.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "disagreeable",
+      "word_parts": [
+        "dis-",
+        "agree",
+        "-able"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word",
+        "suffix"
+      ],
+      "part_meanings": [
+        "not or opposite",
+        "agree",
+        "able to be"
+      ]
+    },
+    {
+      "question_id": "G5E_RF_001_CP_Q03",
+      "prompt": "Use the roots to explain what dictation means.",
+      "question_type": "short_response",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "the act of saying words to be written",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "root_meaning_confusion",
+      "explanation": "The answer is the act of saying words to be written. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "Use the roots to explain what dictation means.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "the act of saying words to be written"
+      ],
+      "audio": {
+        "text": "dictation. dict means say. ation means act or result. dictation.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "dictation",
+      "morphemes": [
+        "dict",
+        "ation"
+      ],
+      "part_meanings": [
+        "say",
+        "act or result"
+      ]
+    },
+    {
+      "question_id": "G5E_RF_001_CP_Q04",
+      "prompt": "Build and read the multisyllable word from these parts: un- + pre- + dict + -able.",
+      "question_type": "word_building",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "unpredictable",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "multisyllable_guessing",
+      "explanation": "The answer is unpredictable. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "Build and read the multisyllable word from these parts: un- + pre- + dict + -able.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "unpredictable"
+      ],
+      "audio": {
+        "text": "unpredictable. un- plus pre- plus dict plus -able makes unpredictable.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "unpredictable",
+      "tiles": [
+        "un-",
+        "pre-",
+        "dict",
+        "-able"
+      ],
+      "part_meanings": [
+        "not",
+        "before",
+        "say",
+        "able to be"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G5E_RF_001_AD_Q01",
+      "prompt": "Which syllable break helps you read investigate?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "in-ves-ti-gate",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "syllable_division_error",
+      "explanation": "The answer is in-ves-ti-gate. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "Which syllable break helps you read investigate? Choices: in-ves-ti-gate, in-vestigate, investiga-te.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "in-ves-ti-gate",
+        "in-vestigate",
+        "investiga-te"
+      ],
+      "audio": {
+        "text": "investigate. in, ves, ti, gate. investigate.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "investigate",
+      "syllables": [
+        "in",
+        "ves",
+        "ti",
+        "gate"
+      ],
+      "syllable_types": [
+        "closed",
+        "closed",
+        "open",
+        "silent-e"
+      ]
+    },
+    {
+      "question_id": "G5E_RF_001_AD_Q02",
+      "prompt": "In nonfiction, what does non- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "not",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is not. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "In nonfiction, what does non- mean? Choices: not, after, many.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "not",
+        "after",
+        "many"
+      ],
+      "audio": {
+        "text": "nonfiction. non- means not. fiction means made-up writing. nonfiction.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "nonfiction",
+      "word_parts": [
+        "non-",
+        "fiction"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word"
+      ],
+      "part_meanings": [
+        "not",
+        "made-up writing"
+      ],
+      "acceptable_answers": [
+        "not fiction"
+      ]
+    },
+    {
+      "question_id": "G5E_RF_001_AD_Q03",
+      "prompt": "In chronology, what does the root chron mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "time",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "root_meaning_confusion",
+      "explanation": "The answer is time. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "In chronology, what does the root chron mean? Choices: time, many, turn.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "time",
+        "many",
+        "turn"
+      ],
+      "audio": {
+        "text": "chronology. chron means time. logy means study/order. chronology.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "chronology",
+      "morphemes": [
+        "chron",
+        "logy"
+      ],
+      "part_meanings": [
+        "time",
+        "study/order"
+      ],
+      "acceptable_answers": [
+        "order by time"
+      ]
+    },
+    {
+      "question_id": "G5E_RF_001_AD_Q04",
+      "prompt": "Build and read the multisyllable word from these parts: mis- + com + mun + ica + tion.",
+      "question_type": "word_building",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "miscommunication",
+      "hints": [
+        "Slow down and look for meaningful word parts before you guess.",
+        "Mark syllables, prefixes, suffixes, roots, or base words. Then read one part at a time.",
+        "Blend the parts and check that the meaning fits the sentence or word-building clue."
+      ],
+      "misconception_tag": "multisyllable_guessing",
+      "explanation": "The answer is miscommunication. Use the word parts first, then blend and check meaning.",
+      "feedback": "Strong word analysis. You used the parts of the word instead of guessing.",
+      "question_audio": {
+        "text": "Build and read the multisyllable word from these parts: mis- + com + mun + ica + tion.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "miscommunication"
+      ],
+      "audio": {
+        "text": "miscommunication. mis- plus com plus mun plus ica plus tion makes miscommunication.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first",
+        "student_prompt": "Listen, then say the word or word parts with me."
+      },
+      "word": "miscommunication",
+      "tiles": [
+        "mis-",
+        "com",
+        "mun",
+        "ica",
+        "tion"
+      ],
+      "part_meanings": [
+        "wrongly",
+        "together",
+        "share",
+        "make",
+        "act or result"
+      ]
+    }
+  ]
+}

@@ -36,6 +36,7 @@ const g4AddSubtractFractions=load('G4M_FR_002');
 const g4MultiplyFractionsWholeNumbers=load('G4M_FR_003');
 const g4MeasurementConversionData=load('G4M_MD_001');
 const g4AnglesLinesShapes=load('G4M_GM_001');
+const g5WordAnalysis=load('G5E_RF_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -241,8 +242,6 @@ assert.match(VisualRegistry.render({visual_model:'phonics_tiles',word:'cake',til
 assert.match(VisualRegistry.render({visual_model:'sound_boxes',word:'boat',sounds:['b','oa','t'],correct_answer:'boat'}),/data-renderer="sound_boxes"[\s\S]*data-sound-kind="vowel-team"/,'sound_boxes renderer output exists with grouped vowel team');
 assert.match(VisualRegistry.render({visual_model:'word_builder',word:'stone',tiles:['st','o','n','e'],missing_tile:'e',correct_answer:'stone'}),/data-renderer="word_builder"[\s\S]*Target word: stone/,'word_builder renderer output exists');
 
-
-
 assert.ok(g3AdvancedPhonics,'G3E_RF_001 package loads');
 assert.equal(Schema.validateSkillPackage(g3AdvancedPhonics,{allowPlannedLevelBanks:false}).valid,true,'G3E_RF_001 validates in strict production mode');
 assert.equal(g3AdvancedPhonics.grade,3);
@@ -343,7 +342,6 @@ assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_mode
 assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_model==='vocabulary_match')),/data-renderer="vocabulary_match"/,'vocabulary_match renderer output exists');
 assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_model==='category_sort')),/data-renderer="category_sort"/,'category_sort renderer output exists');
 
-
 assertGrade2EnglishPackage(g2AskAnswer,{
   id:'G2E_RC_001',domain:'Reading Comprehension',skill:'Ask and Answer Questions About Text',
   levelLabels:['Level 1: Who / What / Where','Level 2: When / Why / How','Level 3: Find Text Evidence','Level 4: Mixed Questions','Mixed'],
@@ -384,7 +382,6 @@ assert.ok(g2MainIdeaQuestions.some((q)=>/match/i.test(q.prompt)),'G2E_RC_003 inc
 assert.ok(g2MainIdeaQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2E_RC_003 short responses include acceptable_answers');
 assert.match(VisualRegistry.render(g2MainIdeaQuestions.find((q)=>q.visual_model==='main_idea_web')),/data-renderer="main_idea_web"/,'main_idea_web renderer output exists');
 assert.match(VisualRegistry.render(g2MainIdeaQuestions.find((q)=>q.visual_model==='detail_cards')),/data-renderer="detail_cards"/,'detail_cards renderer output exists');
-
 
 assertGrade2EnglishPackage(g2OpinionWriting,{
   id:'G2E_WR_001',domain:'Writing / Composition',skill:'Write Opinion Pieces',
@@ -431,7 +428,6 @@ assert.ok(g2NarrativeQuestions.some((q)=>/beginning, middle, and end/i.test(q.pr
 assert.ok(g2NarrativeQuestions.some((q)=>/narrative/i.test(q.prompt)&&q.question_type==='writing_response'),'G2E_WR_003 builds a narrative');
 assert.ok(g2NarrativeQuestions.filter((q)=>q.question_type==='writing_response').every((q)=>q.validation_checks.includes('sequence_word_present')&&q.validation_checks.includes('detail_present')&&q.validation_checks.includes('closing_present')),'G2E_WR_003 writing validation checks exist');
 assert.equal(Renderer.evaluateAnswer(g2NarrativeQuestions.find((q)=>q.question_type==='writing_response'),'First, I filled a cup with soil. Then, I tucked seeds under the soil. Finally, I watered the cup. It was a day to remember.'),true,'narrative validation accepts child-friendly sample');
-
 
 function assertGrade3FinalEnglishPackage(pkg,expected){
   assert.ok(pkg,`${expected.id} package loads`);
@@ -512,6 +508,41 @@ assert.ok(g3LanguageQuestions.some((q)=>q.validation_checks?.includes('subject_v
 assert.match(VisualRegistry.render(g3LanguageQuestions.find((q)=>q.visual_model==='grammar_highlight')),/data-renderer="grammar_highlight"/,'grammar_highlight renderer output exists');
 assert.match(VisualRegistry.render(g3LanguageQuestions.find((q)=>q.visual_model==='sentence_combiner')),/data-renderer="sentence_combiner"/,'sentence_combiner renderer output exists');
 assert.equal(Renderer.evaluateAnswer(g3LanguageQuestions.find((q)=>q.visual_model==='sentence_combiner'),'The wind blew, and the leaves danced.'),true,'G3E_LANG_001 accepts sentence-combining sample');
+
+assert.ok(g5WordAnalysis,'G5E_RF_001 package loads');
+{
+  const result=Schema.validateSkillPackage(g5WordAnalysis,{allowPlannedLevelBanks:false});
+  assert.equal(result.valid,true,`G5E_RF_001 validates in strict production mode: ${result.errors.join('; ')}`);
+}
+assert.equal(g5WordAnalysis.grade,5,'G5E_RF_001 grade');
+assert.equal(g5WordAnalysis.subject,'English','G5E_RF_001 subject');
+assert.equal(g5WordAnalysis.domain,'Reading Foundations / Word Analysis','G5E_RF_001 domain');
+assert.equal(g5WordAnalysis.skill,'Multisyllable Word Reading, Roots, and Affixes','G5E_RF_001 skill');
+assert.deepEqual(Renderer.stepLabels(g5WordAnalysis),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'G5E_RF_001 mission uses full Skill World flow');
+['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>assert.equal(g5WordAnalysis.page_audio?.[screen]?.label,'Read This Page',`G5E_RF_001 ${screen} Read This Page narration exists`));
+assert.equal(Array.isArray(g5WordAnalysis.level_banks),true,'G5E_RF_001 has real level_banks');
+assert.equal(g5WordAnalysis.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G5E_RF_001 has four focused levels');
+assert.equal(g5WordAnalysis.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,'G5E_RF_001 has Mixed level');
+['Level 1: Syllable Patterns','Level 2: Prefixes and Suffixes','Level 3: Greek and Latin Roots','Level 4: Decode Multisyllable Words','Mixed'].forEach((label)=>assert.ok(g5WordAnalysis.level_banks.some((level)=>level.label===label),`G5E_RF_001 includes ${label}`));
+g5WordAnalysis.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+const g5WordAnalysisQuestions=g5WordAnalysis.level_banks.flatMap((level)=>level.questions);
+assert.equal([...g5WordAnalysis.guided_practice,...g5WordAnalysis.checkpoint,...g5WordAnalysis.adaptive_question_bank].every((question)=>question.question_audio?.label==='Read Question'&&question.question_audio?.text),true,'G5E_RF_001 mission Practice, Challenge, and Checkpoint questions have Read Question narration');
+assert.equal(g5WordAnalysisQuestions.every((question)=>question.question_audio?.label==='Read Question'&&question.question_audio?.text),true,'G5E_RF_001 Skill Practice Center questions have Read Question narration');
+assert.equal(g5WordAnalysisQuestions.every((question)=>question.audio?.text),true,'G5E_RF_001 questions include Listen audio for roots, affixes, multisyllable words, and pronunciation support');
+['syllable_break','word_parts','morpheme_tiles','word_builder'].forEach((visual)=>assert.ok(g5WordAnalysisQuestions.some((q)=>q.visual_model===visual),`G5E_RF_001 includes ${visual}`));
+['multiple_choice','short_response','word_building'].forEach((type)=>assert.ok(g5WordAnalysisQuestions.some((q)=>q.question_type===type),`G5E_RF_001 includes ${type}`));
+['syllable_division_error','affix_meaning_confusion','root_meaning_confusion','multisyllable_guessing'].forEach((tag)=>assert.ok(g5WordAnalysis.misconception_bank[tag],`G5E_RF_001 includes misconception ${tag}`));
+assert.ok(g5WordAnalysisQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G5E_RF_001 acceptable_answers exist for short-response items');
+const g5WordAnalysisMissionHtml=Renderer.renderSkillWorld(g5WordAnalysis,{failClosed:true}).html;
+['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g5WordAnalysisMissionHtml,new RegExp(label),`G5E_RF_001 mission renders ${label}`));
+assert.match(g5WordAnalysisMissionHtml,/Continue to Skill Practice/,'G5E_RF_001 profile links to Skill Practice Center');
+const g5WordAnalysisDrillHtml=Renderer.renderSkillWorld(g5WordAnalysis,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+assert.match(g5WordAnalysisDrillHtml,/Skill Practice Center/,'G5E_RF_001 practice route renders Skill Practice Center');
+assert.match(g5WordAnalysisDrillHtml,/Level 1: Syllable Patterns/,'G5E_RF_001 drill renders Level 1');
+assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='syllable_break')),/data-renderer="syllable_break"/,'G5E_RF_001 syllable_break renderer output exists');
+assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='word_parts')),/data-renderer="word_parts"/,'G5E_RF_001 word_parts renderer output exists');
+assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='morpheme_tiles')),/data-renderer="morpheme_tiles"/,'G5E_RF_001 morpheme_tiles renderer output exists');
+assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='word_builder')),/data-renderer="word_builder"/,'G5E_RF_001 word_builder renderer output exists');
 
 function assertFullMission(pkg){
   const validation=Schema.validateSkillPackage(pkg);
@@ -890,7 +921,6 @@ const englishMissionHtml=Renderer.renderSkillWorld(englishLetters,{failClosed:tr
 assert.match(Renderer.renderSkillWorld(englishLetters,{mode:'drill',failClosed:true}).html,/Skill Practice Center/,'G1E_RF_001 Skill Practice Center renders');
 assert.ok(Renderer.evaluateAnswer(englishQuestions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='a'),'A'),'G1E_RF_001 short_response accepts case-insensitive acceptable answer');
 
-
 assert.ok(Schema.AUDIO_TYPES.includes('phoneme'),'schema exposes reusable English audio types');
 const audioSchemaPackage=JSON.parse(JSON.stringify(englishLetters));
 audioSchemaPackage.guided_practice[0].audio={text:'mmm',label:'Hear the M sound',type:'phoneme',repeat_count:2,student_prompt:'Now say /m/.'};
@@ -953,7 +983,6 @@ assert.match(Renderer.renderSkillWorld(englishLetters,{failClosed:true}).html,/S
   assert.ok(audioItems.some((item)=>item.audio?.student_prompt),`${id} includes repeat-after-me prompts`);
 });
 
-
 const englishProductionIds=['G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const requiredEnglishRenderers=['word_sound_map','word_builder','word_family_sort','rhyme_match','sentence_highlight','phrase_builder','sentence_builder','short_passage','picture_story','question_card','story_sequence','picture_order','event_cards','writing_checklist','punctuation_marker','picture_prompt','detail_picker'];
 requiredEnglishRenderers.forEach((renderer)=>{
@@ -984,7 +1013,6 @@ assert.ok(writingQuestions.some((q)=>Array.isArray(q.validation_checks)&&q.valid
 assert.ok(writingQuestions.some((q)=>Array.isArray(q.validation_checks)&&q.validation_checks.includes('complete_sentence')),'writing validation includes complete sentence check');
 assert.equal(Renderer.evaluateAnswer({question_type:'short_response',validation_checks:['capital','spacing','punctuation','complete_sentence'],correct_answer:'The cat runs.',acceptable_answers:['The cat runs.']},'The dog jumps.'),true,'writing validation accepts child-friendly complete sentences');
 assert.equal(Renderer.evaluateAnswer({question_type:'short_response',validation_checks:['capital','spacing','punctuation','complete_sentence'],correct_answer:'The cat runs.',acceptable_answers:['The cat runs.']},'the dog jumps'),false,'writing validation catches missing capital and punctuation');
-
 
 assert.equal(Schema.validateSkillPackage(g2PlaceValue,{allowPlannedLevelBanks:false}).valid,true,'G2M_PV_001 schema validates as production package');
 assert.equal(g2PlaceValue.grade,2);
@@ -1035,7 +1063,6 @@ assert.match(g2DrillHtml,/Skill Practice Center/,'G2M_PV_001 Skill Practice Cent
 assert.match(g2DrillHtml,/class="level-card compact-level-card"/,'G2M_PV_001 drill uses compact level cards');
 assert.match(g2DrillHtml,/class="level-card-meta"/,'G2M_PV_001 drill keeps compact level metadata');
 assert.ok(Renderer.evaluateAnswer(g2Questions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='300 + 40 + 2'),'300 + 40 + 2.'),'G2M_PV_001 short_response accepts acceptable answer');
-
 
 const grade2ProductionIds=['G2M_NS_001','G2M_PV_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 grade2ProductionIds.forEach((id)=>{
@@ -1099,7 +1126,6 @@ assert.match(VisualRegistry.render(g2CompareQuestions.find((q)=>q.visual_model==
 assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='>'),'greater than'),'G2M_NS_002 accepts greater than word form');
 assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='<'),'less than'),'G2M_NS_002 accepts less than word form');
 assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='='),'equal to'),'G2M_NS_002 accepts equal to word form');
-
 
 function assertG2OperationsPackage(pkg,labels,tags){
   assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${pkg.skill_id} schema validates as production package`);
@@ -1175,7 +1201,6 @@ assert.match(clockVisual,/clock-number n12/);
 assert.match(clockVisual,/hour-hand/);
 assert.match(clockVisual,/minute-hand/);
 
-
 ['G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'].forEach((id)=>{
   const pkg=byId[id];
   assert.ok(pkg,`${id} package exists`);
@@ -1216,7 +1241,6 @@ assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.
 assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('3:05 p.m.')),'G2M_MD_002 accepts p.m. time variants');
 assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('25 cents')&&q.acceptable_answers.includes('$0.25')&&q.acceptable_answers.includes('quarter')),'G2M_MD_002 accepts money variants');
 
-
 const g2DataQuestions=g2DataGraphs.level_banks.flatMap((level)=>level.questions);
 assert.ok(g2DataQuestions.some((q)=>q.visual_model==='picture_graph'),'G2M_MD_003 includes picture graphs');
 assert.ok(g2DataQuestions.some((q)=>q.visual_model==='bar_graph'),'G2M_MD_003 includes bar graphs');
@@ -1241,7 +1265,6 @@ assert.ok(g2GeometryQuestions.filter((q)=>q.question_type!=='multiple_choice').e
 assert.match(VisualRegistry.render(g2GeometryQuestions.find((q)=>q.visual_model==='partition_shapes')),/data-renderer="partition_shapes"/,'partition_shapes output exists');
 assert.match(VisualRegistry.render(g2GeometryQuestions.find((q)=>q.visual_model==='array_model')),/data-renderer="array_model"/,'array_model output exists');
 
-
 const g3MultiplicationQuestions=g3MultiplicationFoundations.level_banks.flatMap((level)=>level.questions);
 assert.equal(Schema.validateSkillPackage(g3MultiplicationFoundations,{allowPlannedLevelBanks:false}).valid,true,'G3M_MUL_001 validates in strict production mode');
 assert.equal(g3MultiplicationFoundations.grade,3);
@@ -1265,8 +1288,6 @@ assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='array_model')),/rows.*columns|columns.*rows/i,'array_model renderer supports rows/columns');
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='repeated_addition')),/data-renderer="repeated_addition"/,'repeated_addition renderer output exists');
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='multiplication_model')),/data-renderer="multiplication_model"/,'multiplication_model renderer output exists');
-
-
 
 const grade3EnglishLiteracyPackages=[
   {pkg:g3Fluency,id:'G3E_FL_001',domain:'Fluency',skill:'Reading Fluency and Expression',labels:['Level 1: Accuracy','Level 2: Phrasing','Level 3: Punctuation and Expression','Level 4: Repeated Reading','Mixed'],visuals:['sentence_card','sentence_highlight','phrase_builder','fluency_meter'],types:['multiple_choice','short_response','sentence_completion'],tags:['skips_words','punctuation_ignored','phrase_chunking_error','expression_flat_reading'],listenNeeded:true},
@@ -1343,7 +1364,6 @@ assert.match(VisualRegistry.render(g3DivisionFoundations.level_banks.flatMap((le
 assert.match(VisualRegistry.render(g3FactFluency.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='multiplication_chart')),/data-renderer="multiplication_chart"/,'multiplication_chart output exists');
 assert.match(VisualRegistry.render(g3FactFluency.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='skip_counting')),/data-renderer="skip_counting"/,'skip_counting output exists');
 assert.match(VisualRegistry.render(g3WordProblems.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='operation_sort')),/data-renderer="operation_sort"/,'operation_sort output exists');
-
 
 const grade3BaseTenFractionPackages=[
   {pkg:g3PlaceValueRounding,id:'G3M_PV_001',domain:'Number and Operations in Base Ten',skill:'Place Value and Rounding to 1,000',labels:['Level 1: Place Value to 1,000','Level 2: Round to Nearest 10','Level 3: Round to Nearest 100','Level 4: Add/Subtract Using Place Value','Mixed'],visuals:['place_value_chart','number_line','rounding_model','expanded_form'],types:['multiple_choice','short_response','number_line','rounding'],tags:['rounding_direction_error','midpoint_confusion','place_value_error','zero_placeholder_confusion']},
@@ -1451,7 +1471,6 @@ assert.ok(g3AreaPerimeter.level_banks.flatMap((level)=>level.questions).some((q)
 assert.ok(g3GeometryShapes.level_banks.flatMap((level)=>level.questions).some((q)=>q.question_type==='fraction_response'&&Array.isArray(q.acceptable_answers)&&q.acceptable_answers.some((answer)=>String(answer).includes('/'))),'G3M_GM_002 fraction acceptable answers exist');
 assert.ok(g3GeometryShapes.level_banks.flatMap((level)=>level.questions).some((q)=>/(quadrilateral|triangle|rectangle|square)/i.test((q.acceptable_answers||[]).join(' '))),'G3M_GM_002 shape acceptable answers exist');
 
-
 const g4PlaceValue=load('G4M_NBT_001');
 const g4Questions=[...(g4PlaceValue.guided_practice||[]),...(g4PlaceValue.adaptive_question_bank||[]),...(g4PlaceValue.checkpoint||[]),...(g4PlaceValue.level_banks||[]).flatMap((level)=>level.questions||[])];
 assert.equal(Schema.validateSkillPackage(g4PlaceValue,{allowPlannedLevelBanks:false}).valid,true,'G4M_NBT_001 validates in strict production mode');
@@ -1478,7 +1497,6 @@ assert.match(VisualRegistry.render({visual_model:'place_value_chart',value:10000
 assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='expanded_form'&&q.value===405020)),/405,020|405020/,'expanded_form renderer handles multi-digit numbers with zeros');
 assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='number_line')),/data-renderer="number_line"/,'number_line renderer handles Grade 4 values');
 assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='rounding_model'&&q.round_to>=100000)),/data-renderer="rounding_model"/,'rounding_model renderer handles Grade 4 values');
-
 
 const g5DecimalPlaceValue=load('G5M_NBT_001');
 const g5Questions=[...(g5DecimalPlaceValue.guided_practice||[]),...(g5DecimalPlaceValue.adaptive_question_bank||[]),...(g5DecimalPlaceValue.checkpoint||[]),...(g5DecimalPlaceValue.level_banks||[]).flatMap((level)=>level.questions||[])];
@@ -1581,7 +1599,6 @@ assert.match(VisualRegistry.render({visual_model:'protractor_model',angle_degree
 assert.match(VisualRegistry.render({visual_model:'line_relationships',relationship:'perpendicular'}),/data-renderer="line_relationships"/,'line_relationships renderer output exists');
 assert.match(VisualRegistry.render({visual_model:'symmetry_model',shape:'rectangle',symmetry_lines:1}),/data-renderer="symmetry_model"/,'symmetry_model renderer output exists');
 
-
 const grade4DivisionFractionsPackages=[
   {pkg:g4DivisionRemainders,id:'G4M_NBT_004',domain:'Number and Operations in Base Ten',skill:'Division With Remainders',labels:['Level 1: Division Without Remainders','Level 2: Division With Remainders','Level 3: Interpret Remainders','Level 4: Check With Multiplication','Mixed'],visuals:['division_model','area_model','remainder_model','fact_family_model'],types:['multiple_choice','short_response','division_equation'],tags:['remainder_confusion','divisor_dividend_confusion','quotient_place_value_error','inverse_operation_confusion']},
   {pkg:g4FractionEquivalenceOrdering,id:'G4M_FR_001',domain:'Number and Operations—Fractions',skill:'Fraction Equivalence and Ordering',labels:['Level 1: Equivalent Fractions','Level 2: Compare Fractions','Level 3: Fraction Number Lines','Level 4: Benchmark Fractions','Mixed'],visuals:['fraction_bar','fraction_circle','number_line','comparison'],types:['multiple_choice','short_response','fraction_response','comparison'],tags:['equivalent_fraction_confusion','denominator_size_confusion','benchmark_fraction_error','fraction_number_line_error']},
@@ -1622,7 +1639,6 @@ grade4DivisionFractionsPackages.forEach(({pkg,id,domain,skill,labels,visuals,typ
   const drillHtml=Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html;
   assert.match(drillHtml,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
 });
-
 
 const grade4FinalMeasurementGeometryPackages=[
   {pkg:g4MeasurementConversionData,id:'G4M_MD_001',domain:'Measurement and Data',skill:'Measurement Conversion and Data',labels:['Level 1: Convert Larger to Smaller Units','Level 2: Measurement Word Problems','Level 3: Line Plots With Fractions','Level 4: Area and Perimeter Word Problems','Mixed'],visuals:['measurement_conversion_table','word_problem_model','line_plot','area_model','perimeter_path'],types:['multiple_choice','short_response','measurement','data_interpretation'],tags:['unit_conversion_direction_error','measurement_unit_confusion','line_plot_fraction_error','area_perimeter_confusion']},
@@ -2033,7 +2049,6 @@ assert.match(inequalityHtml,/ineq-circle (open|closed)/,'inequality_number_line 
 assert.match(inequalityHtml,/ineq-ray (left|right)/,'inequality_number_line shows arrow direction');
 assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='solution_set_model')),/solution-chip valid/,'solution_set_model shows valid solutions clearly');
 assert.match(VisualRegistry.render(grade6EeQuestions.find((q)=>q.visual_model==='equation_table_match')),/equation-strip[\s\S]*sw-pattern-table[\s\S]*graph-canvas/,'equation_table_match shows equation, table, and graph relationship');
-
 
 const grade6FinalMathPackages = [
   {id:'G6M_GM_001',domain:'Geometry',skill:'Area, Surface Area, and Volume',labels:['Level 1: Area of Triangles and Quadrilaterals','Level 2: Area of Polygons','Level 3: Surface Area With Nets','Level 4: Volume of Rectangular Prisms','Mixed'],visuals:['area_model','polygon_area_model','net_model','rectangular_prism_model','volume_model'],types:['multiple_choice','short_response','geometry_response','volume_response'],tags:['triangle_area_halving_error','polygon_decomposition_error','surface_area_net_error','volume_area_confusion'],pkg:load('G6M_GM_001')},
