@@ -19,6 +19,7 @@ const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1
 const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2E_RC_001', 'G2E_RC_002', 'G2E_RC_003', 'G2E_WR_001', 'G2E_WR_002', 'G2E_WR_003', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
 const requiredGrade3EnglishSkillIds = ['G3E_RF_001', 'G3E_FL_001', 'G3E_VOC_001', 'G3E_RC_001', 'G3E_RC_002', 'G3E_RC_003', 'G3E_WR_001', 'G3E_WR_002', 'G3E_WR_003', 'G3E_LANG_001'];
 const requiredGrade4EnglishFinalSkillIds = ['G4E_WR_001', 'G4E_WR_002', 'G4E_WR_003', 'G4E_LANG_001'];
+const requiredGrade5EnglishProofSkillIds = ['G5E_RF_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -75,7 +76,6 @@ test('Active Grade 1 Skill Practice Center questions expose read-aloud narration
   }
 });
 
-
 test('Grade 1 Math guided missions expose tutor-quality page narration from manifest packages', () => {
   const packages = manifest.packages.map(readPackage).filter((pkg) => requiredGrade1MathSkillIds.includes(pkg.skill_id));
   const screens = ['story', 'lesson', 'watch', 'demo', 'practice', 'challenge', 'checkpoint', 'badge', 'profile'];
@@ -95,7 +95,6 @@ test('Grade 1 Math guided missions expose tutor-quality page narration from mani
   }
   assert.match(packages.find((pkg) => pkg.skill_id === 'G1M_DP_001').page_audio.watch.text, /sorting[\s\S]*color[\s\S]*red ball[\s\S]*red cube[\s\S]*model/i);
 });
-
 
 test('Grade 1 English guided missions expose tutor-quality page narration from manifest packages', () => {
   const packages = manifest.packages.map(readPackage).filter((pkg) => requiredGrade1EnglishSkillIds.includes(pkg.skill_id));
@@ -226,8 +225,6 @@ test('Adaptive Grade 1 hub routes generated missions to /skill-world/:skillId', 
   assert.doesNotMatch(hub, /G1M_DP_001[^\n]*Start Skill World/);
 });
 
-
-
 test('Grade 3 English Skill World package appears from manifest for the hub', () => {
   for (const skillId of requiredGrade3EnglishSkillIds) {
     assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
@@ -264,7 +261,6 @@ test('Grade 3 English Skill World package appears from manifest for the hub', ()
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
-
 
 test('Final Grade 4 English writing and language packages appear from manifest for the hub', () => {
   const expected = new Map([
@@ -357,8 +353,6 @@ test('Grade 4 Math Place Value Skill World package appears from manifest for the
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
-
-
 
 test('Grade 5 Math decimal place value Skill World package appears from manifest for the hub', () => {
   assert.ok(manifest.packages.includes('G5M_NBT_001.skill-package.v1.json'), 'manifest includes G5M_NBT_001');
@@ -595,7 +589,6 @@ test('Grade 6 Expressions and Equations Skill World packages appear from manifes
   assert.match(hub, /Practice This Skill/);
 });
 
-
 test('Final Grade 6 Geometry and Statistics Skill World packages appear from manifest for the hub', () => {
   const expected = new Map([
     ['G6M_GM_001', { domain: 'Geometry', skill: 'Area, Surface Area, and Volume' }],
@@ -620,6 +613,31 @@ test('Final Grade 6 Geometry and Statistics Skill World packages appear from man
   assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
+});
+
+test('Grade 5 English word analysis proof Skill World package appears from manifest for the hub', () => {
+  const skillId = 'G5E_RF_001';
+  assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  const packages = manifest.packages.map(readPackage);
+  const grade5EnglishPackages = packages.filter((pkg) => requiredGrade5EnglishProofSkillIds.includes(pkg.skill_id));
+  assert.deepEqual(grade5EnglishPackages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade5EnglishProofSkillIds].sort());
+  const g5e = grade5EnglishPackages.find((pkg) => pkg.skill_id === skillId);
+  assert.ok(g5e, `${skillId} package loads from manifest`);
+  assert.equal(g5e.grade, 5);
+  assert.equal(g5e.subject, 'English');
+  assert.equal(g5e.domain, 'Reading Foundations / Word Analysis');
+  assert.equal(g5e.skill, 'Multisyllable Word Reading, Roots, and Affixes');
+  assert.equal(Array.isArray(g5e.level_banks), true);
+  assert.equal(g5e.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+  assert.equal(g5e.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+  assert.equal(g5e.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+  assert.equal(`/skill-world/${encodeURIComponent(g5e.skill_id)}/drill`, '/skill-world/G5E_RF_001/drill');
+  assert.equal(g5e.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
 });
 
 test('Grade 4 English advanced word analysis Skill World package appears from manifest for the hub', () => {
