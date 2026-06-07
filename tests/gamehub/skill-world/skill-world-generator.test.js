@@ -37,6 +37,7 @@ const g4MultiplyFractionsWholeNumbers=load('G4M_FR_003');
 const g4MeasurementConversionData=load('G4M_MD_001');
 const g4AnglesLinesShapes=load('G4M_GM_001');
 const g5WordAnalysis=load('G5E_RF_001');
+const g5TextEvidence=load('G5E_RC_001');
 const g5Fluency=load('G5E_FL_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
@@ -544,6 +545,56 @@ assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_mo
 assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='word_parts')),/data-renderer="word_parts"/,'G5E_RF_001 word_parts renderer output exists');
 assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='morpheme_tiles')),/data-renderer="morpheme_tiles"/,'G5E_RF_001 morpheme_tiles renderer output exists');
 assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='word_builder')),/data-renderer="word_builder"/,'G5E_RF_001 word_builder renderer output exists');
+
+assert.ok(g5TextEvidence,'G5E_RC_001 package loads');
+{
+  const result=Schema.validateSkillPackage(g5TextEvidence,{allowPlannedLevelBanks:false});
+  assert.equal(result.valid,true,`G5E_RC_001 validates in strict production mode: ${result.errors.join('; ')}`);
+}
+assert.equal(g5TextEvidence.grade,5,'G5E_RC_001 grade');
+assert.equal(g5TextEvidence.subject,'English','G5E_RC_001 subject');
+assert.equal(g5TextEvidence.domain,'Reading Comprehension','G5E_RC_001 domain');
+assert.equal(g5TextEvidence.skill,'Quote Accurately and Use Text Evidence','G5E_RC_001 skill');
+assert.deepEqual(Renderer.stepLabels(g5TextEvidence),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'G5E_RC_001 full mission flow renders Story to Profile');
+['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>{
+  const narration=g5TextEvidence.page_audio?.[screen];
+  assert.ok(narration?.text,`G5E_RC_001 has Read This Page narration for ${screen}`);
+  assert.equal(narration.label,'Read This Page',`G5E_RC_001 ${screen} uses Read This Page label`);
+});
+['practice','challenge','checkpoint'].forEach((screen)=>assert.match(g5TextEvidence.page_audio[screen].text,/Read Question/,`G5E_RC_001 ${screen} references Read Question`));
+assert.equal(Array.isArray(g5TextEvidence.level_banks),true,'G5E_RC_001 has real level_banks');
+assert.equal(g5TextEvidence.level_banks.length,5,'G5E_RC_001 has five real level banks');
+assert.equal(g5TextEvidence.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G5E_RC_001 has four focused levels');
+assert.equal(g5TextEvidence.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,'G5E_RC_001 has Mixed level');
+['Level 1: Literal Questions','Level 2: Inferential Questions','Level 3: Quote Text Evidence','Level 4: Explain With Evidence','Mixed'].forEach((label)=>assert.ok(g5TextEvidence.level_banks.some((level)=>level.label===label),`G5E_RC_001 includes ${label}`));
+g5TextEvidence.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+const g5TextEvidenceQuestions=g5TextEvidence.level_banks.flatMap((level)=>level.questions);
+const g5TextEvidenceMissionQuestions=[...(g5TextEvidence.guided_practice||[]),...(g5TextEvidence.adaptive_question_bank||[]),...(g5TextEvidence.checkpoint||[])];
+assert.equal(g5TextEvidenceMissionQuestions.every((question)=>question.question_audio?.label==='Read Question'&&question.question_audio?.text),true,'G5E_RC_001 mission questions have Read Question narration');
+assert.equal(g5TextEvidenceQuestions.every((question)=>question.question_audio?.label==='Read Question'&&question.question_audio?.text),true,'G5E_RC_001 Skill Practice Center questions have Read Question narration');
+assert.equal([...g5TextEvidenceQuestions,...g5TextEvidenceMissionQuestions].every((question)=>question.audio?.label==='Listen'&&question.audio?.text&&question.audio?.playback_preference==='cached_audio_first'&&question.audio?.browser_speech_fallback===true),true,'G5E_RC_001 passages, quotations, and evidence examples have Listen audio with cached AI audio and browser fallback compatibility');
+['short_passage','question_card','evidence_highlight','text_evidence_builder'].forEach((visual)=>assert.ok(g5TextEvidenceQuestions.some((q)=>q.visual_model===visual),`G5E_RC_001 includes ${visual}`));
+['multiple_choice','short_response','text_evidence'].forEach((type)=>assert.ok(g5TextEvidenceQuestions.some((q)=>q.question_type===type),`G5E_RC_001 includes ${type}`));
+['unsupported_answer','inference_without_evidence','inaccurate_quote','misses_text_evidence'].forEach((tag)=>assert.ok(g5TextEvidence.misconception_bank[tag],`G5E_RC_001 includes misconception ${tag}`));
+assert.ok(g5TextEvidenceQuestions.filter((q)=>q.question_type==='short_response'||q.question_type==='text_evidence').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G5E_RC_001 acceptable_answers exist for constructed and evidence items');
+const g5TextEvidenceMissionHtml=Renderer.renderSkillWorld(g5TextEvidence,{failClosed:true}).html;
+['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g5TextEvidenceMissionHtml,new RegExp(label),`G5E_RC_001 mission renders ${label}`));
+assert.match(g5TextEvidenceMissionHtml,/Read This Page/,'G5E_RC_001 renders Read This Page controls');
+assert.match(g5TextEvidenceMissionHtml,/Read Question/,'G5E_RC_001 renders Read Question controls');
+assert.match(g5TextEvidenceMissionHtml,/Continue to Skill Practice/,'G5E_RC_001 profile links to Skill Practice Center');
+const g5TextEvidenceDrillHtml=Renderer.renderSkillWorld(g5TextEvidence,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+assert.match(g5TextEvidenceDrillHtml,/Skill Practice Center/,'G5E_RC_001 Practice This Skill route renders Skill Practice Center');
+assert.match(g5TextEvidenceDrillHtml,/Level 1: Literal Questions/,'G5E_RC_001 drill renders Level 1');
+['short_passage','question_card','evidence_highlight','text_evidence_builder'].forEach((visual)=>{
+  const q=g5TextEvidenceQuestions.find((item)=>item.visual_model===visual);
+  assert.ok(q,`G5E_RC_001 includes ${visual} question`);
+  assert.match(VisualRegistry.render(q),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists for G5E_RC_001`);
+});
+assert.match(VisualRegistry.render(g5TextEvidenceQuestions.find((q)=>q.visual_model==='short_passage')),/passage-card[\s\S]*Read the passage/, 'G5E_RC_001 short_passage displays a readable passage');
+assert.match(VisualRegistry.render(g5TextEvidenceQuestions.find((q)=>q.visual_model==='evidence_highlight')),/evidence-highlight-mark/, 'G5E_RC_001 evidence_highlight visually marks selected evidence');
+assert.match(VisualRegistry.render(g5TextEvidenceQuestions.find((q)=>q.visual_model==='text_evidence_builder')),/Question[\s\S]*Answer[\s\S]*Text Evidence/, 'G5E_RC_001 text_evidence_builder connects question, answer, and text evidence');
+assert.match(VisualRegistry.render(g5TextEvidenceQuestions.find((q)=>q.visual_model==='question_card')),/question-card-visual[\s\S]*\?/, 'G5E_RC_001 question_card clearly displays the question');
+
 
 function assertFullMission(pkg){
   const validation=Schema.validateSkillPackage(pkg);
