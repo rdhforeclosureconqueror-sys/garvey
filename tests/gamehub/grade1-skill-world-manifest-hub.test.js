@@ -21,6 +21,7 @@ const requiredGrade3EnglishSkillIds = ['G3E_RF_001', 'G3E_FL_001', 'G3E_VOC_001'
 const requiredGrade4EnglishFinalSkillIds = ['G4E_WR_001', 'G4E_WR_002', 'G4E_WR_003', 'G4E_LANG_001'];
 const requiredGrade5EnglishProofSkillIds = ['G5E_RF_001', 'G5E_FL_001', 'G5E_RC_001', 'G5E_VOC_001'];
 const requiredGrade5EnglishBatch1SkillIds = ['G5E_RC_002', 'G5E_RC_003', 'G5E_WR_001'];
+const requiredGrade5EnglishFinalSkillIds = ['G5E_WR_002', 'G5E_WR_003', 'G5E_LANG_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -228,6 +229,38 @@ test('Grade 5 English Batch 1 packages display from manifest in the hub', () => 
   assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_RC_002').skill, 'Theme, Character, and Story Structure');
   assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_RC_003').skill, 'Main Idea, Text Structure, and Integrating Information');
   assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_WR_001').skill, 'Opinion Writing With Reasons and Evidence');
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});
+
+
+test('Final Grade 5 English writing and language packages display from manifest in the hub', () => {
+  const expected = new Map([
+    ['G5E_WR_002', { skill: 'Informative Writing With Facts, Definitions, and Details', domain: 'Writing / Composition' }],
+    ['G5E_WR_003', { skill: 'Narrative Writing With Dialogue, Description, and Pacing', domain: 'Writing / Composition' }],
+    ['G5E_LANG_001', { skill: 'Grammar, Conventions, and Sentence Combining', domain: 'Language' }]
+  ]);
+  for (const skillId of requiredGrade5EnglishFinalSkillIds) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
+  const packages = manifest.packages.map(readPackage);
+  const finalGrade5English = packages.filter((pkg) => requiredGrade5EnglishFinalSkillIds.includes(pkg.skill_id));
+  assert.deepEqual(finalGrade5English.map((pkg) => pkg.skill_id).sort(), [...requiredGrade5EnglishFinalSkillIds].sort());
+  for (const pkg of finalGrade5English) {
+    const details = expected.get(pkg.skill_id);
+    assert.equal(pkg.grade, 5);
+    assert.equal(pkg.subject, 'English');
+    assert.equal(pkg.domain, details.domain);
+    assert.equal(pkg.skill, details.skill);
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.length, 5);
+    assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}`, `/skill-world/${pkg.skill_id}`);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
+    assert.equal(pkg.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${pkg.skill_id} practice questions have Read Question narration`);
+  }
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
