@@ -50,6 +50,9 @@ const g6WordAnalysis=load('G6E_RF_001');
 const g6Fluency=load('G6E_FL_001');
 const g6Vocabulary=load('G6E_VOC_001');
 const g6TextEvidence=load('G6E_RC_001');
+const g6Literature=load('G6E_RC_002');
+const g6Informational=load('G6E_RC_003');
+const g6ArgumentWriting=load('G6E_WR_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -631,6 +634,39 @@ const g6EnglishBatchPackages = [
     tags: ['unsupported_answer', 'inference_without_evidence', 'inaccurate_quote', 'weak_explanation'],
     listenPattern: /short_passage|evidence_highlight|question_card|text_evidence_builder/,
     pkg: g6TextEvidence
+  },
+  {
+    id: 'G6E_RC_002',
+    domain: 'Reading Literature',
+    skill: 'Theme, Character, Plot, and Point of View',
+    labels: ['Level 1: Character and Setting', 'Level 2: Plot and Conflict', 'Level 3: Theme and Character Change', 'Level 4: Point of View and Structure', 'Mixed'],
+    visuals: ['story_map', 'character_trait_chart', 'event_cards', 'theme_tracker'],
+    types: ['multiple_choice', 'short_response', 'sequencing', 'text_evidence'],
+    tags: ['character_trait_confusion', 'theme_detail_confusion', 'plot_conflict_confusion', 'point_of_view_confusion'],
+    listenPattern: /story_map|character_trait_chart|event_cards|theme_tracker/,
+    pkg: g6Literature
+  },
+  {
+    id: 'G6E_RC_003',
+    domain: 'Reading Informational Text',
+    skill: 'Central Idea, Text Structure, and Source Integration',
+    labels: ['Level 1: Central Idea', 'Level 2: Objective Summary', 'Level 3: Text Structure and Features', 'Level 4: Integrate Multiple Sources', 'Mixed'],
+    visuals: ['short_passage', 'main_idea_web', 'text_structure_chart', 'text_feature_map', 'compare_texts_panel'],
+    types: ['multiple_choice', 'short_response', 'text_evidence', 'detail_match'],
+    tags: ['topic_central_idea_confusion', 'summary_opinion_error', 'text_structure_confusion', 'source_integration_error'],
+    listenPattern: /short_passage|main_idea_web|text_structure_chart|text_feature_map|compare_texts_panel/,
+    pkg: g6Informational
+  },
+  {
+    id: 'G6E_WR_001',
+    domain: 'Writing / Composition',
+    skill: 'Argument Writing With Claims and Evidence',
+    labels: ['Level 1: State a Claim', 'Level 2: Add Reasons and Evidence', 'Level 3: Organize and Use Transitions', 'Level 4: Build an Argument Essay', 'Mixed'],
+    visuals: ['opinion_reason_chart', 'paragraph_builder', 'writing_checklist', 'evidence_builder'],
+    types: ['multiple_choice', 'short_response', 'writing_response', 'sentence_completion'],
+    tags: ['missing_claim', 'weak_reason', 'unsupported_evidence', 'missing_conclusion'],
+    listenPattern: /opinion_reason_chart|paragraph_builder|writing_checklist|evidence_builder/,
+    pkg: g6ArgumentWriting
   }
 ];
 
@@ -676,6 +712,19 @@ for (const spec of g6EnglishBatchPackages) {
     assert.ok(question, `${id} includes ${visual} question`);
     assert.match(VisualRegistry.render(question), new RegExp(`data-renderer="${visual}"`), `${visual} renderer output exists for ${id}`);
   });
+  if (id === 'G6E_RC_003') {
+    const compareQuestion = questions.find((q) => q.visual_model === 'compare_texts_panel');
+    const compareHtml = VisualRegistry.render(compareQuestion);
+    assert.match(compareHtml, /compare-texts-grid[\s\S]*Source A[\s\S]*Source B[\s\S]*Synthesize/, 'compare_texts_panel produces structural visual markup for G6E_RC_003');
+  }
+  if (id === 'G6E_WR_001') {
+    const writingQuestions = questions.filter((q) => q.question_type === 'writing_response');
+    assert.ok(writingQuestions.length > 0, 'G6E_WR_001 includes writing_response items');
+    assert.ok(writingQuestions.every((q) => q.writing_validation?.acceptable_sample_responses?.length && q.validation_checks?.includes('claim_present') && q.validation_checks?.includes('source_reference_present') && q.validation_rules?.do_not_over_penalize_open_ended_writing === true), 'G6E_WR_001 writing validation exists with child-friendly checks');
+    assert.ok(questions.every((q) => Array.isArray(q.acceptable_answers) && q.acceptable_answers.length > 0), 'G6E_WR_001 acceptable answers and sample responses exist');
+    const evidenceHtml = VisualRegistry.render(questions.find((q) => q.visual_model === 'evidence_builder'));
+    assert.match(evidenceHtml, /Claim[\s\S]*Reason[\s\S]*Evidence[\s\S]*Source \/ Quotation[\s\S]*Explanation/, 'evidence_builder produces claim/reason/evidence/source/explanation structure');
+  }
 }
 
 assert.ok(g5TextEvidence,'G5E_RC_001 package loads');
