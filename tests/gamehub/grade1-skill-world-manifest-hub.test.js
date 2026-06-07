@@ -24,6 +24,7 @@ const requiredGrade5EnglishBatch1SkillIds = ['G5E_RC_002', 'G5E_RC_003', 'G5E_WR
 const requiredGrade5EnglishFinalSkillIds = ['G5E_WR_002', 'G5E_WR_003', 'G5E_LANG_001'];
 const requiredGrade6EnglishProofSkillIds = ['G6E_RF_001', 'G6E_FL_001', 'G6E_VOC_001', 'G6E_RC_001'];
 const requiredGrade6EnglishExpansionSkillIds = ['G6E_RC_002', 'G6E_RC_003', 'G6E_WR_001'];
+const requiredGrade6EnglishFinalSkillIds = ['G6E_WR_002', 'G6E_WR_003', 'G6E_LANG_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -770,12 +771,15 @@ test('Grade 6 English production Skill World packages appear from manifest for t
     ['G6E_RC_001', { domain: 'Reading Comprehension', skill: 'Cite Textual Evidence and Make Inferences' }],
     ['G6E_RC_002', { domain: 'Reading Literature', skill: 'Theme, Character, Plot, and Point of View' }],
     ['G6E_RC_003', { domain: 'Reading Informational Text', skill: 'Central Idea, Text Structure, and Source Integration' }],
-    ['G6E_WR_001', { domain: 'Writing / Composition', skill: 'Argument Writing With Claims and Evidence' }]
+    ['G6E_WR_001', { domain: 'Writing / Composition', skill: 'Argument Writing With Claims and Evidence' }],
+    ['G6E_WR_002', { domain: 'Writing / Composition', skill: 'Informative Writing and Source-Based Explanation' }],
+    ['G6E_WR_003', { domain: 'Writing / Composition', skill: 'Narrative Writing With Pacing and Point of View' }],
+    ['G6E_LANG_001', { domain: 'Language', skill: 'Grammar, Usage, Conventions, and Style' }]
   ]);
   for (const skillId of expected.keys()) {
     assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
   }
-  const requiredGrade6EnglishSkillIds = [...requiredGrade6EnglishProofSkillIds, ...requiredGrade6EnglishExpansionSkillIds];
+  const requiredGrade6EnglishSkillIds = [...requiredGrade6EnglishProofSkillIds, ...requiredGrade6EnglishExpansionSkillIds, ...requiredGrade6EnglishFinalSkillIds];
   const packages = manifest.packages.map(readPackage).filter((pkg) => requiredGrade6EnglishSkillIds.includes(pkg.skill_id));
   assert.deepEqual(packages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade6EnglishSkillIds].sort());
   for (const pkg of packages) {

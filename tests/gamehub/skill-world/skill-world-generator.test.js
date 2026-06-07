@@ -53,6 +53,9 @@ const g6TextEvidence=load('G6E_RC_001');
 const g6Literature=load('G6E_RC_002');
 const g6Informational=load('G6E_RC_003');
 const g6ArgumentWriting=load('G6E_WR_001');
+const g6InformativeWriting=load('G6E_WR_002');
+const g6NarrativeWriting=load('G6E_WR_003');
+const g6LanguageConventions=load('G6E_LANG_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -2640,6 +2643,52 @@ const g4EnglishBatchPackages = [
     pkg: load('G4E_LANG_001')
   }
 ];
+
+
+const g6FinalEnglishPackages=[
+  {id:'G6E_WR_002',pkg:g6InformativeWriting,domain:'Writing / Composition',skill:'Informative Writing and Source-Based Explanation',labels:['Level 1: Introduce a Topic','Level 2: Facts, Definitions, and Quotations','Level 3: Organization and Transitions','Level 4: Build an Informative Essay','Mixed'],visuals:['topic_detail_chart','fact_cards','paragraph_builder','writing_checklist','evidence_builder'],types:['multiple_choice','short_response','writing_response','sentence_completion'],tags:['missing_topic','unsupported_fact','weak_source_use','weak_organization'],validationKey:'writing_validation',validation:['topic_present','facts_present','definitions_or_explanations_present','supporting_details_present','quotation_or_source_reference_present','source_information_used_accurately','transitions_present','logical_organization','conclusion_present','capitalization','punctuation','complete_sentences','objective_tone']},
+  {id:'G6E_WR_003',pkg:g6NarrativeWriting,domain:'Writing / Composition',skill:'Narrative Writing With Pacing and Point of View',labels:['Level 1: Sequence and Point of View','Level 2: Description and Pacing','Level 3: Dialogue and Transitions','Level 4: Build a Narrative','Mixed'],visuals:['story_sequence','event_cards','dialogue_builder','paragraph_builder'],types:['multiple_choice','short_response','writing_response','sequencing'],tags:['event_order_error','point_of_view_shift','dialogue_punctuation_error','pacing_gap'],validationKey:'writing_validation',validation:['clear_event_sequence','consistent_point_of_view','setting_or_situation_present','characters_present','description_present','dialogue_punctuation','transitions_present','pacing_support','closure_present','capitalization','punctuation','complete_sentences']},
+  {id:'G6E_LANG_001',pkg:g6LanguageConventions,domain:'Language',skill:'Grammar, Usage, Conventions, and Style',labels:['Level 1: Grammar and Pronoun Usage','Level 2: Verb Tense and Agreement','Level 3: Punctuation and Conventions','Level 4: Sentence Combining and Style','Mixed'],visuals:['sentence_builder','punctuation_marker','grammar_highlight','sentence_combiner'],types:['multiple_choice','short_response','sentence_completion','editing'],tags:['pronoun_reference_error','verb_tense_error','punctuation_error','sentence_fragment'],validationKey:'grammar_validation',validation:['pronoun_reference','pronoun_agreement','subject_verb_agreement','verb_tense_consistency','capitalization','ending_punctuation','commas','quotation_marks','complete_sentence','fragment_detection','sentence_combining','sentence_variety','style_and_clarity']}
+];
+for (const spec of g6FinalEnglishPackages) {
+  const {id,pkg}=spec;
+  const missionQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])];
+  const levelQuestions=(pkg.level_banks||[]).flatMap((level)=>level.questions||[]);
+  const allQuestions=[...missionQuestions,...levelQuestions];
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,6,`${id} is Grade 6`);
+  assert.equal(pkg.subject,'English',`${id} is English`);
+  assert.equal(pkg.domain,spec.domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,spec.skill,`${id} skill matches plan`);
+  assert.ok(grade6EeManifest.packages.includes(`${id}.skill-package.v1.json`),`manifest includes ${id}`);
+  assert.deepEqual(Renderer.renderSkillWorld(pkg,{failClosed:true}).steps,['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],`${id} full mission flow is Story to Profile`);
+  assert.equal(pkg.level_banks.length,5,`${id} has five real level banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  spec.labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  spec.visuals.forEach((visual)=>assert.ok(allQuestions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  spec.types.forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  spec.tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag]&&allQuestions.some((q)=>q.misconception_tag===tag),`${id} includes misconception ${tag}`));
+  spec.validation.forEach((check)=>assert.ok(pkg[spec.validationKey]?.checks?.includes(check),`${id} includes validation check ${check}`));
+  assert.ok(pkg[spec.validationKey]?.acceptable_sample_responses?.length>0,`${id} has acceptable sample writing responses`);
+  ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>{const narration=pkg.page_audio?.[screen]; assert.ok(narration?.text,`${id} has Read This Page narration for ${screen}`); assert.equal(narration.label,'Read This Page',`${id} ${screen} uses Read This Page label`);});
+  missionQuestions.forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  levelQuestions.forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} practice question has Read Question narration`));
+  assert.ok(allQuestions.every((q)=>q.audio?.label==='Listen'&&q.audio?.text&&q.audio?.playback_preference==='cached_audio_first'&&q.audio?.browser_speech_fallback===true),`${id} Listen audio supports cached AI audio with browser speech fallback`);
+  assert.ok(allQuestions.every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} questions include acceptable_answers`);
+  assert.ok(allQuestions.some((q)=>Array.isArray(q.acceptable_sample_responses)&&q.acceptable_sample_responses.length>0),`${id} includes acceptable sample responses on open-ended items`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} mission renders ${label}`));
+  assert.match(missionHtml,/Read This Page/,`${id} renders Read This Page controls`);
+  assert.match(missionHtml,/Read Question/,`${id} renders Read Question controls`);
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillHtml=Renderer.renderSkillWorld(pkg,{mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+  spec.labels.forEach((label)=>assert.match(drillHtml,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`${id} drill renders ${label}`));
+  spec.visuals.forEach((visual)=>{const q=allQuestions.find((item)=>item.visual_model===visual); assert.ok(q,`${id} includes ${visual} question`); assert.match(VisualRegistry.render(q),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists for ${id}`);});
+}
+assert.match(VisualRegistry.render(g6InformativeWriting.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='evidence_builder')),/data-renderer="evidence_builder"[\s\S]*Source \/ Quotation/, 'evidence_builder works for source-based writing');
 
 const g4EnglishBatchManifest = JSON.parse(fs.readFileSync(path.join(root, 'public/gamehub/skill-world/content/manifest.json'), 'utf8'));
 for (const spec of g4EnglishBatchPackages) {
