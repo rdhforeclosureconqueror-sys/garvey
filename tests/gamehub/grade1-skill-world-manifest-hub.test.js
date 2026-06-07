@@ -22,7 +22,7 @@ const requiredGrade4EnglishFinalSkillIds = ['G4E_WR_001', 'G4E_WR_002', 'G4E_WR_
 const requiredGrade5EnglishProofSkillIds = ['G5E_RF_001', 'G5E_FL_001', 'G5E_RC_001', 'G5E_VOC_001'];
 const requiredGrade5EnglishBatch1SkillIds = ['G5E_RC_002', 'G5E_RC_003', 'G5E_WR_001'];
 const requiredGrade5EnglishFinalSkillIds = ['G5E_WR_002', 'G5E_WR_003', 'G5E_LANG_001'];
-const requiredGrade6EnglishProofSkillIds = ['G6E_RF_001'];
+const requiredGrade6EnglishProofSkillIds = ['G6E_RF_001', 'G6E_FL_001', 'G6E_VOC_001', 'G6E_RC_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -761,25 +761,32 @@ test('Grade 4 English fluency vocabulary comprehension packages appear from mani
 });
 
 
-test('Grade 6 English morphology Skill World package appears from manifest for the hub', () => {
-  const skillId = 'G6E_RF_001';
-  assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+test('Grade 6 English production Skill World packages appear from manifest for the hub', () => {
+  const expected = new Map([
+    ['G6E_RF_001', { domain: 'Word Analysis / Language', skill: 'Morphology, Roots, and Complex Word Analysis' }],
+    ['G6E_FL_001', { domain: 'Fluency', skill: 'Fluency With Literary and Informational Text' }],
+    ['G6E_VOC_001', { domain: 'Vocabulary / Language', skill: 'Academic Vocabulary and Figurative Language' }],
+    ['G6E_RC_001', { domain: 'Reading Comprehension', skill: 'Cite Textual Evidence and Make Inferences' }]
+  ]);
+  for (const skillId of expected.keys()) {
+    assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
+  }
   const packages = manifest.packages.map(readPackage).filter((pkg) => requiredGrade6EnglishProofSkillIds.includes(pkg.skill_id));
   assert.deepEqual(packages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade6EnglishProofSkillIds].sort());
-  const g6e = packages.find((pkg) => pkg.skill_id === skillId);
-  assert.ok(g6e, `${skillId} package loads from manifest`);
-  assert.equal(g6e.grade, 6);
-  assert.equal(g6e.subject, 'English');
-  assert.equal(g6e.domain, 'Word Analysis / Language');
-  assert.equal(g6e.skill, 'Morphology, Roots, and Complex Word Analysis');
-  assert.equal(Array.isArray(g6e.level_banks), true);
-  assert.equal(g6e.level_banks.length, 5);
-  assert.equal(g6e.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
-  assert.equal(g6e.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
-  assert.equal(g6e.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
-  assert.equal(`/skill-world/${encodeURIComponent(g6e.skill_id)}`, '/skill-world/G6E_RF_001');
-  assert.equal(`/skill-world/${encodeURIComponent(g6e.skill_id)}/drill`, '/skill-world/G6E_RF_001/drill');
-  assert.equal(g6e.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
+  for (const pkg of packages) {
+    assert.equal(pkg.grade, 6);
+    assert.equal(pkg.subject, 'English');
+    assert.equal(pkg.domain, expected.get(pkg.skill_id).domain);
+    assert.equal(pkg.skill, expected.get(pkg.skill_id).skill);
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.length, 5);
+    assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}`, `/skill-world/${pkg.skill_id}`);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
+    assert.equal(pkg.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${pkg.skill_id} practice questions have Read Question narration`);
+  }
   assert.match(hub, /function buildGradeLessons\(grade\)/);
   assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
   assert.match(hub, /Start Skill World/);

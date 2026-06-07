@@ -1,0 +1,3320 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade6-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade6_english_completion_plan.md",
+    "production_metadata": {
+      "status": "production",
+      "grade": 6,
+      "batch": "G6E_FL_VOC_RC_001",
+      "created_at": "2026-06-07"
+    },
+    "production_proof_package": true,
+    "created_at": "2026-06-07",
+    "content_note": "Grade 6 English production SkillPackage with real guided mission and Skill Practice level banks."
+  },
+  "skill_id": "G6E_FL_001",
+  "grade": 6,
+  "subject": "English",
+  "domain": "Fluency",
+  "skill": "Fluency With Literary and Informational Text",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Enter Fluency Theater Lab, where readers solve Grade 6 English challenges with careful reading and explanation.",
+    "objective": "I can read Grade 6 literary and informational text accurately, smoothly, and with phrasing, pace, punctuation, expression, and meaning.",
+    "key_vocabulary": [
+      "accuracy",
+      "fluency",
+      "phrasing",
+      "pace",
+      "punctuation",
+      "expression",
+      "repeated reading",
+      "meaning",
+      "literary text",
+      "informational text"
+    ],
+    "concept_explanation": "I can read Grade 6 literary and informational text accurately, smoothly, and with phrasing, pace, punctuation, expression, and meaning. Use the text, language, punctuation, and context to prove your thinking.",
+    "visual_model": "fluency_meter",
+    "common_misconception": "A reader may skip words, chunk phrases incorrectly, ignore punctuation, or read in a flat voice that hides meaning.",
+    "real_world_connection": "Middle school readers use this skill in novels, science articles, history sources, directions, debates, and assessments.",
+    "lesson_summary": "Read carefully, name the clue or evidence, explain how it supports the answer, and check that your response matches the whole text.",
+    "mini_lesson": "Step 1: read the text or sentence. Step 2: mark the clue. Step 3: choose or write the answer. Step 4: explain why the clue proves it.",
+    "audio": {
+      "text": "accuracy, fluency, phrasing, pace, punctuation, expression, repeated reading, meaning",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:listen:lesson"
+    }
+  },
+  "worked_examples": [
+    {
+      "prompt": "Watch: Which word must be read exactly as printed in the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "choices": [
+        "precise",
+        "practical",
+        "predict"
+      ],
+      "correct_answer": "precise",
+      "misconception_tag": "skips_words",
+      "text": "The engineer gave precise directions before the launch.",
+      "sentence": "The engineer gave precise directions before the launch.",
+      "explanation": "precise is supported by the clue in the text.",
+      "fluency_scores": {
+        "accuracy": 94,
+        "smoothness": 86,
+        "expression": 82
+      },
+      "repeat_after_me": true,
+      "question_id": "G6E_FL_001_WE1",
+      "question_audio": {
+        "text": "Watch: Which word must be read exactly as printed in the sentence?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_WE1"
+      },
+      "audio": {
+        "text": "Watch: Which word must be read exactly as printed in the sentence?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_WE1"
+      }
+    },
+    {
+      "prompt": "Watch: Which small word changes the meaning if it is skipped?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "choices": [
+        "not",
+        "the",
+        "river"
+      ],
+      "correct_answer": "not",
+      "misconception_tag": "skips_words",
+      "text": "The team did not cross the trail after sunset.",
+      "sentence": "The team did not cross the trail after sunset.",
+      "explanation": "not is supported by the clue in the text.",
+      "highlighted_words": [
+        "not"
+      ],
+      "repeat_after_me": true,
+      "question_id": "G6E_FL_001_WE2",
+      "question_audio": {
+        "text": "Watch: Which small word changes the meaning if it is skipped?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_WE2"
+      },
+      "audio": {
+        "text": "Watch: Which small word changes the meaning if it is skipped?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_WE2"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Reread the sentence, passage, or prompt carefully.",
+    "Mark the clue: word, punctuation, phrase, context, or evidence.",
+    "Choose or write the answer and explain how the clue supports it."
+  ],
+  "guided_practice": [
+    {
+      "prompt": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+      "question_type": "short_response",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "ancient",
+      "answer": "ancient",
+      "acceptable_answers": [
+        "ancient"
+      ],
+      "misconception_tag": "skips_words",
+      "text": "The museum displayed an ancient map.",
+      "sentence": "The museum displayed an ancient map.",
+      "explanation": "A strong response includes ancient.",
+      "question_id": "G6E_FL_001_GUIDED_PRACTICE_1",
+      "question_audio": {
+        "text": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_GUIDED_PRACTICE_1"
+      },
+      "audio": {
+        "text": "The museum displayed an ancient map.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_GUIDED_PRACTICE_1"
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "prompt": "Which word should not be substituted when reading?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "choices": [
+        "evidence",
+        "event",
+        "evening"
+      ],
+      "correct_answer": "evidence",
+      "misconception_tag": "skips_words",
+      "text": "The evidence supported the student\u2019s claim.",
+      "sentence": "The evidence supported the student\u2019s claim.",
+      "explanation": "evidence is supported by the clue in the text.",
+      "highlighted_words": [
+        "evidence"
+      ],
+      "question_id": "G6E_FL_001_CHECKPOINT_1",
+      "question_audio": {
+        "text": "Which word should not be substituted when reading?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_CHECKPOINT_1"
+      },
+      "audio": {
+        "text": "The evidence supported the student\u2019s claim.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_CHECKPOINT_1"
+      },
+      "acceptable_answers": [
+        "evidence"
+      ]
+    },
+    {
+      "prompt": "What accuracy problem happens if a reader says \"policy\" instead of \"polite\"?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "choices": [
+        "The meaning changes.",
+        "The pace improves.",
+        "The punctuation changes."
+      ],
+      "correct_answer": "The meaning changes.",
+      "misconception_tag": "skips_words",
+      "text": "The polite guide answered each question.",
+      "sentence": "The polite guide answered each question.",
+      "explanation": "The meaning changes. is supported by the clue in the text.",
+      "question_id": "G6E_FL_001_CHECKPOINT_2",
+      "question_audio": {
+        "text": "What accuracy problem happens if a reader says \"policy\" instead of \"polite\"?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_CHECKPOINT_2"
+      },
+      "audio": {
+        "text": "The polite guide answered each question.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_CHECKPOINT_2"
+      },
+      "acceptable_answers": [
+        "The meaning changes."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "prompt": "Which line preserves every printed word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "choices": [
+        "The quiet harbor glittered after dawn.",
+        "The harbor glittered after dawn.",
+        "The quiet harbor glittered before dawn."
+      ],
+      "correct_answer": "The quiet harbor glittered after dawn.",
+      "misconception_tag": "skips_words",
+      "text": "The quiet harbor glittered after dawn.",
+      "sentence": "The quiet harbor glittered after dawn.",
+      "explanation": "The quiet harbor glittered after dawn. is supported by the clue in the text.",
+      "question_id": "G6E_FL_001_ADAPTIVE_QUESTION_BANK_1",
+      "question_audio": {
+        "text": "Which line preserves every printed word?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_ADAPTIVE_QUESTION_BANK_1"
+      },
+      "audio": {
+        "text": "The quiet harbor glittered after dawn.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_ADAPTIVE_QUESTION_BANK_1"
+      },
+      "acceptable_answers": [
+        "The quiet harbor glittered after dawn."
+      ]
+    },
+    {
+      "prompt": "Complete the sentence with the exact word: The sample was too ___ to measure without a microscope.",
+      "question_type": "sentence_completion",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "tiny",
+      "answer": "tiny",
+      "acceptable_answers": [
+        "tiny"
+      ],
+      "choices": [
+        "tiny",
+        "tired",
+        "tidy"
+      ],
+      "misconception_tag": "skips_words",
+      "text": "The sample was too tiny to measure without a microscope.",
+      "sentence": "The sample was too tiny to measure without a microscope.",
+      "explanation": "The completion tiny fits the sentence and meaning.",
+      "question_id": "G6E_FL_001_ADAPTIVE_QUESTION_BANK_2",
+      "question_audio": {
+        "text": "Complete the sentence with the exact word: The sample was too ___ to measure without a microscope.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_ADAPTIVE_QUESTION_BANK_2"
+      },
+      "audio": {
+        "text": "The sample was too tiny to measure without a microscope.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_ADAPTIVE_QUESTION_BANK_2"
+      }
+    }
+  ],
+  "misconception_bank": {
+    "skips_words": "skips words; the learner needs a clue-based reread, model answer, and explanation check.",
+    "phrase_chunking_error": "phrase chunking error; the learner needs a clue-based reread, model answer, and explanation check.",
+    "punctuation_ignored": "punctuation ignored; the learner needs a clue-based reread, model answer, and explanation check.",
+    "expression_flat_reading": "expression flat reading; the learner needs a clue-based reread, model answer, and explanation check."
+  },
+  "review_bank": [
+    {
+      "prompt": "Which word must be read exactly as printed in the sentence?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "choices": [
+        "precise",
+        "practical",
+        "predict"
+      ],
+      "correct_answer": "precise",
+      "misconception_tag": "skips_words",
+      "text": "The engineer gave precise directions before the launch.",
+      "sentence": "The engineer gave precise directions before the launch.",
+      "explanation": "precise is supported by the clue in the text.",
+      "fluency_scores": {
+        "accuracy": 94,
+        "smoothness": 86,
+        "expression": 82
+      },
+      "repeat_after_me": true,
+      "question_id": "G6E_FL_001_REV1"
+    },
+    {
+      "prompt": "Which small word changes the meaning if it is skipped?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "choices": [
+        "not",
+        "the",
+        "river"
+      ],
+      "correct_answer": "not",
+      "misconception_tag": "skips_words",
+      "text": "The team did not cross the trail after sunset.",
+      "sentence": "The team did not cross the trail after sunset.",
+      "explanation": "not is supported by the clue in the text.",
+      "highlighted_words": [
+        "not"
+      ],
+      "repeat_after_me": true,
+      "question_id": "G6E_FL_001_REV2"
+    },
+    {
+      "prompt": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+      "question_type": "short_response",
+      "visual_model": "sentence_highlight",
+      "support_type": "sentence_highlight",
+      "correct_answer": "ancient",
+      "answer": "ancient",
+      "acceptable_answers": [
+        "ancient"
+      ],
+      "misconception_tag": "skips_words",
+      "text": "The museum displayed an ancient map.",
+      "sentence": "The museum displayed an ancient map.",
+      "explanation": "A strong response includes ancient.",
+      "question_id": "G6E_FL_001_REV3"
+    },
+    {
+      "prompt": "Which line preserves every printed word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "choices": [
+        "The quiet harbor glittered after dawn.",
+        "The harbor glittered after dawn.",
+        "The quiet harbor glittered before dawn."
+      ],
+      "correct_answer": "The quiet harbor glittered after dawn.",
+      "misconception_tag": "skips_words",
+      "text": "The quiet harbor glittered after dawn.",
+      "sentence": "The quiet harbor glittered after dawn.",
+      "explanation": "The quiet harbor glittered after dawn. is supported by the clue in the text.",
+      "question_id": "G6E_FL_001_REV4"
+    },
+    {
+      "prompt": "Complete the sentence with the exact word: The sample was too ___ to measure without a microscope.",
+      "question_type": "sentence_completion",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "tiny",
+      "answer": "tiny",
+      "acceptable_answers": [
+        "tiny"
+      ],
+      "choices": [
+        "tiny",
+        "tired",
+        "tidy"
+      ],
+      "misconception_tag": "skips_words",
+      "text": "The sample was too tiny to measure without a microscope.",
+      "sentence": "The sample was too tiny to measure without a microscope.",
+      "explanation": "The completion tiny fits the sentence and meaning.",
+      "question_id": "G6E_FL_001_REV5"
+    }
+  ],
+  "game_theme": {
+    "title": "Fluency Theater Lab",
+    "name": "Fluency Theater Lab",
+    "mission_intro": "Practice fluency with literary and informational text through a mission built from the Grade 6 English completion plan.",
+    "badge_name": "Fluency Navigator Badge",
+    "avatar": "grade-6-reader",
+    "background": "library-observatory"
+  },
+  "next_skill_id": "G6E_VOC_001",
+  "remediation_skill_id": "G6E_RF_001",
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to Fluency Theater Lab. In this Grade 6 English mission, you will use fluency with literary and informational text with real texts and questions. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:story"
+    },
+    "lesson": {
+      "text": "Read This Page. Learn the strategy, study the visual model, and use Listen when hearing a sentence, passage, vocabulary word, example, or evidence will help. Press Next after you can explain the steps.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:lesson"
+    },
+    "watch": {
+      "text": "Read This Page. Watch the model. Notice how the reader slows down, checks meaning, and proves each answer with the text. Use Listen to hear the model read clearly.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:watch"
+    },
+    "demo": {
+      "text": "Read This Page. The demo walks through one example before you answer. Listen to the example, repeat useful language, and notice why the answer is supported.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:demo"
+    },
+    "practice": {
+      "text": "Read This Page. Practice uses a guided question. Press Read Question before answering, use the hint ladder if you need help, and use Listen for sentence, passage, vocabulary, or evidence reading.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:practice"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge questions are a little closer and require careful reasoning. Press Read Question, listen when helpful, and choose or write the answer that best fits the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:challenge"
+    },
+    "checkpoint": {
+      "text": "Read This Page. The checkpoint checks your independent understanding. Press Read Question for each item, use relevant evidence or examples, and avoid unsupported guesses.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:checkpoint"
+    },
+    "badge": {
+      "text": "Read This Page. You earned a badge for careful Grade 6 English work with fluency with literary and informational text. Press Next to see your profile and choose more practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:badge"
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves accuracy, hints, stars, and misconception notes. Choose Practice This Skill to open the Skill Practice Center levels, or return to the Grade 6 hub.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_FL_001:page:profile"
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G6E_FL_001_LVL1",
+      "label": "Level 1: Accuracy",
+      "focus": "Accuracy",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "Which word must be read exactly as printed in the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "precise",
+            "practical",
+            "predict"
+          ],
+          "correct_answer": "precise",
+          "misconception_tag": "skips_words",
+          "text": "The engineer gave precise directions before the launch.",
+          "sentence": "The engineer gave precise directions before the launch.",
+          "explanation": "precise is supported by the clue in the text.",
+          "fluency_scores": {
+            "accuracy": 94,
+            "smoothness": 86,
+            "expression": 82
+          },
+          "repeat_after_me": true,
+          "question_id": "G6E_FL_001_L1_Q01",
+          "question_audio": {
+            "text": "Which word must be read exactly as printed in the sentence?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q01"
+          },
+          "read_aloud_text": "Which word must be read exactly as printed in the sentence?",
+          "audio": {
+            "text": "The engineer gave precise directions before the launch.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q01"
+          },
+          "answer": "precise",
+          "acceptable_answers": [
+            "precise"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which small word changes the meaning if it is skipped?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "not",
+            "the",
+            "river"
+          ],
+          "correct_answer": "not",
+          "misconception_tag": "skips_words",
+          "text": "The team did not cross the trail after sunset.",
+          "sentence": "The team did not cross the trail after sunset.",
+          "explanation": "not is supported by the clue in the text.",
+          "highlighted_words": [
+            "not"
+          ],
+          "repeat_after_me": true,
+          "question_id": "G6E_FL_001_L1_Q02",
+          "question_audio": {
+            "text": "Which small word changes the meaning if it is skipped?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q02"
+          },
+          "read_aloud_text": "Which small word changes the meaning if it is skipped?",
+          "audio": {
+            "text": "The team did not cross the trail after sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q02"
+          },
+          "answer": "not",
+          "acceptable_answers": [
+            "not"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "ancient",
+          "answer": "ancient",
+          "acceptable_answers": [
+            "ancient"
+          ],
+          "misconception_tag": "skips_words",
+          "text": "The museum displayed an ancient map.",
+          "sentence": "The museum displayed an ancient map.",
+          "explanation": "A strong response includes ancient.",
+          "question_id": "G6E_FL_001_L1_Q03",
+          "question_audio": {
+            "text": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q03"
+          },
+          "read_aloud_text": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+          "audio": {
+            "text": "The museum displayed an ancient map.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which line preserves every printed word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "The quiet harbor glittered after dawn.",
+            "The harbor glittered after dawn.",
+            "The quiet harbor glittered before dawn."
+          ],
+          "correct_answer": "The quiet harbor glittered after dawn.",
+          "misconception_tag": "skips_words",
+          "text": "The quiet harbor glittered after dawn.",
+          "sentence": "The quiet harbor glittered after dawn.",
+          "explanation": "The quiet harbor glittered after dawn. is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L1_Q04",
+          "question_audio": {
+            "text": "Which line preserves every printed word?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q04"
+          },
+          "read_aloud_text": "Which line preserves every printed word?",
+          "audio": {
+            "text": "The quiet harbor glittered after dawn.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q04"
+          },
+          "answer": "The quiet harbor glittered after dawn.",
+          "acceptable_answers": [
+            "The quiet harbor glittered after dawn."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Complete the sentence with the exact word: The sample was too ___ to measure without a microscope.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "tiny",
+          "answer": "tiny",
+          "acceptable_answers": [
+            "tiny"
+          ],
+          "choices": [
+            "tiny",
+            "tired",
+            "tidy"
+          ],
+          "misconception_tag": "skips_words",
+          "text": "The sample was too tiny to measure without a microscope.",
+          "sentence": "The sample was too tiny to measure without a microscope.",
+          "explanation": "The completion tiny fits the sentence and meaning.",
+          "question_id": "G6E_FL_001_L1_Q05",
+          "question_audio": {
+            "text": "Complete the sentence with the exact word: The sample was too ___ to measure without a microscope.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q05"
+          },
+          "read_aloud_text": "Complete the sentence with the exact word: The sample was too ___ to measure without a microscope.",
+          "audio": {
+            "text": "The sample was too tiny to measure without a microscope.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q05"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which word should not be substituted when reading?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "evidence",
+            "event",
+            "evening"
+          ],
+          "correct_answer": "evidence",
+          "misconception_tag": "skips_words",
+          "text": "The evidence supported the student\u2019s claim.",
+          "sentence": "The evidence supported the student\u2019s claim.",
+          "explanation": "evidence is supported by the clue in the text.",
+          "highlighted_words": [
+            "evidence"
+          ],
+          "question_id": "G6E_FL_001_L1_Q06",
+          "question_audio": {
+            "text": "Which word should not be substituted when reading?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q06"
+          },
+          "read_aloud_text": "Which word should not be substituted when reading?",
+          "audio": {
+            "text": "The evidence supported the student\u2019s claim.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q06"
+          },
+          "answer": "evidence",
+          "acceptable_answers": [
+            "evidence"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What accuracy problem happens if a reader says \"policy\" instead of \"polite\"?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "The meaning changes.",
+            "The pace improves.",
+            "The punctuation changes."
+          ],
+          "correct_answer": "The meaning changes.",
+          "misconception_tag": "skips_words",
+          "text": "The polite guide answered each question.",
+          "sentence": "The polite guide answered each question.",
+          "explanation": "The meaning changes. is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L1_Q07",
+          "question_audio": {
+            "text": "What accuracy problem happens if a reader says \"policy\" instead of \"polite\"?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q07"
+          },
+          "read_aloud_text": "What accuracy problem happens if a reader says \"policy\" instead of \"polite\"?",
+          "audio": {
+            "text": "The polite guide answered each question.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q07"
+          },
+          "answer": "The meaning changes.",
+          "acceptable_answers": [
+            "The meaning changes."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Write the exact adverb in the sentence: The current moved \"steadily\" under the bridge.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "steadily",
+          "answer": "steadily",
+          "acceptable_answers": [
+            "steadily"
+          ],
+          "misconception_tag": "skips_words",
+          "text": "The current moved steadily under the bridge.",
+          "sentence": "The current moved steadily under the bridge.",
+          "explanation": "A strong response includes steadily.",
+          "question_id": "G6E_FL_001_L1_Q08",
+          "question_audio": {
+            "text": "Write the exact adverb in the sentence: The current moved \"steadily\" under the bridge.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q08"
+          },
+          "read_aloud_text": "Write the exact adverb in the sentence: The current moved \"steadily\" under the bridge.",
+          "audio": {
+            "text": "The current moved steadily under the bridge.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which reading keeps the number accurate?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "sixteen volunteers",
+            "sixty volunteers",
+            "six volunteers"
+          ],
+          "correct_answer": "sixteen volunteers",
+          "misconception_tag": "skips_words",
+          "text": "Sixteen volunteers planted seedlings near the school.",
+          "sentence": "Sixteen volunteers planted seedlings near the school.",
+          "explanation": "sixteen volunteers is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L1_Q09",
+          "question_audio": {
+            "text": "Which reading keeps the number accurate?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q09"
+          },
+          "read_aloud_text": "Which reading keeps the number accurate?",
+          "audio": {
+            "text": "Sixteen volunteers planted seedlings near the school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q09"
+          },
+          "answer": "sixteen volunteers",
+          "acceptable_answers": [
+            "sixteen volunteers"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Complete the sentence accurately: The historian compared two ___ from the same century.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "documents",
+          "answer": "documents",
+          "acceptable_answers": [
+            "documents"
+          ],
+          "choices": [
+            "documents",
+            "discoveries",
+            "directions"
+          ],
+          "misconception_tag": "skips_words",
+          "text": "The historian compared two documents from the same century.",
+          "sentence": "The historian compared two documents from the same century.",
+          "explanation": "The completion documents fits the sentence and meaning.",
+          "question_id": "G6E_FL_001_L1_Q10",
+          "question_audio": {
+            "text": "Complete the sentence accurately: The historian compared two ___ from the same century.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L1_Q10"
+          },
+          "read_aloud_text": "Complete the sentence accurately: The historian compared two ___ from the same century.",
+          "audio": {
+            "text": "The historian compared two documents from the same century.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L1_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_FL_001_LVL2",
+      "label": "Level 2: Phrasing and Pace",
+      "focus": "Phrasing and Pace",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "Which phrase chunk sounds smoothest?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "choices": [
+            "After the storm / the creek rose quickly.",
+            "After / the storm the / creek rose quickly.",
+            "After the / storm the creek / rose quickly."
+          ],
+          "correct_answer": "After the storm / the creek rose quickly.",
+          "misconception_tag": "phrase_chunking_error",
+          "text": "After the storm, the creek rose quickly.",
+          "sentence": "After the storm, the creek rose quickly.",
+          "explanation": "After the storm / the creek rose quickly. is supported by the clue in the text.",
+          "phrases": [
+            "After the storm",
+            "the creek rose quickly"
+          ],
+          "question_id": "G6E_FL_001_L2_Q01",
+          "question_audio": {
+            "text": "Which phrase chunk sounds smoothest?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q01"
+          },
+          "read_aloud_text": "Which phrase chunk sounds smoothest?",
+          "audio": {
+            "text": "After the storm, the creek rose quickly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q01"
+          },
+          "answer": "After the storm / the creek rose quickly.",
+          "acceptable_answers": [
+            "After the storm / the creek rose quickly."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Where should the reader pause?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "after \"however\"",
+            "after \"the\"",
+            "after \"quickly\""
+          ],
+          "correct_answer": "after \"however\"",
+          "misconception_tag": "phrase_chunking_error",
+          "text": "However, the committee needed more evidence.",
+          "sentence": "However, the committee needed more evidence.",
+          "explanation": "after \"however\" is supported by the clue in the text.",
+          "highlighted_words": [
+            "However,"
+          ],
+          "question_id": "G6E_FL_001_L2_Q02",
+          "question_audio": {
+            "text": "Where should the reader pause?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q02"
+          },
+          "read_aloud_text": "Where should the reader pause?",
+          "audio": {
+            "text": "However, the committee needed more evidence.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q02"
+          },
+          "answer": "after \"however\"",
+          "acceptable_answers": [
+            "after \"however\""
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Write the first phrase group in this sentence: During the field trip, students sketched fossils.",
+          "question_type": "short_response",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "During the field trip",
+          "answer": "During the field trip",
+          "acceptable_answers": [
+            "during the field trip",
+            "During the field trip"
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "text": "During the field trip, students sketched fossils.",
+          "sentence": "During the field trip, students sketched fossils.",
+          "explanation": "A strong response includes During the field trip.",
+          "question_id": "G6E_FL_001_L2_Q03",
+          "question_audio": {
+            "text": "Write the first phrase group in this sentence: During the field trip, students sketched fossils.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q03"
+          },
+          "read_aloud_text": "Write the first phrase group in this sentence: During the field trip, students sketched fossils.",
+          "audio": {
+            "text": "During the field trip, students sketched fossils.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which pace best fits a complex informational sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "choices": [
+            "steady and clear",
+            "rushed and mumbled",
+            "word-by-word with long stops"
+          ],
+          "correct_answer": "steady and clear",
+          "misconception_tag": "phrase_chunking_error",
+          "text": "Because the soil was dry, the botanist watered each seedling.",
+          "sentence": "Because the soil was dry, the botanist watered each seedling.",
+          "explanation": "steady and clear is supported by the clue in the text.",
+          "fluency_scores": {
+            "pace": 88,
+            "phrasing": 90,
+            "accuracy": 92
+          },
+          "question_id": "G6E_FL_001_L2_Q04",
+          "question_audio": {
+            "text": "Which pace best fits a complex informational sentence?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q04"
+          },
+          "read_aloud_text": "Which pace best fits a complex informational sentence?",
+          "audio": {
+            "text": "Because the soil was dry, the botanist watered each seedling.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q04"
+          },
+          "answer": "steady and clear",
+          "acceptable_answers": [
+            "steady and clear"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Complete the advice: Read phrase by phrase, not ___ by ___.",
+          "question_type": "sentence_completion",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "word by word",
+          "answer": "word by word",
+          "acceptable_answers": [
+            "word by word"
+          ],
+          "choices": [
+            "word by word",
+            "fast by faster",
+            "line by page"
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "text": "Read phrase by phrase, not word by word.",
+          "sentence": "Read phrase by phrase, not word by word.",
+          "explanation": "The completion word by word fits the sentence and meaning.",
+          "question_id": "G6E_FL_001_L2_Q05",
+          "question_audio": {
+            "text": "Complete the advice: Read phrase by phrase, not ___ by ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q05"
+          },
+          "read_aloud_text": "Complete the advice: Read phrase by phrase, not ___ by ___.",
+          "audio": {
+            "text": "Read phrase by phrase, not word by word.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q05"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which chunk keeps the subject and verb together?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "choices": [
+            "The young astronomer / studied the comet.",
+            "The young / astronomer studied / the comet.",
+            "The / young astronomer studied the / comet."
+          ],
+          "correct_answer": "The young astronomer / studied the comet.",
+          "misconception_tag": "phrase_chunking_error",
+          "text": "The young astronomer studied the comet.",
+          "sentence": "The young astronomer studied the comet.",
+          "explanation": "The young astronomer / studied the comet. is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L2_Q06",
+          "question_audio": {
+            "text": "Which chunk keeps the subject and verb together?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q06"
+          },
+          "read_aloud_text": "Which chunk keeps the subject and verb together?",
+          "audio": {
+            "text": "The young astronomer studied the comet.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q06"
+          },
+          "answer": "The young astronomer / studied the comet.",
+          "acceptable_answers": [
+            "The young astronomer / studied the comet."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Why pause at a comma?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "It groups meaning for the listener.",
+            "It means stop reading completely.",
+            "It makes every word louder."
+          ],
+          "correct_answer": "It groups meaning for the listener.",
+          "misconception_tag": "phrase_chunking_error",
+          "text": "Before lunch, the class finished the experiment.",
+          "sentence": "Before lunch, the class finished the experiment.",
+          "explanation": "It groups meaning for the listener. is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L2_Q07",
+          "question_audio": {
+            "text": "Why pause at a comma?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q07"
+          },
+          "read_aloud_text": "Why pause at a comma?",
+          "audio": {
+            "text": "Before lunch, the class finished the experiment.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q07"
+          },
+          "answer": "It groups meaning for the listener.",
+          "acceptable_answers": [
+            "It groups meaning for the listener."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Name one phrase that belongs together: The silver plane landed beside the hangar.",
+          "question_type": "short_response",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "The silver plane",
+          "answer": "The silver plane",
+          "acceptable_answers": [
+            "the silver plane",
+            "landed beside the hangar",
+            "beside the hangar"
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "text": "The silver plane landed beside the hangar.",
+          "sentence": "The silver plane landed beside the hangar.",
+          "explanation": "A strong response includes The silver plane.",
+          "question_id": "G6E_FL_001_L2_Q08",
+          "question_audio": {
+            "text": "Name one phrase that belongs together: The silver plane landed beside the hangar.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q08"
+          },
+          "read_aloud_text": "Name one phrase that belongs together: The silver plane landed beside the hangar.",
+          "audio": {
+            "text": "The silver plane landed beside the hangar.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which reading has an appropriate pace?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "choices": [
+            "clear enough to understand",
+            "so fast endings disappear",
+            "so slow each word feels separate"
+          ],
+          "correct_answer": "clear enough to understand",
+          "misconception_tag": "phrase_chunking_error",
+          "text": "The narrator described the village in careful detail.",
+          "sentence": "The narrator described the village in careful detail.",
+          "explanation": "clear enough to understand is supported by the clue in the text.",
+          "fluency_scores": {
+            "pace": 91,
+            "phrasing": 87
+          },
+          "question_id": "G6E_FL_001_L2_Q09",
+          "question_audio": {
+            "text": "Which reading has an appropriate pace?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q09"
+          },
+          "read_aloud_text": "Which reading has an appropriate pace?",
+          "audio": {
+            "text": "The narrator described the village in careful detail.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q09"
+          },
+          "answer": "clear enough to understand",
+          "acceptable_answers": [
+            "clear enough to understand"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "A fluent reader groups words by ___.",
+          "question_type": "sentence_completion",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "meaning",
+          "answer": "meaning",
+          "acceptable_answers": [
+            "meaning"
+          ],
+          "choices": [
+            "meaning",
+            "alphabet",
+            "page number"
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "text": "A fluent reader groups words by meaning.",
+          "sentence": "A fluent reader groups words by meaning.",
+          "explanation": "The completion meaning fits the sentence and meaning.",
+          "question_id": "G6E_FL_001_L2_Q10",
+          "question_audio": {
+            "text": "A fluent reader groups words by ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L2_Q10"
+          },
+          "read_aloud_text": "A fluent reader groups words by ___.",
+          "audio": {
+            "text": "A fluent reader groups words by meaning.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L2_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_FL_001_LVL3",
+      "label": "Level 3: Expression and Punctuation",
+      "focus": "Expression and Punctuation",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "How should the question mark affect expression?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "raise the questioning tone",
+            "read flatter",
+            "ignore it"
+          ],
+          "correct_answer": "raise the questioning tone",
+          "misconception_tag": "punctuation_ignored",
+          "text": "Could the solution be simpler than we thought?",
+          "sentence": "Could the solution be simpler than we thought?",
+          "explanation": "raise the questioning tone is supported by the clue in the text.",
+          "highlighted_words": [
+            "?"
+          ],
+          "question_id": "G6E_FL_001_L3_Q01",
+          "question_audio": {
+            "text": "How should the question mark affect expression?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q01"
+          },
+          "read_aloud_text": "How should the question mark affect expression?",
+          "audio": {
+            "text": "Could the solution be simpler than we thought?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q01"
+          },
+          "answer": "raise the questioning tone",
+          "acceptable_answers": [
+            "raise the questioning tone"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which punctuation signals a stronger feeling?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "exclamation point",
+            "period",
+            "comma"
+          ],
+          "correct_answer": "exclamation point",
+          "misconception_tag": "punctuation_ignored",
+          "text": "What a remarkable discovery!",
+          "sentence": "What a remarkable discovery!",
+          "explanation": "exclamation point is supported by the clue in the text.",
+          "highlighted_words": [
+            "!"
+          ],
+          "question_id": "G6E_FL_001_L3_Q02",
+          "question_audio": {
+            "text": "Which punctuation signals a stronger feeling?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q02"
+          },
+          "read_aloud_text": "Which punctuation signals a stronger feeling?",
+          "audio": {
+            "text": "What a remarkable discovery!",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q02"
+          },
+          "answer": "exclamation point",
+          "acceptable_answers": [
+            "exclamation point"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What punctuation tells the reader to make a brief pause in \"At first, the path seemed empty\"?",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "comma",
+          "answer": "comma",
+          "acceptable_answers": [
+            "comma",
+            "a comma"
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "text": "At first, the path seemed empty.",
+          "sentence": "At first, the path seemed empty.",
+          "explanation": "A strong response includes comma.",
+          "question_id": "G6E_FL_001_L3_Q03",
+          "question_audio": {
+            "text": "What punctuation tells the reader to make a brief pause in \"At first, the path seemed empty\"?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q03"
+          },
+          "read_aloud_text": "What punctuation tells the reader to make a brief pause in \"At first, the path seemed empty\"?",
+          "audio": {
+            "text": "At first, the path seemed empty.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which voice fits dialogue: \"Hurry,\" Maya whispered.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "quiet and urgent",
+            "flat and bored",
+            "loud and cheerful"
+          ],
+          "correct_answer": "quiet and urgent",
+          "misconception_tag": "expression_flat_reading",
+          "text": "\"Hurry,\" Maya whispered.",
+          "sentence": "\"Hurry,\" Maya whispered.",
+          "explanation": "quiet and urgent is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L3_Q04",
+          "question_audio": {
+            "text": "Which voice fits dialogue: \"Hurry,\" Maya whispered.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q04"
+          },
+          "read_aloud_text": "Which voice fits dialogue: \"Hurry,\" Maya whispered.",
+          "audio": {
+            "text": "\"Hurry,\" Maya whispered.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q04"
+          },
+          "answer": "quiet and urgent",
+          "acceptable_answers": [
+            "quiet and urgent"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Complete the advice: Match your expression to the character\u2019s ___.",
+          "question_type": "sentence_completion",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "feeling",
+          "answer": "feeling",
+          "acceptable_answers": [
+            "feeling"
+          ],
+          "choices": [
+            "feeling",
+            "height",
+            "spelling"
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "text": "Match your expression to the character\u2019s feeling.",
+          "sentence": "Match your expression to the character\u2019s feeling.",
+          "explanation": "The completion feeling fits the sentence and meaning.",
+          "question_id": "G6E_FL_001_L3_Q05",
+          "question_audio": {
+            "text": "Complete the advice: Match your expression to the character\u2019s ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q05"
+          },
+          "read_aloud_text": "Complete the advice: Match your expression to the character\u2019s ___.",
+          "audio": {
+            "text": "Match your expression to the character\u2019s feeling.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q05"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which mark tells the reader a sentence is complete?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "period",
+            "apostrophe",
+            "hyphen"
+          ],
+          "correct_answer": "period",
+          "misconception_tag": "punctuation_ignored",
+          "text": "The tide covered the lower rocks.",
+          "sentence": "The tide covered the lower rocks.",
+          "explanation": "period is supported by the clue in the text.",
+          "highlighted_words": [
+            "."
+          ],
+          "question_id": "G6E_FL_001_L3_Q06",
+          "question_audio": {
+            "text": "Which mark tells the reader a sentence is complete?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q06"
+          },
+          "read_aloud_text": "Which mark tells the reader a sentence is complete?",
+          "audio": {
+            "text": "The tide covered the lower rocks.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q06"
+          },
+          "answer": "period",
+          "acceptable_answers": [
+            "period"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "How should a list with commas be read?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "with brief pauses between items",
+            "as one rushed word",
+            "with no pauses at all"
+          ],
+          "correct_answer": "with brief pauses between items",
+          "misconception_tag": "punctuation_ignored",
+          "text": "They packed notebooks, pencils, water, and maps.",
+          "sentence": "They packed notebooks, pencils, water, and maps.",
+          "explanation": "with brief pauses between items is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L3_Q07",
+          "question_audio": {
+            "text": "How should a list with commas be read?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q07"
+          },
+          "read_aloud_text": "How should a list with commas be read?",
+          "audio": {
+            "text": "They packed notebooks, pencils, water, and maps.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q07"
+          },
+          "answer": "with brief pauses between items",
+          "acceptable_answers": [
+            "with brief pauses between items"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Name the punctuation mark after the speaker tag: She replied, \"I agree.\"",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "comma",
+          "answer": "comma",
+          "acceptable_answers": [
+            "comma",
+            "a comma"
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "text": "She replied, \"I agree.\"",
+          "sentence": "She replied, \"I agree.\"",
+          "explanation": "A strong response includes comma.",
+          "question_id": "G6E_FL_001_L3_Q08",
+          "question_audio": {
+            "text": "Name the punctuation mark after the speaker tag: She replied, \"I agree.\"",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q08"
+          },
+          "read_aloud_text": "Name the punctuation mark after the speaker tag: She replied, \"I agree.\"",
+          "audio": {
+            "text": "She replied, \"I agree.\"",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which reading avoids flat expression?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "choices": [
+            "emphasize \"finally\" because the wait ended",
+            "read every word with the same tone",
+            "skip the comma"
+          ],
+          "correct_answer": "emphasize \"finally\" because the wait ended",
+          "misconception_tag": "expression_flat_reading",
+          "text": "Finally, the clouds opened to reveal the moon.",
+          "sentence": "Finally, the clouds opened to reveal the moon.",
+          "explanation": "emphasize \"finally\" because the wait ended is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L3_Q09",
+          "question_audio": {
+            "text": "Which reading avoids flat expression?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q09"
+          },
+          "read_aloud_text": "Which reading avoids flat expression?",
+          "audio": {
+            "text": "Finally, the clouds opened to reveal the moon.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q09"
+          },
+          "answer": "emphasize \"finally\" because the wait ended",
+          "acceptable_answers": [
+            "emphasize \"finally\" because the wait ended"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Expression should show the text\u2019s ___.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "meaning",
+          "answer": "meaning",
+          "acceptable_answers": [
+            "meaning"
+          ],
+          "choices": [
+            "meaning",
+            "font",
+            "margin"
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "text": "Expression should show the text\u2019s meaning.",
+          "sentence": "Expression should show the text\u2019s meaning.",
+          "explanation": "The completion meaning fits the sentence and meaning.",
+          "question_id": "G6E_FL_001_L3_Q10",
+          "question_audio": {
+            "text": "Expression should show the text\u2019s ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L3_Q10"
+          },
+          "read_aloud_text": "Expression should show the text\u2019s ___.",
+          "audio": {
+            "text": "Expression should show the text\u2019s meaning.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L3_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_FL_001_LVL4",
+      "label": "Level 4: Repeated Reading and Meaning",
+      "focus": "Repeated Reading and Meaning",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "Why reread a difficult passage aloud?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "choices": [
+            "to improve accuracy, pace, and meaning",
+            "to memorize without understanding",
+            "to skip hard words faster"
+          ],
+          "correct_answer": "to improve accuracy, pace, and meaning",
+          "misconception_tag": "expression_flat_reading",
+          "text": "The glacier moved slowly, carving a valley over centuries.",
+          "sentence": "The glacier moved slowly, carving a valley over centuries.",
+          "explanation": "to improve accuracy, pace, and meaning is supported by the clue in the text.",
+          "fluency_scores": {
+            "first_read": 68,
+            "second_read": 84,
+            "third_read": 93
+          },
+          "question_id": "G6E_FL_001_L4_Q01",
+          "question_audio": {
+            "text": "Why reread a difficult passage aloud?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q01"
+          },
+          "read_aloud_text": "Why reread a difficult passage aloud?",
+          "audio": {
+            "text": "The glacier moved slowly, carving a valley over centuries.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q01"
+          },
+          "answer": "to improve accuracy, pace, and meaning",
+          "acceptable_answers": [
+            "to improve accuracy, pace, and meaning"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "After a second reading, which should improve?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "choices": [
+            "smoothness and understanding",
+            "the author\u2019s name",
+            "the page color"
+          ],
+          "correct_answer": "smoothness and understanding",
+          "misconception_tag": "skips_words",
+          "text": "Repeated reading helps the reader notice missed words and phrasing.",
+          "sentence": "Repeated reading helps the reader notice missed words and phrasing.",
+          "explanation": "smoothness and understanding is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L4_Q02",
+          "question_audio": {
+            "text": "After a second reading, which should improve?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q02"
+          },
+          "read_aloud_text": "After a second reading, which should improve?",
+          "audio": {
+            "text": "Repeated reading helps the reader notice missed words and phrasing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q02"
+          },
+          "answer": "smoothness and understanding",
+          "acceptable_answers": [
+            "smoothness and understanding"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Write one thing to listen for during repeated reading.",
+          "question_type": "short_response",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "accuracy",
+          "answer": "accuracy",
+          "acceptable_answers": [
+            "accuracy",
+            "phrasing",
+            "pace",
+            "punctuation",
+            "expression",
+            "meaning"
+          ],
+          "misconception_tag": "skips_words",
+          "text": "Listen for accuracy, phrasing, pace, punctuation, expression, and meaning.",
+          "sentence": "Listen for accuracy, phrasing, pace, punctuation, expression, and meaning.",
+          "explanation": "A strong response includes accuracy.",
+          "question_id": "G6E_FL_001_L4_Q03",
+          "question_audio": {
+            "text": "Write one thing to listen for during repeated reading.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q03"
+          },
+          "read_aloud_text": "Write one thing to listen for during repeated reading.",
+          "audio": {
+            "text": "Listen for accuracy, phrasing, pace, punctuation, expression, and meaning.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which rereading goal focuses on meaning?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "explain what the sentence means after reading",
+            "finish as fast as possible",
+            "read in a silly voice only"
+          ],
+          "correct_answer": "explain what the sentence means after reading",
+          "misconception_tag": "expression_flat_reading",
+          "text": "The council postponed the vote because residents requested more time.",
+          "sentence": "The council postponed the vote because residents requested more time.",
+          "explanation": "explain what the sentence means after reading is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L4_Q04",
+          "question_audio": {
+            "text": "Which rereading goal focuses on meaning?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q04"
+          },
+          "read_aloud_text": "Which rereading goal focuses on meaning?",
+          "audio": {
+            "text": "The council postponed the vote because residents requested more time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q04"
+          },
+          "answer": "explain what the sentence means after reading",
+          "acceptable_answers": [
+            "explain what the sentence means after reading"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Repeated reading should sound smoother and make more ___.",
+          "question_type": "sentence_completion",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "sense",
+          "answer": "sense",
+          "acceptable_answers": [
+            "sense"
+          ],
+          "choices": [
+            "sense",
+            "noise",
+            "marks"
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "text": "Repeated reading should sound smoother and make more sense.",
+          "sentence": "Repeated reading should sound smoother and make more sense.",
+          "explanation": "The completion sense fits the sentence and meaning.",
+          "question_id": "G6E_FL_001_L4_Q05",
+          "question_audio": {
+            "text": "Repeated reading should sound smoother and make more ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q05"
+          },
+          "read_aloud_text": "Repeated reading should sound smoother and make more ___.",
+          "audio": {
+            "text": "Repeated reading should sound smoother and make more sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q05"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which feedback is useful after a first read?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "You skipped \"because,\" which explains the reason.",
+            "You wore a blue shirt.",
+            "The paragraph was long."
+          ],
+          "correct_answer": "You skipped \"because,\" which explains the reason.",
+          "misconception_tag": "skips_words",
+          "text": "The crew waited because the fog covered the harbor.",
+          "sentence": "The crew waited because the fog covered the harbor.",
+          "explanation": "You skipped \"because,\" which explains the reason. is supported by the clue in the text.",
+          "highlighted_words": [
+            "because"
+          ],
+          "question_id": "G6E_FL_001_L4_Q06",
+          "question_audio": {
+            "text": "Which feedback is useful after a first read?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q06"
+          },
+          "read_aloud_text": "Which feedback is useful after a first read?",
+          "audio": {
+            "text": "The crew waited because the fog covered the harbor.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q06"
+          },
+          "answer": "You skipped \"because,\" which explains the reason.",
+          "acceptable_answers": [
+            "You skipped \"because,\" which explains the reason."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which action supports repeat-after-me fluency practice?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "listen to a model, then read the same text",
+            "change every word",
+            "cover the punctuation"
+          ],
+          "correct_answer": "listen to a model, then read the same text",
+          "misconception_tag": "expression_flat_reading",
+          "text": "Listen to the model, then repeat the sentence with the same phrasing.",
+          "sentence": "Listen to the model, then repeat the sentence with the same phrasing.",
+          "explanation": "listen to a model, then read the same text is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L4_Q07",
+          "question_audio": {
+            "text": "Which action supports repeat-after-me fluency practice?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q07"
+          },
+          "read_aloud_text": "Which action supports repeat-after-me fluency practice?",
+          "audio": {
+            "text": "Listen to the model, then repeat the sentence with the same phrasing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q07"
+          },
+          "answer": "listen to a model, then read the same text",
+          "acceptable_answers": [
+            "listen to a model, then read the same text"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What word explains the cause in this sentence: The match paused because rain began.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "because",
+          "answer": "because",
+          "acceptable_answers": [
+            "because"
+          ],
+          "misconception_tag": "skips_words",
+          "text": "The match paused because rain began.",
+          "sentence": "The match paused because rain began.",
+          "explanation": "A strong response includes because.",
+          "question_id": "G6E_FL_001_L4_Q08",
+          "question_audio": {
+            "text": "What word explains the cause in this sentence: The match paused because rain began.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q08"
+          },
+          "read_aloud_text": "What word explains the cause in this sentence: The match paused because rain began.",
+          "audio": {
+            "text": "The match paused because rain began.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which third reading shows progress?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "choices": [
+            "accurate words, natural chunks, and expression",
+            "more skipped words",
+            "ignoring punctuation"
+          ],
+          "correct_answer": "accurate words, natural chunks, and expression",
+          "misconception_tag": "punctuation_ignored",
+          "text": "The audience grew silent as the final note faded.",
+          "sentence": "The audience grew silent as the final note faded.",
+          "explanation": "accurate words, natural chunks, and expression is supported by the clue in the text.",
+          "question_id": "G6E_FL_001_L4_Q09",
+          "question_audio": {
+            "text": "Which third reading shows progress?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q09"
+          },
+          "read_aloud_text": "Which third reading shows progress?",
+          "audio": {
+            "text": "The audience grew silent as the final note faded.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q09"
+          },
+          "answer": "accurate words, natural chunks, and expression",
+          "acceptable_answers": [
+            "accurate words, natural chunks, and expression"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Rereading helps connect fluency with ___.",
+          "question_type": "sentence_completion",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "correct_answer": "meaning",
+          "answer": "meaning",
+          "acceptable_answers": [
+            "meaning"
+          ],
+          "choices": [
+            "meaning",
+            "guessing",
+            "printing"
+          ],
+          "misconception_tag": "expression_flat_reading",
+          "text": "Rereading helps connect fluency with meaning.",
+          "sentence": "Rereading helps connect fluency with meaning.",
+          "explanation": "The completion meaning fits the sentence and meaning.",
+          "question_id": "G6E_FL_001_L4_Q10",
+          "question_audio": {
+            "text": "Rereading helps connect fluency with ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_L4_Q10"
+          },
+          "read_aloud_text": "Rereading helps connect fluency with ___.",
+          "audio": {
+            "text": "Rereading helps connect fluency with meaning.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_L4_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_FL_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "Which word must be read exactly as printed in the sentence?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "choices": [
+            "precise",
+            "practical",
+            "predict"
+          ],
+          "correct_answer": "precise",
+          "misconception_tag": "skips_words",
+          "text": "The engineer gave precise directions before the launch.",
+          "sentence": "The engineer gave precise directions before the launch.",
+          "explanation": "precise is supported by the clue in the text.",
+          "fluency_scores": {
+            "accuracy": 94,
+            "smoothness": 86,
+            "expression": 82
+          },
+          "repeat_after_me": true,
+          "question_id": "G6E_FL_001_MIXED_Q01",
+          "question_audio": {
+            "text": "Which word must be read exactly as printed in the sentence?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q01"
+          },
+          "read_aloud_text": "Which word must be read exactly as printed in the sentence?",
+          "audio": {
+            "text": "The engineer gave precise directions before the launch.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q01"
+          },
+          "answer": "precise",
+          "acceptable_answers": [
+            "precise"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which small word changes the meaning if it is skipped?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "not",
+            "the",
+            "river"
+          ],
+          "correct_answer": "not",
+          "misconception_tag": "skips_words",
+          "text": "The team did not cross the trail after sunset.",
+          "sentence": "The team did not cross the trail after sunset.",
+          "explanation": "not is supported by the clue in the text.",
+          "highlighted_words": [
+            "not"
+          ],
+          "repeat_after_me": true,
+          "question_id": "G6E_FL_001_MIXED_Q02",
+          "question_audio": {
+            "text": "Which small word changes the meaning if it is skipped?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q02"
+          },
+          "read_aloud_text": "Which small word changes the meaning if it is skipped?",
+          "audio": {
+            "text": "The team did not cross the trail after sunset.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q02"
+          },
+          "answer": "not",
+          "acceptable_answers": [
+            "not"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "ancient",
+          "answer": "ancient",
+          "acceptable_answers": [
+            "ancient"
+          ],
+          "misconception_tag": "skips_words",
+          "text": "The museum displayed an ancient map.",
+          "sentence": "The museum displayed an ancient map.",
+          "explanation": "A strong response includes ancient.",
+          "question_id": "G6E_FL_001_MIXED_Q03",
+          "question_audio": {
+            "text": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q03"
+          },
+          "read_aloud_text": "Type the quoted word that must be read accurately: The museum displayed an \"ancient\" map.",
+          "audio": {
+            "text": "The museum displayed an ancient map.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which phrase chunk sounds smoothest?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "choices": [
+            "After the storm / the creek rose quickly.",
+            "After / the storm the / creek rose quickly.",
+            "After the / storm the creek / rose quickly."
+          ],
+          "correct_answer": "After the storm / the creek rose quickly.",
+          "misconception_tag": "phrase_chunking_error",
+          "text": "After the storm, the creek rose quickly.",
+          "sentence": "After the storm, the creek rose quickly.",
+          "explanation": "After the storm / the creek rose quickly. is supported by the clue in the text.",
+          "phrases": [
+            "After the storm",
+            "the creek rose quickly"
+          ],
+          "question_id": "G6E_FL_001_MIXED_Q04",
+          "question_audio": {
+            "text": "Which phrase chunk sounds smoothest?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q04"
+          },
+          "read_aloud_text": "Which phrase chunk sounds smoothest?",
+          "audio": {
+            "text": "After the storm, the creek rose quickly.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q04"
+          },
+          "answer": "After the storm / the creek rose quickly.",
+          "acceptable_answers": [
+            "After the storm / the creek rose quickly."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Where should the reader pause?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "after \"however\"",
+            "after \"the\"",
+            "after \"quickly\""
+          ],
+          "correct_answer": "after \"however\"",
+          "misconception_tag": "phrase_chunking_error",
+          "text": "However, the committee needed more evidence.",
+          "sentence": "However, the committee needed more evidence.",
+          "explanation": "after \"however\" is supported by the clue in the text.",
+          "highlighted_words": [
+            "However,"
+          ],
+          "question_id": "G6E_FL_001_MIXED_Q05",
+          "question_audio": {
+            "text": "Where should the reader pause?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q05"
+          },
+          "read_aloud_text": "Where should the reader pause?",
+          "audio": {
+            "text": "However, the committee needed more evidence.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q05"
+          },
+          "answer": "after \"however\"",
+          "acceptable_answers": [
+            "after \"however\""
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Write the first phrase group in this sentence: During the field trip, students sketched fossils.",
+          "question_type": "short_response",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "During the field trip",
+          "answer": "During the field trip",
+          "acceptable_answers": [
+            "during the field trip",
+            "During the field trip"
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "text": "During the field trip, students sketched fossils.",
+          "sentence": "During the field trip, students sketched fossils.",
+          "explanation": "A strong response includes During the field trip.",
+          "question_id": "G6E_FL_001_MIXED_Q06",
+          "question_audio": {
+            "text": "Write the first phrase group in this sentence: During the field trip, students sketched fossils.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q06"
+          },
+          "read_aloud_text": "Write the first phrase group in this sentence: During the field trip, students sketched fossils.",
+          "audio": {
+            "text": "During the field trip, students sketched fossils.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q06"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "How should the question mark affect expression?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "raise the questioning tone",
+            "read flatter",
+            "ignore it"
+          ],
+          "correct_answer": "raise the questioning tone",
+          "misconception_tag": "punctuation_ignored",
+          "text": "Could the solution be simpler than we thought?",
+          "sentence": "Could the solution be simpler than we thought?",
+          "explanation": "raise the questioning tone is supported by the clue in the text.",
+          "highlighted_words": [
+            "?"
+          ],
+          "question_id": "G6E_FL_001_MIXED_Q07",
+          "question_audio": {
+            "text": "How should the question mark affect expression?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q07"
+          },
+          "read_aloud_text": "How should the question mark affect expression?",
+          "audio": {
+            "text": "Could the solution be simpler than we thought?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q07"
+          },
+          "answer": "raise the questioning tone",
+          "acceptable_answers": [
+            "raise the questioning tone"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which punctuation signals a stronger feeling?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "choices": [
+            "exclamation point",
+            "period",
+            "comma"
+          ],
+          "correct_answer": "exclamation point",
+          "misconception_tag": "punctuation_ignored",
+          "text": "What a remarkable discovery!",
+          "sentence": "What a remarkable discovery!",
+          "explanation": "exclamation point is supported by the clue in the text.",
+          "highlighted_words": [
+            "!"
+          ],
+          "question_id": "G6E_FL_001_MIXED_Q08",
+          "question_audio": {
+            "text": "Which punctuation signals a stronger feeling?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q08"
+          },
+          "read_aloud_text": "Which punctuation signals a stronger feeling?",
+          "audio": {
+            "text": "What a remarkable discovery!",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q08"
+          },
+          "answer": "exclamation point",
+          "acceptable_answers": [
+            "exclamation point"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What punctuation tells the reader to make a brief pause in \"At first, the path seemed empty\"?",
+          "question_type": "short_response",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "comma",
+          "answer": "comma",
+          "acceptable_answers": [
+            "comma",
+            "a comma"
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "text": "At first, the path seemed empty.",
+          "sentence": "At first, the path seemed empty.",
+          "explanation": "A strong response includes comma.",
+          "question_id": "G6E_FL_001_MIXED_Q09",
+          "question_audio": {
+            "text": "What punctuation tells the reader to make a brief pause in \"At first, the path seemed empty\"?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q09"
+          },
+          "read_aloud_text": "What punctuation tells the reader to make a brief pause in \"At first, the path seemed empty\"?",
+          "audio": {
+            "text": "At first, the path seemed empty.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q09"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Why reread a difficult passage aloud?",
+          "question_type": "multiple_choice",
+          "visual_model": "fluency_meter",
+          "support_type": "fluency_meter",
+          "choices": [
+            "to improve accuracy, pace, and meaning",
+            "to memorize without understanding",
+            "to skip hard words faster"
+          ],
+          "correct_answer": "to improve accuracy, pace, and meaning",
+          "misconception_tag": "expression_flat_reading",
+          "text": "The glacier moved slowly, carving a valley over centuries.",
+          "sentence": "The glacier moved slowly, carving a valley over centuries.",
+          "explanation": "to improve accuracy, pace, and meaning is supported by the clue in the text.",
+          "fluency_scores": {
+            "first_read": 68,
+            "second_read": 84,
+            "third_read": 93
+          },
+          "question_id": "G6E_FL_001_MIXED_Q10",
+          "question_audio": {
+            "text": "Why reread a difficult passage aloud?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:question:G6E_FL_001_MIXED_Q10"
+          },
+          "read_aloud_text": "Why reread a difficult passage aloud?",
+          "audio": {
+            "text": "The glacier moved slowly, carving a valley over centuries.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_FL_001:listen:G6E_FL_001_MIXED_Q10"
+          },
+          "answer": "to improve accuracy, pace, and meaning",
+          "acceptable_answers": [
+            "to improve accuracy, pace, and meaning"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    }
+  ]
+}

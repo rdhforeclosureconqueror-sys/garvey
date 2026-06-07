@@ -47,6 +47,9 @@ const g5InformativeWriting=load('G5E_WR_002');
 const g5NarrativeWriting=load('G5E_WR_003');
 const g5LanguageConventions=load('G5E_LANG_001');
 const g6WordAnalysis=load('G6E_RF_001');
+const g6Fluency=load('G6E_FL_001');
+const g6Vocabulary=load('G6E_VOC_001');
+const g6TextEvidence=load('G6E_RC_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -593,6 +596,87 @@ assert.match(VisualRegistry.render(g6WordAnalysisQuestions.find((q)=>q.visual_mo
 assert.match(VisualRegistry.render(g6WordAnalysisQuestions.find((q)=>q.visual_model==='word_parts')),/(prefix|root|base word|suffix)/,'G6E_RF_001 word_parts identifies word-part roles');
 assert.match(VisualRegistry.render(g6WordAnalysisQuestions.find((q)=>q.visual_model==='morpheme_tiles')),/(life|earth|write|carry|build|look|able to be|before|study of)/,'G6E_RF_001 morpheme_tiles displays root or affix meanings');
 assert.match(VisualRegistry.render(g6WordAnalysisQuestions.find((q)=>q.visual_model==='word_builder')),/Target word:/,'G6E_RF_001 word_builder shows parts combining into a complete word');
+
+
+const g6EnglishBatchPackages = [
+  {
+    id: 'G6E_FL_001',
+    domain: 'Fluency',
+    skill: 'Fluency With Literary and Informational Text',
+    labels: ['Level 1: Accuracy', 'Level 2: Phrasing and Pace', 'Level 3: Expression and Punctuation', 'Level 4: Repeated Reading and Meaning', 'Mixed'],
+    visuals: ['sentence_card', 'sentence_highlight', 'phrase_builder', 'fluency_meter'],
+    types: ['multiple_choice', 'short_response', 'sentence_completion'],
+    tags: ['skips_words', 'phrase_chunking_error', 'punctuation_ignored', 'expression_flat_reading'],
+    listenPattern: /sentence_card|sentence_highlight|phrase_builder|fluency_meter/,
+    pkg: g6Fluency
+  },
+  {
+    id: 'G6E_VOC_001',
+    domain: 'Vocabulary / Language',
+    skill: 'Academic Vocabulary and Figurative Language',
+    labels: ['Level 1: Context and Academic Vocabulary', 'Level 2: Roots and Affixes', 'Level 3: Connotation and Word Relationships', 'Level 4: Figurative and Domain-Specific Language', 'Mixed'],
+    visuals: ['context_sentence', 'vocabulary_match', 'word_scale', 'figurative_language_card'],
+    types: ['multiple_choice', 'short_response', 'vocabulary_match'],
+    tags: ['context_clue_ignored', 'connotation_confusion', 'literal_vs_figurative_confusion', 'domain_word_confusion'],
+    listenPattern: /context_sentence|vocabulary_match|word_scale|figurative_language_card/,
+    pkg: g6Vocabulary
+  },
+  {
+    id: 'G6E_RC_001',
+    domain: 'Reading Comprehension',
+    skill: 'Cite Textual Evidence and Make Inferences',
+    labels: ['Level 1: Literal Understanding', 'Level 2: Make Inferences', 'Level 3: Cite Evidence', 'Level 4: Explain Reasoning', 'Mixed'],
+    visuals: ['short_passage', 'evidence_highlight', 'question_card', 'text_evidence_builder'],
+    types: ['multiple_choice', 'short_response', 'text_evidence'],
+    tags: ['unsupported_answer', 'inference_without_evidence', 'inaccurate_quote', 'weak_explanation'],
+    listenPattern: /short_passage|evidence_highlight|question_card|text_evidence_builder/,
+    pkg: g6TextEvidence
+  }
+];
+
+for (const spec of g6EnglishBatchPackages) {
+  const { id, pkg } = spec;
+  assert.ok(pkg, `${id} package loads`);
+  const result = Schema.validateSkillPackage(pkg, { allowPlannedLevelBanks: false });
+  assert.equal(result.valid, true, `${id} validates in strict production mode: ${result.errors.join('; ')}`);
+  assert.equal(pkg.grade, 6, `${id} grade`);
+  assert.equal(pkg.subject, 'English', `${id} subject`);
+  assert.equal(pkg.domain, spec.domain, `${id} domain`);
+  assert.equal(pkg.skill, spec.skill, `${id} skill`);
+  assert.deepEqual(Renderer.stepLabels(pkg), ['Story', 'Lesson', 'Watch', 'Demo', 'Practice', 'Challenge', 'Checkpoint', 'Badge', 'Profile'], `${id} mission uses full Skill World flow`);
+  assert.equal(Array.isArray(pkg.level_banks), true, `${id} has real level_banks`);
+  assert.equal(pkg.level_banks.length, 5, `${id} has five real level banks`);
+  assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4, `${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true, `${id} has Mixed level`);
+  pkg.level_banks.forEach((level) => assert.ok(level.questions.length >= 10 && level.questions.length <= 12, `${id} ${level.level_id} has 10–12 questions`));
+  spec.labels.forEach((label) => assert.ok(pkg.level_banks.some((level) => level.label === label), `${id} includes ${label}`));
+  const questions = [...(pkg.guided_practice || []), ...(pkg.adaptive_question_bank || []), ...(pkg.checkpoint || []), ...(pkg.level_banks || []).flatMap((level) => level.questions || [])];
+  spec.visuals.forEach((visual) => assert.ok(questions.some((q) => q.visual_model === visual), `${id} includes ${visual}`));
+  spec.types.forEach((type) => assert.ok(questions.some((q) => q.question_type === type), `${id} includes ${type}`));
+  spec.tags.forEach((tag) => assert.ok(pkg.misconception_bank[tag], `${id} includes misconception ${tag}`));
+  assert.ok(questions.filter((q) => q.question_type === 'short_response').every((q) => Array.isArray(q.acceptable_answers) && q.acceptable_answers.length > 0), `${id} short responses have acceptable_answers`);
+  ['story', 'lesson', 'watch', 'demo', 'practice', 'challenge', 'checkpoint', 'badge', 'profile'].forEach((screen) => {
+    assert.equal(pkg.page_audio?.[screen]?.label, 'Read This Page', `${id} ${screen} Read This Page narration exists`);
+    assert.ok(pkg.page_audio?.[screen]?.text, `${id} ${screen} Read This Page text exists`);
+  });
+  ['practice', 'challenge', 'checkpoint'].forEach((screen) => assert.match(pkg.page_audio[screen].text, /Read Question/, `${id} ${screen} narration references Read Question`));
+  [...(pkg.guided_practice || []), ...(pkg.checkpoint || []), ...(pkg.adaptive_question_bank || [])].forEach((question) => assert.equal(question.question_audio?.label, 'Read Question', `${id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level) => level.questions).forEach((question) => assert.equal(question.question_audio?.label, 'Read Question', `${id} Skill Practice question has Read Question narration`));
+  assert.ok(questions.filter((q) => spec.listenPattern.test(`${q.visual_model} ${q.support_type}`)).every((q) => q.audio?.label === 'Listen' && q.audio?.text && q.audio?.playback_preference === 'cached_audio_first' && q.audio?.browser_speech_fallback === true), `${id} Listen audio exists where appropriate`);
+  const missionHtml = Renderer.renderSkillWorld(pkg, { failClosed: true }).html;
+  ['Story', 'Lesson', 'Watch', 'Demo', 'Practice', 'Challenge', 'Checkpoint', 'Badge', 'Profile'].forEach((label) => assert.match(missionHtml, new RegExp(label), `${id} mission renders ${label}`));
+  assert.match(missionHtml, /Read This Page/, `${id} renders Read This Page controls`);
+  assert.match(missionHtml, /Read Question/, `${id} renders Read Question controls`);
+  assert.match(missionHtml, /Continue to Skill Practice/, `${id} profile links to Skill Practice Center`);
+  const drillHtml = Renderer.renderSkillWorld(pkg, { state: Renderer.createState(), mode: 'drill', failClosed: true }).html;
+  assert.match(drillHtml, /Skill Practice Center/, `${id} Practice This Skill route renders Skill Practice Center`);
+  assert.match(drillHtml, new RegExp(spec.labels[0]), `${id} drill renders Level 1`);
+  spec.visuals.forEach((visual) => {
+    const question = questions.find((q) => q.visual_model === visual);
+    assert.ok(question, `${id} includes ${visual} question`);
+    assert.match(VisualRegistry.render(question), new RegExp(`data-renderer="${visual}"`), `${visual} renderer output exists for ${id}`);
+  });
+}
 
 assert.ok(g5TextEvidence,'G5E_RC_001 package loads');
 {

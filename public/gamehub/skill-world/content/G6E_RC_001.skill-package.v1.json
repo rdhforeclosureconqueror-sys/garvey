@@ -1,0 +1,3393 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade6-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade6_english_completion_plan.md",
+    "production_metadata": {
+      "status": "production",
+      "grade": 6,
+      "batch": "G6E_FL_VOC_RC_001",
+      "created_at": "2026-06-07"
+    },
+    "production_proof_package": true,
+    "created_at": "2026-06-07",
+    "content_note": "Grade 6 English production SkillPackage with real guided mission and Skill Practice level banks."
+  },
+  "skill_id": "G6E_RC_001",
+  "grade": 6,
+  "subject": "English",
+  "domain": "Reading Comprehension",
+  "skill": "Cite Textual Evidence and Make Inferences",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Enter Evidence Expedition, where readers solve Grade 6 English challenges with careful reading and explanation.",
+    "objective": "I can cite textual evidence to support literal understanding and inferences in Grade 6 literary and informational texts.",
+    "key_vocabulary": [
+      "literal understanding",
+      "inference",
+      "textual evidence",
+      "quotation",
+      "relevant evidence",
+      "claim",
+      "explanation",
+      "support",
+      "passage",
+      "informational text",
+      "literary text"
+    ],
+    "concept_explanation": "I can cite textual evidence to support literal understanding and inferences in Grade 6 literary and informational texts. Use the text, language, punctuation, and context to prove your thinking.",
+    "visual_model": "text_evidence_builder",
+    "common_misconception": "A reader may choose an unsupported answer, make an inference without evidence, quote inaccurately, or give a weak explanation.",
+    "real_world_connection": "Middle school readers use this skill in novels, science articles, history sources, directions, debates, and assessments.",
+    "lesson_summary": "Read carefully, name the clue or evidence, explain how it supports the answer, and check that your response matches the whole text.",
+    "mini_lesson": "Step 1: read the text or sentence. Step 2: mark the clue. Step 3: choose or write the answer. Step 4: explain why the clue proves it.",
+    "audio": {
+      "text": "literal understanding, inference, textual evidence, quotation, relevant evidence, claim, explanation, support",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:listen:lesson"
+    }
+  },
+  "worked_examples": [
+    {
+      "prompt": "Watch: According to the passage, what did Marisol find beside the garden?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "choices": [
+        "three sets of footprints",
+        "a broken window",
+        "a lost notebook"
+      ],
+      "correct_answer": "three sets of footprints",
+      "misconception_tag": "unsupported_answer",
+      "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "explanation": "three sets of footprints is supported by the clue in the text.",
+      "passage_id": "p1",
+      "question_id": "G6E_RC_001_WE1",
+      "question_audio": {
+        "text": "Watch: According to the passage, what did Marisol find beside the garden?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_WE1"
+      },
+      "audio": {
+        "text": "Watch: According to the passage, what did Marisol find beside the garden?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_WE1"
+      }
+    },
+    {
+      "prompt": "Watch: What remained untouched in the garden?",
+      "question_type": "multiple_choice",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "choices": [
+        "lettuce",
+        "tomato cages",
+        "beans"
+      ],
+      "correct_answer": "lettuce",
+      "misconception_tag": "unsupported_answer",
+      "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "explanation": "lettuce is supported by the clue in the text.",
+      "passage_id": "p1",
+      "question_id": "G6E_RC_001_WE2",
+      "question_audio": {
+        "text": "Watch: What remained untouched in the garden?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_WE2"
+      },
+      "audio": {
+        "text": "Watch: What remained untouched in the garden?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_WE2"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Reread the sentence, passage, or prompt carefully.",
+    "Mark the clue: word, punctuation, phrase, context, or evidence.",
+    "Choose or write the answer and explain how the clue supports it."
+  ],
+  "guided_practice": [
+    {
+      "prompt": "What kind of transportation did many cities begin using in 1899?",
+      "question_type": "short_response",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "electric streetcars",
+      "answer": "electric streetcars",
+      "acceptable_answers": [
+        "electric streetcars",
+        "streetcars"
+      ],
+      "misconception_tag": "unsupported_answer",
+      "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+      "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+      "explanation": "A strong response includes electric streetcars.",
+      "question_id": "G6E_RC_001_GUIDED_PRACTICE_1",
+      "question_audio": {
+        "text": "What kind of transportation did many cities begin using in 1899?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_GUIDED_PRACTICE_1"
+      },
+      "audio": {
+        "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_GUIDED_PRACTICE_1"
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "prompt": "What did Nia put in her backpack?",
+      "question_type": "short_response",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "the letter",
+      "answer": "the letter",
+      "acceptable_answers": [
+        "letter",
+        "the letter",
+        "her brother\u2019s letter"
+      ],
+      "misconception_tag": "unsupported_answer",
+      "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+      "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+      "explanation": "A strong response includes the letter.",
+      "question_id": "G6E_RC_001_CHECKPOINT_1",
+      "question_audio": {
+        "text": "What did Nia put in her backpack?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_CHECKPOINT_1"
+      },
+      "audio": {
+        "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_CHECKPOINT_1"
+      }
+    },
+    {
+      "prompt": "What was caught on the fence?",
+      "question_type": "multiple_choice",
+      "visual_model": "evidence_highlight",
+      "support_type": "evidence_highlight",
+      "choices": [
+        "a strand of gray fur",
+        "a tomato leaf",
+        "a blue ribbon"
+      ],
+      "correct_answer": "a strand of gray fur",
+      "misconception_tag": "unsupported_answer",
+      "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "explanation": "a strand of gray fur is supported by the clue in the text.",
+      "highlighted_words": [
+        "gray fur"
+      ],
+      "question_id": "G6E_RC_001_CHECKPOINT_2",
+      "question_audio": {
+        "text": "What was caught on the fence?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_CHECKPOINT_2"
+      },
+      "audio": {
+        "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_CHECKPOINT_2"
+      },
+      "acceptable_answers": [
+        "a strand of gray fur"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "prompt": "Select evidence showing what streetcars improved.",
+      "question_type": "text_evidence",
+      "visual_model": "text_evidence_builder",
+      "support_type": "text_evidence_builder",
+      "correct_answer": "streetcars moved more people",
+      "answer": "streetcars moved more people",
+      "acceptable_answers": [
+        "streetcars moved more people",
+        "Streetcars moved more people than horse-drawn wagons"
+      ],
+      "misconception_tag": "unsupported_answer",
+      "passage_id": "p2",
+      "title": "Grade 6 Practice Passage",
+      "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+      "passage": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+      "evidence_spans": [
+        {
+          "span_id": "e1",
+          "text": "Streetcars moved more people than horse-drawn wagons",
+          "supports": "streetcars moved more people"
+        },
+        {
+          "span_id": "d1",
+          "text": "unrelated detail",
+          "supports": "distractor"
+        }
+      ],
+      "correct_evidence": "e1",
+      "explanation": "The evidence \"Streetcars moved more people than horse-drawn wagons\" supports streetcars moved more people.",
+      "question_id": "G6E_RC_001_ADAPTIVE_QUESTION_BANK_1",
+      "question_audio": {
+        "text": "Select evidence showing what streetcars improved.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_ADAPTIVE_QUESTION_BANK_1"
+      },
+      "audio": {
+        "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_ADAPTIVE_QUESTION_BANK_1"
+      }
+    },
+    {
+      "prompt": "How many times did the robotics club test the robot?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "choices": [
+        "four",
+        "two",
+        "six"
+      ],
+      "correct_answer": "four",
+      "misconception_tag": "unsupported_answer",
+      "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+      "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+      "explanation": "four is supported by the clue in the text.",
+      "passage_id": "p3",
+      "question_id": "G6E_RC_001_ADAPTIVE_QUESTION_BANK_2",
+      "question_audio": {
+        "text": "How many times did the robotics club test the robot?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_ADAPTIVE_QUESTION_BANK_2"
+      },
+      "audio": {
+        "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_ADAPTIVE_QUESTION_BANK_2"
+      },
+      "acceptable_answers": [
+        "four"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "unsupported_answer": "unsupported answer; the learner needs a clue-based reread, model answer, and explanation check.",
+    "inference_without_evidence": "inference without evidence; the learner needs a clue-based reread, model answer, and explanation check.",
+    "inaccurate_quote": "inaccurate quote; the learner needs a clue-based reread, model answer, and explanation check.",
+    "weak_explanation": "weak explanation; the learner needs a clue-based reread, model answer, and explanation check."
+  },
+  "review_bank": [
+    {
+      "prompt": "According to the passage, what did Marisol find beside the garden?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "choices": [
+        "three sets of footprints",
+        "a broken window",
+        "a lost notebook"
+      ],
+      "correct_answer": "three sets of footprints",
+      "misconception_tag": "unsupported_answer",
+      "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "explanation": "three sets of footprints is supported by the clue in the text.",
+      "passage_id": "p1",
+      "question_id": "G6E_RC_001_REV1"
+    },
+    {
+      "prompt": "What remained untouched in the garden?",
+      "question_type": "multiple_choice",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "choices": [
+        "lettuce",
+        "tomato cages",
+        "beans"
+      ],
+      "correct_answer": "lettuce",
+      "misconception_tag": "unsupported_answer",
+      "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+      "explanation": "lettuce is supported by the clue in the text.",
+      "passage_id": "p1",
+      "question_id": "G6E_RC_001_REV2"
+    },
+    {
+      "prompt": "What kind of transportation did many cities begin using in 1899?",
+      "question_type": "short_response",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "electric streetcars",
+      "answer": "electric streetcars",
+      "acceptable_answers": [
+        "electric streetcars",
+        "streetcars"
+      ],
+      "misconception_tag": "unsupported_answer",
+      "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+      "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+      "explanation": "A strong response includes electric streetcars.",
+      "question_id": "G6E_RC_001_REV3"
+    },
+    {
+      "prompt": "Select evidence showing what streetcars improved.",
+      "question_type": "text_evidence",
+      "visual_model": "text_evidence_builder",
+      "support_type": "text_evidence_builder",
+      "correct_answer": "streetcars moved more people",
+      "answer": "streetcars moved more people",
+      "acceptable_answers": [
+        "streetcars moved more people",
+        "Streetcars moved more people than horse-drawn wagons"
+      ],
+      "misconception_tag": "unsupported_answer",
+      "passage_id": "p2",
+      "title": "Grade 6 Practice Passage",
+      "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+      "passage": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+      "evidence_spans": [
+        {
+          "span_id": "e1",
+          "text": "Streetcars moved more people than horse-drawn wagons",
+          "supports": "streetcars moved more people"
+        },
+        {
+          "span_id": "d1",
+          "text": "unrelated detail",
+          "supports": "distractor"
+        }
+      ],
+      "correct_evidence": "e1",
+      "explanation": "The evidence \"Streetcars moved more people than horse-drawn wagons\" supports streetcars moved more people.",
+      "question_id": "G6E_RC_001_REV4"
+    },
+    {
+      "prompt": "How many times did the robotics club test the robot?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "choices": [
+        "four",
+        "two",
+        "six"
+      ],
+      "correct_answer": "four",
+      "misconception_tag": "unsupported_answer",
+      "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+      "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+      "explanation": "four is supported by the clue in the text.",
+      "passage_id": "p3",
+      "question_id": "G6E_RC_001_REV5"
+    }
+  ],
+  "game_theme": {
+    "title": "Evidence Expedition",
+    "name": "Evidence Expedition",
+    "mission_intro": "Practice cite textual evidence and make inferences through a mission built from the Grade 6 English completion plan.",
+    "badge_name": "Evidence Explorer Badge",
+    "avatar": "grade-6-reader",
+    "background": "library-observatory"
+  },
+  "next_skill_id": "G6E_RC_002",
+  "remediation_skill_id": "G6E_VOC_001",
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to Evidence Expedition. In this Grade 6 English mission, you will use cite textual evidence and make inferences with real texts and questions. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:story"
+    },
+    "lesson": {
+      "text": "Read This Page. Learn the strategy, study the visual model, and use Listen when hearing a sentence, passage, vocabulary word, example, or evidence will help. Press Next after you can explain the steps.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:lesson"
+    },
+    "watch": {
+      "text": "Read This Page. Watch the model. Notice how the reader slows down, checks meaning, and proves each answer with the text. Use Listen to hear the model read clearly.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:watch"
+    },
+    "demo": {
+      "text": "Read This Page. The demo walks through one example before you answer. Listen to the example, repeat useful language, and notice why the answer is supported.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:demo"
+    },
+    "practice": {
+      "text": "Read This Page. Practice uses a guided question. Press Read Question before answering, use the hint ladder if you need help, and use Listen for sentence, passage, vocabulary, or evidence reading.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:practice"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge questions are a little closer and require careful reasoning. Press Read Question, listen when helpful, and choose or write the answer that best fits the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:challenge"
+    },
+    "checkpoint": {
+      "text": "Read This Page. The checkpoint checks your independent understanding. Press Read Question for each item, use relevant evidence or examples, and avoid unsupported guesses.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:checkpoint"
+    },
+    "badge": {
+      "text": "Read This Page. You earned a badge for careful Grade 6 English work with cite textual evidence and make inferences. Press Next to see your profile and choose more practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:badge"
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves accuracy, hints, stars, and misconception notes. Choose Practice This Skill to open the Skill Practice Center levels, or return to the Grade 6 hub.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_RC_001:page:profile"
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G6E_RC_001_LVL1",
+      "label": "Level 1: Literal Understanding",
+      "focus": "Literal Understanding",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "According to the passage, what did Marisol find beside the garden?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "choices": [
+            "three sets of footprints",
+            "a broken window",
+            "a lost notebook"
+          ],
+          "correct_answer": "three sets of footprints",
+          "misconception_tag": "unsupported_answer",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "three sets of footprints is supported by the clue in the text.",
+          "passage_id": "p1",
+          "question_id": "G6E_RC_001_L1_Q01",
+          "question_audio": {
+            "text": "According to the passage, what did Marisol find beside the garden?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q01"
+          },
+          "read_aloud_text": "According to the passage, what did Marisol find beside the garden?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q01"
+          },
+          "answer": "three sets of footprints",
+          "acceptable_answers": [
+            "three sets of footprints"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What remained untouched in the garden?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "choices": [
+            "lettuce",
+            "tomato cages",
+            "beans"
+          ],
+          "correct_answer": "lettuce",
+          "misconception_tag": "unsupported_answer",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "lettuce is supported by the clue in the text.",
+          "passage_id": "p1",
+          "question_id": "G6E_RC_001_L1_Q02",
+          "question_audio": {
+            "text": "What remained untouched in the garden?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q02"
+          },
+          "read_aloud_text": "What remained untouched in the garden?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q02"
+          },
+          "answer": "lettuce",
+          "acceptable_answers": [
+            "lettuce"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What kind of transportation did many cities begin using in 1899?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "electric streetcars",
+          "answer": "electric streetcars",
+          "acceptable_answers": [
+            "electric streetcars",
+            "streetcars"
+          ],
+          "misconception_tag": "unsupported_answer",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "explanation": "A strong response includes electric streetcars.",
+          "question_id": "G6E_RC_001_L1_Q03",
+          "question_audio": {
+            "text": "What kind of transportation did many cities begin using in 1899?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q03"
+          },
+          "read_aloud_text": "What kind of transportation did many cities begin using in 1899?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Select evidence showing what streetcars improved.",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "streetcars moved more people",
+          "answer": "streetcars moved more people",
+          "acceptable_answers": [
+            "streetcars moved more people",
+            "Streetcars moved more people than horse-drawn wagons"
+          ],
+          "misconception_tag": "unsupported_answer",
+          "passage_id": "p2",
+          "title": "Grade 6 Practice Passage",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "passage": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "Streetcars moved more people than horse-drawn wagons",
+              "supports": "streetcars moved more people"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"Streetcars moved more people than horse-drawn wagons\" supports streetcars moved more people.",
+          "question_id": "G6E_RC_001_L1_Q04",
+          "question_audio": {
+            "text": "Select evidence showing what streetcars improved.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q04"
+          },
+          "read_aloud_text": "Select evidence showing what streetcars improved.",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q04"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "How many times did the robotics club test the robot?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "choices": [
+            "four",
+            "two",
+            "six"
+          ],
+          "correct_answer": "four",
+          "misconception_tag": "unsupported_answer",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "explanation": "four is supported by the clue in the text.",
+          "passage_id": "p3",
+          "question_id": "G6E_RC_001_L1_Q05",
+          "question_audio": {
+            "text": "How many times did the robotics club test the robot?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q05"
+          },
+          "read_aloud_text": "How many times did the robotics club test the robot?",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q05"
+          },
+          "answer": "four",
+          "acceptable_answers": [
+            "four"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What did Nia put in her backpack?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "the letter",
+          "answer": "the letter",
+          "acceptable_answers": [
+            "letter",
+            "the letter",
+            "her brother\u2019s letter"
+          ],
+          "misconception_tag": "unsupported_answer",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "explanation": "A strong response includes the letter.",
+          "question_id": "G6E_RC_001_L1_Q06",
+          "question_audio": {
+            "text": "What did Nia put in her backpack?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q06"
+          },
+          "read_aloud_text": "What did Nia put in her backpack?",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q06"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What was caught on the fence?",
+          "question_type": "multiple_choice",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "choices": [
+            "a strand of gray fur",
+            "a tomato leaf",
+            "a blue ribbon"
+          ],
+          "correct_answer": "a strand of gray fur",
+          "misconception_tag": "unsupported_answer",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "a strand of gray fur is supported by the clue in the text.",
+          "highlighted_words": [
+            "gray fur"
+          ],
+          "question_id": "G6E_RC_001_L1_Q07",
+          "question_audio": {
+            "text": "What was caught on the fence?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q07"
+          },
+          "read_aloud_text": "What was caught on the fence?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q07"
+          },
+          "answer": "a strand of gray fur",
+          "acceptable_answers": [
+            "a strand of gray fur"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Choose evidence that the robot improved by the fourth trial.",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "it climbed the ramp and lifted a small supply box",
+          "answer": "it climbed the ramp and lifted a small supply box",
+          "acceptable_answers": [
+            "it climbed the ramp and lifted a small supply box",
+            "By the fourth trial, it climbed the ramp and lifted a small supply box."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "passage_id": "p3",
+          "title": "Grade 6 Practice Passage",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "passage": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "By the fourth trial, it climbed the ramp and lifted a small supply box.",
+              "supports": "it climbed the ramp and lifted a small supply box"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"By the fourth trial, it climbed the ramp and lifted a small supply box.\" supports it climbed the ramp and lifted a small supply box.",
+          "question_id": "G6E_RC_001_L1_Q08",
+          "question_audio": {
+            "text": "Choose evidence that the robot improved by the fourth trial.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q08"
+          },
+          "read_aloud_text": "Choose evidence that the robot improved by the fourth trial.",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What did building tracks require?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "choices": [
+            "money",
+            "fur",
+            "letters"
+          ],
+          "correct_answer": "money",
+          "misconception_tag": "unsupported_answer",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "explanation": "money is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L1_Q09",
+          "question_audio": {
+            "text": "What did building tracks require?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q09"
+          },
+          "read_aloud_text": "What did building tracks require?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q09"
+          },
+          "answer": "money",
+          "acceptable_answers": [
+            "money"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Who wrote the letter to Nia?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "her brother",
+          "answer": "her brother",
+          "acceptable_answers": [
+            "her brother",
+            "brother"
+          ],
+          "misconception_tag": "unsupported_answer",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "explanation": "A strong response includes her brother.",
+          "question_id": "G6E_RC_001_L1_Q10",
+          "question_audio": {
+            "text": "Who wrote the letter to Nia?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L1_Q10"
+          },
+          "read_aloud_text": "Who wrote the letter to Nia?",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L1_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_RC_001_LVL2",
+      "label": "Level 2: Make Inferences",
+      "focus": "Make Inferences",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "What can you infer made the footprints and gray fur?",
+          "question_type": "multiple_choice",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "choices": [
+            "an animal such as a rabbit or raccoon",
+            "a streetcar",
+            "a robot"
+          ],
+          "correct_answer": "an animal such as a rabbit or raccoon",
+          "misconception_tag": "inference_without_evidence",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "an animal such as a rabbit or raccoon is supported by the clue in the text.",
+          "highlighted_words": [
+            "footprints",
+            "gray fur"
+          ],
+          "question_id": "G6E_RC_001_L2_Q01",
+          "question_audio": {
+            "text": "What can you infer made the footprints and gray fur?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q01"
+          },
+          "read_aloud_text": "What can you infer made the footprints and gray fur?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q01"
+          },
+          "answer": "an animal such as a rabbit or raccoon",
+          "acceptable_answers": [
+            "an animal such as a rabbit or raccoon"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Why did Marisol smile?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "choices": [
+            "She figured out the garden mystery.",
+            "She disliked the garden.",
+            "She found a letter."
+          ],
+          "correct_answer": "She figured out the garden mystery.",
+          "misconception_tag": "inference_without_evidence",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "She figured out the garden mystery. is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L2_Q02",
+          "question_audio": {
+            "text": "Why did Marisol smile?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q02"
+          },
+          "read_aloud_text": "Why did Marisol smile?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q02"
+          },
+          "answer": "She figured out the garden mystery.",
+          "acceptable_answers": [
+            "She figured out the garden mystery."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What can you infer about Nia\u2019s feelings at the new school?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "she feels nervous or misses home",
+          "answer": "she feels nervous or misses home",
+          "acceptable_answers": [
+            "nervous",
+            "she is nervous",
+            "misses home",
+            "she feels nervous or misses home"
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "explanation": "A strong response includes she feels nervous or misses home.",
+          "question_id": "G6E_RC_001_L2_Q03",
+          "question_audio": {
+            "text": "What can you infer about Nia\u2019s feelings at the new school?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q03"
+          },
+          "read_aloud_text": "What can you infer about Nia\u2019s feelings at the new school?",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Select evidence that Nia values the letter.",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "she placed the letter in her backpack",
+          "answer": "she placed the letter in her backpack",
+          "acceptable_answers": [
+            "she placed the letter in her backpack",
+            "She placed the letter in her backpack before walking into the new school."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "passage_id": "p4",
+          "title": "Grade 6 Practice Passage",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "passage": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "She placed the letter in her backpack before walking into the new school.",
+              "supports": "she placed the letter in her backpack"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"She placed the letter in her backpack before walking into the new school.\" supports she placed the letter in her backpack.",
+          "question_id": "G6E_RC_001_L2_Q04",
+          "question_audio": {
+            "text": "Select evidence that Nia values the letter.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q04"
+          },
+          "read_aloud_text": "Select evidence that Nia values the letter.",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q04"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What can you infer about the robotics team?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "choices": [
+            "They used test results to improve their design.",
+            "They refused to change anything.",
+            "They only guessed."
+          ],
+          "correct_answer": "They used test results to improve their design.",
+          "misconception_tag": "inference_without_evidence",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "explanation": "They used test results to improve their design. is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L2_Q05",
+          "question_audio": {
+            "text": "What can you infer about the robotics team?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q05"
+          },
+          "read_aloud_text": "What can you infer about the robotics team?",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q05"
+          },
+          "answer": "They used test results to improve their design.",
+          "acceptable_answers": [
+            "They used test results to improve their design."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What inference fits the sentence \"each one sounded like home\"?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "the letter comforts her",
+          "answer": "the letter comforts her",
+          "acceptable_answers": [
+            "the letter comforts her",
+            "it reminds her of home",
+            "she misses home"
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "explanation": "A strong response includes the letter comforts her.",
+          "question_id": "G6E_RC_001_L2_Q06",
+          "question_audio": {
+            "text": "What inference fits the sentence \"each one sounded like home\"?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q06"
+          },
+          "read_aloud_text": "What inference fits the sentence \"each one sounded like home\"?",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q06"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Why might streetcars change neighborhoods?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "choices": [
+            "Tracks and routes affected where people traveled and lived.",
+            "They removed all buildings.",
+            "They made gardens disappear."
+          ],
+          "correct_answer": "Tracks and routes affected where people traveled and lived.",
+          "misconception_tag": "inference_without_evidence",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "explanation": "Tracks and routes affected where people traveled and lived. is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L2_Q07",
+          "question_audio": {
+            "text": "Why might streetcars change neighborhoods?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q07"
+          },
+          "read_aloud_text": "Why might streetcars change neighborhoods?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q07"
+          },
+          "answer": "Tracks and routes affected where people traveled and lived.",
+          "acceptable_answers": [
+            "Tracks and routes affected where people traveled and lived."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Choose evidence that the team was systematic.",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "The team recorded each change before redesigning the wheels.",
+          "answer": "The team recorded each change before redesigning the wheels.",
+          "acceptable_answers": [
+            "The team recorded each change before redesigning the wheels.",
+            "The team recorded each change before redesigning the wheels."
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "passage_id": "p3",
+          "title": "Grade 6 Practice Passage",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "passage": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "The team recorded each change before redesigning the wheels.",
+              "supports": "The team recorded each change before redesigning the wheels."
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"The team recorded each change before redesigning the wheels.\" supports The team recorded each change before redesigning the wheels..",
+          "question_id": "G6E_RC_001_L2_Q08",
+          "question_audio": {
+            "text": "Choose evidence that the team was systematic.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q08"
+          },
+          "read_aloud_text": "Choose evidence that the team was systematic.",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What probably damaged the tomato cages?",
+          "question_type": "multiple_choice",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "choices": [
+            "the animal that left fur and footprints",
+            "electric tracks",
+            "Nia\u2019s backpack"
+          ],
+          "correct_answer": "the animal that left fur and footprints",
+          "misconception_tag": "inference_without_evidence",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "the animal that left fur and footprints is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L2_Q09",
+          "question_audio": {
+            "text": "What probably damaged the tomato cages?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q09"
+          },
+          "read_aloud_text": "What probably damaged the tomato cages?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q09"
+          },
+          "answer": "the animal that left fur and footprints",
+          "acceptable_answers": [
+            "the animal that left fur and footprints"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Infer why Nia reread the letter twice.",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "it mattered to her",
+          "answer": "it mattered to her",
+          "acceptable_answers": [
+            "it mattered to her",
+            "it was important",
+            "it comforted her"
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "explanation": "A strong response includes it mattered to her.",
+          "question_id": "G6E_RC_001_L2_Q10",
+          "question_audio": {
+            "text": "Infer why Nia reread the letter twice.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L2_Q10"
+          },
+          "read_aloud_text": "Infer why Nia reread the letter twice.",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L2_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_RC_001_LVL3",
+      "label": "Level 3: Cite Evidence",
+      "focus": "Cite Evidence",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "Which quotation supports the claim that Marisol used clues?",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "She noticed a strand of gray fur caught on the fence",
+          "answer": "She noticed a strand of gray fur caught on the fence",
+          "acceptable_answers": [
+            "She noticed a strand of gray fur caught on the fence",
+            "She noticed a strand of gray fur caught on the fence"
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "passage_id": "p1",
+          "title": "Grade 6 Practice Passage",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "passage": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "She noticed a strand of gray fur caught on the fence",
+              "supports": "She noticed a strand of gray fur caught on the fence"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"She noticed a strand of gray fur caught on the fence\" supports She noticed a strand of gray fur caught on the fence.",
+          "question_id": "G6E_RC_001_L3_Q01",
+          "question_audio": {
+            "text": "Which quotation supports the claim that Marisol used clues?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q01"
+          },
+          "read_aloud_text": "Which quotation supports the claim that Marisol used clues?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q01"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which evidence supports that streetcars had a drawback?",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "building tracks required money",
+          "answer": "building tracks required money",
+          "acceptable_answers": [
+            "building tracks required money",
+            "However, building tracks required money and changed how neighborhoods grew."
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "passage_id": "p2",
+          "title": "Grade 6 Practice Passage",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "passage": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "However, building tracks required money and changed how neighborhoods grew.",
+              "supports": "building tracks required money"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"However, building tracks required money and changed how neighborhoods grew.\" supports building tracks required money.",
+          "question_id": "G6E_RC_001_L3_Q02",
+          "question_audio": {
+            "text": "Which evidence supports that streetcars had a drawback?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q02"
+          },
+          "read_aloud_text": "Which evidence supports that streetcars had a drawback?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q02"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Quote four words that show the robot improved.",
+          "question_type": "short_response",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "climbed the ramp",
+          "answer": "climbed the ramp",
+          "acceptable_answers": [
+            "climbed the ramp",
+            "lifted a small supply box"
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "explanation": "A strong response includes climbed the ramp.",
+          "question_id": "G6E_RC_001_L3_Q03",
+          "question_audio": {
+            "text": "Quote four words that show the robot improved.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q03"
+          },
+          "read_aloud_text": "Quote four words that show the robot improved.",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which is the most accurate quotation?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "choices": [
+            "\"The team recorded each change\"",
+            "\"The team ignored each change\"",
+            "\"The team lost each change\""
+          ],
+          "correct_answer": "\"The team recorded each change\"",
+          "misconception_tag": "inaccurate_quote",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "explanation": "\"The team recorded each change\" is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L3_Q04",
+          "question_audio": {
+            "text": "Which is the most accurate quotation?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q04"
+          },
+          "read_aloud_text": "Which is the most accurate quotation?",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q04"
+          },
+          "answer": "\"The team recorded each change\"",
+          "acceptable_answers": [
+            "\"The team recorded each change\""
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Select evidence that Nia is entering a new situation.",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "walking into the new school",
+          "answer": "walking into the new school",
+          "acceptable_answers": [
+            "walking into the new school",
+            "before walking into the new school"
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "passage_id": "p4",
+          "title": "Grade 6 Practice Passage",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "passage": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "before walking into the new school",
+              "supports": "walking into the new school"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"before walking into the new school\" supports walking into the new school.",
+          "question_id": "G6E_RC_001_L3_Q05",
+          "question_audio": {
+            "text": "Select evidence that Nia is entering a new situation.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q05"
+          },
+          "read_aloud_text": "Select evidence that Nia is entering a new situation.",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q05"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which evidence is relevant to the claim that streetcars were cleaner than wagons?",
+          "question_type": "multiple_choice",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "choices": [
+            "did not leave piles of waste in the street",
+            "building tracks required money",
+            "cities began using electric streetcars"
+          ],
+          "correct_answer": "did not leave piles of waste in the street",
+          "misconception_tag": "inaccurate_quote",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "explanation": "did not leave piles of waste in the street is supported by the clue in the text.",
+          "highlighted_words": [
+            "did not leave piles of waste"
+          ],
+          "question_id": "G6E_RC_001_L3_Q06",
+          "question_audio": {
+            "text": "Which evidence is relevant to the claim that streetcars were cleaner than wagons?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q06"
+          },
+          "read_aloud_text": "Which evidence is relevant to the claim that streetcars were cleaner than wagons?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q06"
+          },
+          "answer": "did not leave piles of waste in the street",
+          "acceptable_answers": [
+            "did not leave piles of waste in the street"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Write a quotation that proves the lettuce was not damaged.",
+          "question_type": "short_response",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "the lettuce remained untouched",
+          "answer": "the lettuce remained untouched",
+          "acceptable_answers": [
+            "the lettuce remained untouched",
+            "lettuce remained untouched"
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "A strong response includes the lettuce remained untouched.",
+          "question_id": "G6E_RC_001_L3_Q07",
+          "question_audio": {
+            "text": "Write a quotation that proves the lettuce was not damaged.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q07"
+          },
+          "read_aloud_text": "Write a quotation that proves the lettuce was not damaged.",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q07"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which evidence supports the answer \"four trials\"?",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "tested its rescue robot four times",
+          "answer": "tested its rescue robot four times",
+          "acceptable_answers": [
+            "tested its rescue robot four times",
+            "The robotics club tested its rescue robot four times."
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "passage_id": "p3",
+          "title": "Grade 6 Practice Passage",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "passage": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "The robotics club tested its rescue robot four times.",
+              "supports": "tested its rescue robot four times"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"The robotics club tested its rescue robot four times.\" supports tested its rescue robot four times.",
+          "question_id": "G6E_RC_001_L3_Q08",
+          "question_audio": {
+            "text": "Which evidence supports the answer \"four trials\"?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q08"
+          },
+          "read_aloud_text": "Which evidence supports the answer \"four trials\"?",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which quotation best proves the letter was short?",
+          "question_type": "multiple_choice",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "choices": [
+            "\"only six sentences\"",
+            "\"walking into the new school\"",
+            "\"placed the letter\""
+          ],
+          "correct_answer": "\"only six sentences\"",
+          "misconception_tag": "inaccurate_quote",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "explanation": "\"only six sentences\" is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L3_Q09",
+          "question_audio": {
+            "text": "Which quotation best proves the letter was short?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q09"
+          },
+          "read_aloud_text": "Which quotation best proves the letter was short?",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q09"
+          },
+          "answer": "\"only six sentences\"",
+          "acceptable_answers": [
+            "\"only six sentences\""
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Quote the phrase that shows streetcars carried more people.",
+          "question_type": "short_response",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "moved more people",
+          "answer": "moved more people",
+          "acceptable_answers": [
+            "moved more people",
+            "Streetcars moved more people"
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "explanation": "A strong response includes moved more people.",
+          "question_id": "G6E_RC_001_L3_Q10",
+          "question_audio": {
+            "text": "Quote the phrase that shows streetcars carried more people.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L3_Q10"
+          },
+          "read_aloud_text": "Quote the phrase that shows streetcars carried more people.",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L3_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_RC_001_LVL4",
+      "label": "Level 4: Explain Reasoning",
+      "focus": "Explain Reasoning",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "Explain how the gray fur supports the inference that an animal entered the garden.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "gray fur is evidence an animal was at the fence",
+          "answer": "gray fur is evidence an animal was at the fence",
+          "acceptable_answers": [
+            "gray fur is evidence an animal was at the fence",
+            "fur shows an animal was there",
+            "it connects the animal to the garden"
+          ],
+          "misconception_tag": "weak_explanation",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "A strong response includes gray fur is evidence an animal was at the fence.",
+          "question_id": "G6E_RC_001_L4_Q01",
+          "question_audio": {
+            "text": "Explain how the gray fur supports the inference that an animal entered the garden.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q01"
+          },
+          "read_aloud_text": "Explain how the gray fur supports the inference that an animal entered the garden.",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q01"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which explanation connects evidence to inference best?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "choices": [
+            "The fur and footprints are animal clues, so an animal likely bent the cages.",
+            "The lettuce is green, so the robot worked.",
+            "Streetcars need tracks, so Nia is nervous."
+          ],
+          "correct_answer": "The fur and footprints are animal clues, so an animal likely bent the cages.",
+          "misconception_tag": "weak_explanation",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "The fur and footprints are animal clues, so an animal likely bent the cages. is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L4_Q02",
+          "question_audio": {
+            "text": "Which explanation connects evidence to inference best?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q02"
+          },
+          "read_aloud_text": "Which explanation connects evidence to inference best?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q02"
+          },
+          "answer": "The fur and footprints are animal clues, so an animal likely bent the cages.",
+          "acceptable_answers": [
+            "The fur and footprints are animal clues, so an animal likely bent the cages."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Explain how the fourth trial evidence shows improvement.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "the robot could climb and lift after earlier stopping",
+          "answer": "the robot could climb and lift after earlier stopping",
+          "acceptable_answers": [
+            "the robot could climb and lift after earlier stopping",
+            "it did more by the fourth trial",
+            "it improved from stopping to climbing"
+          ],
+          "misconception_tag": "weak_explanation",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "explanation": "A strong response includes the robot could climb and lift after earlier stopping.",
+          "question_id": "G6E_RC_001_L4_Q03",
+          "question_audio": {
+            "text": "Explain how the fourth trial evidence shows improvement.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q03"
+          },
+          "read_aloud_text": "Explain how the fourth trial evidence shows improvement.",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which explanation supports the claim that streetcars had both benefits and costs?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "choices": [
+            "They moved more people and were cleaner, but tracks cost money.",
+            "They only helped gardens.",
+            "They had no effects."
+          ],
+          "correct_answer": "They moved more people and were cleaner, but tracks cost money.",
+          "misconception_tag": "weak_explanation",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "explanation": "They moved more people and were cleaner, but tracks cost money. is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L4_Q04",
+          "question_audio": {
+            "text": "Which explanation supports the claim that streetcars had both benefits and costs?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q04"
+          },
+          "read_aloud_text": "Which explanation supports the claim that streetcars had both benefits and costs?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q04"
+          },
+          "answer": "They moved more people and were cleaner, but tracks cost money.",
+          "acceptable_answers": [
+            "They moved more people and were cleaner, but tracks cost money."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Select evidence for an explanation that Nia misses home.",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "each one sounded like home",
+          "answer": "each one sounded like home",
+          "acceptable_answers": [
+            "each one sounded like home",
+            "each one sounded like home"
+          ],
+          "misconception_tag": "weak_explanation",
+          "passage_id": "p4",
+          "title": "Grade 6 Practice Passage",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "passage": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "each one sounded like home",
+              "supports": "each one sounded like home"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"each one sounded like home\" supports each one sounded like home.",
+          "question_id": "G6E_RC_001_L4_Q05",
+          "question_audio": {
+            "text": "Select evidence for an explanation that Nia misses home.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q05"
+          },
+          "read_aloud_text": "Select evidence for an explanation that Nia misses home.",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q05"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Explain why \"recorded each change\" matters.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "it shows the team used evidence to redesign",
+          "answer": "it shows the team used evidence to redesign",
+          "acceptable_answers": [
+            "it shows the team used evidence to redesign",
+            "they tracked changes",
+            "they used evidence"
+          ],
+          "misconception_tag": "weak_explanation",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "explanation": "A strong response includes it shows the team used evidence to redesign.",
+          "question_id": "G6E_RC_001_L4_Q06",
+          "question_audio": {
+            "text": "Explain why \"recorded each change\" matters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q06"
+          },
+          "read_aloud_text": "Explain why \"recorded each change\" matters.",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q06"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which response is unsupported?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "choices": [
+            "Nia dislikes robots.",
+            "Nia reread a short letter.",
+            "Nia walked into a new school."
+          ],
+          "correct_answer": "Nia dislikes robots.",
+          "misconception_tag": "unsupported_answer",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "explanation": "Nia dislikes robots. is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L4_Q07",
+          "question_audio": {
+            "text": "Which response is unsupported?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q07"
+          },
+          "read_aloud_text": "Which response is unsupported?",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q07"
+          },
+          "answer": "Nia dislikes robots.",
+          "acceptable_answers": [
+            "Nia dislikes robots."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Explain how evidence must connect to an answer.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "it must directly support the answer",
+          "answer": "it must directly support the answer",
+          "acceptable_answers": [
+            "it must directly support the answer",
+            "directly support it",
+            "show why the answer is true"
+          ],
+          "misconception_tag": "weak_explanation",
+          "text": "Evidence should directly support the answer rather than just come from the same passage.",
+          "sentence": "Evidence should directly support the answer rather than just come from the same passage.",
+          "explanation": "A strong response includes it must directly support the answer.",
+          "question_id": "G6E_RC_001_L4_Q08",
+          "question_audio": {
+            "text": "Explain how evidence must connect to an answer.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q08"
+          },
+          "read_aloud_text": "Explain how evidence must connect to an answer.",
+          "audio": {
+            "text": "Evidence should directly support the answer rather than just come from the same passage.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which explanation is strongest?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "choices": [
+            "The quoted words prove the answer and my sentence explains the connection.",
+            "I chose it because I like it.",
+            "It is near the paragraph."
+          ],
+          "correct_answer": "The quoted words prove the answer and my sentence explains the connection.",
+          "misconception_tag": "weak_explanation",
+          "text": "A strong evidence explanation names the answer, quotes or paraphrases accurately, and explains the connection.",
+          "sentence": "A strong evidence explanation names the answer, quotes or paraphrases accurately, and explains the connection.",
+          "explanation": "The quoted words prove the answer and my sentence explains the connection. is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_L4_Q09",
+          "question_audio": {
+            "text": "Which explanation is strongest?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q09"
+          },
+          "read_aloud_text": "Which explanation is strongest?",
+          "audio": {
+            "text": "A strong evidence explanation names the answer, quotes or paraphrases accurately, and explains the connection.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q09"
+          },
+          "answer": "The quoted words prove the answer and my sentence explains the connection.",
+          "acceptable_answers": [
+            "The quoted words prove the answer and my sentence explains the connection."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which evidence best supports a reasoning sentence about cleaner streets?",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "did not leave piles of waste in the street",
+          "answer": "did not leave piles of waste in the street",
+          "acceptable_answers": [
+            "did not leave piles of waste in the street",
+            "did not leave piles of waste in the street"
+          ],
+          "misconception_tag": "weak_explanation",
+          "passage_id": "p2",
+          "title": "Grade 6 Practice Passage",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "passage": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "did not leave piles of waste in the street",
+              "supports": "did not leave piles of waste in the street"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"did not leave piles of waste in the street\" supports did not leave piles of waste in the street.",
+          "question_id": "G6E_RC_001_L4_Q10",
+          "question_audio": {
+            "text": "Which evidence best supports a reasoning sentence about cleaner streets?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_L4_Q10"
+          },
+          "read_aloud_text": "Which evidence best supports a reasoning sentence about cleaner streets?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_L4_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_RC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "According to the passage, what did Marisol find beside the garden?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "choices": [
+            "three sets of footprints",
+            "a broken window",
+            "a lost notebook"
+          ],
+          "correct_answer": "three sets of footprints",
+          "misconception_tag": "unsupported_answer",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "three sets of footprints is supported by the clue in the text.",
+          "passage_id": "p1",
+          "question_id": "G6E_RC_001_MIXED_Q01",
+          "question_audio": {
+            "text": "According to the passage, what did Marisol find beside the garden?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q01"
+          },
+          "read_aloud_text": "According to the passage, what did Marisol find beside the garden?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q01"
+          },
+          "answer": "three sets of footprints",
+          "acceptable_answers": [
+            "three sets of footprints"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What remained untouched in the garden?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "choices": [
+            "lettuce",
+            "tomato cages",
+            "beans"
+          ],
+          "correct_answer": "lettuce",
+          "misconception_tag": "unsupported_answer",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "lettuce is supported by the clue in the text.",
+          "passage_id": "p1",
+          "question_id": "G6E_RC_001_MIXED_Q02",
+          "question_audio": {
+            "text": "What remained untouched in the garden?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q02"
+          },
+          "read_aloud_text": "What remained untouched in the garden?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q02"
+          },
+          "answer": "lettuce",
+          "acceptable_answers": [
+            "lettuce"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What kind of transportation did many cities begin using in 1899?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "electric streetcars",
+          "answer": "electric streetcars",
+          "acceptable_answers": [
+            "electric streetcars",
+            "streetcars"
+          ],
+          "misconception_tag": "unsupported_answer",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "sentence": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "explanation": "A strong response includes electric streetcars.",
+          "question_id": "G6E_RC_001_MIXED_Q03",
+          "question_audio": {
+            "text": "What kind of transportation did many cities begin using in 1899?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q03"
+          },
+          "read_aloud_text": "What kind of transportation did many cities begin using in 1899?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What can you infer made the footprints and gray fur?",
+          "question_type": "multiple_choice",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "choices": [
+            "an animal such as a rabbit or raccoon",
+            "a streetcar",
+            "a robot"
+          ],
+          "correct_answer": "an animal such as a rabbit or raccoon",
+          "misconception_tag": "inference_without_evidence",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "an animal such as a rabbit or raccoon is supported by the clue in the text.",
+          "highlighted_words": [
+            "footprints",
+            "gray fur"
+          ],
+          "question_id": "G6E_RC_001_MIXED_Q04",
+          "question_audio": {
+            "text": "What can you infer made the footprints and gray fur?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q04"
+          },
+          "read_aloud_text": "What can you infer made the footprints and gray fur?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q04"
+          },
+          "answer": "an animal such as a rabbit or raccoon",
+          "acceptable_answers": [
+            "an animal such as a rabbit or raccoon"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Why did Marisol smile?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "choices": [
+            "She figured out the garden mystery.",
+            "She disliked the garden.",
+            "She found a letter."
+          ],
+          "correct_answer": "She figured out the garden mystery.",
+          "misconception_tag": "inference_without_evidence",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "She figured out the garden mystery. is supported by the clue in the text.",
+          "question_id": "G6E_RC_001_MIXED_Q05",
+          "question_audio": {
+            "text": "Why did Marisol smile?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q05"
+          },
+          "read_aloud_text": "Why did Marisol smile?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q05"
+          },
+          "answer": "She figured out the garden mystery.",
+          "acceptable_answers": [
+            "She figured out the garden mystery."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What can you infer about Nia\u2019s feelings at the new school?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "she feels nervous or misses home",
+          "answer": "she feels nervous or misses home",
+          "acceptable_answers": [
+            "nervous",
+            "she is nervous",
+            "misses home",
+            "she feels nervous or misses home"
+          ],
+          "misconception_tag": "inference_without_evidence",
+          "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "sentence": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+          "explanation": "A strong response includes she feels nervous or misses home.",
+          "question_id": "G6E_RC_001_MIXED_Q06",
+          "question_audio": {
+            "text": "What can you infer about Nia\u2019s feelings at the new school?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q06"
+          },
+          "read_aloud_text": "What can you infer about Nia\u2019s feelings at the new school?",
+          "audio": {
+            "text": "Nia reread the letter twice before folding it. Her brother had written only six sentences, but each one sounded like home. She placed the letter in her backpack before walking into the new school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q06"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which quotation supports the claim that Marisol used clues?",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "She noticed a strand of gray fur caught on the fence",
+          "answer": "She noticed a strand of gray fur caught on the fence",
+          "acceptable_answers": [
+            "She noticed a strand of gray fur caught on the fence",
+            "She noticed a strand of gray fur caught on the fence"
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "passage_id": "p1",
+          "title": "Grade 6 Practice Passage",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "passage": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "She noticed a strand of gray fur caught on the fence",
+              "supports": "She noticed a strand of gray fur caught on the fence"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"She noticed a strand of gray fur caught on the fence\" supports She noticed a strand of gray fur caught on the fence.",
+          "question_id": "G6E_RC_001_MIXED_Q07",
+          "question_audio": {
+            "text": "Which quotation supports the claim that Marisol used clues?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q07"
+          },
+          "read_aloud_text": "Which quotation supports the claim that Marisol used clues?",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q07"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which evidence supports that streetcars had a drawback?",
+          "question_type": "text_evidence",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "building tracks required money",
+          "answer": "building tracks required money",
+          "acceptable_answers": [
+            "building tracks required money",
+            "However, building tracks required money and changed how neighborhoods grew."
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "passage_id": "p2",
+          "title": "Grade 6 Practice Passage",
+          "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "passage": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+          "evidence_spans": [
+            {
+              "span_id": "e1",
+              "text": "However, building tracks required money and changed how neighborhoods grew.",
+              "supports": "building tracks required money"
+            },
+            {
+              "span_id": "d1",
+              "text": "unrelated detail",
+              "supports": "distractor"
+            }
+          ],
+          "correct_evidence": "e1",
+          "explanation": "The evidence \"However, building tracks required money and changed how neighborhoods grew.\" supports building tracks required money.",
+          "question_id": "G6E_RC_001_MIXED_Q08",
+          "question_audio": {
+            "text": "Which evidence supports that streetcars had a drawback?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q08"
+          },
+          "read_aloud_text": "Which evidence supports that streetcars had a drawback?",
+          "audio": {
+            "text": "In 1899, many cities began using electric streetcars. Streetcars moved more people than horse-drawn wagons and did not leave piles of waste in the street. However, building tracks required money and changed how neighborhoods grew.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q08"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Quote four words that show the robot improved.",
+          "question_type": "short_response",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "climbed the ramp",
+          "answer": "climbed the ramp",
+          "acceptable_answers": [
+            "climbed the ramp",
+            "lifted a small supply box"
+          ],
+          "misconception_tag": "inaccurate_quote",
+          "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "sentence": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+          "explanation": "A strong response includes climbed the ramp.",
+          "question_id": "G6E_RC_001_MIXED_Q09",
+          "question_audio": {
+            "text": "Quote four words that show the robot improved.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q09"
+          },
+          "read_aloud_text": "Quote four words that show the robot improved.",
+          "audio": {
+            "text": "The robotics club tested its rescue robot four times. On the first trial, the robot stopped at the ramp. By the fourth trial, it climbed the ramp and lifted a small supply box. The team recorded each change before redesigning the wheels.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q09"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Explain how the gray fur supports the inference that an animal entered the garden.",
+          "question_type": "short_response",
+          "visual_model": "text_evidence_builder",
+          "support_type": "text_evidence_builder",
+          "correct_answer": "gray fur is evidence an animal was at the fence",
+          "answer": "gray fur is evidence an animal was at the fence",
+          "acceptable_answers": [
+            "gray fur is evidence an animal was at the fence",
+            "fur shows an animal was there",
+            "it connects the animal to the garden"
+          ],
+          "misconception_tag": "weak_explanation",
+          "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "sentence": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+          "explanation": "A strong response includes gray fur is evidence an animal was at the fence.",
+          "question_id": "G6E_RC_001_MIXED_Q10",
+          "question_audio": {
+            "text": "Explain how the gray fur supports the inference that an animal entered the garden.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:question:G6E_RC_001_MIXED_Q10"
+          },
+          "read_aloud_text": "Explain how the gray fur supports the inference that an animal entered the garden.",
+          "audio": {
+            "text": "At dawn, Marisol found three sets of footprints beside the community garden. The tomato cages were bent, but the lettuce remained untouched. She noticed a strand of gray fur caught on the fence and smiled because the mystery finally made sense.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_RC_001:listen:G6E_RC_001_MIXED_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    }
+  ]
+}

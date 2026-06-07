@@ -1,0 +1,3485 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade6-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade6_english_completion_plan.md",
+    "production_metadata": {
+      "status": "production",
+      "grade": 6,
+      "batch": "G6E_FL_VOC_RC_001",
+      "created_at": "2026-06-07"
+    },
+    "production_proof_package": true,
+    "created_at": "2026-06-07",
+    "content_note": "Grade 6 English production SkillPackage with real guided mission and Skill Practice level banks."
+  },
+  "skill_id": "G6E_VOC_001",
+  "grade": 6,
+  "subject": "English",
+  "domain": "Vocabulary / Language",
+  "skill": "Academic Vocabulary and Figurative Language",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Enter Vocabulary Observatory, where readers solve Grade 6 English challenges with careful reading and explanation.",
+    "objective": "I can use context, roots, affixes, relationships, connotation, figurative language, and domain-specific vocabulary to determine word meanings.",
+    "key_vocabulary": [
+      "context clues",
+      "academic vocabulary",
+      "root",
+      "prefix",
+      "suffix",
+      "synonym",
+      "antonym",
+      "connotation",
+      "denotation",
+      "simile",
+      "metaphor",
+      "personification",
+      "idiom",
+      "domain-specific vocabulary"
+    ],
+    "concept_explanation": "I can use context, roots, affixes, relationships, connotation, figurative language, and domain-specific vocabulary to determine word meanings. Use the text, language, punctuation, and context to prove your thinking.",
+    "visual_model": "context_sentence",
+    "common_misconception": "A reader may ignore context clues, confuse connotation, treat figurative language literally, or use the everyday meaning of a domain word.",
+    "real_world_connection": "Middle school readers use this skill in novels, science articles, history sources, directions, debates, and assessments.",
+    "lesson_summary": "Read carefully, name the clue or evidence, explain how it supports the answer, and check that your response matches the whole text.",
+    "mini_lesson": "Step 1: read the text or sentence. Step 2: mark the clue. Step 3: choose or write the answer. Step 4: explain why the clue proves it.",
+    "audio": {
+      "text": "context clues, academic vocabulary, root, prefix, suffix, synonym, antonym, connotation",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:listen:lesson"
+    }
+  },
+  "worked_examples": [
+    {
+      "prompt": "Watch: In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "choices": [
+        "study closely",
+        "throw away",
+        "decorate"
+      ],
+      "correct_answer": "study closely",
+      "misconception_tag": "context_clue_ignored",
+      "text": "The class will analyze the poem by studying its parts.",
+      "sentence": "The class will analyze the poem by studying its parts.",
+      "explanation": "study closely is supported by the clue in the text.",
+      "question_id": "G6E_VOC_001_WE1",
+      "question_audio": {
+        "text": "Watch: In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_WE1"
+      },
+      "audio": {
+        "text": "Watch: In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_WE1"
+      }
+    },
+    {
+      "prompt": "Watch: Which context clue helps define scarce?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "choices": [
+        "only two bottles remained",
+        "new labels",
+        "blue shelf"
+      ],
+      "correct_answer": "only two bottles remained",
+      "misconception_tag": "context_clue_ignored",
+      "text": "Water was scarce after the hike; only two bottles remained.",
+      "sentence": "Water was scarce after the hike; only two bottles remained.",
+      "explanation": "only two bottles remained is supported by the clue in the text.",
+      "question_id": "G6E_VOC_001_WE2",
+      "question_audio": {
+        "text": "Watch: Which context clue helps define scarce?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_WE2"
+      },
+      "audio": {
+        "text": "Watch: Which context clue helps define scarce?",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_WE2"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Reread the sentence, passage, or prompt carefully.",
+    "Mark the clue: word, punctuation, phrase, context, or evidence.",
+    "Choose or write the answer and explain how the clue supports it."
+  ],
+  "guided_practice": [
+    {
+      "prompt": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+      "question_type": "short_response",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "work together",
+      "answer": "work together",
+      "acceptable_answers": [
+        "work together",
+        "work with others",
+        "cooperate"
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "text": "The partners collaborate by sharing notes and building one project.",
+      "sentence": "The partners collaborate by sharing notes and building one project.",
+      "explanation": "A strong response includes work together.",
+      "question_id": "G6E_VOC_001_GUIDED_PRACTICE_1",
+      "question_audio": {
+        "text": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_GUIDED_PRACTICE_1"
+      },
+      "audio": {
+        "text": "The partners collaborate by sharing notes and building one project.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_GUIDED_PRACTICE_1"
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "prompt": "What academic word means to support with reasons or evidence?",
+      "question_type": "short_response",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "justify",
+      "answer": "justify",
+      "acceptable_answers": [
+        "justify",
+        "support",
+        "prove"
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "text": "Writers justify a claim by giving reasons and evidence.",
+      "sentence": "Writers justify a claim by giving reasons and evidence.",
+      "explanation": "A strong response includes justify.",
+      "question_id": "G6E_VOC_001_CHECKPOINT_1",
+      "question_audio": {
+        "text": "What academic word means to support with reasons or evidence?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_CHECKPOINT_1"
+      },
+      "audio": {
+        "text": "Writers justify a claim by giving reasons and evidence.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_CHECKPOINT_1"
+      }
+    },
+    {
+      "prompt": "Which word best replaces significant?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_scale",
+      "support_type": "word_scale",
+      "choices": [
+        "important",
+        "tiny",
+        "ordinary"
+      ],
+      "correct_answer": "important",
+      "misconception_tag": "context_clue_ignored",
+      "text": "The discovery was significant because it changed the team\u2019s conclusion.",
+      "sentence": "The discovery was significant because it changed the team\u2019s conclusion.",
+      "explanation": "important is supported by the clue in the text.",
+      "scale_words": [
+        "minor",
+        "useful",
+        "significant",
+        "historic"
+      ],
+      "question_id": "G6E_VOC_001_CHECKPOINT_2",
+      "question_audio": {
+        "text": "Which word best replaces significant?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_CHECKPOINT_2"
+      },
+      "audio": {
+        "text": "The discovery was significant because it changed the team\u2019s conclusion.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_CHECKPOINT_2"
+      },
+      "acceptable_answers": [
+        "important"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "prompt": "Match each academic word to its meaning.",
+      "question_type": "vocabulary_match",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "matches": [
+        [
+          "compare",
+          "tell how things are alike or different"
+        ],
+        [
+          "summarize",
+          "tell the main points briefly"
+        ],
+        [
+          "evaluate",
+          "judge using criteria"
+        ]
+      ],
+      "choices": [
+        "tell how things are alike or different",
+        "tell the main points briefly",
+        "judge using criteria"
+      ],
+      "correct_answer": "compare = tell how things are alike or different",
+      "answer": "compare = tell how things are alike or different",
+      "acceptable_answers": [
+        "compare = tell how things are alike or different"
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "text": "",
+      "sentence": "",
+      "explanation": "compare = tell how things are alike or different matches the word relationship in the item.",
+      "question_id": "G6E_VOC_001_ADAPTIVE_QUESTION_BANK_1",
+      "question_audio": {
+        "text": "Match each academic word to its meaning.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_ADAPTIVE_QUESTION_BANK_1"
+      },
+      "audio": {
+        "text": "Match each academic word to its meaning.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_ADAPTIVE_QUESTION_BANK_1"
+      }
+    },
+    {
+      "prompt": "What does reluctant mean in context? Liam was reluctant to speak, so he waited until everyone else shared.",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "choices": [
+        "unwilling at first",
+        "excited immediately",
+        "already finished"
+      ],
+      "correct_answer": "unwilling at first",
+      "misconception_tag": "context_clue_ignored",
+      "text": "Liam was reluctant to speak, so he waited until everyone else shared.",
+      "sentence": "Liam was reluctant to speak, so he waited until everyone else shared.",
+      "explanation": "unwilling at first is supported by the clue in the text.",
+      "question_id": "G6E_VOC_001_ADAPTIVE_QUESTION_BANK_2",
+      "question_audio": {
+        "text": "What does reluctant mean in context? Liam was reluctant to speak, so he waited until everyone else shared.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_ADAPTIVE_QUESTION_BANK_2"
+      },
+      "audio": {
+        "text": "Liam was reluctant to speak, so he waited until everyone else shared.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cached_audio_optional": true,
+        "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_ADAPTIVE_QUESTION_BANK_2"
+      },
+      "acceptable_answers": [
+        "unwilling at first"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "context_clue_ignored": "context clue ignored; the learner needs a clue-based reread, model answer, and explanation check.",
+    "domain_word_confusion": "domain word confusion; the learner needs a clue-based reread, model answer, and explanation check.",
+    "connotation_confusion": "connotation confusion; the learner needs a clue-based reread, model answer, and explanation check.",
+    "literal_vs_figurative_confusion": "literal vs figurative confusion; the learner needs a clue-based reread, model answer, and explanation check."
+  },
+  "review_bank": [
+    {
+      "prompt": "In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "choices": [
+        "study closely",
+        "throw away",
+        "decorate"
+      ],
+      "correct_answer": "study closely",
+      "misconception_tag": "context_clue_ignored",
+      "text": "The class will analyze the poem by studying its parts.",
+      "sentence": "The class will analyze the poem by studying its parts.",
+      "explanation": "study closely is supported by the clue in the text.",
+      "question_id": "G6E_VOC_001_REV1"
+    },
+    {
+      "prompt": "Which context clue helps define scarce?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "choices": [
+        "only two bottles remained",
+        "new labels",
+        "blue shelf"
+      ],
+      "correct_answer": "only two bottles remained",
+      "misconception_tag": "context_clue_ignored",
+      "text": "Water was scarce after the hike; only two bottles remained.",
+      "sentence": "Water was scarce after the hike; only two bottles remained.",
+      "explanation": "only two bottles remained is supported by the clue in the text.",
+      "question_id": "G6E_VOC_001_REV2"
+    },
+    {
+      "prompt": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+      "question_type": "short_response",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "work together",
+      "answer": "work together",
+      "acceptable_answers": [
+        "work together",
+        "work with others",
+        "cooperate"
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "text": "The partners collaborate by sharing notes and building one project.",
+      "sentence": "The partners collaborate by sharing notes and building one project.",
+      "explanation": "A strong response includes work together.",
+      "question_id": "G6E_VOC_001_REV3"
+    },
+    {
+      "prompt": "Match each academic word to its meaning.",
+      "question_type": "vocabulary_match",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "matches": [
+        [
+          "compare",
+          "tell how things are alike or different"
+        ],
+        [
+          "summarize",
+          "tell the main points briefly"
+        ],
+        [
+          "evaluate",
+          "judge using criteria"
+        ]
+      ],
+      "choices": [
+        "tell how things are alike or different",
+        "tell the main points briefly",
+        "judge using criteria"
+      ],
+      "correct_answer": "compare = tell how things are alike or different",
+      "answer": "compare = tell how things are alike or different",
+      "acceptable_answers": [
+        "compare = tell how things are alike or different"
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "text": "",
+      "sentence": "",
+      "explanation": "compare = tell how things are alike or different matches the word relationship in the item.",
+      "question_id": "G6E_VOC_001_REV4"
+    },
+    {
+      "prompt": "What does reluctant mean in context? Liam was reluctant to speak, so he waited until everyone else shared.",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "choices": [
+        "unwilling at first",
+        "excited immediately",
+        "already finished"
+      ],
+      "correct_answer": "unwilling at first",
+      "misconception_tag": "context_clue_ignored",
+      "text": "Liam was reluctant to speak, so he waited until everyone else shared.",
+      "sentence": "Liam was reluctant to speak, so he waited until everyone else shared.",
+      "explanation": "unwilling at first is supported by the clue in the text.",
+      "question_id": "G6E_VOC_001_REV5"
+    }
+  ],
+  "game_theme": {
+    "title": "Vocabulary Observatory",
+    "name": "Vocabulary Observatory",
+    "mission_intro": "Practice academic vocabulary and figurative language through a mission built from the Grade 6 English completion plan.",
+    "badge_name": "Word Meaning Navigator Badge",
+    "avatar": "grade-6-reader",
+    "background": "library-observatory"
+  },
+  "next_skill_id": "G6E_RC_001",
+  "remediation_skill_id": "G6E_FL_001",
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to Vocabulary Observatory. In this Grade 6 English mission, you will use academic vocabulary and figurative language with real texts and questions. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:story"
+    },
+    "lesson": {
+      "text": "Read This Page. Learn the strategy, study the visual model, and use Listen when hearing a sentence, passage, vocabulary word, example, or evidence will help. Press Next after you can explain the steps.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:lesson"
+    },
+    "watch": {
+      "text": "Read This Page. Watch the model. Notice how the reader slows down, checks meaning, and proves each answer with the text. Use Listen to hear the model read clearly.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:watch"
+    },
+    "demo": {
+      "text": "Read This Page. The demo walks through one example before you answer. Listen to the example, repeat useful language, and notice why the answer is supported.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:demo"
+    },
+    "practice": {
+      "text": "Read This Page. Practice uses a guided question. Press Read Question before answering, use the hint ladder if you need help, and use Listen for sentence, passage, vocabulary, or evidence reading.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:practice"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge questions are a little closer and require careful reasoning. Press Read Question, listen when helpful, and choose or write the answer that best fits the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:challenge"
+    },
+    "checkpoint": {
+      "text": "Read This Page. The checkpoint checks your independent understanding. Press Read Question for each item, use relevant evidence or examples, and avoid unsupported guesses.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:checkpoint"
+    },
+    "badge": {
+      "text": "Read This Page. You earned a badge for careful Grade 6 English work with academic vocabulary and figurative language. Press Next to see your profile and choose more practice.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:badge"
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves accuracy, hints, stars, and misconception notes. Choose Practice This Skill to open the Skill Practice Center levels, or return to the Grade 6 hub.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cached_audio_optional": true,
+      "cache_key": "skill-world:G6E_VOC_001:page:profile"
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G6E_VOC_001_LVL1",
+      "label": "Level 1: Context and Academic Vocabulary",
+      "focus": "Context and Academic Vocabulary",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "study closely",
+            "throw away",
+            "decorate"
+          ],
+          "correct_answer": "study closely",
+          "misconception_tag": "context_clue_ignored",
+          "text": "The class will analyze the poem by studying its parts.",
+          "sentence": "The class will analyze the poem by studying its parts.",
+          "explanation": "study closely is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L1_Q01",
+          "question_audio": {
+            "text": "In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q01"
+          },
+          "read_aloud_text": "In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+          "audio": {
+            "text": "The class will analyze the poem by studying its parts.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q01"
+          },
+          "answer": "study closely",
+          "acceptable_answers": [
+            "study closely"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which context clue helps define scarce?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "only two bottles remained",
+            "new labels",
+            "blue shelf"
+          ],
+          "correct_answer": "only two bottles remained",
+          "misconception_tag": "context_clue_ignored",
+          "text": "Water was scarce after the hike; only two bottles remained.",
+          "sentence": "Water was scarce after the hike; only two bottles remained.",
+          "explanation": "only two bottles remained is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L1_Q02",
+          "question_audio": {
+            "text": "Which context clue helps define scarce?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q02"
+          },
+          "read_aloud_text": "Which context clue helps define scarce?",
+          "audio": {
+            "text": "Water was scarce after the hike; only two bottles remained.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q02"
+          },
+          "answer": "only two bottles remained",
+          "acceptable_answers": [
+            "only two bottles remained"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "work together",
+          "answer": "work together",
+          "acceptable_answers": [
+            "work together",
+            "work with others",
+            "cooperate"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "The partners collaborate by sharing notes and building one project.",
+          "sentence": "The partners collaborate by sharing notes and building one project.",
+          "explanation": "A strong response includes work together.",
+          "question_id": "G6E_VOC_001_L1_Q03",
+          "question_audio": {
+            "text": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q03"
+          },
+          "read_aloud_text": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+          "audio": {
+            "text": "The partners collaborate by sharing notes and building one project.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Match each academic word to its meaning.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "matches": [
+            [
+              "compare",
+              "tell how things are alike or different"
+            ],
+            [
+              "summarize",
+              "tell the main points briefly"
+            ],
+            [
+              "evaluate",
+              "judge using criteria"
+            ]
+          ],
+          "choices": [
+            "tell how things are alike or different",
+            "tell the main points briefly",
+            "judge using criteria"
+          ],
+          "correct_answer": "compare = tell how things are alike or different",
+          "answer": "compare = tell how things are alike or different",
+          "acceptable_answers": [
+            "compare = tell how things are alike or different"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "",
+          "sentence": "",
+          "explanation": "compare = tell how things are alike or different matches the word relationship in the item.",
+          "question_id": "G6E_VOC_001_L1_Q04",
+          "question_audio": {
+            "text": "Match each academic word to its meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q04"
+          },
+          "read_aloud_text": "Match each academic word to its meaning.",
+          "audio": {
+            "text": "Match each academic word to its meaning.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q04"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does reluctant mean in context? Liam was reluctant to speak, so he waited until everyone else shared.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "unwilling at first",
+            "excited immediately",
+            "already finished"
+          ],
+          "correct_answer": "unwilling at first",
+          "misconception_tag": "context_clue_ignored",
+          "text": "Liam was reluctant to speak, so he waited until everyone else shared.",
+          "sentence": "Liam was reluctant to speak, so he waited until everyone else shared.",
+          "explanation": "unwilling at first is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L1_Q05",
+          "question_audio": {
+            "text": "What does reluctant mean in context? Liam was reluctant to speak, so he waited until everyone else shared.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q05"
+          },
+          "read_aloud_text": "What does reluctant mean in context? Liam was reluctant to speak, so he waited until everyone else shared.",
+          "audio": {
+            "text": "Liam was reluctant to speak, so he waited until everyone else shared.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q05"
+          },
+          "answer": "unwilling at first",
+          "acceptable_answers": [
+            "unwilling at first"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What academic word means to support with reasons or evidence?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "justify",
+          "answer": "justify",
+          "acceptable_answers": [
+            "justify",
+            "support",
+            "prove"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "Writers justify a claim by giving reasons and evidence.",
+          "sentence": "Writers justify a claim by giving reasons and evidence.",
+          "explanation": "A strong response includes justify.",
+          "question_id": "G6E_VOC_001_L1_Q06",
+          "question_audio": {
+            "text": "What academic word means to support with reasons or evidence?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q06"
+          },
+          "read_aloud_text": "What academic word means to support with reasons or evidence?",
+          "audio": {
+            "text": "Writers justify a claim by giving reasons and evidence.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q06"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which word best replaces significant?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "choices": [
+            "important",
+            "tiny",
+            "ordinary"
+          ],
+          "correct_answer": "important",
+          "misconception_tag": "context_clue_ignored",
+          "text": "The discovery was significant because it changed the team\u2019s conclusion.",
+          "sentence": "The discovery was significant because it changed the team\u2019s conclusion.",
+          "explanation": "important is supported by the clue in the text.",
+          "scale_words": [
+            "minor",
+            "useful",
+            "significant",
+            "historic"
+          ],
+          "question_id": "G6E_VOC_001_L1_Q07",
+          "question_audio": {
+            "text": "Which word best replaces significant?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q07"
+          },
+          "read_aloud_text": "Which word best replaces significant?",
+          "audio": {
+            "text": "The discovery was significant because it changed the team\u2019s conclusion.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q07"
+          },
+          "answer": "important",
+          "acceptable_answers": [
+            "important"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does establish mean here? The rules establish how teams share equipment.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "set up",
+            "erase",
+            "delay"
+          ],
+          "correct_answer": "set up",
+          "misconception_tag": "context_clue_ignored",
+          "text": "The rules establish how teams share equipment.",
+          "sentence": "The rules establish how teams share equipment.",
+          "explanation": "set up is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L1_Q08",
+          "question_audio": {
+            "text": "What does establish mean here? The rules establish how teams share equipment.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q08"
+          },
+          "read_aloud_text": "What does establish mean here? The rules establish how teams share equipment.",
+          "audio": {
+            "text": "The rules establish how teams share equipment.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q08"
+          },
+          "answer": "set up",
+          "acceptable_answers": [
+            "set up"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Match the word to the context clue.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "matches": [
+            [
+              "predict",
+              "say what may happen"
+            ],
+            [
+              "contrast",
+              "show differences"
+            ],
+            [
+              "interpret",
+              "explain meaning"
+            ]
+          ],
+          "choices": [
+            "say what may happen",
+            "show differences",
+            "explain meaning"
+          ],
+          "correct_answer": "interpret = explain meaning",
+          "answer": "interpret = explain meaning",
+          "acceptable_answers": [
+            "interpret = explain meaning"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "",
+          "sentence": "",
+          "explanation": "interpret = explain meaning matches the word relationship in the item.",
+          "question_id": "G6E_VOC_001_L1_Q09",
+          "question_audio": {
+            "text": "Match the word to the context clue.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q09"
+          },
+          "read_aloud_text": "Match the word to the context clue.",
+          "audio": {
+            "text": "Match the word to the context clue.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q09"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Define outcome in this sentence: The outcome of the vote was announced Friday.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "result",
+          "answer": "result",
+          "acceptable_answers": [
+            "result",
+            "final result",
+            "what happened"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "The outcome of the vote was announced Friday.",
+          "sentence": "The outcome of the vote was announced Friday.",
+          "explanation": "A strong response includes result.",
+          "question_id": "G6E_VOC_001_L1_Q10",
+          "question_audio": {
+            "text": "Define outcome in this sentence: The outcome of the vote was announced Friday.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L1_Q10"
+          },
+          "read_aloud_text": "Define outcome in this sentence: The outcome of the vote was announced Friday.",
+          "audio": {
+            "text": "The outcome of the vote was announced Friday.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L1_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_VOC_001_LVL2",
+      "label": "Level 2: Roots and Affixes",
+      "focus": "Roots and Affixes",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "The prefix pre- in preview means ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "before",
+            "again",
+            "against"
+          ],
+          "correct_answer": "before",
+          "misconception_tag": "context_clue_ignored",
+          "text": "A preview lets you see something before the full event.",
+          "sentence": "A preview lets you see something before the full event.",
+          "explanation": "before is supported by the clue in the text.",
+          "matches": [
+            [
+              "pre-",
+              "before"
+            ],
+            [
+              "re-",
+              "again"
+            ],
+            [
+              "anti-",
+              "against"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_L2_Q01",
+          "question_audio": {
+            "text": "The prefix pre- in preview means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q01"
+          },
+          "read_aloud_text": "The prefix pre- in preview means ___.",
+          "audio": {
+            "text": "A preview lets you see something before the full event.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q01"
+          },
+          "answer": "before",
+          "acceptable_answers": [
+            "before"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "The root port in transport means ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "carry",
+            "write",
+            "look"
+          ],
+          "correct_answer": "carry",
+          "misconception_tag": "domain_word_confusion",
+          "text": "Transport means carry across or move from place to place.",
+          "sentence": "Transport means carry across or move from place to place.",
+          "explanation": "carry is supported by the clue in the text.",
+          "matches": [
+            [
+              "port",
+              "carry"
+            ],
+            [
+              "graph",
+              "write"
+            ],
+            [
+              "spect",
+              "look"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_L2_Q02",
+          "question_audio": {
+            "text": "The root port in transport means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q02"
+          },
+          "read_aloud_text": "The root port in transport means ___.",
+          "audio": {
+            "text": "Transport means carry across or move from place to place.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q02"
+          },
+          "answer": "carry",
+          "acceptable_answers": [
+            "carry"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does the suffix -able mean in readable?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "able to be",
+          "answer": "able to be",
+          "acceptable_answers": [
+            "able to be",
+            "can be",
+            "able to"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "A readable article is able to be read easily.",
+          "sentence": "A readable article is able to be read easily.",
+          "explanation": "A strong response includes able to be.",
+          "question_id": "G6E_VOC_001_L2_Q03",
+          "question_audio": {
+            "text": "What does the suffix -able mean in readable?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q03"
+          },
+          "read_aloud_text": "What does the suffix -able mean in readable?",
+          "audio": {
+            "text": "A readable article is able to be read easily.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Match each root to its meaning.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "matches": [
+            [
+              "bio",
+              "life"
+            ],
+            [
+              "geo",
+              "earth"
+            ],
+            [
+              "tele",
+              "far"
+            ]
+          ],
+          "choices": [
+            "life",
+            "earth",
+            "far"
+          ],
+          "correct_answer": "bio = life",
+          "answer": "bio = life",
+          "acceptable_answers": [
+            "bio = life"
+          ],
+          "misconception_tag": "domain_word_confusion",
+          "text": "",
+          "sentence": "",
+          "explanation": "bio = life matches the word relationship in the item.",
+          "question_id": "G6E_VOC_001_L2_Q04",
+          "question_audio": {
+            "text": "Match each root to its meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q04"
+          },
+          "read_aloud_text": "Match each root to its meaning.",
+          "audio": {
+            "text": "Match each root to its meaning.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q04"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which word means to build again?",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "reconstruct",
+            "preview",
+            "antisocial"
+          ],
+          "correct_answer": "reconstruct",
+          "misconception_tag": "context_clue_ignored",
+          "text": "The crew will reconstruct the bridge after the storm.",
+          "sentence": "The crew will reconstruct the bridge after the storm.",
+          "explanation": "reconstruct is supported by the clue in the text.",
+          "matches": [
+            [
+              "re-",
+              "again"
+            ],
+            [
+              "struct",
+              "build"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_L2_Q05",
+          "question_audio": {
+            "text": "Which word means to build again?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q05"
+          },
+          "read_aloud_text": "Which word means to build again?",
+          "audio": {
+            "text": "The crew will reconstruct the bridge after the storm.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q05"
+          },
+          "answer": "reconstruct",
+          "acceptable_answers": [
+            "reconstruct"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does the root scrib/script mean?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "write",
+          "answer": "write",
+          "acceptable_answers": [
+            "write",
+            "to write",
+            "written"
+          ],
+          "misconception_tag": "domain_word_confusion",
+          "text": "A manuscript is a document written by hand or typed for publication.",
+          "sentence": "A manuscript is a document written by hand or typed for publication.",
+          "explanation": "A strong response includes write.",
+          "question_id": "G6E_VOC_001_L2_Q06",
+          "question_audio": {
+            "text": "What does the root scrib/script mean?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q06"
+          },
+          "read_aloud_text": "What does the root scrib/script mean?",
+          "audio": {
+            "text": "A manuscript is a document written by hand or typed for publication.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q06"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which affix means without?",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "-less",
+            "pre-",
+            "-ful"
+          ],
+          "correct_answer": "-less",
+          "misconception_tag": "context_clue_ignored",
+          "text": "A cloudless sky is without clouds.",
+          "sentence": "A cloudless sky is without clouds.",
+          "explanation": "-less is supported by the clue in the text.",
+          "matches": [
+            [
+              "-less",
+              "without"
+            ],
+            [
+              "-ful",
+              "full of"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_L2_Q07",
+          "question_audio": {
+            "text": "Which affix means without?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q07"
+          },
+          "read_aloud_text": "Which affix means without?",
+          "audio": {
+            "text": "A cloudless sky is without clouds.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q07"
+          },
+          "answer": "-less",
+          "acceptable_answers": [
+            "-less"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does inspect mean based on the root spect?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "look into",
+            "carry away",
+            "hear again"
+          ],
+          "correct_answer": "look into",
+          "misconception_tag": "domain_word_confusion",
+          "text": "To inspect equipment is to look at it carefully.",
+          "sentence": "To inspect equipment is to look at it carefully.",
+          "explanation": "look into is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L2_Q08",
+          "question_audio": {
+            "text": "What does inspect mean based on the root spect?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q08"
+          },
+          "read_aloud_text": "What does inspect mean based on the root spect?",
+          "audio": {
+            "text": "To inspect equipment is to look at it carefully.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q08"
+          },
+          "answer": "look into",
+          "acceptable_answers": [
+            "look into"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Break renewable into a prefix/base/suffix and give the meaning.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "able to be made new again",
+          "answer": "able to be made new again",
+          "acceptable_answers": [
+            "able to be made new again",
+            "can be made new again",
+            "made new again"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "Renewable energy can be made new again or naturally replaced.",
+          "sentence": "Renewable energy can be made new again or naturally replaced.",
+          "explanation": "A strong response includes able to be made new again.",
+          "question_id": "G6E_VOC_001_L2_Q09",
+          "question_audio": {
+            "text": "Break renewable into a prefix/base/suffix and give the meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q09"
+          },
+          "read_aloud_text": "Break renewable into a prefix/base/suffix and give the meaning.",
+          "audio": {
+            "text": "Renewable energy can be made new again or naturally replaced.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q09"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Match each prefix to its meaning.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "matches": [
+            [
+              "sub-",
+              "under"
+            ],
+            [
+              "inter-",
+              "between"
+            ],
+            [
+              "re-",
+              "again"
+            ]
+          ],
+          "choices": [
+            "under",
+            "between",
+            "again"
+          ],
+          "correct_answer": "inter- = between",
+          "answer": "inter- = between",
+          "acceptable_answers": [
+            "inter- = between"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "",
+          "sentence": "",
+          "explanation": "inter- = between matches the word relationship in the item.",
+          "question_id": "G6E_VOC_001_L2_Q10",
+          "question_audio": {
+            "text": "Match each prefix to its meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L2_Q10"
+          },
+          "read_aloud_text": "Match each prefix to its meaning.",
+          "audio": {
+            "text": "Match each prefix to its meaning.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L2_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_VOC_001_LVL3",
+      "label": "Level 3: Connotation and Word Relationships",
+      "focus": "Connotation and Word Relationships",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "Which word has the most positive connotation?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "choices": [
+            "confident",
+            "pushy",
+            "bossy"
+          ],
+          "correct_answer": "confident",
+          "misconception_tag": "connotation_confusion",
+          "text": "The speaker sounded confident during the debate.",
+          "sentence": "The speaker sounded confident during the debate.",
+          "explanation": "confident is supported by the clue in the text.",
+          "scale_words": [
+            "bossy",
+            "pushy",
+            "confident"
+          ],
+          "question_id": "G6E_VOC_001_L3_Q01",
+          "question_audio": {
+            "text": "Which word has the most positive connotation?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q01"
+          },
+          "read_aloud_text": "Which word has the most positive connotation?",
+          "audio": {
+            "text": "The speaker sounded confident during the debate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q01"
+          },
+          "answer": "confident",
+          "acceptable_answers": [
+            "confident"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which pair are antonyms?",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "scarce and abundant",
+            "scarce and limited",
+            "scarce and rare"
+          ],
+          "correct_answer": "scarce and abundant",
+          "misconception_tag": "connotation_confusion",
+          "text": "",
+          "sentence": "",
+          "explanation": "scarce and abundant is supported by the clue in the text.",
+          "matches": [
+            [
+              "scarce",
+              "limited"
+            ],
+            [
+              "abundant",
+              "plentiful"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_L3_Q02",
+          "question_audio": {
+            "text": "Which pair are antonyms?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q02"
+          },
+          "read_aloud_text": "Which pair are antonyms?",
+          "audio": {
+            "text": "Which pair are antonyms?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q02"
+          },
+          "answer": "scarce and abundant",
+          "acceptable_answers": [
+            "scarce and abundant"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Name a synonym for cautious in: The cautious driver slowed near the school.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "careful",
+          "answer": "careful",
+          "acceptable_answers": [
+            "careful",
+            "alert",
+            "watchful"
+          ],
+          "misconception_tag": "connotation_confusion",
+          "text": "The cautious driver slowed near the school.",
+          "sentence": "The cautious driver slowed near the school.",
+          "explanation": "A strong response includes careful.",
+          "question_id": "G6E_VOC_001_L3_Q03",
+          "question_audio": {
+            "text": "Name a synonym for cautious in: The cautious driver slowed near the school.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q03"
+          },
+          "read_aloud_text": "Name a synonym for cautious in: The cautious driver slowed near the school.",
+          "audio": {
+            "text": "The cautious driver slowed near the school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which word sounds more negative than curious?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "choices": [
+            "nosy",
+            "interested",
+            "inquisitive"
+          ],
+          "correct_answer": "nosy",
+          "misconception_tag": "connotation_confusion",
+          "text": "The nosy neighbor listened at the fence.",
+          "sentence": "The nosy neighbor listened at the fence.",
+          "explanation": "nosy is supported by the clue in the text.",
+          "scale_words": [
+            "nosy",
+            "curious",
+            "inquisitive"
+          ],
+          "question_id": "G6E_VOC_001_L3_Q04",
+          "question_audio": {
+            "text": "Which word sounds more negative than curious?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q04"
+          },
+          "read_aloud_text": "Which word sounds more negative than curious?",
+          "audio": {
+            "text": "The nosy neighbor listened at the fence.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q04"
+          },
+          "answer": "nosy",
+          "acceptable_answers": [
+            "nosy"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Match each word relationship.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "matches": [
+            [
+              "rapid",
+              "fast"
+            ],
+            [
+              "expand",
+              "grow larger"
+            ],
+            [
+              "fragile",
+              "easily broken"
+            ]
+          ],
+          "choices": [
+            "fast",
+            "grow larger",
+            "easily broken"
+          ],
+          "correct_answer": "fragile = easily broken",
+          "answer": "fragile = easily broken",
+          "acceptable_answers": [
+            "fragile = easily broken"
+          ],
+          "misconception_tag": "connotation_confusion",
+          "text": "",
+          "sentence": "",
+          "explanation": "fragile = easily broken matches the word relationship in the item.",
+          "question_id": "G6E_VOC_001_L3_Q05",
+          "question_audio": {
+            "text": "Match each word relationship.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q05"
+          },
+          "read_aloud_text": "Match each word relationship.",
+          "audio": {
+            "text": "Match each word relationship.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q05"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which word is strongest?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "choices": [
+            "exhausted",
+            "tired",
+            "sleepy"
+          ],
+          "correct_answer": "exhausted",
+          "misconception_tag": "connotation_confusion",
+          "text": "After the long climb, the hikers were exhausted.",
+          "sentence": "After the long climb, the hikers were exhausted.",
+          "explanation": "exhausted is supported by the clue in the text.",
+          "scale_words": [
+            "sleepy",
+            "tired",
+            "exhausted"
+          ],
+          "question_id": "G6E_VOC_001_L3_Q06",
+          "question_audio": {
+            "text": "Which word is strongest?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q06"
+          },
+          "read_aloud_text": "Which word is strongest?",
+          "audio": {
+            "text": "After the long climb, the hikers were exhausted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q06"
+          },
+          "answer": "exhausted",
+          "acceptable_answers": [
+            "exhausted"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What is the denotation of residence?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "home",
+          "answer": "home",
+          "acceptable_answers": [
+            "home",
+            "place where someone lives",
+            "house"
+          ],
+          "misconception_tag": "connotation_confusion",
+          "text": "The form asked for the student\u2019s residence, or home address.",
+          "sentence": "The form asked for the student\u2019s residence, or home address.",
+          "explanation": "A strong response includes home.",
+          "question_id": "G6E_VOC_001_L3_Q07",
+          "question_audio": {
+            "text": "What is the denotation of residence?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q07"
+          },
+          "read_aloud_text": "What is the denotation of residence?",
+          "audio": {
+            "text": "The form asked for the student\u2019s residence, or home address.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q07"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which word has a more formal tone?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "choices": [
+            "purchase",
+            "buy",
+            "grab"
+          ],
+          "correct_answer": "purchase",
+          "misconception_tag": "connotation_confusion",
+          "text": "Visitors may purchase tickets online.",
+          "sentence": "Visitors may purchase tickets online.",
+          "explanation": "purchase is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L3_Q08",
+          "question_audio": {
+            "text": "Which word has a more formal tone?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q08"
+          },
+          "read_aloud_text": "Which word has a more formal tone?",
+          "audio": {
+            "text": "Visitors may purchase tickets online.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q08"
+          },
+          "answer": "purchase",
+          "acceptable_answers": [
+            "purchase"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which pair are synonyms?",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "assist and help",
+            "assist and block",
+            "assist and ignore"
+          ],
+          "correct_answer": "assist and help",
+          "misconception_tag": "connotation_confusion",
+          "text": "",
+          "sentence": "",
+          "explanation": "assist and help is supported by the clue in the text.",
+          "matches": [
+            [
+              "assist",
+              "help"
+            ],
+            [
+              "block",
+              "stop"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_L3_Q09",
+          "question_audio": {
+            "text": "Which pair are synonyms?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q09"
+          },
+          "read_aloud_text": "Which pair are synonyms?",
+          "audio": {
+            "text": "Which pair are synonyms?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q09"
+          },
+          "answer": "assist and help",
+          "acceptable_answers": [
+            "assist and help"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Choose a neutral word for \"stubborn\" in an academic sentence.",
+          "question_type": "short_response",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "correct_answer": "determined",
+          "answer": "determined",
+          "acceptable_answers": [
+            "determined",
+            "persistent"
+          ],
+          "misconception_tag": "connotation_confusion",
+          "text": "The determined researcher kept testing the design.",
+          "sentence": "The determined researcher kept testing the design.",
+          "explanation": "A strong response includes determined.",
+          "question_id": "G6E_VOC_001_L3_Q10",
+          "question_audio": {
+            "text": "Choose a neutral word for \"stubborn\" in an academic sentence.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L3_Q10"
+          },
+          "read_aloud_text": "Choose a neutral word for \"stubborn\" in an academic sentence.",
+          "audio": {
+            "text": "The determined researcher kept testing the design.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L3_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_VOC_001_LVL4",
+      "label": "Level 4: Figurative and Domain-Specific Language",
+      "focus": "Figurative and Domain-Specific Language",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "What does the metaphor mean? The classroom was a beehive before the performance.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "choices": [
+            "busy and active",
+            "full of bees only",
+            "silent and empty"
+          ],
+          "correct_answer": "busy and active",
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "text": "The classroom was a beehive before the performance.",
+          "sentence": "The classroom was a beehive before the performance.",
+          "explanation": "busy and active is supported by the clue in the text.",
+          "figurative_phrase": "classroom was a beehive",
+          "literal_meaning": "not actually a beehive",
+          "figurative_meaning": "busy and active",
+          "question_id": "G6E_VOC_001_L4_Q01",
+          "question_audio": {
+            "text": "What does the metaphor mean? The classroom was a beehive before the performance.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q01"
+          },
+          "read_aloud_text": "What does the metaphor mean? The classroom was a beehive before the performance.",
+          "audio": {
+            "text": "The classroom was a beehive before the performance.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q01"
+          },
+          "answer": "busy and active",
+          "acceptable_answers": [
+            "busy and active"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which is personification?",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "choices": [
+            "The wind whispered through the grass.",
+            "The grass was green.",
+            "The wind moved fast."
+          ],
+          "correct_answer": "The wind whispered through the grass.",
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "text": "The wind whispered through the grass.",
+          "sentence": "The wind whispered through the grass.",
+          "explanation": "The wind whispered through the grass. is supported by the clue in the text.",
+          "figurative_phrase": "wind whispered",
+          "question_id": "G6E_VOC_001_L4_Q02",
+          "question_audio": {
+            "text": "Which is personification?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q02"
+          },
+          "read_aloud_text": "Which is personification?",
+          "audio": {
+            "text": "The wind whispered through the grass.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q02"
+          },
+          "answer": "The wind whispered through the grass.",
+          "acceptable_answers": [
+            "The wind whispered through the grass."
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Explain the idiom \"hit the books\".",
+          "question_type": "short_response",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "study",
+          "answer": "study",
+          "acceptable_answers": [
+            "study",
+            "to study",
+            "begin studying"
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "text": "Before the quiz, she had to hit the books.",
+          "sentence": "Before the quiz, she had to hit the books.",
+          "explanation": "A strong response includes study.",
+          "figurative_phrase": "hit the books",
+          "question_id": "G6E_VOC_001_L4_Q03",
+          "question_audio": {
+            "text": "Explain the idiom \"hit the books\".",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q03"
+          },
+          "read_aloud_text": "Explain the idiom \"hit the books\".",
+          "audio": {
+            "text": "Before the quiz, she had to hit the books.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "In science, what does ecosystem mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "a community of living and nonliving things",
+            "a type of poem",
+            "a math operation"
+          ],
+          "correct_answer": "a community of living and nonliving things",
+          "misconception_tag": "domain_word_confusion",
+          "text": "A pond ecosystem includes fish, plants, water, sunlight, and soil.",
+          "sentence": "A pond ecosystem includes fish, plants, water, sunlight, and soil.",
+          "explanation": "a community of living and nonliving things is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L4_Q04",
+          "question_audio": {
+            "text": "In science, what does ecosystem mean?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q04"
+          },
+          "read_aloud_text": "In science, what does ecosystem mean?",
+          "audio": {
+            "text": "A pond ecosystem includes fish, plants, water, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q04"
+          },
+          "answer": "a community of living and nonliving things",
+          "acceptable_answers": [
+            "a community of living and nonliving things"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Match each domain word to its field meaning.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "matches": [
+            [
+              "hypothesis",
+              "testable explanation"
+            ],
+            [
+              "erosion",
+              "wearing away of earth"
+            ],
+            [
+              "artifact",
+              "object made by people"
+            ]
+          ],
+          "choices": [
+            "testable explanation",
+            "wearing away of earth",
+            "object made by people"
+          ],
+          "correct_answer": "hypothesis = testable explanation",
+          "answer": "hypothesis = testable explanation",
+          "acceptable_answers": [
+            "hypothesis = testable explanation"
+          ],
+          "misconception_tag": "domain_word_confusion",
+          "text": "",
+          "sentence": "",
+          "explanation": "hypothesis = testable explanation matches the word relationship in the item.",
+          "question_id": "G6E_VOC_001_L4_Q05",
+          "question_audio": {
+            "text": "Match each domain word to its field meaning.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q05"
+          },
+          "read_aloud_text": "Match each domain word to its field meaning.",
+          "audio": {
+            "text": "Match each domain word to its field meaning.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q05"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which phrase is a simile?",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "choices": [
+            "bright as polished silver",
+            "the moon was a coin",
+            "the moon smiled"
+          ],
+          "correct_answer": "bright as polished silver",
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "text": "The lake was bright as polished silver.",
+          "sentence": "The lake was bright as polished silver.",
+          "explanation": "bright as polished silver is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L4_Q06",
+          "question_audio": {
+            "text": "Which phrase is a simile?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q06"
+          },
+          "read_aloud_text": "Which phrase is a simile?",
+          "audio": {
+            "text": "The lake was bright as polished silver.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q06"
+          },
+          "answer": "bright as polished silver",
+          "acceptable_answers": [
+            "bright as polished silver"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does the personification suggest: The old floor groaned under our feet?",
+          "question_type": "short_response",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "correct_answer": "the floor creaked",
+          "answer": "the floor creaked",
+          "acceptable_answers": [
+            "the floor creaked",
+            "it creaked",
+            "the floor made a groaning sound"
+          ],
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "text": "The old floor groaned under our feet.",
+          "sentence": "The old floor groaned under our feet.",
+          "explanation": "A strong response includes the floor creaked.",
+          "question_id": "G6E_VOC_001_L4_Q07",
+          "question_audio": {
+            "text": "What does the personification suggest: The old floor groaned under our feet?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q07"
+          },
+          "read_aloud_text": "What does the personification suggest: The old floor groaned under our feet?",
+          "audio": {
+            "text": "The old floor groaned under our feet.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q07"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does variable mean in math?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "a symbol for a changing or unknown value",
+            "a story setting",
+            "a punctuation mark"
+          ],
+          "correct_answer": "a symbol for a changing or unknown value",
+          "misconception_tag": "domain_word_confusion",
+          "text": "In the equation x + 4 = 9, the variable x has an unknown value.",
+          "sentence": "In the equation x + 4 = 9, the variable x has an unknown value.",
+          "explanation": "a symbol for a changing or unknown value is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_L4_Q08",
+          "question_audio": {
+            "text": "What does variable mean in math?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q08"
+          },
+          "read_aloud_text": "What does variable mean in math?",
+          "audio": {
+            "text": "In the equation x + 4 = 9, the variable x has an unknown value.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q08"
+          },
+          "answer": "a symbol for a changing or unknown value",
+          "acceptable_answers": [
+            "a symbol for a changing or unknown value"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does \"the debate sparked new ideas\" mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "choices": [
+            "caused new ideas",
+            "started a fire",
+            "ended all thinking"
+          ],
+          "correct_answer": "caused new ideas",
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "text": "The debate sparked new ideas for the project.",
+          "sentence": "The debate sparked new ideas for the project.",
+          "explanation": "caused new ideas is supported by the clue in the text.",
+          "figurative_phrase": "sparked new ideas",
+          "question_id": "G6E_VOC_001_L4_Q09",
+          "question_audio": {
+            "text": "What does \"the debate sparked new ideas\" mean?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q09"
+          },
+          "read_aloud_text": "What does \"the debate sparked new ideas\" mean?",
+          "audio": {
+            "text": "The debate sparked new ideas for the project.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q09"
+          },
+          "answer": "caused new ideas",
+          "acceptable_answers": [
+            "caused new ideas"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Define primary source in social studies.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "firsthand source",
+          "answer": "firsthand source",
+          "acceptable_answers": [
+            "firsthand source",
+            "firsthand account",
+            "source from the time"
+          ],
+          "misconception_tag": "domain_word_confusion",
+          "text": "A diary from the explorer is a primary source because it was created by someone who experienced the event.",
+          "sentence": "A diary from the explorer is a primary source because it was created by someone who experienced the event.",
+          "explanation": "A strong response includes firsthand source.",
+          "question_id": "G6E_VOC_001_L4_Q10",
+          "question_audio": {
+            "text": "Define primary source in social studies.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_L4_Q10"
+          },
+          "read_aloud_text": "Define primary source in social studies.",
+          "audio": {
+            "text": "A diary from the explorer is a primary source because it was created by someone who experienced the event.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_L4_Q10"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_VOC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "prompt": "In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "study closely",
+            "throw away",
+            "decorate"
+          ],
+          "correct_answer": "study closely",
+          "misconception_tag": "context_clue_ignored",
+          "text": "The class will analyze the poem by studying its parts.",
+          "sentence": "The class will analyze the poem by studying its parts.",
+          "explanation": "study closely is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_MIXED_Q01",
+          "question_audio": {
+            "text": "In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q01"
+          },
+          "read_aloud_text": "In the sentence, what does analyze mean? The class will analyze the poem by studying its parts.",
+          "audio": {
+            "text": "The class will analyze the poem by studying its parts.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q01"
+          },
+          "answer": "study closely",
+          "acceptable_answers": [
+            "study closely"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which context clue helps define scarce?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "choices": [
+            "only two bottles remained",
+            "new labels",
+            "blue shelf"
+          ],
+          "correct_answer": "only two bottles remained",
+          "misconception_tag": "context_clue_ignored",
+          "text": "Water was scarce after the hike; only two bottles remained.",
+          "sentence": "Water was scarce after the hike; only two bottles remained.",
+          "explanation": "only two bottles remained is supported by the clue in the text.",
+          "question_id": "G6E_VOC_001_MIXED_Q02",
+          "question_audio": {
+            "text": "Which context clue helps define scarce?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q02"
+          },
+          "read_aloud_text": "Which context clue helps define scarce?",
+          "audio": {
+            "text": "Water was scarce after the hike; only two bottles remained.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q02"
+          },
+          "answer": "only two bottles remained",
+          "acceptable_answers": [
+            "only two bottles remained"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "work together",
+          "answer": "work together",
+          "acceptable_answers": [
+            "work together",
+            "work with others",
+            "cooperate"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "The partners collaborate by sharing notes and building one project.",
+          "sentence": "The partners collaborate by sharing notes and building one project.",
+          "explanation": "A strong response includes work together.",
+          "question_id": "G6E_VOC_001_MIXED_Q03",
+          "question_audio": {
+            "text": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q03"
+          },
+          "read_aloud_text": "Use context to define collaborate: The partners collaborate by sharing notes and building one project.",
+          "audio": {
+            "text": "The partners collaborate by sharing notes and building one project.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q03"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "The prefix pre- in preview means ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "before",
+            "again",
+            "against"
+          ],
+          "correct_answer": "before",
+          "misconception_tag": "context_clue_ignored",
+          "text": "A preview lets you see something before the full event.",
+          "sentence": "A preview lets you see something before the full event.",
+          "explanation": "before is supported by the clue in the text.",
+          "matches": [
+            [
+              "pre-",
+              "before"
+            ],
+            [
+              "re-",
+              "again"
+            ],
+            [
+              "anti-",
+              "against"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_MIXED_Q04",
+          "question_audio": {
+            "text": "The prefix pre- in preview means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q04"
+          },
+          "read_aloud_text": "The prefix pre- in preview means ___.",
+          "audio": {
+            "text": "A preview lets you see something before the full event.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q04"
+          },
+          "answer": "before",
+          "acceptable_answers": [
+            "before"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "The root port in transport means ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "carry",
+            "write",
+            "look"
+          ],
+          "correct_answer": "carry",
+          "misconception_tag": "domain_word_confusion",
+          "text": "Transport means carry across or move from place to place.",
+          "sentence": "Transport means carry across or move from place to place.",
+          "explanation": "carry is supported by the clue in the text.",
+          "matches": [
+            [
+              "port",
+              "carry"
+            ],
+            [
+              "graph",
+              "write"
+            ],
+            [
+              "spect",
+              "look"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_MIXED_Q05",
+          "question_audio": {
+            "text": "The root port in transport means ___.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q05"
+          },
+          "read_aloud_text": "The root port in transport means ___.",
+          "audio": {
+            "text": "Transport means carry across or move from place to place.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q05"
+          },
+          "answer": "carry",
+          "acceptable_answers": [
+            "carry"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does the suffix -able mean in readable?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "able to be",
+          "answer": "able to be",
+          "acceptable_answers": [
+            "able to be",
+            "can be",
+            "able to"
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "text": "A readable article is able to be read easily.",
+          "sentence": "A readable article is able to be read easily.",
+          "explanation": "A strong response includes able to be.",
+          "question_id": "G6E_VOC_001_MIXED_Q06",
+          "question_audio": {
+            "text": "What does the suffix -able mean in readable?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q06"
+          },
+          "read_aloud_text": "What does the suffix -able mean in readable?",
+          "audio": {
+            "text": "A readable article is able to be read easily.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q06"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which word has the most positive connotation?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_scale",
+          "support_type": "word_scale",
+          "choices": [
+            "confident",
+            "pushy",
+            "bossy"
+          ],
+          "correct_answer": "confident",
+          "misconception_tag": "connotation_confusion",
+          "text": "The speaker sounded confident during the debate.",
+          "sentence": "The speaker sounded confident during the debate.",
+          "explanation": "confident is supported by the clue in the text.",
+          "scale_words": [
+            "bossy",
+            "pushy",
+            "confident"
+          ],
+          "question_id": "G6E_VOC_001_MIXED_Q07",
+          "question_audio": {
+            "text": "Which word has the most positive connotation?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q07"
+          },
+          "read_aloud_text": "Which word has the most positive connotation?",
+          "audio": {
+            "text": "The speaker sounded confident during the debate.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q07"
+          },
+          "answer": "confident",
+          "acceptable_answers": [
+            "confident"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Which pair are antonyms?",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "choices": [
+            "scarce and abundant",
+            "scarce and limited",
+            "scarce and rare"
+          ],
+          "correct_answer": "scarce and abundant",
+          "misconception_tag": "connotation_confusion",
+          "text": "",
+          "sentence": "",
+          "explanation": "scarce and abundant is supported by the clue in the text.",
+          "matches": [
+            [
+              "scarce",
+              "limited"
+            ],
+            [
+              "abundant",
+              "plentiful"
+            ]
+          ],
+          "question_id": "G6E_VOC_001_MIXED_Q08",
+          "question_audio": {
+            "text": "Which pair are antonyms?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q08"
+          },
+          "read_aloud_text": "Which pair are antonyms?",
+          "audio": {
+            "text": "Which pair are antonyms?",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q08"
+          },
+          "answer": "scarce and abundant",
+          "acceptable_answers": [
+            "scarce and abundant"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "Name a synonym for cautious in: The cautious driver slowed near the school.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "careful",
+          "answer": "careful",
+          "acceptable_answers": [
+            "careful",
+            "alert",
+            "watchful"
+          ],
+          "misconception_tag": "connotation_confusion",
+          "text": "The cautious driver slowed near the school.",
+          "sentence": "The cautious driver slowed near the school.",
+          "explanation": "A strong response includes careful.",
+          "question_id": "G6E_VOC_001_MIXED_Q09",
+          "question_audio": {
+            "text": "Name a synonym for cautious in: The cautious driver slowed near the school.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q09"
+          },
+          "read_aloud_text": "Name a synonym for cautious in: The cautious driver slowed near the school.",
+          "audio": {
+            "text": "The cautious driver slowed near the school.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q09"
+          },
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        },
+        {
+          "prompt": "What does the metaphor mean? The classroom was a beehive before the performance.",
+          "question_type": "multiple_choice",
+          "visual_model": "figurative_language_card",
+          "support_type": "figurative_language_card",
+          "choices": [
+            "busy and active",
+            "full of bees only",
+            "silent and empty"
+          ],
+          "correct_answer": "busy and active",
+          "misconception_tag": "literal_vs_figurative_confusion",
+          "text": "The classroom was a beehive before the performance.",
+          "sentence": "The classroom was a beehive before the performance.",
+          "explanation": "busy and active is supported by the clue in the text.",
+          "figurative_phrase": "classroom was a beehive",
+          "literal_meaning": "not actually a beehive",
+          "figurative_meaning": "busy and active",
+          "question_id": "G6E_VOC_001_MIXED_Q10",
+          "question_audio": {
+            "text": "What does the metaphor mean? The classroom was a beehive before the performance.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:question:G6E_VOC_001_MIXED_Q10"
+          },
+          "read_aloud_text": "What does the metaphor mean? The classroom was a beehive before the performance.",
+          "audio": {
+            "text": "The classroom was a beehive before the performance.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cached_audio_optional": true,
+            "cache_key": "skill-world:G6E_VOC_001:listen:G6E_VOC_001_MIXED_Q10"
+          },
+          "answer": "busy and active",
+          "acceptable_answers": [
+            "busy and active"
+          ],
+          "feedback": {
+            "correct": "Correct. You used the clue or evidence carefully.",
+            "incorrect": "Reread and connect your answer to the clue or evidence."
+          },
+          "hints": [
+            "Reread the text or sentence.",
+            "Find the clue that matters most.",
+            "Explain how the clue supports the answer."
+          ]
+        }
+      ]
+    }
+  ]
+}
