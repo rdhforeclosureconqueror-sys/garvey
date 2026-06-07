@@ -1,0 +1,1333 @@
+{
+  "plan_id": "grade6-english-completion-plan.v1",
+  "grade": 6,
+  "subject": "English",
+  "status": "planning_backlog_only_do_not_implement_packages_yet",
+  "production_standard": {
+    "skill_package_json": true,
+    "skill_world_generator": true,
+    "guided_mission_flow": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "focused_level_count_min": 4,
+      "mixed_level_required": true,
+      "questions_per_level_min": 10,
+      "questions_per_level_max": 12
+    },
+    "manifest_driven_hub_exposure": true,
+    "full_voice_standard": true,
+    "cached_ai_audio_route": "/api/skill-world/audio",
+    "browser_speech_fallback": true,
+    "no_one_off_games": true,
+    "no_placeholder_cards": true
+  },
+  "renderer_fit_decision": {
+    "decision": "partial_support",
+    "summary": "Existing Grades 1-5 English runtime support covers most Grade 6 English production needs, including morphology, fluency, vocabulary, text evidence, literature analysis, informational text structure, writing charts, dialogue, grammar, and sentence combining. Grade 6 writing and source-based argument work requires a new reusable evidence_builder visual model and validation metadata; compare_texts_panel is already present in the runtime visual-model allowlist and should be used for source integration.",
+    "reusable_renderers": [
+      "character_trait_chart",
+      "compare_texts_panel",
+      "context_sentence",
+      "dialogue_builder",
+      "event_cards",
+      "evidence_highlight",
+      "fact_cards",
+      "figurative_language_card",
+      "fluency_meter",
+      "grammar_highlight",
+      "main_idea_web",
+      "morpheme_tiles",
+      "opinion_reason_chart",
+      "paragraph_builder",
+      "phrase_builder",
+      "punctuation_marker",
+      "question_card",
+      "sentence_builder",
+      "sentence_card",
+      "sentence_combiner",
+      "sentence_highlight",
+      "short_passage",
+      "story_map",
+      "story_sequence",
+      "syllable_break",
+      "text_evidence_builder",
+      "text_feature_map",
+      "text_structure_chart",
+      "theme_tracker",
+      "topic_detail_chart",
+      "vocabulary_match",
+      "word_builder",
+      "word_parts",
+      "word_scale",
+      "writing_checklist"
+    ],
+    "new_renderers_required": [
+      {
+        "visual_model": "evidence_builder",
+        "purpose": "Let learners assemble a claim/topic, reasons or facts, quoted/paraphrased evidence, source reference, explanation, transition, and conclusion in one reusable writing-support visual. This must be a general Skill World renderer, not a one-off game."
+      }
+    ],
+    "renderer_risks_to_verify": [
+      "SkillPackage JSON schema currently lists visual_model as a string, while runtime validation uses a VISUAL_MODELS allowlist; keep both in sync if schema enum enforcement is tightened.",
+      "The static JSON schema question_type enum lags the runtime question type list and should include text_evidence, sequencing, detail_match, sentence_completion, writing_response, editing, vocabulary_match, and word_building for Grade 6 validation parity."
+    ]
+  },
+  "schema_updates_needed": [
+    "Add `evidence_builder` to the runtime visual model allowlist, visual model registry, renderer fixtures, and any schema documentation before authoring G6E_WR_001 dependent items.",
+    "Confirm `compare_texts_panel` remains in runtime visual model support for G6E_RC_003 source integration and paired-source items.",
+    "Update or document the static SkillPackage schema question_type enum so Grade 6 English package validation accepts `multiple_choice`, `short_response`, `word_building`, `sentence_completion`, `vocabulary_match`, `text_evidence`, `sequencing`, `detail_match`, `writing_response`, and `editing`.",
+    "Require stable `level_banks` metadata: exactly the four named focused levels plus Mixed for each skill in this plan, 10-12 production questions per level, stable ids, difficulty, mastery threshold, misconception coverage, and no placeholders.",
+    "Add metadata conventions for roots/affixes, syllable divisions, fluency phrasing marks, expression cues, context clue spans, connotation scales, figurative language labels, quoted evidence spans, source ids, source citation text, central idea details, theme details, point-of-view evidence, writing rubric dimensions, grammar targets, and acceptable answer forms.",
+    "Require stable audio keys/text fields for page narration, question narration, Listen audio, cached AI audio compatibility, and browser fallback text in every package."
+  ],
+  "writing_validation_updates_needed": [
+    "Argument writing validation should check for claim present, reasons present, relevant evidence present, source reference present where required, organization, transitions, and conclusion without requiring adult-level essay length.",
+    "Informative writing validation should check topic and details, accurate facts/definitions/quotations, source reference present where required, organization, transitions, objective tone, and conclusion.",
+    "Narrative writing validation should check narrative sequence, pacing cues, dialogue punctuation, description, transitions, closure, and point-of-view consistency.",
+    "Language/conventions validation should check pronoun agreement/reference, verb tense consistency, capitalization, punctuation, complete sentences, sentence fragments, and sentence-combining quality.",
+    "Open-ended writing must use child-friendly rule-based checks, acceptable sample answers, and positive feedback; it must not over-penalize spelling variation, brief but valid responses, or developmentally appropriate wording.",
+    "Writing-response validation should separate must-have checks from coaching checks so learners can pass with a clear valid answer while still receiving suggestions for stronger evidence, transitions, style, or elaboration."
+  ],
+  "acceptable_answer_rules": [
+    "Multiple-choice and matching items use exact answer ids or labels.",
+    "Short responses use normalized text matching with lowercase, trimmed whitespace, punctuation tolerance, common synonym lists, acceptable sample answers, and misconception-specific feedback.",
+    "Text-evidence items validate selected span ids, quoted text accuracy within a small punctuation/capitalization tolerance, and whether the evidence supports the claim or inference.",
+    "Writing responses use rubric flags and sample-answer patterns rather than a single exact answer.",
+    "Do not fail an otherwise correct open-ended answer only because it is shorter than an exemplar; require only the child-friendly essentials for the task."
+  ],
+  "source_quotation_and_evidence_validation_needs": [
+    "Each passage or source panel should have stable source_id, title, passage_id, paragraph ids, sentence ids, and evidence span ids.",
+    "Evidence prompts should identify whether learners may quote, paraphrase, or select a span; validation should check support strength rather than exact adult phrasing.",
+    "Quotation checks should tolerate minor punctuation/capitalization errors while flagging omitted key words, invented details, or evidence from the wrong source.",
+    "Source-integration tasks should require at least two source references only when the item prompt explicitly asks for multiple sources.",
+    "Feedback should explain whether the evidence proves the answer, partly supports it, or is unrelated."
+  ],
+  "voice_requirements": [
+    "Read This Page is required on every Guided Mission screen: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+    "Read Question is required on every mission Practice, Challenge, and Checkpoint question.",
+    "Read Question is required on every Skill Practice Center question across all four focused levels and Mixed.",
+    "Listen audio is required where passages, vocabulary, fluency, sentence reading, writing examples, grammar support, quoted evidence, source panels, or dialogue benefit comprehension.",
+    "Cached AI audio must be compatible with POST /api/skill-world/audio by supplying stable audio keys and speakable text.",
+    "Browser speech fallback must read the same page, question, and Listen text when cached AI audio is unavailable or disabled.",
+    "Narration copy must be production copy and should speak punctuation, quotation marks, roots/affixes, figurative phrases, academic vocabulary, source titles, quoted evidence, and writing examples naturally."
+  ],
+  "passage_and_listen_audio_needs": [
+    "Word-analysis packages need Listen audio for multisyllable words, syllable breaks, roots, affixes, morpheme tiles, and word-building examples.",
+    "Fluency packages need listenable model sentences and Grade 6 literary/informational passages for accuracy, phrasing, punctuation, expression, pace, and repeated reading for meaning.",
+    "Vocabulary packages need Listen audio for target words, academic words, domain-specific words, context sentences, figurative language examples, connotation scales, and roots/affixes.",
+    "Reading comprehension, literature, and informational packages need Listen audio for passages, paired sources, question stems, evidence options, selected quoted spans, and source titles.",
+    "Writing and language packages need Listen audio for model claims, evidence explanations, quotations, source references, informative paragraphs, narrative dialogue, editing prompts, grammar examples, and sentence-combining options."
+  ],
+  "question_type_backlog": [
+    "detail_match",
+    "editing",
+    "multiple_choice",
+    "sentence_completion",
+    "sequencing",
+    "short_response",
+    "text_evidence",
+    "vocabulary_match",
+    "word_building",
+    "writing_response"
+  ],
+  "skills": [
+    {
+      "skill_id": "G6E_RF_001",
+      "title": "Morphology, Roots, and Complex Word Analysis",
+      "domain": "Word Analysis / Language",
+      "focus": "Analyze Greek and Latin roots, prefixes, suffixes, syllables, and word relationships to decode and understand complex words.",
+      "levels": [
+        "Syllables and Morphology",
+        "Prefixes and Suffixes",
+        "Greek and Latin Roots",
+        "Complex Word Analysis",
+        "Mixed"
+      ],
+      "visual_models": [
+        "syllable_break",
+        "word_parts",
+        "morpheme_tiles",
+        "word_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "word_building"
+      ],
+      "misconception_tags": [
+        "syllable_division_error",
+        "affix_meaning_confusion",
+        "root_meaning_confusion",
+        "morphology_guessing"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_RF_001_LVL1",
+          "label": "Level 1: Syllables and Morphology",
+          "focus": "Practice syllables and morphology for analyze Greek and Latin roots, prefixes, suffixes, syllables, and word relationships to decode and understand complex words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RF_001_LVL2",
+          "label": "Level 2: Prefixes and Suffixes",
+          "focus": "Practice prefixes and suffixes for analyze Greek and Latin roots, prefixes, suffixes, syllables, and word relationships to decode and understand complex words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RF_001_LVL3",
+          "label": "Level 3: Greek and Latin Roots",
+          "focus": "Practice greek and latin roots for analyze Greek and Latin roots, prefixes, suffixes, syllables, and word relationships to decode and understand complex words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RF_001_LVL4",
+          "label": "Level 4: Complex Word Analysis",
+          "focus": "Practice complex word analysis for analyze Greek and Latin roots, prefixes, suffixes, syllables, and word relationships to decode and understand complex words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RF_001_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 analyze greek and latin roots, prefixes, suffixes, syllables, and word relationships to decode and understand complex words. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_FL_001",
+      "title": "Fluency With Literary and Informational Text",
+      "domain": "Fluency",
+      "focus": "Read Grade 6 text accurately, smoothly, with appropriate phrasing, pace, expression, and meaning.",
+      "levels": [
+        "Accuracy",
+        "Phrasing and Pace",
+        "Expression and Punctuation",
+        "Repeated Reading and Meaning",
+        "Mixed"
+      ],
+      "visual_models": [
+        "sentence_card",
+        "sentence_highlight",
+        "phrase_builder",
+        "fluency_meter"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "skips_words",
+        "phrase_chunking_error",
+        "punctuation_ignored",
+        "expression_flat_reading"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_FL_001_LVL1",
+          "label": "Level 1: Accuracy",
+          "focus": "Practice accuracy for read Grade 6 text accurately, smoothly, with appropriate phrasing, pace, expression, and meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_FL_001_LVL2",
+          "label": "Level 2: Phrasing and Pace",
+          "focus": "Practice phrasing and pace for read Grade 6 text accurately, smoothly, with appropriate phrasing, pace, expression, and meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_FL_001_LVL3",
+          "label": "Level 3: Expression and Punctuation",
+          "focus": "Practice expression and punctuation for read Grade 6 text accurately, smoothly, with appropriate phrasing, pace, expression, and meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_FL_001_LVL4",
+          "label": "Level 4: Repeated Reading and Meaning",
+          "focus": "Practice repeated reading and meaning for read Grade 6 text accurately, smoothly, with appropriate phrasing, pace, expression, and meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_FL_001_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 read grade 6 text accurately, smoothly, with appropriate phrasing, pace, expression, and meaning. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_VOC_001",
+      "title": "Academic Vocabulary and Figurative Language",
+      "domain": "Vocabulary / Language",
+      "focus": "Use context, roots, affixes, word relationships, figurative language, connotation, and domain-specific vocabulary.",
+      "levels": [
+        "Context and Academic Vocabulary",
+        "Roots and Affixes",
+        "Connotation and Word Relationships",
+        "Figurative and Domain-Specific Language",
+        "Mixed"
+      ],
+      "visual_models": [
+        "context_sentence",
+        "vocabulary_match",
+        "word_scale",
+        "figurative_language_card"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "vocabulary_match"
+      ],
+      "misconception_tags": [
+        "context_clue_ignored",
+        "connotation_confusion",
+        "literal_vs_figurative_confusion",
+        "domain_word_confusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_VOC_001_LVL1",
+          "label": "Level 1: Context and Academic Vocabulary",
+          "focus": "Practice context and academic vocabulary for use context, roots, affixes, word relationships, figurative language, connotation, and domain-specific vocabulary.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_VOC_001_LVL2",
+          "label": "Level 2: Roots and Affixes",
+          "focus": "Practice roots and affixes for use context, roots, affixes, word relationships, figurative language, connotation, and domain-specific vocabulary.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_VOC_001_LVL3",
+          "label": "Level 3: Connotation and Word Relationships",
+          "focus": "Practice connotation and word relationships for use context, roots, affixes, word relationships, figurative language, connotation, and domain-specific vocabulary.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_VOC_001_LVL4",
+          "label": "Level 4: Figurative and Domain-Specific Language",
+          "focus": "Practice figurative and domain-specific language for use context, roots, affixes, word relationships, figurative language, connotation, and domain-specific vocabulary.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_VOC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 use context, roots, affixes, word relationships, figurative language, connotation, and domain-specific vocabulary. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_RC_001",
+      "title": "Cite Textual Evidence and Make Inferences",
+      "domain": "Reading Comprehension",
+      "focus": "Cite textual evidence to support literal understanding and inferences.",
+      "levels": [
+        "Literal Understanding",
+        "Make Inferences",
+        "Cite Evidence",
+        "Explain Reasoning",
+        "Mixed"
+      ],
+      "visual_models": [
+        "short_passage",
+        "evidence_highlight",
+        "question_card",
+        "text_evidence_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "text_evidence"
+      ],
+      "misconception_tags": [
+        "unsupported_answer",
+        "inference_without_evidence",
+        "inaccurate_quote",
+        "weak_explanation"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_RC_001_LVL1",
+          "label": "Level 1: Literal Understanding",
+          "focus": "Practice literal understanding for cite textual evidence to support literal understanding and inferences.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_001_LVL2",
+          "label": "Level 2: Make Inferences",
+          "focus": "Practice make inferences for cite textual evidence to support literal understanding and inferences.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_001_LVL3",
+          "label": "Level 3: Cite Evidence",
+          "focus": "Practice cite evidence for cite textual evidence to support literal understanding and inferences.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_001_LVL4",
+          "label": "Level 4: Explain Reasoning",
+          "focus": "Practice explain reasoning for cite textual evidence to support literal understanding and inferences.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 cite textual evidence to support literal understanding and inferences. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_RC_002",
+      "title": "Theme, Character, Plot, and Point of View",
+      "domain": "Reading Literature",
+      "focus": "Analyze theme, characters, plot development, narrator point of view, and how details shape meaning.",
+      "levels": [
+        "Character and Setting",
+        "Plot and Conflict",
+        "Theme and Character Change",
+        "Point of View and Structure",
+        "Mixed"
+      ],
+      "visual_models": [
+        "story_map",
+        "character_trait_chart",
+        "event_cards",
+        "theme_tracker"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sequencing",
+        "text_evidence"
+      ],
+      "misconception_tags": [
+        "character_trait_confusion",
+        "theme_detail_confusion",
+        "plot_conflict_confusion",
+        "point_of_view_confusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_RC_002_LVL1",
+          "label": "Level 1: Character and Setting",
+          "focus": "Practice character and setting for analyze theme, characters, plot development, narrator point of view, and how details shape meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_002_LVL2",
+          "label": "Level 2: Plot and Conflict",
+          "focus": "Practice plot and conflict for analyze theme, characters, plot development, narrator point of view, and how details shape meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_002_LVL3",
+          "label": "Level 3: Theme and Character Change",
+          "focus": "Practice theme and character change for analyze theme, characters, plot development, narrator point of view, and how details shape meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_002_LVL4",
+          "label": "Level 4: Point of View and Structure",
+          "focus": "Practice point of view and structure for analyze theme, characters, plot development, narrator point of view, and how details shape meaning.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_002_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 analyze theme, characters, plot development, narrator point of view, and how details shape meaning. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_RC_003",
+      "title": "Central Idea, Text Structure, and Source Integration",
+      "domain": "Reading Informational Text",
+      "focus": "Determine central idea, summarize objectively, analyze structure, and integrate information from multiple sources.",
+      "levels": [
+        "Central Idea",
+        "Objective Summary",
+        "Text Structure and Features",
+        "Integrate Multiple Sources",
+        "Mixed"
+      ],
+      "visual_models": [
+        "short_passage",
+        "main_idea_web",
+        "text_structure_chart",
+        "text_feature_map",
+        "compare_texts_panel"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "text_evidence",
+        "detail_match"
+      ],
+      "misconception_tags": [
+        "topic_central_idea_confusion",
+        "summary_opinion_error",
+        "text_structure_confusion",
+        "source_integration_error"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_RC_003_LVL1",
+          "label": "Level 1: Central Idea",
+          "focus": "Practice central idea for determine central idea, summarize objectively, analyze structure, and integrate information from multiple sources.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_003_LVL2",
+          "label": "Level 2: Objective Summary",
+          "focus": "Practice objective summary for determine central idea, summarize objectively, analyze structure, and integrate information from multiple sources.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_003_LVL3",
+          "label": "Level 3: Text Structure and Features",
+          "focus": "Practice text structure and features for determine central idea, summarize objectively, analyze structure, and integrate information from multiple sources.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_003_LVL4",
+          "label": "Level 4: Integrate Multiple Sources",
+          "focus": "Practice integrate multiple sources for determine central idea, summarize objectively, analyze structure, and integrate information from multiple sources.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_RC_003_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 determine central idea, summarize objectively, analyze structure, and integrate information from multiple sources. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_WR_001",
+      "title": "Argument Writing With Claims and Evidence",
+      "domain": "Writing / Composition",
+      "focus": "Write arguments with clear claims, relevant evidence, logical reasons, transitions, and conclusion.",
+      "levels": [
+        "State a Claim",
+        "Add Reasons and Evidence",
+        "Organize and Use Transitions",
+        "Build an Argument Essay",
+        "Mixed"
+      ],
+      "visual_models": [
+        "opinion_reason_chart",
+        "paragraph_builder",
+        "writing_checklist",
+        "evidence_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "missing_claim",
+        "weak_reason",
+        "unsupported_evidence",
+        "missing_conclusion"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_WR_001_LVL1",
+          "label": "Level 1: State a Claim",
+          "focus": "Practice state a claim for write arguments with clear claims, relevant evidence, logical reasons, transitions, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_001_LVL2",
+          "label": "Level 2: Add Reasons and Evidence",
+          "focus": "Practice add reasons and evidence for write arguments with clear claims, relevant evidence, logical reasons, transitions, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_001_LVL3",
+          "label": "Level 3: Organize and Use Transitions",
+          "focus": "Practice organize and use transitions for write arguments with clear claims, relevant evidence, logical reasons, transitions, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_001_LVL4",
+          "label": "Level 4: Build an Argument Essay",
+          "focus": "Practice build an argument essay for write arguments with clear claims, relevant evidence, logical reasons, transitions, and conclusion.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_001_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 write arguments with clear claims, relevant evidence, logical reasons, transitions, and conclusion. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_WR_002",
+      "title": "Informative Writing and Source-Based Explanation",
+      "domain": "Writing / Composition",
+      "focus": "Write informative text using facts, definitions, details, quotations, formatting, and source information.",
+      "levels": [
+        "Introduce a Topic",
+        "Facts, Definitions, and Quotations",
+        "Organization and Transitions",
+        "Build an Informative Essay",
+        "Mixed"
+      ],
+      "visual_models": [
+        "topic_detail_chart",
+        "fact_cards",
+        "paragraph_builder",
+        "writing_checklist"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sentence_completion"
+      ],
+      "misconception_tags": [
+        "missing_topic",
+        "unsupported_fact",
+        "weak_source_use",
+        "weak_organization"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_WR_002_LVL1",
+          "label": "Level 1: Introduce a Topic",
+          "focus": "Practice introduce a topic for write informative text using facts, definitions, details, quotations, formatting, and source information.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_002_LVL2",
+          "label": "Level 2: Facts, Definitions, and Quotations",
+          "focus": "Practice facts, definitions, and quotations for write informative text using facts, definitions, details, quotations, formatting, and source information.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_002_LVL3",
+          "label": "Level 3: Organization and Transitions",
+          "focus": "Practice organization and transitions for write informative text using facts, definitions, details, quotations, formatting, and source information.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_002_LVL4",
+          "label": "Level 4: Build an Informative Essay",
+          "focus": "Practice build an informative essay for write informative text using facts, definitions, details, quotations, formatting, and source information.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_002_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 write informative text using facts, definitions, details, quotations, formatting, and source information. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_WR_003",
+      "title": "Narrative Writing With Pacing and Point of View",
+      "domain": "Writing / Composition",
+      "focus": "Write narratives using sequence, dialogue, description, pacing, transitions, point of view, and closure.",
+      "levels": [
+        "Sequence and Point of View",
+        "Description and Pacing",
+        "Dialogue and Transitions",
+        "Build a Narrative",
+        "Mixed"
+      ],
+      "visual_models": [
+        "story_sequence",
+        "event_cards",
+        "dialogue_builder",
+        "paragraph_builder"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "writing_response",
+        "sequencing"
+      ],
+      "misconception_tags": [
+        "event_order_error",
+        "point_of_view_shift",
+        "dialogue_punctuation_error",
+        "pacing_gap"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_WR_003_LVL1",
+          "label": "Level 1: Sequence and Point of View",
+          "focus": "Practice sequence and point of view for write narratives using sequence, dialogue, description, pacing, transitions, point of view, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_003_LVL2",
+          "label": "Level 2: Description and Pacing",
+          "focus": "Practice description and pacing for write narratives using sequence, dialogue, description, pacing, transitions, point of view, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_003_LVL3",
+          "label": "Level 3: Dialogue and Transitions",
+          "focus": "Practice dialogue and transitions for write narratives using sequence, dialogue, description, pacing, transitions, point of view, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_003_LVL4",
+          "label": "Level 4: Build a Narrative",
+          "focus": "Practice build a narrative for write narratives using sequence, dialogue, description, pacing, transitions, point of view, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_WR_003_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 write narratives using sequence, dialogue, description, pacing, transitions, point of view, and closure. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    },
+    {
+      "skill_id": "G6E_LANG_001",
+      "title": "Grammar, Usage, Conventions, and Style",
+      "domain": "Language",
+      "focus": "Use pronouns correctly, maintain verb tense, use punctuation and commas, vary sentence structure, combine sentences, and improve style.",
+      "levels": [
+        "Grammar and Pronoun Usage",
+        "Verb Tense and Agreement",
+        "Punctuation and Conventions",
+        "Sentence Combining and Style",
+        "Mixed"
+      ],
+      "visual_models": [
+        "sentence_builder",
+        "punctuation_marker",
+        "grammar_highlight",
+        "sentence_combiner"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "sentence_completion",
+        "editing"
+      ],
+      "misconception_tags": [
+        "pronoun_reference_error",
+        "verb_tense_error",
+        "punctuation_error",
+        "sentence_fragment"
+      ],
+      "guided_mission_flow": [
+        "Story",
+        "Lesson",
+        "Watch",
+        "Demo",
+        "Practice",
+        "Challenge",
+        "Checkpoint",
+        "Badge",
+        "Profile"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G6E_LANG_001_LVL1",
+          "label": "Level 1: Grammar and Pronoun Usage",
+          "focus": "Practice grammar and pronoun usage for use pronouns correctly, maintain verb tense, use punctuation and commas, vary sentence structure, combine sentences, and improve style.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_LANG_001_LVL2",
+          "label": "Level 2: Verb Tense and Agreement",
+          "focus": "Practice verb tense and agreement for use pronouns correctly, maintain verb tense, use punctuation and commas, vary sentence structure, combine sentences, and improve style.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_LANG_001_LVL3",
+          "label": "Level 3: Punctuation and Conventions",
+          "focus": "Practice punctuation and conventions for use pronouns correctly, maintain verb tense, use punctuation and commas, vary sentence structure, combine sentences, and improve style.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_LANG_001_LVL4",
+          "label": "Level 4: Sentence Combining and Style",
+          "focus": "Practice sentence combining and style for use pronouns correctly, maintain verb tense, use punctuation and commas, vary sentence structure, combine sentences, and improve style.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G6E_LANG_001_MIXED",
+          "label": "Mixed",
+          "focus": "Spiral review across all Grade 6 use pronouns correctly, maintain verb tense, use punctuation and commas, vary sentence structure, combine sentences, and improve style. targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "voice_contract": {
+        "read_this_page_required_on_guided_screens": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "read_question_required_on": [
+          "mission_practice",
+          "mission_challenge",
+          "mission_checkpoint",
+          "skill_practice_center_all_levels"
+        ],
+        "listen_audio_required_when_helpful_for": [
+          "passages",
+          "vocabulary",
+          "fluency",
+          "sentence_reading",
+          "writing_examples",
+          "grammar_support"
+        ],
+        "cached_ai_audio_compatible": true,
+        "browser_speech_fallback": true
+      }
+    }
+  ],
+  "contractor_backlog": [
+    {
+      "phase": "1_renderer_schema_readiness",
+      "priority": "P0",
+      "tasks": [
+        "Implement and test `evidence_builder` as a reusable visual model with accessibility labels, keyboard-safe evidence chips, source labels, claim/reason/evidence/explanation slots, and voice-friendly text surfaces.",
+        "Update runtime visual-model allowlists, renderer registry, fixtures, and schema documentation for `evidence_builder`; verify `compare_texts_panel` support for paired sources.",
+        "Bring static SkillPackage schema question-type documentation into parity with runtime validation for all Grade 6 English question types.",
+        "Document metadata requirements for source ids, passage ids, paragraph/sentence/span ids, quote accuracy, source integration, writing rubric flags, morphology fields, fluency cues, and Listen audio."
+      ]
+    },
+    {
+      "phase": "2_validation_contracts",
+      "priority": "P0",
+      "tasks": [
+        "Define child-friendly deterministic writing validators for argument, informative, narrative, grammar, usage, conventions, and style tasks.",
+        "Add acceptable-answer rule patterns for short_response, text_evidence, writing_response, editing, sequencing, vocabulary_match, and word_building items.",
+        "Define source quotation validation behavior including tolerance for punctuation/capitalization and feedback for unsupported or inaccurate evidence.",
+        "Confirm open-ended writing does not over-penalize developmental wording, short valid answers, or harmless spelling variation."
+      ]
+    },
+    {
+      "phase": "3_package_authoring_order",
+      "priority": "P1",
+      "tasks": [
+        "Author packages in dependency order: G6E_RF_001, G6E_FL_001, G6E_VOC_001, G6E_RC_001, G6E_RC_002, G6E_RC_003, G6E_WR_001, G6E_WR_002, G6E_WR_003, G6E_LANG_001.",
+        "For every package, create Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile content from SkillPackage JSON.",
+        "For every package, author four focused level banks plus Mixed with 10-12 real questions per level.",
+        "Attach supported visual models, question types, misconception tags, validation data, feedback, acceptable answers, voice metadata, and Listen audio metadata to every item."
+      ]
+    },
+    {
+      "phase": "4_voice_audio",
+      "priority": "P1",
+      "tasks": [
+        "Add Read This Page text and audio keys for every guided mission screen.",
+        "Add Read Question text and audio keys for mission Practice, Challenge, Checkpoint, and all Skill Practice Center questions.",
+        "Add Listen audio assets/keys for passages, vocabulary, fluency models, sentence reading, writing examples, grammar support, dialogue, and evidence/source panels.",
+        "Verify cached AI audio compatibility through `/api/skill-world/audio` and browser speech fallback parity."
+      ]
+    },
+    {
+      "phase": "5_manifest_hub_exposure",
+      "priority": "P1",
+      "tasks": [
+        "Register completed packages in the Skill World content manifest only after package validation passes.",
+        "Verify hub cards are manifest-driven and do not use hardcoded Grade 6 English placeholders.",
+        "Confirm no package ships as a one-off game or placeholder card."
+      ]
+    },
+    {
+      "phase": "6_validation_qa",
+      "priority": "P1",
+      "tasks": [
+        "Run JSON validation for each SkillPackage and this plan JSON.",
+        "Run Skill World generator smoke tests for Guided Mission and Skill Practice Center for all Grade 6 English packages.",
+        "Run renderer smoke tests for all Grade 6 visual models, especially `evidence_builder` and `compare_texts_panel`.",
+        "Run voice QA for cached audio, browser fallback, Read This Page, Read Question, and Listen audio coverage.",
+        "Run content QA for grade appropriateness, passage quality, source/evidence accuracy, writing rubric behavior, misconception coverage, accessibility, and no placeholder copy."
+      ]
+    }
+  ]
+}
