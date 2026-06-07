@@ -43,6 +43,9 @@ const g5Vocabulary=load('G5E_VOC_001');
 const g5StoryStructure=load('G5E_RC_002');
 const g5InformationalIntegration=load('G5E_RC_003');
 const g5OpinionWriting=load('G5E_WR_001');
+const g5InformativeWriting=load('G5E_WR_002');
+const g5NarrativeWriting=load('G5E_WR_003');
+const g5LanguageConventions=load('G5E_LANG_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -2208,6 +2211,49 @@ for (const spec of g5EnglishBatch1Specs) {
   assert.match(drillHtml,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
   assert.match(drillHtml,new RegExp(spec.labels[0]),`${id} drill renders first focused level`);
 }
+
+const g5EnglishFinalSpecs=[
+  {id:'G5E_WR_002',pkg:g5InformativeWriting,domain:'Writing / Composition',skill:'Informative Writing With Facts, Definitions, and Details',labels:['Level 1: Choose and Introduce a Topic','Level 2: Add Facts, Definitions, and Details','Level 3: Organize With Linking Words and Formatting','Level 4: Build an Informative Essay','Mixed'],visuals:['topic_detail_chart','fact_cards','paragraph_builder','writing_checklist'],types:['multiple_choice','short_response','writing_response','sentence_completion'],tags:['missing_topic','unsupported_fact','missing_detail','weak_organization'],validation:['topic present','facts present','definitions or explanations present','supporting details present','linking words present','logical organization','conclusion present','capitalization','punctuation','complete sentences'],validationKey:'writing_validation'},
+  {id:'G5E_WR_003',pkg:g5NarrativeWriting,domain:'Writing / Composition',skill:'Narrative Writing With Dialogue, Description, and Pacing',labels:['Level 1: Sequence Events','Level 2: Add Description and Pacing','Level 3: Dialogue and Transitions','Level 4: Build a Narrative','Mixed'],visuals:['story_sequence','event_cards','paragraph_builder','dialogue_builder'],types:['multiple_choice','short_response','writing_response','sequencing'],tags:['event_order_error','missing_description','dialogue_punctuation_error','pacing_gap'],validation:['clear event sequence','setting or situation present','characters present where appropriate','description present','dialogue punctuation when applicable','transitions or temporal words present','pacing support','closure present','capitalization','punctuation','complete sentences'],validationKey:'writing_validation'},
+  {id:'G5E_LANG_001',pkg:g5LanguageConventions,domain:'Language',skill:'Grammar, Conventions, and Sentence Combining',labels:['Level 1: Capitalization, Punctuation, and Spelling','Level 2: Commas and Quotation Marks','Level 3: Grammar and Verb Tense','Level 4: Sentence Combining and Style','Mixed'],visuals:['sentence_builder','punctuation_marker','grammar_highlight','sentence_combiner'],types:['multiple_choice','short_response','sentence_completion','editing'],tags:['punctuation_error','verb_tense_error','comma_usage_error','sentence_fragment'],validation:['capitalization','ending punctuation','comma usage','quotation marks','verb tense consistency','complete sentence','fragment detection','sentence combining','conjunction usage','preposition usage'],validationKey:'grammar_validation'}
+];
+for (const spec of g5EnglishFinalSpecs) {
+  const {id,pkg}=spec;
+  const allQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])];
+  const validation=Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false});
+  assert.equal(validation.valid,true,`${id} validates in strict production mode: ${validation.errors.join('; ')}`);
+  assert.equal(pkg.grade,5,`${id} is Grade 5`);
+  assert.equal(pkg.subject,'English',`${id} is English`);
+  assert.equal(pkg.domain,spec.domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,spec.skill,`${id} skill title matches plan`);
+  assert.ok(g5EnglishBatch1Manifest.packages.includes(`${id}.skill-package.v1.json`),`manifest includes ${id}`);
+  assert.equal(pkg.level_banks.length,5,`${id} has five real level banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10–12 questions`));
+  spec.labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  spec.visuals.forEach((visual)=>{assert.ok(allQuestions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`); assert.match(VisualRegistry.render(allQuestions.find((q)=>q.visual_model===visual)),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists for ${id}`);});
+  spec.types.forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  spec.tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(allQuestions.filter((q)=>['short_response','sequencing','writing_response','sentence_completion','editing'].includes(q.question_type)).every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} constructed-response items have acceptable_answers`);
+  ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>{const narration=pkg.page_audio?.[screen]; assert.ok(narration?.text,`${id} has Read This Page narration for ${screen}`); assert.equal(narration.label,'Read This Page',`${id} ${screen} uses Read This Page label`); assert.ok(narration.text.split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`${id} ${screen} narration teaches`);});
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} references Read Question`));
+  [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} Skill Practice question has Read Question narration`));
+  assert.ok(allQuestions.every((q)=>q.audio?.label==='Listen'&&q.audio?.text&&q.audio?.playback_preference==='cached_audio_first'&&q.audio?.browser_speech_fallback===true),`${id} Listen audio exists with cached AI audio and browser speech fallback`);
+  const constructed=allQuestions.filter((q)=>['short_response','sequencing','writing_response','sentence_completion','editing'].includes(q.question_type));
+  assert.ok(constructed.every((q)=>Array.isArray(q.validation_checks)&&spec.validation.every((check)=>q.validation_checks.includes(check))),`${id} validation checks exist`);
+  assert.ok(constructed.every((q)=>q[spec.validationKey]?.sample_answer&&Array.isArray(q[spec.validationKey]?.acceptable_sample_answers)&&q[spec.validationKey]?.do_not_over_penalize===true),`${id} acceptable sample answers and child-friendly validation exist`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} full mission flow renders ${label}`));
+  assert.match(missionHtml,/Read This Page/,`${id} renders Read This Page controls`);
+  assert.match(missionHtml,/Read Question/,`${id} renders Read Question controls`);
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillHtml=Renderer.renderSkillWorld(pkg,{mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+  assert.match(drillHtml,new RegExp(spec.labels[0]),`${id} drill renders first focused level`);
+}
+
 assert.ok(Schema.VISUAL_MODELS.includes('compare_texts_panel'),'schema accepts compare_texts_panel');
 const compareTextsQuestion=[...(g5InformationalIntegration.level_banks||[]).flatMap((level)=>level.questions||[])].find((q)=>q.visual_model==='compare_texts_panel');
 assert.ok(compareTextsQuestion,'G5E_RC_003 includes compare_texts_panel fixture question');
