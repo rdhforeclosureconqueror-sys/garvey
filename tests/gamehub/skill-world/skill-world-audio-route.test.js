@@ -7,6 +7,7 @@ const os = require('node:os');
 const path = require('node:path');
 const fs = require('node:fs/promises');
 const { createSkillWorldAudioRouter, createSkillWorldAudioHash } = require('../../../server/skillWorldAudioRoutes');
+const g5Vocabulary = require('../../../public/gamehub/skill-world/content/G5E_VOC_001.skill-package.v1.json');
 
 async function createTestServer(fetchImpl, cacheDir) {
   const app = express();
@@ -52,13 +53,16 @@ async function postJson(baseUrl, payload) {
     assert.equal(invalidFormat.response.status, 400, 'invalid format is rejected');
     assert.equal(invalidFormat.body.error, 'invalid_format');
 
+    const g5VocabularyListenQuestion = g5Vocabulary.level_banks.flatMap((level) => level.questions).find((question) => question.skill_id !== '' && question.audio?.label === 'Listen' && question.question_audio?.label === 'Read Question');
+    assert.ok(g5VocabularyListenQuestion, 'G5E_VOC_001 exposes Listen audio and Read Question narration for cached audio routing');
+
     const request = {
-      text: 'Which card shows uppercase letter S?',
+      text: g5VocabularyListenQuestion.audio.text,
       voice: 'alloy',
       format: 'mp3',
       speed: 0.9,
       pitch: 0,
-      cache_key: 'skill-world:G1E_RF_001:question:abc123',
+      cache_key: `skill-world:${g5Vocabulary.skill_id}:listen:${g5VocabularyListenQuestion.question_id}`,
     };
     const first = await postJson(baseUrl, request);
     assert.equal(first.response.status, 200);

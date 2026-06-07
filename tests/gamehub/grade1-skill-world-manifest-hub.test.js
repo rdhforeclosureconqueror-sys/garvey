@@ -19,7 +19,7 @@ const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1
 const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2E_RC_001', 'G2E_RC_002', 'G2E_RC_003', 'G2E_WR_001', 'G2E_WR_002', 'G2E_WR_003', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
 const requiredGrade3EnglishSkillIds = ['G3E_RF_001', 'G3E_FL_001', 'G3E_VOC_001', 'G3E_RC_001', 'G3E_RC_002', 'G3E_RC_003', 'G3E_WR_001', 'G3E_WR_002', 'G3E_WR_003', 'G3E_LANG_001'];
 const requiredGrade4EnglishFinalSkillIds = ['G4E_WR_001', 'G4E_WR_002', 'G4E_WR_003', 'G4E_LANG_001'];
-const requiredGrade5EnglishProofSkillIds = ['G5E_RF_001', 'G5E_FL_001', 'G5E_RC_001'];
+const requiredGrade5EnglishProofSkillIds = ['G5E_RF_001', 'G5E_FL_001', 'G5E_RC_001', 'G5E_VOC_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -619,7 +619,8 @@ test('Grade 5 English proof Skill World packages appear from manifest for the hu
   const expected = new Map([
     ['G5E_RF_001', { skill: 'Multisyllable Word Reading, Roots, and Affixes', domain: 'Reading Foundations / Word Analysis' }],
     ['G5E_FL_001', { skill: 'Reading Fluency and Expression With Complex Text', domain: 'Fluency' }],
-    ['G5E_RC_001', { skill: 'Quote Accurately and Use Text Evidence', domain: 'Reading Comprehension' }]
+    ['G5E_RC_001', { skill: 'Quote Accurately and Use Text Evidence', domain: 'Reading Comprehension' }],
+    ['G5E_VOC_001', { skill: 'Vocabulary, Context Clues, and Figurative Language', domain: 'Vocabulary / Language' }]
   ]);
   for (const skillId of expected.keys()) {
     assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
