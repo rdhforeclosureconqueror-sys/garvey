@@ -40,6 +40,9 @@ const g5WordAnalysis=load('G5E_RF_001');
 const g5TextEvidence=load('G5E_RC_001');
 const g5Fluency=load('G5E_FL_001');
 const g5Vocabulary=load('G5E_VOC_001');
+const g5StoryStructure=load('G5E_RC_002');
+const g5InformationalIntegration=load('G5E_RC_003');
+const g5OpinionWriting=load('G5E_WR_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -2159,6 +2162,56 @@ assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model
 assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='box_plot')),/min[\s\S]*Q1[\s\S]*median[\s\S]*Q3[\s\S]*max/,'box_plot shows min, quartiles, median, and max');
 assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='statistics_summary')),/stat-card[\s\S]*(median|range|mean)/,'statistics_summary shows center/spread values clearly');
 assert.match(VisualRegistry.render(grade6FinalQuestions.find((q)=>q.visual_model==='data_comparison_panel')),/comparison-side[\s\S]*comparison-side/,'data_comparison_panel compares two data displays visually');
+
+
+const g5EnglishBatch1Specs=[
+  {id:'G5E_RC_002',pkg:g5StoryStructure,domain:'Reading Literature',skill:'Theme, Character, and Story Structure',labels:['Level 1: Characters and Settings','Level 2: Plot and Story Structure','Level 3: Theme and Character Response','Level 4: Point of View and Comparison','Mixed'],visuals:['story_map','character_trait_chart','event_cards','theme_tracker'],types:['multiple_choice','short_response','sequencing','text_evidence'],tags:['character_trait_confusion','theme_detail_confusion','point_of_view_confusion','story_structure_confusion']},
+  {id:'G5E_RC_003',pkg:g5InformationalIntegration,domain:'Reading Informational Text',skill:'Main Idea, Text Structure, and Integrating Information',labels:['Level 1: Main Idea and Summary','Level 2: Key Details and Evidence','Level 3: Text Structure and Features','Level 4: Integrate Information','Mixed'],visuals:['short_passage','main_idea_web','detail_cards','text_feature_map','text_structure_chart','compare_texts_panel'],types:['multiple_choice','short_response','text_evidence','detail_match'],tags:['topic_main_idea_confusion','summary_too_detailed','text_structure_confusion','integration_error']},
+  {id:'G5E_WR_001',pkg:g5OpinionWriting,domain:'Writing / Composition',skill:'Opinion Writing With Reasons and Evidence',labels:['Level 1: State an Opinion','Level 2: Support With Reasons and Evidence','Level 3: Linking Words and Conclusion','Level 4: Build Opinion Essay','Mixed'],visuals:['opinion_reason_chart','paragraph_builder','writing_checklist','sentence_builder'],types:['multiple_choice','short_response','writing_response','sentence_completion'],tags:['missing_opinion','weak_reason','missing_evidence','missing_conclusion']}
+];
+const g5EnglishBatch1Manifest=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
+for (const spec of g5EnglishBatch1Specs) {
+  const {id,pkg}=spec;
+  const allQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])];
+  const validation=Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false});
+  assert.equal(validation.valid,true,`${id} validates in strict production mode: ${validation.errors.join('; ')}`);
+  assert.equal(pkg.grade,5,`${id} is Grade 5`);
+  assert.equal(pkg.subject,'English',`${id} is English`);
+  assert.equal(pkg.domain,spec.domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,spec.skill,`${id} skill title matches plan`);
+  assert.ok(g5EnglishBatch1Manifest.packages.includes(`${id}.skill-package.v1.json`),`manifest includes ${id}`);
+  assert.equal(pkg.level_banks.length,5,`${id} has five real level banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10–12 questions`));
+  spec.labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  spec.visuals.forEach((visual)=>assert.ok(allQuestions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  spec.types.forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  spec.tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(allQuestions.filter((q)=>['short_response','text_evidence','sequencing','detail_match','writing_response','sentence_completion'].includes(q.question_type)).every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} constructed-response items have acceptable_answers`);
+  ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>{const narration=pkg.page_audio?.[screen]; assert.ok(narration?.text,`${id} has Read This Page narration for ${screen}`); assert.equal(narration.label,'Read This Page',`${id} ${screen} uses Read This Page label`); assert.ok(narration.text.split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`${id} ${screen} narration teaches`);});
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} references Read Question`));
+  [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} Skill Practice question has Read Question narration`));
+  assert.ok(allQuestions.every((q)=>q.audio?.label==='Listen'&&q.audio?.text&&q.audio?.browser_speech_fallback===true),`${id} Listen audio exists with browser speech fallback`);
+  if (id==='G5E_WR_001') {
+    const writingQuestions=allQuestions.filter((q)=>['short_response','sentence_completion','writing_response'].includes(q.question_type));
+    assert.ok(writingQuestions.every((q)=>Array.isArray(q.validation_checks)&&q.validation_checks.includes('opinion present')&&q.validation_checks.includes('complete sentences')),`${id} writing validation checks exist`);
+    assert.ok(writingQuestions.every((q)=>q.writing_validation?.sample_answer&&q.writing_validation?.do_not_over_penalize===true),`${id} has child-friendly writing validation`);
+  }
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} full mission flow renders ${label}`));
+  assert.match(missionHtml,/Read This Page/,`${id} renders Read This Page controls`);
+  assert.match(missionHtml,/Read Question/,`${id} renders Read Question controls`);
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillHtml=Renderer.renderSkillWorld(pkg,{mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+  assert.match(drillHtml,new RegExp(spec.labels[0]),`${id} drill renders first focused level`);
+}
+assert.ok(Schema.VISUAL_MODELS.includes('compare_texts_panel'),'schema accepts compare_texts_panel');
+const compareTextsQuestion=[...(g5InformationalIntegration.level_banks||[]).flatMap((level)=>level.questions||[])].find((q)=>q.visual_model==='compare_texts_panel');
+assert.ok(compareTextsQuestion,'G5E_RC_003 includes compare_texts_panel fixture question');
+assert.match(VisualRegistry.render(compareTextsQuestion),/data-renderer="compare_texts_panel"[\s\S]*compare-text-source source-a[\s\S]*compare-text-source source-b[\s\S]*compare-texts-synthesis/,'compare_texts_panel produces structural visual markup for two sources');
 
 
 const g5FluencyQuestions=[...(g5Fluency.guided_practice||[]),...(g5Fluency.adaptive_question_bank||[]),...(g5Fluency.checkpoint||[]),...(g5Fluency.level_banks||[]).flatMap((level)=>level.questions||[])];

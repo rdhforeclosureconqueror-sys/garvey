@@ -20,6 +20,7 @@ const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_V
 const requiredGrade3EnglishSkillIds = ['G3E_RF_001', 'G3E_FL_001', 'G3E_VOC_001', 'G3E_RC_001', 'G3E_RC_002', 'G3E_RC_003', 'G3E_WR_001', 'G3E_WR_002', 'G3E_WR_003', 'G3E_LANG_001'];
 const requiredGrade4EnglishFinalSkillIds = ['G4E_WR_001', 'G4E_WR_002', 'G4E_WR_003', 'G4E_LANG_001'];
 const requiredGrade5EnglishProofSkillIds = ['G5E_RF_001', 'G5E_FL_001', 'G5E_RC_001', 'G5E_VOC_001'];
+const requiredGrade5EnglishBatch1SkillIds = ['G5E_RC_002', 'G5E_RC_003', 'G5E_WR_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -206,6 +207,29 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
   assert.match(hub, /Grade \${escapeHtml\(pkg\.grade\)} · \${escapeHtml\(pkg\.subject\)} · \${escapeHtml\(pkg\.domain\)} · \${escapeHtml\(pkg\.skill_id\)}/);
+});
+
+
+test('Grade 5 English Batch 1 packages display from manifest in the hub', () => {
+  const packages = manifest.packages.map(readPackage);
+  const grade5Batch = packages.filter((pkg) => requiredGrade5EnglishBatch1SkillIds.includes(pkg.skill_id));
+  assert.deepEqual(grade5Batch.map((pkg) => pkg.skill_id).sort(), [...requiredGrade5EnglishBatch1SkillIds].sort());
+  for (const pkg of grade5Batch) {
+    assert.equal(pkg.grade, 5);
+    assert.equal(pkg.subject, 'English');
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.length, 5);
+    assert.equal(pkg.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}`, `/skill-world/${pkg.skill_id}`);
+    assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
+  }
+  assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_RC_002').skill, 'Theme, Character, and Story Structure');
+  assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_RC_003').skill, 'Main Idea, Text Structure, and Integrating Information');
+  assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_WR_001').skill, 'Opinion Writing With Reasons and Evidence');
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
 });
 
 test('Adaptive Grade 1 production hub hides legacy Math and English placeholder cards', () => {
