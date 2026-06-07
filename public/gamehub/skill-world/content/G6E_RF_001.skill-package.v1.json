@@ -1,0 +1,4508 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade6-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade6_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-07",
+    "content_note": "First Grade 6 English production proof SkillPackage only: G6E_RF_001."
+  },
+  "skill_id": "G6E_RF_001",
+  "grade": 6,
+  "subject": "English",
+  "domain": "Word Analysis / Language",
+  "skill": "Morphology, Roots, and Complex Word Analysis",
+  "mastery_threshold": 0.82,
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Enter the Morphology Map Room, where complex academic words unlock when you break syllables, inspect roots and affixes, and blend meaning with pronunciation.",
+    "objective": "I can analyze Greek and Latin roots, prefixes, suffixes, syllables, and morphology to decode and understand complex words.",
+    "key_vocabulary": [
+      "syllable",
+      "morpheme",
+      "morphology",
+      "prefix",
+      "suffix",
+      "root",
+      "base word",
+      "Greek root",
+      "Latin root",
+      "decode",
+      "pronunciation",
+      "word relationship"
+    ],
+    "concept_explanation": "Grade 6 readers decode complex words by dividing syllables, finding meaningful morphemes, naming roots and affixes, blending the pronunciation, and testing the meaning in context.",
+    "visual_model": "word_parts",
+    "common_misconception": "A reader may divide syllables in the wrong place, confuse an affix meaning, mix up a root meaning, or guess from the first few letters instead of analyzing the whole word.",
+    "real_world_connection": "Morphology helps you read science, history, literature, and test directions with words such as biology, geography, transportation, reconstruction, and observable.",
+    "lesson_summary": "Divide the word, identify the prefix, root or base, and suffix, say each part, combine the meanings, and check the context.",
+    "mini_lesson": "Step 1: clap and divide syllables. Step 2: mark prefix, root or base, and suffix. Step 3: say each part clearly. Step 4: combine meanings and check the sentence.",
+    "audio": {
+      "text": "morphology, syllable, morpheme, prefix, suffix, root, biography, geography, transportation, constructible",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:listen:lesson"
+    }
+  },
+  "worked_examples": [
+    {
+      "question_id": "G6E_RF_001_WE1",
+      "prompt": "Watch: transportation splits into trans | por | ta | tion. Trans means across, port means carry, and -tion marks an act or process.",
+      "question_type": "short_response",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "trans-por-ta-tion",
+      "answer": "trans-por-ta-tion",
+      "misconception_tag": "syllable_division_error",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "Transportation has four syllables and meaningful parts trans, port, and -tion.",
+      "read_aloud_text": "Watch: transportation splits into trans | por | ta | tion. Trans means across, port means carry, and -tion marks an act or process.",
+      "question_audio": {
+        "text": "Watch: transportation splits into trans | por | ta | tion. Trans means across, port means carry, and -tion marks an act or process.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_WE1"
+      },
+      "audio": {
+        "text": "transportation. Watch: transportation splits into trans ,  por ,  ta ,  tion. Trans means across, port means carry, and -tion marks an act or process.",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_WE1"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "acceptable_answers": [
+        "trans-por-ta-tion",
+        "trans | por | ta | tion"
+      ],
+      "word": "transportation",
+      "syllables": [
+        "trans",
+        "por",
+        "ta",
+        "tion"
+      ],
+      "syllable_types": [
+        "closed",
+        "r-controlled",
+        "open",
+        "suffix syllable"
+      ],
+      "syllable_count": 4
+    },
+    {
+      "question_id": "G6E_RF_001_WE2",
+      "prompt": "Demo: preview has pre- plus view. Pre- means before, so preview means to view before.",
+      "question_type": "short_response",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "view before",
+      "answer": "view before",
+      "misconception_tag": "affix_meaning_confusion",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "Pre- means before.",
+      "read_aloud_text": "Demo: preview has pre- plus view. Pre- means before, so preview means to view before.",
+      "question_audio": {
+        "text": "Demo: preview has pre- plus view. Pre- means before, so preview means to view before.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_WE2"
+      },
+      "audio": {
+        "text": "preview. Demo: preview has pre- plus view. Pre- means before, so preview means to view before.",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_WE2"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "acceptable_answers": [
+        "view before",
+        "to view before",
+        "look before"
+      ],
+      "word": "preview",
+      "word_parts": [
+        "pre-",
+        "view"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word"
+      ],
+      "part_meanings": [
+        "before",
+        "look at"
+      ]
+    },
+    {
+      "question_id": "G6E_RF_001_WE3",
+      "prompt": "Practice: biography uses bio, graph, and y. Bio means life and graph means write, so biography is writing about a life.",
+      "question_type": "short_response",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "writing about a life",
+      "answer": "writing about a life",
+      "misconception_tag": "root_meaning_confusion",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "Bio means life; graph means write.",
+      "read_aloud_text": "Practice: biography uses bio, graph, and y. Bio means life and graph means write, so biography is writing about a life.",
+      "question_audio": {
+        "text": "Practice: biography uses bio, graph, and y. Bio means life and graph means write, so biography is writing about a life.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_WE3"
+      },
+      "audio": {
+        "text": "biography. Practice: biography uses bio, graph, and y. Bio means life and graph means write, so biography is writing about a life.",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_WE3"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "acceptable_answers": [
+        "writing about a life",
+        "life writing",
+        "a written story of a life"
+      ],
+      "word": "biography",
+      "word_parts": [
+        "bio",
+        "graph",
+        "y"
+      ],
+      "part_roles": [
+        "root",
+        "root",
+        "suffix"
+      ],
+      "part_meanings": [
+        "life",
+        "write",
+        "noun ending"
+      ],
+      "tiles": [
+        "bio",
+        "graph",
+        "y"
+      ],
+      "morphemes": [
+        "bio",
+        "graph",
+        "y"
+      ]
+    },
+    {
+      "question_id": "G6E_RF_001_WE4",
+      "prompt": "Challenge: constructible is con- plus struct plus -ible. Struct means build and -ible means able to be, so constructible means able to be built.",
+      "question_type": "word_building",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "constructible",
+      "answer": "constructible",
+      "misconception_tag": "affix_meaning_confusion",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "Struct means build; -ible means able to be.",
+      "read_aloud_text": "Challenge: constructible is con- plus struct plus -ible. Struct means build and -ible means able to be, so constructible means able to be built.",
+      "question_audio": {
+        "text": "Challenge: constructible is con- plus struct plus -ible. Struct means build and -ible means able to be, so constructible means able to be built.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_WE4"
+      },
+      "audio": {
+        "text": "constructible. Challenge: constructible is con- plus struct plus -ible. Struct means build and -ible means able to be, so constructible means able to be built.",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_WE4"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "acceptable_answers": [
+        "constructible",
+        "con+struct+ible",
+        "con-struct-ible"
+      ],
+      "word": "constructible",
+      "word_parts": [
+        "con-",
+        "struct",
+        "-ible"
+      ],
+      "part_roles": [
+        "prefix",
+        "root",
+        "suffix"
+      ],
+      "part_meanings": [
+        "together",
+        "build",
+        "able to be"
+      ],
+      "tiles": [
+        "con-",
+        "struct",
+        "-ible"
+      ],
+      "morphemes": [
+        "con-",
+        "struct",
+        "-ible"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Say the word slowly and divide it into syllables or morpheme tiles.",
+    "Name the prefix, root or base, and suffix you recognize.",
+    "Combine the word-part meanings and check whether the meaning fits the sentence."
+  ],
+  "misconception_bank": {
+    "syllable_division_error": "The learner divides a complex word at a spot that makes the pronunciation harder or hides a familiar morpheme.",
+    "affix_meaning_confusion": "The learner recognizes a prefix or suffix but attaches the wrong meaning, such as reading pre- as again or -able as study of.",
+    "root_meaning_confusion": "The learner confuses Greek or Latin roots, such as bio for life, geo for earth, graph for write, tele for far, port for carry, struct for build, and spect for look.",
+    "morphology_guessing": "The learner guesses from the beginning or overall look of a word instead of using syllables, roots, and affixes to prove the meaning."
+  },
+  "review_bank": [
+    "Divide transportation into syllables, then explain trans, port, and -tion.",
+    "Tell whether re- means again/back or before in a word you know.",
+    "Use bio, geo, graph, tele, port, struct, or spect to infer a new word meaning.",
+    "Build a word with a root and -able, then explain why it means able to be."
+  ],
+  "game_theme": {
+    "title": "Morphology Map Room",
+    "name": "Root Ranger Quest",
+    "mission_intro": "Explore a map room where every complex word opens a new door when you decode its syllables, roots, prefixes, and suffixes.",
+    "badge_name": "Root Ranger Badge",
+    "avatar": "root-ranger",
+    "background": "word-observatory"
+  },
+  "next_skill_id": "G6E_FL_001",
+  "remediation_skill_id": "G5E_RF_001",
+  "page_audio": {
+    "story": {
+      "text": "Read This Page. Welcome to the Morphology Map Room. In this mission, long Grade 6 words are not mystery words; they are built from syllables and meaningful word parts. Listen for roots, prefixes, suffixes, and pronunciation examples, then press Start Mission when you are ready to decode like a word detective.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:story"
+    },
+    "lesson": {
+      "text": "Read This Page. A syllable is a beat in a word, and a morpheme is a meaningful word part. First divide the word into readable syllables. Then look for a prefix, root or base, and suffix. Press Next after you read the model and use Listen to hear tricky words pronounced.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:lesson"
+    },
+    "watch": {
+      "text": "Read This Page. Watch the word transportation break into trans, port, and ation. Step one, say each part. Step two, remember that trans means across and port means carry. Step three, blend the word and build the meaning: carrying across. Press Next when the word parts make sense.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:watch"
+    },
+    "demo": {
+      "text": "Read This Page. This demo shows how morpheme tiles combine. Bio means life, graph means write, and y can make a noun. Biography means writing about a life. Use Listen, repeat the parts, then press Next to try a guided question.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:demo"
+    },
+    "practice": {
+      "text": "Read This Page. Practice uses one question with support from the visual model. Press Read Question before you answer. If you need help, use the hint ladder: split syllables, identify the affix or root, then check whether the meaning fits the sentence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:practice"
+    },
+    "challenge": {
+      "text": "Read This Page. Challenge questions use longer words and closer choices. Press Read Question, use Listen for pronunciation, and avoid guessing from only the first letters. Build the word from meaningful parts and choose the answer that fits every part.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:challenge"
+    },
+    "checkpoint": {
+      "text": "Read This Page. The checkpoint checks whether you can divide syllables, explain affixes, use Greek and Latin roots, and infer meanings from complex words. Press Read Question for each item, answer carefully, and use morphology instead of guessing.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:checkpoint"
+    },
+    "badge": {
+      "text": "Read This Page. You earned the Root Ranger badge by using syllables, roots, prefixes, and suffixes to unlock complex words. This badge celebrates careful word analysis, not quick guessing. Press Next to see your profile and choose your next practice step.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:badge"
+    },
+    "profile": {
+      "text": "Read This Page. Your profile saves accuracy, hints, stars, and misconception notes for this Grade 6 English skill. Choose Practice This Skill to open the Skill Practice Center with Syllables and Morphology, Prefixes and Suffixes, Greek and Latin Roots, Complex Word Analysis, and Mixed review. You can also go back to the hub.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first",
+      "browser_speech_fallback": true,
+      "cache_key": "skill-world:G6E_RF_001:page:profile"
+    }
+  },
+  "level_banks": [
+    {
+      "level_id": "G6E_RF_001_LVL1",
+      "label": "Level 1: Syllables and Morphology",
+      "focus": "Divide multisyllable words and connect syllables to meaningful morphemes.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6E_RF_001_L1_Q1",
+          "prompt": "Which syllable break correctly divides reconstruction?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "re-con-struc-tion",
+          "answer": "re-con-struc-tion",
+          "misconception_tag": "syllable_division_error",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "reconstruction has 4 syllables: re, con, struc, tion.",
+          "read_aloud_text": "Which syllable break correctly divides reconstruction?",
+          "question_audio": {
+            "text": "Which syllable break correctly divides reconstruction?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q1"
+          },
+          "audio": {
+            "text": "reconstruction. Which syllable break correctly divides reconstruction?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q1"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "re-con-struc-tion",
+            "rec-onstruction",
+            "reconstruction"
+          ],
+          "acceptable_answers": [
+            "re-con-struc-tion",
+            "re | con | struc | tion"
+          ],
+          "word": "reconstruction",
+          "syllables": [
+            "re",
+            "con",
+            "struc",
+            "tion"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "closed",
+            "suffix syllable"
+          ],
+          "syllable_count": 4
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q2",
+          "prompt": "Write geography with hyphens between syllables.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "ge-og-ra-phy",
+          "answer": "ge-og-ra-phy",
+          "misconception_tag": "syllable_division_error",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "geography has 4 syllables: ge, og, ra, phy.",
+          "read_aloud_text": "Write geography with hyphens between syllables.",
+          "question_audio": {
+            "text": "Write geography with hyphens between syllables.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q2"
+          },
+          "audio": {
+            "text": "geography. Write geography with hyphens between syllables.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q2"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "ge-og-ra-phy",
+            "ge | og | ra | phy"
+          ],
+          "word": "geography",
+          "syllables": [
+            "ge",
+            "og",
+            "ra",
+            "phy"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 4
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q3",
+          "prompt": "Which syllable break correctly divides portable?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "port-a-ble",
+          "answer": "port-a-ble",
+          "misconception_tag": "syllable_division_error",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "portable has 3 syllables: port, a, ble.",
+          "read_aloud_text": "Which syllable break correctly divides portable?",
+          "question_audio": {
+            "text": "Which syllable break correctly divides portable?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q3"
+          },
+          "audio": {
+            "text": "portable. Which syllable break correctly divides portable?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q3"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "port-a-ble",
+            "por-table",
+            "portable"
+          ],
+          "acceptable_answers": [
+            "port-a-ble",
+            "port | a | ble"
+          ],
+          "word": "portable",
+          "syllables": [
+            "port",
+            "a",
+            "ble"
+          ],
+          "syllable_types": [
+            "closed",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 3
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q4",
+          "prompt": "Write biologist with hyphens between syllables.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "bi-ol-o-gist",
+          "answer": "bi-ol-o-gist",
+          "misconception_tag": "syllable_division_error",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "biologist has 4 syllables: bi, ol, o, gist.",
+          "read_aloud_text": "Write biologist with hyphens between syllables.",
+          "question_audio": {
+            "text": "Write biologist with hyphens between syllables.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q4"
+          },
+          "audio": {
+            "text": "biologist. Write biologist with hyphens between syllables.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q4"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "bi-ol-o-gist",
+            "bi | ol | o | gist"
+          ],
+          "word": "biologist",
+          "syllables": [
+            "bi",
+            "ol",
+            "o",
+            "gist"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 4
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q5",
+          "prompt": "Which syllable break correctly divides transportation?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "trans-por-ta-tion",
+          "answer": "trans-por-ta-tion",
+          "misconception_tag": "syllable_division_error",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "transportation has 4 syllables: trans, por, ta, tion.",
+          "read_aloud_text": "Which syllable break correctly divides transportation?",
+          "question_audio": {
+            "text": "Which syllable break correctly divides transportation?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q5"
+          },
+          "audio": {
+            "text": "transportation. Which syllable break correctly divides transportation?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q5"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "trans-por-ta-tion",
+            "tra-nsportation",
+            "transportation"
+          ],
+          "acceptable_answers": [
+            "trans-por-ta-tion",
+            "trans | por | ta | tion"
+          ],
+          "word": "transportation",
+          "syllables": [
+            "trans",
+            "por",
+            "ta",
+            "tion"
+          ],
+          "syllable_types": [
+            "closed",
+            "r-controlled",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 4
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q6",
+          "prompt": "Write spectator with hyphens between syllables.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "spec-ta-tor",
+          "answer": "spec-ta-tor",
+          "misconception_tag": "syllable_division_error",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "spectator has 3 syllables: spec, ta, tor.",
+          "read_aloud_text": "Write spectator with hyphens between syllables.",
+          "question_audio": {
+            "text": "Write spectator with hyphens between syllables.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q6"
+          },
+          "audio": {
+            "text": "spectator. Write spectator with hyphens between syllables.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q6"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "spec-ta-tor",
+            "spec | ta | tor"
+          ],
+          "word": "spectator",
+          "syllables": [
+            "spec",
+            "ta",
+            "tor"
+          ],
+          "syllable_types": [
+            "closed",
+            "open",
+            "r-controlled"
+          ],
+          "syllable_count": 3
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q7",
+          "prompt": "Which word part in preview is the prefix?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "pre-",
+          "answer": "pre-",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "The meaningful parts in preview are pre-, view.",
+          "read_aloud_text": "Which word part in preview is the prefix?",
+          "question_audio": {
+            "text": "Which word part in preview is the prefix?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q7"
+          },
+          "audio": {
+            "text": "preview. Which word part in preview is the prefix?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q7"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "pre-",
+            "view",
+            "-ology",
+            "prev"
+          ],
+          "word": "preview",
+          "word_parts": [
+            "pre-",
+            "view"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "before",
+            "look at"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q8",
+          "prompt": "Which morpheme in structural means build?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "struct",
+          "answer": "struct",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "The meaningful parts in structural are struct, ur, al.",
+          "read_aloud_text": "Which morpheme in structural means build?",
+          "question_audio": {
+            "text": "Which morpheme in structural means build?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q8"
+          },
+          "audio": {
+            "text": "structural. Which morpheme in structural means build?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q8"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "struct",
+            "-al",
+            "tur",
+            "struc"
+          ],
+          "word": "structural",
+          "word_parts": [
+            "struct",
+            "ur",
+            "al"
+          ],
+          "part_roles": [
+            "root",
+            "connector",
+            "suffix"
+          ],
+          "part_meanings": [
+            "build",
+            "connects parts",
+            "related to"
+          ],
+          "tiles": [
+            "struct",
+            "ur",
+            "al"
+          ],
+          "morphemes": [
+            "struct",
+            "ur",
+            "al"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q9",
+          "prompt": "Build a word that means able to be predicted using predict plus a suffix.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "predictable",
+          "answer": "predictable",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "The meaningful parts in predictable are predict, -able.",
+          "read_aloud_text": "Build a word that means able to be predicted using predict plus a suffix.",
+          "question_audio": {
+            "text": "Build a word that means able to be predicted using predict plus a suffix.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q9"
+          },
+          "audio": {
+            "text": "predictable. Build a word that means able to be predicted using predict plus a suffix.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q9"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "predictable",
+            "predict-able"
+          ],
+          "word": "predictable",
+          "word_parts": [
+            "predict",
+            "-able"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "tell before",
+            "able to be"
+          ],
+          "tiles": [
+            "predict",
+            "-able"
+          ],
+          "morphemes": [
+            "predict",
+            "-able"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L1_Q10",
+          "prompt": "Split unbelievable into meaningful word parts.",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "un-believe-able",
+          "answer": "un-believe-able",
+          "misconception_tag": "morphology_guessing",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "The meaningful parts in unbelievable are un-, believe, -able.",
+          "read_aloud_text": "Split unbelievable into meaningful word parts.",
+          "question_audio": {
+            "text": "Split unbelievable into meaningful word parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L1_Q10"
+          },
+          "audio": {
+            "text": "unbelievable. Split unbelievable into meaningful word parts.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L1_Q10"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "un-believe-able",
+            "un believe able",
+            "un|believe|able"
+          ],
+          "word": "unbelievable",
+          "word_parts": [
+            "un-",
+            "believe",
+            "-able"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "not",
+            "accept as true",
+            "able to be"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_RF_001_LVL2",
+      "label": "Level 2: Prefixes and Suffixes",
+      "focus": "Use common prefixes and suffixes to decode and explain word meanings.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6E_RF_001_L2_Q1",
+          "prompt": "What does view mean in preview?",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "look at",
+          "answer": "look at",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "pre- means before.",
+          "read_aloud_text": "What does view mean in preview?",
+          "question_audio": {
+            "text": "What does view mean in preview?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q1"
+          },
+          "audio": {
+            "text": "preview. What does view mean in preview?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q1"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "look at",
+            "look at"
+          ],
+          "word": "preview",
+          "word_parts": [
+            "pre-",
+            "view"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "before",
+            "look at"
+          ],
+          "tiles": [
+            "pre-",
+            "view"
+          ],
+          "morphemes": [
+            "pre-",
+            "view"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q2",
+          "prompt": "Build rewrite from its meaningful parts.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "rewrite",
+          "answer": "rewrite",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "re- means again.",
+          "read_aloud_text": "Build rewrite from its meaningful parts.",
+          "question_audio": {
+            "text": "Build rewrite from its meaningful parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q2"
+          },
+          "audio": {
+            "text": "rewrite. Build rewrite from its meaningful parts.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q2"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "rewrite",
+            "re-+write",
+            "re-write"
+          ],
+          "word": "rewrite",
+          "word_parts": [
+            "re-",
+            "write"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "again",
+            "write"
+          ],
+          "tiles": [
+            "re-",
+            "write"
+          ],
+          "morphemes": [
+            "re-",
+            "write"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q3",
+          "prompt": "Use the prefix or suffix in transport. What does transport most likely mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "carry across",
+          "answer": "carry across",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "trans- means across.",
+          "read_aloud_text": "Use the prefix or suffix in transport. What does transport most likely mean?",
+          "question_audio": {
+            "text": "Use the prefix or suffix in transport. What does transport most likely mean?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q3"
+          },
+          "audio": {
+            "text": "transport. Use the prefix or suffix in transport. What does transport most likely mean?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q3"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "carry across",
+            "not able to be used",
+            "study of sound",
+            "write again"
+          ],
+          "word": "transport",
+          "word_parts": [
+            "trans-",
+            "port"
+          ],
+          "part_roles": [
+            "prefix",
+            "root"
+          ],
+          "part_meanings": [
+            "across",
+            "carry"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q4",
+          "prompt": "What does -able mean in usable?",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "able to be",
+          "answer": "able to be",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "-able means able to be.",
+          "read_aloud_text": "What does -able mean in usable?",
+          "question_audio": {
+            "text": "What does -able mean in usable?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q4"
+          },
+          "audio": {
+            "text": "usable. What does -able mean in usable?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q4"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "able to be",
+            "can be"
+          ],
+          "word": "usable",
+          "word_parts": [
+            "use",
+            "-able"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "put into action",
+            "able to be"
+          ],
+          "tiles": [
+            "use",
+            "-able"
+          ],
+          "morphemes": [
+            "use",
+            "-able"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q5",
+          "prompt": "Build construction from its meaningful parts.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "construction",
+          "answer": "construction",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "-tion can mean act or process.",
+          "read_aloud_text": "Build construction from its meaningful parts.",
+          "question_audio": {
+            "text": "Build construction from its meaningful parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q5"
+          },
+          "audio": {
+            "text": "construction. Build construction from its meaningful parts.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q5"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "construction",
+            "construct+-tion",
+            "construct-tion"
+          ],
+          "word": "construction",
+          "word_parts": [
+            "construct",
+            "-tion"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "build",
+            "act or process"
+          ],
+          "tiles": [
+            "construct",
+            "-tion"
+          ],
+          "morphemes": [
+            "construct",
+            "-tion"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q6",
+          "prompt": "Use the prefix or suffix in geology. What does geology most likely mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "study of earth",
+          "answer": "study of earth",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "-ology means study of.",
+          "read_aloud_text": "Use the prefix or suffix in geology. What does geology most likely mean?",
+          "question_audio": {
+            "text": "Use the prefix or suffix in geology. What does geology most likely mean?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q6"
+          },
+          "audio": {
+            "text": "geology. Use the prefix or suffix in geology. What does geology most likely mean?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q6"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "study of earth",
+            "not able to be used",
+            "study of sound",
+            "write again"
+          ],
+          "word": "geology",
+          "word_parts": [
+            "geo",
+            "-ology"
+          ],
+          "part_roles": [
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "earth",
+            "study of"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q7",
+          "prompt": "What does turn mean in return?",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "turn",
+          "answer": "turn",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "re- can mean again or back.",
+          "read_aloud_text": "What does turn mean in return?",
+          "question_audio": {
+            "text": "What does turn mean in return?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q7"
+          },
+          "audio": {
+            "text": "return. What does turn mean in return?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q7"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "turn",
+            "turn"
+          ],
+          "word": "return",
+          "word_parts": [
+            "re-",
+            "turn"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "again or back",
+            "turn"
+          ],
+          "tiles": [
+            "re-",
+            "turn"
+          ],
+          "morphemes": [
+            "re-",
+            "turn"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q8",
+          "prompt": "Build transferable from its meaningful parts.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "transferable",
+          "answer": "transferable",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "trans- and -able both matter.",
+          "read_aloud_text": "Build transferable from its meaningful parts.",
+          "question_audio": {
+            "text": "Build transferable from its meaningful parts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q8"
+          },
+          "audio": {
+            "text": "transferable. Build transferable from its meaningful parts.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q8"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "transferable",
+            "trans-+fer+-able",
+            "trans-fer-able"
+          ],
+          "word": "transferable",
+          "word_parts": [
+            "trans-",
+            "fer",
+            "-able"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "across",
+            "carry",
+            "able to be"
+          ],
+          "tiles": [
+            "trans-",
+            "fer",
+            "-able"
+          ],
+          "morphemes": [
+            "trans-",
+            "fer",
+            "-able"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q9",
+          "prompt": "Use the prefix or suffix in preheated. What does preheated most likely mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "heated before",
+          "answer": "heated before",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "pre- means before.",
+          "read_aloud_text": "Use the prefix or suffix in preheated. What does preheated most likely mean?",
+          "question_audio": {
+            "text": "Use the prefix or suffix in preheated. What does preheated most likely mean?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q9"
+          },
+          "audio": {
+            "text": "preheated. Use the prefix or suffix in preheated. What does preheated most likely mean?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q9"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "heated before",
+            "not able to be used",
+            "study of sound",
+            "write again"
+          ],
+          "word": "preheated",
+          "word_parts": [
+            "pre-",
+            "heat",
+            "-ed"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "before",
+            "make hot",
+            "past tense"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L2_Q10",
+          "prompt": "What does -able mean in portable?",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "able to be",
+          "answer": "able to be",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "port plus able.",
+          "read_aloud_text": "What does -able mean in portable?",
+          "question_audio": {
+            "text": "What does -able mean in portable?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L2_Q10"
+          },
+          "audio": {
+            "text": "portable. What does -able mean in portable?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L2_Q10"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "able to be",
+            "can be"
+          ],
+          "word": "portable",
+          "word_parts": [
+            "port",
+            "-able"
+          ],
+          "part_roles": [
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "carry",
+            "able to be"
+          ],
+          "tiles": [
+            "port",
+            "-able"
+          ],
+          "morphemes": [
+            "port",
+            "-able"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_RF_001_LVL3",
+      "label": "Level 3: Greek and Latin Roots",
+      "focus": "Analyze Greek and Latin roots such as bio, geo, graph, tele, port, struct, and spect.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6E_RF_001_L3_Q1",
+          "prompt": "Which meaning best fits the root in biology?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "life",
+          "answer": "life",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "bio means life.",
+          "read_aloud_text": "Which meaning best fits the root in biology?",
+          "question_audio": {
+            "text": "Which meaning best fits the root in biology?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q1"
+          },
+          "audio": {
+            "text": "biology. Which meaning best fits the root in biology?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q1"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "life",
+            "water",
+            "small",
+            "not"
+          ],
+          "word": "biology",
+          "word_parts": [
+            "bio",
+            "-ology"
+          ],
+          "part_roles": [
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "life",
+            "study of"
+          ],
+          "tiles": [
+            "bio",
+            "-ology"
+          ],
+          "morphemes": [
+            "bio",
+            "-ology"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q2",
+          "prompt": "Build the word geothermal from the root tiles shown.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "geothermal",
+          "answer": "geothermal",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "geo means earth.",
+          "read_aloud_text": "Build the word geothermal from the root tiles shown.",
+          "question_audio": {
+            "text": "Build the word geothermal from the root tiles shown.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q2"
+          },
+          "audio": {
+            "text": "geothermal. Build the word geothermal from the root tiles shown.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q2"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "geothermal",
+            "geo+therm+al",
+            "geo-therm-al"
+          ],
+          "word": "geothermal",
+          "word_parts": [
+            "geo",
+            "therm",
+            "al"
+          ],
+          "part_roles": [
+            "root",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "earth",
+            "heat",
+            "related to"
+          ],
+          "tiles": [
+            "geo",
+            "therm",
+            "al"
+          ],
+          "morphemes": [
+            "geo",
+            "therm",
+            "al"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q3",
+          "prompt": "Use the roots to explain what autograph means.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "a self-written signature",
+          "answer": "a self-written signature",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "graph means write.",
+          "read_aloud_text": "Use the roots to explain what autograph means.",
+          "question_audio": {
+            "text": "Use the roots to explain what autograph means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q3"
+          },
+          "audio": {
+            "text": "autograph. Use the roots to explain what autograph means.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q3"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "a self-written signature",
+            "self-written signature",
+            "self write"
+          ],
+          "word": "autograph",
+          "word_parts": [
+            "auto",
+            "graph"
+          ],
+          "part_roles": [
+            "root",
+            "root"
+          ],
+          "part_meanings": [
+            "self",
+            "write"
+          ],
+          "tiles": [
+            "auto",
+            "graph"
+          ],
+          "morphemes": [
+            "auto",
+            "graph"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q4",
+          "prompt": "Which meaning best fits the root in telephone?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "far",
+          "answer": "far",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "tele means far.",
+          "read_aloud_text": "Which meaning best fits the root in telephone?",
+          "question_audio": {
+            "text": "Which meaning best fits the root in telephone?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q4"
+          },
+          "audio": {
+            "text": "telephone. Which meaning best fits the root in telephone?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q4"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "far",
+            "water",
+            "small",
+            "not"
+          ],
+          "word": "telephone",
+          "word_parts": [
+            "tele",
+            "phone"
+          ],
+          "part_roles": [
+            "root",
+            "root"
+          ],
+          "part_meanings": [
+            "far",
+            "sound"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q5",
+          "prompt": "Build the word transport from the root tiles shown.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "transport",
+          "answer": "transport",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "port means carry.",
+          "read_aloud_text": "Build the word transport from the root tiles shown.",
+          "question_audio": {
+            "text": "Build the word transport from the root tiles shown.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q5"
+          },
+          "audio": {
+            "text": "transport. Build the word transport from the root tiles shown.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q5"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "transport",
+            "trans+port",
+            "trans-port"
+          ],
+          "word": "transport",
+          "word_parts": [
+            "trans",
+            "port"
+          ],
+          "part_roles": [
+            "prefix",
+            "root"
+          ],
+          "part_meanings": [
+            "across",
+            "carry"
+          ],
+          "tiles": [
+            "trans",
+            "port"
+          ],
+          "morphemes": [
+            "trans",
+            "port"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q6",
+          "prompt": "Use the roots to explain what construct means.",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "build together",
+          "answer": "build together",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "struct means build.",
+          "read_aloud_text": "Use the roots to explain what construct means.",
+          "question_audio": {
+            "text": "Use the roots to explain what construct means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q6"
+          },
+          "audio": {
+            "text": "construct. Use the roots to explain what construct means.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q6"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "build together",
+            "build together",
+            "together build"
+          ],
+          "word": "construct",
+          "word_parts": [
+            "con",
+            "struct"
+          ],
+          "part_roles": [
+            "prefix",
+            "root"
+          ],
+          "part_meanings": [
+            "together",
+            "build"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q7",
+          "prompt": "Which meaning best fits the root in spectator?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "look",
+          "answer": "look",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "spect means look.",
+          "read_aloud_text": "Which meaning best fits the root in spectator?",
+          "question_audio": {
+            "text": "Which meaning best fits the root in spectator?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q7"
+          },
+          "audio": {
+            "text": "spectator. Which meaning best fits the root in spectator?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q7"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "look",
+            "water",
+            "small",
+            "not"
+          ],
+          "word": "spectator",
+          "word_parts": [
+            "spect",
+            "ator"
+          ],
+          "part_roles": [
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "look",
+            "person who does"
+          ],
+          "tiles": [
+            "spect",
+            "ator"
+          ],
+          "morphemes": [
+            "spect",
+            "ator"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q8",
+          "prompt": "Build the word biography from the root tiles shown.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "biography",
+          "answer": "biography",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "bio plus graph.",
+          "read_aloud_text": "Build the word biography from the root tiles shown.",
+          "question_audio": {
+            "text": "Build the word biography from the root tiles shown.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q8"
+          },
+          "audio": {
+            "text": "biography. Build the word biography from the root tiles shown.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q8"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "biography",
+            "bio+graph+y",
+            "bio-graph-y"
+          ],
+          "word": "biography",
+          "word_parts": [
+            "bio",
+            "graph",
+            "y"
+          ],
+          "part_roles": [
+            "root",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "life",
+            "write",
+            "noun ending"
+          ],
+          "tiles": [
+            "bio",
+            "graph",
+            "y"
+          ],
+          "morphemes": [
+            "bio",
+            "graph",
+            "y"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q9",
+          "prompt": "Use the roots to explain what geography means.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "writing or mapping earth",
+          "answer": "writing or mapping earth",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "geo plus graph.",
+          "read_aloud_text": "Use the roots to explain what geography means.",
+          "question_audio": {
+            "text": "Use the roots to explain what geography means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q9"
+          },
+          "audio": {
+            "text": "geography. Use the roots to explain what geography means.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q9"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "writing or mapping earth",
+            "writing or mapping earth",
+            "earth write/map"
+          ],
+          "word": "geography",
+          "word_parts": [
+            "geo",
+            "graph",
+            "y"
+          ],
+          "part_roles": [
+            "root",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "earth",
+            "write/map",
+            "noun ending"
+          ],
+          "tiles": [
+            "geo",
+            "graph",
+            "y"
+          ],
+          "morphemes": [
+            "geo",
+            "graph",
+            "y"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L3_Q10",
+          "prompt": "Which meaning best fits the root in portable?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "carry",
+          "answer": "carry",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "port plus able.",
+          "read_aloud_text": "Which meaning best fits the root in portable?",
+          "question_audio": {
+            "text": "Which meaning best fits the root in portable?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L3_Q10"
+          },
+          "audio": {
+            "text": "portable. Which meaning best fits the root in portable?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L3_Q10"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "carry",
+            "water",
+            "small",
+            "not"
+          ],
+          "word": "portable",
+          "word_parts": [
+            "port",
+            "able"
+          ],
+          "part_roles": [
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "carry",
+            "able to be"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_RF_001_LVL4",
+      "label": "Level 4: Complex Word Analysis",
+      "focus": "Decode complex multisyllable words and infer meanings from combined word parts.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6E_RF_001_L4_Q1",
+          "prompt": "Explain how the word parts help you understand restructure.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "build again",
+          "answer": "build again",
+          "misconception_tag": "morphology_guessing",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "restructure combines re-, struct, -ure to mean build again.",
+          "read_aloud_text": "Explain how the word parts help you understand restructure.",
+          "question_audio": {
+            "text": "Explain how the word parts help you understand restructure.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q1"
+          },
+          "audio": {
+            "text": "restructure. Explain how the word parts help you understand restructure.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q1"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "build again",
+            "again build result/process",
+            "build again"
+          ],
+          "word": "restructure",
+          "syllables": [
+            "re",
+            "struc",
+            "ture"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "r-controlled"
+          ],
+          "syllable_count": 3,
+          "word_parts": [
+            "re-",
+            "struct",
+            "-ure"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "again",
+            "build",
+            "result/process"
+          ],
+          "tiles": [
+            "re-",
+            "struct",
+            "-ure"
+          ],
+          "morphemes": [
+            "re-",
+            "struct",
+            "-ure"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q2",
+          "prompt": "Build unspectacular, then read it by syllables.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "unspectacular",
+          "answer": "unspectacular",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "unspectacular combines un-, spect, -acular to mean not impressive to look at.",
+          "read_aloud_text": "Build unspectacular, then read it by syllables.",
+          "question_audio": {
+            "text": "Build unspectacular, then read it by syllables.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q2"
+          },
+          "audio": {
+            "text": "unspectacular. Build unspectacular, then read it by syllables.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q2"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "unspectacular",
+            "un-+spect+-acular",
+            "un--spect--acular"
+          ],
+          "word": "unspectacular",
+          "syllables": [
+            "un",
+            "spec",
+            "tac",
+            "u",
+            "lar"
+          ],
+          "syllable_types": [
+            "closed",
+            "closed",
+            "closed",
+            "open",
+            "r-controlled"
+          ],
+          "syllable_count": 5,
+          "word_parts": [
+            "un-",
+            "spect",
+            "-acular"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "not",
+            "look",
+            "showy/related to"
+          ],
+          "tiles": [
+            "un-",
+            "spect",
+            "-acular"
+          ],
+          "morphemes": [
+            "un-",
+            "spect",
+            "-acular"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q3",
+          "prompt": "Use syllables and word parts to choose the best meaning of teleconference.",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "a discussion from far away",
+          "answer": "a discussion from far away",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "teleconference combines tele, confer, -ence to mean a discussion from far away.",
+          "read_aloud_text": "Use syllables and word parts to choose the best meaning of teleconference.",
+          "question_audio": {
+            "text": "Use syllables and word parts to choose the best meaning of teleconference.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q3"
+          },
+          "audio": {
+            "text": "teleconference. Use syllables and word parts to choose the best meaning of teleconference.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q3"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "a discussion from far away",
+            "to write about a life",
+            "not able to be seen",
+            "study of earth"
+          ],
+          "word": "teleconference",
+          "syllables": [
+            "tel",
+            "e",
+            "con",
+            "fer",
+            "ence"
+          ],
+          "syllable_types": [
+            "closed",
+            "open",
+            "closed",
+            "r-controlled",
+            "suffix syllable"
+          ],
+          "syllable_count": 5,
+          "word_parts": [
+            "tele",
+            "confer",
+            "-ence"
+          ],
+          "part_roles": [
+            "root",
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "far",
+            "discuss together",
+            "state/process"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q4",
+          "prompt": "Explain how the word parts help you understand transportation.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "the act or process of carrying across",
+          "answer": "the act or process of carrying across",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "transportation combines trans-, port, -ation to mean the act or process of carrying across.",
+          "read_aloud_text": "Explain how the word parts help you understand transportation.",
+          "question_audio": {
+            "text": "Explain how the word parts help you understand transportation.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q4"
+          },
+          "audio": {
+            "text": "transportation. Explain how the word parts help you understand transportation.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q4"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "the act or process of carrying across",
+            "across carry act/process",
+            "process of carrying across"
+          ],
+          "word": "transportation",
+          "syllables": [
+            "trans",
+            "por",
+            "ta",
+            "tion"
+          ],
+          "syllable_types": [
+            "closed",
+            "r-controlled",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 4,
+          "word_parts": [
+            "trans-",
+            "port",
+            "-ation"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "across",
+            "carry",
+            "act/process"
+          ],
+          "tiles": [
+            "trans-",
+            "port",
+            "-ation"
+          ],
+          "morphemes": [
+            "trans-",
+            "port",
+            "-ation"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q5",
+          "prompt": "Build biodegradable, then read it by syllables.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "biodegradable",
+          "answer": "biodegradable",
+          "misconception_tag": "morphology_guessing",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "biodegradable combines bio, degrade, -able to mean able to be broken down by living things.",
+          "read_aloud_text": "Build biodegradable, then read it by syllables.",
+          "question_audio": {
+            "text": "Build biodegradable, then read it by syllables.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q5"
+          },
+          "audio": {
+            "text": "biodegradable. Build biodegradable, then read it by syllables.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q5"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "biodegradable",
+            "bio+degrade+-able",
+            "bio-degrade--able"
+          ],
+          "word": "biodegradable",
+          "syllables": [
+            "bi",
+            "o",
+            "de",
+            "grad",
+            "a",
+            "ble"
+          ],
+          "syllable_types": [
+            "open",
+            "open",
+            "open",
+            "closed",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 6,
+          "word_parts": [
+            "bio",
+            "degrade",
+            "-able"
+          ],
+          "part_roles": [
+            "root",
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "life",
+            "break down",
+            "able to be"
+          ],
+          "tiles": [
+            "bio",
+            "degrade",
+            "-able"
+          ],
+          "morphemes": [
+            "bio",
+            "degrade",
+            "-able"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q6",
+          "prompt": "Use syllables and word parts to choose the best meaning of geographic.",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "related to mapping earth",
+          "answer": "related to mapping earth",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "geographic combines geo, graph, -ic to mean related to mapping earth.",
+          "read_aloud_text": "Use syllables and word parts to choose the best meaning of geographic.",
+          "question_audio": {
+            "text": "Use syllables and word parts to choose the best meaning of geographic.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q6"
+          },
+          "audio": {
+            "text": "geographic. Use syllables and word parts to choose the best meaning of geographic.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q6"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "related to mapping earth",
+            "to write about a life",
+            "not able to be seen",
+            "study of earth"
+          ],
+          "word": "geographic",
+          "syllables": [
+            "ge",
+            "o",
+            "graph",
+            "ic"
+          ],
+          "syllable_types": [
+            "open",
+            "open",
+            "closed",
+            "suffix syllable"
+          ],
+          "syllable_count": 4,
+          "word_parts": [
+            "geo",
+            "graph",
+            "-ic"
+          ],
+          "part_roles": [
+            "root",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "earth",
+            "write/map",
+            "related to"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q7",
+          "prompt": "Explain how the word parts help you understand constructible.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "able to be built",
+          "answer": "able to be built",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "constructible combines con-, struct, -ible to mean able to be built.",
+          "read_aloud_text": "Explain how the word parts help you understand constructible.",
+          "question_audio": {
+            "text": "Explain how the word parts help you understand constructible.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q7"
+          },
+          "audio": {
+            "text": "constructible. Explain how the word parts help you understand constructible.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q7"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "able to be built",
+            "together build able to be",
+            "able to be built"
+          ],
+          "word": "constructible",
+          "syllables": [
+            "con",
+            "struc",
+            "ti",
+            "ble"
+          ],
+          "syllable_types": [
+            "closed",
+            "closed",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 4,
+          "word_parts": [
+            "con-",
+            "struct",
+            "-ible"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "together",
+            "build",
+            "able to be"
+          ],
+          "tiles": [
+            "con-",
+            "struct",
+            "-ible"
+          ],
+          "morphemes": [
+            "con-",
+            "struct",
+            "-ible"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q8",
+          "prompt": "Build preconstruction, then read it by syllables.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "preconstruction",
+          "answer": "preconstruction",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "preconstruction combines pre-, construct, -tion to mean before the act of building.",
+          "read_aloud_text": "Build preconstruction, then read it by syllables.",
+          "question_audio": {
+            "text": "Build preconstruction, then read it by syllables.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q8"
+          },
+          "audio": {
+            "text": "preconstruction. Build preconstruction, then read it by syllables.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q8"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "preconstruction",
+            "pre-+construct+-tion",
+            "pre--construct--tion"
+          ],
+          "word": "preconstruction",
+          "syllables": [
+            "pre",
+            "con",
+            "struc",
+            "tion"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "closed",
+            "suffix syllable"
+          ],
+          "syllable_count": 4,
+          "word_parts": [
+            "pre-",
+            "construct",
+            "-tion"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "before",
+            "build",
+            "act/process"
+          ],
+          "tiles": [
+            "pre-",
+            "construct",
+            "-tion"
+          ],
+          "morphemes": [
+            "pre-",
+            "construct",
+            "-tion"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q9",
+          "prompt": "Use syllables and word parts to choose the best meaning of spectroscope.",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "instrument used for looking at light patterns",
+          "answer": "instrument used for looking at light patterns",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "spectroscope combines spect, -o-, scope to mean instrument used for looking at light patterns.",
+          "read_aloud_text": "Use syllables and word parts to choose the best meaning of spectroscope.",
+          "question_audio": {
+            "text": "Use syllables and word parts to choose the best meaning of spectroscope.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q9"
+          },
+          "audio": {
+            "text": "spectroscope. Use syllables and word parts to choose the best meaning of spectroscope.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q9"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "instrument used for looking at light patterns",
+            "to write about a life",
+            "not able to be seen",
+            "study of earth"
+          ],
+          "word": "spectroscope",
+          "syllables": [
+            "spec",
+            "tro",
+            "scope"
+          ],
+          "syllable_types": [
+            "closed",
+            "open",
+            "silent-e syllable"
+          ],
+          "syllable_count": 3,
+          "word_parts": [
+            "spect",
+            "-o-",
+            "scope"
+          ],
+          "part_roles": [
+            "root",
+            "connector",
+            "root"
+          ],
+          "part_meanings": [
+            "look",
+            "connector",
+            "instrument for seeing"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_L4_Q10",
+          "prompt": "Explain how the word parts help you understand exportable.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "able to be carried out",
+          "answer": "able to be carried out",
+          "misconception_tag": "morphology_guessing",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "exportable combines ex-, port, -able to mean able to be carried out.",
+          "read_aloud_text": "Explain how the word parts help you understand exportable.",
+          "question_audio": {
+            "text": "Explain how the word parts help you understand exportable.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_L4_Q10"
+          },
+          "audio": {
+            "text": "exportable. Explain how the word parts help you understand exportable.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_L4_Q10"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "able to be carried out",
+            "out carry able to be",
+            "able to be carried out"
+          ],
+          "word": "exportable",
+          "syllables": [
+            "ex",
+            "port",
+            "a",
+            "ble"
+          ],
+          "syllable_types": [
+            "closed",
+            "closed",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 4,
+          "word_parts": [
+            "ex-",
+            "port",
+            "-able"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "out",
+            "carry",
+            "able to be"
+          ],
+          "tiles": [
+            "ex-",
+            "port",
+            "-able"
+          ],
+          "morphemes": [
+            "ex-",
+            "port",
+            "-able"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G6E_RF_001_MIXED",
+      "label": "Mixed",
+      "focus": "Review syllables, affixes, Greek and Latin roots, complex decoding, and word building.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "question_id": "G6E_RF_001_MIX_Q1",
+          "prompt": "Which syllable break correctly divides reconstruction?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "re-con-struc-tion",
+          "answer": "re-con-struc-tion",
+          "misconception_tag": "syllable_division_error",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "reconstruction has 4 syllables: re, con, struc, tion.",
+          "read_aloud_text": "Which syllable break correctly divides reconstruction?",
+          "question_audio": {
+            "text": "Which syllable break correctly divides reconstruction?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q1"
+          },
+          "audio": {
+            "text": "reconstruction. Which syllable break correctly divides reconstruction?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q1"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "re-con-struc-tion",
+            "rec-onstruction",
+            "reconstruction"
+          ],
+          "acceptable_answers": [
+            "re-con-struc-tion",
+            "re | con | struc | tion"
+          ],
+          "word": "reconstruction",
+          "syllables": [
+            "re",
+            "con",
+            "struc",
+            "tion"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "closed",
+            "suffix syllable"
+          ],
+          "syllable_count": 4
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q2",
+          "prompt": "Write geography with hyphens between syllables.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "ge-og-ra-phy",
+          "answer": "ge-og-ra-phy",
+          "misconception_tag": "syllable_division_error",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "geography has 4 syllables: ge, og, ra, phy.",
+          "read_aloud_text": "Write geography with hyphens between syllables.",
+          "question_audio": {
+            "text": "Write geography with hyphens between syllables.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q2"
+          },
+          "audio": {
+            "text": "geography. Write geography with hyphens between syllables.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q2"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "ge-og-ra-phy",
+            "ge | og | ra | phy"
+          ],
+          "word": "geography",
+          "syllables": [
+            "ge",
+            "og",
+            "ra",
+            "phy"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 4
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q3",
+          "prompt": "Use the prefix or suffix in transport. What does transport most likely mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "carry across",
+          "answer": "carry across",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "trans- means across.",
+          "read_aloud_text": "Use the prefix or suffix in transport. What does transport most likely mean?",
+          "question_audio": {
+            "text": "Use the prefix or suffix in transport. What does transport most likely mean?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q3"
+          },
+          "audio": {
+            "text": "transport. Use the prefix or suffix in transport. What does transport most likely mean?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q3"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "carry across",
+            "not able to be used",
+            "study of sound",
+            "write again"
+          ],
+          "word": "transport",
+          "word_parts": [
+            "trans-",
+            "port"
+          ],
+          "part_roles": [
+            "prefix",
+            "root"
+          ],
+          "part_meanings": [
+            "across",
+            "carry"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q4",
+          "prompt": "What does -able mean in usable?",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "able to be",
+          "answer": "able to be",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "-able means able to be.",
+          "read_aloud_text": "What does -able mean in usable?",
+          "question_audio": {
+            "text": "What does -able mean in usable?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q4"
+          },
+          "audio": {
+            "text": "usable. What does -able mean in usable?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q4"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "able to be",
+            "can be"
+          ],
+          "word": "usable",
+          "word_parts": [
+            "use",
+            "-able"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "put into action",
+            "able to be"
+          ],
+          "tiles": [
+            "use",
+            "-able"
+          ],
+          "morphemes": [
+            "use",
+            "-able"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q5",
+          "prompt": "Build the word transport from the root tiles shown.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "transport",
+          "answer": "transport",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "port means carry.",
+          "read_aloud_text": "Build the word transport from the root tiles shown.",
+          "question_audio": {
+            "text": "Build the word transport from the root tiles shown.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q5"
+          },
+          "audio": {
+            "text": "transport. Build the word transport from the root tiles shown.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q5"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "transport",
+            "trans+port",
+            "trans-port"
+          ],
+          "word": "transport",
+          "word_parts": [
+            "trans",
+            "port"
+          ],
+          "part_roles": [
+            "prefix",
+            "root"
+          ],
+          "part_meanings": [
+            "across",
+            "carry"
+          ],
+          "tiles": [
+            "trans",
+            "port"
+          ],
+          "morphemes": [
+            "trans",
+            "port"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q6",
+          "prompt": "Use the roots to explain what construct means.",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "build together",
+          "answer": "build together",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "struct means build.",
+          "read_aloud_text": "Use the roots to explain what construct means.",
+          "question_audio": {
+            "text": "Use the roots to explain what construct means.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q6"
+          },
+          "audio": {
+            "text": "construct. Use the roots to explain what construct means.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q6"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "build together",
+            "build together",
+            "together build"
+          ],
+          "word": "construct",
+          "word_parts": [
+            "con",
+            "struct"
+          ],
+          "part_roles": [
+            "prefix",
+            "root"
+          ],
+          "part_meanings": [
+            "together",
+            "build"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q7",
+          "prompt": "Explain how the word parts help you understand constructible.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "able to be built",
+          "answer": "able to be built",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "constructible combines con-, struct, -ible to mean able to be built.",
+          "read_aloud_text": "Explain how the word parts help you understand constructible.",
+          "question_audio": {
+            "text": "Explain how the word parts help you understand constructible.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q7"
+          },
+          "audio": {
+            "text": "constructible. Explain how the word parts help you understand constructible.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q7"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "able to be built",
+            "together build able to be",
+            "able to be built"
+          ],
+          "word": "constructible",
+          "syllables": [
+            "con",
+            "struc",
+            "ti",
+            "ble"
+          ],
+          "syllable_types": [
+            "closed",
+            "closed",
+            "open",
+            "suffix syllable"
+          ],
+          "syllable_count": 4,
+          "word_parts": [
+            "con-",
+            "struct",
+            "-ible"
+          ],
+          "part_roles": [
+            "prefix",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "together",
+            "build",
+            "able to be"
+          ],
+          "tiles": [
+            "con-",
+            "struct",
+            "-ible"
+          ],
+          "morphemes": [
+            "con-",
+            "struct",
+            "-ible"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q8",
+          "prompt": "Build preconstruction, then read it by syllables.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "preconstruction",
+          "answer": "preconstruction",
+          "misconception_tag": "affix_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "preconstruction combines pre-, construct, -tion to mean before the act of building.",
+          "read_aloud_text": "Build preconstruction, then read it by syllables.",
+          "question_audio": {
+            "text": "Build preconstruction, then read it by syllables.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q8"
+          },
+          "audio": {
+            "text": "preconstruction. Build preconstruction, then read it by syllables.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q8"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "preconstruction",
+            "pre-+construct+-tion",
+            "pre--construct--tion"
+          ],
+          "word": "preconstruction",
+          "syllables": [
+            "pre",
+            "con",
+            "struc",
+            "tion"
+          ],
+          "syllable_types": [
+            "open",
+            "closed",
+            "closed",
+            "suffix syllable"
+          ],
+          "syllable_count": 4,
+          "word_parts": [
+            "pre-",
+            "construct",
+            "-tion"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "before",
+            "build",
+            "act/process"
+          ],
+          "tiles": [
+            "pre-",
+            "construct",
+            "-tion"
+          ],
+          "morphemes": [
+            "pre-",
+            "construct",
+            "-tion"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q9",
+          "prompt": "A scientist studies living things. Which root helps decode biologist?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "bio",
+          "answer": "bio",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "The answer is bio because the word parts point to that meaning.",
+          "read_aloud_text": "A scientist studies living things. Which root helps decode biologist?",
+          "question_audio": {
+            "text": "A scientist studies living things. Which root helps decode biologist?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q9"
+          },
+          "audio": {
+            "text": "biologist. A scientist studies living things. Which root helps decode biologist?",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q9"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "choices": [
+            "bio",
+            "geo",
+            "tele",
+            "port"
+          ],
+          "word": "biologist",
+          "word_parts": [
+            "bio",
+            "log",
+            "ist"
+          ],
+          "part_roles": [
+            "root",
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "life",
+            "study",
+            "person who"
+          ],
+          "tiles": [
+            "bio",
+            "log",
+            "ist"
+          ],
+          "morphemes": [
+            "bio",
+            "log",
+            "ist"
+          ]
+        },
+        {
+          "question_id": "G6E_RF_001_MIX_Q10",
+          "prompt": "Build a word meaning the study of Earth from geo plus -ology.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "geology",
+          "answer": "geology",
+          "misconception_tag": "root_meaning_confusion",
+          "hints": [
+            "Say the word slowly and divide it into syllables or morpheme tiles.",
+            "Name the prefix, root or base, and suffix you recognize.",
+            "Combine the word-part meanings and check whether the meaning fits the sentence."
+          ],
+          "feedback": {
+            "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+            "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+          },
+          "explanation": "The answer is geology because the word parts point to that meaning.",
+          "read_aloud_text": "Build a word meaning the study of Earth from geo plus -ology.",
+          "question_audio": {
+            "text": "Build a word meaning the study of Earth from geo plus -ology.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_MIX_Q10"
+          },
+          "audio": {
+            "text": "geology. Build a word meaning the study of Earth from geo plus -ology.",
+            "label": "Listen",
+            "type": "word",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first",
+            "browser_speech_fallback": true,
+            "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_MIX_Q10"
+          },
+          "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+          "pronunciation_check": "manual_playback",
+          "acceptable_answers": [
+            "geology",
+            "geo+ology",
+            "geo-ology"
+          ],
+          "word": "geology",
+          "word_parts": [
+            "geo",
+            "-ology"
+          ],
+          "part_roles": [
+            "root",
+            "suffix"
+          ],
+          "part_meanings": [
+            "earth",
+            "study of"
+          ],
+          "tiles": [
+            "geo",
+            "-ology"
+          ],
+          "morphemes": [
+            "geo",
+            "-ology"
+          ]
+        }
+      ]
+    }
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G6E_RF_001_GP1",
+      "prompt": "Which syllable break correctly divides reconstruction?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "re-con-struc-tion",
+      "answer": "re-con-struc-tion",
+      "misconception_tag": "syllable_division_error",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "reconstruction has 4 syllables: re, con, struc, tion.",
+      "read_aloud_text": "Which syllable break correctly divides reconstruction?",
+      "question_audio": {
+        "text": "Which syllable break correctly divides reconstruction?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_GP1"
+      },
+      "audio": {
+        "text": "reconstruction. Which syllable break correctly divides reconstruction?",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_GP1"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "choices": [
+        "re-con-struc-tion",
+        "rec-onstruction",
+        "reconstruction"
+      ],
+      "acceptable_answers": [
+        "re-con-struc-tion",
+        "re | con | struc | tion"
+      ],
+      "word": "reconstruction",
+      "syllables": [
+        "re",
+        "con",
+        "struc",
+        "tion"
+      ],
+      "syllable_types": [
+        "open",
+        "closed",
+        "closed",
+        "suffix syllable"
+      ],
+      "syllable_count": 4
+    },
+    {
+      "question_id": "G6E_RF_001_GP2",
+      "prompt": "Build rewrite from its meaningful parts.",
+      "question_type": "word_building",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "rewrite",
+      "answer": "rewrite",
+      "misconception_tag": "affix_meaning_confusion",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "re- means again.",
+      "read_aloud_text": "Build rewrite from its meaningful parts.",
+      "question_audio": {
+        "text": "Build rewrite from its meaningful parts.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_GP2"
+      },
+      "audio": {
+        "text": "rewrite. Build rewrite from its meaningful parts.",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_GP2"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "acceptable_answers": [
+        "rewrite",
+        "re-+write",
+        "re-write"
+      ],
+      "word": "rewrite",
+      "word_parts": [
+        "re-",
+        "write"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word"
+      ],
+      "part_meanings": [
+        "again",
+        "write"
+      ],
+      "tiles": [
+        "re-",
+        "write"
+      ],
+      "morphemes": [
+        "re-",
+        "write"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G6E_RF_001_CP1",
+      "prompt": "Which meaning best fits the root in biology?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "life",
+      "answer": "life",
+      "misconception_tag": "root_meaning_confusion",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "bio means life.",
+      "read_aloud_text": "Which meaning best fits the root in biology?",
+      "question_audio": {
+        "text": "Which meaning best fits the root in biology?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_CP1"
+      },
+      "audio": {
+        "text": "biology. Which meaning best fits the root in biology?",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_CP1"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "choices": [
+        "life",
+        "water",
+        "small",
+        "not"
+      ],
+      "word": "biology",
+      "word_parts": [
+        "bio",
+        "-ology"
+      ],
+      "part_roles": [
+        "root",
+        "suffix"
+      ],
+      "part_meanings": [
+        "life",
+        "study of"
+      ],
+      "tiles": [
+        "bio",
+        "-ology"
+      ],
+      "morphemes": [
+        "bio",
+        "-ology"
+      ]
+    },
+    {
+      "question_id": "G6E_RF_001_CP2",
+      "prompt": "Build unspectacular, then read it by syllables.",
+      "question_type": "word_building",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "unspectacular",
+      "answer": "unspectacular",
+      "misconception_tag": "root_meaning_confusion",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "unspectacular combines un-, spect, -acular to mean not impressive to look at.",
+      "read_aloud_text": "Build unspectacular, then read it by syllables.",
+      "question_audio": {
+        "text": "Build unspectacular, then read it by syllables.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_CP2"
+      },
+      "audio": {
+        "text": "unspectacular. Build unspectacular, then read it by syllables.",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_CP2"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "acceptable_answers": [
+        "unspectacular",
+        "un-+spect+-acular",
+        "un--spect--acular"
+      ],
+      "word": "unspectacular",
+      "syllables": [
+        "un",
+        "spec",
+        "tac",
+        "u",
+        "lar"
+      ],
+      "syllable_types": [
+        "closed",
+        "closed",
+        "closed",
+        "open",
+        "r-controlled"
+      ],
+      "syllable_count": 5,
+      "word_parts": [
+        "un-",
+        "spect",
+        "-acular"
+      ],
+      "part_roles": [
+        "prefix",
+        "root",
+        "suffix"
+      ],
+      "part_meanings": [
+        "not",
+        "look",
+        "showy/related to"
+      ],
+      "tiles": [
+        "un-",
+        "spect",
+        "-acular"
+      ],
+      "morphemes": [
+        "un-",
+        "spect",
+        "-acular"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G6E_RF_001_AQ1",
+      "prompt": "Use syllables and word parts to choose the best meaning of teleconference.",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "a discussion from far away",
+      "answer": "a discussion from far away",
+      "misconception_tag": "root_meaning_confusion",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "teleconference combines tele, confer, -ence to mean a discussion from far away.",
+      "read_aloud_text": "Use syllables and word parts to choose the best meaning of teleconference.",
+      "question_audio": {
+        "text": "Use syllables and word parts to choose the best meaning of teleconference.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_AQ1"
+      },
+      "audio": {
+        "text": "teleconference. Use syllables and word parts to choose the best meaning of teleconference.",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_AQ1"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "choices": [
+        "a discussion from far away",
+        "to write about a life",
+        "not able to be seen",
+        "study of earth"
+      ],
+      "word": "teleconference",
+      "syllables": [
+        "tel",
+        "e",
+        "con",
+        "fer",
+        "ence"
+      ],
+      "syllable_types": [
+        "closed",
+        "open",
+        "closed",
+        "r-controlled",
+        "suffix syllable"
+      ],
+      "syllable_count": 5,
+      "word_parts": [
+        "tele",
+        "confer",
+        "-ence"
+      ],
+      "part_roles": [
+        "root",
+        "base word",
+        "suffix"
+      ],
+      "part_meanings": [
+        "far",
+        "discuss together",
+        "state/process"
+      ]
+    },
+    {
+      "question_id": "G6E_RF_001_AQ2",
+      "prompt": "A scientist studies living things. Which root helps decode biologist?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "bio",
+      "answer": "bio",
+      "misconception_tag": "root_meaning_confusion",
+      "hints": [
+        "Say the word slowly and divide it into syllables or morpheme tiles.",
+        "Name the prefix, root or base, and suffix you recognize.",
+        "Combine the word-part meanings and check whether the meaning fits the sentence."
+      ],
+      "feedback": {
+        "correct": "Yes. You used the word parts and pronunciation to decode the word.",
+        "incorrect": "Try again. Do not guess from the first letters; split the word, name the parts, and test the meaning."
+      },
+      "explanation": "The answer is bio because the word parts point to that meaning.",
+      "read_aloud_text": "A scientist studies living things. Which root helps decode biologist?",
+      "question_audio": {
+        "text": "A scientist studies living things. Which root helps decode biologist?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:question:G6E_RF_001_AQ2"
+      },
+      "audio": {
+        "text": "biologist. A scientist studies living things. Which root helps decode biologist?",
+        "label": "Listen",
+        "type": "word",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first",
+        "browser_speech_fallback": true,
+        "cache_key": "skill-world:G6E_RF_001:listen:G6E_RF_001_AQ2"
+      },
+      "repeat_after_me": "Listen to the word or word parts, then say them after the model.",
+      "pronunciation_check": "manual_playback",
+      "choices": [
+        "bio",
+        "geo",
+        "tele",
+        "port"
+      ],
+      "word": "biologist",
+      "word_parts": [
+        "bio",
+        "log",
+        "ist"
+      ],
+      "part_roles": [
+        "root",
+        "root",
+        "suffix"
+      ],
+      "part_meanings": [
+        "life",
+        "study",
+        "person who"
+      ],
+      "tiles": [
+        "bio",
+        "log",
+        "ist"
+      ],
+      "morphemes": [
+        "bio",
+        "log",
+        "ist"
+      ]
+    }
+  ]
+}
