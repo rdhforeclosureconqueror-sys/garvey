@@ -46,6 +46,7 @@ const g5OpinionWriting=load('G5E_WR_001');
 const g5InformativeWriting=load('G5E_WR_002');
 const g5NarrativeWriting=load('G5E_WR_003');
 const g5LanguageConventions=load('G5E_LANG_001');
+const g6WordAnalysis=load('G6E_RF_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -552,6 +553,46 @@ assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_mo
 assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='word_parts')),/data-renderer="word_parts"/,'G5E_RF_001 word_parts renderer output exists');
 assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='morpheme_tiles')),/data-renderer="morpheme_tiles"/,'G5E_RF_001 morpheme_tiles renderer output exists');
 assert.match(VisualRegistry.render(g5WordAnalysisQuestions.find((q)=>q.visual_model==='word_builder')),/data-renderer="word_builder"/,'G5E_RF_001 word_builder renderer output exists');
+
+
+assert.ok(g6WordAnalysis,'G6E_RF_001 package loads');
+{
+  const result=Schema.validateSkillPackage(g6WordAnalysis,{allowPlannedLevelBanks:false});
+  assert.equal(result.valid,true,`G6E_RF_001 validates in strict production mode: ${result.errors.join('; ')}`);
+}
+assert.equal(g6WordAnalysis.grade,6,'G6E_RF_001 grade');
+assert.equal(g6WordAnalysis.subject,'English','G6E_RF_001 subject');
+assert.equal(g6WordAnalysis.domain,'Word Analysis / Language','G6E_RF_001 domain');
+assert.equal(g6WordAnalysis.skill,'Morphology, Roots, and Complex Word Analysis','G6E_RF_001 skill');
+assert.deepEqual(Renderer.stepLabels(g6WordAnalysis),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'G6E_RF_001 mission uses full Skill World flow');
+['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>assert.equal(g6WordAnalysis.page_audio?.[screen]?.label,'Read This Page',`G6E_RF_001 ${screen} Read This Page narration exists`));
+assert.equal(Array.isArray(g6WordAnalysis.level_banks),true,'G6E_RF_001 has real level_banks');
+assert.equal(g6WordAnalysis.level_banks.length,5,'G6E_RF_001 has five real level banks');
+assert.equal(g6WordAnalysis.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G6E_RF_001 has four focused levels');
+assert.equal(g6WordAnalysis.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,'G6E_RF_001 has Mixed level');
+['Level 1: Syllables and Morphology','Level 2: Prefixes and Suffixes','Level 3: Greek and Latin Roots','Level 4: Complex Word Analysis','Mixed'].forEach((label)=>assert.ok(g6WordAnalysis.level_banks.some((level)=>level.label===label),`G6E_RF_001 includes ${label}`));
+g6WordAnalysis.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+const g6WordAnalysisQuestions=g6WordAnalysis.level_banks.flatMap((level)=>level.questions);
+assert.equal([...g6WordAnalysis.guided_practice,...g6WordAnalysis.checkpoint,...g6WordAnalysis.adaptive_question_bank].every((question)=>question.question_audio?.label==='Read Question'&&question.question_audio?.text),true,'G6E_RF_001 mission Practice, Challenge, and Checkpoint questions have Read Question narration');
+assert.equal(g6WordAnalysisQuestions.every((question)=>question.question_audio?.label==='Read Question'&&question.question_audio?.text),true,'G6E_RF_001 Skill Practice Center questions have Read Question narration');
+assert.equal(g6WordAnalysisQuestions.every((question)=>question.audio?.label==='Listen'&&question.audio?.text&&question.audio?.playback_preference==='cached_audio_first'&&question.audio?.browser_speech_fallback===true),true,'G6E_RF_001 questions include Listen audio for roots, affixes, complex words, and pronunciation support');
+['syllable_break','word_parts','morpheme_tiles','word_builder'].forEach((visual)=>assert.ok(g6WordAnalysisQuestions.some((q)=>q.visual_model===visual),`G6E_RF_001 includes ${visual}`));
+['multiple_choice','short_response','word_building'].forEach((type)=>assert.ok(g6WordAnalysisQuestions.some((q)=>q.question_type===type),`G6E_RF_001 includes ${type}`));
+['syllable_division_error','affix_meaning_confusion','root_meaning_confusion','morphology_guessing'].forEach((tag)=>assert.ok(g6WordAnalysis.misconception_bank[tag],`G6E_RF_001 includes misconception ${tag}`));
+assert.ok(g6WordAnalysisQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G6E_RF_001 acceptable_answers exist for short-response items');
+const g6WordAnalysisMissionHtml=Renderer.renderSkillWorld(g6WordAnalysis,{failClosed:true}).html;
+['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g6WordAnalysisMissionHtml,new RegExp(label),`G6E_RF_001 mission renders ${label}`));
+assert.match(g6WordAnalysisMissionHtml,/Read This Page/,'G6E_RF_001 renders Read This Page controls');
+assert.match(g6WordAnalysisMissionHtml,/Read Question/,'G6E_RF_001 renders Read Question controls');
+assert.match(g6WordAnalysisMissionHtml,/Continue to Skill Practice/,'G6E_RF_001 profile links to Skill Practice Center');
+const g6WordAnalysisDrillHtml=Renderer.renderSkillWorld(g6WordAnalysis,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+assert.match(g6WordAnalysisDrillHtml,/Skill Practice Center/,'G6E_RF_001 Practice This Skill route renders Skill Practice Center');
+assert.match(g6WordAnalysisDrillHtml,/Level 1: Syllables and Morphology/,'G6E_RF_001 drill renders Level 1');
+['syllable_break','word_parts','morpheme_tiles','word_builder'].forEach((visual)=>{const q=g6WordAnalysisQuestions.find((item)=>item.visual_model===visual); assert.ok(q,`G6E_RF_001 includes ${visual} question`); assert.match(VisualRegistry.render(q),new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists for G6E_RF_001`);});
+assert.match(VisualRegistry.render(g6WordAnalysisQuestions.find((q)=>q.visual_model==='syllable_break')),/syllable-divider/,'G6E_RF_001 syllable_break clearly separates syllables');
+assert.match(VisualRegistry.render(g6WordAnalysisQuestions.find((q)=>q.visual_model==='word_parts')),/(prefix|root|base word|suffix)/,'G6E_RF_001 word_parts identifies word-part roles');
+assert.match(VisualRegistry.render(g6WordAnalysisQuestions.find((q)=>q.visual_model==='morpheme_tiles')),/(life|earth|write|carry|build|look|able to be|before|study of)/,'G6E_RF_001 morpheme_tiles displays root or affix meanings');
+assert.match(VisualRegistry.render(g6WordAnalysisQuestions.find((q)=>q.visual_model==='word_builder')),/Target word:/,'G6E_RF_001 word_builder shows parts combining into a complete word');
 
 assert.ok(g5TextEvidence,'G5E_RC_001 package loads');
 {
