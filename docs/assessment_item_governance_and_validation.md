@@ -11,9 +11,13 @@ The governance standard distinguishes **workflow state** from **operational item
 - `workflow_state` describes where a specific item version is in the review lifecycle.
 - `item_status` is the canonical eligibility label consumed by assessment frameworks and blueprints.
 - `reviewed_candidate` is not equivalent to `validated_operational`.
-- Field-test items have zero decision weight.
-- No item becomes `validated_operational` automatically.
-- Operational mastery use requires `validated_operational` status and standard-setting dependency satisfaction.
+- Field-test items have zero decision weight and are not operational.
+- `reviewed_candidate` is not operational.
+- Suspended items are not selectable for operational delivery.
+- Retired items are not selectable for any new delivery.
+- No item becomes `validated_operational` automatically because time elapsed, data was collected, field testing occurred, or statistical review completed.
+- Only `validated_operational` items with `active_status = active` may be used as scored evidence for mastery, cumulative mixed, and next-grade readiness.
+- Operational selection must check both `item_status` and `active_status`.
 
 The canonical item-status vocabulary remains aligned with the accepted assessment framework:
 
@@ -81,9 +85,9 @@ reviewed_candidate --> suspended : emergency removal
 validated_operational --> suspended : emergency removal
 validated_operational --> retired : retirement
 suspended --> draft : revise/re-review
-suspended --> reviewed_candidate : rollback only if suspended from candidate/statistical review
-suspended --> validated_operational : reinstate only if suspended from operational
-suspended --> retired : retire
+suspended --> reviewed_candidate : reinstate only if suspended from reviewed_candidate
+suspended --> validated_operational : reinstate only if suspended from validated_operational
+suspended --> retired : retire with governance evidence
 reviewed_candidate --> retired : retire candidate
 draft --> retired : abandon draft
 retired --> [*]
@@ -109,6 +113,7 @@ Key transition requirements:
 11. `field_test` to `statistical_review` requires field-test evidence and administration policy snapshots.
 12. `statistical_review` to `reviewed_candidate` requires item statistics, fairness review, differential-item-functioning review, and psychometric recommendation.
 13. `reviewed_candidate` to `validated_operational` requires explicit operational approval and standard-setting dependency satisfaction.
+14. `suspended` to `retired` is allowed only with `governance_admin`, retirement evidence and rationale, immutable audit history, and no return from retired to operational use without a new version and full governance restart.
 
 Rejection loops return items to `draft`, `field_test`, or another governed review state depending on defect type. Revisions must preserve audit history and, when material, create a new item version.
 
@@ -131,13 +136,18 @@ Required roles include:
 
 Separation-of-duties rules:
 
-- The author cannot be the sole approver for any required review.
+- The author or co-author cannot approve the item.
 - The psychometric reviewer must be distinct from the author.
 - The operational approver must be distinct from the author.
+- The operational approver must be distinct from the psychometric reviewer.
+- The bias/sensitivity reviewer must be independent from the primary subject-matter reviewer where feasible.
+- One person cannot satisfy all required review roles.
 - Accessibility behavior changes require accessibility review.
 - Emergency removal requires post-hoc independent review.
 
-Approval quorum is required for field-test approval, operational validation, and suspension release. Operational validation requires psychometric review, curriculum review, subject-matter review, and operational approval.
+Conflict-of-interest disclosure and recusal are required for author/co-author status, direct supervisor/subordinate relationships where independence is compromised, financial interest, organizational conflict, familial relationship, classroom or instructional responsibility for pilot participants where relevant, prior content ownership or vendor interest, and undisclosed participation in item development. Undisclosed conflicts trigger re-review, suspension, or other governance action as appropriate.
+
+Approval quorum is required for field-test approval, operational validation, and suspension release. Approved-for-field-test approval requires multiple independent people and at least three distinct people. Operational validation requires independent curriculum/subject, psychometric, and operational approval and at least four distinct people. Suspension release requires at least three distinct people.
 
 ## 5. Field-test isolation and operational approval
 
@@ -148,6 +158,7 @@ Field-test items:
 - may be used for item-statistics collection
 - must not appear as scored evidence in operational mastery decisions
 - must not become operational automatically
+- are not selectable as operational scored evidence
 
 The route from `field_test` to `validated_operational` must pass through `statistical_review` and `reviewed_candidate`. A field-tested item may become a reviewed candidate only after statistical, fairness, and differential-item-functioning review. It may become operational only after explicit operational approval and standard-setting dependency satisfaction.
 
@@ -167,22 +178,30 @@ A statistical recommendation is necessary but not sufficient. No item becomes `v
 
 ## 7. Versioning and material changes
 
-Historical administrations retain the exact item version, scoring/rubric version, blueprint version, and governance policy version used at administration time.
+Historical administrations retain `item_id`, `item_version`, `scoring_key_version`, `rubric_version`, `scoring_policy_version`, `blueprint_id`, `blueprint_version`, `governance_policy_id`, `governance_policy_version`, `delivery_artifact_version`, `assessment_form_id`, `assessment_form_version`, response, score generated at administration time, decision contribution generated at administration time, accommodation configuration, audio/visual delivery version where applicable, and administration timestamp. Later rescoring must create a new derived result and must not overwrite the original historical response, score, decision contribution, or version links.
 
-Material changes usually require a new item version and controlled review. Material changes include changes to:
+Material changes require controlled review and usually a new item version. Material changes include changes to:
 
+- evidence statement
+- visible prompt meaning
+- spoken prompt meaning
+- item-status eligibility
+- assessment-role eligibility
 - scoring key
+- acceptable answers
 - rubric
+- partial-credit logic
 - construct
 - stimulus meaning
-- prompt semantic meaning
 - distractor meaning
+- misconception mapping
 - accessibility behavior
-- audio behavior that changes evidence
-- visual target or visual meaning
-- legal/license provenance affecting delivery rights
+- audio behavior
+- visual behavior
+- response geometry
+- provenance or licensing rights
 
-Non-material changes may retain the version only with reviewer sign-off and an audit entry explaining why historical evidence remains comparable. Examples include typo corrections that do not change meaning and metadata formatting corrections.
+A new version is required whenever a change could alter construct interpretation, scoring, accessibility, response behavior, item statistics, fairness, or operational eligibility. Non-material editorial changes are limited to spelling, punctuation, formatting, or non-substantive metadata corrections that do not alter meaning, scoring, accessibility, response behavior, statistics, fairness, or operational eligibility. Non-material changes may retain the version only with reviewer sign-off and an audit entry explaining why historical evidence remains comparable.
 
 ## 8. Suspension, emergency removal, rollback, and retirement
 
@@ -202,24 +221,32 @@ Suspension triggers include:
 
 Emergency removal may move `field_test`, `reviewed_candidate`, or `validated_operational` items to `suspended` for future delivery. It must not rewrite historical administration records.
 
-Rollback restores the last approved item or policy version for future administrations only. Past administrations retain their original snapshots. A suspended field-test item cannot use rollback to bypass statistical review; reinstatement to `validated_operational` is allowed only for an item that was already `validated_operational` before suspension.
+Rollback restores the last approved item or policy version for future administrations only. Past administrations retain their original snapshots. A suspended field-test item cannot use rollback to bypass statistical review. Reinstatement to `reviewed_candidate` is allowed only for an item suspended from `reviewed_candidate`; reinstatement to `validated_operational` is allowed only for an item that was already `validated_operational` before suspension. Reinstatement requires structured suspension-origin evidence, cause resolution, required re-review, operational approval for operational reinstatement, psychometric approval where relevant, and immutable evidence records; implementations must not evaluate reinstatement as an unconstrained graph edge.
 
-Retirement is required when content is obsolete, invalid, overexposed, unrecoverably biased, replaced by stronger coverage, or no longer aligned to curriculum/package standards. Retired items do not return to operational use without a new version and a full governance path.
+Retirement is required when content is obsolete, invalid, overexposed, unrecoverably biased, replaced by stronger coverage, or no longer aligned to curriculum/package standards. Suspended items may move to retired with governance-admin action, retirement evidence, retirement rationale, and immutable audit history. Retired items are not selectable for any new delivery and do not return to operational use without a new version and a full governance path.
 
 ## 9. Public/private data separation in governance
 
-Governance records may reference public item-delivery metadata, but protected scoring and statistical details must remain outside public candidate indexes.
+Governance records may reference public item-delivery metadata, but protected scoring, workflow, approval, reviewer, provenance, and statistical details must remain outside public candidate indexes. Public candidate indexes must use an explicit allowlist and must not expose governance workflow state.
 
-A public candidate index can include:
+A public candidate index can include only safe selection metadata such as:
 
 ```json
 {
   "item_id": "item-g3m-frac-compare-001",
   "version": "1.0.0",
   "package_id": "G3M_FR_001",
-  "item_status": "reviewed_candidate",
-  "workflow_state": "reviewed_candidate",
-  "assessment_role_eligibility": ["progress_monitoring"]
+  "grade": 3,
+  "subject": "math",
+  "domain": "fractions",
+  "question_type": "multiple_choice",
+  "difficulty_target": "medium",
+  "cognitive_demand": "conceptual",
+  "assessment_role_eligibility": ["progress_monitoring"],
+  "active_status": "active",
+  "item_status": "validated_operational",
+  "estimated_completion_time": 60,
+  "public_prompt_reference": "delivery://prompt/item-g3m-frac-compare-001/1.0.0"
 }
 ```
 
@@ -227,6 +254,13 @@ A public candidate index must not include:
 
 ```json
 {
+  "review_state": "statistical_review",
+  "workflow_state": "reviewed_candidate",
+  "field_test_state": "field_test_complete",
+  "statistical_state": "approved",
+  "reviewer_notes": ["revise option B"],
+  "approval_history": ["operational approval"],
+  "private_provenance": {"vendor": "example"},
   "correct_answer": "2/3",
   "rubric": {"full_credit": "Selects 2/3."},
   "distractor_rationales": ["Denominator misconception."],

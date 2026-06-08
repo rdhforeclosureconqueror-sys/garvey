@@ -56,19 +56,51 @@
     "review_required"
   ],
   "public_candidate_index_policy": {
-    "description": "Candidate indexes may reference items by item_id, version, package_id, grade, subject, domain, construct, assessment_role_eligibility, active_status, item_status, review_state, field_test_state, statistical_state, estimated_completion_time, public stimulus/prompt pointers, and accommodations metadata only when those fields are marked public_delivery_safe.",
+    "description": "Public candidate indexes use an explicit allowlist of safe selection metadata only. They must not expose governance workflow state, review state, field-test state, statistical state, scoring keys, reviewer data, approval history, private provenance, or statistical details.",
+    "explicit_public_allowlist": [
+      "item_id",
+      "version",
+      "package_id",
+      "grade",
+      "subject",
+      "domain",
+      "question_type",
+      "difficulty_target",
+      "cognitive_demand",
+      "assessment_role_eligibility",
+      "audio_availability",
+      "visual_requirement_summary",
+      "active_status",
+      "item_status",
+      "estimated_completion_time",
+      "public_stimulus_reference",
+      "public_prompt_reference"
+    ],
+    "operational_item_status_when_safe": "item_status may appear only as a canonical operational eligibility label and must not expose governance workflow_state/review_state or statistical lifecycle state.",
     "must_not_expose": [
+      "review_state",
+      "workflow_state",
+      "field_test_state",
+      "statistical_state",
+      "reviewer_notes",
+      "statistical_metadata",
+      "statistical_parameters",
+      "private_provenance",
+      "source_author_identity_when_private",
+      "approval_history",
       "correct_answer",
       "acceptable_answers",
       "rubric",
       "partial_credit",
+      "multi_select_scoring",
       "distractors.correctness",
       "distractor_rationales",
       "misconceptions",
-      "prohibited_clues",
-      "reviewer_notes",
-      "statistical_parameters",
-      "source_author_identity_when_private"
+      "misconception_for_each_distractor",
+      "scoring_keys",
+      "correct_mappings",
+      "correct_sequence",
+      "correct_interactions"
     ],
     "protected_fields_must_be_server_side": true
   },
@@ -97,6 +129,7 @@
     "partial_credit",
     "distractors",
     "distractor_rationales",
+    "misconceptions",
     "prohibited_clues",
     "reading_level_target",
     "estimated_completion_time",
@@ -468,6 +501,215 @@
         "statistical_metadata"
       ],
       "validation": "Derived from field-test/operational data; not authored into item content."
+    },
+    "misconceptions": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "protected_private",
+        "reviewer_only"
+      ],
+      "validation": "Top-level item misconception taxonomy for the item; protected and non-public. Required when distractors or misconception mappings are present; option-level mappings live in misconception_for_each_distractor."
+    },
+    "reviewer_notes": {
+      "type": "array",
+      "classification": [
+        "reviewer_only",
+        "protected_private"
+      ],
+      "validation": "Reviewer comments, concerns, decisions, and rationale notes; never included in public delivery or candidate indexes."
+    },
+    "scoring_anchor_examples": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "protected_private",
+        "reviewer_only"
+      ],
+      "validation": "Protected constructed-response anchor examples for scorer calibration; required for constructed_response items when rubric or human scoring is used."
+    },
+    "human_review_guidance": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "protected_private",
+        "reviewer_only"
+      ],
+      "validation": "Protected guidance for human review, escalation, and scorer calibration; required when automated scoring is insufficient or constructed-response scoring needs human judgment."
+    },
+    "misconception_for_each_distractor": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "protected_private",
+        "reviewer_only"
+      ],
+      "validation": "Option-level protected mapping from each distractor identifier to one misconception taxonomy entry; required for multiple_choice and multi_select distractors."
+    },
+    "single_correct_option": {
+      "type": "string",
+      "classification": [
+        "conditionally_required",
+        "protected_private"
+      ],
+      "validation": "Protected identifier of the exactly one correct option for multiple_choice items; must match one delivered option and must not be public."
+    },
+    "option_ordering_policy": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "protected_private",
+        "reviewer_only"
+      ],
+      "validation": "Protected/randomization policy and clue checks for answer-option ordering; required for option-based items where ordering could cue an answer."
+    },
+    "all_correct_options": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "protected_private"
+      ],
+      "validation": "Protected list of all correct option identifiers for multi_select items; each identifier must match a delivered option."
+    },
+    "select_all_instruction": {
+      "type": "string",
+      "classification": [
+        "conditionally_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Learner-facing instruction that clearly indicates multi-select behavior without revealing the number or identity of correct options."
+    },
+    "multi_select_scoring": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "protected_private"
+      ],
+      "validation": "Deterministic protected scoring configuration for multi_select items.",
+      "required_properties": [
+        "scoring_mode",
+        "correct_option_weight",
+        "incorrect_option_penalty",
+        "minimum_score",
+        "maximum_score",
+        "omission_behavior",
+        "negative_scores_allowed",
+        "normalization_rule",
+        "partial_credit_enabled"
+      ],
+      "allowed_scoring_modes": [
+        "all_or_nothing",
+        "additive",
+        "additive_with_incorrect_penalty"
+      ],
+      "property_validation": {
+        "scoring_mode": "One of all_or_nothing, additive, additive_with_incorrect_penalty.",
+        "correct_option_weight": "Numeric weight for each selected correct option.",
+        "incorrect_option_penalty": "Numeric penalty for each selected incorrect option; must be zero for all_or_nothing or additive unless explicitly justified for additive_with_incorrect_penalty.",
+        "minimum_score": "Numeric floor applied after raw scoring and before/with normalization as specified.",
+        "maximum_score": "Numeric ceiling; must be greater than or equal to minimum_score.",
+        "omission_behavior": "Explicit handling for unselected correct options, such as no_penalty, count_as_zero, or configured_omission_penalty.",
+        "negative_scores_allowed": "Boolean; if false, normalized and final scores must not be below minimum_score.",
+        "normalization_rule": "Exact transformation from raw score to reported item score, including rounding if any.",
+        "partial_credit_enabled": "Boolean; false requires all_or_nothing semantics."
+      }
+    },
+    "left_options": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Learner-facing left-side option set for matching items; option text must not reveal mappings."
+    },
+    "right_options": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Learner-facing right-side option set for matching items; option text/order must not reveal mappings."
+    },
+    "correct_mappings": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "protected_private"
+      ],
+      "validation": "Protected deterministic scoring map for matching items; each required left option maps to the correct right option(s)."
+    },
+    "distractor_mappings_or_extra_options": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "protected_private",
+        "reviewer_only"
+      ],
+      "validation": "Protected matching-item distractor mappings or extra options and rationales; required when distractors/extra options are used."
+    },
+    "accessibility_linearization": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Keyboard and screen-reader ordering/linearization for matching or complex layout items; must preserve construct equivalence without revealing answers."
+    },
+    "ordered_elements": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Learner-facing elements to order; labels and metadata must not reveal the sequence."
+    },
+    "correct_sequence": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "protected_private"
+      ],
+      "validation": "Protected deterministic correct sequence for ordering items."
+    },
+    "partial_order_rules": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "protected_private"
+      ],
+      "validation": "Protected rules describing acceptable alternative or partial sequences and exact scoring behavior for ordering items."
+    },
+    "drag_keyboard_equivalent": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Keyboard-accessible equivalent for drag/order interactions; must preserve response behavior without answer disclosure."
+    },
+    "interaction_target_regions": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Learner-facing response geometry for visual interaction items, including target region identifiers and accessible labels; must not identify correct regions."
+    },
+    "correct_interactions": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "protected_private"
+      ],
+      "validation": "Protected deterministic scoring definition for visual interaction responses, keyed to target region identifiers and acceptable gestures/selections."
+    },
+    "alternate_input_equivalent": {
+      "type": "object",
+      "classification": [
+        "conditionally_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Accessible alternative input method for visual interactions; must be behavior-equivalent and non-answer-revealing."
     }
   },
   "public_delivery_metadata_fields": [
@@ -491,7 +733,15 @@
     "estimated_completion_time",
     "assessment_role_eligibility",
     "item_status",
-    "active_status"
+    "active_status",
+    "select_all_instruction",
+    "left_options",
+    "right_options",
+    "accessibility_linearization",
+    "ordered_elements",
+    "drag_keyboard_equivalent",
+    "interaction_target_regions",
+    "alternate_input_equivalent"
   ],
   "protected_scoring_key_fields": [
     "correct_answer",
@@ -499,7 +749,19 @@
     "rubric",
     "partial_credit",
     "distractors",
-    "distractor_rationales"
+    "distractor_rationales",
+    "misconceptions",
+    "misconception_for_each_distractor",
+    "single_correct_option",
+    "all_correct_options",
+    "multi_select_scoring",
+    "correct_mappings",
+    "distractor_mappings_or_extra_options",
+    "correct_sequence",
+    "partial_order_rules",
+    "correct_interactions",
+    "scoring_anchor_examples",
+    "human_review_guidance"
   ],
   "reviewer_only_fields": [
     "evidence_statement",
@@ -507,7 +769,13 @@
     "prohibited_clues",
     "source_provenance",
     "change_history",
-    "reviewer_notes"
+    "reviewer_notes",
+    "misconceptions",
+    "misconception_for_each_distractor",
+    "option_ordering_policy",
+    "scoring_anchor_examples",
+    "human_review_guidance",
+    "distractor_mappings_or_extra_options"
   ],
   "statistical_metadata_fields": [
     "field_test_state",
@@ -535,6 +803,7 @@
       "misconception_for_each_distractor",
       "all_correct_options",
       "partial_credit",
+      "multi_select_scoring",
       "select_all_instruction"
     ],
     "matching": [
@@ -568,7 +837,10 @@
     "Audio must not reveal the answer through wording, emphasis, pronunciation, pause, or sound effect.",
     "Items must not require unrelated cultural knowledge.",
     "Forms must not contain duplicate or near-duplicate operational items.",
-    "Protected scoring fields must not be exposed through public candidate indexes."
+    "Protected scoring fields must not be exposed through public candidate indexes.",
+    "Top-level misconceptions define protected item-level misconception taxonomy; misconception_for_each_distractor defines protected option-level mappings.",
+    "Multi-select items must provide deterministic protected multi_select_scoring semantics, including scoring mode, weights, penalties, floors, ceilings, omission behavior, negative-score policy, normalization, and partial-credit flag.",
+    "Public candidate indexes must use only the explicit allowlist and must not expose review_state, workflow_state, field_test_state, statistical_state, reviewer notes, approval history, private provenance, scoring keys, or statistical parameters."
   ],
   "validation_rules": [
     {
@@ -645,6 +917,21 @@
       "rule_id": "AIW-OPR-001",
       "severity": "error",
       "description": "Items used for operational mastery decisions must have item_status validated_operational."
+    },
+    {
+      "rule_id": "AIW-FLD-001",
+      "severity": "error",
+      "description": "Every field referenced by required metadata, visibility lists, candidate-index policy, or conditional question-type requirements must have a field_definitions entry."
+    },
+    {
+      "rule_id": "AIW-MSQ-001",
+      "severity": "error",
+      "description": "Multi-select items must include protected multi_select_scoring with scoring_mode, correct_option_weight, incorrect_option_penalty, minimum_score, maximum_score, omission_behavior, negative_scores_allowed, normalization_rule, and partial_credit_enabled."
+    },
+    {
+      "rule_id": "AIW-PRI-002",
+      "severity": "error",
+      "description": "Public candidate indexes must include only explicit_public_allowlist fields and must not include review_state, workflow_state, field_test_state, statistical_state, reviewer_notes, statistical metadata, private provenance, approval history, or scoring data."
     }
   ]
 }
