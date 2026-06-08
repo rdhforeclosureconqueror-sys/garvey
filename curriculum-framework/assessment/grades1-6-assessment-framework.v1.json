@@ -2270,14 +2270,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-english-progress-monitoring-v1",
@@ -2355,14 +2355,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-english-strand-reassessment-v1",
@@ -2440,7 +2440,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -2448,7 +2447,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-english-grade-mastery-v1",
@@ -2543,12 +2543,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-english-cumulative-mixed-v1",
@@ -2632,12 +2632,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-english-next-grade-readiness-v1",
@@ -2767,11 +2767,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-math-baseline-v1",
@@ -2871,14 +2871,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-math-progress-monitoring-v1",
@@ -2961,14 +2961,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-math-strand-reassessment-v1",
@@ -3051,7 +3051,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -3059,7 +3058,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-math-grade-mastery-v1",
@@ -3158,12 +3158,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-math-cumulative-mixed-v1",
@@ -3254,12 +3254,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g1-math-next-grade-readiness-v1",
@@ -3388,11 +3388,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-english-baseline-v1",
@@ -3490,14 +3490,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-english-progress-monitoring-v1",
@@ -3577,14 +3577,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-english-strand-reassessment-v1",
@@ -3664,7 +3664,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -3672,7 +3671,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-english-grade-mastery-v1",
@@ -3769,12 +3769,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-english-cumulative-mixed-v1",
@@ -3861,12 +3861,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-english-next-grade-readiness-v1",
@@ -3999,11 +3999,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-math-baseline-v1",
@@ -4102,14 +4102,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-math-progress-monitoring-v1",
@@ -4192,14 +4192,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-math-strand-reassessment-v1",
@@ -4282,7 +4282,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -4290,7 +4289,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-math-grade-mastery-v1",
@@ -4388,12 +4388,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-math-cumulative-mixed-v1",
@@ -4483,12 +4483,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g2-math-next-grade-readiness-v1",
@@ -4615,11 +4615,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-english-baseline-v1",
@@ -4719,14 +4719,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-english-progress-monitoring-v1",
@@ -4807,14 +4807,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-english-strand-reassessment-v1",
@@ -4895,7 +4895,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -4903,7 +4902,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-english-grade-mastery-v1",
@@ -5002,12 +5002,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-english-cumulative-mixed-v1",
@@ -5097,12 +5097,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-english-next-grade-readiness-v1",
@@ -5234,11 +5234,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-math-baseline-v1",
@@ -5336,14 +5336,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-math-progress-monitoring-v1",
@@ -5425,14 +5425,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-math-strand-reassessment-v1",
@@ -5514,7 +5514,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -5522,7 +5521,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-math-grade-mastery-v1",
@@ -5619,12 +5619,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-math-cumulative-mixed-v1",
@@ -5713,12 +5713,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g3-math-next-grade-readiness-v1",
@@ -5843,11 +5843,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-english-baseline-v1",
@@ -5947,14 +5947,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-english-progress-monitoring-v1",
@@ -6035,14 +6035,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-english-strand-reassessment-v1",
@@ -6123,7 +6123,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -6131,7 +6130,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-english-grade-mastery-v1",
@@ -6230,12 +6230,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-english-cumulative-mixed-v1",
@@ -6325,12 +6325,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-english-next-grade-readiness-v1",
@@ -6462,11 +6462,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-math-baseline-v1",
@@ -6563,14 +6563,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-math-progress-monitoring-v1",
@@ -6651,14 +6651,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-math-strand-reassessment-v1",
@@ -6739,7 +6739,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -6747,7 +6746,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-math-grade-mastery-v1",
@@ -6843,12 +6843,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-math-cumulative-mixed-v1",
@@ -6935,12 +6935,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g4-math-next-grade-readiness-v1",
@@ -7066,11 +7066,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-english-baseline-v1",
@@ -7170,14 +7170,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-english-progress-monitoring-v1",
@@ -7258,14 +7258,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-english-strand-reassessment-v1",
@@ -7346,7 +7346,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -7354,7 +7353,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-english-grade-mastery-v1",
@@ -7453,12 +7453,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-english-cumulative-mixed-v1",
@@ -7548,12 +7548,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-english-next-grade-readiness-v1",
@@ -7685,11 +7685,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-math-baseline-v1",
@@ -7786,14 +7786,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-math-progress-monitoring-v1",
@@ -7876,14 +7876,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-math-strand-reassessment-v1",
@@ -7966,7 +7966,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -7974,7 +7973,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-math-grade-mastery-v1",
@@ -8070,12 +8070,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-math-cumulative-mixed-v1",
@@ -8164,12 +8164,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g5-math-next-grade-readiness-v1",
@@ -8293,11 +8293,11 @@
       ],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-english-baseline-v1",
@@ -8397,14 +8397,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-english-progress-monitoring-v1",
@@ -8486,14 +8486,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-english-strand-reassessment-v1",
@@ -8575,7 +8575,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -8583,7 +8582,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-english-grade-mastery-v1",
@@ -8682,12 +8682,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-english-cumulative-mixed-v1",
@@ -8778,12 +8778,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-english-next-grade-readiness-v1",
@@ -8873,11 +8873,11 @@
       "next_grade_sample_domains": [],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-math-baseline-v1",
@@ -8974,14 +8974,14 @@
       "recommendation_generation_allowed": true,
       "gate_condition": "selected grade and selected subject only; no next-grade probing; targeted prerequisite confirmation only after scored weakness",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-math-progress-monitoring-v1",
@@ -9063,14 +9063,14 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "progress_monitoring_candidate",
         "reviewed_candidate",
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-math-strand-reassessment-v1",
@@ -9152,7 +9152,6 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "diagnostic_candidate",
         "mastery_candidate",
@@ -9160,7 +9159,8 @@
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-math-grade-mastery-v1",
@@ -9256,12 +9256,12 @@
       "mastery_decision_allowed": true,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-math-cumulative-mixed-v1",
@@ -9349,12 +9349,12 @@
       "mastery_decision_allowed": false,
       "recommendation_generation_allowed": true,
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
       "package_reference_scope": "current_grade",
-      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing"
+      "targeted_prerequisite_confirmation_scope": "separate targeted prerequisite-confirmation evidence only after a specific weakness is found; not part of random baseline grade mixing",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     },
     {
       "blueprint_id": "g6-math-next-grade-readiness-v1",
@@ -9444,11 +9444,11 @@
       "next_grade_sample_domains": [],
       "gate_condition": "available only after current-grade mastery; Grade 6 next-grade package IDs are not present in current Grades 1-6 manifest and require future Grade 7 inventory before package-specific operational use",
       "item_status_vocabulary": "canonical_item_status_vocabulary",
-      "field_test_scoring_rule": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; field_test items are excluded from scored blueprint evidence.",
       "scored_evidence_statuses": [
         "validated_operational"
       ],
-      "package_reference_scope": "next_grade"
+      "package_reference_scope": "next_grade",
+      "field_test_scoring_policy_id": "field-test-zero-decision-weight-v1"
     }
   ],
   "inventory_findings": {
@@ -9573,5 +9573,17 @@
     ],
     "field_test_rule": "field_test items may be embedded only under a separately governed non-scored field-test design; field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions."
   },
-  "field_test_scoring_policy": "field_test responses contribute zero weight to mastery, readiness, recommendations, placement, and parent-facing decisions; grade_mastery blueprints exclude field_test from allowed_item_statuses."
+  "field_test_scoring_policy": {
+    "policy_id": "field-test-zero-decision-weight-v1",
+    "item_status": "field_test",
+    "scored_evidence_weight": 0,
+    "exclude_from": [
+      "mastery",
+      "readiness",
+      "recommendations",
+      "placement",
+      "parent_facing_decisions"
+    ],
+    "eligible_for_item_statistics": true
+  }
 }
