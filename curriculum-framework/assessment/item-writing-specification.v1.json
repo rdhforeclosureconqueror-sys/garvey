@@ -1,0 +1,650 @@
+{
+  "standard_id": "assessment-item-writing-specification-v1",
+  "version": "1.0.0",
+  "status": "provisional_governance_standard",
+  "purpose": "Machine-readable authoring, review, privacy, and validation standard for future assessment items. This is not an item bank, runtime delivery API, or psychometric validation claim.",
+  "canonical_item_status_vocabulary": [
+    "instruction_only",
+    "practice",
+    "progress_monitoring_candidate",
+    "diagnostic_candidate",
+    "mastery_candidate",
+    "field_test",
+    "reviewed_candidate",
+    "validated_operational",
+    "suspended",
+    "retired"
+  ],
+  "question_type_vocabulary": [
+    "constructed_response",
+    "multiple_choice",
+    "multi_select",
+    "matching",
+    "ordering",
+    "visual_interaction"
+  ],
+  "review_state_vocabulary": [
+    "draft",
+    "automated_validation",
+    "curriculum_review",
+    "subject_matter_review",
+    "developmental_review",
+    "accessibility_review",
+    "bias_sensitivity_review",
+    "audio_review",
+    "visual_review",
+    "approved_for_field_test",
+    "field_test",
+    "statistical_review",
+    "reviewed_candidate",
+    "validated_operational",
+    "suspended",
+    "retired"
+  ],
+  "field_classification_vocabulary": [
+    "always_required",
+    "conditionally_required",
+    "protected_private",
+    "public_delivery_safe",
+    "reviewer_only",
+    "derived_not_author_entered",
+    "statistical_metadata"
+  ],
+  "validation_severity_levels": [
+    "error",
+    "warning",
+    "review_required"
+  ],
+  "public_candidate_index_policy": {
+    "description": "Candidate indexes may reference items by item_id, version, package_id, grade, subject, domain, construct, assessment_role_eligibility, active_status, item_status, review_state, field_test_state, statistical_state, estimated_completion_time, public stimulus/prompt pointers, and accommodations metadata only when those fields are marked public_delivery_safe.",
+    "must_not_expose": [
+      "correct_answer",
+      "acceptable_answers",
+      "rubric",
+      "partial_credit",
+      "distractors.correctness",
+      "distractor_rationales",
+      "misconceptions",
+      "prohibited_clues",
+      "reviewer_notes",
+      "statistical_parameters",
+      "source_author_identity_when_private"
+    ],
+    "protected_fields_must_be_server_side": true
+  },
+  "required_metadata_fields": [
+    "item_id",
+    "version",
+    "package_id",
+    "grade",
+    "subject",
+    "domain",
+    "construct",
+    "evidence_statement",
+    "cognitive_demand",
+    "difficulty_target",
+    "question_type",
+    "stimulus",
+    "prompt",
+    "visible_prompt",
+    "spoken_prompt",
+    "visual_requirements",
+    "audio_requirements",
+    "accessibility_requirements",
+    "correct_answer",
+    "acceptable_answers",
+    "rubric",
+    "partial_credit",
+    "distractors",
+    "distractor_rationales",
+    "prohibited_clues",
+    "reading_level_target",
+    "estimated_completion_time",
+    "assessment_role_eligibility",
+    "review_state",
+    "field_test_state",
+    "statistical_state",
+    "item_status",
+    "active_status",
+    "source_provenance",
+    "change_history"
+  ],
+  "field_definitions": {
+    "item_id": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Stable opaque identifier unique across versions."
+    },
+    "version": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Semantic or monotonic item version; immutable after administration."
+    },
+    "package_id": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Must resolve to an approved curriculum package before operational use."
+    },
+    "grade": {
+      "type": "integer",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Target grade for the measured construct."
+    },
+    "subject": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Subject label aligned to assessment framework."
+    },
+    "domain": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Domain label aligned to package/framework domain."
+    },
+    "construct": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "One clear construct unless integrated_construct_rationale documents intentional integration."
+    },
+    "integrated_construct_rationale": {
+      "type": "string",
+      "classification": [
+        "conditionally_required",
+        "reviewer_only"
+      ],
+      "required_when": "More than one construct is intentionally measured."
+    },
+    "evidence_statement": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "reviewer_only"
+      ],
+      "validation": "Specific observable evidence the response provides."
+    },
+    "cognitive_demand": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "allowed_values": [
+        "recall",
+        "skill_concept",
+        "strategic_thinking",
+        "extended_reasoning"
+      ]
+    },
+    "difficulty_target": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "allowed_values": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "question_type": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "allowed_values": [
+        "constructed_response",
+        "multiple_choice",
+        "multi_select",
+        "matching",
+        "ordering",
+        "visual_interaction"
+      ]
+    },
+    "stimulus": {
+      "type": "object",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Text, image, audio, or interaction material needed to answer; no unrelated cultural knowledge."
+    },
+    "prompt": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Authoring prompt source; must be clear, age-appropriate, and not tricky."
+    },
+    "visible_prompt": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Text shown to learner; semantically equivalent to spoken_prompt."
+    },
+    "spoken_prompt": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Audio script; semantically equivalent to visible_prompt and must not reveal the answer."
+    },
+    "visual_requirements": {
+      "type": "object",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Required and prohibited visual affordances, alt text, contrast, and non-answer-revealing imagery."
+    },
+    "audio_requirements": {
+      "type": "object",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Required narration, pronunciation, silence, replay, and no answer-revealing emphasis."
+    },
+    "accessibility_requirements": {
+      "type": "object",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Accommodations, alternatives, and behavior-equivalence requirements."
+    },
+    "correct_answer": {
+      "type": "any",
+      "classification": [
+        "always_required",
+        "protected_private"
+      ],
+      "validation": "Scoring key; never included in public candidate indexes."
+    },
+    "acceptable_answers": {
+      "type": "array",
+      "classification": [
+        "always_required",
+        "protected_private"
+      ],
+      "validation": "Equivalent acceptable responses for constructed and interaction items."
+    },
+    "rubric": {
+      "type": "object",
+      "classification": [
+        "always_required",
+        "protected_private"
+      ],
+      "validation": "Protected scoring rubric with full-credit and non-credit criteria."
+    },
+    "partial_credit": {
+      "type": "object",
+      "classification": [
+        "always_required",
+        "protected_private"
+      ],
+      "validation": "Partial-credit criteria or explicit disabled reason."
+    },
+    "distractors": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "protected_private"
+      ],
+      "required_when": "multiple_choice or multi_select; optional protected answer-option scoring metadata for matching/ordering/visual_interaction."
+    },
+    "distractor_rationales": {
+      "type": "array",
+      "classification": [
+        "conditionally_required",
+        "protected_private",
+        "reviewer_only"
+      ],
+      "required_when": "distractors are present; each distractor must identify the misconception represented."
+    },
+    "prohibited_clues": {
+      "type": "array",
+      "classification": [
+        "always_required",
+        "reviewer_only"
+      ],
+      "validation": "Known wording, formatting, audio, or visual clues that must be absent."
+    },
+    "reading_level_target": {
+      "type": "object",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Grade-appropriate language target; math items minimize unrelated reading load."
+    },
+    "estimated_completion_time": {
+      "type": "integer",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Estimated seconds for typical learner."
+    },
+    "assessment_role_eligibility": {
+      "type": "array",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "validation": "Assessment roles where item may appear, subject to item_status and blueprint rules."
+    },
+    "review_state": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "reviewer_only"
+      ],
+      "allowed_values": [
+        "draft",
+        "automated_validation",
+        "curriculum_review",
+        "subject_matter_review",
+        "developmental_review",
+        "accessibility_review",
+        "bias_sensitivity_review",
+        "audio_review",
+        "visual_review",
+        "approved_for_field_test",
+        "field_test",
+        "statistical_review",
+        "reviewed_candidate",
+        "validated_operational",
+        "suspended",
+        "retired"
+      ]
+    },
+    "field_test_state": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "statistical_metadata"
+      ],
+      "allowed_values": [
+        "not_field_tested",
+        "approved_for_field_test",
+        "in_field_test",
+        "field_test_complete",
+        "field_test_rejected"
+      ]
+    },
+    "statistical_state": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "statistical_metadata"
+      ],
+      "allowed_values": [
+        "not_available",
+        "pending_review",
+        "needs_more_data",
+        "approved",
+        "rejected",
+        "monitoring"
+      ]
+    },
+    "item_status": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "allowed_values": [
+        "instruction_only",
+        "practice",
+        "progress_monitoring_candidate",
+        "diagnostic_candidate",
+        "mastery_candidate",
+        "field_test",
+        "reviewed_candidate",
+        "validated_operational",
+        "suspended",
+        "retired"
+      ]
+    },
+    "active_status": {
+      "type": "string",
+      "classification": [
+        "always_required",
+        "public_delivery_safe"
+      ],
+      "allowed_values": [
+        "inactive",
+        "active",
+        "suspended",
+        "retired"
+      ]
+    },
+    "source_provenance": {
+      "type": "object",
+      "classification": [
+        "always_required",
+        "reviewer_only"
+      ],
+      "validation": "Origin, authoring source, citations or generation provenance, licensing, and review trace."
+    },
+    "change_history": {
+      "type": "array",
+      "classification": [
+        "always_required",
+        "reviewer_only"
+      ],
+      "validation": "Immutable append-only changes with actor, timestamp, reason, materiality, and policy version."
+    },
+    "statistical_metadata": {
+      "type": "object",
+      "classification": [
+        "derived_not_author_entered",
+        "statistical_metadata"
+      ],
+      "validation": "Derived from field-test/operational data; not authored into item content."
+    }
+  },
+  "public_delivery_metadata_fields": [
+    "item_id",
+    "version",
+    "package_id",
+    "grade",
+    "subject",
+    "domain",
+    "construct",
+    "cognitive_demand",
+    "difficulty_target",
+    "question_type",
+    "stimulus",
+    "visible_prompt",
+    "spoken_prompt",
+    "visual_requirements",
+    "audio_requirements",
+    "accessibility_requirements",
+    "reading_level_target",
+    "estimated_completion_time",
+    "assessment_role_eligibility",
+    "item_status",
+    "active_status"
+  ],
+  "protected_scoring_key_fields": [
+    "correct_answer",
+    "acceptable_answers",
+    "rubric",
+    "partial_credit",
+    "distractors",
+    "distractor_rationales"
+  ],
+  "reviewer_only_fields": [
+    "evidence_statement",
+    "integrated_construct_rationale",
+    "prohibited_clues",
+    "source_provenance",
+    "change_history",
+    "reviewer_notes"
+  ],
+  "statistical_metadata_fields": [
+    "field_test_state",
+    "statistical_state",
+    "statistical_metadata"
+  ],
+  "conditional_requirements_by_question_type": {
+    "constructed_response": [
+      "acceptable_answers",
+      "rubric",
+      "partial_credit",
+      "scoring_anchor_examples",
+      "human_review_guidance"
+    ],
+    "multiple_choice": [
+      "distractors",
+      "distractor_rationales",
+      "misconception_for_each_distractor",
+      "single_correct_option",
+      "option_ordering_policy"
+    ],
+    "multi_select": [
+      "distractors",
+      "distractor_rationales",
+      "misconception_for_each_distractor",
+      "all_correct_options",
+      "partial_credit",
+      "select_all_instruction"
+    ],
+    "matching": [
+      "left_options",
+      "right_options",
+      "correct_mappings",
+      "distractor_mappings_or_extra_options",
+      "accessibility_linearization"
+    ],
+    "ordering": [
+      "ordered_elements",
+      "correct_sequence",
+      "partial_order_rules",
+      "drag_keyboard_equivalent"
+    ],
+    "visual_interaction": [
+      "interaction_target_regions",
+      "correct_interactions",
+      "alternate_input_equivalent",
+      "visual_requirements",
+      "accessibility_requirements"
+    ]
+  },
+  "authoring_principles": [
+    "Measure one clear construct unless intentional integration is documented.",
+    "Use age-appropriate language and no trick wording.",
+    "Avoid accidental clues in wording, option length, formatting, visuals, audio, and ordering.",
+    "Multiple-choice and multi-select distractors must be plausible and misconception-based.",
+    "Math items must minimize unrelated reading load.",
+    "Visible and spoken prompts must be semantically equivalent.",
+    "Audio must not reveal the answer through wording, emphasis, pronunciation, pause, or sound effect.",
+    "Items must not require unrelated cultural knowledge.",
+    "Forms must not contain duplicate or near-duplicate operational items.",
+    "Protected scoring fields must not be exposed through public candidate indexes."
+  ],
+  "validation_rules": [
+    {
+      "rule_id": "AIW-REQ-001",
+      "severity": "error",
+      "description": "All always_required fields must be present and non-empty."
+    },
+    {
+      "rule_id": "AIW-REQ-002",
+      "severity": "error",
+      "description": "question_type must be one of the defined question_type_vocabulary values."
+    },
+    {
+      "rule_id": "AIW-REQ-003",
+      "severity": "error",
+      "description": "All conditional requirements for the selected question_type must be satisfied."
+    },
+    {
+      "rule_id": "AIW-CON-001",
+      "severity": "review_required",
+      "description": "Items measuring more than one construct require integrated_construct_rationale and curriculum-review approval."
+    },
+    {
+      "rule_id": "AIW-LANG-001",
+      "severity": "review_required",
+      "description": "Prompt and stimulus language must be age-appropriate and free of trick wording."
+    },
+    {
+      "rule_id": "AIW-MATH-001",
+      "severity": "warning",
+      "description": "Math items with high unrelated reading load require revision or documented rationale."
+    },
+    {
+      "rule_id": "AIW-CLUE-001",
+      "severity": "error",
+      "description": "No accidental answer clues may appear in prompt, stimulus, options, visuals, audio, or metadata delivered to learners."
+    },
+    {
+      "rule_id": "AIW-DIS-001",
+      "severity": "error",
+      "description": "Every distractor must have a rationale and represented misconception."
+    },
+    {
+      "rule_id": "AIW-AUD-001",
+      "severity": "error",
+      "description": "spoken_prompt and audio_requirements must not reveal the answer."
+    },
+    {
+      "rule_id": "AIW-SEM-001",
+      "severity": "error",
+      "description": "visible_prompt and spoken_prompt must be semantically equivalent."
+    },
+    {
+      "rule_id": "AIW-CUL-001",
+      "severity": "review_required",
+      "description": "Items requiring unrelated cultural knowledge require revision or documented construct relevance."
+    },
+    {
+      "rule_id": "AIW-DUP-001",
+      "severity": "error",
+      "description": "Operational forms must not include duplicate or near-duplicate items measuring the same construct through substantially identical stimulus or answer path."
+    },
+    {
+      "rule_id": "AIW-PRI-001",
+      "severity": "error",
+      "description": "Protected scoring, answer, rubric, rationale, reviewer, and statistical fields must not be classified as public_delivery_safe or emitted in public candidate indexes."
+    },
+    {
+      "rule_id": "AIW-STA-001",
+      "severity": "error",
+      "description": "item_status must use the canonical item-status vocabulary."
+    },
+    {
+      "rule_id": "AIW-OPR-001",
+      "severity": "error",
+      "description": "Items used for operational mastery decisions must have item_status validated_operational."
+    }
+  ]
+}

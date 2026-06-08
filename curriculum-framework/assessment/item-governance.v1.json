@@ -1,0 +1,731 @@
+{
+  "standard_id": "assessment-item-governance-v1",
+  "version": "1.0.0",
+  "status": "provisional_governance_standard",
+  "purpose": "Machine-readable workflow, validation, audit, versioning, and operational-readiness governance standard for future assessment items. This is not a runtime API and does not itself establish psychometric validity.",
+  "canonical_item_status_vocabulary": [
+    "instruction_only",
+    "practice",
+    "progress_monitoring_candidate",
+    "diagnostic_candidate",
+    "mastery_candidate",
+    "field_test",
+    "reviewed_candidate",
+    "validated_operational",
+    "suspended",
+    "retired"
+  ],
+  "workflow_state_vocabulary": [
+    "draft",
+    "automated_validation",
+    "curriculum_review",
+    "subject_matter_review",
+    "developmental_review",
+    "accessibility_review",
+    "bias_sensitivity_review",
+    "audio_review",
+    "visual_review",
+    "approved_for_field_test",
+    "field_test",
+    "statistical_review",
+    "reviewed_candidate",
+    "validated_operational",
+    "suspended",
+    "retired"
+  ],
+  "validation_severity_levels": [
+    "error",
+    "warning",
+    "review_required"
+  ],
+  "terminal_workflow_states": [
+    "retired"
+  ],
+  "workflow_state_to_item_status_alignment": {
+    "draft": [
+      "instruction_only",
+      "practice",
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "automated_validation": [
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "curriculum_review": [
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "subject_matter_review": [
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "developmental_review": [
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "accessibility_review": [
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "bias_sensitivity_review": [
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "audio_review": [
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "visual_review": [
+      "progress_monitoring_candidate",
+      "diagnostic_candidate",
+      "mastery_candidate"
+    ],
+    "approved_for_field_test": [
+      "field_test"
+    ],
+    "field_test": [
+      "field_test"
+    ],
+    "statistical_review": [
+      "field_test"
+    ],
+    "reviewed_candidate": [
+      "reviewed_candidate"
+    ],
+    "validated_operational": [
+      "validated_operational"
+    ],
+    "suspended": [
+      "suspended"
+    ],
+    "retired": [
+      "retired"
+    ]
+  },
+  "distinctions": {
+    "workflow_state": "Review and lifecycle location of a specific item version.",
+    "reviewed_candidate_not_operational": "reviewed_candidate is not equivalent to validated_operational and cannot be used for operational mastery decisions.",
+    "field_test_zero_weight": "field_test items have zero decision weight for mastery, readiness, recommendations, placement, and parent-facing decisions.",
+    "no_automatic_operation": "No item becomes validated_operational automatically after field test or statistical review. Explicit operational approval is required.",
+    "operational_mastery_requirement": "Operational mastery use requires item_status validated_operational.",
+    "item_status_definition": "Canonical eligibility label consumed by assessment blueprints and indexes."
+  },
+  "reviewer_roles": {
+    "author": "Creates or revises the item; cannot be sole approver for any required review.",
+    "automated_validator": "Runs machine checks and records rule outcomes.",
+    "curriculum_reviewer": "Confirms package, grade, domain, construct, and blueprint alignment.",
+    "subject_matter_reviewer": "Confirms correctness, construct representation, distractor misconceptions, and no trick wording.",
+    "developmental_reviewer": "Confirms age-appropriateness and reading/load expectations.",
+    "accessibility_reviewer": "Confirms accommodation and modality equivalence.",
+    "bias_sensitivity_reviewer": "Reviews fairness, sensitivity, and unrelated cultural knowledge risks.",
+    "audio_reviewer": "Reviews spoken prompt, pronunciation, emphasis, and audio non-disclosure.",
+    "visual_reviewer": "Reviews visuals, contrast, target regions, and visual non-disclosure.",
+    "psychometric_reviewer": "Reviews field-test statistics, reliability indicators, and differential item functioning.",
+    "operational_approver": "Approves validated_operational use after required review evidence is complete.",
+    "governance_admin": "Executes emergency suspension, rollback, and retirement records."
+  },
+  "separation_of_duties": {
+    "author_cannot_final_approve": true,
+    "statistical_reviewer_distinct_from_author": true,
+    "operational_approver_distinct_from_author": true,
+    "accessibility_reviewer_required_when_accessibility_behavior_changes": true,
+    "emergency_removal_requires_post_hoc_independent_review": true
+  },
+  "approval_quorum": {
+    "approved_for_field_test": [
+      "curriculum_reviewer",
+      "subject_matter_reviewer",
+      "developmental_reviewer",
+      "accessibility_reviewer",
+      "bias_sensitivity_reviewer"
+    ],
+    "validated_operational": [
+      "psychometric_reviewer",
+      "curriculum_reviewer",
+      "subject_matter_reviewer",
+      "operational_approver"
+    ],
+    "suspension_release": [
+      "governance_admin",
+      "role_relevant_reviewer",
+      "operational_approver"
+    ]
+  },
+  "required_evidence_by_transition": {
+    "draft_to_automated_validation": [
+      "complete item metadata",
+      "protected/public classification",
+      "author change entry"
+    ],
+    "automated_validation_to_curriculum_review": [
+      "no validation errors",
+      "warnings triaged"
+    ],
+    "curriculum_review_to_subject_matter_review": [
+      "package/domain/construct alignment approval"
+    ],
+    "subject_matter_review_to_developmental_review": [
+      "correctness approval",
+      "distractor misconception approval",
+      "no trick wording approval"
+    ],
+    "developmental_review_to_accessibility_review": [
+      "age-appropriate language approval",
+      "reading load approval"
+    ],
+    "accessibility_review_to_bias_sensitivity_review": [
+      "modality equivalence approval",
+      "accommodation behavior approval"
+    ],
+    "bias_sensitivity_review_to_audio_review": [
+      "fairness/sensitivity approval",
+      "unrelated cultural knowledge check"
+    ],
+    "audio_review_to_visual_review": [
+      "audio non-disclosure approval or not-applicable rationale"
+    ],
+    "visual_review_to_approved_for_field_test": [
+      "visual non-disclosure approval or not-applicable rationale",
+      "field-test design assignment"
+    ],
+    "approved_for_field_test_to_field_test": [
+      "field-test isolation flag",
+      "zero decision weight confirmation"
+    ],
+    "field_test_to_statistical_review": [
+      "sufficient field-test sample or needs-more-data decision",
+      "administration policy versions captured"
+    ],
+    "statistical_review_to_reviewed_candidate": [
+      "item statistics review",
+      "fairness and DIF review",
+      "psychometric recommendation"
+    ],
+    "reviewed_candidate_to_validated_operational": [
+      "operational approval",
+      "standard-setting dependency satisfied",
+      "blueprint eligibility confirmed"
+    ],
+    "any_state_to_suspended": [
+      "suspension trigger record",
+      "affected administrations assessment",
+      "emergency removal decision if applicable"
+    ],
+    "suspended_to_prior_review_state": [
+      "root cause resolution",
+      "required re-review evidence",
+      "rollback or reactivation decision"
+    ],
+    "any_state_to_retired": [
+      "retirement reason",
+      "replacement or coverage impact assessment",
+      "historical retention confirmation"
+    ]
+  },
+  "allowed_transitions": [
+    {
+      "transition_id": "GOV-TR-001",
+      "from": "draft",
+      "to": "automated_validation",
+      "required_roles": [
+        "author"
+      ],
+      "evidence_key": "draft_to_automated_validation"
+    },
+    {
+      "transition_id": "GOV-TR-002",
+      "from": "automated_validation",
+      "to": "curriculum_review",
+      "required_roles": [
+        "automated_validator"
+      ],
+      "evidence_key": "automated_validation_to_curriculum_review"
+    },
+    {
+      "transition_id": "GOV-TR-003",
+      "from": "curriculum_review",
+      "to": "subject_matter_review",
+      "required_roles": [
+        "curriculum_reviewer"
+      ],
+      "evidence_key": "curriculum_review_to_subject_matter_review"
+    },
+    {
+      "transition_id": "GOV-TR-004",
+      "from": "subject_matter_review",
+      "to": "developmental_review",
+      "required_roles": [
+        "subject_matter_reviewer"
+      ],
+      "evidence_key": "subject_matter_review_to_developmental_review"
+    },
+    {
+      "transition_id": "GOV-TR-005",
+      "from": "developmental_review",
+      "to": "accessibility_review",
+      "required_roles": [
+        "developmental_reviewer"
+      ],
+      "evidence_key": "developmental_review_to_accessibility_review"
+    },
+    {
+      "transition_id": "GOV-TR-006",
+      "from": "accessibility_review",
+      "to": "bias_sensitivity_review",
+      "required_roles": [
+        "accessibility_reviewer"
+      ],
+      "evidence_key": "accessibility_review_to_bias_sensitivity_review"
+    },
+    {
+      "transition_id": "GOV-TR-007",
+      "from": "bias_sensitivity_review",
+      "to": "audio_review",
+      "required_roles": [
+        "bias_sensitivity_reviewer"
+      ],
+      "evidence_key": "bias_sensitivity_review_to_audio_review"
+    },
+    {
+      "transition_id": "GOV-TR-008",
+      "from": "audio_review",
+      "to": "visual_review",
+      "required_roles": [
+        "audio_reviewer"
+      ],
+      "evidence_key": "audio_review_to_visual_review"
+    },
+    {
+      "transition_id": "GOV-TR-009",
+      "from": "visual_review",
+      "to": "approved_for_field_test",
+      "required_roles": [
+        "visual_reviewer"
+      ],
+      "evidence_key": "visual_review_to_approved_for_field_test",
+      "sets_item_status": "field_test"
+    },
+    {
+      "transition_id": "GOV-TR-010",
+      "from": "approved_for_field_test",
+      "to": "field_test",
+      "required_roles": [
+        "governance_admin"
+      ],
+      "evidence_key": "approved_for_field_test_to_field_test"
+    },
+    {
+      "transition_id": "GOV-TR-011",
+      "from": "field_test",
+      "to": "statistical_review",
+      "required_roles": [
+        "psychometric_reviewer"
+      ],
+      "evidence_key": "field_test_to_statistical_review"
+    },
+    {
+      "transition_id": "GOV-TR-012",
+      "from": "statistical_review",
+      "to": "reviewed_candidate",
+      "required_roles": [
+        "psychometric_reviewer"
+      ],
+      "evidence_key": "statistical_review_to_reviewed_candidate",
+      "sets_item_status": "reviewed_candidate"
+    },
+    {
+      "transition_id": "GOV-TR-013",
+      "from": "reviewed_candidate",
+      "to": "validated_operational",
+      "required_roles": [
+        "operational_approver"
+      ],
+      "evidence_key": "reviewed_candidate_to_validated_operational",
+      "sets_item_status": "validated_operational"
+    },
+    {
+      "transition_id": "GOV-TR-014",
+      "from": "automated_validation",
+      "to": "draft",
+      "required_roles": [
+        "automated_validator"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-015",
+      "from": "curriculum_review",
+      "to": "draft",
+      "required_roles": [
+        "curriculum_reviewer"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-016",
+      "from": "subject_matter_review",
+      "to": "draft",
+      "required_roles": [
+        "subject_matter_reviewer"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-017",
+      "from": "developmental_review",
+      "to": "draft",
+      "required_roles": [
+        "developmental_reviewer"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-018",
+      "from": "accessibility_review",
+      "to": "draft",
+      "required_roles": [
+        "accessibility_reviewer"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-019",
+      "from": "bias_sensitivity_review",
+      "to": "draft",
+      "required_roles": [
+        "bias_sensitivity_reviewer"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-020",
+      "from": "audio_review",
+      "to": "draft",
+      "required_roles": [
+        "audio_reviewer"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-021",
+      "from": "visual_review",
+      "to": "draft",
+      "required_roles": [
+        "visual_reviewer"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-022",
+      "from": "statistical_review",
+      "to": "field_test",
+      "required_roles": [
+        "psychometric_reviewer"
+      ],
+      "rejection_loop": true,
+      "reason": "needs more field-test data"
+    },
+    {
+      "transition_id": "GOV-TR-023",
+      "from": "statistical_review",
+      "to": "draft",
+      "required_roles": [
+        "psychometric_reviewer"
+      ],
+      "rejection_loop": true,
+      "reason": "statistical or fairness defect requires revision"
+    },
+    {
+      "transition_id": "GOV-TR-024",
+      "from": "reviewed_candidate",
+      "to": "draft",
+      "required_roles": [
+        "operational_approver"
+      ],
+      "rejection_loop": true
+    },
+    {
+      "transition_id": "GOV-TR-025",
+      "from": "suspended",
+      "to": "draft",
+      "required_roles": [
+        "governance_admin",
+        "role_relevant_reviewer"
+      ],
+      "evidence_key": "suspended_to_prior_review_state"
+    },
+    {
+      "transition_id": "GOV-TR-026",
+      "from": "suspended",
+      "to": "reviewed_candidate",
+      "required_roles": [
+        "governance_admin",
+        "psychometric_reviewer",
+        "operational_approver"
+      ],
+      "evidence_key": "suspended_to_prior_review_state",
+      "allowed_only_when_suspended_from": [
+        "reviewed_candidate",
+        "statistical_review"
+      ]
+    },
+    {
+      "transition_id": "GOV-TR-027",
+      "from": "suspended",
+      "to": "validated_operational",
+      "required_roles": [
+        "governance_admin",
+        "psychometric_reviewer",
+        "operational_approver"
+      ],
+      "evidence_key": "suspended_to_prior_review_state",
+      "allowed_only_when_suspended_from": [
+        "validated_operational"
+      ]
+    },
+    {
+      "transition_id": "GOV-TR-028",
+      "from": "draft",
+      "to": "retired",
+      "required_roles": [
+        "governance_admin"
+      ],
+      "evidence_key": "any_state_to_retired"
+    },
+    {
+      "transition_id": "GOV-TR-029",
+      "from": "reviewed_candidate",
+      "to": "retired",
+      "required_roles": [
+        "governance_admin"
+      ],
+      "evidence_key": "any_state_to_retired"
+    },
+    {
+      "transition_id": "GOV-TR-030",
+      "from": "validated_operational",
+      "to": "retired",
+      "required_roles": [
+        "governance_admin",
+        "operational_approver"
+      ],
+      "evidence_key": "any_state_to_retired"
+    },
+    {
+      "transition_id": "GOV-TR-031",
+      "from": "validated_operational",
+      "to": "suspended",
+      "required_roles": [
+        "governance_admin"
+      ],
+      "evidence_key": "any_state_to_suspended",
+      "emergency_allowed": true
+    },
+    {
+      "transition_id": "GOV-TR-032",
+      "from": "reviewed_candidate",
+      "to": "suspended",
+      "required_roles": [
+        "governance_admin"
+      ],
+      "evidence_key": "any_state_to_suspended",
+      "emergency_allowed": true
+    },
+    {
+      "transition_id": "GOV-TR-033",
+      "from": "field_test",
+      "to": "suspended",
+      "required_roles": [
+        "governance_admin"
+      ],
+      "evidence_key": "any_state_to_suspended",
+      "emergency_allowed": true
+    }
+  ],
+  "versioning_rules": {
+    "immutable_administration_snapshot": "Historical administrations retain the exact item version and governance/policy version used at administration time.",
+    "material_changes": [
+      "scoring key change",
+      "rubric change",
+      "construct change",
+      "stimulus meaning change",
+      "distractor meaning change",
+      "accessibility behavior change",
+      "prompt semantic meaning change",
+      "audio behavior that changes evidence",
+      "visual target or visual meaning change"
+    ],
+    "non_material_changes": [
+      "typo correction that does not change meaning",
+      "metadata formatting correction",
+      "non-scoring provenance clarification",
+      "accessibility metadata clarification that does not change behavior"
+    ],
+    "new_version_required_when": [
+      "material change is made",
+      "operational item returns to authoring for content revision",
+      "field-test data cannot be interpreted under old content",
+      "legal/license provenance changes available delivery rights"
+    ],
+    "controlled_review_required_for": [
+      "scoring key",
+      "rubric",
+      "construct",
+      "stimulus meaning",
+      "distractor meaning",
+      "accessibility behavior"
+    ],
+    "non_material_change_review": "May retain version only with reviewer sign-off and audit entry explaining why administration evidence remains comparable."
+  },
+  "field_test_isolation": {
+    "zero_decision_weight": true,
+    "excluded_decisions": [
+      "mastery",
+      "readiness",
+      "recommendations",
+      "placement",
+      "parent_facing_decisions"
+    ],
+    "eligible_for_item_statistics": true,
+    "must_not_appear_as_scored_evidence": true,
+    "candidate_index_must_mark_field_test_or_withhold_status_as_policy_requires": true
+  },
+  "statistical_approval_requirements": {
+    "requires_field_test_data": true,
+    "requires_item_statistics_review": true,
+    "requires_fairness_and_dif_review": true,
+    "requires_standard_setting_before_operational_mastery_use": true,
+    "no_automatic_promotion": true,
+    "minimum_outputs": [
+      "sample description",
+      "difficulty estimate",
+      "discrimination or fit evidence",
+      "omitted/not-reached analysis",
+      "DIF/fairness screen",
+      "psychometric recommendation"
+    ]
+  },
+  "suspension_triggers": [
+    "scoring-key defect",
+    "rubric ambiguity",
+    "content inaccuracy",
+    "construct misalignment",
+    "accessibility failure",
+    "bias/sensitivity concern",
+    "answer exposure",
+    "statistical drift",
+    "security compromise",
+    "duplicate operational item conflict",
+    "legal or licensing issue"
+  ],
+  "retirement_rules": [
+    "Retire when content is obsolete, invalid, overexposed, unrecoverably biased, replaced by superior coverage, or no longer aligned to curriculum/package standards.",
+    "Retired items are not returned to operational use without creating a new version and restarting governance review.",
+    "Retirement records preserve historical administrations and prior scoring policy."
+  ],
+  "emergency_removal": {
+    "allowed_from": [
+      "field_test",
+      "reviewed_candidate",
+      "validated_operational"
+    ],
+    "target_state": "suspended",
+    "requires_post_hoc_review_within_policy_window": true,
+    "must_record_affected_forms": true
+  },
+  "rollback": {
+    "description": "Rollback restores the last approved item/policy version for future administrations only; past administrations retain original snapshots.",
+    "requires_audit_entry": true,
+    "requires_operational_approver_for_operational_items": true
+  },
+  "validation_rules": [
+    {
+      "rule_id": "GOV-VAL-001",
+      "severity": "error",
+      "description": "workflow_state must be defined in workflow_state_vocabulary."
+    },
+    {
+      "rule_id": "GOV-VAL-002",
+      "severity": "error",
+      "description": "item_status must be defined in canonical_item_status_vocabulary."
+    },
+    {
+      "rule_id": "GOV-VAL-003",
+      "severity": "error",
+      "description": "Every transition target must be a defined workflow state."
+    },
+    {
+      "rule_id": "GOV-VAL-004",
+      "severity": "error",
+      "description": "Non-terminal workflow states must have at least one outgoing transition."
+    },
+    {
+      "rule_id": "GOV-VAL-005",
+      "severity": "error",
+      "description": "No path may move field_test to validated_operational without statistical_review and reviewed_candidate operational approval."
+    },
+    {
+      "rule_id": "GOV-VAL-006",
+      "severity": "error",
+      "description": "reviewed_candidate must not be treated as validated_operational."
+    },
+    {
+      "rule_id": "GOV-VAL-007",
+      "severity": "error",
+      "description": "field_test items must have zero decision weight."
+    },
+    {
+      "rule_id": "GOV-VAL-008",
+      "severity": "review_required",
+      "description": "Material changes require controlled review and usually a new item version."
+    },
+    {
+      "rule_id": "GOV-VAL-009",
+      "severity": "error",
+      "description": "Operational mastery use requires validated_operational status and standard-setting dependency satisfaction."
+    },
+    {
+      "rule_id": "GOV-VAL-010",
+      "severity": "error",
+      "description": "Audit history is immutable and append-only."
+    },
+    {
+      "rule_id": "GOV-VAL-011",
+      "severity": "review_required",
+      "description": "Fairness and differential-item-functioning review is required before operational approval."
+    },
+    {
+      "rule_id": "GOV-VAL-012",
+      "severity": "error",
+      "description": "Emergency removal must suspend future delivery without rewriting historical administration records."
+    }
+  ],
+  "audit_history_requirements": {
+    "immutable": true,
+    "append_only": true,
+    "required_fields": [
+      "event_id",
+      "timestamp",
+      "actor_id",
+      "role",
+      "from_state",
+      "to_state",
+      "item_status_before",
+      "item_status_after",
+      "item_version",
+      "policy_version",
+      "evidence",
+      "reason"
+    ],
+    "historical_administration_retention": "Each administration record stores item_id, item_version, policy_version, scoring/rubric version, blueprint version, and delivery artifact references."
+  }
+}
