@@ -38,7 +38,8 @@ Every future item record must include the following metadata fields:
 - `partial_credit`
 - `distractors`
 - `distractor_rationales`
-- the misconception represented by each distractor
+- `misconceptions` (protected top-level item misconception taxonomy)
+- `misconception_for_each_distractor` (protected per-option mapping)
 - `prohibited_clues`
 - `reading_level_target`
 - `estimated_completion_time`
@@ -52,6 +53,12 @@ Every future item record must include the following metadata fields:
 - `change_history`
 
 The JSON standard classifies each field as always required, conditionally required, protected/private, safe for public delivery, reviewer-only, derived rather than author-entered, or statistical metadata.
+
+### Referenced field model
+
+The companion JSON defines every referenced item field with a type, required/conditional classification, visibility classification, and validation expectation. `misconceptions` is a protected top-level item field for the item-level misconception taxonomy. `misconception_for_each_distractor` is a protected option-level mapping from distractor identifiers to entries in that taxonomy. Both are non-public and must remain out of public delivery metadata and public candidate indexes.
+
+The previously symbolic conditional fields are formal fields: `reviewer_notes`, `scoring_anchor_examples`, `human_review_guidance`, `single_correct_option`, `option_ordering_policy`, `all_correct_options`, `select_all_instruction`, `left_options`, `right_options`, `correct_mappings`, `distractor_mappings_or_extra_options`, `accessibility_linearization`, `ordered_elements`, `correct_sequence`, `partial_order_rules`, `drag_keyboard_equivalent`, `interaction_target_regions`, `correct_interactions`, and `alternate_input_equivalent`. Public interaction-support fields may be delivered only when they cannot reveal the answer; scoring, rationale, mapping, and review fields remain protected/private or reviewer-only.
 
 ## 3. Public/private separation
 
@@ -67,6 +74,29 @@ Public delivery metadata may include only fields needed to select and render the
 - non-revealing `visual_requirements`, `audio_requirements`, and `accessibility_requirements`
 - `reading_level_target`, `estimated_completion_time`, `assessment_role_eligibility`, `item_status`, and `active_status`
 
+### Public candidate-index allowlist
+
+Public candidate indexes must use an explicit allowlist and must not expose governance workflow state. Candidate-index metadata may include only:
+
+- `item_id`
+- `version`
+- `package_id`
+- `grade`
+- `subject`
+- `domain`
+- `question_type`
+- `difficulty_target`
+- `cognitive_demand`
+- `assessment_role_eligibility`
+- audio availability
+- visual requirement summary
+- `active_status`
+- operational `item_status` when safe
+- `estimated_completion_time`
+- public prompt/stimulus delivery references where applicable
+
+Public candidate indexes must not include `review_state`, `workflow_state`, `field_test_state`, `statistical_state`, `reviewer_notes`, `statistical_metadata`, `statistical_parameters`, private provenance, approval history, scoring keys, answer keys, rubrics, distractor correctness indicators, or misconception mappings.
+
 ### Protected data
 
 Protected fields must remain server-side or in reviewer/scoring systems only:
@@ -77,7 +107,8 @@ Protected fields must remain server-side or in reviewer/scoring systems only:
 - `partial_credit`
 - `distractors` when correctness or answer metadata is represented
 - `distractor_rationales`
-- misconception mappings
+- `misconceptions` top-level taxonomy
+- `misconception_for_each_distractor` option-level mappings
 - `prohibited_clues`
 - reviewer notes
 - source details that are private or license-sensitive
@@ -135,8 +166,10 @@ Multi-select items require:
 - clear select-all instruction
 - plausible distractors
 - a rationale and misconception for each distractor
-- partial-credit policy
+- exact protected `multi_select_scoring` configuration
 - checks that the number of correct options is not cued accidentally
+
+The protected `multi_select_scoring` configuration must be deterministic and include `scoring_mode`, `correct_option_weight`, `incorrect_option_penalty`, `minimum_score`, `maximum_score`, `omission_behavior`, `negative_scores_allowed`, `normalization_rule`, and `partial_credit_enabled`. Allowed `scoring_mode` values are `all_or_nothing`, `additive`, and `additive_with_incorrect_penalty`. Negative scores are allowed only when explicitly configured; otherwise the minimum-score floor applies. The normalization rule must specify the exact transformation from raw score to reported score. Generic partial-credit prose is insufficient.
 
 ### Matching
 
