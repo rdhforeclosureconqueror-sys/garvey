@@ -95,6 +95,7 @@ const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
 const { buildTapHubViewModel, renderTapHubPage, renderTapHubErrorPage } = require("./tapHubRenderer");
 const { createGatesRouter } = require("./gatesRoutes");
 const { createAdaptiveV2Router } = require("./adaptiveV2Routes");
+const { createAssessmentMvpRouter } = require("./assessmentMvpRoutes");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -298,6 +299,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());
 app.use(createAdaptiveV2Router({ pool }));
+app.use("/api/assessment-mvp", createAssessmentMvpRouter());
 console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_router_mounted" }));
 
 if (TAP_CRM_ROUTES_MOUNTED) {
