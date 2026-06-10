@@ -83,10 +83,11 @@
   }
 
   function publicPayloadOnly(payload) {
+    const options = Array.isArray(payload && payload.options) ? payload.options : payload && payload.choices;
     return {
       prompt: text(payload && payload.prompt),
       question_type: text(payload && payload.question_type),
-      options: Array.isArray(payload && payload.options) ? payload.options.map(text) : [],
+      options: Array.isArray(options) ? options.map(text) : [],
       items: Array.isArray(payload && payload.items) ? payload.items.map(text) : [],
     };
   }

@@ -151,7 +151,24 @@ test('only public session fields are consumed and protected fields are not retai
   const publicSession = app.publicSessionOnly(sessionPayload());
   const serialized = JSON.stringify(publicSession);
   assert.equal(publicSession.public_items[0].payload.prompt, 'Pick one.');
+  assert.deepEqual(publicSession.public_items[0].payload.options, ['A', 'B']);
   assert.doesNotMatch(serialized, /correct_answer|acceptable_answers|internal_scoring_records|rubric|private/i);
+});
+
+test('server-style choices are preserved as learner options without exposing answers', () => {
+  const app = freshApp();
+  const publicSession = app.publicSessionOnly(sessionPayload({
+    public_items: [{
+      assessment_item_id: 'pub-choice',
+      item_identity: 'PKG_A::bank::Q-choice',
+      source_package_id: 'PKG_A',
+      question_type: 'multiple_choice',
+      payload: { prompt: 'Choose a shape.', question_type: 'multiple_choice', choices: ['circle', 'square', 'triangle'], answer: 'circle' },
+    }],
+  }));
+
+  assert.deepEqual(publicSession.public_items[0].payload.options, ['circle', 'square', 'triangle']);
+  assert.doesNotMatch(JSON.stringify(publicSession), /answer|correct|rubric/i);
 });
 
 test('one question is shown at a time with accessible progress text', () => {
