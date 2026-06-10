@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adaptive Assessment MVP</title>
+  <link rel="stylesheet" href="/assessment-mvp/styles.css" />
+</head>
+<body>
+  <main class="assessment-shell" aria-labelledby="assessment-title">
+    <section class="hero-card">
+      <p class="eyebrow">Learner check-in</p>
+      <h1 id="assessment-title">Let’s find a helpful skill to practice.</h1>
+      <p class="intro">Choose your grade and subject. You will answer one question at a time, then see kind next steps.</p>
+    </section>
+
+    <div id="assessment-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    <div id="assessment-app" class="assessment-card" data-state="setup"></div>
+  </main>
+
+  <script src="/assessment-mvp/app.js"></script>
+</body>
+</html>
