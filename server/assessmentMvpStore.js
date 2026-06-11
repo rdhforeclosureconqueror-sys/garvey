@@ -2,6 +2,7 @@
 
 const crypto = require("crypto");
 const { createAssessmentSession, publicAssessmentSessionView, toStableUnique } = require("../assessment-mvp/createAssessmentSession");
+const { createReassessmentSession } = require("../assessment-mvp/createReassessmentSession");
 const { REQUIRED_LIMITATIONS } = require("../assessment-mvp/submitAssessmentResponses");
 const { loadSkillPackages, packageIdOf } = require("../assessment-mvp/loadSkillPackages");
 const { recommendSkillPackages } = require("../assessment-mvp/recommendSkillPackages");
@@ -221,6 +222,8 @@ function sessionFromRows(sessionRow, itemRows = [], { resumed = false, childProf
       ? [...selectionConfig.package_ids]
       : [...new Set(publicItems.map((item) => item.source_package_id).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
     selection_summary: selectionConfig.selection_summary || {},
+    ...(Array.isArray(selectionConfig.requested_package_ids) ? { requested_package_ids: [...selectionConfig.requested_package_ids] } : {}),
+    ...(Array.isArray(selectionConfig.insufficient_evidence) ? { insufficient_evidence: JSON.parse(JSON.stringify(selectionConfig.insufficient_evidence)) } : {}),
     resumed: Boolean(resumed),
     child_context: childContextFromProfile(childProfile),
   };
@@ -261,18 +264,24 @@ class AssessmentMvpPostgresStore {
     };
   }
 
-  async findInProgress({ learnerId, grade, subject, assessmentRole = "baseline" }, client = this.pool) {
+  async findInProgress({ learnerId, grade, subject, assessmentRole = "baseline", priorSessionInternalId = null }, client = this.pool) {
+    const params = [toInt(learnerId), grade, subject];
+    const clauses = ["learner_id = $1", "grade = $2", "subject = $3", "status = 'in_progress'"];
+    if (assessmentRole != null) {
+      params.push(assessmentRole);
+      clauses.push(`assessment_role = $${params.length}`);
+    }
+    if (priorSessionInternalId != null) {
+      params.push(priorSessionInternalId);
+      clauses.push(`prior_session_id = $${params.length}`);
+    }
     const result = await client.query(
       `SELECT *
          FROM assessment_sessions
-        WHERE learner_id = $1
-          AND grade = $2
-          AND subject = $3
-          AND assessment_role = $4
-          AND status = 'in_progress'
+        WHERE ${clauses.join(" AND ")}
         ORDER BY updated_at DESC, id DESC
         LIMIT 1`,
-      [toInt(learnerId), grade, subject, assessmentRole]
+      params
     );
     return result.rows[0] || null;
   }
@@ -380,6 +389,164 @@ class AssessmentMvpPostgresStore {
     }
   }
 
+  async loadAuthorizedReassessmentPackages({ priorSessionInternalId }, client = this.pool) {
+    const ids = new Set();
+    const itemRows = await client.query(
+      `SELECT DISTINCT package_id
+         FROM assessment_session_items
+        WHERE session_id = $1`,
+      [priorSessionInternalId]
+    );
+    for (const row of itemRows.rows) if (row.package_id) ids.add(row.package_id);
+
+    const evidenceRows = await client.query(
+      `SELECT DISTINCT package_id
+         FROM assessment_skill_evidence
+        WHERE session_id = $1`,
+      [priorSessionInternalId]
+    );
+    for (const row of evidenceRows.rows) if (row.package_id) ids.add(row.package_id);
+
+    const recommendationRows = await client.query(
+      `SELECT DISTINCT recommended_package_id
+         FROM assessment_recommendations
+        WHERE session_id = $1`,
+      [priorSessionInternalId]
+    );
+    for (const row of recommendationRows.rows) if (row.recommended_package_id) ids.add(row.recommended_package_id);
+
+    return [...ids].sort((a, b) => a.localeCompare(b));
+  }
+
+  async createPersistentReassessmentSession({ priorSessionId, actor, ownedChild, packageIds, itemsPerPackage }) {
+    const requestedIds = toStableUnique(packageIds);
+    try {
+      return await withTransaction(this.pool, async (client) => {
+        const priorResult = await client.query(
+          `SELECT *
+             FROM assessment_sessions
+            WHERE session_id = $1
+            FOR UPDATE`,
+          [priorSessionId]
+        );
+        const priorRow = priorResult.rows[0];
+        if (!priorRow) return { status: 404, error: "session_not_found" };
+        if (Number(priorRow.parent_profile_id) !== Number(actor.parentProfile.id) || Number(priorRow.learner_id) !== Number(ownedChild.learnerId)) {
+          return { status: 403, error: "forbidden" };
+        }
+        if (priorRow.status !== "completed") return { status: 409, error: "prior_session_must_be_completed" };
+
+        const existing = await this.findInProgress({
+          learnerId: priorRow.learner_id,
+          grade: Number(priorRow.grade),
+          subject: priorRow.subject,
+          assessmentRole: "reassessment",
+          priorSessionInternalId: priorRow.id,
+        }, client);
+        if (existing) {
+          const itemRows = await this.loadSessionItems(existing.id, client);
+          return { status: 200, session: sessionFromRows(existing, itemRows, { resumed: true, childProfile: ownedChild.childProfile }) };
+        }
+
+        const authorizedIds = await this.loadAuthorizedReassessmentPackages({ priorSessionInternalId: priorRow.id }, client);
+        const authorized = new Set(authorizedIds);
+        const unrelated = requestedIds.filter((id) => !authorized.has(id));
+        if (unrelated.length) return { status: 400, error: "unrelated_reassessment_package_ids", unrelated_package_ids: unrelated };
+
+        const exposureHistory = await this.loadLearnerExposureHistory({ learnerId: priorRow.learner_id }, client);
+        const priorCompletedResult = await this.getCompletedAssessmentResult({ sessionId: priorSessionId, childProfile: ownedChild.childProfile }, client);
+        const selected = createReassessmentSession(priorCompletedResult, {
+          grade: Number(priorRow.grade),
+          subject: priorRow.subject,
+          package_ids: requestedIds,
+          itemsPerPackage,
+          all_prior_exposed_item_ids: exposureHistory.item_ids,
+          all_prior_exposed_duplicate_keys: exposureHistory.duplicate_keys,
+          session_id: this.createSessionId ? this.createSessionId() : undefined,
+        });
+        const selectionConfig = {
+          itemsPerPackage,
+          selection_summary: selected.selection_summary,
+          package_ids: selected.package_ids,
+          requested_package_ids: selected.requested_package_ids,
+          insufficient_evidence: (selected.insufficient_evidence || []).map((entry) => ({
+            ...entry,
+            available_safe_item_count: Number(entry.available_safe_item_count ?? entry.safe_non_repeated_item_count ?? 0),
+          })),
+        };
+
+        const inserted = await client.query(
+          `INSERT INTO assessment_sessions (
+             session_id, learner_id, parent_profile_id, auth_user_id, assessment_role, grade, subject,
+             status, session_version, selection_config, current_question_position, prior_session_id, started_at
+           ) VALUES ($1,$2,$3,$4,'reassessment',$5,$6,'in_progress',$7,$8::jsonb,0,$9,NOW())
+           RETURNING *`,
+          [
+            selected.session_id,
+            priorRow.learner_id,
+            priorRow.parent_profile_id,
+            priorRow.auth_user_id,
+            Number(priorRow.grade),
+            priorRow.subject,
+            selected.session_version,
+            JSON.stringify(selectionConfig),
+            priorRow.id,
+          ]
+        );
+        const sessionRow = inserted.rows[0];
+        for (let index = 0; index < selected.public_items.length; index += 1) {
+          const item = selected.public_items[index];
+          const versionHash = itemVersionHash(item);
+          await client.query(
+            `INSERT INTO assessment_session_items (
+               session_id, item_identity, assessment_item_id, package_id, source_question_id, source_bank,
+               source_pointer, duplicate_key, display_order, question_type, item_version_hash, public_payload
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::jsonb)`,
+            [
+              sessionRow.id,
+              item.item_identity,
+              item.assessment_item_id,
+              item.source_package_id,
+              item.source_question_id,
+              item.source_bank,
+              item.source_pointer || null,
+              item.duplicate_key,
+              index,
+              item.question_type,
+              versionHash,
+              JSON.stringify(item),
+            ]
+          );
+          await client.query(
+            `INSERT INTO assessment_item_exposures (
+               learner_id, package_id, source_question_id, source_bank, item_identity, duplicate_key, assessment_session_id
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+            [priorRow.learner_id, item.source_package_id, item.source_question_id, item.source_bank, item.item_identity, item.duplicate_key, sessionRow.id]
+          );
+        }
+        const itemRows = await this.loadSessionItems(sessionRow.id, client);
+        return { status: 201, session: sessionFromRows(sessionRow, itemRows, { resumed: false, childProfile: ownedChild.childProfile }) };
+      });
+    } catch (error) {
+      if (error && error.code === "23505") {
+        const priorEntry = await this.getAssessmentSessionByPublicId({ sessionId: priorSessionId });
+        if (priorEntry) {
+          const existing = await this.getCurrentAssessmentSessionForLearner({
+            learnerId: ownedChild.learnerId,
+            parentProfileId: actor.parentProfile.id,
+            grade: Number(priorEntry.session.grade),
+            subject: priorEntry.session.subject,
+            assessmentRole: "reassessment",
+            childProfile: ownedChild.childProfile,
+          });
+          if (existing) return { status: 200, session: { ...existing, resumed: true } };
+        }
+        return { status: 409, error: "reassessment_create_conflict" };
+      }
+      throw error;
+    }
+  }
+
   async getAssessmentSessionByPublicId({ sessionId, childProfile = null }) {
     const sessionResult = await this.pool.query(`SELECT * FROM assessment_sessions WHERE session_id = $1 LIMIT 1`, [sessionId]);
     const row = sessionResult.rows[0];
@@ -397,9 +564,13 @@ class AssessmentMvpPostgresStore {
     };
   }
 
-  async getCurrentAssessmentSessionForLearner({ learnerId, parentProfileId, grade, subject, assessmentRole = "baseline", childProfile = null }) {
-    const params = [toInt(learnerId), toInt(parentProfileId), assessmentRole];
-    const clauses = ["learner_id = $1", "parent_profile_id = $2", "assessment_role = $3", "status = 'in_progress'"];
+  async getCurrentAssessmentSessionForLearner({ learnerId, parentProfileId, grade, subject, assessmentRole = null, childProfile = null }) {
+    const params = [toInt(learnerId), toInt(parentProfileId)];
+    const clauses = ["learner_id = $1", "parent_profile_id = $2", "status = 'in_progress'"];
+    if (assessmentRole != null) {
+      params.push(assessmentRole);
+      clauses.push(`assessment_role = $${params.length}`);
+    }
     if (grade != null) {
       params.push(grade);
       clauses.push(`grade = $${params.length}`);
@@ -419,6 +590,79 @@ class AssessmentMvpPostgresStore {
     if (!row) return null;
     const itemRows = await this.loadSessionItems(row.id);
     return sessionFromRows(row, itemRows, { resumed: true, childProfile });
+  }
+
+  async getLearnerAssessmentSummary(sessionRow, client = this.pool) {
+    const itemRows = await this.loadSessionItems(sessionRow.id, client);
+    const evidenceRows = await this.loadPersistedSkillEvidence(sessionRow.id, client);
+    const recommendationResult = await client.query(
+      `SELECT COUNT(*)::int AS count
+         FROM assessment_recommendations
+        WHERE session_id = $1`,
+      [sessionRow.id]
+    );
+    const selectionConfig = sessionRow.selection_config || {};
+    return {
+      session_id: sessionRow.session_id,
+      assessment_role: sessionRow.assessment_role,
+      grade: Number(sessionRow.grade),
+      subject: sessionRow.subject,
+      status: sessionRow.status,
+      created_at: sessionRow.created_at,
+      updated_at: sessionRow.updated_at,
+      completed_at: sessionRow.completed_at,
+      current_question_position: Number(sessionRow.current_question_position || 0),
+      package_ids: Array.isArray(selectionConfig.package_ids)
+        ? [...selectionConfig.package_ids]
+        : toStableUnique(itemRows.map((row) => row.package_id)),
+      evidence_summary: evidenceRows.map((entry) => ({
+        source_package_id: entry.source_package_id,
+        valid_scored_responses: entry.valid_scored_responses,
+        correct_responses: entry.correct_responses,
+        incorrect_responses: entry.incorrect_responses,
+        omitted_responses: entry.omitted_responses,
+        not_scorable_responses: entry.not_scorable_responses,
+        accuracy: entry.accuracy,
+        provisional_label: entry.provisional_label,
+      })),
+      recommendation_count: Number(recommendationResult.rows[0]?.count || 0),
+      ...(sessionRow.prior_session_id ? { prior_session_id_public_reference_if_safe: sessionRow.prior_session_public_id || null } : {}),
+    };
+  }
+
+  async getLearnerAssessmentHistory({ learnerId, parentProfileId, grade = null, subject = null, status = null, assessmentRole = null, limit = 50 }) {
+    const boundedLimit = Math.max(1, Math.min(50, Number.isInteger(Number(limit)) ? Number(limit) : 50));
+    const params = [toInt(learnerId), toInt(parentProfileId)];
+    const clauses = ["s.learner_id = $1", "s.parent_profile_id = $2"];
+    if (grade != null) {
+      params.push(grade);
+      clauses.push(`s.grade = $${params.length}`);
+    }
+    if (subject != null) {
+      params.push(subject);
+      clauses.push(`s.subject = $${params.length}`);
+    }
+    if (status != null) {
+      params.push(status);
+      clauses.push(`s.status = $${params.length}`);
+    }
+    if (assessmentRole != null) {
+      params.push(assessmentRole);
+      clauses.push(`s.assessment_role = $${params.length}`);
+    }
+    params.push(boundedLimit);
+    const result = await this.pool.query(
+      `SELECT s.*, prior.session_id AS prior_session_public_id
+         FROM assessment_sessions s
+         LEFT JOIN assessment_sessions prior ON prior.id = s.prior_session_id
+        WHERE ${clauses.join(" AND ")}
+        ORDER BY s.created_at DESC, s.id DESC
+        LIMIT $${params.length}`,
+      params
+    );
+    const history = [];
+    for (const row of result.rows) history.push(await this.getLearnerAssessmentSummary(row, this.pool));
+    return { sessions: history, limit: boundedLimit };
   }
 
   async updateAssessmentSessionPosition({ sessionId, parentProfileId, learnerId, currentQuestionPosition, childProfile = null }) {
