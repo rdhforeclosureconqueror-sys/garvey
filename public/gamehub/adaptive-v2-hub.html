@@ -5,102 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adaptive Learning V2 Lesson Hub</title>
   <style>
-    body{font-family:Arial,sans-serif;background:#0f172a;color:#e2e8f0;margin:0;padding:20px}
-    .panel{background:#111827;border:1px solid #334155;border-radius:12px;padding:16px;margin-bottom:14px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
-    .btn{display:inline-block;padding:10px 12px;border-radius:10px;text-decoration:none;border:1px solid #475569;color:#e2e8f0;background:#1e293b}
-    .btn.primary{background:#0ea5e9;border-color:#38bdf8;color:#082f49}
-    .muted{color:#94a3b8}
-    .lesson-card{background:#0b1220;border:1px solid #334155;border-radius:12px;padding:14px}
-    .lesson-card h3,.lesson-card p{margin:0 0 8px}
-    .lesson-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
-    .lesson-list li{background:#0b1220;border:1px solid #334155;border-radius:12px;padding:14px}
+    :root{color-scheme:dark;--bg:#0f172a;--panel:#111827;--card:#0b1220;--line:#334155;--muted:#94a3b8;--text:#e2e8f0;--primary:#38bdf8;--primary-bg:#0ea5e9;--primary-text:#082f49;--selected:#facc15;--selected-bg:#422006}
+    *{box-sizing:border-box}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:16px;line-height:1.45}
+    main{max-width:960px;margin:0 auto}
+    h1,h2,h3,p{overflow-wrap:anywhere}
+    h1{font-size:clamp(2rem,8vw,3.25rem);margin:.2rem 0 .5rem}
+    h2{font-size:1.35rem;margin:.1rem 0 .75rem}
+    h3{font-size:1.05rem;margin:0 0 .35rem}
+    p{margin:.25rem 0 .7rem}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+    .muted{color:var(--muted)}
+    .hint{font-size:.95rem}
+    .grade-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .subject-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 12px;border-radius:12px;text-decoration:none;border:1px solid #475569;color:var(--text);background:#1e293b;font:inherit;font-weight:700;text-align:center;cursor:pointer;touch-action:manipulation;white-space:normal}
+    .btn.primary{background:var(--primary-bg);border-color:var(--primary);color:var(--primary-text)}
+    .btn.assessment{display:flex;width:100%;font-size:1.05rem;padding:14px 16px;margin-top:10px}
+    .btn[aria-pressed="true"]{background:var(--selected-bg);border-color:var(--selected);color:#fef3c7;box-shadow:0 0 0 2px rgba(250,204,21,.25) inset}
+    .btn[aria-pressed="true"]::before{content:'✓';font-weight:900}
+    .btn:focus-visible{outline:3px solid #f8fafc;outline-offset:3px;box-shadow:0 0 0 6px rgba(56,189,248,.35)}
+    .hidden{display:none!important}
+    .lesson-list{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:10px}
+    .lesson-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;min-width:0}
+    .lesson-meta{font-size:.92rem;color:var(--muted);margin-bottom:10px}
+    .lesson-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+    .section-label{letter-spacing:.08em;text-transform:uppercase;font-size:.78rem;color:#bae6fd;font-weight:800;margin:0 0 .35rem}
+    @media (max-width:360px){body{padding:12px}.grade-grid,.subject-grid,.lesson-actions{grid-template-columns:1fr}.panel{padding:14px}}
   </style>
 </head>
 <body>
   <main>
-    <section class="panel">
-      <h1>Adaptive Learning</h1>
-      <p>Grade 1–6 school-skill lessons, practice, and growth snapshots.</p>
-      <p class="muted">Active Skill World lessons load from the manifest as each grade reaches production readiness.</p>
+    <section class="panel intro" aria-labelledby="adaptiveTitle">
+      <h1 id="adaptiveTitle">Adaptive Learning</h1>
+      <p>Choose your learner’s grade, then choose a subject to see Adaptive V2 assessment and lesson options.</p>
     </section>
-    <section class="panel">
-      <h2>Skill World Missions</h2>
-      <p class="muted">Active SkillPackage missions load from the Skill World manifest.</p>
-      <div id="skillWorldMissionGrid" class="grid"></div>
+
+    <section class="panel" aria-labelledby="gradeSelectTitle">
+      <h2 id="gradeSelectTitle">Select Grade</h2>
+      <p class="muted hint">No lessons, practice skills, or assessments appear until a grade and subject are selected.</p>
+      <div class="grade-grid" id="gradeGrid" role="group" aria-label="Select grade"></div>
     </section>
-    <section class="panel">
-      <h2>Recognition / Selection Grade 1 pilot</h2>
-      <p class="muted">Prototype recognition and selection mini-games remain available while additional skills are packaged.</p>
-      <div id="pilotGrid" class="grid"></div>
-    </section>
-    <section class="panel">
-      <h2>Select grade</h2>
-      <div class="grid" id="gradeGrid"></div>
-    </section>
-    <section class="panel rite-adventures">
-      <h2>Rite of Passage Adventures</h2>
-      <div class="lesson-card">
-        <h3>The Signal Path</h3>
-        <p class="muted">Gate 1 — Attention</p>
-        <p>Help Orin deliver a parcel, avoid distractions, catch Scatterbugs, and follow the glowing path.</p>
-        <p class="muted">Grade band: Grades 1–3</p>
-        <button id="launchSignalPath" class="btn primary">Start Adventure</button>
-      </div>
-    </section>
-    <section class="panel">
-      <h2 id="gradeTitle">Pick a grade</h2>
-      <div id="gradeContent" class="muted">Choose a grade above to view lessons.</div>
-    </section>
+
+    <div id="hubMount" aria-live="polite"></div>
   </main>
   <script>
     const grades=[1,2,3,4,5,6];
+    const subjects=['Math','English'];
     const skillWorldManifestUrl='/gamehub/skill-world/content/manifest.json';
-    let skillWorldPackages=[];
+    const state={grade:null,subject:null,packages:[],loaded:false};
     const gradeGrid=document.getElementById('gradeGrid');
-    const gradeTitle=document.getElementById('gradeTitle');
-    const gradeContent=document.getElementById('gradeContent');
-    const skillWorldMissionGrid=document.getElementById('skillWorldMissionGrid');
-    const launchSignalPathBtn=document.getElementById('launchSignalPath');
+    const hubMount=document.getElementById('hubMount');
 
-    const pilotSkills=[
-      {id:'g1e_rf_001',name:'Sound Safari'},
-      {id:'g1e_rf_002',name:'Blend Bridge'},
-      {id:'g1e_rf_004',name:'Word Rocket'},
-      {id:'g1m_ns_003',name:'Number Trail'},
-      {id:'g1m_gm_001',name:'Shape Scout'},
-      {id:'g1m_dp_001',name:'Data Detectives'}
-    ];
-    function pilotHref(skill){ return `/gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(skill)}`; }
-
-    function skillWorldHref(skillId){ return `/skill-world/${encodeURIComponent(skillId)}`; }
-    function skillWorldDrillHref(skillId){ return `/skill-world/${encodeURIComponent(skillId)}/drill`; }
     function escapeHtml(value){
       return String(value ?? '').replace(/[&<>"']/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     }
-    async function loadSkillWorldPackages(){
-      try{
-        const manifest=await (await fetch(skillWorldManifestUrl)).json();
-        const packageFiles=Array.isArray(manifest.packages)?manifest.packages:[];
-        const packages=await Promise.all(packageFiles.map(async(file)=>{
-          const pkg=await (await fetch(`/gamehub/skill-world/content/${file}`)).json();
-          return {
-            skill_id:pkg.skill_id,
-            grade:pkg.grade,
-            subject:pkg.subject,
-            domain:pkg.domain,
-            title:pkg.skill,
-            route:skillWorldHref(pkg.skill_id),
-            status:'active',
-            has_drill:Array.isArray(pkg.level_banks)&&pkg.level_banks.length>0
-          };
-        }));
-        return packages.filter((pkg)=>pkg.skill_id&&pkg.status==='active');
-      }catch(err){
-        console.error('Unable to load Skill World package manifest',err);
-        return [];
-      }
-    }
+    function skillWorldHref(packageId){ return `/skill-world/${encodeURIComponent(packageId)}`; }
+    function skillWorldDrillHref(packageId){ return `/skill-world/${encodeURIComponent(packageId)}/drill`; }
+    function assessmentHref(grade,subject){ return `/assessment-mvp?grade=${encodeURIComponent(String(grade))}&subject=${encodeURIComponent(subject)}`; }
     function getLaunchContext(){
       const params=new URLSearchParams(window.location.search);
       return {
@@ -109,40 +71,82 @@
       };
     }
     function buildSignalPathUrl(){
-      const { childId, sessionId } = getLaunchContext();
+      const {childId,sessionId}=getLaunchContext();
       return `/gamehub/content/index.html?child_id=${encodeURIComponent(childId)}&sessionId=${encodeURIComponent(sessionId)}&gradeBand=grades_1_3`;
     }
-    function renderMissionButton(pkg){
-      return `<a class="btn primary" data-skill-id="${escapeHtml(pkg.skill_id)}" href="${escapeHtml(pkg.route)}">${escapeHtml(pkg.title)}<br><span>Start Skill World</span></a>`;
+    async function loadSkillWorldPackages(){
+      try{
+        const manifest=await (await fetch(skillWorldManifestUrl)).json();
+        const packageFiles=Array.isArray(manifest.packages)?manifest.packages:[];
+        const packages=await Promise.all(packageFiles.map(async(file)=>{
+          const pkg=await (await fetch(`/gamehub/skill-world/content/${file}`)).json();
+          return {
+            packageId:pkg.skill_id,
+            grade:Number(pkg.grade),
+            subject:pkg.subject,
+            domain:pkg.domain,
+            title:pkg.skill,
+            hasDrill:Array.isArray(pkg.level_banks)&&pkg.level_banks.length>0
+          };
+        }));
+        state.packages=packages.filter((pkg)=>pkg.packageId&&Number.isInteger(pkg.grade)&&subjects.includes(pkg.subject));
+      }catch(err){
+        console.error('Unable to load Skill World package manifest',err);
+        state.packages=[];
+      }finally{
+        state.loaded=true;
+        renderLearningPanel();
+      }
     }
-    function renderGeneratedMission(pkg){
-      const drillLink=pkg.has_drill?` <a class="btn" href="${escapeHtml(skillWorldDrillHref(pkg.skill_id))}">Practice This Skill</a>`:'';
-      return `<li data-skill-id="${escapeHtml(pkg.skill_id)}"><strong>${escapeHtml(pkg.title)}</strong><br><span class="muted">Grade ${escapeHtml(pkg.grade)} · ${escapeHtml(pkg.subject)} · ${escapeHtml(pkg.domain)} · ${escapeHtml(pkg.skill_id)}</span><br><a class="btn primary" href="${escapeHtml(pkg.route)}">Start Skill World</a>${drillLink}</li>`;
+    function selectedPackages(){
+      if(!state.grade||!state.subject) return [];
+      return state.packages.filter((pkg)=>pkg.grade===state.grade&&pkg.subject===state.subject);
     }
-    function buildGradeLessons(grade){
-      return skillWorldPackages.filter((pkg)=>Number(pkg.grade)===Number(grade)).map(renderGeneratedMission).join('');
+    function renderLessonCard(pkg){
+      const description=[`Grade ${pkg.grade}`,pkg.subject,pkg.domain].filter(Boolean).join(' · ');
+      return `<li class="lesson-card"><h3>${escapeHtml(pkg.title)}</h3><p class="lesson-meta">${escapeHtml(description)}</p><div class="lesson-actions"><a class="btn primary" href="${escapeHtml(skillWorldHref(pkg.packageId))}">Start Lesson</a><a class="btn" href="${escapeHtml(skillWorldDrillHref(pkg.packageId))}">Practice This Skill</a></div></li>`;
     }
-    function renderSkillWorldMissionGrid(){
-      skillWorldMissionGrid.innerHTML=skillWorldPackages.length
-        ? skillWorldPackages.map(renderMissionButton).join('')
-        : '<p class="muted">Generated Skill World missions are loading.</p>';
+    function setPressed(container,attribute,value){
+      container.querySelectorAll(`[${attribute}]`).forEach((btn)=>btn.setAttribute('aria-pressed',String(btn.dataset[attribute.replace('data-','')]===String(value))));
     }
-    function renderGrade(g){
-      gradeTitle.textContent=`Grade ${g} lesson hub`;
-      const rows=buildGradeLessons(g);
-      gradeContent.innerHTML=`<ul class="lesson-list">${rows||'<li class="muted">Generated Skill World missions are loading for this grade.</li>'}</ul>`;
+    function renderSubjectPanel(){
+      if(!state.grade){
+        hubMount.innerHTML='';
+        return;
+      }
+      const subjectButtons=subjects.map((subject)=>`<button class="btn" data-subject="${subject}" aria-pressed="${state.subject===subject}">${subject}</button>`).join('');
+      const learningMarkup=state.subject?renderLearningMarkup():'';
+      hubMount.innerHTML=`<section class="panel" id="subjectPanel" aria-labelledby="gradeTitle"><h2 id="gradeTitle">Grade ${state.grade} Learning Hub</h2><p class="muted hint">Select a subject to load the filtered curriculum packages.</p><div class="subject-grid" id="subjectGrid" role="group" aria-label="Select subject">${subjectButtons}</div></section>${learningMarkup}`;
+      const subjectGrid=document.getElementById('subjectGrid');
+      subjectGrid.querySelectorAll('[data-subject]').forEach((btn)=>btn.addEventListener('click',()=>{
+        state.subject=btn.dataset.subject;
+        setPressed(subjectGrid,'data-subject',state.subject);
+        renderSubjectPanel();
+      }));
+      const launchSignalPathBtn=document.getElementById('launchSignalPath');
+      if(launchSignalPathBtn) launchSignalPathBtn.addEventListener('click',()=>{ window.location.href=buildSignalPathUrl(); });
     }
-    gradeGrid.innerHTML=grades.map((g)=>`<button class="btn" data-grade="${g}">Grade ${g}</button>`).join('');
-    gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>renderGrade(Number(btn.dataset.grade))));
-    launchSignalPathBtn.addEventListener('click',()=>{ window.location.href=buildSignalPathUrl(); });
-    document.getElementById('pilotGrid').innerHTML=pilotSkills.map((skill)=>`<a class="btn" href="${pilotHref(skill.id)}">Start ${skill.name}</a>`).join('');
-    renderSkillWorldMissionGrid();
-    renderGrade(1);
-    loadSkillWorldPackages().then((packages)=>{
-      skillWorldPackages=packages;
-      renderSkillWorldMissionGrid();
-      renderGrade(1);
-    });
+    function renderLearningMarkup(){
+      if(!state.grade||!state.subject) return '';
+      const assessmentUrl=assessmentHref(state.grade,state.subject);
+      const rows=selectedPackages().map(renderLessonCard).join('');
+      const lessonsContent=state.loaded
+        ? (rows||'<p class="muted">No manifest-listed packages are available for this grade and subject yet.</p>')
+        : '<p class="muted">Loading filtered curriculum packages…</p>';
+      return `<section class="panel" id="learningPanel"><section aria-labelledby="assessmentTitle"><p class="section-label">Adaptive Assessment</p><h2 id="assessmentTitle">Adaptive Assessment</h2><p class="muted">Start only when your learner is ready. The assessment will not auto-start.</p><a class="btn primary assessment" href="${escapeHtml(assessmentUrl)}">Start Grade ${escapeHtml(state.grade)} ${escapeHtml(state.subject)} Adaptive Assessment</a></section><section aria-labelledby="lessonsTitle"><p class="section-label">Lessons</p><h2 id="lessonsTitle">Lessons</h2><ul class="lesson-list">${lessonsContent}</ul></section></section><section class="panel rite-adventures" id="otherAdventures" aria-labelledby="otherAdventuresTitle"><h2 id="otherAdventuresTitle">Other Learning Adventures</h2><div class="lesson-card"><h3>The Signal Path</h3><p class="lesson-meta">Rite of Passage Adventure · Gate 1 — Attention · Grades 1–3</p><p>Help Orin deliver a parcel, avoid distractions, catch Scatterbugs, and follow the glowing path.</p><button id="launchSignalPath" class="btn primary">Start Adventure</button></div></section>`;
+    }
+    function renderLearningPanel(){
+      if(state.grade) renderSubjectPanel();
+    }
+    function selectGrade(grade){
+      state.grade=grade;
+      state.subject=null;
+      gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.setAttribute('aria-pressed',String(Number(btn.dataset.grade)===grade)));
+      renderSubjectPanel();
+    }
+    gradeGrid.innerHTML=grades.map((grade)=>`<button class="btn" data-grade="${grade}" aria-pressed="false">Grade ${grade}</button>`).join('');
+    gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>selectGrade(Number(btn.dataset.grade))));
+    loadSkillWorldPackages();
   </script>
 </body>
 </html>
