@@ -21,10 +21,17 @@ const { loadIntegratedChildProfile } = require("../integration/identityGatesBrid
 const { recordDevelopmentTimelineEvent, listDevelopmentTimeline, summarizeTimelineForChild } = require("../gates/gatesDevelopmentTimeline");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
-
-const GATES_SESSION_COOKIE = "gates_parent_session";
-const GATES_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
-const GATES_TENANT_SLUG = "the-gates";
+const {
+  GATES_SESSION_COOKIE,
+  GATES_SESSION_TTL_MS,
+  GATES_TENANT_SLUG,
+  buildGatesSessionCookie,
+  formatChildProfileRow,
+  normalizeEmail,
+  parseCookieHeader,
+  resolveGatesParentSession,
+  sha256,
+} = require("./gatesAuth");
 
 
 const GATES_PROGRESS_STATUSES = new Set(["not_started", "emerging", "practicing", "integrated", "revisit"]);
@@ -73,25 +80,6 @@ function buildProgressResponse(baseGate, progressRow) {
   };
 }
 
-function normalizeEmail(value) {
-  return String(value || "").trim().toLowerCase();
-}
-
-function parseCookieHeader(rawCookie = "") {
-  return String(rawCookie || "")
-    .split(";")
-    .map((part) => part.trim())
-    .filter(Boolean)
-    .reduce((acc, pair) => {
-      const idx = pair.indexOf("=");
-      if (idx <= 0) return acc;
-      const key = pair.slice(0, idx).trim();
-      const value = pair.slice(idx + 1).trim();
-      acc[key] = decodeURIComponent(value);
-      return acc;
-    }, {});
-}
-
 function createPasswordHash(password) {
   const salt = crypto.randomBytes(16).toString("hex");
   const derived = crypto.scryptSync(String(password), salt, 64).toString("hex");
@@ -113,39 +101,10 @@ function createSessionToken() {
   return crypto.randomBytes(32).toString("hex");
 }
 
-function sha256(value) {
-  return crypto.createHash("sha256").update(String(value || "")).digest("hex");
-}
-
-function buildGatesSessionCookie(req, token, maxAgeSeconds) {
-  const forwardedProto = String(req.headers["x-forwarded-proto"] || "").trim().toLowerCase();
-  const isSecure = req.secure || forwardedProto === "https" || process.env.NODE_ENV === "production";
-  const sameSite = isSecure ? "None" : "Lax";
-  const secureAttr = isSecure ? "; Secure" : "";
-  const safeMaxAge = Math.max(0, Number(maxAgeSeconds) || 0);
-  return `${GATES_SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=${sameSite}${secureAttr}; Max-Age=${safeMaxAge}`;
-}
-
 async function ensureGatesTenant(client) {
   const existing = await client.query("SELECT id, slug, name FROM tenants WHERE slug = $1 LIMIT 1", [GATES_TENANT_SLUG]);
   if (existing.rows[0]) return existing.rows[0];
   return (await client.query("INSERT INTO tenants (name, slug) VALUES ($1, $2) RETURNING id, slug, name", ["The Gates", GATES_TENANT_SLUG])).rows[0];
-}
-
-function formatChildProfileRow(row) {
-  const rawFirstName = String(row.first_name || "").trim();
-  let parsed = null;
-  if (rawFirstName.startsWith("{")) {
-    try { parsed = JSON.parse(rawFirstName); } catch { parsed = null; }
-  }
-  return {
-    child_id: String(row.id),
-    child_name: String(parsed?.child_name || rawFirstName || "").trim(),
-    child_age_band: String(parsed?.child_age_band || "").trim() || null,
-    child_grade_band: String(parsed?.child_grade_band || "").trim() || null,
-    metadata: parsed?.metadata && typeof parsed.metadata === "object" ? parsed.metadata : {},
-    profile_status: "ready",
-  };
 }
 
 function buildStoredChildProfile(payload) {
@@ -167,43 +126,7 @@ function parseChildPayload(body) {
 }
 
 async function resolveGatesSession({ req, pool }) {
-  const cookies = parseCookieHeader(req.headers.cookie || "");
-  const token = String(cookies[GATES_SESSION_COOKIE] || "").trim();
-  if (!token) {
-    console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_auth_session_missing" }));
-    return { authenticated: false };
-  }
-
-  const tokenHash = sha256(token);
-  const sessionResult = await pool.query(
-    `SELECT s.id, s.user_id, s.tenant_id, s.role, s.expires_at,
-            u.email, gp.id AS parent_profile_id, gp.display_name
-     FROM auth_sessions s
-     JOIN users u ON u.id = s.user_id
-     LEFT JOIN gates_parent_profiles gp ON LOWER(gp.email) = LOWER(u.email)
-     JOIN tenants t ON t.id = s.tenant_id
-     WHERE s.token_hash = $1 AND t.slug = $2 AND s.role = $3
-     LIMIT 1`,
-    [tokenHash, GATES_TENANT_SLUG, ROLES.PARENT]
-  );
-  const session = sessionResult.rows[0];
-  if (!session) {
-    console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_auth_session_missing" }));
-    return { authenticated: false, clearCookie: true };
-  }
-  if (new Date(session.expires_at).getTime() <= Date.now()) {
-    await pool.query("DELETE FROM auth_sessions WHERE token_hash = $1", [tokenHash]).catch(() => {});
-    console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_auth_session_expired", user_id: session.user_id }));
-    return { authenticated: false, clearCookie: true };
-  }
-
-  const parentProfile = {
-    id: Number(session.parent_profile_id || 0),
-    display_name: String(session.display_name || "").trim() || null,
-    email: normalizeEmail(session.email),
-  };
-  console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_auth_session_resolved", user_id: session.user_id }));
-  return { authenticated: true, parentProfile };
+  return resolveGatesParentSession(req, { pool });
 }
 
 function createGatesRouter({ pool = defaultPool } = {}) {
