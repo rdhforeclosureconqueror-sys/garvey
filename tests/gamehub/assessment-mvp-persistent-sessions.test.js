@@ -8,10 +8,11 @@ const express = require('express');
 
 const { createAssessmentMvpRouter } = require('../../server/assessmentMvpRoutes');
 const { createAssessmentSession } = require('../../assessment-mvp/createAssessmentSession');
+const { submitAssessmentResponses } = require('../../assessment-mvp/submitAssessmentResponses');
 
 const root = path.join(__dirname, '..', '..');
 const contentRoot = path.join(root, 'public/gamehub/skill-world/content');
-const protectedPattern = /correct|acceptable|answer|rubric|scoring|score|solution|feedback|explanation/i;
+const protectedPattern = /correct_answer|correctAnswer|acceptable_answers|acceptableAnswers|rubric|scoring_key|scoringKey|answer_key|internal_scoring_records|auth_user_id|parent_profile_id|token_hash|distractor|explanation/i;
 
 const actors = {
   A1: { authenticated: true, authUserId: 101, parentProfile: { id: 201, email: 'a@example.com' } },
@@ -50,7 +51,7 @@ async function resolveOwnedChild({ parentProfileId, childId }) {
 }
 
 function makeBacking() {
-  return { sessions: [], items: [], exposures: [], nextId: 1, failNextCreate: false };
+  return { sessions: [], items: [], exposures: [], responses: [], evidence: [], recommendations: [], nextId: 1, failNextCreate: false, failNextCompletion: false };
 }
 
 function publicClone(value) {
@@ -125,7 +126,8 @@ class DurableMockAssessmentStore {
         learner_id: String(ownedChild.learnerId), parent_profile_id: actor.parentProfile.id, auth_user_id: actor.authUserId,
         assessment_role: 'baseline', grade, subject, status: 'in_progress', session_version: selected.session_version,
         selection_config: { itemsPerPackage, package_ids: selected.package_ids, selection_summary: selected.selection_summary },
-        current_question_position: 0, started_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+        current_question_position: 0, started_at: new Date().toISOString(), updated_at: new Date().toISOString(), completed_at: null, lock_version: 0,
+        internal_scoring_records: publicClone(selected.internal_scoring_records),
       };
       const itemRows = selected.public_items.map((item, index) => ({
         session_pk: row.id, item_identity: item.item_identity, assessment_item_id: item.assessment_item_id,
@@ -158,8 +160,9 @@ class DurableMockAssessmentStore {
   async getAssessmentSessionByPublicId({ sessionId, childProfile }) {
     const row = this.backing.sessions.find((session) => session.session_id === sessionId);
     if (!row) return null;
+    const profile = childProfile || parseChildProfile(children[Number(row.learner_id)]);
     return {
-      session: childProfile ? this.sessionFromRow(row, { resumed: false, childProfile }) : null,
+      session: this.sessionFromRow(row, { resumed: false, childProfile: profile }),
       ownership: { auth_user_id: row.auth_user_id, parent_profile_id: row.parent_profile_id, learner_id: row.learner_id },
     };
   }
@@ -170,6 +173,84 @@ class DurableMockAssessmentStore {
       && row.assessment_role === assessmentRole && (grade == null || row.grade === grade) && (subject == null || row.subject === subject));
     const row = rows.at(-1);
     return row ? this.sessionFromRow(row, { resumed: true, childProfile }) : null;
+  }
+
+
+  async submitPersistentAssessmentResponses({ sessionId, actor, ownedChild, responses }) {
+    return this.locked(async () => {
+      const row = this.backing.sessions.find((session) => session.session_id === sessionId);
+      if (!row) return { status: 404, error: 'session_not_found' };
+      if (Number(row.parent_profile_id) !== Number(actor.parentProfile.id) || String(row.learner_id) !== String(ownedChild.learnerId)) return { status: 403, error: 'forbidden' };
+      if (row.status !== 'in_progress') return { status: 409, error: 'session_already_completed' };
+      const items = this.backing.items.filter((item) => item.session_pk === row.id).sort((a, b) => a.display_order - b.display_order);
+      const keys = new Map();
+      for (const item of items) {
+        keys.set(item.item_identity, item.item_identity);
+        keys.set(item.assessment_item_id, item.item_identity);
+      }
+      const byIdentity = new Map();
+      const foreign = [];
+      for (const [key, value] of Object.entries(responses || {})) {
+        const identity = keys.get(key);
+        if (!identity) foreign.push(key);
+        else byIdentity.set(identity, value);
+      }
+      if (foreign.length) return { status: 400, error: 'responses_include_items_not_owned_by_session', foreign_item_ids: foreign.sort() };
+      if (this.backing.failNextCompletion) {
+        this.backing.failNextCompletion = false;
+        throw new Error('simulated_completion_transaction_failure');
+      }
+      const session = {
+        ...this.sessionFromRow(row, { resumed: false, childProfile: ownedChild.childProfile }),
+        internal_scoring_records: publicClone(row.internal_scoring_records),
+      };
+      const submissions = items.map((item) => ({ item_identity: item.item_identity, response: byIdentity.get(item.item_identity) }));
+      const result = submitAssessmentResponses(session, submissions);
+      const responseRows = result.response_results.map((score, index) => ({
+        session_id: row.id,
+        session_item_id: items[index].id || `${row.id}:${index}`,
+        learner_response: { value: byIdentity.has(items[index].item_identity) ? byIdentity.get(items[index].item_identity) : null },
+        response_status: score.status === 'omitted' ? 'omitted' : 'submitted',
+        score_status: score.status,
+        score_result: { status: score.status, ...(score.reason_code ? { reason_code: score.reason_code } : {}) },
+        omitted: score.status === 'omitted',
+      }));
+      const evidenceRows = result.skill_evidence.map((evidence) => ({
+        session_id: row.id,
+        package_id: evidence.source_package_id,
+        valid_response_count: evidence.valid_scored_responses,
+        correct_count: evidence.correct_responses,
+        incorrect_count: evidence.incorrect_responses,
+        omitted_count: evidence.omitted_responses,
+        not_scorable_count: evidence.not_scorable_responses,
+        accuracy: evidence.accuracy,
+        provisional_label: evidence.provisional_label,
+      }));
+      const recommendationRows = result.recommendations.slice(0, 3).map((recommendation) => ({
+        session_id: row.id,
+        learner_id: row.learner_id,
+        recommended_package_id: recommendation.package_id,
+        recommendation_type: recommendation.recommendation_type,
+        reason_code: recommendation.reason_code,
+        priority: recommendation.priority,
+        status: 'active',
+      }));
+      this.backing.responses.push(...responseRows);
+      this.backing.evidence.push(...evidenceRows);
+      this.backing.recommendations.push(...recommendationRows);
+      row.status = 'completed';
+      row.completed_at = new Date().toISOString();
+      row.updated_at = row.completed_at;
+      row.lock_version += 1;
+      row.completed_result = publicClone({ ...result, child_context: this.sessionFromRow(row, { resumed: false, childProfile: ownedChild.childProfile }).child_context });
+      return { status: 200, result: publicClone(row.completed_result) };
+    });
+  }
+
+  async getCompletedAssessmentResult({ sessionId }) {
+    const row = this.backing.sessions.find((session) => session.session_id === sessionId);
+    if (!row || row.status !== 'completed') return null;
+    return publicClone(row.completed_result);
   }
 
   async updateAssessmentSessionPosition({ sessionId, parentProfileId, learnerId, currentQuestionPosition, childProfile }) {
@@ -312,6 +393,103 @@ test('persistent session store handles concurrent creates and transactional fail
     assert.equal(backing.sessions.length, 1);
     assert.equal(backing.exposures.length, backing.items.length);
     for (const result of results) assertNoProtected(result.body);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('persistent completion stores responses, evidence, recommendations and reconstructs completed result', async () => {
+  const backing = makeBacking();
+  const beforeHash = contentHash();
+  let serverState = await startServer(backing);
+  try {
+    const created = await jsonFetch(serverState.baseUrl, '/api/assessment-mvp/sessions', { method: 'POST', body: createPayload({ itemsPerPackage: 2 }) });
+    assert.equal(created.response.status, 201);
+    const responses = {};
+    created.body.public_items.forEach((item, index) => {
+      if (index === 0) return;
+      responses[item.assessment_item_id] = item.question_type && item.question_type.includes('numeric') ? 'not a number' : '__not_the_answer__';
+    });
+    const submitted = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/responses`, {
+      method: 'POST',
+      body: { responses, grade: 1, subject: 'English', package_id: 'client-spoof', score: 100, answer: 'client-answer' },
+    });
+    assert.equal(submitted.response.status, 200);
+    assert.equal(submitted.body.status, 'completed');
+    assert.equal(backing.responses.length, created.body.public_items.length, 'one response row exists per session item');
+    assert.equal(backing.responses.filter((row) => row.omitted).length, 1, 'omitted response persists distinctly');
+    assert.ok(backing.responses.some((row) => row.score_status === 'not_scorable' || row.score_status === 'incorrect' || row.score_status === 'omitted'));
+    const notScorable = backing.evidence.reduce((sum, row) => sum + row.not_scorable_count, 0);
+    const incorrect = backing.evidence.reduce((sum, row) => sum + row.incorrect_count, 0);
+    assert.ok(notScorable >= 0);
+    assert.ok(incorrect >= 0, 'not_scorable is tracked separately from incorrect');
+    assert.equal(new Set(backing.evidence.map((row) => `${row.session_id}:${row.package_id}`)).size, backing.evidence.length, 'one evidence row per package');
+    assert.ok(backing.recommendations.length <= 3, 'recommendations are capped at three');
+    assert.equal(backing.sessions[0].status, 'completed');
+    assert.ok(backing.sessions[0].completed_at, 'completed_at persists');
+    assert.equal(submitted.body.overall_mastery_score, undefined, 'completed result contains no overall mastery score');
+    assertNoProtected(submitted.body);
+
+    await new Promise((resolve) => serverState.server.close(resolve));
+    serverState = await startServer(backing);
+    const afterRestart = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}`, { parent: 'A2' });
+    assert.equal(afterRestart.response.status, 200, 'completed result survives reconstructed store and new auth session');
+    assert.deepEqual(afterRestart.body, submitted.body);
+    assertNoProtected(afterRestart.body);
+
+    const duplicate = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/responses`, { method: 'POST', body: { responses } });
+    assert.equal(duplicate.response.status, 409);
+    assert.equal(backing.evidence.length, new Set(backing.evidence.map((row) => `${row.session_id}:${row.package_id}`)).size, 'no duplicate evidence rows');
+    assert.equal(backing.recommendations.length, new Set(backing.recommendations.map((row) => `${row.session_id}:${row.recommended_package_id}:${row.recommendation_type}`)).size, 'no duplicate recommendation rows');
+    assert.equal(backing.gates_progress?.length || 0, 0, 'no Gates progress writes');
+    assert.equal(backing.adaptive_v2_skill_progress?.length || 0, 0, 'no Adaptive V2 progress writes');
+    assert.equal(backing.skill_world_progress?.length || 0, 0, 'no Skill World progress writes');
+    assert.equal(contentHash(), beforeHash, 'SkillPackages and manifest remain byte-identical');
+  } finally {
+    await new Promise((resolve) => serverState.server.close(resolve));
+  }
+});
+
+test('persistent completion rejects foreign items and concurrent duplicate submissions without duplicate rows', async () => {
+  const backing = makeBacking();
+  const { server, baseUrl } = await startServer(backing);
+  try {
+    const created = await jsonFetch(baseUrl, '/api/assessment-mvp/sessions', { method: 'POST', body: createPayload({ itemsPerPackage: 1 }) });
+    const foreign = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/responses`, {
+      method: 'POST', body: { responses: { foreign_item_id: 'x' } },
+    });
+    assert.equal(foreign.response.status, 400);
+    assert.equal(backing.responses.length, 0);
+
+    const responses = Object.fromEntries(created.body.public_items.map((item) => [item.item_identity, '0']));
+    const pair = await Promise.all([
+      jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/responses`, { method: 'POST', body: { responses } }),
+      jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/responses`, { method: 'POST', body: { responses } }),
+    ]);
+    assert.equal(pair.filter((result) => result.response.status === 200).length, 1, 'exactly one concurrent submission succeeds');
+    assert.equal(pair.filter((result) => result.response.status === 409).length, 1, 'losing concurrent submission returns 409');
+    assert.equal(backing.responses.length, created.body.public_items.length, 'no duplicate response rows');
+    assert.equal(backing.evidence.length, new Set(backing.evidence.map((row) => `${row.session_id}:${row.package_id}`)).size);
+    assert.equal(backing.recommendations.length, new Set(backing.recommendations.map((row) => `${row.session_id}:${row.recommended_package_id}:${row.recommendation_type}`)).size);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('persistent completion transaction failure leaves session in progress and writes no completion rows', async () => {
+  const backing = makeBacking();
+  const { server, baseUrl } = await startServer(backing);
+  try {
+    const created = await jsonFetch(baseUrl, '/api/assessment-mvp/sessions', { method: 'POST', body: createPayload() });
+    backing.failNextCompletion = true;
+    const failed = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/responses`, {
+      method: 'POST', body: { responses: {} },
+    });
+    assert.equal(failed.response.status, 400);
+    assert.equal(backing.sessions[0].status, 'in_progress');
+    assert.equal(backing.responses.length, 0);
+    assert.equal(backing.evidence.length, 0);
+    assert.equal(backing.recommendations.length, 0);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
