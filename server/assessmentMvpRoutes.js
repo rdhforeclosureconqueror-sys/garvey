@@ -11,6 +11,7 @@ const {
   resolveOwnedGatesChild,
 } = require("./gatesAuth");
 const { pool: defaultPool } = require("./db");
+const { AssessmentMvpPostgresStore } = require("./assessmentMvpStore");
 
 const MAX_ITEMS_PER_PACKAGE = 5;
 const SESSION_ID_RE = /^amvp_[a-f0-9]{32}$/;
@@ -50,8 +51,8 @@ function safeExposure(session) {
   return {
     item_ids: Array.isArray(session.exposed_item_ids) ? [...session.exposed_item_ids] : [],
     duplicate_keys: Array.isArray(session.exposed_duplicate_keys) ? [...session.exposed_duplicate_keys] : [],
-    storage: "temporary_in_memory",
-    limitations: [TEMPORARY_STORAGE_LIMITATION, NO_PRODUCTION_PROGRESS_LIMITATION],
+    ...(session.exposure_storage ? { storage: session.exposure_storage } : {}),
+    ...(session.exposure_limitations ? { limitations: [...session.exposure_limitations] } : {}),
   };
 }
 
@@ -59,10 +60,13 @@ function publicSessionPayload(session) {
   const publicView = publicAssessmentSessionView(session);
   return {
     session_id: publicView.session_id,
+    session_version: publicView.session_version,
     assessment_role: publicView.assessment_role,
     grade: publicView.grade,
     subject: publicView.subject,
     status: publicView.status,
+    resumed: Boolean(publicView.resumed),
+    current_question_position: Number(publicView.current_question_position || 0),
     public_items: publicView.public_items,
     package_ids: publicView.package_ids,
     selection_summary: publicView.selection_summary,
@@ -161,6 +165,7 @@ function createAssessmentMvpRouter(options = {}) {
   const router = express.Router();
   const sessions = options.sessionStore || new Map();
   const pool = options.pool || defaultPool;
+  const persistentStore = options.assessmentStore || options.store || (!options.sessionStore ? new AssessmentMvpPostgresStore({ pool, createSessionId }) : null);
   const requireAuthentication = options.requireAuthentication !== false;
   const resolveAuthenticatedParent = options.resolveAuthenticatedParent || defaultResolveAuthenticatedParent;
   const resolveOwnedChild = options.resolveOwnedChild || defaultResolveOwnedChild;
@@ -217,8 +222,28 @@ function createAssessmentMvpRouter(options = {}) {
       const itemsError = validateItemsPerPackage(itemsPerPackage);
       if (itemsError) return validationError(res, "invalid_items_per_package", { message: itemsError });
 
+      if (persistentStore && requireAuthentication) {
+        const session = await persistentStore.createOrResumeAssessmentSession({
+          actor,
+          ownedChild,
+          grade,
+          subject,
+          itemsPerPackage,
+        });
+        await persistentStore.markAssessmentItemDelivered?.({ sessionId: session.session_id, displayOrder: session.current_question_position || 0 });
+        const payload = publicSessionPayload(session);
+        if (responseHasOwnershipInternals(payload)) throw new Error("ownership internals leaked");
+        return res.status(session.resumed ? 200 : 201).json(payload);
+      }
+
       const baseSession = createAssessmentSession({ grade, subject, itemsPerPackage, session_id: createSessionId() });
-      const session = attachOwnershipToSession(baseSession, actor, ownedChild?.childProfile);
+      const session = attachOwnershipToSession({
+        ...baseSession,
+        resumed: false,
+        current_question_position: 0,
+        exposure_storage: "temporary_in_memory",
+        exposure_limitations: [TEMPORARY_STORAGE_LIMITATION, NO_PRODUCTION_PROGRESS_LIMITATION],
+      }, actor, ownedChild?.childProfile);
       sessions.set(session.session_id, {
         session,
         result: null,
@@ -241,6 +266,19 @@ function createAssessmentMvpRouter(options = {}) {
     if (!actor) return ownershipError(res, 401, "unauthenticated");
     const sessionId = String(req.params.sessionId || "").trim();
     if (!SESSION_ID_RE.test(sessionId)) return sessionIdError(res);
+    if (persistentStore && requireAuthentication) {
+      const entry = await persistentStore.getAssessmentSessionByPublicId({ sessionId });
+      if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
+      if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
+      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
+      if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
+      const refreshed = await persistentStore.getAssessmentSessionByPublicId({ sessionId, childProfile: ownedChild.childProfile });
+      await persistentStore.markAssessmentItemDelivered?.({ sessionId, displayOrder: refreshed.session.current_question_position || 0 });
+      const payload = publicSessionPayload(refreshed.session);
+      if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
+      return res.status(200).json(payload);
+    }
+
     const entry = sessions.get(sessionId);
     if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
     if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
@@ -248,6 +286,111 @@ function createAssessmentMvpRouter(options = {}) {
     const payload = entry.result ? publicCompletedPayload(entry) : publicSessionPayload(entry.session);
     if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
     return res.status(200).json(payload);
+  });
+
+
+  router.get("/children/:childId/current-session", async (req, res) => {
+    try {
+      const actor = await authenticate(req, res);
+      if (!actor) return ownershipError(res, 401, "unauthenticated");
+      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId });
+      if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error);
+
+      const subject = req.query.subject == null || String(req.query.subject).trim() === "" ? null : String(req.query.subject).trim();
+      if (subject != null) {
+        const subjectError = validateSubject(subject);
+        if (subjectError) return validationError(res, "invalid_subject", { message: subjectError });
+      }
+      let grade = null;
+      if (req.query.grade != null && String(req.query.grade).trim() !== "") {
+        grade = Number(req.query.grade);
+        const gradeError = validateGrade(grade);
+        if (gradeError) return validationError(res, "invalid_grade", { message: gradeError });
+      }
+      const assessmentRole = req.query.assessment_role == null || String(req.query.assessment_role).trim() === ""
+        ? "baseline"
+        : String(req.query.assessment_role).trim();
+      if (!["baseline", "reassessment"].includes(assessmentRole)) {
+        return validationError(res, "invalid_assessment_role", { message: "assessment_role must be baseline or reassessment" });
+      }
+
+      if (persistentStore && requireAuthentication) {
+        const session = await persistentStore.getCurrentAssessmentSessionForLearner({
+          learnerId: ownedChild.learnerId,
+          parentProfileId: actor.parentProfile.id,
+          grade,
+          subject,
+          assessmentRole,
+          childProfile: ownedChild.childProfile,
+        });
+        if (!session) return res.status(404).json({ ok: false, error: "current_session_not_found" });
+        await persistentStore.markAssessmentItemDelivered?.({ sessionId: session.session_id, displayOrder: session.current_question_position || 0 });
+        const payload = publicSessionPayload(session);
+        if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
+        return res.status(200).json(payload);
+      }
+
+      const matches = [...sessions.values()].filter((entry) => {
+        if (!entryBelongsTo(entry, actor)) return false;
+        if (String(entry.learner_id) !== String(ownedChild.learnerId)) return false;
+        const session = entry.session;
+        if (!session || session.status !== "in_progress") return false;
+        if (assessmentRole && session.assessment_role !== assessmentRole) return false;
+        if (grade != null && Number(session.grade) !== Number(grade)) return false;
+        if (subject != null && session.subject !== subject) return false;
+        return true;
+      });
+      if (!matches.length) return res.status(404).json({ ok: false, error: "current_session_not_found" });
+      const payload = publicSessionPayload({ ...matches[matches.length - 1].session, resumed: true });
+      if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
+      return res.status(200).json(payload);
+    } catch (err) {
+      return validationError(res, "assessment_current_session_read_failed", { message: err.message });
+    }
+  });
+
+  router.patch("/sessions/:sessionId/progress", async (req, res) => {
+    try {
+      const actor = await authenticate(req, res);
+      if (!actor) return ownershipError(res, 401, "unauthenticated");
+      const sessionId = String(req.params.sessionId || "").trim();
+      if (!SESSION_ID_RE.test(sessionId)) return sessionIdError(res);
+      const position = req.body?.current_question_position;
+      if (!Number.isInteger(position)) return validationError(res, "invalid_current_question_position");
+
+      if (persistentStore && requireAuthentication) {
+        const entry = await persistentStore.getAssessmentSessionByPublicId({ sessionId });
+        if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
+        if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
+        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
+        if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
+        const updated = await persistentStore.updateAssessmentSessionPosition({
+          sessionId,
+          parentProfileId: actor.parentProfile.id,
+          learnerId: ownedChild.learnerId,
+          currentQuestionPosition: position,
+          childProfile: ownedChild.childProfile,
+        });
+        if (updated.status !== 200) return res.status(updated.status).json({ ok: false, error: updated.error });
+        await persistentStore.markAssessmentItemDelivered?.({ sessionId, displayOrder: updated.session.current_question_position || 0 });
+        const payload = publicSessionPayload(updated.session);
+        if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_progress_failed", { message: "ownership internals leaked" });
+        return res.status(200).json(payload);
+      }
+
+      const entry = sessions.get(sessionId);
+      if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
+      if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
+      if (entry.session.status !== "in_progress") return res.status(409).json({ ok: false, error: "session_not_in_progress" });
+      const itemCount = entry.session.public_items?.length || 0;
+      if (position < 0 || position >= itemCount) return validationError(res, "invalid_current_question_position");
+      entry.session = { ...entry.session, current_question_position: position };
+      const payload = publicSessionPayload(entry.session);
+      if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_progress_failed", { message: "ownership internals leaked" });
+      return res.status(200).json(payload);
+    } catch (err) {
+      return validationError(res, "assessment_session_progress_failed", { message: err.message });
+    }
   });
 
   router.post("/sessions/:sessionId/responses", async (req, res) => {
@@ -342,6 +485,8 @@ function createAssessmentMvpRouter(options = {}) {
         prior_session_id: sessionId,
         ...(requireAuthentication ? getEntryOwnership(entry) : {}),
       });
+      reassessmentWithContext.exposure_storage = "temporary_in_memory";
+      reassessmentWithContext.exposure_limitations = [TEMPORARY_STORAGE_LIMITATION, NO_PRODUCTION_PROGRESS_LIMITATION];
       const payload = publicSessionPayload(reassessmentWithContext);
       if (responseHasOwnershipInternals(payload)) throw new Error("ownership internals leaked");
       return res.status(201).json(payload);
