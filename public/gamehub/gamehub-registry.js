@@ -22,7 +22,7 @@
       game_key: 'adaptive_learning',
       title: 'Adaptive Learning Quiz',
       file_path: '/gamehub/adaptive_learning',
-      launch_path: '/gamehub/adaptive_learning.html',
+      launch_path: '/gamehub/adaptive-v2-hub.html',
       description: 'Adaptive multiple-choice quiz with fallback and shared question-bank support.',
       game_type: 'quiz',
       primary_capacities: ['academic confidence', 'reasoning', 'focus'],
