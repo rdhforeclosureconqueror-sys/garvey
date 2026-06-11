@@ -19,6 +19,10 @@
     .choice:hover{border-color:#60a5fa}.choice.selected{outline:2px solid #60a5fa;border-color:#60a5fa}.feedback{border-radius:18px;padding:16px;margin-top:14px;border:1px solid var(--border)}.feedback.good{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.4)}.feedback.bad{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.35)}
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media (max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}} .stat{background:#0b1220;border:1px solid var(--border);padding:14px;border-radius:18px}.stat .big{font-size:1.6rem;font-weight:800}
     .mini{background:#0b1220;border:1px solid var(--border);padding:12px;border-radius:16px}.review-item{border:1px solid var(--border);border-radius:18px;padding:14px;margin:10px 0;background:#0b1220}.good-text{color:#6ee7b7}.bad-text{color:#fca5a5}.muted{color:var(--muted)} table{width:100%;border-collapse:collapse} th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+
+    .adaptive-assessment-button{display:inline-flex;align-items:center;justify-content:center;min-height:54px;border-radius:16px;padding:14px 20px;background:linear-gradient(135deg,#f59e0b,#22c55e);color:#08111f;font-weight:900;text-decoration:none;box-shadow:0 8px 0 rgba(0,0,0,.22)}
+    .browse-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.browse-tabs button{padding:9px 12px;border-radius:999px}.browse-tabs button.active{outline:3px solid #facc15}.browse-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}@media(max-width:800px){.browse-grid{grid-template-columns:1fr}}
+    .package-link{display:block;color:#bfdbfe;text-decoration:none;margin:8px 0;font-weight:700}.package-link:focus-visible,.adaptive-assessment-button:focus-visible{outline:4px solid #facc15;outline-offset:3px}
     .small{font-size:.9rem;color:var(--muted)} .celebrate{font-size:1.1rem;font-weight:800;letter-spacing:.02em;animation:pop .45s ease} @keyframes pop{0%{transform:scale(.95);opacity:0}70%{transform:scale(1.03);opacity:1}100%{transform:scale(1);opacity:1}}
     .section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.hr{height:1px;background:var(--border);margin:12px 0}.footer-note{font-size:.9rem;color:#94a3b8}.badge-mastered{background:rgba(16,185,129,.18)}.badge-developing{background:rgba(96,165,250,.18)}.badge-gap{background:rgba(245,158,11,.18)}
   </style>
@@ -45,6 +49,35 @@
           <span class="pill">No internet needed</span>
         </div>
       </div>
+    </div>
+
+
+
+    <div id="adaptiveAssessmentSection" class="card" aria-labelledby="adaptive-assessment-title">
+      <div class="section-title">
+        <div>
+          <h2 id="adaptive-assessment-title">Adaptive Assessment</h2>
+          <p>Choose a grade and subject to browse lessons, practice skills, and open the persistent assessment flow.</p>
+        </div>
+        <a class="adaptive-assessment-button" href="/assessment-mvp">Take an Adaptive Assessment</a>
+      </div>
+      <div class="browse-tabs" aria-label="Grade browsing">
+        <button class="secondary active" type="button" data-browse-grade="1">Grade 1</button>
+        <button class="secondary" type="button" data-browse-grade="2">Grade 2</button>
+        <button class="secondary" type="button" data-browse-grade="3">Grade 3</button>
+        <button class="secondary" type="button" data-browse-grade="4">Grade 4</button>
+        <button class="secondary" type="button" data-browse-grade="5">Grade 5</button>
+        <button class="secondary" type="button" data-browse-grade="6">Grade 6</button>
+      </div>
+      <div class="browse-tabs" aria-label="Subject browsing">
+        <button class="secondary active" type="button" data-browse-subject="Math">Math</button>
+        <button class="secondary" type="button" data-browse-subject="English">English</button>
+      </div>
+      <div class="browse-grid">
+        <section class="mini" aria-labelledby="lessons-title"><h3 id="lessons-title">Lessons</h3><div id="adaptiveLessonsList"><p class="small">Loading lessons…</p></div></section>
+        <section class="mini" aria-labelledby="practice-title"><h3 id="practice-title">Practice Skills</h3><div id="adaptivePracticeList"><p class="small">Loading practice skills…</p></div></section>
+      </div>
+      <section class="mini" style="margin-top:14px" aria-labelledby="assessment-browse-title"><h3 id="assessment-browse-title">Adaptive Assessment</h3><p class="small">This opens setup with your grade and subject preselected. It will not auto-start.</p><a id="adaptiveAssessmentBrowseLink" class="adaptive-assessment-button" href="/assessment-mvp?grade=1&amp;subject=Math">Take Grade 1 Math Adaptive Assessment</a></section>
     </div>
 
     <div id="startScreen" class="card">
@@ -90,6 +123,35 @@
 
     <div class="footer-note wrap">Tip: this file saves history only in this browser on this device.</div>
   </div>
+
+<script>
+(function(){
+  const state={grade:'1',subject:'Math',packages:[]};
+  const subjectCode={Math:'M',English:'E'};
+  function idFromFile(file){return String(file||'').replace(/\.skill-package\.v1\.json$/,'');}
+  function packageMatches(id){return id.startsWith('G'+state.grade+subjectCode[state.subject]);}
+  function titleFor(id){return id.replace(/_/g,' ');}
+  function renderAdaptiveBrowse(){
+    document.querySelectorAll('[data-browse-grade]').forEach((btn)=>btn.classList.toggle('active',btn.getAttribute('data-browse-grade')===state.grade));
+    document.querySelectorAll('[data-browse-subject]').forEach((btn)=>btn.classList.toggle('active',btn.getAttribute('data-browse-subject')===state.subject));
+    const ids=state.packages.map(idFromFile).filter(packageMatches).slice(0,8);
+    const lessons=document.getElementById('adaptiveLessonsList');
+    const practice=document.getElementById('adaptivePracticeList');
+    const assessment=document.getElementById('adaptiveAssessmentBrowseLink');
+    if(lessons) lessons.innerHTML=ids.length?ids.map((id)=>'<a class="package-link" href="/skill-world/'+id+'">'+titleFor(id)+'</a>').join(''):'<p class="small">No lessons found for this choice yet.</p>';
+    if(practice) practice.innerHTML=ids.length?ids.map((id)=>'<a class="package-link" href="/skill-world/'+id+'/drill">Practice '+titleFor(id)+'</a>').join(''):'<p class="small">No practice skills found for this choice yet.</p>';
+    if(assessment){ assessment.href='/assessment-mvp?grade='+encodeURIComponent(state.grade)+'&subject='+encodeURIComponent(state.subject); assessment.textContent='Take Grade '+state.grade+' '+state.subject+' Adaptive Assessment'; }
+  }
+  document.addEventListener('click',(event)=>{
+    const grade=event.target&&event.target.getAttribute&&event.target.getAttribute('data-browse-grade');
+    const subject=event.target&&event.target.getAttribute&&event.target.getAttribute('data-browse-subject');
+    if(grade){state.grade=grade;renderAdaptiveBrowse();}
+    if(subject){state.subject=subject;renderAdaptiveBrowse();}
+  });
+  fetch('/gamehub/skill-world/content/manifest.json').then((res)=>res.json()).then((manifest)=>{state.packages=Array.isArray(manifest.packages)?manifest.packages:[];renderAdaptiveBrowse();}).catch(()=>renderAdaptiveBrowse());
+  renderAdaptiveBrowse();
+}());
+</script>
 <script src="/gamehub/shared-content-loader.js"></script>
 <script src="/gamehub/gamehub-session-adapter.js"></script>
 <script>
