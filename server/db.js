@@ -5,6 +5,7 @@ const { initializeKanbanSchema } = require("./kanbanDb");
 const { applyTapCrmMigrations, verifyTapCrmSchema } = require("./tapCrmDb");
 const { applyTdeMigrations, verifyTdeSchema } = require("./youthDevelopmentTdeDb");
 const { applyGatesMigrations, verifyGatesSchema } = require("./gatesDb");
+const { initializeAssessmentMvpDatabase, verifyAssessmentMvpSchema } = require("./assessmentMvpDb");
 
 function readEnvTrimmed(name) {
   const value = process.env[name];
@@ -1418,6 +1419,20 @@ async function initializeDatabase() {
   });
   if (!gatesSchemaReport.ok) {
     throw new Error(`gates schema incomplete: missing tables ${gatesSchemaReport.missingTables.join(", ")}; missing indexes ${gatesSchemaReport.missingIndexes.join(", ")}`);
+  }
+
+  const assessmentMvpMigrationResult = await initializeAssessmentMvpDatabase(pool);
+  const assessmentMvpSchemaReport = await verifyAssessmentMvpSchema(pool);
+  console.log("✅ Assessment MVP schema ready", {
+    applied_migrations: assessmentMvpMigrationResult.appliedCount,
+    total_migrations: assessmentMvpMigrationResult.totalMigrations,
+    schema_ok: assessmentMvpSchemaReport.ok,
+    missing_tables: assessmentMvpSchemaReport.missingTables,
+    missing_indexes: assessmentMvpSchemaReport.missingIndexes,
+    missing_constraints: assessmentMvpSchemaReport.missingConstraints,
+  });
+  if (!assessmentMvpSchemaReport.ok) {
+    throw new Error(`assessment mvp schema incomplete: missing tables ${assessmentMvpSchemaReport.missingTables.join(", ")}; missing indexes ${assessmentMvpSchemaReport.missingIndexes.join(", ")}; missing constraints ${assessmentMvpSchemaReport.missingConstraints.join(", ")}`);
   }
 
   const tdeMigrationResult = await applyTdeMigrations(pool);
