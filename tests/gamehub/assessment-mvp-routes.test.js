@@ -38,7 +38,7 @@ async function startServer() {
   const app = express();
   app.use(express.json());
   const sessionStore = new Map();
-  app.use('/api/assessment-mvp', createAssessmentMvpRouter({ sessionStore }));
+  app.use('/api/assessment-mvp', createAssessmentMvpRouter({ sessionStore, requireAuthentication: false }));
   const server = http.createServer(app);
   await new Promise((resolve) => server.listen(0, resolve));
   return { server, sessionStore, baseUrl: `http://127.0.0.1:${server.address().port}` };

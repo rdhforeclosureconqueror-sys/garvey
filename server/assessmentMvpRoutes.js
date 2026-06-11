@@ -5,6 +5,12 @@ const express = require("express");
 const { createAssessmentSession, publicAssessmentSessionView } = require("../assessment-mvp/createAssessmentSession");
 const { createReassessmentSession } = require("../assessment-mvp/createReassessmentSession");
 const { submitAssessmentResponses } = require("../assessment-mvp/submitAssessmentResponses");
+const {
+  buildGatesSessionCookie,
+  resolveGatesParentSession,
+  resolveOwnedGatesChild,
+} = require("./gatesAuth");
+const { pool: defaultPool } = require("./db");
 
 const MAX_ITEMS_PER_PACKAGE = 5;
 const SESSION_ID_RE = /^amvp_[a-f0-9]{32}$/;
@@ -63,6 +69,7 @@ function publicSessionPayload(session) {
     exposure: safeExposure(publicView),
     ...(publicView.requested_package_ids ? { requested_package_ids: publicView.requested_package_ids } : {}),
     ...(publicView.insufficient_evidence ? { insufficient_evidence: publicView.insufficient_evidence } : {}),
+    ...(session.child_context ? { child_context: session.child_context } : {}),
   };
 }
 
@@ -98,6 +105,45 @@ function responseMapToInternalSubmissions(session, responseMap) {
   return { submissions, foreign_item_ids };
 }
 
+
+function responseHasOwnershipInternals(value) {
+  if (!value || typeof value !== "object") return false;
+  if (Array.isArray(value)) return value.some(responseHasOwnershipInternals);
+  return Object.entries(value).some(([key, child]) => {
+    if (["auth_user_id", "parent_profile_id", "learner_id", "token", "token_hash", "session_token"].includes(key)) return true;
+    return responseHasOwnershipInternals(child);
+  });
+}
+
+function ownershipError(res, status, error) {
+  return res.status(status).json({ ok: false, error });
+}
+
+function getEntryOwnership(entry) {
+  return {
+    auth_user_id: entry?.auth_user_id,
+    parent_profile_id: entry?.parent_profile_id,
+    learner_id: entry?.learner_id,
+  };
+}
+
+function attachOwnershipToSession(session, ownership, childProfile) {
+  const metadata = childProfile ? {
+    child_id: childProfile.child_id,
+    child_grade_band: childProfile.child_grade_band,
+    grade_metadata: childProfile.metadata?.grade ?? childProfile.metadata?.grade_band ?? null,
+  } : null;
+  return metadata ? { ...session, child_context: metadata } : session;
+}
+
+async function defaultResolveAuthenticatedParent(req, { pool }) {
+  return resolveGatesParentSession(req, { pool });
+}
+
+async function defaultResolveOwnedChild({ pool, parentProfileId, childId }) {
+  return resolveOwnedGatesChild({ pool, parentProfileId, childId });
+}
+
 function allowedReassessmentPackageIds(result) {
   const ids = new Set();
   for (const packageId of result.package_ids || []) ids.add(packageId);
@@ -114,10 +160,53 @@ function allowedReassessmentPackageIds(result) {
 function createAssessmentMvpRouter(options = {}) {
   const router = express.Router();
   const sessions = options.sessionStore || new Map();
+  const pool = options.pool || defaultPool;
+  const requireAuthentication = options.requireAuthentication !== false;
+  const resolveAuthenticatedParent = options.resolveAuthenticatedParent || defaultResolveAuthenticatedParent;
+  const resolveOwnedChild = options.resolveOwnedChild || defaultResolveOwnedChild;
 
-  router.post("/sessions", (req, res) => {
+  async function authenticate(req, res) {
+    if (!requireAuthentication) return { authenticated: false, skipped: true };
+    const sessionState = await resolveAuthenticatedParent(req, { pool });
+    if (sessionState.clearCookie) res.setHeader("Set-Cookie", buildGatesSessionCookie(req, "", 0));
+    if (!sessionState.authenticated) return null;
+    return sessionState;
+  }
+
+  function entryBelongsTo(entry, actor) {
+    if (!requireAuthentication) return true;
+    const ownership = getEntryOwnership(entry);
+    return Number(ownership.auth_user_id) === Number(actor.authUserId)
+      && Number(ownership.parent_profile_id) === Number(actor.parentProfile.id);
+  }
+
+  async function verifySuppliedChildContext(req, res, entry, actor) {
+    if (!requireAuthentication) return true;
+    const rawChildId = req.body?.child_id ?? req.query?.child_id;
+    if (rawChildId == null || String(rawChildId).trim() === "") return true;
+    const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: rawChildId });
+    if (!ownedChild.ok) {
+      ownershipError(res, ownedChild.status, ownedChild.error);
+      return false;
+    }
+    if (String(ownedChild.learnerId) !== String(entry.learner_id)) {
+      ownershipError(res, 403, "forbidden");
+      return false;
+    }
+    return true;
+  }
+
+  router.post("/sessions", async (req, res) => {
     try {
+      const actor = await authenticate(req, res);
+      if (!actor) return ownershipError(res, 401, "unauthenticated");
       const body = req.body || {};
+      let ownedChild = null;
+      if (requireAuthentication) {
+        if (body.child_id == null || String(body.child_id).trim() === "") return validationError(res, "missing_child_id");
+        ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: body.child_id });
+        if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error);
+      }
       const grade = body.grade;
       const subject = body.subject;
       const itemsPerPackage = body.itemsPerPackage;
@@ -128,28 +217,49 @@ function createAssessmentMvpRouter(options = {}) {
       const itemsError = validateItemsPerPackage(itemsPerPackage);
       if (itemsError) return validationError(res, "invalid_items_per_package", { message: itemsError });
 
-      const session = createAssessmentSession({ grade, subject, itemsPerPackage, session_id: createSessionId() });
-      sessions.set(session.session_id, { session, result: null });
-      return res.status(201).json(publicSessionPayload(session));
+      const baseSession = createAssessmentSession({ grade, subject, itemsPerPackage, session_id: createSessionId() });
+      const session = attachOwnershipToSession(baseSession, actor, ownedChild?.childProfile);
+      sessions.set(session.session_id, {
+        session,
+        result: null,
+        ...(requireAuthentication ? {
+          auth_user_id: actor.authUserId,
+          parent_profile_id: actor.parentProfile.id,
+          learner_id: ownedChild.learnerId,
+        } : {}),
+      });
+      const payload = publicSessionPayload(session);
+      if (responseHasOwnershipInternals(payload)) throw new Error("ownership internals leaked");
+      return res.status(201).json(payload);
     } catch (err) {
       return validationError(res, "assessment_session_create_failed", { message: err.message });
     }
   });
 
-  router.get("/sessions/:sessionId", (req, res) => {
+  router.get("/sessions/:sessionId", async (req, res) => {
+    const actor = await authenticate(req, res);
+    if (!actor) return ownershipError(res, 401, "unauthenticated");
     const sessionId = String(req.params.sessionId || "").trim();
     if (!SESSION_ID_RE.test(sessionId)) return sessionIdError(res);
     const entry = sessions.get(sessionId);
     if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
-    return res.status(200).json(entry.result ? publicCompletedPayload(entry) : publicSessionPayload(entry.session));
+    if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
+    if (!await verifySuppliedChildContext(req, res, entry, actor)) return;
+    const payload = entry.result ? publicCompletedPayload(entry) : publicSessionPayload(entry.session);
+    if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
+    return res.status(200).json(payload);
   });
 
-  router.post("/sessions/:sessionId/responses", (req, res) => {
+  router.post("/sessions/:sessionId/responses", async (req, res) => {
     try {
+      const actor = await authenticate(req, res);
+      if (!actor) return ownershipError(res, 401, "unauthenticated");
       const sessionId = String(req.params.sessionId || "").trim();
       if (!SESSION_ID_RE.test(sessionId)) return sessionIdError(res);
       const entry = sessions.get(sessionId);
       if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
+      if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
+      if (!await verifySuppliedChildContext(req, res, entry, actor)) return;
       if (entry.result || entry.session.status === "completed") {
         return res.status(409).json({ ok: false, error: "session_already_completed" });
       }
@@ -174,18 +284,23 @@ function createAssessmentMvpRouter(options = {}) {
           limitations: [TEMPORARY_STORAGE_LIMITATION, NO_PRODUCTION_PROGRESS_LIMITATION],
         },
       };
+      if (responseHasOwnershipInternals(entry.result)) throw new Error("ownership internals leaked");
       return res.status(200).json(entry.result);
     } catch (err) {
       return validationError(res, "assessment_response_submit_failed", { message: err.message });
     }
   });
 
-  router.post("/sessions/:sessionId/reassessment", (req, res) => {
+  router.post("/sessions/:sessionId/reassessment", async (req, res) => {
     try {
+      const actor = await authenticate(req, res);
+      if (!actor) return ownershipError(res, 401, "unauthenticated");
       const sessionId = String(req.params.sessionId || "").trim();
       if (!SESSION_ID_RE.test(sessionId)) return sessionIdError(res);
       const entry = sessions.get(sessionId);
       if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
+      if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
+      if (!await verifySuppliedChildContext(req, res, entry, actor)) return;
       if (!entry.result || entry.result.status !== "completed") {
         return res.status(409).json({ ok: false, error: "prior_session_must_be_completed" });
       }
@@ -216,8 +331,20 @@ function createAssessmentMvpRouter(options = {}) {
         all_prior_exposed_duplicate_keys: priorExposure.duplicate_keys || [],
         session_id: createSessionId(),
       });
-      sessions.set(reassessment.session_id, { session: reassessment, result: null, prior_session_id: sessionId });
-      return res.status(201).json(publicSessionPayload(reassessment));
+      const reassessmentWithContext = attachOwnershipToSession(reassessment, actor, entry.session.child_context ? {
+        child_id: entry.session.child_context.child_id,
+        child_grade_band: entry.session.child_context.child_grade_band,
+        metadata: { grade: entry.session.child_context.grade_metadata },
+      } : null);
+      sessions.set(reassessment.session_id, {
+        session: reassessmentWithContext,
+        result: null,
+        prior_session_id: sessionId,
+        ...(requireAuthentication ? getEntryOwnership(entry) : {}),
+      });
+      const payload = publicSessionPayload(reassessmentWithContext);
+      if (responseHasOwnershipInternals(payload)) throw new Error("ownership internals leaked");
+      return res.status(201).json(payload);
     } catch (err) {
       return validationError(res, "assessment_reassessment_create_failed", { message: err.message });
     }

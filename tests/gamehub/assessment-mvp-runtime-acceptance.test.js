@@ -50,7 +50,7 @@ async function startRuntimeHarness() {
   const app = express();
   app.use(express.json());
   app.use('/assessment-mvp', express.static(path.join(publicRoot, 'assessment-mvp')));
-  app.use('/api/assessment-mvp', createAssessmentMvpRouter({ sessionStore: new Map() }));
+  app.use('/api/assessment-mvp', createAssessmentMvpRouter({ sessionStore: new Map(), requireAuthentication: false }));
   const server = http.createServer(app);
   await new Promise((resolve) => server.listen(0, resolve));
   return { server, baseUrl: `http://127.0.0.1:${server.address().port}` };
