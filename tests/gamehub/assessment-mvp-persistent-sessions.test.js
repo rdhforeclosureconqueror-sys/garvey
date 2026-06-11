@@ -8,6 +8,7 @@ const express = require('express');
 
 const { createAssessmentMvpRouter } = require('../../server/assessmentMvpRoutes');
 const { createAssessmentSession } = require('../../assessment-mvp/createAssessmentSession');
+const { createReassessmentSession } = require('../../assessment-mvp/createReassessmentSession');
 const { submitAssessmentResponses } = require('../../assessment-mvp/submitAssessmentResponses');
 
 const root = path.join(__dirname, '..', '..');
@@ -86,6 +87,8 @@ class DurableMockAssessmentStore {
       public_items: items.map((item) => publicClone(item.public_payload)),
       package_ids: publicClone(row.selection_config.package_ids),
       selection_summary: publicClone(row.selection_config.selection_summary),
+      ...(row.selection_config.requested_package_ids ? { requested_package_ids: publicClone(row.selection_config.requested_package_ids) } : {}),
+      ...(row.selection_config.insufficient_evidence ? { insufficient_evidence: publicClone(row.selection_config.insufficient_evidence) } : {}),
       exposed_item_ids: items.map((item) => item.item_identity).sort(),
       exposed_duplicate_keys: items.map((item) => item.duplicate_key).sort(),
       child_context: {
@@ -126,7 +129,7 @@ class DurableMockAssessmentStore {
         learner_id: String(ownedChild.learnerId), parent_profile_id: actor.parentProfile.id, auth_user_id: actor.authUserId,
         assessment_role: 'baseline', grade, subject, status: 'in_progress', session_version: selected.session_version,
         selection_config: { itemsPerPackage, package_ids: selected.package_ids, selection_summary: selected.selection_summary },
-        current_question_position: 0, started_at: new Date().toISOString(), updated_at: new Date().toISOString(), completed_at: null, lock_version: 0,
+        current_question_position: 0, created_at: new Date().toISOString(), started_at: new Date().toISOString(), updated_at: new Date().toISOString(), completed_at: null, lock_version: 0,
         internal_scoring_records: publicClone(selected.internal_scoring_records),
       };
       const itemRows = selected.public_items.map((item, index) => ({
@@ -157,6 +160,127 @@ class DurableMockAssessmentStore {
     });
   }
 
+  async loadAuthorizedReassessmentPackages({ priorSessionInternalId }) {
+    const ids = new Set();
+    for (const item of this.backing.items.filter((row) => row.session_pk === priorSessionInternalId)) ids.add(item.package_id);
+    for (const evidence of this.backing.evidence.filter((row) => row.session_id === priorSessionInternalId)) ids.add(evidence.package_id);
+    for (const recommendation of this.backing.recommendations.filter((row) => row.session_id === priorSessionInternalId)) ids.add(recommendation.recommended_package_id);
+    return [...ids].sort();
+  }
+
+  async createPersistentReassessmentSession({ priorSessionId, actor, ownedChild, packageIds, itemsPerPackage }) {
+    return this.locked(async () => {
+      const priorRow = this.backing.sessions.find((session) => session.session_id === priorSessionId);
+      if (!priorRow) return { status: 404, error: 'session_not_found' };
+      if (Number(priorRow.parent_profile_id) !== Number(actor.parentProfile.id) || String(priorRow.learner_id) !== String(ownedChild.learnerId)) return { status: 403, error: 'forbidden' };
+      if (priorRow.status !== 'completed') return { status: 409, error: 'prior_session_must_be_completed' };
+      const existing = this.backing.sessions.find((row) => String(row.learner_id) === String(priorRow.learner_id)
+        && row.grade === priorRow.grade && row.subject === priorRow.subject && row.assessment_role === 'reassessment'
+        && row.prior_session_id === priorRow.id && row.status === 'in_progress');
+      if (existing) return { status: 200, session: this.sessionFromRow(existing, { resumed: true, childProfile: ownedChild.childProfile }) };
+
+      const requestedIds = [...new Set(packageIds.map((id) => String(id).trim()))].sort();
+      const authorizedIds = await this.loadAuthorizedReassessmentPackages({ priorSessionInternalId: priorRow.id });
+      const unrelated = requestedIds.filter((id) => !authorizedIds.includes(id));
+      if (unrelated.length) return { status: 400, error: 'unrelated_reassessment_package_ids', unrelated_package_ids: unrelated };
+      const prior = await this.loadLearnerExposureHistory({ learnerId: priorRow.learner_id });
+      const reassessment = createReassessmentSession(priorRow.completed_result, {
+        grade: priorRow.grade,
+        subject: priorRow.subject,
+        package_ids: requestedIds,
+        itemsPerPackage,
+        all_prior_exposed_item_ids: prior.item_ids,
+        all_prior_exposed_duplicate_keys: prior.duplicate_keys,
+        session_id: `amvp_${crypto.randomBytes(16).toString('hex')}`,
+      });
+      const now = new Date().toISOString();
+      const row = {
+        id: this.backing.nextId++, session_id: reassessment.session_id,
+        learner_id: String(priorRow.learner_id), parent_profile_id: priorRow.parent_profile_id, auth_user_id: priorRow.auth_user_id,
+        assessment_role: 'reassessment', grade: priorRow.grade, subject: priorRow.subject, status: 'in_progress', session_version: reassessment.session_version,
+        selection_config: {
+          itemsPerPackage,
+          package_ids: reassessment.package_ids,
+          requested_package_ids: reassessment.requested_package_ids,
+          insufficient_evidence: (reassessment.insufficient_evidence || []).map((entry) => ({
+            ...entry,
+            available_safe_item_count: entry.available_safe_item_count ?? entry.safe_non_repeated_item_count ?? 0,
+          })),
+          selection_summary: reassessment.selection_summary,
+        },
+        prior_session_id: priorRow.id,
+        current_question_position: 0, created_at: now, started_at: now, updated_at: now, completed_at: null, lock_version: 0,
+        internal_scoring_records: publicClone(reassessment.internal_scoring_records),
+      };
+      const itemRows = reassessment.public_items.map((item, index) => ({
+        session_pk: row.id, item_identity: item.item_identity, assessment_item_id: item.assessment_item_id,
+        package_id: item.source_package_id, source_question_id: item.source_question_id, source_bank: item.source_bank,
+        source_pointer: item.source_pointer, duplicate_key: item.duplicate_key, display_order: index,
+        question_type: item.question_type, item_version_hash: crypto.createHash('sha256').update(JSON.stringify(item)).digest('hex'),
+        public_payload: publicClone(item),
+      }));
+      const exposureRows = itemRows.map((item) => ({
+        learner_id: String(priorRow.learner_id), package_id: item.package_id, source_question_id: item.source_question_id,
+        source_bank: item.source_bank, item_identity: item.item_identity, duplicate_key: item.duplicate_key,
+        assessment_session_id: row.id,
+      }));
+      for (const exposure of exposureRows) {
+        if (this.backing.exposures.some((old) => old.learner_id === exposure.learner_id
+          && (old.item_identity === exposure.item_identity || old.duplicate_key === exposure.duplicate_key))) {
+          const reread = this.backing.sessions.find((session) => String(session.learner_id) === String(priorRow.learner_id)
+            && session.grade === priorRow.grade && session.subject === priorRow.subject && session.assessment_role === 'reassessment'
+            && session.prior_session_id === priorRow.id && session.status === 'in_progress');
+          if (reread) return { status: 200, session: this.sessionFromRow(reread, { resumed: true, childProfile: ownedChild.childProfile }) };
+          throw new Error('exposure_conflict');
+        }
+      }
+      this.backing.sessions.push(row);
+      this.backing.items.push(...itemRows);
+      this.backing.exposures.push(...exposureRows);
+      return { status: 201, session: this.sessionFromRow(row, { resumed: false, childProfile: ownedChild.childProfile }) };
+    });
+  }
+
+  async getLearnerAssessmentHistory({ learnerId, parentProfileId, grade = null, subject = null, status = null, assessmentRole = null, limit = 50 }) {
+    const bounded = Math.min(Number(limit), 50);
+    const rows = this.backing.sessions.filter((row) => String(row.learner_id) === String(learnerId)
+      && Number(row.parent_profile_id) === Number(parentProfileId)
+      && (grade == null || row.grade === grade)
+      && (subject == null || row.subject === subject)
+      && (status == null || row.status === status)
+      && (assessmentRole == null || row.assessment_role === assessmentRole))
+      .sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || '')) || b.id - a.id)
+      .slice(0, bounded);
+    return {
+      limit: bounded,
+      sessions: rows.map((row) => ({
+        session_id: row.session_id,
+        assessment_role: row.assessment_role,
+        grade: row.grade,
+        subject: row.subject,
+        status: row.status,
+        created_at: row.created_at,
+        updated_at: row.updated_at,
+        completed_at: row.completed_at,
+        current_question_position: row.current_question_position,
+        package_ids: publicClone(row.selection_config.package_ids),
+        evidence_summary: this.backing.evidence.filter((entry) => entry.session_id === row.id).map((entry) => ({
+          source_package_id: entry.package_id,
+          valid_scored_responses: entry.valid_response_count,
+          correct_responses: entry.correct_count,
+          incorrect_responses: entry.incorrect_count,
+          omitted_responses: entry.omitted_count,
+          not_scorable_responses: entry.not_scorable_count,
+          accuracy: entry.accuracy,
+          provisional_label: entry.provisional_label,
+        })),
+        recommendation_count: this.backing.recommendations.filter((entry) => entry.session_id === row.id).length,
+        ...(row.prior_session_id ? { prior_session_id_public_reference_if_safe: this.backing.sessions.find((entry) => entry.id === row.prior_session_id)?.session_id || null } : {}),
+      })),
+    };
+  }
+
+
   async getAssessmentSessionByPublicId({ sessionId, childProfile }) {
     const row = this.backing.sessions.find((session) => session.session_id === sessionId);
     if (!row) return null;
@@ -170,7 +294,7 @@ class DurableMockAssessmentStore {
   async getCurrentAssessmentSessionForLearner({ learnerId, parentProfileId, grade, subject, assessmentRole, childProfile }) {
     const rows = this.backing.sessions.filter((row) => String(row.learner_id) === String(learnerId)
       && Number(row.parent_profile_id) === Number(parentProfileId) && row.status === 'in_progress'
-      && row.assessment_role === assessmentRole && (grade == null || row.grade === grade) && (subject == null || row.subject === subject));
+      && (assessmentRole == null || row.assessment_role === assessmentRole) && (grade == null || row.grade === grade) && (subject == null || row.subject === subject));
     const row = rows.at(-1);
     return row ? this.sessionFromRow(row, { resumed: true, childProfile }) : null;
   }
@@ -490,6 +614,156 @@ test('persistent completion transaction failure leaves session in progress and w
     assert.equal(backing.responses.length, 0);
     assert.equal(backing.evidence.length, 0);
     assert.equal(backing.recommendations.length, 0);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+async function createAndCompleteBaseline(baseUrl, { parent = 'A1', payload = createPayload({ itemsPerPackage: 3 }) } = {}) {
+  const created = await jsonFetch(baseUrl, '/api/assessment-mvp/sessions', { method: 'POST', parent, body: payload });
+  assert.equal(created.response.status, 201);
+  const responses = Object.fromEntries(created.body.public_items.map((item) => [item.item_identity, '0']));
+  const completed = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/responses`, {
+    method: 'POST', parent, body: { responses },
+  });
+  assert.equal(completed.response.status, 200);
+  assert.equal(completed.body.status, 'completed');
+  return { created, completed };
+}
+
+test('persistent reassessment is authorized, durable, non-repeating, resumable, and completeable', async () => {
+  const beforeHash = contentHash();
+  const backing = makeBacking();
+  let serverState = await startServer(backing);
+  try {
+    const { created: baseline, completed } = await createAndCompleteBaseline(serverState.baseUrl);
+    const packageId = baseline.body.package_ids[0];
+    const baselineItems = new Set(baseline.body.public_items.map((item) => item.item_identity));
+    const baselineDuplicates = new Set(baseline.body.public_items.map((item) => item.duplicate_key));
+
+    const unrelated = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${baseline.body.session_id}/reassessment`, {
+      method: 'POST',
+      body: { package_ids: ['G9M_DOES_NOT_EXIST'], itemsPerPackage: 3, grade: 1, subject: 'English', learner_id: 'spoof' },
+    });
+    assert.equal(unrelated.response.status, 400);
+    assert.equal(unrelated.body.error, 'unrelated_reassessment_package_ids');
+
+    const crossParent = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${baseline.body.session_id}/reassessment`, {
+      method: 'POST', parent: 'B', body: { package_ids: [packageId], itemsPerPackage: 3 },
+    });
+    assert.equal(crossParent.response.status, 403);
+
+    const reassessment = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${baseline.body.session_id}/reassessment`, {
+      method: 'POST',
+      body: { package_ids: [packageId], itemsPerPackage: 3, grade: 1, subject: 'English', score: 100, items: [{ item_identity: 'client' }] },
+    });
+    assert.equal(reassessment.response.status, 201);
+    assert.equal(reassessment.body.assessment_role, 'reassessment');
+    assert.equal(reassessment.body.grade, baseline.body.grade, 'client grade override is ignored');
+    assert.equal(reassessment.body.subject, baseline.body.subject, 'client subject override is ignored');
+    assert.deepEqual(reassessment.body.requested_package_ids, [packageId]);
+    assertNoProtected(reassessment.body);
+    for (const item of reassessment.body.public_items) {
+      assert.equal(baselineItems.has(item.item_identity), false, 'prior item identity is excluded');
+      assert.equal(baselineDuplicates.has(item.duplicate_key), false, 'prior duplicate key is excluded');
+    }
+    for (const entry of reassessment.body.insufficient_evidence || []) {
+      assert.equal(typeof entry.available_safe_item_count, 'number');
+      assert.ok(entry.available_safe_item_count < 3);
+    }
+
+    const repeated = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${baseline.body.session_id}/reassessment`, {
+      method: 'POST', body: { package_ids: [packageId], itemsPerPackage: 3 },
+    });
+    assert.equal(repeated.response.status, 200);
+    assert.equal(repeated.body.session_id, reassessment.body.session_id);
+    assert.equal(repeated.body.resumed, true);
+    assert.equal(backing.sessions.filter((row) => row.assessment_role === 'reassessment').length, 1);
+
+    const concurrent = await Promise.all(Array.from({ length: 5 }, () => jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${baseline.body.session_id}/reassessment`, {
+      method: 'POST', body: { package_ids: [packageId], itemsPerPackage: 3 },
+    })));
+    assert.equal(new Set(concurrent.map((result) => result.body.session_id)).size, 1, 'concurrent requests resume one in-progress reassessment');
+    assert.equal(backing.sessions.filter((row) => row.assessment_role === 'reassessment').length, 1);
+
+    await new Promise((resolve) => serverState.server.close(resolve));
+    serverState = await startServer(backing, 'A2');
+    const current = await jsonFetch(serverState.baseUrl, '/api/assessment-mvp/children/301/current-session?assessment_role=reassessment', { parent: 'A2' });
+    assert.equal(current.response.status, 200);
+    assert.equal(current.body.session_id, reassessment.body.session_id);
+    assert.equal(current.body.assessment_role, 'reassessment');
+    assertNoProtected(current.body);
+
+    const reassessmentResponses = Object.fromEntries(current.body.public_items.map((item) => [item.item_identity, '0']));
+    const reassessmentCompleted = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${current.body.session_id}/responses`, {
+      method: 'POST', parent: 'A2', body: { responses: reassessmentResponses },
+    });
+    assert.equal(reassessmentCompleted.response.status, 200);
+    assert.equal(reassessmentCompleted.body.status, 'completed');
+    assert.ok(backing.responses.some((row) => row.session_id === backing.sessions.find((entry) => entry.session_id === current.body.session_id).id));
+    assert.ok(backing.evidence.some((row) => row.session_id === backing.sessions.find((entry) => entry.session_id === current.body.session_id).id));
+    assertNoProtected(reassessmentCompleted.body);
+
+    const noneCurrent = await jsonFetch(serverState.baseUrl, '/api/assessment-mvp/children/301/current-session?assessment_role=reassessment', { parent: 'A2' });
+    assert.equal(noneCurrent.response.status, 404, 'completed reassessment is not returned as current');
+
+    await new Promise((resolve) => serverState.server.close(resolve));
+    serverState = await startServer(backing, 'A2');
+    const reloaded = await jsonFetch(serverState.baseUrl, `/api/assessment-mvp/sessions/${current.body.session_id}`, { parent: 'A2' });
+    assert.equal(reloaded.response.status, 200);
+    assert.deepEqual(reloaded.body, reassessmentCompleted.body, 'completed reassessment reloads after reconstructed store');
+
+    const history = await jsonFetch(serverState.baseUrl, '/api/assessment-mvp/children/301/history', { parent: 'A2' });
+    assert.equal(history.response.status, 200);
+    assert.equal(history.body.sessions.length, 2);
+    assert.deepEqual(history.body.sessions.map((row) => row.assessment_role), ['reassessment', 'baseline']);
+    assert.ok(history.body.sessions[0].prior_session_id_public_reference_if_safe);
+    assertNoProtected(history.body);
+
+    const roleFiltered = await jsonFetch(serverState.baseUrl, '/api/assessment-mvp/children/301/history?assessment_role=baseline&grade=3&subject=Math&status=completed', { parent: 'A2' });
+    assert.equal(roleFiltered.response.status, 200);
+    assert.equal(roleFiltered.body.sessions.length, 1);
+    assert.equal(roleFiltered.body.sessions[0].session_id, baseline.body.session_id);
+
+    const otherChild = await jsonFetch(serverState.baseUrl, '/api/assessment-mvp/children/303/history', { parent: 'A2' });
+    assert.equal(otherChild.response.status, 200);
+    assert.equal(otherChild.body.sessions.length, 0);
+    assert.equal(backing.gates_progress?.length || 0, 0);
+    assert.equal(backing.adaptive_v2_skill_progress?.length || 0, 0);
+    assert.equal(backing.skill_world_progress?.length || 0, 0);
+    assert.equal(contentHash(), beforeHash, 'SkillPackages and manifest remain byte-identical');
+  } finally {
+    await new Promise((resolve) => serverState.server.close(resolve));
+  }
+});
+
+test('persistent reassessment exposure exclusion spans multiple completed sessions', async () => {
+  const backing = makeBacking();
+  const { server, baseUrl } = await startServer(backing);
+  try {
+    const { created: baseline } = await createAndCompleteBaseline(baseUrl);
+    const packageId = baseline.body.package_ids[0];
+    const first = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${baseline.body.session_id}/reassessment`, {
+      method: 'POST', body: { package_ids: [packageId], itemsPerPackage: 3 },
+    });
+    assert.equal(first.response.status, 201);
+    const firstResponses = Object.fromEntries(first.body.public_items.map((item) => [item.item_identity, '0']));
+    const firstCompleted = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${first.body.session_id}/responses`, {
+      method: 'POST', body: { responses: firstResponses },
+    });
+    assert.equal(firstCompleted.response.status, 200);
+
+    const second = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${first.body.session_id}/reassessment`, {
+      method: 'POST', body: { package_ids: [packageId], itemsPerPackage: 3 },
+    });
+    assert.equal(second.response.status, 201);
+    const allPriorIdentities = new Set([...baseline.body.public_items, ...first.body.public_items].map((item) => item.item_identity));
+    const allPriorDuplicateKeys = new Set([...baseline.body.public_items, ...first.body.public_items].map((item) => item.duplicate_key));
+    for (const item of second.body.public_items) {
+      assert.equal(allPriorIdentities.has(item.item_identity), false, 'second reassessment excludes any prior item identity');
+      assert.equal(allPriorDuplicateKeys.has(item.duplicate_key), false, 'second reassessment excludes any prior duplicate key');
+    }
+    assertNoProtected(second.body);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

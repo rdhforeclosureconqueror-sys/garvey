@@ -295,6 +295,88 @@ function createAssessmentMvpRouter(options = {}) {
   });
 
 
+  router.get("/children/:childId/history", async (req, res) => {
+    try {
+      const actor = await authenticate(req, res);
+      if (!actor) return ownershipError(res, 401, "unauthenticated");
+      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId });
+      if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error);
+
+      const subject = req.query.subject == null || String(req.query.subject).trim() === "" ? null : String(req.query.subject).trim();
+      if (subject != null) {
+        const subjectError = validateSubject(subject);
+        if (subjectError) return validationError(res, "invalid_subject", { message: subjectError });
+      }
+      let grade = null;
+      if (req.query.grade != null && String(req.query.grade).trim() !== "") {
+        grade = Number(req.query.grade);
+        const gradeError = validateGrade(grade);
+        if (gradeError) return validationError(res, "invalid_grade", { message: gradeError });
+      }
+      const status = req.query.status == null || String(req.query.status).trim() === "" ? null : String(req.query.status).trim();
+      if (status != null && !["in_progress", "completed", "abandoned", "expired"].includes(status)) {
+        return validationError(res, "invalid_status", { message: "status must be in_progress, completed, abandoned, or expired" });
+      }
+      const assessmentRole = req.query.assessment_role == null || String(req.query.assessment_role).trim() === ""
+        ? null
+        : String(req.query.assessment_role).trim();
+      if (assessmentRole != null && !["baseline", "reassessment"].includes(assessmentRole)) {
+        return validationError(res, "invalid_assessment_role", { message: "assessment_role must be baseline or reassessment" });
+      }
+      const limit = req.query.limit == null || String(req.query.limit).trim() === "" ? 50 : Number(req.query.limit);
+      if (!Number.isInteger(limit) || limit < 1) return validationError(res, "invalid_limit", { message: "limit must be a positive integer" });
+
+      if (persistentStore && requireAuthentication) {
+        const history = await persistentStore.getLearnerAssessmentHistory({
+          learnerId: ownedChild.learnerId,
+          parentProfileId: actor.parentProfile.id,
+          grade,
+          subject,
+          status,
+          assessmentRole,
+          limit,
+        });
+        if (responseHasOwnershipInternals(history)) return validationError(res, "assessment_history_read_failed", { message: "ownership internals leaked" });
+        return res.status(200).json(history);
+      }
+
+      const rows = [...sessions.values()].filter((entry) => {
+        if (!entryBelongsTo(entry, actor)) return false;
+        if (String(entry.learner_id) !== String(ownedChild.learnerId)) return false;
+        const session = entry.session;
+        if (!session) return false;
+        if (assessmentRole != null && session.assessment_role !== assessmentRole) return false;
+        if (grade != null && Number(session.grade) !== Number(grade)) return false;
+        if (subject != null && session.subject !== subject) return false;
+        if (status != null && session.status !== status) return false;
+        return true;
+      }).slice(-Math.min(limit, 50)).reverse();
+      const payload = {
+        limit: Math.min(limit, 50),
+        sessions: rows.map((entry) => ({
+          session_id: entry.session.session_id,
+          assessment_role: entry.session.assessment_role,
+          grade: entry.session.grade,
+          subject: entry.session.subject,
+          status: entry.session.status,
+          created_at: entry.session.created_at || null,
+          updated_at: entry.session.updated_at || null,
+          completed_at: entry.session.completed_at || null,
+          current_question_position: entry.session.current_question_position || 0,
+          package_ids: entry.session.package_ids || [],
+          evidence_summary: entry.result?.skill_evidence || [],
+          recommendation_count: entry.result?.recommendations?.length || 0,
+          ...(entry.prior_session_id ? { prior_session_id_public_reference_if_safe: entry.prior_session_id } : {}),
+        })),
+      };
+      if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_history_read_failed", { message: "ownership internals leaked" });
+      return res.status(200).json(payload);
+    } catch (err) {
+      return validationError(res, "assessment_history_read_failed", { message: err.message });
+    }
+  });
+
+
   router.get("/children/:childId/current-session", async (req, res) => {
     try {
       const actor = await authenticate(req, res);
@@ -314,9 +396,9 @@ function createAssessmentMvpRouter(options = {}) {
         if (gradeError) return validationError(res, "invalid_grade", { message: gradeError });
       }
       const assessmentRole = req.query.assessment_role == null || String(req.query.assessment_role).trim() === ""
-        ? "baseline"
+        ? null
         : String(req.query.assessment_role).trim();
-      if (!["baseline", "reassessment"].includes(assessmentRole)) {
+      if (assessmentRole != null && !["baseline", "reassessment"].includes(assessmentRole)) {
         return validationError(res, "invalid_assessment_role", { message: "assessment_role must be baseline or reassessment" });
       }
 
@@ -471,6 +553,40 @@ function createAssessmentMvpRouter(options = {}) {
       if (!actor) return ownershipError(res, 401, "unauthenticated");
       const sessionId = String(req.params.sessionId || "").trim();
       if (!SESSION_ID_RE.test(sessionId)) return sessionIdError(res);
+      if (persistentStore && requireAuthentication) {
+        const entry = await persistentStore.getAssessmentSessionByPublicId({ sessionId });
+        if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
+        if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
+        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
+        if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
+
+        const body = req.body || {};
+        const packageIds = body.package_ids;
+        if (!Array.isArray(packageIds) || packageIds.length === 0 || packageIds.some((id) => typeof id !== "string" || !id.trim())) {
+          return validationError(res, "invalid_package_ids", { message: "package_ids must be a non-empty array of strings" });
+        }
+        const itemsPerPackage = body.itemsPerPackage;
+        const itemsError = validateItemsPerPackage(itemsPerPackage);
+        if (itemsError) return validationError(res, "invalid_items_per_package", { message: itemsError });
+
+        const created = await persistentStore.createPersistentReassessmentSession({
+          priorSessionId: sessionId,
+          actor,
+          ownedChild,
+          packageIds,
+          itemsPerPackage,
+        });
+        if (created.status !== 200 && created.status !== 201) {
+          const body = { ok: false, error: created.error };
+          if (created.unrelated_package_ids) body.unrelated_package_ids = created.unrelated_package_ids;
+          return res.status(created.status).json(body);
+        }
+        await persistentStore.markAssessmentItemDelivered?.({ sessionId: created.session.session_id, displayOrder: created.session.current_question_position || 0 });
+        const payload = publicSessionPayload(created.session);
+        if (responseHasOwnershipInternals(payload)) throw new Error("ownership internals leaked");
+        return res.status(created.status).json(payload);
+      }
+
       const entry = sessions.get(sessionId);
       if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
       if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
