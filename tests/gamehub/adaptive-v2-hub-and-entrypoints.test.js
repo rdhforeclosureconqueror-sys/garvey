@@ -9,6 +9,7 @@ const gates = fs.readFileSync(path.join(root, 'public/gates.js'), 'utf8');
 const youthRoutes = fs.readFileSync(path.join(root, 'server/youthDevelopmentRoutes.js'), 'utf8');
 const hub = fs.readFileSync(path.join(root, 'public/gamehub/adaptive-v2-hub.html'), 'utf8');
 const recognitionPilot = fs.readFileSync(path.join(root, 'public/gamehub/recognition-selection-pilot.html'), 'utf8');
+const registry = require('../../public/gamehub/gamehub-registry.js');
 const contentDir = path.join(root, 'public/gamehub/skill-world/content');
 const manifestPath = path.join(contentDir, 'manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -33,6 +34,17 @@ function sha256(file) {
 test('parent dashboard button opens intended Adaptive Learning route', () => {
   assert.match(youthRoutes, /id="openAdaptiveV2HubBtn" href="\/gamehub\/adaptive-v2-hub\.html">Open Adaptive V2 Lesson Hub<\/a>/);
   assert.match(gates, /href="\/gamehub\/adaptive-v2-hub\.html">Open Adaptive V2 Lesson Hub<\/a>/);
+});
+
+test('active GameHub registry navigation opens the cleaned Adaptive V2 hub', () => {
+  const adaptiveEntry = registry.getGameByKey('adaptive_learning');
+  assert.equal(adaptiveEntry.launch_path, '/gamehub/adaptive-v2-hub.html');
+  for (const context of ['public', 'parent', 'child']) {
+    const launchable = registry.getLaunchableGames(context).find((entry) => entry.game_key === 'adaptive_learning');
+    assert.equal(launchable.launch_path, '/gamehub/adaptive-v2-hub.html');
+    assert.notEqual(launchable.launch_path, '/gamehub/adaptive_learning.html');
+    assert.notEqual(launchable.launch_path, '/gamehub/adaptive_learning');
+  }
 });
 
 test('initial Adaptive V2 hub is grade-selection only', () => {
