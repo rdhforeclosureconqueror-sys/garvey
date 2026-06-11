@@ -272,6 +272,12 @@ function createAssessmentMvpRouter(options = {}) {
       if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
       const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
       if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
+      if (entry.session.status === "completed") {
+        const completed = await persistentStore.getCompletedAssessmentResult({ sessionId, childProfile: ownedChild.childProfile });
+        if (!completed) return res.status(409).json({ ok: false, error: "completed_result_unavailable" });
+        if (responseHasOwnershipInternals(completed)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
+        return res.status(200).json(completed);
+      }
       const refreshed = await persistentStore.getAssessmentSessionByPublicId({ sessionId, childProfile: ownedChild.childProfile });
       await persistentStore.markAssessmentItemDelivered?.({ sessionId, displayOrder: refreshed.session.current_question_position || 0 });
       const payload = publicSessionPayload(refreshed.session);
@@ -399,6 +405,31 @@ function createAssessmentMvpRouter(options = {}) {
       if (!actor) return ownershipError(res, 401, "unauthenticated");
       const sessionId = String(req.params.sessionId || "").trim();
       if (!SESSION_ID_RE.test(sessionId)) return sessionIdError(res);
+      if (persistentStore && requireAuthentication) {
+        const entry = await persistentStore.getAssessmentSessionByPublicId({ sessionId });
+        if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
+        if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
+        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
+        if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
+        let responseMap;
+        try {
+          responseMap = normalizeResponses(req.body || {});
+        } catch (err) {
+          return validationError(res, "malformed_responses", { message: err.message });
+        }
+        const submitted = await persistentStore.submitPersistentAssessmentResponses({ sessionId, actor, ownedChild, responses: responseMap });
+        if (submitted.status !== 200) {
+          const body = { ok: false, error: submitted.error };
+          if (submitted.foreign_item_ids) {
+            body.response_results = submitted.foreign_item_ids.map((item_identity) => ({ item_identity, status: "unknown_item", reason_code: "unknown_item" }));
+          }
+          if (submitted.message && submitted.status === 409) body.message = submitted.message;
+          return res.status(submitted.status).json(body);
+        }
+        if (responseHasOwnershipInternals(submitted.result)) throw new Error("ownership internals leaked");
+        return res.status(200).json(submitted.result);
+      }
+
       const entry = sessions.get(sessionId);
       if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
       if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
