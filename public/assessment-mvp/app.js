@@ -172,6 +172,19 @@
       }
       if (Object.keys(fields).length) return { type: 'model', model: text(stimulus.model), fields };
     }
+    if (['sentence', 'word', 'letter_tiles'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
+      const presentation = stimulus.presentation && typeof stimulus.presentation === 'object' ? {
+        renderer: text(stimulus.presentation.renderer),
+        label: text(stimulus.presentation.label),
+      } : {};
+      if (stimulus.type === 'letter_tiles') {
+        const tiles = Array.isArray(stimulus.content.tiles) ? stimulus.content.tiles.map(text).filter(Boolean) : [];
+        if (tiles.length) return { type: 'letter_tiles', content: { tiles }, accessibility_text: text(stimulus.accessibility_text), presentation };
+      } else {
+        const contentText = text(stimulus.content.text);
+        if (contentText) return { type: text(stimulus.type), content: { text: contentText }, accessibility_text: text(stimulus.accessibility_text), presentation };
+      }
+    }
     return null;
   }
 
@@ -591,7 +604,10 @@
     const stimulus = item && item.payload && item.payload.stimulus;
     if (!stimulus) return !/\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i.test(text(item && item.payload && item.payload.prompt));
     if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.shape));
-    return stimulus.type === 'model' && stimulus.fields && Object.keys(stimulus.fields).length > 0;
+    if (stimulus.type === 'model') return stimulus.fields && Object.keys(stimulus.fields).length > 0;
+    if (stimulus.type === 'sentence' || stimulus.type === 'word') return Boolean(text(stimulus.content && stimulus.content.text));
+    if (stimulus.type === 'letter_tiles') return Array.isArray(stimulus.content && stimulus.content.tiles) && stimulus.content.tiles.some((tile) => text(tile));
+    return false;
   }
 
   function validateCurrentItem() {
@@ -738,6 +754,20 @@
     if (stimulus.type === 'model') {
       const fields = Object.entries(stimulus.fields || {}).map(([key, value]) => '<span class="stimulus-chip"><strong>' + escapeHtml(key.replace(/_/g, ' ')) + '</strong> ' + escapeHtml(Array.isArray(value) ? value.join(', ') : value) + '</span>').join('');
       return '<div class="assessment-stimulus model-stimulus" aria-label="Question model"><div class="model-title">Model</div><div class="stimulus-chip-list">' + fields + '</div></div>';
+    }
+    if (stimulus.type === 'sentence') {
+      const sentence = text(stimulus.content && stimulus.content.text);
+      return '<div class="assessment-stimulus literacy-stimulus sentence-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Sentence: ' + sentence)) + '"><p class="literacy-card sentence-card">' + escapeHtml(sentence) + '</p><p class="stimulus-help">Read the sentence carefully.</p></div>';
+    }
+    if (stimulus.type === 'word') {
+      const word = text(stimulus.content && stimulus.content.text);
+      return '<div class="assessment-stimulus literacy-stimulus word-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Word: ' + word)) + '"><p class="literacy-card word-card">' + escapeHtml(word) + '</p><p class="stimulus-help">Use the printed word to answer.</p></div>';
+    }
+    if (stimulus.type === 'letter_tiles') {
+      const tiles = Array.isArray(stimulus.content && stimulus.content.tiles) ? stimulus.content.tiles.map(text).filter(Boolean) : [];
+      const tileHtml = tiles.map((tile, index) => '<span class="letter-tile" aria-label="Tile ' + (index + 1) + ': ' + escapeHtml(tile) + '"><strong>' + escapeHtml(tile) + '</strong></span>').join('');
+      const label = text(stimulus.presentation && stimulus.presentation.label) || 'Blend the sounds in order.';
+      return '<div class="assessment-stimulus literacy-stimulus letter-tiles-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Letter tiles: ' + tiles.join(', '))) + '"><div class="letter-tile-row">' + tileHtml + '</div><p class="stimulus-help">' + escapeHtml(label) + '</p></div>';
     }
     return '';
   }
