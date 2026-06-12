@@ -18,6 +18,7 @@
     'Not Enough Evidence': 'not-enough-evidence',
   };
   const SUPPORTED_ITEM_TYPES = ['multiple_choice', 'short_response'];
+  const INVALID_DELIVERY_RESPONSE = { invalid_delivery: true };
   const SUPPORT_TEXT = {
     Ready: 'You look ready to keep building with this skill.',
     Developing: 'You are growing this skill. A little practice can help.',
@@ -158,6 +159,22 @@
     };
   }
 
+  function publicStimulusOnly(stimulus) {
+    if (!stimulus || typeof stimulus !== 'object') return null;
+    if (stimulus.type === 'shape' && ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.shape))) {
+      return { type: 'shape', shape: text(stimulus.shape) };
+    }
+    if (stimulus.type === 'model' && stimulus.fields && typeof stimulus.fields === 'object') {
+      const fields = {};
+      for (const key of Object.keys(stimulus.fields)) {
+        const value = stimulus.fields[key];
+        fields[text(key)] = Array.isArray(value) ? value.map(text) : text(value);
+      }
+      if (Object.keys(fields).length) return { type: 'model', model: text(stimulus.model), fields };
+    }
+    return null;
+  }
+
   function publicPayloadOnly(payload) {
     const options = Array.isArray(payload && payload.options) ? payload.options : payload && payload.choices;
     return {
@@ -165,6 +182,7 @@
       question_type: text(payload && payload.question_type),
       options: Array.isArray(options) ? options.map(text) : [],
       items: Array.isArray(payload && payload.items) ? payload.items.map(text) : [],
+      stimulus: publicStimulusOnly(payload && payload.stimulus),
     };
   }
 
@@ -497,7 +515,7 @@
     setView('submitting', 'Sending your answers safely.');
     try {
       const responseMap = {};
-      for (const item of state.session.public_items) responseMap[item.item_identity] = state.responses[item.item_identity] || '';
+      for (const item of state.session.public_items) responseMap[item.item_identity] = state.responses[item.item_identity] || (!hasRenderableStimulus(item) ? INVALID_DELIVERY_RESPONSE : '');
       const data = await postJson(API_ROOT + '/sessions/' + encodeURIComponent(state.session.session_id) + '/responses', { responses: responseMap });
       state.result = publicResultOnly(data);
       state.currentSession = null;
@@ -569,10 +587,19 @@
     return text((item && item.question_type) || (item && item.payload && item.payload.question_type));
   }
 
+  function hasRenderableStimulus(item) {
+    const stimulus = item && item.payload && item.payload.stimulus;
+    if (!stimulus) return !/\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i.test(text(item && item.payload && item.payload.prompt));
+    if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.shape));
+    return stimulus.type === 'model' && stimulus.fields && Object.keys(stimulus.fields).length > 0;
+  }
+
   function validateCurrentItem() {
     const item = currentItem();
     if (!item) throw new Error('No questions are available yet.');
     if (!SUPPORTED_ITEM_TYPES.includes(itemType(item))) throw new Error('This question type is not ready for the learner screen yet.');
+    if (!hasRenderableStimulus(item)) return false;
+    return true;
   }
 
   async function persistPosition(position) {
@@ -673,6 +700,7 @@
     if (!item) return renderError('No question is available.');
     const type = itemType(item);
     if (!SUPPORTED_ITEM_TYPES.includes(type)) return renderError('This question type is not ready for the learner screen yet.');
+    if (!hasRenderableStimulus(item)) return renderInvalidQuestionSkip(item);
     const total = state.session.public_items.length;
     const saved = state.responses[item.item_identity] || '';
     return '<section class="question-card" aria-labelledby="question-title">' +
@@ -680,11 +708,38 @@
       '<p class="helper">' + escapeHtml(roleLabel(state.session.assessment_role)) + ' · Grade ' + escapeHtml(state.session.grade) + ' · ' + escapeHtml(state.session.subject) + ' · Submitted progress is saved.</p>' +
       '<h2 id="question-title">Your question</h2>' +
       '<p class="prompt">' + escapeHtml(item.payload.prompt) + '</p>' +
+      renderStimulus(item) +
       renderAnswerControl(item, type, saved) +
       '<div class="actions">' +
       '<button class="secondary" data-action="back"' + (state.index === 0 ? ' disabled' : '') + '>Back</button>' +
       (state.index < total - 1 ? '<button class="primary" data-action="next">Next</button>' : '<button class="primary" data-action="submit"' + (state.busy ? ' disabled' : '') + '>Submit Assessment</button>') +
       '</div></section>';
+  }
+
+  function renderInvalidQuestionSkip(item) {
+    if (item && item.item_identity) state.responses[item.item_identity] = INVALID_DELIVERY_RESPONSE;
+    const total = state.session.public_items.length;
+    return '<section class="question-card" aria-labelledby="missing-question-title" role="alert">' +
+      '<p class="progress-text">Question ' + (state.index + 1) + ' of ' + total + '</p>' +
+      '<h2 id="missing-question-title">We’ll skip this one safely.</h2>' +
+      '<p class="helper">This question is missing something needed to answer it. We’ll skip it safely.</p>' +
+      '<div class="actions">' +
+      '<button class="secondary" data-action="back"' + (state.index === 0 ? ' disabled' : '') + '>Back</button>' +
+      (state.index < total - 1 ? '<button class="primary" data-action="next">Next</button>' : '<button class="primary" data-action="submit"' + (state.busy ? ' disabled' : '') + '>Submit Assessment</button>') +
+      '</div></section>';
+  }
+
+  function renderStimulus(item) {
+    const stimulus = item && item.payload && item.payload.stimulus;
+    if (!stimulus) return '';
+    if (stimulus.type === 'shape') {
+      return '<div class="assessment-stimulus shape-stimulus" aria-label="Shape shown: ' + escapeHtml(stimulus.shape) + '"><span class="shape shape-' + escapeHtml(stimulus.shape) + '"></span></div>';
+    }
+    if (stimulus.type === 'model') {
+      const fields = Object.entries(stimulus.fields || {}).map(([key, value]) => '<span class="stimulus-chip"><strong>' + escapeHtml(key.replace(/_/g, ' ')) + '</strong> ' + escapeHtml(Array.isArray(value) ? value.join(', ') : value) + '</span>').join('');
+      return '<div class="assessment-stimulus model-stimulus" aria-label="Question model"><div class="model-title">Model</div><div class="stimulus-chip-list">' + fields + '</div></div>';
+    }
+    return '';
   }
 
   function renderAnswerControl(item, type, saved) {
@@ -878,6 +933,8 @@
     publicHistoryEntryOnly,
     allowedReassessmentIds,
     renderAnswerControl,
+    renderStimulus,
+    hasRenderableStimulus,
     startAssessment,
     submitResponses,
     startReassessment,

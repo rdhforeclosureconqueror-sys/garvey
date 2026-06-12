@@ -103,8 +103,8 @@ test('reassessment excludes baseline identities and duplicate keys', () => {
 test('visual questions with identical prompt text but different stimuli are not incorrectly collapsed', () => {
   const result = selectAssessmentItems([pkg({
     adaptive_question_bank: [
-      question({ question_id: 'Q1', prompt: 'How many?', visual_model: 'ten_frame', a: 2, correct_answer: '2' }),
-      question({ question_id: 'Q2', prompt: 'How many?', visual_model: 'ten_frame', a: 3, correct_answer: '3' }),
+      question({ question_id: 'Q1', prompt: 'What shape is shown?', visual_model: 'shape_identification', support_type: 'shape_identification', shape: 'circle', choices: ['circle', 'square'], correct_answer: 'circle' }),
+      question({ question_id: 'Q2', prompt: 'What shape is shown?', visual_model: 'shape_identification', support_type: 'shape_identification', shape: 'square', choices: ['circle', 'square'], correct_answer: 'square' }),
     ],
   })]);
   assert.equal(result.publicItems.length, 2);
@@ -113,8 +113,8 @@ test('visual questions with identical prompt text but different stimuli are not 
 
 test('true duplicate prompt and stimulus combinations are collapsed after preferred bank order', () => {
   const result = selectAssessmentItems([pkg({
-    adaptive_question_bank: [question({ question_id: 'Q1', visual_model: 'ten_frame', a: 2 })],
-    review_bank: [question({ question_id: 'Q2', visual_model: 'ten_frame', a: 2 })],
+    adaptive_question_bank: [question({ question_id: 'Q1', prompt: 'What shape is shown?', visual_model: 'shape_identification', support_type: 'shape_identification', shape: 'circle', choices: ['circle', 'square'], correct_answer: 'circle' })],
+    review_bank: [question({ question_id: 'Q2', prompt: 'What shape is shown?', visual_model: 'shape_identification', support_type: 'shape_identification', shape: 'circle', choices: ['circle', 'square'], correct_answer: 'circle' })],
   })]);
   assert.deepEqual(result.publicItems.map((item) => item.source_bank), ['adaptive_question_bank']);
   assert.equal(result.exclusionCounts['duplicate prompt/stimulus combination'], 1);
@@ -162,4 +162,130 @@ test('manifest and package source files remain byte-identical after loading and 
   const packages = loadSkillPackages({ grade: 1, subject: 'Math' });
   selectAssessmentItems(packages);
   for (const file of sourceFiles) assert.equal(read(file), before[file], `${file} changed`);
+});
+
+function productionQuestion(promptRe, questionId) {
+  const packages = loadSkillPackages({ grade: 1, subject: 'Math' });
+  for (const packageData of packages) {
+    for (const bank of ['adaptive_question_bank', 'review_bank']) {
+      for (const q of Array.isArray(packageData[bank]) ? packageData[bank] : []) {
+        if ((!questionId || q.question_id === questionId) && promptRe.test(q.prompt || '')) return { packageData, bank, q };
+      }
+    }
+    for (const level of Array.isArray(packageData.level_banks) ? packageData.level_banks : []) {
+      for (const q of Array.isArray(level.questions) ? level.questions : []) {
+        if ((!questionId || q.question_id === questionId) && promptRe.test(q.prompt || '')) return { packageData, bank: 'level_banks', q };
+      }
+    }
+  }
+  throw new Error(`production question not found: ${promptRe}`);
+}
+
+function selectOneLive(promptRe, questionId) {
+  const { packageData, bank, q } = productionQuestion(promptRe, questionId);
+  const packageOverride = {
+    skill_id: packageData.skill_id,
+    grade: packageData.grade,
+    subject: packageData.subject,
+    domain: packageData.domain,
+  };
+  if (bank === 'level_banks') packageOverride.level_banks = [{ level_id: 'TEST_LEVEL', questions: [q] }];
+  else packageOverride[bank] = [q];
+  return selectAssessmentItems([pkg(packageOverride)]);
+}
+
+test('live visual prompts without renderable public stimulus fail closed', () => {
+  const cases = [
+    [/What shape is shown\?/i, 'G1M_GM_001_AQ1', (q) => ({ ...q, shape: undefined })],
+    [/Which is longer, A or B\?/i, null, (q) => q],
+    [/Which is taller, A or B\?/i, null, (q) => q],
+    [/Which object is heavier\?/i, null, (q) => q],
+    [/What time is shown on the clock\?/i, null, (q) => q],
+    [/Count the objects\. How many are there\?/i, null, (q) => q],
+  ];
+  for (const [promptRe, questionId, mutate] of cases) {
+    const { packageData, bank, q } = productionQuestion(promptRe, questionId);
+    const packageOverride = {
+      skill_id: packageData.skill_id,
+      grade: packageData.grade,
+      subject: packageData.subject,
+      domain: packageData.domain,
+    };
+    if (bank === 'level_banks') packageOverride.level_banks = [{ level_id: 'TEST_LEVEL', questions: [mutate(q)] }];
+    else packageOverride[bank] = [mutate(q)];
+    const result = selectAssessmentItems([pkg(packageOverride)]);
+    assert.equal(result.publicItems.length, 0, `${q.question_id} should not be delivered`);
+    assert.equal(result.exclusionCounts.required_stimulus_not_renderable, 1, `${q.question_id} should report required_stimulus_not_renderable`);
+  }
+});
+
+test('duplicate answer choices are rejected after display normalization for the live subtraction item', () => {
+  const result = selectOneLive(/Subtract:\s*6\s*-\s*6\s*= __/i, 'G1M_OP_002_AQ2');
+  assert.equal(result.publicItems.length, 0);
+  assert.equal(result.exclusionCounts.duplicate_answer_choices, 1);
+});
+
+test('single-choice answer validation rejects malformed choices but keeps a valid text-only item', () => {
+  const malformed = selectAssessmentItems([pkg({ adaptive_question_bank: [
+    question({ question_id: 'DUP_DISPLAY', choices: [' 0 ', '0', '1'], correct_answer: '0' }),
+    question({ question_id: 'MISSING_CORRECT', choices: ['A', 'B'], correct_answer: 'C' }),
+    question({ question_id: 'VALID_TEXT', prompt: 'What is 2 + 1?', choices: ['2', '3', '4'], correct_answer: '3' }),
+  ] })]);
+  assert.equal(malformed.exclusionCounts.duplicate_answer_choices, 1);
+  assert.equal(malformed.exclusionCounts.correct_answer_not_in_choices, 1);
+  assert.deepEqual(malformed.publicItems.map((item) => item.source_question_id), ['VALID_TEXT']);
+});
+
+test('supported shape stimulus survives public payload without protected scoring fields', () => {
+  const result = selectAssessmentItems([pkg({ adaptive_question_bank: [question({
+    question_id: 'SHAPE_OK',
+    prompt: 'What shape is shown?',
+    visual_model: 'shape_identification',
+    support_type: 'shape_identification',
+    shape: 'triangle',
+    choices: ['triangle', 'circle'],
+    correct_answer: 'triangle',
+  })] })]);
+  assert.equal(result.publicItems.length, 1);
+  assert.deepEqual(result.publicItems[0].payload.stimulus, { type: 'shape', shape: 'triangle' });
+  assertPublicIsSafe(result.publicItems);
+});
+
+test('production SkillPackages and manifest remain unchanged during live-content validation', () => {
+  const sourceFiles = [
+    'public/gamehub/skill-world/content/manifest.json',
+    'public/gamehub/skill-world/content/G1M_GM_001.skill-package.v1.json',
+    'public/gamehub/skill-world/content/G1M_OP_002.skill-package.v1.json',
+  ];
+  const before = Object.fromEntries(sourceFiles.map((file) => [file, read(file)]));
+  selectAssessmentItems(loadSkillPackages({ grade: 1, subject: 'Math' }));
+  for (const file of sourceFiles) assert.equal(read(file), before[file], `${file} changed`);
+});
+
+test('persisted in-progress sessions do not resume into an invalid unanswered visual item', () => {
+  const { sessionFromRows } = require(path.join(root, 'server/assessmentMvpStore.js'));
+  const session = sessionFromRows({
+    session_id: 'amvp_test',
+    session_version: 'v',
+    assessment_role: 'baseline',
+    grade: 1,
+    subject: 'Math',
+    status: 'in_progress',
+    current_question_position: 0,
+    selection_config: {},
+  }, [
+    {
+      display_order: 0,
+      item_identity: 'PKG_BAD::bank::Q1',
+      duplicate_key: 'bad',
+      public_payload: { item_identity: 'PKG_BAD::bank::Q1', payload: { prompt: 'Which is taller, A or B?', question_type: 'multiple_choice', choices: ['A', 'B'] } },
+    },
+    {
+      display_order: 1,
+      item_identity: 'PKG_OK::bank::Q2',
+      duplicate_key: 'ok',
+      public_payload: { item_identity: 'PKG_OK::bank::Q2', payload: { prompt: 'What is 1 + 1?', question_type: 'multiple_choice', choices: ['1', '2'] } },
+    },
+  ]);
+  assert.deepEqual(session.public_items.map((item) => item.item_identity), ['PKG_OK::bank::Q2']);
 });
