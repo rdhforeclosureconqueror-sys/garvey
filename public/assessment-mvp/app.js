@@ -172,7 +172,7 @@
       }
       if (Object.keys(fields).length) return { type: 'model', model: text(stimulus.model), fields };
     }
-    if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
+    if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
       const presentation = stimulus.presentation && typeof stimulus.presentation === 'object' ? {
         renderer: text(stimulus.presentation.renderer),
         label: text(stimulus.presentation.label),
@@ -180,9 +180,19 @@
       if (stimulus.type === 'letter_tiles') {
         const tiles = Array.isArray(stimulus.content.tiles) ? stimulus.content.tiles.map(text).filter(Boolean) : [];
         if (tiles.length) return { type: 'letter_tiles', content: { tiles }, accessibility_text: text(stimulus.accessibility_text), presentation };
+      } else if (stimulus.type === 'phonics_tiles') {
+        const word = text(stimulus.content.word);
+        if (word) return { type: 'phonics_tiles', content: { word, focus: text(stimulus.content.focus) }, accessibility_text: text(stimulus.accessibility_text), presentation };
+      } else if (stimulus.type === 'sound_match') {
+        const words = Array.isArray(stimulus.content.words) ? stimulus.content.words.map(text).filter(Boolean) : [];
+        if (words.length >= 2) return { type: 'sound_match', content: { words, focus: text(stimulus.content.focus) }, accessibility_text: text(stimulus.accessibility_text), presentation };
       } else if (stimulus.type === 'sequencing') {
         const events = Array.isArray(stimulus.content.events) ? stimulus.content.events.map(text).filter(Boolean) : [];
         if (events.length) return { type: 'sequencing', content: { events }, accessibility_text: text(stimulus.accessibility_text), presentation };
+      } else if (stimulus.type === 'picture_choice') {
+        const label = text(stimulus.content.label);
+        const altText = text(stimulus.content.alt_text) || (label ? 'Picture of ' + label : '');
+        if (label && altText) return { type: 'picture_choice', content: { label, alt_text: altText }, accessibility_text: text(stimulus.accessibility_text), presentation };
       } else {
         const contentText = text(stimulus.content.text);
         if (contentText) {
@@ -193,6 +203,12 @@
             if (pairedForm) content.paired_form = pairedForm;
             if (label) content.label = label;
           }
+          if (stimulus.type === 'highlighted_text') content.marker = text(stimulus.content.marker);
+          if (stimulus.type === 'sentence_builder') {
+            const checks = Array.isArray(stimulus.content.checks) ? stimulus.content.checks.map(text).filter(Boolean) : [];
+            if (checks.length) content.checks = checks;
+          }
+          if (stimulus.type === 'punctuation_marker') content.marker = text(stimulus.content.marker);
           return { type: text(stimulus.type), content, accessibility_text: text(stimulus.accessibility_text), presentation };
         }
       }
@@ -617,8 +633,11 @@
     if (!stimulus) return !/\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i.test(text(item && item.payload && item.payload.prompt));
     if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.shape));
     if (stimulus.type === 'model') return stimulus.fields && Object.keys(stimulus.fields).length > 0;
-    if (stimulus.type === 'sentence' || stimulus.type === 'word' || stimulus.type === 'reading_passage' || stimulus.type === 'letter_card') return Boolean(text(stimulus.content && stimulus.content.text));
+    if (stimulus.type === 'sentence' || stimulus.type === 'word' || stimulus.type === 'reading_passage' || stimulus.type === 'letter_card' || stimulus.type === 'highlighted_text' || stimulus.type === 'sentence_builder' || stimulus.type === 'punctuation_marker') return Boolean(text(stimulus.content && stimulus.content.text));
+    if (stimulus.type === 'picture_choice') return Boolean(text(stimulus.content && stimulus.content.label) && text(stimulus.content && stimulus.content.alt_text));
     if (stimulus.type === 'letter_tiles') return Array.isArray(stimulus.content && stimulus.content.tiles) && stimulus.content.tiles.some((tile) => text(tile));
+    if (stimulus.type === 'phonics_tiles') return Boolean(text(stimulus.content && stimulus.content.word));
+    if (stimulus.type === 'sound_match') return Array.isArray(stimulus.content && stimulus.content.words) && stimulus.content.words.length >= 2 && stimulus.content.words.every((word) => text(word));
     if (stimulus.type === 'sequencing') return Array.isArray(stimulus.content && stimulus.content.events) && stimulus.content.events.length >= 2 && stimulus.content.events.every((event) => text(event));
     return false;
   }
@@ -781,6 +800,47 @@
       const tileHtml = tiles.map((tile, index) => '<span class="letter-tile" aria-label="Tile ' + (index + 1) + ': ' + escapeHtml(tile) + '"><strong>' + escapeHtml(tile) + '</strong></span>').join('');
       const label = text(stimulus.presentation && stimulus.presentation.label) || 'Blend the sounds in order.';
       return '<div class="assessment-stimulus literacy-stimulus letter-tiles-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Letter tiles: ' + tiles.join(', '))) + '"><div class="letter-tile-row">' + tileHtml + '</div><p class="stimulus-help">' + escapeHtml(label) + '</p></div>';
+    }
+
+    if (stimulus.type === 'picture_choice') {
+      const label = text(stimulus.content && stimulus.content.label);
+      const altText = text(stimulus.content && stimulus.content.alt_text) || ('Picture of ' + label);
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Use the picture word to answer.';
+      return '<div class="assessment-stimulus literacy-stimulus picture-choice-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || altText) + '"><figure class="literacy-card picture-card" role="img" aria-label="' + escapeHtml(altText) + '"><span class="picture-icon" aria-hidden="true">▧</span><figcaption>' + escapeHtml(label) + '</figcaption></figure><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
+    }
+    if (stimulus.type === 'phonics_tiles') {
+      const word = text(stimulus.content && stimulus.content.word);
+      const focus = text(stimulus.content && stimulus.content.focus) || 'target';
+      const letters = Array.from(word).map(function(letter, index) { return '<span class="letter-tile" aria-label="Sound box ' + (index + 1) + ': ' + escapeHtml(letter) + '"><strong>' + escapeHtml(letter) + '</strong></span>'; }).join('');
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || ('Listen for the ' + focus + ' sound.');
+      return '<div class="assessment-stimulus literacy-stimulus phonics-tiles-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Word sound map for ' + word)) + '"><div class="word-sound-map"><p class="literacy-card word-card">' + escapeHtml(word) + '</p><div class="letter-tile-row">' + letters + '</div></div><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
+    }
+    if (stimulus.type === 'sound_match') {
+      const words = Array.isArray(stimulus.content && stimulus.content.words) ? stimulus.content.words.map(text).filter(Boolean) : [];
+      const focus = text(stimulus.content && stimulus.content.focus) || 'target';
+      const wordHtml = words.map(function(word, index) { return '<span class="match-card" aria-label="Word ' + (index + 1) + ': ' + escapeHtml(word) + '">' + escapeHtml(word) + '</span>'; }).join('<span class="match-divider" aria-hidden="true">↔</span>');
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || ('Compare the ' + focus + ' sounds.');
+      return '<div class="assessment-stimulus literacy-stimulus sound-match-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Compare words: ' + words.join(' and '))) + '"><div class="sound-match-row">' + wordHtml + '</div><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
+    }
+    if (stimulus.type === 'highlighted_text') {
+      const sentence = text(stimulus.content && stimulus.content.text);
+      const marker = text(stimulus.content && stimulus.content.marker) || '___';
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Choose the word that belongs in the blank.';
+      const html = escapeHtml(sentence).replace(escapeHtml(marker), '<mark class="text-marker" aria-label="blank">' + escapeHtml(marker) + '</mark>');
+      return '<div class="assessment-stimulus literacy-stimulus highlighted-text-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Sentence with a blank: ' + sentence)) + '"><p class="literacy-card sentence-card">' + html + '</p><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
+    }
+    if (stimulus.type === 'sentence_builder') {
+      const sentence = text(stimulus.content && stimulus.content.text);
+      const checks = Array.isArray(stimulus.content && stimulus.content.checks) ? stimulus.content.checks.map(text).filter(Boolean) : [];
+      const checklist = checks.length ? '<ul class="mini-checklist">' + checks.map(function(check) { return '<li>' + escapeHtml(check) + '</li>'; }).join('') + '</ul>' : '';
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Type the corrected sentence.';
+      return '<div class="assessment-stimulus literacy-stimulus sentence-builder-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Sentence to revise: ' + sentence)) + '"><div class="literacy-card sentence-card"><span>' + escapeHtml(sentence) + '</span>' + checklist + '</div><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
+    }
+    if (stimulus.type === 'punctuation_marker') {
+      const sentence = text(stimulus.content && stimulus.content.text);
+      const marker = text(stimulus.content && stimulus.content.marker) || '▢';
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Choose the end mark that completes the sentence.';
+      return '<div class="assessment-stimulus literacy-stimulus punctuation-marker-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Sentence needing an end mark: ' + sentence)) + '"><p class="literacy-card sentence-card"><span>' + escapeHtml(sentence) + '</span><mark class="punctuation-slot" aria-label="missing end mark">' + escapeHtml(marker) + '</mark></p><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
     }
     if (stimulus.type === 'reading_passage') {
       const passage = text(stimulus.content && stimulus.content.text);

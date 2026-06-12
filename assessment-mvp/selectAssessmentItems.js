@@ -96,7 +96,7 @@ const PUBLIC_STIMULUS_FIELD_ALLOWLIST = new Set([
   'dividend', 'divisor', 'factor', 'factor_a', 'factor_b', 'step', 'count', 'mode',
 ]);
 
-const GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002', 'G1E_RC_001', 'G1E_RC_002', 'G1E_RF_001']);
+const GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002', 'G1E_RC_001', 'G1E_RC_002', 'G1E_RF_001', 'G1E_RF_002', 'G1E_SW_001', 'G1E_WR_001']);
 const GRADE_1_ENGLISH_BATCH_1_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002']);
 const GRADE_1_ENGLISH_STIMULUS_RENDERERS = new Set([
   'sentence_card',
@@ -109,6 +109,14 @@ const GRADE_1_ENGLISH_STIMULUS_RENDERERS = new Set([
   'short_passage',
   'story_sequence',
   'letter_card',
+  'word_sound_map',
+  'sound_match',
+  'word_card',
+  'sentence_highlight',
+  'phrase_builder',
+  'writing_checklist',
+  'sentence_builder',
+  'punctuation_marker',
 ]);
 
 function compactTextValue(value) {
@@ -119,6 +127,30 @@ function compactTextValue(value) {
 function safeTextArray(value) {
   if (!Array.isArray(value)) return [];
   return value.map(compactTextValue).filter(Boolean);
+}
+
+
+function soundPositionLabel(value) {
+  const label = compactTextValue(value);
+  return label || 'target';
+}
+
+function wordsFromSlashPair(value) {
+  return safeTextArray(String(value ?? '').split('/'));
+}
+
+function sentenceStemFromPrompt(prompt) {
+  const text = compactTextValue(prompt);
+  if (!text) return null;
+  const colon = text.indexOf(':');
+  return compactTextValue(colon >= 0 ? text.slice(colon + 1) : text);
+}
+
+function sentenceBlankFromPrompt(prompt) {
+  const text = compactTextValue(prompt);
+  if (!text) return null;
+  const match = text.match(/completes:\s*(.+)$/i);
+  return compactTextValue(match ? match[1] : text);
 }
 
 function publicGrade1EnglishStimulusFor(question, packageId) {
@@ -207,6 +239,109 @@ function publicGrade1EnglishStimulusFor(question, packageId) {
     };
   }
 
+  if (renderer === 'picture_choice' && packageId === 'G1E_RF_002') {
+    const picture = compactTextValue(question.picture || question.word || question.speakable_text);
+    if (!picture) return null;
+    return {
+      type: 'picture_choice',
+      content: { label: picture, alt_text: `Picture of ${picture}` },
+      accessibility_text: `Picture: ${picture}`,
+      presentation: { renderer: 'picture_choice', label: 'Use the picture word to answer.' },
+    };
+  }
+
+  if (renderer === 'word_sound_map' && packageId === 'G1E_RF_002') {
+    const word = compactTextValue(question.word || question.speakable_text);
+    if (!word) return null;
+    const position = soundPositionLabel(question.sound_position);
+    return {
+      type: 'phonics_tiles',
+      content: { word, focus: position },
+      accessibility_text: `Word sound map for ${word}; listen for the ${position} sound.`,
+      presentation: { renderer: 'word_sound_map', label: `Listen for the ${position} sound.` },
+    };
+  }
+
+  if (renderer === 'sound_match' && packageId === 'G1E_RF_002') {
+    const words = wordsFromSlashPair(question.word || question.speakable_text);
+    if (words.length < 2) return null;
+    const position = soundPositionLabel(question.sound_position);
+    return {
+      type: 'sound_match',
+      content: { words, focus: position },
+      accessibility_text: `Compare ${words.join(' and ')} for ${position} sounds.`,
+      presentation: { renderer: 'sound_match', label: `Compare the ${position} sounds.` },
+    };
+  }
+
+  if (renderer === 'word_card' && packageId === 'G1E_SW_001') {
+    const word = compactTextValue(question.word || question.speakable_text);
+    if (!word) return null;
+    return {
+      type: 'word',
+      content: { text: word },
+      accessibility_text: `Word card: ${word}`,
+      presentation: { renderer: 'word_card', label: 'Read the word card.' },
+    };
+  }
+
+  if (renderer === 'phrase_builder' && packageId === 'G1E_SW_001') {
+    const phrase = compactTextValue(question.phrase || question.speakable_text);
+    if (!phrase) return null;
+    return {
+      type: 'word',
+      content: { text: phrase },
+      accessibility_text: `Phrase card: ${phrase}`,
+      presentation: { renderer: 'phrase_builder', label: 'Read the phrase smoothly.' },
+    };
+  }
+
+  if (renderer === 'sentence_highlight' && packageId === 'G1E_SW_001') {
+    const sentence = sentenceBlankFromPrompt(question.prompt);
+    if (!sentence || !sentence.includes('___')) return null;
+    return {
+      type: 'highlighted_text',
+      content: { text: sentence, marker: '___' },
+      accessibility_text: `Sentence with a blank: ${sentence}`,
+      presentation: { renderer: 'sentence_highlight', label: 'Choose the word that belongs in the blank.' },
+    };
+  }
+
+  if (renderer === 'writing_checklist' && packageId === 'G1E_WR_001') {
+    const sentence = sentenceStemFromPrompt(question.prompt);
+    const checks = safeTextArray(question.validation_checks);
+    if (!sentence) return null;
+    return {
+      type: 'sentence_builder',
+      content: { text: sentence, checks },
+      accessibility_text: `Sentence to revise: ${sentence}`,
+      presentation: { renderer: 'writing_checklist', label: 'Revise the sentence using the checklist.' },
+    };
+  }
+
+  if (renderer === 'sentence_builder' && packageId === 'G1E_WR_001') {
+    const sentence = sentenceStemFromPrompt(question.prompt);
+    const checks = safeTextArray(question.validation_checks);
+    if (!sentence) return null;
+    return {
+      type: 'sentence_builder',
+      content: { text: sentence, checks },
+      accessibility_text: `Sentence to build: ${sentence}`,
+      presentation: { renderer: 'sentence_builder', label: 'Type the corrected complete sentence.' },
+    };
+  }
+
+  if (renderer === 'punctuation_marker' && packageId === 'G1E_WR_001') {
+    const sentence = sentenceStemFromPrompt(question.prompt);
+    if (!sentence) return null;
+    return {
+      type: 'punctuation_marker',
+      content: { text: sentence, marker: '▢' },
+      accessibility_text: `Sentence needing an end mark: ${sentence}`,
+      presentation: { renderer: 'punctuation_marker', label: 'Choose the end mark that completes the sentence.' },
+    };
+  }
+
   return null;
 }
 
@@ -245,7 +380,7 @@ function visualIdentity(question) {
   for (const key of [
     'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'diagram', 'asset_id', 'model_id',
     'a', 'b', 'whole', 'part', 'parts', 'shape', 'shapes', 'fraction', 'numerator', 'denominator',
-    'number_line', 'clock', 'coins', 'data', 'table', 'array', 'sentence', 'word', 'target_word', 'phoneme', 'tiles', 'graphemes', 'word_parts', 'family', 'picture', 'passage', 'text', 'story', 'events', 'sequence', 'letter', 'target_letter', 'paired_form', 'letter_label',
+    'number_line', 'clock', 'coins', 'data', 'table', 'array', 'sentence', 'phrase', 'word', 'target_word', 'phoneme', 'sound_position', 'tiles', 'graphemes', 'word_parts', 'family', 'picture', 'passage', 'text', 'story', 'events', 'sequence', 'letter', 'target_letter', 'paired_form', 'letter_label', 'validation_checks',
   ]) {
     if (Object.prototype.hasOwnProperty.call(question, key)) visualFields[key] = question[key];
   }
@@ -354,7 +489,7 @@ const VISUAL_METADATA_KEYS = [
   'object_count', 'objects', 'comparison', 'measurement', 'a', 'b', 'whole', 'part', 'parts',
 ];
 const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i;
-const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card']);
+const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker']);
 
 function hasVisualMetadata(question) {
   return VISUAL_METADATA_KEYS.some((key) => Object.prototype.hasOwnProperty.call(question, key));
