@@ -352,3 +352,50 @@ test('client source does not reference protected answer or private evaluation fi
   const source = fs.readFileSync(appPath, 'utf8');
   assert.doesNotMatch(source, /correct_answer|acceptable_answers|accepted_answers|internal_scoring_records|scoring_rubric|score_key|solution|explanation|rubric/i);
 });
+
+test('supported shape stimulus survives learner mapper and renders', () => {
+  installDom();
+  const app = freshApp();
+  reset(app);
+  app.state.session = app.publicSessionOnly(sessionPayload({
+    public_items: [{
+      assessment_item_id: 'shape-1',
+      item_identity: 'PKG_SHAPE::bank::Q1',
+      source_package_id: 'PKG_SHAPE',
+      question_type: 'multiple_choice',
+      payload: { prompt: 'What shape is shown?', question_type: 'multiple_choice', choices: ['triangle', 'circle'], stimulus: { type: 'shape', shape: 'triangle' } },
+    }],
+  }));
+  app.state.view = 'question';
+  app.render();
+  const html = document.getElementById('assessment-app').innerHTML;
+  assert.match(html, /shape-triangle/);
+  assert.equal(app.hasRenderableStimulus(app.state.session.public_items[0]), true);
+  uninstallDom();
+});
+
+test('learner UI skips visual-dependent prompts that arrive without stimulus', async () => {
+  installDom();
+  const app = freshApp();
+  reset(app);
+  app.state.session = app.publicSessionOnly(sessionPayload({
+    public_items: [{
+      assessment_item_id: 'bad-1',
+      item_identity: 'PKG_BAD::bank::Q1',
+      source_package_id: 'PKG_BAD',
+      question_type: 'multiple_choice',
+      payload: { prompt: 'What time is shown on the clock?', question_type: 'multiple_choice', choices: ['1:00', '2:00'] },
+    }],
+  }));
+  app.state.view = 'question';
+  app.render();
+  assert.match(document.getElementById('assessment-app').innerHTML, /missing something needed to answer it/i);
+  const calls = [];
+  global.fetch = async (url, init) => {
+    calls.push({ url, body: JSON.parse(init.body) });
+    return { ok: true, json: async () => resultPayload({ skill_evidence: [{ source_package_id: 'PKG_BAD', skill_id: 'PKG_BAD', provisional_label: 'Not Enough Evidence' }] }) };
+  };
+  await app.submitResponses();
+  assert.deepEqual(calls[0].body.responses['PKG_BAD::bank::Q1'], { invalid_delivery: true });
+  uninstallDom();
+});

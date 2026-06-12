@@ -304,6 +304,7 @@ function inferredType(record, response) {
 }
 
 function scoreOne(record, response) {
+  if (response && typeof response === 'object' && response.invalid_delivery === true) return notScorable(record, response, 'invalid_delivery');
   const type = inferredType(record, response);
   if (!SUPPORTED_TYPES.has(type)) return notScorable(record, response, 'unsupported_item_type');
   if (isOmitted(response)) return omitted(record);

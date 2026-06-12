@@ -7,7 +7,7 @@ const { REQUIRED_LIMITATIONS } = require("../assessment-mvp/submitAssessmentResp
 const { loadSkillPackages, packageIdOf } = require("../assessment-mvp/loadSkillPackages");
 const { recommendSkillPackages } = require("../assessment-mvp/recommendSkillPackages");
 const { scoreResponses } = require("../assessment-mvp/scoreResponses");
-const { selectAssessmentItems, stableStringify } = require("../assessment-mvp/selectAssessmentItems");
+const { selectAssessmentItems, stableStringify, isAssessmentItemDeliverable } = require("../assessment-mvp/selectAssessmentItems");
 const { pool: defaultPool } = require("./db");
 
 function sha256(value) {
@@ -42,6 +42,7 @@ const SAFE_REASON_TEXT = {
   ambiguous_mixed_number: "ambiguous_mixed_number",
   multiple_numeric_values: "multiple_numeric_values",
   ambiguous_or_missing_correct_choice: "ambiguous_or_missing_correct_choice",
+  invalid_delivery: "invalid_delivery",
 };
 
 const RECOMMENDATION_REASON = {
@@ -198,15 +199,29 @@ function selectionConfigFor({ itemsPerPackage, selectionSummary, packageIds }) {
   };
 }
 
+function sessionItemRowDeliverable(row) {
+  try {
+    return isAssessmentItemDeliverable(row && row.public_payload);
+  } catch (_) {
+    return false;
+  }
+}
+
+function safeSessionRows(sessionRow, itemRows) {
+  if (!sessionRow || sessionRow.status !== "in_progress") return itemRows;
+  return itemRows.filter(sessionItemRowDeliverable);
+}
+
 function sessionFromRows(sessionRow, itemRows = [], { resumed = false, childProfile = null } = {}) {
   if (!sessionRow) return null;
   const selectionConfig = sessionRow.selection_config || {};
-  const publicItems = itemRows
+  const deliverableRows = safeSessionRows(sessionRow, itemRows);
+  const publicItems = deliverableRows
     .slice()
     .sort((a, b) => Number(a.display_order) - Number(b.display_order))
     .map((row) => JSON.parse(JSON.stringify(row.public_payload || {})));
-  const itemIds = itemRows.map((row) => row.item_identity).filter(Boolean).sort((a, b) => a.localeCompare(b));
-  const duplicateKeys = itemRows.map((row) => row.duplicate_key).filter(Boolean).sort((a, b) => a.localeCompare(b));
+  const itemIds = deliverableRows.map((row) => row.item_identity).filter(Boolean).sort((a, b) => a.localeCompare(b));
+  const duplicateKeys = deliverableRows.map((row) => row.duplicate_key).filter(Boolean).sort((a, b) => a.localeCompare(b));
   return {
     session_id: sessionRow.session_id,
     session_version: sessionRow.session_version,
@@ -834,7 +849,7 @@ class AssessmentMvpPostgresStore {
           return { status: 409, error: "server_owned_session_metadata_missing" };
         }
 
-        const itemRows = await this.loadSessionItems(sessionRow.id, client);
+        const itemRows = safeSessionRows(sessionRow, await this.loadSessionItems(sessionRow.id, client));
         const submissions = normalizeSubmissionMap(responses, itemRows);
         let scoringRecords;
         try {
@@ -980,4 +995,5 @@ module.exports = {
   AssessmentMvpPostgresStore,
   itemVersionHash,
   sessionFromRows,
+  sessionItemRowDeliverable,
 };

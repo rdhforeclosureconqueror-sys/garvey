@@ -203,19 +203,14 @@ test('assessment MVP reassessment route enforces completed prior session and non
     assert.equal(reassessment.body.public_items.some((item) => priorDuplicateKeys.has(item.duplicate_key)), false);
     assertNoProtectedScoringData(reassessment.body);
 
-    const insufficientPackage = 'G1M_MD_TIME_001';
-    assert.ok(submitted.body.package_ids.includes(insufficientPackage), 'time package appeared in prior result');
-    const insufficient = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/reassessment`, {
+    const unrenderableClockPackage = 'G1M_MD_TIME_001';
+    assert.equal(submitted.body.package_ids.includes(unrenderableClockPackage), false, 'unrenderable clock package should not appear in prior result');
+    const clockReassessment = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/reassessment`, {
       method: 'POST',
-      body: { package_ids: [insufficientPackage], itemsPerPackage: 5 },
+      body: { package_ids: [unrenderableClockPackage], itemsPerPackage: 5 },
     });
-    assert.equal(insufficient.response.status, 201);
-    assert.deepEqual(insufficient.body.insufficient_evidence, [{
-      package_id: insufficientPackage,
-      safe_non_repeated_item_count: 0,
-      reason_code: 'insufficient_non_repeated_items',
-    }]);
-    assertNoProtectedScoringData(insufficient.body);
+    assert.equal(clockReassessment.response.status, 400);
+    assert.equal(clockReassessment.body.error, 'unrelated_reassessment_package_ids');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

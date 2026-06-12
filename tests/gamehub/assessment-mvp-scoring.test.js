@@ -228,3 +228,16 @@ test('source manifest and SkillPackage files remain byte-identical after scoring
   scoreResponses(selected.scoringRecords.slice(0, 3), selected.scoringRecords.slice(0, 3).map((item) => submit(item.item_identity, item.answer)));
   for (const file of sourceFiles) assert.equal(read(file), before[file], `${file} changed`);
 });
+
+test('invalid visual delivery is not scored incorrect and does not drive evidence labels', () => {
+  const records = [
+    { item_identity: 'PKG_VIS::bank::Q1', source_package_id: 'PKG_VIS', source_question_id: 'Q1', question_type: 'multiple_choice', answer: 'A', choices: ['A', 'B'] },
+    { item_identity: 'PKG_VIS::bank::Q2', source_package_id: 'PKG_VIS', source_question_id: 'Q2', question_type: 'multiple_choice', answer: 'A', choices: ['A', 'B'] },
+    { item_identity: 'PKG_VIS::bank::Q3', source_package_id: 'PKG_VIS', source_question_id: 'Q3', question_type: 'multiple_choice', answer: 'A', choices: ['A', 'B'] },
+  ];
+  const result = scoreResponses(records, records.map((record) => ({ item_identity: record.item_identity, response: { invalid_delivery: true } })));
+  assert.deepEqual(result.responses.map((response) => response.status), ['not_scorable', 'not_scorable', 'not_scorable']);
+  assert.equal(result.responses.some((response) => response.status === 'incorrect'), false);
+  assert.equal(result.skillEvidence[0].valid_scored_responses, 0);
+  assert.equal(result.skillEvidence[0].provisional_label, 'Not Enough Evidence');
+});

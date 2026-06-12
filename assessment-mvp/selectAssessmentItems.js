@@ -14,6 +14,10 @@ const SUPPORTED_TYPES = new Set([
 
 const PROTECTED_FIELD_RE = /(^|_)(answer|answers|correct|rubric|score|scoring|solution|explanation|feedback)(_|$)/i;
 const DELIVERY_METADATA_KEYS = new Set(['delivery_metadata', 'public_metadata', 'presentation_metadata']);
+const REQUIRED_STIMULUS_NOT_RENDERABLE = 'required_stimulus_not_renderable';
+const DUPLICATE_ANSWER_CHOICES = 'duplicate_answer_choices';
+const INVALID_SINGLE_CHOICE_CONFIGURATION = 'invalid_single_choice_configuration';
+const CORRECT_ANSWER_NOT_IN_CHOICES = 'correct_answer_not_in_choices';
 const BANK_ORDER = ['adaptive_question_bank', 'review_bank', 'level_banks'];
 
 function stableStringify(value) {
@@ -30,6 +34,10 @@ function hashValue(value) {
 
 function normalize(value) {
   return String(value ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function normalizeChoiceDisplay(value) {
+  return String(value ?? '').trim().replace(/\s+/g, ' ').toLowerCase();
 }
 
 function identityFor(packageId, sourceBank, questionId) {
@@ -66,13 +74,55 @@ function containsProtectedField(value) {
   return Object.entries(value).some(([key, child]) => PROTECTED_FIELD_RE.test(key) || containsProtectedField(child));
 }
 
-function publicQuestionPayload(question) {
-  const payload = {};
-  for (const [key, value] of Object.entries(question)) {
+function sanitizePublicValue(value) {
+  if (Array.isArray(value)) return value.map(sanitizePublicValue).filter((entry) => entry !== undefined);
+  if (!value || typeof value !== 'object') return value;
+  const output = {};
+  for (const [key, child] of Object.entries(value)) {
     if (PROTECTED_FIELD_RE.test(key)) continue;
-    if (key === 'hints') continue;
-    payload[key] = value;
+    const sanitized = sanitizePublicValue(child);
+    if (sanitized !== undefined) output[key] = sanitized;
   }
+  return output;
+}
+
+const GENERIC_RENDERABLE_MODELS = new Set([
+  'addition_model', 'subtraction_model', 'number_line', 'number_line_0_120', 'comparison',
+  'array_model', 'division_model', 'equal_groups', 'multiplication_model', 'repeated_addition',
+  'skip_counting', 'fact_family_model', 'multiplication_chart', 'pattern_completion', 'sorting_visual',
+]);
+const PUBLIC_STIMULUS_FIELD_ALLOWLIST = new Set([
+  'a', 'b', 'left', 'right', 'min', 'max', 'sequence', 'items', 'rows', 'columns', 'total', 'groups',
+  'dividend', 'divisor', 'factor', 'factor_a', 'factor_b', 'step', 'count', 'mode',
+]);
+
+function publicStimulusFor(question) {
+  if (question.visual_model === 'shape_identification' || question.support_type === 'shape_identification') {
+    const shape = normalizeChoiceDisplay(question.shape);
+    if (['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(shape)) {
+      return { type: 'shape', shape };
+    }
+  }
+  const model = question.visual_model || question.support_type;
+  if (GENERIC_RENDERABLE_MODELS.has(model)) {
+    const fields = {};
+    for (const key of PUBLIC_STIMULUS_FIELD_ALLOWLIST) {
+      if (Object.prototype.hasOwnProperty.call(question, key)) fields[key] = sanitizePublicValue(question[key]);
+    }
+    if (Object.keys(fields).length) return { type: 'model', model, fields };
+  }
+  return null;
+}
+
+function publicQuestionPayload(question) {
+  const options = Array.isArray(question.options) ? question.options : question.choices;
+  const payload = {
+    prompt: question.prompt,
+    question_type: question.question_type,
+  };
+  if (Array.isArray(options)) payload.choices = sanitizePublicValue(options);
+  const stimulus = publicStimulusFor(question);
+  if (stimulus) payload.stimulus = stimulus;
   return payload;
 }
 
@@ -104,7 +154,7 @@ function collectQuestions(pkg) {
         }
       }
     } else {
-      for (const question of pkg[bank] || []) {
+      for (const question of Array.isArray(pkg[bank]) ? pkg[bank] : []) {
         collected.push({ question, sourceBank: bank, sourcePointer: bank });
       }
     }
@@ -116,6 +166,109 @@ function increment(map, reason) {
   map[reason] = (map[reason] || 0) + 1;
 }
 
+function choiceId(choice, index) {
+  if (choice && typeof choice === 'object') {
+    for (const key of ['id', 'choice_id', 'key', 'value_id']) {
+      if (Object.prototype.hasOwnProperty.call(choice, key)) return choice[key];
+    }
+  }
+  return `choice-${index}`;
+}
+
+function choiceDisplay(choice) {
+  if (choice && typeof choice === 'object') {
+    for (const key of ['value', 'label', 'text', 'display', 'answer']) {
+      if (Object.prototype.hasOwnProperty.call(choice, key)) return choice[key];
+    }
+    return undefined;
+  }
+  return choice;
+}
+
+function isCorrectChoice(choice) {
+  return Boolean(choice && typeof choice === 'object' && (choice.correct === true || choice.is_correct === true || choice.isCorrect === true));
+}
+
+function answerValues(question) {
+  const answer = getAnswer(question);
+  const values = Array.isArray(answer) ? answer : [answer];
+  return values.filter((value) => value !== undefined && value !== null && String(value).trim().length > 0);
+}
+
+function validateAnswerChoices(question) {
+  const reasons = [];
+  if (question.question_type !== 'multiple_choice') return reasons;
+  const choices = Array.isArray(question.choices) ? question.choices : question.options;
+  if (!Array.isArray(choices) || choices.length === 0) return [INVALID_SINGLE_CHOICE_CONFIGURATION];
+
+  const seenIds = new Set();
+  const seenDisplays = new Set();
+  const displays = [];
+  let empty = false;
+  let duplicate = false;
+  choices.forEach((choice, index) => {
+    const id = normalizeChoiceDisplay(choiceId(choice, index));
+    const display = normalizeChoiceDisplay(choiceDisplay(choice));
+    if (!display) empty = true;
+    if (seenIds.has(id) || seenDisplays.has(display)) duplicate = true;
+    seenIds.add(id);
+    seenDisplays.add(display);
+    displays.push(display);
+  });
+  if (empty || seenDisplays.size < 2) reasons.push(INVALID_SINGLE_CHOICE_CONFIGURATION);
+  if (duplicate) reasons.push(DUPLICATE_ANSWER_CHOICES);
+
+  const flaggedCorrect = choices.filter(isCorrectChoice);
+  if (flaggedCorrect.length > 1) reasons.push(INVALID_SINGLE_CHOICE_CONFIGURATION);
+  if (flaggedCorrect.length === 1) {
+    const display = normalizeChoiceDisplay(choiceDisplay(flaggedCorrect[0]));
+    if (!display) reasons.push(CORRECT_ANSWER_NOT_IN_CHOICES);
+    return [...new Set(reasons)];
+  }
+
+  const answers = answerValues(question).map(normalizeChoiceDisplay);
+  if (answers.length === 0) return [...new Set(reasons)];
+  const represented = answers.some((answer) => seenDisplays.has(answer) || seenIds.has(answer));
+  if (!represented) reasons.push(CORRECT_ANSWER_NOT_IN_CHOICES);
+  return [...new Set(reasons)];
+}
+
+const VISUAL_METADATA_KEYS = [
+  'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'diagram', 'asset_id', 'model_id',
+  'stimulus', 'renderer', 'renderer_model', 'visual', 'manipulative', 'drag_drop_layout', 'layout',
+  'shape', 'shapes', 'number_line', 'clock', 'coins', 'data', 'table', 'graph', 'diagram', 'array',
+  'object_count', 'objects', 'comparison', 'measurement', 'a', 'b', 'whole', 'part', 'parts',
+];
+const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i;
+const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model']);
+
+function hasVisualMetadata(question) {
+  return VISUAL_METADATA_KEYS.some((key) => Object.prototype.hasOwnProperty.call(question, key));
+}
+
+function requiresStimulus(question) {
+  return hasVisualMetadata(question) || VISUAL_PROMPT_RE.test(String(question.prompt || ''));
+}
+
+function isPublicStimulusRenderable(stimulus) {
+  return Boolean(stimulus && RENDERABLE_STIMULUS_TYPES.has(stimulus.type));
+}
+
+function isAssessmentItemDeliverable(publicItem) {
+  const payload = publicItem && publicItem.payload;
+  if (!payload || typeof payload !== 'object') return false;
+  if (!String(payload.prompt || '').trim()) return false;
+  if (payload.stimulus) return isPublicStimulusRenderable(payload.stimulus);
+  return !VISUAL_PROMPT_RE.test(String(payload.prompt || ''));
+}
+
+function validateStimulusRenderability(question) {
+  if (!requiresStimulus(question)) return [];
+  const stimulus = publicStimulusFor(question);
+  if (!isPublicStimulusRenderable(stimulus)) return [REQUIRED_STIMULUS_NOT_RENDERABLE];
+  return [];
+}
+
 function excludesForQuestion({ question, packageId, sourceBank, packageQuestionIds, selectedIdentities, selectedDuplicateKeys, baselineIdentitySet, baselineDuplicateKeySet }) {
   const reasons = [];
   if (!question.question_id) reasons.push('missing question ID');
@@ -123,6 +276,8 @@ function excludesForQuestion({ question, packageId, sourceBank, packageQuestionI
   if (question.question_type && !SUPPORTED_TYPES.has(question.question_type)) reasons.push('unsupported question type');
   if (!hasDeterministicAnswer(question)) reasons.push('missing deterministic answer');
   if (question.question_id && packageQuestionIds.has(question.question_id)) reasons.push('duplicate source question ID');
+  reasons.push(...validateAnswerChoices(question));
+  reasons.push(...validateStimulusRenderability(question));
 
   const identity = question.question_id ? identityFor(packageId, sourceBank, question.question_id) : null;
   const duplicateKey = duplicateKeyFor(question);
@@ -214,4 +369,14 @@ module.exports = {
   identityFor,
   duplicateKeyFor,
   containsProtectedField,
+  publicQuestionPayload,
+  publicStimulusFor,
+  requiresStimulus,
+  isAssessmentItemDeliverable,
+  validateAnswerChoices,
+  validateStimulusRenderability,
+  REQUIRED_STIMULUS_NOT_RENDERABLE,
+  DUPLICATE_ANSWER_CHOICES,
+  INVALID_SINGLE_CHOICE_CONFIGURATION,
+  CORRECT_ANSWER_NOT_IN_CHOICES,
 };
