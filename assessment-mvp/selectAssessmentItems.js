@@ -96,7 +96,79 @@ const PUBLIC_STIMULUS_FIELD_ALLOWLIST = new Set([
   'dividend', 'divisor', 'factor', 'factor_a', 'factor_b', 'step', 'count', 'mode',
 ]);
 
-function publicStimulusFor(question) {
+const GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002']);
+const GRADE_1_ENGLISH_STIMULUS_RENDERERS = new Set([
+  'sentence_card',
+  'picture_choice',
+  'phonics_tiles',
+  'sound_boxes',
+  'word_builder',
+  'word_family_sort',
+  'rhyme_match',
+]);
+
+function compactTextValue(value) {
+  const output = String(value ?? '').trim().replace(/\s+/g, ' ');
+  return output || null;
+}
+
+function safeTextArray(value) {
+  if (!Array.isArray(value)) return [];
+  return value.map(compactTextValue).filter(Boolean);
+}
+
+function publicGrade1EnglishStimulusFor(question, packageId) {
+  if (!GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS.has(packageId)) return null;
+  const renderer = compactTextValue(question.visual_model || question.support_type);
+  if (!GRADE_1_ENGLISH_STIMULUS_RENDERERS.has(renderer)) return null;
+
+  if (renderer === 'sentence_card' || renderer === 'picture_choice') {
+    const sentence = compactTextValue(question.sentence || question.picture || question.speakable_text);
+    if (!sentence) return null;
+    return {
+      type: 'sentence',
+      content: { text: sentence },
+      accessibility_text: `Sentence: ${sentence}`,
+      presentation: { renderer: renderer === 'picture_choice' ? 'picture_choice_sentence_adapter' : 'sentence_card' },
+    };
+  }
+
+  if (renderer === 'phonics_tiles' || renderer === 'sound_boxes' || renderer === 'word_builder') {
+    const tiles = safeTextArray(question.tiles || question.graphemes || question.word_parts);
+    if (tiles.length) {
+      return {
+        type: 'letter_tiles',
+        content: { tiles },
+        accessibility_text: `Letter tiles: ${tiles.join(', ')}`,
+        presentation: { renderer, label: 'Blend the sounds in order.' },
+      };
+    }
+    const word = compactTextValue(question.word || question.speakable_text);
+    if (word) {
+      return {
+        type: 'word',
+        content: { text: word },
+        accessibility_text: `Word: ${word}`,
+        presentation: { renderer: 'word_card' },
+      };
+    }
+  }
+
+  if (renderer === 'word_family_sort' || renderer === 'rhyme_match') {
+    const word = compactTextValue(question.word || question.speakable_text || (Array.isArray(question.words) ? question.words[0] : ''));
+    if (!word) return null;
+    return {
+      type: 'word',
+      content: { text: word },
+      accessibility_text: `Word: ${word}`,
+      presentation: { renderer: renderer === 'word_family_sort' ? 'word_family_sort_word_adapter' : 'rhyme_match_word_adapter' },
+    };
+  }
+
+  return null;
+}
+
+function publicStimulusFor(question, packageId) {
   if (question.visual_model === 'shape_identification' || question.support_type === 'shape_identification') {
     const shape = normalizeChoiceDisplay(question.shape);
     if (['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(shape)) {
@@ -111,17 +183,17 @@ function publicStimulusFor(question) {
     }
     if (Object.keys(fields).length) return { type: 'model', model, fields };
   }
-  return null;
+  return publicGrade1EnglishStimulusFor(question, packageId);
 }
 
-function publicQuestionPayload(question) {
+function publicQuestionPayload(question, packageId) {
   const options = Array.isArray(question.options) ? question.options : question.choices;
   const payload = {
     prompt: question.prompt,
     question_type: question.question_type,
   };
   if (Array.isArray(options)) payload.choices = sanitizePublicValue(options);
-  const stimulus = publicStimulusFor(question);
+  const stimulus = publicStimulusFor(question, packageId);
   if (stimulus) payload.stimulus = stimulus;
   return payload;
 }
@@ -131,7 +203,7 @@ function visualIdentity(question) {
   for (const key of [
     'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'diagram', 'asset_id', 'model_id',
     'a', 'b', 'whole', 'part', 'parts', 'shape', 'shapes', 'fraction', 'numerator', 'denominator',
-    'number_line', 'clock', 'coins', 'data', 'table', 'array', 'sentence', 'word', 'target_word', 'phoneme',
+    'number_line', 'clock', 'coins', 'data', 'table', 'array', 'sentence', 'word', 'target_word', 'phoneme', 'tiles', 'graphemes', 'word_parts', 'family', 'picture',
   ]) {
     if (Object.prototype.hasOwnProperty.call(question, key)) visualFields[key] = question[key];
   }
@@ -240,7 +312,7 @@ const VISUAL_METADATA_KEYS = [
   'object_count', 'objects', 'comparison', 'measurement', 'a', 'b', 'whole', 'part', 'parts',
 ];
 const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i;
-const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model']);
+const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model', 'sentence', 'word', 'letter_tiles']);
 
 function hasVisualMetadata(question) {
   return VISUAL_METADATA_KEYS.some((key) => Object.prototype.hasOwnProperty.call(question, key));
@@ -262,9 +334,9 @@ function isAssessmentItemDeliverable(publicItem) {
   return !VISUAL_PROMPT_RE.test(String(payload.prompt || ''));
 }
 
-function validateStimulusRenderability(question) {
+function validateStimulusRenderability(question, packageId) {
   if (!requiresStimulus(question)) return [];
-  const stimulus = publicStimulusFor(question);
+  const stimulus = publicStimulusFor(question, packageId);
   if (!isPublicStimulusRenderable(stimulus)) return [REQUIRED_STIMULUS_NOT_RENDERABLE];
   return [];
 }
@@ -277,7 +349,7 @@ function excludesForQuestion({ question, packageId, sourceBank, packageQuestionI
   if (!hasDeterministicAnswer(question)) reasons.push('missing deterministic answer');
   if (question.question_id && packageQuestionIds.has(question.question_id)) reasons.push('duplicate source question ID');
   reasons.push(...validateAnswerChoices(question));
-  reasons.push(...validateStimulusRenderability(question));
+  reasons.push(...validateStimulusRenderability(question, packageId));
 
   const identity = question.question_id ? identityFor(packageId, sourceBank, question.question_id) : null;
   const duplicateKey = duplicateKeyFor(question);
@@ -337,7 +409,7 @@ function selectAssessmentItems(packages, options = {}) {
         domain: pkg.domain || 'unknown',
         question_type: question.question_type,
         visual_identity: visualIdentity(question),
-        payload: publicQuestionPayload(question),
+        payload: publicQuestionPayload(question, packageId),
       });
       scoringRecords.push({
         assessment_item_id: stableId,
@@ -371,6 +443,7 @@ module.exports = {
   containsProtectedField,
   publicQuestionPayload,
   publicStimulusFor,
+  GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS,
   requiresStimulus,
   isAssessmentItemDeliverable,
   validateAnswerChoices,
