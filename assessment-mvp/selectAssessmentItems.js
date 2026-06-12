@@ -96,7 +96,8 @@ const PUBLIC_STIMULUS_FIELD_ALLOWLIST = new Set([
   'dividend', 'divisor', 'factor', 'factor_a', 'factor_b', 'step', 'count', 'mode',
 ]);
 
-const GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002']);
+const GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002', 'G1E_RC_001', 'G1E_RC_002', 'G1E_RF_001']);
+const GRADE_1_ENGLISH_BATCH_1_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002']);
 const GRADE_1_ENGLISH_STIMULUS_RENDERERS = new Set([
   'sentence_card',
   'picture_choice',
@@ -105,6 +106,9 @@ const GRADE_1_ENGLISH_STIMULUS_RENDERERS = new Set([
   'word_builder',
   'word_family_sort',
   'rhyme_match',
+  'short_passage',
+  'story_sequence',
+  'letter_card',
 ]);
 
 function compactTextValue(value) {
@@ -122,7 +126,7 @@ function publicGrade1EnglishStimulusFor(question, packageId) {
   const renderer = compactTextValue(question.visual_model || question.support_type);
   if (!GRADE_1_ENGLISH_STIMULUS_RENDERERS.has(renderer)) return null;
 
-  if (renderer === 'sentence_card' || renderer === 'picture_choice') {
+  if (renderer === 'sentence_card' || (renderer === 'picture_choice' && GRADE_1_ENGLISH_BATCH_1_PACKAGE_IDS.has(packageId))) {
     const sentence = compactTextValue(question.sentence || question.picture || question.speakable_text);
     if (!sentence) return null;
     return {
@@ -133,7 +137,7 @@ function publicGrade1EnglishStimulusFor(question, packageId) {
     };
   }
 
-  if (renderer === 'phonics_tiles' || renderer === 'sound_boxes' || renderer === 'word_builder') {
+  if (GRADE_1_ENGLISH_BATCH_1_PACKAGE_IDS.has(packageId) && (renderer === 'phonics_tiles' || renderer === 'sound_boxes' || renderer === 'word_builder')) {
     const tiles = safeTextArray(question.tiles || question.graphemes || question.word_parts);
     if (tiles.length) {
       return {
@@ -154,7 +158,7 @@ function publicGrade1EnglishStimulusFor(question, packageId) {
     }
   }
 
-  if (renderer === 'word_family_sort' || renderer === 'rhyme_match') {
+  if (GRADE_1_ENGLISH_BATCH_1_PACKAGE_IDS.has(packageId) && (renderer === 'word_family_sort' || renderer === 'rhyme_match')) {
     const word = compactTextValue(question.word || question.speakable_text || (Array.isArray(question.words) ? question.words[0] : ''));
     if (!word) return null;
     return {
@@ -162,6 +166,44 @@ function publicGrade1EnglishStimulusFor(question, packageId) {
       content: { text: word },
       accessibility_text: `Word: ${word}`,
       presentation: { renderer: renderer === 'word_family_sort' ? 'word_family_sort_word_adapter' : 'rhyme_match_word_adapter' },
+    };
+  }
+
+  if (renderer === 'short_passage') {
+    const passage = compactTextValue(question.passage || question.text || question.story);
+    if (!passage) return null;
+    return {
+      type: 'reading_passage',
+      content: { text: passage },
+      accessibility_text: `Reading passage: ${passage}`,
+      presentation: { renderer: 'short_passage', label: 'Read the passage, then answer the question.' },
+    };
+  }
+
+  if (renderer === 'story_sequence') {
+    const events = safeTextArray(question.events || question.sequence);
+    if (events.length < 2) return null;
+    return {
+      type: 'sequencing',
+      content: { events },
+      accessibility_text: `Story events in order: ${events.join(' Then ')}`,
+      presentation: { renderer: 'story_sequence', label: 'Read the events in order: beginning, middle, end.' },
+    };
+  }
+
+  if (renderer === 'letter_card') {
+    const letter = compactTextValue(question.letter || question.target_letter || question.speakable_text);
+    if (!letter) return null;
+    const content = { text: letter };
+    const pairedForm = compactTextValue(question.paired_form || question.letter_pair || question.pair);
+    const label = compactTextValue(question.letter_label || question.case_label || question.label);
+    if (pairedForm) content.paired_form = pairedForm;
+    if (label) content.label = label;
+    return {
+      type: 'letter_card',
+      content,
+      accessibility_text: `Letter card: ${letter}${label ? `, ${label}` : ''}`,
+      presentation: { renderer: 'letter_card', label: 'Look closely at the letter card.' },
     };
   }
 
@@ -203,7 +245,7 @@ function visualIdentity(question) {
   for (const key of [
     'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'diagram', 'asset_id', 'model_id',
     'a', 'b', 'whole', 'part', 'parts', 'shape', 'shapes', 'fraction', 'numerator', 'denominator',
-    'number_line', 'clock', 'coins', 'data', 'table', 'array', 'sentence', 'word', 'target_word', 'phoneme', 'tiles', 'graphemes', 'word_parts', 'family', 'picture',
+    'number_line', 'clock', 'coins', 'data', 'table', 'array', 'sentence', 'word', 'target_word', 'phoneme', 'tiles', 'graphemes', 'word_parts', 'family', 'picture', 'passage', 'text', 'story', 'events', 'sequence', 'letter', 'target_letter', 'paired_form', 'letter_label',
   ]) {
     if (Object.prototype.hasOwnProperty.call(question, key)) visualFields[key] = question[key];
   }
@@ -312,7 +354,7 @@ const VISUAL_METADATA_KEYS = [
   'object_count', 'objects', 'comparison', 'measurement', 'a', 'b', 'whole', 'part', 'parts',
 ];
 const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i;
-const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model', 'sentence', 'word', 'letter_tiles']);
+const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card']);
 
 function hasVisualMetadata(question) {
   return VISUAL_METADATA_KEYS.some((key) => Object.prototype.hasOwnProperty.call(question, key));
