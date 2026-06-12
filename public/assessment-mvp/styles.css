@@ -185,6 +185,53 @@ button:disabled { opacity: .58; cursor: not-allowed; box-shadow: none; }
 }
 .sentence-card { font-size: clamp(1.6rem, 6vw, 2.8rem); }
 .word-card { font-size: clamp(2.1rem, 9vw, 4rem); letter-spacing: .04em; }
+.passage-card { font-size: clamp(1.25rem, 4.8vw, 2rem); text-align: left; }
+.sequence-list {
+  width: min(100%, 760px);
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  list-style: none;
+}
+.sequence-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 3px solid #bfdbfe;
+  border-radius: 18px;
+  color: var(--blue-dark);
+  font-size: clamp(1rem, 4.5vw, 1.45rem);
+  font-weight: 850;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.sequence-card strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: #dbeafe;
+  border: 2px solid #60a5fa;
+}
+.letter-card {
+  display: inline-grid;
+  justify-items: center;
+  gap: 6px;
+  width: auto;
+  min-width: min(240px, 100%);
+}
+.letter-card strong { font-size: clamp(4rem, 24vw, 8rem); line-height: .95; }
+.letter-card-pair, .letter-card-label {
+  display: block;
+  color: var(--muted);
+  font-size: clamp(1rem, 4vw, 1.3rem);
+}
 .stimulus-help {
   margin: 0;
   color: var(--muted);

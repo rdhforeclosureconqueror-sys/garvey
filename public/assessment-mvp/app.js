@@ -172,7 +172,7 @@
       }
       if (Object.keys(fields).length) return { type: 'model', model: text(stimulus.model), fields };
     }
-    if (['sentence', 'word', 'letter_tiles'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
+    if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
       const presentation = stimulus.presentation && typeof stimulus.presentation === 'object' ? {
         renderer: text(stimulus.presentation.renderer),
         label: text(stimulus.presentation.label),
@@ -180,9 +180,21 @@
       if (stimulus.type === 'letter_tiles') {
         const tiles = Array.isArray(stimulus.content.tiles) ? stimulus.content.tiles.map(text).filter(Boolean) : [];
         if (tiles.length) return { type: 'letter_tiles', content: { tiles }, accessibility_text: text(stimulus.accessibility_text), presentation };
+      } else if (stimulus.type === 'sequencing') {
+        const events = Array.isArray(stimulus.content.events) ? stimulus.content.events.map(text).filter(Boolean) : [];
+        if (events.length) return { type: 'sequencing', content: { events }, accessibility_text: text(stimulus.accessibility_text), presentation };
       } else {
         const contentText = text(stimulus.content.text);
-        if (contentText) return { type: text(stimulus.type), content: { text: contentText }, accessibility_text: text(stimulus.accessibility_text), presentation };
+        if (contentText) {
+          const content = { text: contentText };
+          if (stimulus.type === 'letter_card') {
+            const pairedForm = text(stimulus.content.paired_form);
+            const label = text(stimulus.content.label);
+            if (pairedForm) content.paired_form = pairedForm;
+            if (label) content.label = label;
+          }
+          return { type: text(stimulus.type), content, accessibility_text: text(stimulus.accessibility_text), presentation };
+        }
       }
     }
     return null;
@@ -605,8 +617,9 @@
     if (!stimulus) return !/\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i.test(text(item && item.payload && item.payload.prompt));
     if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.shape));
     if (stimulus.type === 'model') return stimulus.fields && Object.keys(stimulus.fields).length > 0;
-    if (stimulus.type === 'sentence' || stimulus.type === 'word') return Boolean(text(stimulus.content && stimulus.content.text));
+    if (stimulus.type === 'sentence' || stimulus.type === 'word' || stimulus.type === 'reading_passage' || stimulus.type === 'letter_card') return Boolean(text(stimulus.content && stimulus.content.text));
     if (stimulus.type === 'letter_tiles') return Array.isArray(stimulus.content && stimulus.content.tiles) && stimulus.content.tiles.some((tile) => text(tile));
+    if (stimulus.type === 'sequencing') return Array.isArray(stimulus.content && stimulus.content.events) && stimulus.content.events.length >= 2 && stimulus.content.events.every((event) => text(event));
     return false;
   }
 
@@ -768,6 +781,24 @@
       const tileHtml = tiles.map((tile, index) => '<span class="letter-tile" aria-label="Tile ' + (index + 1) + ': ' + escapeHtml(tile) + '"><strong>' + escapeHtml(tile) + '</strong></span>').join('');
       const label = text(stimulus.presentation && stimulus.presentation.label) || 'Blend the sounds in order.';
       return '<div class="assessment-stimulus literacy-stimulus letter-tiles-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Letter tiles: ' + tiles.join(', '))) + '"><div class="letter-tile-row">' + tileHtml + '</div><p class="stimulus-help">' + escapeHtml(label) + '</p></div>';
+    }
+    if (stimulus.type === 'reading_passage') {
+      const passage = text(stimulus.content && stimulus.content.text);
+      const label = text(stimulus.presentation && stimulus.presentation.label) || 'Read the passage, then answer the question.';
+      return '<div class="assessment-stimulus literacy-stimulus reading-passage-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Reading passage: ' + passage)) + '"><article class="literacy-card passage-card">' + escapeHtml(passage) + '</article><p class="stimulus-help">' + escapeHtml(label) + '</p></div>';
+    }
+    if (stimulus.type === 'sequencing') {
+      const events = Array.isArray(stimulus.content && stimulus.content.events) ? stimulus.content.events.map(text).filter(Boolean) : [];
+      const eventHtml = events.map((event, index) => '<li class="sequence-card" aria-label="Event ' + (index + 1) + ': ' + escapeHtml(event) + '"><strong>' + (index + 1) + '</strong><span>' + escapeHtml(event) + '</span></li>').join('');
+      const label = text(stimulus.presentation && stimulus.presentation.label) || 'Read the events in order: beginning, middle, end.';
+      return '<div class="assessment-stimulus literacy-stimulus sequencing-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Story events in order: ' + events.join(' Then '))) + '"><ol class="sequence-list">' + eventHtml + '</ol><p class="stimulus-help">' + escapeHtml(label) + '</p></div>';
+    }
+    if (stimulus.type === 'letter_card') {
+      const letter = text(stimulus.content && stimulus.content.text);
+      const pairedForm = text(stimulus.content && stimulus.content.paired_form);
+      const label = text(stimulus.content && stimulus.content.label);
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Look closely at the letter card.';
+      return '<div class="assessment-stimulus literacy-stimulus letter-card-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Letter card: ' + letter)) + '"><div class="literacy-card letter-card"><strong aria-label="Letter ' + escapeHtml(letter) + '">' + escapeHtml(letter) + '</strong>' + (pairedForm ? '<span class="letter-card-pair">' + escapeHtml(pairedForm) + '</span>' : '') + (label ? '<span class="letter-card-label">' + escapeHtml(label) + '</span>' : '') + '</div><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
     }
     return '';
   }
