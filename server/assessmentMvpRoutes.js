@@ -2,7 +2,7 @@
 
 const crypto = require("crypto");
 const express = require("express");
-const { createAssessmentSession, publicAssessmentSessionView } = require("../assessment-mvp/createAssessmentSession");
+const { SESSION_VERSION, createAssessmentSession, publicAssessmentSessionView } = require("../assessment-mvp/createAssessmentSession");
 const { createReassessmentSession } = require("../assessment-mvp/createReassessmentSession");
 const { submitAssessmentResponses } = require("../assessment-mvp/submitAssessmentResponses");
 const {
@@ -75,6 +75,20 @@ function publicSessionPayload(session) {
     ...(publicView.insufficient_evidence ? { insufficient_evidence: publicView.insufficient_evidence } : {}),
     ...(session.child_context ? { child_context: session.child_context } : {}),
   };
+}
+
+function restartRequiredPayload(session) {
+  return {
+    ok: false,
+    error: "assessment_session_restart_required",
+    message: "This saved assessment was created with an older question version. Please start a new corrected baseline.",
+    restart_required: true,
+    session_id: session && session.session_id,
+  };
+}
+
+function isCurrentSessionVersion(session) {
+  return Boolean(session && session.session_version === SESSION_VERSION);
 }
 
 function publicCompletedPayload(entry) {
@@ -270,6 +284,7 @@ function createAssessmentMvpRouter(options = {}) {
       const entry = await persistentStore.getAssessmentSessionByPublicId({ sessionId });
       if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
       if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
+      if (entry.restartRequired) return res.status(409).json({ ok: false, ...entry.restartRequired });
       const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
       if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
       if (entry.session.status === "completed") {
@@ -289,6 +304,9 @@ function createAssessmentMvpRouter(options = {}) {
     if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
     if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
     if (!await verifySuppliedChildContext(req, res, entry, actor)) return;
+    if (!entry.result && entry.session && entry.session.status === "in_progress" && !isCurrentSessionVersion(entry.session)) {
+      return res.status(409).json(restartRequiredPayload(entry.session));
+    }
     const payload = entry.result ? publicCompletedPayload(entry) : publicSessionPayload(entry.session);
     if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
     return res.status(200).json(payload);
@@ -412,6 +430,7 @@ function createAssessmentMvpRouter(options = {}) {
           childProfile: ownedChild.childProfile,
         });
         if (!session) return res.status(404).json({ ok: false, error: "current_session_not_found" });
+        if (session.restart_required) return res.status(409).json({ ok: false, error: session.restart_required_error || "assessment_session_restart_required", message: session.message, restart_required: true });
         await persistentStore.markAssessmentItemDelivered?.({ sessionId: session.session_id, displayOrder: session.current_question_position || 0 });
         const payload = publicSessionPayload(session);
         if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
@@ -429,7 +448,9 @@ function createAssessmentMvpRouter(options = {}) {
         return true;
       });
       if (!matches.length) return res.status(404).json({ ok: false, error: "current_session_not_found" });
-      const payload = publicSessionPayload({ ...matches[matches.length - 1].session, resumed: true });
+      const newest = matches[matches.length - 1].session;
+      if (!isCurrentSessionVersion(newest)) return res.status(409).json(restartRequiredPayload(newest));
+      const payload = publicSessionPayload({ ...newest, resumed: true });
       if (responseHasOwnershipInternals(payload)) return validationError(res, "assessment_session_read_failed", { message: "ownership internals leaked" });
       return res.status(200).json(payload);
     } catch (err) {
@@ -450,6 +471,7 @@ function createAssessmentMvpRouter(options = {}) {
         const entry = await persistentStore.getAssessmentSessionByPublicId({ sessionId });
         if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
         if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
+        if (entry.restartRequired) return res.status(409).json({ ok: false, ...entry.restartRequired });
         const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
         if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
         const updated = await persistentStore.updateAssessmentSessionPosition({
@@ -470,6 +492,7 @@ function createAssessmentMvpRouter(options = {}) {
       if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
       if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
       if (entry.session.status !== "in_progress") return res.status(409).json({ ok: false, error: "session_not_in_progress" });
+      if (!isCurrentSessionVersion(entry.session)) return res.status(409).json(restartRequiredPayload(entry.session));
       const itemCount = entry.session.public_items?.length || 0;
       if (position < 0 || position >= itemCount) return validationError(res, "invalid_current_question_position");
       entry.session = { ...entry.session, current_question_position: position };
@@ -491,6 +514,7 @@ function createAssessmentMvpRouter(options = {}) {
         const entry = await persistentStore.getAssessmentSessionByPublicId({ sessionId });
         if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
         if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
+        if (entry.restartRequired) return res.status(409).json({ ok: false, ...entry.restartRequired });
         const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
         if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
         let responseMap;
@@ -516,6 +540,9 @@ function createAssessmentMvpRouter(options = {}) {
       if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
       if (!entryBelongsTo(entry, actor)) return ownershipError(res, 403, "forbidden");
       if (!await verifySuppliedChildContext(req, res, entry, actor)) return;
+      if (entry.session && entry.session.status === "in_progress" && !isCurrentSessionVersion(entry.session)) {
+        return res.status(409).json(restartRequiredPayload(entry.session));
+      }
       if (entry.result || entry.session.status === "completed") {
         return res.status(409).json({ ok: false, error: "session_already_completed" });
       }
@@ -557,6 +584,7 @@ function createAssessmentMvpRouter(options = {}) {
         const entry = await persistentStore.getAssessmentSessionByPublicId({ sessionId });
         if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
         if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
+        if (entry.restartRequired) return res.status(409).json({ ok: false, ...entry.restartRequired });
         const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
         if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
 

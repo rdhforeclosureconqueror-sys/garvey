@@ -1,7 +1,7 @@
 "use strict";
 
 const crypto = require("crypto");
-const { createAssessmentSession, publicAssessmentSessionView, toStableUnique } = require("../assessment-mvp/createAssessmentSession");
+const { SESSION_VERSION, createAssessmentSession, publicAssessmentSessionView, toStableUnique } = require("../assessment-mvp/createAssessmentSession");
 const { createReassessmentSession } = require("../assessment-mvp/createReassessmentSession");
 const { REQUIRED_LIMITATIONS } = require("../assessment-mvp/submitAssessmentResponses");
 const { loadSkillPackages, packageIdOf } = require("../assessment-mvp/loadSkillPackages");
@@ -202,6 +202,20 @@ function selectionConfigFor({ itemsPerPackage, selectionSummary, packageIds }) {
   };
 }
 
+function isCurrentSessionVersion(sessionRow) {
+  return Boolean(sessionRow && sessionRow.session_version === SESSION_VERSION);
+}
+
+function restartRequiredResult(sessionRow) {
+  return {
+    status: 409,
+    error: "assessment_session_restart_required",
+    message: "This saved assessment was created with an older question version. Please start a new corrected baseline.",
+    restart_required: true,
+    session_id: sessionRow && sessionRow.session_id,
+  };
+}
+
 function sessionItemRowDeliverable(row) {
   try {
     return isAssessmentItemDeliverable(row && row.public_payload);
@@ -321,8 +335,12 @@ class AssessmentMvpPostgresStore {
         const learnerId = toInt(ownedChild.learnerId);
         const existing = await this.findInProgress({ learnerId, grade, subject, assessmentRole: "baseline" }, client);
         if (existing) {
-          const itemRows = await this.loadSessionItems(existing.id, client);
-          return sessionFromRows(existing, itemRows, { resumed: true, childProfile: ownedChild.childProfile });
+          if (!isCurrentSessionVersion(existing)) {
+            await client.query(`UPDATE assessment_sessions SET status = 'expired', updated_at = NOW(), lock_version = lock_version + 1 WHERE id = $1 AND status = 'in_progress'`, [existing.id]);
+          } else {
+            const itemRows = await this.loadSessionItems(existing.id, client);
+            return sessionFromRows(existing, itemRows, { resumed: true, childProfile: ownedChild.childProfile });
+          }
         }
 
         const exposureHistory = await this.loadLearnerExposureHistory({ learnerId }, client);
@@ -569,6 +587,7 @@ class AssessmentMvpPostgresStore {
     const sessionResult = await this.pool.query(`SELECT * FROM assessment_sessions WHERE session_id = $1 LIMIT 1`, [sessionId]);
     const row = sessionResult.rows[0];
     if (!row) return null;
+    if (row.status === "in_progress" && !isCurrentSessionVersion(row)) return { restartRequired: restartRequiredResult(row), ownership: { auth_user_id: row.auth_user_id, parent_profile_id: row.parent_profile_id, learner_id: row.learner_id }, internal_id: row.id };
     const itemRows = await this.loadSessionItems(row.id);
     const session = sessionFromRows(row, itemRows, { resumed: false, childProfile });
     return {
@@ -606,6 +625,7 @@ class AssessmentMvpPostgresStore {
     );
     const row = result.rows[0];
     if (!row) return null;
+    if (!isCurrentSessionVersion(row)) return { restart_required: true, restart_required_error: "assessment_session_restart_required", message: "This saved assessment was created with an older question version. Please start a new corrected baseline." };
     const itemRows = await this.loadSessionItems(row.id);
     return sessionFromRows(row, itemRows, { resumed: true, childProfile });
   }
@@ -697,6 +717,7 @@ class AssessmentMvpPostgresStore {
         return { status: 403, error: "forbidden" };
       }
       if (row.status !== "in_progress") return { status: 409, error: "session_not_in_progress" };
+      if (!isCurrentSessionVersion(row)) return restartRequiredResult(row);
       const countResult = await client.query(`SELECT COUNT(*)::int AS count FROM assessment_session_items WHERE session_id = $1`, [row.id]);
       const count = Number(countResult.rows[0]?.count || 0);
       if (!Number.isInteger(currentQuestionPosition) || currentQuestionPosition < 0 || currentQuestionPosition >= count) {
@@ -848,6 +869,7 @@ class AssessmentMvpPostgresStore {
           auditAssessmentEvent("assessment_mvp_completion_ownership_denied", { session_id: sessionId });
           return { status: 403, error: "forbidden" };
         }
+        if (sessionRow.status === "in_progress" && !isCurrentSessionVersion(sessionRow)) return restartRequiredResult(sessionRow);
         if (sessionRow.status !== "in_progress") {
           auditAssessmentEvent("assessment_mvp_completion_duplicate_rejected", { session_id: sessionId, status: sessionRow.status });
           return { status: 409, error: "session_already_completed" };
@@ -1002,5 +1024,7 @@ module.exports = {
   AssessmentMvpPostgresStore,
   itemVersionHash,
   sessionFromRows,
+  isCurrentSessionVersion,
+  restartRequiredResult,
   sessionItemRowDeliverable,
 };

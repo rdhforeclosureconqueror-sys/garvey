@@ -178,6 +178,13 @@
       const items = Array.isArray(stimulus.content && stimulus.content.items) ? stimulus.content.items.map(function(item) { return { color: text(item.color), shape: text(item.shape) }; }).filter(function(item) { return item.color && item.shape; }) : [];
       if (items.length >= 2) return { type: 'colored_shape_collection', content: { items }, accessibility_text: text(stimulus.accessibility_text) || 'A collection of colored shapes for sorting.', presentation: stimulus.presentation || {} };
     }
+    if (stimulus.type === 'analog_clock') {
+      const hour = Number(stimulus.content && stimulus.content.hour);
+      const minute = Number(stimulus.content && stimulus.content.minute);
+      if (Number.isInteger(hour) && hour >= 1 && hour <= 12 && Number.isInteger(minute) && minute >= 0 && minute <= 59) {
+        return { type: 'analog_clock', content: { hour, minute }, accessibility_text: text(stimulus.accessibility_text) || ('Analog clock showing ' + hour + ':' + String(minute).padStart(2, '0')), presentation: stimulus.presentation || {} };
+      }
+    }
     if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
       const presentation = stimulus.presentation && typeof stimulus.presentation === 'object' ? {
         renderer: text(stimulus.presentation.renderer),
@@ -676,6 +683,11 @@
     if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.content && stimulus.content.shape));
     if (stimulus.type === 'number_sequence') return Array.isArray(stimulus.content && stimulus.content.terms) && stimulus.content.terms.length >= 2 && stimulus.content.terms.includes('__');
     if (stimulus.type === 'colored_shape_collection') return Array.isArray(stimulus.content && stimulus.content.items) && stimulus.content.items.length >= 2;
+    if (stimulus.type === 'analog_clock') {
+      const hour = Number(stimulus.content && stimulus.content.hour);
+      const minute = Number(stimulus.content && stimulus.content.minute);
+      return Number.isInteger(hour) && hour >= 1 && hour <= 12 && Number.isInteger(minute) && minute >= 0 && minute <= 59;
+    }
     if (stimulus.type === 'sentence' || stimulus.type === 'word' || stimulus.type === 'reading_passage' || stimulus.type === 'letter_card' || stimulus.type === 'highlighted_text' || stimulus.type === 'sentence_builder' || stimulus.type === 'punctuation_marker') return Boolean(text(stimulus.content && stimulus.content.text));
     if (stimulus.type === 'picture_choice' || stimulus.type === 'picture_prompt') return Boolean(text(stimulus.content && stimulus.content.label) && text(stimulus.content && stimulus.content.alt_text));
     if (stimulus.type === 'letter_tiles') return Array.isArray(stimulus.content && stimulus.content.tiles) && stimulus.content.tiles.some((tile) => text(tile));
@@ -840,6 +852,19 @@
       const items = Array.isArray(stimulus.content && stimulus.content.items) ? stimulus.content.items : [];
       const shapes = items.map(function(entry, index) { return '<span class="shape-token" role="img" aria-label="Shape ' + (index + 1) + '"><span aria-hidden="true" class="mini-shape shape-' + escapeHtml(text(entry.shape)) + ' shape-color-' + escapeHtml(text(entry.color)) + '"></span></span>'; }).join('');
       return '<div class="assessment-stimulus colored-shape-stimulus" role="img" aria-label="A collection of colored shapes for sorting"><div class="colored-shape-row">' + shapes + '</div><p class="stimulus-help">Look at each shape and color.</p></div>';
+    }
+    if (stimulus.type === 'analog_clock') {
+      const hour = Number(stimulus.content && stimulus.content.hour);
+      const minute = Number(stimulus.content && stimulus.content.minute);
+      const hourAngle = ((hour % 12) * 30) + (minute * 0.5);
+      const minuteAngle = minute * 6;
+      const minuteText = String(minute).padStart(2, '0');
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Read the hour hand and minute hand.';
+      const numbers = Array.from({ length: 12 }, function(_, index) {
+        const n = index + 1;
+        return '<span class="clock-number clock-number-' + n + '" aria-hidden="true">' + n + '</span>';
+      }).join('');
+      return '<div class="assessment-stimulus analog-clock-stimulus" role="img" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Analog clock showing ' + hour + ':' + minuteText)) + '"><div class="analog-clock-face">' + numbers + '<span class="clock-hand hour-hand" style="transform: rotate(' + hourAngle + 'deg)"></span><span class="clock-hand minute-hand" style="transform: rotate(' + minuteAngle + 'deg)"></span><span class="clock-center" aria-hidden="true"></span></div><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
     }
     if (stimulus.type === 'sentence') {
       const sentence = text(stimulus.content && stimulus.content.text);
