@@ -247,7 +247,12 @@ test('supported shape stimulus survives public payload without protected scoring
     correct_answer: 'triangle',
   })] })]);
   assert.equal(result.publicItems.length, 1);
-  assert.deepEqual(result.publicItems[0].payload.stimulus, { type: 'shape', shape: 'triangle' });
+  assert.deepEqual(result.publicItems[0].payload.stimulus, {
+    type: 'shape',
+    content: { shape: 'triangle', color: 'blue' },
+    accessibility_text: 'A shape to identify',
+    presentation: { renderer: 'single_shape', label: 'Look at the shape.' },
+  });
   assertPublicIsSafe(result.publicItems);
 });
 

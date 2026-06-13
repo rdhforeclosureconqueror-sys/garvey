@@ -237,8 +237,13 @@ function recommendSkillPackages(options = {}) {
     }
   }
 
+  const hasInstructionalEvidence = currentCandidates.some((candidate) => candidate.reason_code === 'needs_support' || candidate.reason_code === 'developing') || remediationCandidates.length > 0;
+  const filteredCurrentCandidates = hasInstructionalEvidence
+    ? currentCandidates.filter((candidate) => candidate.reason_code !== 'insufficient_evidence')
+    : currentCandidates.filter((candidate) => candidate.reason_code === 'insufficient_evidence').slice(0, 1);
+
   const byId = new Map();
-  for (const candidate of sortCandidates([...currentCandidates, ...remediationCandidates])) {
+  for (const candidate of sortCandidates([...filteredCurrentCandidates, ...remediationCandidates])) {
     if (!byId.has(candidate.package_id)) byId.set(candidate.package_id, candidate);
   }
 

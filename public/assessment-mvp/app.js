@@ -155,22 +155,28 @@
       subject: text(item && item.subject),
       domain: text(item && item.domain),
       question_type: text(item && item.question_type),
+      visual_behavior: text(item && item.visual_behavior),
       payload: publicPayloadOnly(item && item.payload),
     };
   }
 
   function publicStimulusOnly(stimulus) {
     if (!stimulus || typeof stimulus !== 'object') return null;
-    if (stimulus.type === 'shape' && ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.shape))) {
-      return { type: 'shape', shape: text(stimulus.shape) };
-    }
-    if (stimulus.type === 'model' && stimulus.fields && typeof stimulus.fields === 'object') {
-      const fields = {};
-      for (const key of Object.keys(stimulus.fields)) {
-        const value = stimulus.fields[key];
-        fields[text(key)] = Array.isArray(value) ? value.map(text) : text(value);
+    if (stimulus.type === 'shape') {
+      const content = stimulus.content && typeof stimulus.content === 'object' ? stimulus.content : stimulus;
+      const shape = text(content.shape || stimulus.shape);
+      const color = text(content.color || 'blue') || 'blue';
+      if (['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(shape)) {
+        return { type: 'shape', content: { shape, color }, accessibility_text: text(stimulus.accessibility_text) || 'A shape to identify', presentation: stimulus.presentation || {} };
       }
-      if (Object.keys(fields).length) return { type: 'model', model: text(stimulus.model), fields };
+    }
+    if (stimulus.type === 'number_sequence') {
+      const terms = Array.isArray(stimulus.content && stimulus.content.terms) ? stimulus.content.terms.map(text).filter(Boolean) : [];
+      if (terms.length >= 2 && terms.includes('__')) return { type: 'number_sequence', content: { terms }, accessibility_text: text(stimulus.accessibility_text), presentation: stimulus.presentation || {} };
+    }
+    if (stimulus.type === 'colored_shape_collection') {
+      const items = Array.isArray(stimulus.content && stimulus.content.items) ? stimulus.content.items.map(function(item) { return { color: text(item.color), shape: text(item.shape) }; }).filter(function(item) { return item.color && item.shape; }) : [];
+      if (items.length >= 2) return { type: 'colored_shape_collection', content: { items }, accessibility_text: text(stimulus.accessibility_text) || 'A collection of colored shapes for sorting.', presentation: stimulus.presentation || {} };
     }
     if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
       const presentation = stimulus.presentation && typeof stimulus.presentation === 'object' ? {
@@ -221,14 +227,43 @@
     return null;
   }
 
+  function legacyModelStimulus(prompt, stimulus) {
+    if (!stimulus || stimulus.type !== 'model' || !stimulus.fields) return publicStimulusOnly(stimulus);
+    const model = text(stimulus.model);
+    const fields = stimulus.fields || {};
+    if (model === 'number_line' || model === 'number_line_0_120') {
+      const terms = parseSequenceTerms(prompt);
+      if (terms.length >= 2) return { type: 'number_sequence', content: { terms }, accessibility_text: 'Number sequence with a blank.', presentation: { renderer: 'number_sequence_tiles' } };
+    }
+    if (model === 'sorting_visual') {
+      const items = Array.isArray(fields.items) ? fields.items.map(parseColoredShape).filter(Boolean) : [];
+      if (items.length >= 2) return { type: 'colored_shape_collection', content: { items }, accessibility_text: 'A collection of colored shapes for sorting.', presentation: { renderer: 'colored_shape_collection' } };
+    }
+    return null;
+  }
+
+  function parseSequenceTerms(prompt) {
+    const matches = text(prompt).match(/__|___|_+|\b\d+\b/g) || [];
+    return matches.map(function(part) { return /^_+$/.test(part) ? '__' : part; }).filter(Boolean);
+  }
+
+  function parseColoredShape(value) {
+    const words = text(value).toLowerCase().trim().split(/\s+/);
+    const color = words.find(function(word) { return ['red', 'blue', 'green', 'yellow', 'purple', 'orange'].includes(word); });
+    const shapeWord = words.find(function(word) { return ['circle', 'square', 'triangle', 'rectangle', 'hexagon', 'circles', 'squares', 'triangles', 'rectangles', 'hexagons'].includes(word); });
+    if (!color || !shapeWord) return null;
+    return { color, shape: shapeWord.replace(/s$/, '') };
+  }
+
   function publicPayloadOnly(payload) {
     const options = Array.isArray(payload && payload.options) ? payload.options : payload && payload.choices;
+    const prompt = text(payload && payload.prompt);
     return {
-      prompt: text(payload && payload.prompt),
+      prompt,
       question_type: text(payload && payload.question_type),
       options: Array.isArray(options) ? options.map(text) : [],
       items: Array.isArray(payload && payload.items) ? payload.items.map(text) : [],
-      stimulus: publicStimulusOnly(payload && payload.stimulus),
+      stimulus: legacyModelStimulus(prompt, payload && payload.stimulus),
     };
   }
 
@@ -271,6 +306,8 @@
       skill: text(item && item.skill),
       domain: text(item && item.domain),
       provisional_label: label,
+      valid_scored_responses: Number(item && item.valid_scored_responses) || 0,
+      correct_responses: Number(item && item.correct_responses) || 0,
     };
   }
 
@@ -635,9 +672,10 @@
 
   function hasRenderableStimulus(item) {
     const stimulus = item && item.payload && item.payload.stimulus;
-    if (!stimulus) return !/\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i.test(text(item && item.payload && item.payload.prompt));
-    if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.shape));
-    if (stimulus.type === 'model') return stimulus.fields && Object.keys(stimulus.fields).length > 0;
+    if (!stimulus) return !/\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|split|shaded|grid|counters|longer|taller|heavier|shorter|compare|model)\b/i.test(text(item && item.payload && item.payload.prompt));
+    if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.content && stimulus.content.shape));
+    if (stimulus.type === 'number_sequence') return Array.isArray(stimulus.content && stimulus.content.terms) && stimulus.content.terms.length >= 2 && stimulus.content.terms.includes('__');
+    if (stimulus.type === 'colored_shape_collection') return Array.isArray(stimulus.content && stimulus.content.items) && stimulus.content.items.length >= 2;
     if (stimulus.type === 'sentence' || stimulus.type === 'word' || stimulus.type === 'reading_passage' || stimulus.type === 'letter_card' || stimulus.type === 'highlighted_text' || stimulus.type === 'sentence_builder' || stimulus.type === 'punctuation_marker') return Boolean(text(stimulus.content && stimulus.content.text));
     if (stimulus.type === 'picture_choice' || stimulus.type === 'picture_prompt') return Boolean(text(stimulus.content && stimulus.content.label) && text(stimulus.content && stimulus.content.alt_text));
     if (stimulus.type === 'letter_tiles') return Array.isArray(stimulus.content && stimulus.content.tiles) && stimulus.content.tiles.some((tile) => text(tile));
@@ -758,6 +796,8 @@
     const saved = state.responses[item.item_identity] || '';
     return '<section class="question-card" aria-labelledby="question-title">' +
       '<p class="progress-text" aria-label="Question ' + (state.index + 1) + ' of ' + total + '">Question ' + (state.index + 1) + ' of ' + total + '</p>' +
+      '<div class="assessment-progress" aria-hidden="true"><span style="width:' + Math.round(((state.index + 1) / total) * 100) + '%"></span></div>' +
+      '<p class="helper break-note">You can pause and resume later. Submitted progress is saved; this does not have to be finished in one sitting.</p>' +
       '<p class="helper">' + escapeHtml(roleLabel(state.session.assessment_role)) + ' · Grade ' + escapeHtml(state.session.grade) + ' · ' + escapeHtml(state.session.subject) + ' · Submitted progress is saved.</p>' +
       '<h2 id="question-title">Your question</h2>' +
       '<p class="prompt">' + escapeHtml(item.payload.prompt) + '</p>' +
@@ -786,11 +826,20 @@
     const stimulus = item && item.payload && item.payload.stimulus;
     if (!stimulus) return '';
     if (stimulus.type === 'shape') {
-      return '<div class="assessment-stimulus shape-stimulus" aria-label="Shape shown: ' + escapeHtml(stimulus.shape) + '"><span class="shape shape-' + escapeHtml(stimulus.shape) + '"></span></div>';
+      const shape = text(stimulus.content && stimulus.content.shape);
+      const color = text(stimulus.content && stimulus.content.color) || 'blue';
+      const neutral = /what shape is shown/i.test(text(item && item.payload && item.payload.prompt));
+      return '<div class="assessment-stimulus shape-stimulus" role="img" aria-label="' + escapeHtml(neutral ? 'A shape to identify' : ('A ' + color + ' ' + shape)) + '"><span class="shape shape-' + escapeHtml(shape) + ' shape-color-' + escapeHtml(color) + '"></span></div>';
     }
-    if (stimulus.type === 'model') {
-      const fields = Object.entries(stimulus.fields || {}).map(([key, value]) => '<span class="stimulus-chip"><strong>' + escapeHtml(key.replace(/_/g, ' ')) + '</strong> ' + escapeHtml(Array.isArray(value) ? value.join(', ') : value) + '</span>').join('');
-      return '<div class="assessment-stimulus model-stimulus" aria-label="Question model"><div class="model-title">Model</div><div class="stimulus-chip-list">' + fields + '</div></div>';
+    if (stimulus.type === 'number_sequence') {
+      const terms = Array.isArray(stimulus.content && stimulus.content.terms) ? stimulus.content.terms.map(text).filter(Boolean) : [];
+      const tiles = terms.map(function(term) { return '<span class="number-tile' + (term === '__' ? ' blank-tile' : '') + '">' + escapeHtml(term) + '</span>'; }).join('<span class="sequence-arrow" aria-hidden="true">→</span>');
+      return '<div class="assessment-stimulus number-sequence-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || 'Number sequence with a blank') + '"><div class="number-sequence-row">' + tiles + '</div></div>';
+    }
+    if (stimulus.type === 'colored_shape_collection') {
+      const items = Array.isArray(stimulus.content && stimulus.content.items) ? stimulus.content.items : [];
+      const shapes = items.map(function(entry, index) { return '<span class="shape-token" role="img" aria-label="Shape ' + (index + 1) + '"><span aria-hidden="true" class="mini-shape shape-' + escapeHtml(text(entry.shape)) + ' shape-color-' + escapeHtml(text(entry.color)) + '"></span></span>'; }).join('');
+      return '<div class="assessment-stimulus colored-shape-stimulus" role="img" aria-label="A collection of colored shapes for sorting"><div class="colored-shape-row">' + shapes + '</div><p class="stimulus-help">Look at each shape and color.</p></div>';
     }
     if (stimulus.type === 'sentence') {
       const sentence = text(stimulus.content && stimulus.content.text);
@@ -918,10 +967,13 @@
   function renderResults() {
     const result = state.result || { skill_evidence: [], recommendations: [] };
     const limitations = result.limitations && result.limitations.length ? result.limitations : DEFAULT_LIMITATIONS;
+    const clearEvidence = (result.skill_evidence || []).filter(function(item) { return item.provisional_label !== 'Not Enough Evidence'; });
+    const needsMore = (result.skill_evidence || []).filter(function(item) { return item.provisional_label === 'Not Enough Evidence'; });
     return '<section aria-labelledby="results-title">' +
       '<h2 id="results-title">Supportive skill results</h2>' +
       '<div class="notice"><strong>Important note</strong><ul class="limitations">' + limitations.map((item) => '<li>' + escapeHtml(item) + '</li>').join('') + '</ul></div>' +
-      '<div class="result-grid">' + result.skill_evidence.map(renderEvidence).join('') + '</div>' +
+      '<section aria-labelledby="clear-evidence-title"><h2 id="clear-evidence-title">Skills with clear evidence</h2><div class="result-grid">' + (clearEvidence.length ? clearEvidence.map(renderEvidence).join('') : '<p class="helper">No skill has three valid answers yet.</p>') + '</div></section>' +
+      renderNotEnoughEvidenceGroup(needsMore) +
       renderRecommendations(result.recommendations) +
       renderReassessmentInvitation() +
       '</section>';
@@ -929,8 +981,16 @@
 
   function renderEvidence(item) {
     const label = APPROVED_LABELS.includes(item.provisional_label) ? item.provisional_label : 'Not Enough Evidence';
-    const name = item.skill || item.source_package_id || item.skill_id || 'Skill';
-    return '<article class="result-card"><h3>' + escapeHtml(name) + '</h3><p><span class="status-pill ' + LABEL_CLASS[label] + '">' + label + '</span></p><p>' + SUPPORT_TEXT[label] + '</p></article>';
+    const name = item.skill || 'Skill';
+    const valid = Number(item.valid_scored_responses) || 0;
+    const correct = Number(item.correct_responses) || 0;
+    const summary = valid ? (correct + ' of ' + valid) : '0 of 0';
+    return '<article class="result-card"><h3>' + escapeHtml(name) + '</h3><p><span class="status-pill ' + LABEL_CLASS[label] + '">' + label + '</span></p><p><strong>' + escapeHtml(summary) + '</strong> valid answers were correct.</p><p>' + SUPPORT_TEXT[label] + '</p></article>';
+  }
+
+  function renderNotEnoughEvidenceGroup(items) {
+    if (!items.length) return '';
+    return '<section class="notice compact-evidence" aria-labelledby="more-evidence-title"><strong id="more-evidence-title">Skills needing more evidence</strong><p class="helper">Not Enough Evidence: these skills need three valid answers before a provisional label is shown.</p><ul>' + items.map(function(item) { return '<li>' + escapeHtml(item.skill || 'Skill') + ' — ' + escapeHtml((Number(item.correct_responses) || 0) + ' of ' + (Number(item.valid_scored_responses) || 0)) + '</li>'; }).join('') + '</ul></section>';
   }
 
   function renderRecommendations(recommendations) {
@@ -1067,6 +1127,7 @@
     publicHistoryEntryOnly,
     allowedReassessmentIds,
     renderAnswerControl,
+    renderResults,
     renderStimulus,
     hasRenderableStimulus,
     startAssessment,

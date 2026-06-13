@@ -162,7 +162,8 @@ function responseResultFromRow(row, itemRow) {
   };
 }
 
-function evidenceFromRow(row) {
+function evidenceFromRow(row, packagesById = new Map()) {
+  const pkg = packagesById.get(row.package_id);
   return {
     source_package_id: row.package_id,
     skill_id: row.package_id,
@@ -173,6 +174,8 @@ function evidenceFromRow(row) {
     not_scorable_responses: Number(row.not_scorable_count || 0),
     accuracy: row.accuracy == null ? null : Number(row.accuracy),
     provisional_label: row.provisional_label,
+    skill: pkg ? (pkg.skill || pkg.title || pkg.name || row.package_id) : row.package_id,
+    domain: pkg ? (pkg.domain || 'unknown') : 'unknown',
   };
 }
 
@@ -609,7 +612,7 @@ class AssessmentMvpPostgresStore {
 
   async getLearnerAssessmentSummary(sessionRow, client = this.pool) {
     const itemRows = await this.loadSessionItems(sessionRow.id, client);
-    const evidenceRows = await this.loadPersistedSkillEvidence(sessionRow.id, client);
+    const evidenceRows = await this.loadPersistedSkillEvidence(sessionRow.id, client, { grade: Number(sessionRow.grade), subject: sessionRow.subject });
     const recommendationResult = await client.query(
       `SELECT COUNT(*)::int AS count
          FROM assessment_recommendations
@@ -746,7 +749,7 @@ class AssessmentMvpPostgresStore {
     return records;
   }
 
-  async loadPersistedSkillEvidence(sessionInternalId, client = this.pool) {
+  async loadPersistedSkillEvidence(sessionInternalId, client = this.pool, context = {}) {
     const result = await client.query(
       `SELECT *
          FROM assessment_skill_evidence
@@ -754,7 +757,11 @@ class AssessmentMvpPostgresStore {
         ORDER BY package_id ASC`,
       [sessionInternalId]
     );
-    return result.rows.map(evidenceFromRow);
+    let packagesById = context.packagesById || new Map();
+    if (!packagesById.size && context.grade && context.subject) {
+      try { packagesById = this.loadCanonicalPackages({ grade: Number(context.grade), subject: context.subject }).packagesById; } catch (_) { packagesById = new Map(); }
+    }
+    return result.rows.map((row) => evidenceFromRow(row, packagesById));
   }
 
   async loadPersistedRecommendations(sessionRow, client = this.pool) {
@@ -766,7 +773,7 @@ class AssessmentMvpPostgresStore {
         LIMIT 3`,
       [sessionRow.id]
     );
-    const evidenceRows = await this.loadPersistedSkillEvidence(sessionRow.id, client);
+    const evidenceRows = await this.loadPersistedSkillEvidence(sessionRow.id, client, { grade: Number(sessionRow.grade), subject: sessionRow.subject });
     const evidenceByPackage = new Map(evidenceRows.map((entry) => [entry.source_package_id, entry]));
     const { packagesById } = this.loadCanonicalPackages({ grade: Number(sessionRow.grade), subject: sessionRow.subject });
     return rows.rows.map((row) => publicRecommendationFromRow(row, packagesById, evidenceByPackage));
@@ -790,7 +797,7 @@ class AssessmentMvpPostgresStore {
       .slice()
       .sort((a, b) => Number(itemById.get(String(a.session_item_id))?.display_order || 0) - Number(itemById.get(String(b.session_item_id))?.display_order || 0))
       .map((row) => responseResultFromRow(row, itemById.get(String(row.session_item_id))));
-    const skill_evidence = await this.loadPersistedSkillEvidence(sessionRow.id, client);
+    const skill_evidence = await this.loadPersistedSkillEvidence(sessionRow.id, client, { grade: Number(sessionRow.grade), subject: sessionRow.subject });
     const recommendations = await this.loadPersistedRecommendations(sessionRow, client);
     let skipped_recommendations = [];
     try {
