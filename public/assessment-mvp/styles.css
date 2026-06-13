@@ -395,3 +395,87 @@ button:disabled { opacity: .58; cursor: not-allowed; box-shadow: none; }
 }
 .mini-shape.shape-triangle { width: 50px; height: 50px; clip-path: polygon(50% 4%, 96% 96%, 4% 96%); }
 .compact-evidence ul { margin: 10px 0 0; padding-left: 1.2rem; }
+.analog-clock-stimulus {
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+}
+.analog-clock-face {
+  position: relative;
+  width: min(220px, 72vw);
+  aspect-ratio: 1;
+  border: 8px solid var(--blue-dark);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0 68%, #eff6ff 69% 100%);
+  box-shadow: inset 0 0 0 4px #bfdbfe;
+}
+.clock-number {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue-dark);
+  font-weight: 900;
+  font-size: clamp(.9rem, 4.2vw, 1.15rem);
+}
+.clock-number-12 { transform: translate(0, -88px); }
+.clock-number-1 { transform: rotate(30deg) translate(0, -88px) rotate(-30deg); }
+.clock-number-2 { transform: rotate(60deg) translate(0, -88px) rotate(-60deg); }
+.clock-number-3 { transform: rotate(90deg) translate(0, -88px) rotate(-90deg); }
+.clock-number-4 { transform: rotate(120deg) translate(0, -88px) rotate(-120deg); }
+.clock-number-5 { transform: rotate(150deg) translate(0, -88px) rotate(-150deg); }
+.clock-number-6 { transform: translate(0, 88px); }
+.clock-number-7 { transform: rotate(210deg) translate(0, -88px) rotate(-210deg); }
+.clock-number-8 { transform: rotate(240deg) translate(0, -88px) rotate(-240deg); }
+.clock-number-9 { transform: rotate(270deg) translate(0, -88px) rotate(-270deg); }
+.clock-number-10 { transform: rotate(300deg) translate(0, -88px) rotate(-300deg); }
+.clock-number-11 { transform: rotate(330deg) translate(0, -88px) rotate(-330deg); }
+.clock-hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: 50% 100%;
+  border-radius: 999px;
+}
+.hour-hand {
+  width: 8px;
+  height: 30%;
+  margin-left: -4px;
+  background: #172033;
+}
+.minute-hand {
+  width: 5px;
+  height: 40%;
+  margin-left: -2.5px;
+  background: #2563eb;
+}
+.clock-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--gold);
+  border: 3px solid #172033;
+}
+@media (max-width: 420px) {
+  .clock-number-12 { transform: translate(0, -35vw); }
+  .clock-number-1 { transform: rotate(30deg) translate(0, -35vw) rotate(-30deg); }
+  .clock-number-2 { transform: rotate(60deg) translate(0, -35vw) rotate(-60deg); }
+  .clock-number-3 { transform: rotate(90deg) translate(0, -35vw) rotate(-90deg); }
+  .clock-number-4 { transform: rotate(120deg) translate(0, -35vw) rotate(-120deg); }
+  .clock-number-5 { transform: rotate(150deg) translate(0, -35vw) rotate(-150deg); }
+  .clock-number-6 { transform: translate(0, 35vw); }
+  .clock-number-7 { transform: rotate(210deg) translate(0, -35vw) rotate(-210deg); }
+  .clock-number-8 { transform: rotate(240deg) translate(0, -35vw) rotate(-240deg); }
+  .clock-number-9 { transform: rotate(270deg) translate(0, -35vw) rotate(-270deg); }
+  .clock-number-10 { transform: rotate(300deg) translate(0, -35vw) rotate(-300deg); }
+  .clock-number-11 { transform: rotate(330deg) translate(0, -35vw) rotate(-330deg); }
+}

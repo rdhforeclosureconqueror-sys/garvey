@@ -91,6 +91,7 @@ const SUPPORTED_GRADE1_MATH_RENDERERS = new Set([
   'number_line',
   'number_line_0_120',
   'sorting_visual',
+  'analog_clock',
 ]);
 const PROMPT_SUFFICIENT_VISUAL_MODELS = new Set(['addition_model', 'subtraction_model', 'comparison']);
 const VISUAL_BEHAVIOR = Object.freeze({
@@ -432,6 +433,21 @@ function publicColoredShapeCollectionStimulusFor(question) {
   };
 }
 
+
+function publicAnalogClockStimulusFor(question) {
+  const hour = Number(question.hour);
+  const minute = Number(question.minute);
+  if (!Number.isInteger(hour) || hour < 1 || hour > 12) return null;
+  if (!Number.isInteger(minute) || minute < 0 || minute > 59) return null;
+  const minuteText = String(minute).padStart(2, '0');
+  return {
+    type: 'analog_clock',
+    content: { hour, minute },
+    accessibility_text: `Analog clock showing ${hour}:${minuteText}`,
+    presentation: { renderer: 'analog_clock', label: 'Read the hour hand and minute hand.' },
+  };
+}
+
 function promptIsSufficientWithoutVisual(question) {
   const prompt = compactTextValue(question.prompt) || '';
   const model = compactTextValue(question.visual_model || question.support_type);
@@ -465,6 +481,7 @@ function publicStimulusFor(question, packageId) {
   }
   if (model === 'number_line' || model === 'number_line_0_120') return publicNumberSequenceStimulusFor(question);
   if (model === 'sorting_visual') return publicColoredShapeCollectionStimulusFor(question);
+  if (model === 'analog_clock') return publicAnalogClockStimulusFor(question);
   if (PROMPT_SUFFICIENT_VISUAL_MODELS.has(model) && promptIsSufficientWithoutVisual(question)) return null;
   return publicGrade1EnglishStimulusFor(question, packageId);
 }
@@ -486,7 +503,7 @@ function visualIdentity(question) {
   for (const key of [
     'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'diagram', 'asset_id', 'model_id',
     'a', 'b', 'whole', 'part', 'parts', 'shape', 'shapes', 'fraction', 'numerator', 'denominator',
-    'number_line', 'clock', 'coins', 'data', 'table', 'array', 'sentence', 'phrase', 'word', 'target_word', 'phoneme', 'sound_position', 'tiles', 'graphemes', 'word_parts', 'family', 'picture', 'passage', 'text', 'story', 'events', 'sequence', 'letter', 'target_letter', 'paired_form', 'letter_label', 'validation_checks',
+    'number_line', 'clock', 'hour', 'minute', 'coins', 'data', 'table', 'array', 'sentence', 'phrase', 'word', 'target_word', 'phoneme', 'sound_position', 'tiles', 'graphemes', 'word_parts', 'family', 'picture', 'passage', 'text', 'story', 'events', 'sequence', 'letter', 'target_letter', 'paired_form', 'letter_label', 'validation_checks',
   ]) {
     if (Object.prototype.hasOwnProperty.call(question, key)) visualFields[key] = question[key];
   }
@@ -592,10 +609,10 @@ const VISUAL_METADATA_KEYS = [
   'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'asset_id', 'model_id',
   'stimulus', 'renderer', 'renderer_model', 'visual', 'manipulative', 'drag_drop_layout', 'layout',
   'shape', 'shapes', 'number_line', 'clock', 'coins', 'data', 'table', 'graph', 'array',
-  'object_count', 'objects', 'comparison', 'measurement', 'picture', 'validation_checks', 'a', 'b', 'left', 'right', 'whole', 'part', 'parts', 'min', 'max', 'items',
+  'object_count', 'objects', 'comparison', 'measurement', 'picture', 'validation_checks', 'a', 'b', 'left', 'right', 'whole', 'part', 'parts', 'min', 'max', 'items', 'hour', 'minute',
 ];
 const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|split|shaded|grid|counters|longer|taller|heavier|shorter|compare|model)\b/i;
-const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'number_sequence', 'colored_shape_collection', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt']);
+const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'number_sequence', 'colored_shape_collection', 'analog_clock', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt']);
 
 function hasVisualMetadata(question) {
   return VISUAL_METADATA_KEYS.some((key) => Object.prototype.hasOwnProperty.call(question, key));

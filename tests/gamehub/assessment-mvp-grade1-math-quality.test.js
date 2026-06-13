@@ -10,6 +10,8 @@ const {
   REQUIRED_STIMULUS_NOT_RENDERABLE,
 } = require('../../assessment-mvp/selectAssessmentItems');
 const { createAssessmentSession } = require('../../assessment-mvp/createAssessmentSession');
+const { createReassessmentSession } = require('../../assessment-mvp/createReassessmentSession');
+const { loadSkillPackages, packageIdOf } = require('../../assessment-mvp/loadSkillPackages');
 const { PROVISIONAL_EVIDENCE_POLICY } = require('../../assessment-mvp/evidencePolicy');
 const { scoreResponses } = require('../../assessment-mvp/scoreResponses');
 const { recommendSkillPackages } = require('../../assessment-mvp/recommendSkillPackages');
@@ -74,6 +76,12 @@ test('Grade 1 Math photographed items map to child-facing visual behavior', () =
     { color: 'green', shape: 'triangle' },
   ]);
 
+  const clock = { question_id: 'G1M_MD_TIME_001_AQ1', prompt: 'What time is shown on the clock?', question_type: 'multiple_choice', visual_model: 'analog_clock', support_type: 'analog_clock', correct_answer: '5:00', choices: ['5:00', '12:05', '6:00'], hour: 5, minute: 0 };
+  const clockStimulus = publicStimulusFor(clock, 'G1M_MD_TIME_001');
+  assert.equal(clockStimulus.type, 'analog_clock');
+  assert.deepEqual(clockStimulus.content, { hour: 5, minute: 0 });
+  assert.doesNotMatch(JSON.stringify(publicQuestionPayload(clock, 'G1M_MD_TIME_001')), /correct_answer|answer|explanation|feedback/i);
+
   const add = { question_id: 'G1M_OP_001_AQ8', prompt: 'Add: 5 + 5 = __', question_type: 'short_response', visual_model: 'addition_model', support_type: 'addition_model', correct_answer: '10', a: 5, b: 5 };
   assert.equal(publicStimulusFor(add, 'G1M_OP_001'), null);
   assert.equal(visualBehaviorFor(add, 'G1M_OP_001'), VISUAL_BEHAVIOR.PROMPT_SUFFICIENT_WITHOUT_VISUAL);
@@ -109,6 +117,12 @@ test('learner renderers show math visuals without generic metadata chips or tria
   assert.match(sortHtml, /colored-shape-row/);
   assert.match(sortHtml, /shape-color-blue/);
   assert.doesNotMatch(sortHtml, /blue circle, blue square, red square, green triangle/);
+
+  const clockHtml = app.renderStimulus({ payload: { prompt: 'What time is shown on the clock?', stimulus: { type: 'analog_clock', content: { hour: 5, minute: 0 }, accessibility_text: 'Analog clock showing 5:00' } } });
+  assert.match(clockHtml, /analog-clock-face/);
+  assert.match(clockHtml, /hour-hand/);
+  assert.match(clockHtml, /minute-hand/);
+  assert.doesNotMatch(clockHtml, /MODEL|stimulus-chip|correct_answer/);
 });
 
 test('provisional evidence policy is shared by selector and scorer', () => {
@@ -163,9 +177,75 @@ test('Not Enough Evidence recommendations do not outrank stronger instructional 
 
 test('Grade 1 Math public payloads expose no scoring answers and production package files remain content sources', () => {
   const session = createAssessmentSession({ grade: 1, subject: 'Math' });
-  assert.equal(session.public_items.length, 30);
+  assert.equal(session.public_items.length, 33);
   const serializedPublic = JSON.stringify(session.public_items);
   assert.doesNotMatch(serializedPublic, /correct_answer|acceptable_answers|answer|rubric|explanation/i);
   assert.equal(session.public_items.some((item) => item.source_package_id === 'G1M_NS_002'), true);
   assert.equal(session.public_items.some((item) => item.source_package_id === 'G1M_DP_001'), true);
+  assert.equal(session.public_items.some((item) => item.source_package_id === 'G1M_MD_TIME_001'), true);
+});
+
+
+test('all intended Grade 1 Math packages are represented with three baseline items', () => {
+  const session = createAssessmentSession({ grade: 1, subject: 'Math' });
+  const packages = loadSkillPackages({ grade: 1, subject: 'Math' });
+  const expectedIds = packages.map(packageIdOf).sort();
+  const counts = new Map();
+  for (const item of session.public_items) counts.set(item.source_package_id, (counts.get(item.source_package_id) || 0) + 1);
+  assert.deepEqual([...counts.keys()].sort(), expectedIds);
+  for (const id of expectedIds) assert.equal(counts.get(id), 3, `${id} should have three baseline items`);
+  assert.equal(session.public_items.length, expectedIds.length * 3);
+});
+
+test('formerly omitted Grade 1 Math time package has three baseline and three reassessment items', () => {
+  const baseline = createAssessmentSession({ grade: 1, subject: 'Math' });
+  const timeItems = baseline.public_items.filter((item) => item.source_package_id === 'G1M_MD_TIME_001');
+  assert.equal(timeItems.length, 3);
+  assert.equal(timeItems.every((item) => item.payload.stimulus && item.payload.stimulus.type === 'analog_clock'), true);
+  const reassessment = createReassessmentSession({ status: 'completed' }, {
+    grade: 1,
+    subject: 'Math',
+    packageIds: ['G1M_MD_TIME_001'],
+    all_prior_exposed_item_ids: timeItems.map((item) => item.item_identity),
+    all_prior_exposed_duplicate_keys: timeItems.map((item) => item.duplicate_key),
+  });
+  assert.equal(reassessment.public_items.length, 3);
+  assert.equal(reassessment.insufficient_evidence.length, 0);
+  assert.equal(new Set(reassessment.public_items.map((item) => item.item_identity)).size, 3);
+  for (const item of reassessment.public_items) assert.equal(item.payload.stimulus.type, 'analog_clock');
+});
+
+test('new Grade 1 Math live session can produce provisional result states and no overall mastery claim', () => {
+  const session = createAssessmentSession({ grade: 1, subject: 'Math' });
+  const byPackage = new Map();
+  for (const item of session.public_items) {
+    if (!byPackage.has(item.source_package_id)) byPackage.set(item.source_package_id, []);
+    byPackage.get(item.source_package_id).push(item);
+  }
+  const packages = [...byPackage.keys()].slice(0, 4);
+  const records = [];
+  const responses = [];
+  for (const [packageIndex, packageId] of packages.entries()) {
+    for (const [itemIndex, item] of byPackage.get(packageId).entries()) {
+      const original = session.internal_scoring_records.find((record) => record.item_identity === item.item_identity);
+      records.push({ ...original, question_type: item.question_type, choices: item.payload.choices });
+      const correct = original.answer;
+      const wrongChoice = (item.payload.choices || []).find((choice) => String(choice) !== String(correct)) || '__wrong__';
+      const shouldAnswer = packageIndex < 3 || itemIndex < 2;
+      if (!shouldAnswer) continue;
+      responses.push({ item_identity: item.item_identity, response: packageIndex === 0 || (packageIndex === 1 && itemIndex < 2) ? correct : wrongChoice });
+    }
+  }
+  const result = scoreResponses(records, responses);
+  const labels = Object.fromEntries(result.skillEvidence.map((item) => [item.source_package_id, item.provisional_label]));
+  assert.equal(labels[packages[0]], 'Ready');
+  assert.equal(labels[packages[1]], 'Developing');
+  assert.equal(labels[packages[2]], 'Needs Support');
+  assert.equal(labels[packages[3]], 'Not Enough Evidence');
+  app.state.result = app.publicResultOnly({ session_id: 'live', status: 'completed', skill_evidence: result.skillEvidence.map((item) => ({ ...item, skill: `Title ${item.source_package_id}` })), recommendations: [] });
+  const html = app.renderResults();
+  assert.match(html, /Title G1M_/);
+  assert.match(html, /2 of 3/);
+  assert.match(html, /Skills needing more evidence/);
+  assert.doesNotMatch(html, /overall grade mastery|grade mastery|mastered Grade 1/i);
 });

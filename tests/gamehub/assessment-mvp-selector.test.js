@@ -200,7 +200,7 @@ test('live visual prompts without renderable public stimulus fail closed', () =>
     [/Which is longer, A or B\?/i, null, (q) => q],
     [/Which is taller, A or B\?/i, null, (q) => q],
     [/Which object is heavier\?/i, null, (q) => q],
-    [/What time is shown on the clock\?/i, null, (q) => q],
+    [/What time is shown on the clock\?/i, null, (q) => ({ ...q, hour: undefined })],
     [/Count the objects\. How many are there\?/i, null, (q) => q],
   ];
   for (const [promptRe, questionId, mutate] of cases) {
@@ -261,6 +261,7 @@ test('production SkillPackages and manifest remain unchanged during live-content
     'public/gamehub/skill-world/content/manifest.json',
     'public/gamehub/skill-world/content/G1M_GM_001.skill-package.v1.json',
     'public/gamehub/skill-world/content/G1M_OP_002.skill-package.v1.json',
+    'public/gamehub/skill-world/content/G1M_MD_TIME_001.skill-package.v1.json',
   ];
   const before = Object.fromEntries(sourceFiles.map((file) => [file, read(file)]));
   selectAssessmentItems(loadSkillPackages({ grade: 1, subject: 'Math' }));

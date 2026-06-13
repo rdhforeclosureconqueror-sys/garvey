@@ -203,14 +203,15 @@ test('assessment MVP reassessment route enforces completed prior session and non
     assert.equal(reassessment.body.public_items.some((item) => priorDuplicateKeys.has(item.duplicate_key)), false);
     assertNoProtectedScoringData(reassessment.body);
 
-    const unrenderableClockPackage = 'G1M_MD_TIME_001';
-    assert.equal(submitted.body.package_ids.includes(unrenderableClockPackage), false, 'unrenderable clock package should not appear in prior result');
+    const restoredClockPackage = 'G1M_MD_TIME_001';
+    assert.equal(submitted.body.package_ids.includes(restoredClockPackage), true, 'restored clock package should appear in the prior result');
     const clockReassessment = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${created.body.session_id}/reassessment`, {
       method: 'POST',
-      body: { package_ids: [unrenderableClockPackage], itemsPerPackage: 5 },
+      body: { package_ids: [restoredClockPackage], itemsPerPackage: 3 },
     });
-    assert.equal(clockReassessment.response.status, 400);
-    assert.equal(clockReassessment.body.error, 'unrelated_reassessment_package_ids');
+    assert.equal(clockReassessment.response.status, 201);
+    assert.equal(clockReassessment.body.public_items.length, 3);
+    assert.equal(clockReassessment.body.public_items.every((item) => item.source_package_id === restoredClockPackage && item.payload.stimulus.type === 'analog_clock'), true);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
@@ -231,4 +232,53 @@ test('assessment MVP API leaves production manifest and SkillPackages byte-ident
     await new Promise((resolve) => server.close(resolve));
   }
   assert.equal(contentHash(), before);
+});
+
+test('old in-progress session policy versions require restart instead of unsafe resume or submit', async () => {
+  const sessionStore = new Map();
+  const app = express();
+  app.use(express.json());
+  app.use('/api/assessment-mvp', createAssessmentMvpRouter({ sessionStore, requireAuthentication: false }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const baseUrl = `http://127.0.0.1:${server.address().port}`;
+  try {
+    const oldSession = {
+      session_id: 'amvp_11111111111111111111111111111111',
+      session_version: 'assessment-mvp-session-v1-old-visual-policy',
+      assessment_role: 'baseline',
+      grade: 1,
+      subject: 'Math',
+      status: 'in_progress',
+      current_question_position: 0,
+      public_items: [{
+        assessment_item_id: 'old_public_item',
+        item_identity: 'OLD::bank::Q1',
+        source_package_id: 'OLD',
+        question_type: 'multiple_choice',
+        payload: { prompt: 'What time is shown on the clock?', question_type: 'multiple_choice', choices: ['1:00', '2:00'] },
+      }],
+      package_ids: ['OLD'],
+      exposed_item_ids: ['OLD::bank::Q1'],
+      exposed_duplicate_keys: ['old'],
+      selection_summary: {},
+    };
+    sessionStore.set(oldSession.session_id, { session: oldSession, result: null });
+
+    const read = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${oldSession.session_id}`);
+    assert.equal(read.response.status, 409);
+    assert.equal(read.body.error, 'assessment_session_restart_required');
+    assert.equal(read.body.restart_required, true);
+    assert.match(read.body.message, /start a new corrected baseline/i);
+
+    const submit = await jsonFetch(baseUrl, `/api/assessment-mvp/sessions/${oldSession.session_id}/responses`, {
+      method: 'POST',
+      body: { responses: { old_public_item: '1:00' } },
+    });
+    assert.equal(submit.response.status, 409);
+    assert.equal(submit.body.error, 'assessment_session_restart_required');
+    assert.equal(sessionStore.get(oldSession.session_id).session.status, 'in_progress');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
 });
