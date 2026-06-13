@@ -340,3 +340,58 @@ button:disabled { opacity: .58; cursor: not-allowed; box-shadow: none; }
   .match-card { min-width: 74px; }
   .sound-match-row { gap: 8px; }
 }
+.assessment-progress {
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  background: #dbeafe;
+  border: 2px solid #93c5fd;
+  overflow: hidden;
+  margin: -4px 0 10px;
+}
+.assessment-progress span { display: block; height: 100%; background: linear-gradient(90deg, #22c55e, #60a5fa); }
+.break-note { margin-top: 0; font-size: .98rem; }
+.number-sequence-stimulus, .colored-shape-stimulus { flex-direction: column; gap: 12px; padding: 18px; }
+.number-sequence-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; max-width: 100%; }
+.number-tile {
+  display: inline-flex;
+  min-width: 58px;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #60a5fa;
+  border-bottom-width: 7px;
+  border-radius: 18px;
+  background: #fff;
+  color: var(--blue-dark);
+  font-size: clamp(1.7rem, 8vw, 3rem);
+  font-weight: 900;
+}
+.blank-tile { border-style: dashed; color: var(--muted); }
+.sequence-arrow { font-size: clamp(1.5rem, 6vw, 2.4rem); color: var(--blue); font-weight: 900; }
+.colored-shape-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; max-width: 100%; }
+.shape-token {
+  display: inline-flex;
+  width: 76px;
+  height: 76px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: #fff;
+  border: 3px solid #bfdbfe;
+}
+.mini-shape { display: inline-block; width: 46px; height: 46px; border: 4px solid rgba(23, 32, 51, .45); }
+.shape-color-blue { background: #60a5fa; border-color: #1d4ed8; }
+.shape-color-red { background: #f87171; border-color: #b91c1c; }
+.shape-color-green { background: #4ade80; border-color: #15803d; }
+.shape-color-yellow { background: #fde047; border-color: #ca8a04; }
+.shape-color-purple { background: #c084fc; border-color: #7e22ce; }
+.shape-color-orange { background: #fb923c; border-color: #c2410c; }
+.shape-triangle {
+  width: 112px;
+  height: 112px;
+  border: 5px solid #1d4ed8;
+  clip-path: polygon(50% 4%, 96% 96%, 4% 96%);
+}
+.mini-shape.shape-triangle { width: 50px; height: 50px; clip-path: polygon(50% 4%, 96% 96%, 4% 96%); }
+.compact-evidence ul { margin: 10px 0 0; padding-left: 1.2rem; }

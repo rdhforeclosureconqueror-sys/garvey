@@ -1,9 +1,10 @@
 const crypto = require('crypto');
 const { loadSkillPackages, packageIdOf } = require('./loadSkillPackages');
+const { PROVISIONAL_EVIDENCE_POLICY } = require('./evidencePolicy');
 const { selectAssessmentItems, stableStringify } = require('./selectAssessmentItems');
 
-const SESSION_VERSION = 'assessment-mvp-session-v1';
-const DEFAULT_ITEMS_PER_PACKAGE = 4;
+const SESSION_VERSION = 'assessment-mvp-session-v2-grade1-math-visuals';
+const DEFAULT_ITEMS_PER_PACKAGE = PROVISIONAL_EVIDENCE_POLICY.minimumValidResponses;
 
 function requireSingle(name, value, moduleName = 'createAssessmentSession') {
   if (Array.isArray(value) || value === undefined || value === null || value === '') {
@@ -76,6 +77,8 @@ function summarizeSelection(selection, publicItems, packages, itemsPerPackage) {
     .sort((a, b) => a.package_id.localeCompare(b.package_id));
 
   return {
+    evidence_policy_version: PROVISIONAL_EVIDENCE_POLICY.version,
+    minimum_valid_responses: PROVISIONAL_EVIDENCE_POLICY.minimumValidResponses,
     requested_items_per_package: itemsPerPackage,
     selected_item_count: publicItems.length,
     represented_package_count: packageSummaries.filter((pkg) => pkg.selected_count > 0).length,
@@ -113,6 +116,11 @@ function createAssessmentSession(options = {}) {
   return {
     session_id: options.session_id || deterministicSessionId('baseline', grade, subject, packageIds, itemIds),
     session_version: SESSION_VERSION,
+    evidence_policy: {
+      version: PROVISIONAL_EVIDENCE_POLICY.version,
+      minimum_valid_responses: PROVISIONAL_EVIDENCE_POLICY.minimumValidResponses,
+      provisional_note: 'Three valid responses are enough for provisional Grade 1 Math evidence labels; fewer than three remains Not Enough Evidence.',
+    },
     assessment_role: 'baseline',
     grade,
     subject,

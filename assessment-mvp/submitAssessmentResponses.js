@@ -1,4 +1,4 @@
-const { loadSkillPackages } = require('./loadSkillPackages');
+const { loadSkillPackages, packageIdOf } = require('./loadSkillPackages');
 const { scoreResponses } = require('./scoreResponses');
 const { recommendSkillPackages } = require('./recommendSkillPackages');
 const { publicAssessmentSessionView, requireSingle, toStableUnique } = require('./createAssessmentSession');
@@ -28,6 +28,24 @@ function normalizeResponses(responses) {
     .map((item_identity) => ({ item_identity, response: responses[item_identity] }));
 }
 
+function packageSummaryById(packages) {
+  const byId = new Map();
+  for (const pkg of packages) {
+    const id = packageIdOf(pkg);
+    if (id) byId.set(id, { skill: pkg.skill || pkg.title || pkg.name || id, domain: pkg.domain || 'unknown' });
+  }
+  return byId;
+}
+
+function enrichEvidence(skillEvidence, packages) {
+  const byId = packageSummaryById(packages);
+  return skillEvidence.map((evidence) => ({
+    ...evidence,
+    skill: byId.get(evidence.source_package_id)?.skill || evidence.skill || evidence.source_package_id,
+    domain: byId.get(evidence.source_package_id)?.domain || evidence.domain || 'unknown',
+  }));
+}
+
 function publicResult(result) {
   return JSON.parse(JSON.stringify(result));
 }
@@ -44,11 +62,12 @@ function submitAssessmentResponses(session, responses, options = {}) {
   if (!Array.isArray(packages)) throw new TypeError('packages must be an array');
 
   const scored = scoreResponses(session.internal_scoring_records, submissions);
+  const enrichedSkillEvidence = enrichEvidence(scored.skillEvidence, packages);
   const recommendationResult = recommendSkillPackages({
     grade: session.grade,
     subject: session.subject,
     packages,
-    evidence: scored.skillEvidence,
+    evidence: enrichedSkillEvidence,
     completedPackageIds: options.completedPackageIds || options.completed_package_ids || [],
     previouslyRecommendedPackageIds: options.previouslyRecommendedPackageIds || options.previously_recommended_package_ids || [],
   });
@@ -66,7 +85,7 @@ function submitAssessmentResponses(session, responses, options = {}) {
     status: 'completed',
     completed_session: completedSession,
     response_results: scored.responses,
-    skill_evidence: scored.skillEvidence,
+    skill_evidence: enrichedSkillEvidence,
     recommendations: recommendationResult.recommendations.slice(0, 3),
     skipped_recommendations: recommendationResult.skipped,
     exposure: {
@@ -79,6 +98,7 @@ function submitAssessmentResponses(session, responses, options = {}) {
 
 module.exports = {
   REQUIRED_LIMITATIONS,
+  enrichEvidence,
   normalizeResponses,
   submitAssessmentResponses,
 };

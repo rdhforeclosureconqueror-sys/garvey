@@ -86,15 +86,18 @@ function sanitizePublicValue(value) {
   return output;
 }
 
-const GENERIC_RENDERABLE_MODELS = new Set([
-  'addition_model', 'subtraction_model', 'number_line', 'number_line_0_120', 'comparison',
-  'array_model', 'division_model', 'equal_groups', 'multiplication_model', 'repeated_addition',
-  'skip_counting', 'fact_family_model', 'multiplication_chart', 'pattern_completion', 'sorting_visual',
+const SUPPORTED_GRADE1_MATH_RENDERERS = new Set([
+  'shape_identification',
+  'number_line',
+  'number_line_0_120',
+  'sorting_visual',
 ]);
-const PUBLIC_STIMULUS_FIELD_ALLOWLIST = new Set([
-  'a', 'b', 'left', 'right', 'min', 'max', 'sequence', 'items', 'rows', 'columns', 'total', 'groups',
-  'dividend', 'divisor', 'factor', 'factor_a', 'factor_b', 'step', 'count', 'mode',
-]);
+const PROMPT_SUFFICIENT_VISUAL_MODELS = new Set(['addition_model', 'subtraction_model', 'comparison']);
+const VISUAL_BEHAVIOR = Object.freeze({
+  PROMPT_SUFFICIENT_WITHOUT_VISUAL: 'prompt_sufficient_without_visual',
+  SUPPORTED_VISUAL_RENDERER: 'supported_visual_renderer',
+  REQUIRED_VISUAL_NOT_SUPPORTED: 'required_visual_not_supported',
+});
 
 const GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002', 'G1E_RC_001', 'G1E_RC_002', 'G1E_RF_001', 'G1E_RF_002', 'G1E_SW_001', 'G1E_WR_001', 'G1E_WR_002']);
 const GRADE_1_ENGLISH_BATCH_1_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002']);
@@ -385,21 +388,84 @@ function publicGrade1EnglishStimulusFor(question, packageId) {
   return null;
 }
 
+
+function parseSequenceFromPrompt(prompt) {
+  const text = compactTextValue(prompt);
+  if (!text) return [];
+  const afterColon = text.includes(':') ? text.slice(text.indexOf(':') + 1) : text;
+  const matches = afterColon.match(/__|___|_+|\b\d+\b/g);
+  if (!matches || matches.length < 2 || !matches.some((part) => /^_+$/.test(part))) return [];
+  return matches.map((part) => (/^_+$/.test(part) ? '__' : part));
+}
+
+function publicNumberSequenceStimulusFor(question) {
+  const terms = Array.isArray(question.sequence) ? question.sequence.map((value) => /^_+$/.test(String(value)) ? '__' : compactTextValue(value)).filter(Boolean) : parseSequenceFromPrompt(question.prompt);
+  if (terms.length < 2 || !terms.includes('__')) return null;
+  return {
+    type: 'number_sequence',
+    content: { terms },
+    accessibility_text: `Number sequence with a blank: ${terms.join(' then ')}`,
+    presentation: { renderer: 'number_sequence_tiles', label: 'Count by ones and fill the blank.' },
+  };
+}
+
+const SHAPE_COLORS = new Set(['red', 'blue', 'green', 'yellow', 'purple', 'orange']);
+const COLLECTION_SHAPES = new Set(['circle', 'square', 'triangle', 'rectangle', 'hexagon']);
+
+function parseColoredShape(value) {
+  const parts = compactTextValue(value)?.toLowerCase().split(' ') || [];
+  const color = parts.find((part) => SHAPE_COLORS.has(part));
+  const shape = parts.find((part) => COLLECTION_SHAPES.has(part) || COLLECTION_SHAPES.has(part.replace(/s$/, '')));
+  if (!color || !shape) return null;
+  return { color, shape: shape.replace(/s$/, '') };
+}
+
+function publicColoredShapeCollectionStimulusFor(question) {
+  const rawItems = safeTextArray(question.items || question.shapes || question.sequence);
+  const items = rawItems.map(parseColoredShape).filter(Boolean);
+  if (items.length !== rawItems.length || items.length < 2) return null;
+  return {
+    type: 'colored_shape_collection',
+    content: { items },
+    accessibility_text: 'A collection of colored shapes for sorting.',
+    presentation: { renderer: 'colored_shape_collection', label: 'Look at each shape and color.' },
+  };
+}
+
+function promptIsSufficientWithoutVisual(question) {
+  const prompt = compactTextValue(question.prompt) || '';
+  const model = compactTextValue(question.visual_model || question.support_type);
+  if (!model) return !VISUAL_PROMPT_RE.test(prompt);
+  if (!PROMPT_SUFFICIENT_VISUAL_MODELS.has(model)) return !VISUAL_PROMPT_RE.test(prompt);
+  if (model === 'addition_model' || model === 'subtraction_model') return /\d+\s*[+\-]\s*\d+\s*=/.test(prompt);
+  if (model === 'comparison') return /which group has more:\s*\d+\s+\w+\s+or\s+\d+\s+\w+/i.test(prompt) || /\b\d+\b.*\b\d+\b/.test(prompt);
+  return false;
+}
+
+function visualBehaviorFor(question, packageId) {
+  const stimulus = publicStimulusFor(question, packageId);
+  if (isPublicStimulusRenderable(stimulus)) return VISUAL_BEHAVIOR.SUPPORTED_VISUAL_RENDERER;
+  if (promptIsSufficientWithoutVisual(question)) return VISUAL_BEHAVIOR.PROMPT_SUFFICIENT_WITHOUT_VISUAL;
+  if (!requiresStimulus(question)) return VISUAL_BEHAVIOR.PROMPT_SUFFICIENT_WITHOUT_VISUAL;
+  return VISUAL_BEHAVIOR.REQUIRED_VISUAL_NOT_SUPPORTED;
+}
+
 function publicStimulusFor(question, packageId) {
-  if (question.visual_model === 'shape_identification' || question.support_type === 'shape_identification') {
+  const model = compactTextValue(question.visual_model || question.support_type);
+  if (model === 'shape_identification') {
     const shape = normalizeChoiceDisplay(question.shape);
     if (['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(shape)) {
-      return { type: 'shape', shape };
+      return {
+        type: 'shape',
+        content: { shape, color: 'blue' },
+        accessibility_text: 'A shape to identify',
+        presentation: { renderer: 'single_shape', label: 'Look at the shape.' },
+      };
     }
   }
-  const model = question.visual_model || question.support_type;
-  if (GENERIC_RENDERABLE_MODELS.has(model)) {
-    const fields = {};
-    for (const key of PUBLIC_STIMULUS_FIELD_ALLOWLIST) {
-      if (Object.prototype.hasOwnProperty.call(question, key)) fields[key] = sanitizePublicValue(question[key]);
-    }
-    if (Object.keys(fields).length) return { type: 'model', model, fields };
-  }
+  if (model === 'number_line' || model === 'number_line_0_120') return publicNumberSequenceStimulusFor(question);
+  if (model === 'sorting_visual') return publicColoredShapeCollectionStimulusFor(question);
+  if (PROMPT_SUFFICIENT_VISUAL_MODELS.has(model) && promptIsSufficientWithoutVisual(question)) return null;
   return publicGrade1EnglishStimulusFor(question, packageId);
 }
 
@@ -523,13 +589,13 @@ function validateAnswerChoices(question) {
 }
 
 const VISUAL_METADATA_KEYS = [
-  'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'diagram', 'asset_id', 'model_id',
+  'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'asset_id', 'model_id',
   'stimulus', 'renderer', 'renderer_model', 'visual', 'manipulative', 'drag_drop_layout', 'layout',
-  'shape', 'shapes', 'number_line', 'clock', 'coins', 'data', 'table', 'graph', 'diagram', 'array',
-  'object_count', 'objects', 'comparison', 'measurement', 'picture', 'validation_checks', 'a', 'b', 'whole', 'part', 'parts',
+  'shape', 'shapes', 'number_line', 'clock', 'coins', 'data', 'table', 'graph', 'array',
+  'object_count', 'objects', 'comparison', 'measurement', 'picture', 'validation_checks', 'a', 'b', 'left', 'right', 'whole', 'part', 'parts', 'min', 'max', 'items',
 ];
-const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i;
-const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt']);
+const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|split|shaded|grid|counters|longer|taller|heavier|shorter|compare|model)\b/i;
+const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'number_sequence', 'colored_shape_collection', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt']);
 
 function hasVisualMetadata(question) {
   return VISUAL_METADATA_KEYS.some((key) => Object.prototype.hasOwnProperty.call(question, key));
@@ -552,9 +618,8 @@ function isAssessmentItemDeliverable(publicItem) {
 }
 
 function validateStimulusRenderability(question, packageId) {
-  if (!requiresStimulus(question)) return [];
-  const stimulus = publicStimulusFor(question, packageId);
-  if (!isPublicStimulusRenderable(stimulus)) return [REQUIRED_STIMULUS_NOT_RENDERABLE];
+  const behavior = visualBehaviorFor(question, packageId);
+  if (behavior === VISUAL_BEHAVIOR.REQUIRED_VISUAL_NOT_SUPPORTED) return [REQUIRED_STIMULUS_NOT_RENDERABLE];
   return [];
 }
 
@@ -626,6 +691,7 @@ function selectAssessmentItems(packages, options = {}) {
         domain: pkg.domain || 'unknown',
         question_type: question.question_type,
         visual_identity: visualIdentity(question),
+        visual_behavior: visualBehaviorFor(question, packageId),
         payload: publicQuestionPayload(question, packageId),
       });
       scoringRecords.push({
@@ -665,6 +731,8 @@ module.exports = {
   isAssessmentItemDeliverable,
   validateAnswerChoices,
   validateStimulusRenderability,
+  visualBehaviorFor,
+  VISUAL_BEHAVIOR,
   REQUIRED_STIMULUS_NOT_RENDERABLE,
   DUPLICATE_ANSWER_CHOICES,
   INVALID_SINGLE_CHOICE_CONFIGURATION,

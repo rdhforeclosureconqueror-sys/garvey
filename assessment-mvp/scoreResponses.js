@@ -1,3 +1,5 @@
+const { PROVISIONAL_EVIDENCE_POLICY, classifyWithProvisionalPolicy } = require('./evidencePolicy');
+
 const SUPPORTED_TYPES = new Set([
   'multiple_choice',
   'numeric',
@@ -239,13 +241,7 @@ function unknown(identity) {
 }
 
 function classify(evidence) {
-  const total = evidence.valid_scored_responses;
-  if (total < 3) return 'Not Enough Evidence';
-  const accuracy = evidence.correct_responses / total;
-  if (total >= 4 && accuracy >= 0.8) return 'Ready';
-  if (accuracy >= 0.5 && accuracy <= 0.79) return 'Developing';
-  if (accuracy < 0.5) return 'Needs Support';
-  return 'Not Enough Evidence';
+  return classifyWithProvisionalPolicy(evidence, PROVISIONAL_EVIDENCE_POLICY);
 }
 
 function aggregate(results) {
@@ -264,6 +260,8 @@ function aggregate(results) {
         not_scorable_responses: 0,
         accuracy: null,
         provisional_label: 'Not Enough Evidence',
+        evidence_policy_version: PROVISIONAL_EVIDENCE_POLICY.version,
+        minimum_valid_responses: PROVISIONAL_EVIDENCE_POLICY.minimumValidResponses,
       });
     }
     const evidence = bySkill.get(key);
@@ -339,6 +337,7 @@ function scoreResponses(scoringRecords, submissions) {
 
 module.exports = {
   APPROVED_LABELS,
+  PROVISIONAL_EVIDENCE_POLICY,
   parseNumeric,
   scoreResponses,
 };

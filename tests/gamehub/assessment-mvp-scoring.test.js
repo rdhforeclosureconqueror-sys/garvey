@@ -163,7 +163,7 @@ test('evidence thresholds implement required boundary examples', () => {
     return scoreResponses(records, submissions).skillEvidence[0];
   }
 
-  assert.equal(packageRun('THREE_OF_THREE', ['correct', 'correct', 'correct']).provisional_label, 'Not Enough Evidence');
+  assert.equal(packageRun('THREE_OF_THREE', ['correct', 'correct', 'correct']).provisional_label, 'Ready');
   assert.equal(packageRun('FOUR_OF_FIVE', ['correct', 'correct', 'correct', 'correct', 'incorrect']).provisional_label, 'Ready');
   assert.equal(packageRun('THREE_OF_FIVE', ['correct', 'correct', 'correct', 'incorrect', 'incorrect']).provisional_label, 'Developing');
   assert.equal(packageRun('TWO_OF_FIVE', ['correct', 'correct', 'incorrect', 'incorrect', 'incorrect']).provisional_label, 'Needs Support');
