@@ -172,7 +172,7 @@
       }
       if (Object.keys(fields).length) return { type: 'model', model: text(stimulus.model), fields };
     }
-    if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
+    if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
       const presentation = stimulus.presentation && typeof stimulus.presentation === 'object' ? {
         renderer: text(stimulus.presentation.renderer),
         label: text(stimulus.presentation.label),
@@ -193,6 +193,11 @@
         const label = text(stimulus.content.label);
         const altText = text(stimulus.content.alt_text) || (label ? 'Picture of ' + label : '');
         if (label && altText) return { type: 'picture_choice', content: { label, alt_text: altText }, accessibility_text: text(stimulus.accessibility_text), presentation };
+      } else if (stimulus.type === 'picture_prompt') {
+        const label = text(stimulus.content.label);
+        const altText = text(stimulus.content.alt_text) || (label ? 'Picture prompt: ' + label : '');
+        const checks = Array.isArray(stimulus.content.checks) ? stimulus.content.checks.map(text).filter(Boolean) : [];
+        if (label && altText) return { type: 'picture_prompt', content: { label, alt_text: altText, checks }, accessibility_text: text(stimulus.accessibility_text), presentation };
       } else {
         const contentText = text(stimulus.content.text);
         if (contentText) {
@@ -634,7 +639,7 @@
     if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.shape));
     if (stimulus.type === 'model') return stimulus.fields && Object.keys(stimulus.fields).length > 0;
     if (stimulus.type === 'sentence' || stimulus.type === 'word' || stimulus.type === 'reading_passage' || stimulus.type === 'letter_card' || stimulus.type === 'highlighted_text' || stimulus.type === 'sentence_builder' || stimulus.type === 'punctuation_marker') return Boolean(text(stimulus.content && stimulus.content.text));
-    if (stimulus.type === 'picture_choice') return Boolean(text(stimulus.content && stimulus.content.label) && text(stimulus.content && stimulus.content.alt_text));
+    if (stimulus.type === 'picture_choice' || stimulus.type === 'picture_prompt') return Boolean(text(stimulus.content && stimulus.content.label) && text(stimulus.content && stimulus.content.alt_text));
     if (stimulus.type === 'letter_tiles') return Array.isArray(stimulus.content && stimulus.content.tiles) && stimulus.content.tiles.some((tile) => text(tile));
     if (stimulus.type === 'phonics_tiles') return Boolean(text(stimulus.content && stimulus.content.word));
     if (stimulus.type === 'sound_match') return Array.isArray(stimulus.content && stimulus.content.words) && stimulus.content.words.length >= 2 && stimulus.content.words.every((word) => text(word));
@@ -841,6 +846,14 @@
       const marker = text(stimulus.content && stimulus.content.marker) || '▢';
       const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Choose the end mark that completes the sentence.';
       return '<div class="assessment-stimulus literacy-stimulus punctuation-marker-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Sentence needing an end mark: ' + sentence)) + '"><p class="literacy-card sentence-card"><span>' + escapeHtml(sentence) + '</span><mark class="punctuation-slot" aria-label="missing end mark">' + escapeHtml(marker) + '</mark></p><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
+    }
+    if (stimulus.type === 'picture_prompt') {
+      const label = text(stimulus.content && stimulus.content.label);
+      const altText = text(stimulus.content && stimulus.content.alt_text) || ('Picture prompt: ' + label);
+      const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Use the picture to answer.';
+      const checks = Array.isArray(stimulus.content && stimulus.content.checks) ? stimulus.content.checks.map(text).filter(Boolean) : [];
+      const checklist = checks.length ? '<ul class="writing-checklist" aria-label="Writing checklist">' + checks.map((check) => '<li>' + escapeHtml(String(check).replace(/_/g, ' ')) + '</li>').join('') + '</ul>' : '';
+      return '<div class="assessment-stimulus literacy-stimulus picture-prompt-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || altText) + '"><figure class="literacy-card picture-card picture-prompt-card" role="img" aria-label="' + escapeHtml(altText) + '"><span class="picture-icon" aria-hidden="true">▧</span><figcaption>' + escapeHtml(label) + '</figcaption></figure>' + checklist + '<p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
     }
     if (stimulus.type === 'reading_passage') {
       const passage = text(stimulus.content && stimulus.content.text);

@@ -96,7 +96,7 @@ const PUBLIC_STIMULUS_FIELD_ALLOWLIST = new Set([
   'dividend', 'divisor', 'factor', 'factor_a', 'factor_b', 'step', 'count', 'mode',
 ]);
 
-const GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002', 'G1E_RC_001', 'G1E_RC_002', 'G1E_RF_001', 'G1E_RF_002', 'G1E_SW_001', 'G1E_WR_001']);
+const GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002', 'G1E_RC_001', 'G1E_RC_002', 'G1E_RF_001', 'G1E_RF_002', 'G1E_SW_001', 'G1E_WR_001', 'G1E_WR_002']);
 const GRADE_1_ENGLISH_BATCH_1_PACKAGE_IDS = new Set(['G1E_FL_001', 'G1E_PH_001', 'G1E_PH_002']);
 const GRADE_1_ENGLISH_STIMULUS_RENDERERS = new Set([
   'sentence_card',
@@ -117,6 +117,8 @@ const GRADE_1_ENGLISH_STIMULUS_RENDERERS = new Set([
   'writing_checklist',
   'sentence_builder',
   'punctuation_marker',
+  'picture_prompt',
+  'detail_picker',
 ]);
 
 function compactTextValue(value) {
@@ -151,6 +153,39 @@ function sentenceBlankFromPrompt(prompt) {
   if (!text) return null;
   const match = text.match(/completes:\s*(.+)$/i);
   return compactTextValue(match ? match[1] : text);
+}
+
+function answerTextValues(question) {
+  const answer = getAnswer(question);
+  if (Array.isArray(answer)) return safeTextArray(answer);
+  const text = compactTextValue(answer);
+  return text ? [text] : [];
+}
+
+function picturePromptLeaksAnswer(question, picture) {
+  const prompt = compactTextValue(question.prompt) || '';
+  if (/^name the picture\b/i.test(prompt)) return true;
+  const normalizedPicture = normalize(picture);
+  return answerTextValues(question).some((answer) => normalize(answer) === normalizedPicture || normalize(answer) === `a ${normalizedPicture}` || normalize(answer) === `the ${normalizedPicture}`);
+}
+
+function pictureWritingStimulusFor(question, renderer) {
+  const picture = compactTextValue(question.picture || question.image || question.speakable_text);
+  if (!picture || picturePromptLeaksAnswer(question, picture)) return null;
+  const checks = safeTextArray(question.validation_checks);
+  const content = { label: picture, alt_text: `Picture prompt: ${picture}` };
+  if (checks.length) content.checks = checks;
+  const checkText = checks.length ? ` Checklist: ${checks.join(', ')}.` : '';
+  const isDetailPicker = renderer === 'detail_picker';
+  return {
+    type: 'picture_prompt',
+    content,
+    accessibility_text: `Picture prompt: ${picture}.${checkText}`,
+    presentation: {
+      renderer,
+      label: isDetailPicker ? 'Use the picture and add a describing detail.' : 'Use the picture to write a complete sentence.',
+    },
+  };
 }
 
 function publicGrade1EnglishStimulusFor(question, packageId) {
@@ -342,6 +377,11 @@ function publicGrade1EnglishStimulusFor(question, packageId) {
     };
   }
 
+
+  if ((renderer === 'picture_prompt' || renderer === 'sentence_builder' || renderer === 'detail_picker') && packageId === 'G1E_WR_002') {
+    return pictureWritingStimulusFor(question, renderer);
+  }
+
   return null;
 }
 
@@ -486,10 +526,10 @@ const VISUAL_METADATA_KEYS = [
   'visual_model', 'support_type', 'image_id', 'image', 'diagram_id', 'diagram', 'asset_id', 'model_id',
   'stimulus', 'renderer', 'renderer_model', 'visual', 'manipulative', 'drag_drop_layout', 'layout',
   'shape', 'shapes', 'number_line', 'clock', 'coins', 'data', 'table', 'graph', 'diagram', 'array',
-  'object_count', 'objects', 'comparison', 'measurement', 'a', 'b', 'whole', 'part', 'parts',
+  'object_count', 'objects', 'comparison', 'measurement', 'picture', 'validation_checks', 'a', 'b', 'whole', 'part', 'parts',
 ];
 const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|longer|taller|heavier|shorter|compare|model)\b/i;
-const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker']);
+const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'model', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt']);
 
 function hasVisualMetadata(question) {
   return VISUAL_METADATA_KEYS.some((key) => Object.prototype.hasOwnProperty.call(question, key));
