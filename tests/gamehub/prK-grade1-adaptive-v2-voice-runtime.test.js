@@ -12,29 +12,29 @@ test('prK renders Grade 1 voice controls', () => {
   assert.match(adaptive, /Stop voice/);
 });
 
-test('prK uses adaptive-v2 voice sections route and fallback-safe browser speech', () => {
-  assert.match(adaptive, /\/api\/adaptive-v2\/voice\/sections/);
+test('prK uses shared assessment voice section route and fallback-safe browser speech', () => {
+  assert.match(adaptive, /\/api\/assessment\/voice\/section/);
   assert.match(adaptive, /speechSynthesis/);
 });
 
 test('prK keeps grade1-only voice with no grades 2-6 voice wiring, gates scoring, or diagnosis\/pass-fail language', () => {
   assert.doesNotMatch(adaptive, /grade\s*[2-6].*voice|voice.*grade\s*[2-6]/i);
   assert.doesNotMatch(adaptive, /gatesScoring|gate score|insert\s+into\s+gates_|update\s+gates_/i);
-  assert.doesNotMatch(adaptive, /voice.*diagnos|voice.*pass\/?fail|adaptive-v2\/voice\/sections[^\n]*diagnos/i);
+  assert.doesNotMatch(adaptive, /voice.*diagnos|voice.*pass\/?fail|assessment\/voice\/section[^\n]*diagnos/i);
 });
 
 
 test('prK voice fallback path and status messages are wired', () => {
-  assert.match(adaptive, /voice_mode\|\|""\)==="fallback_browser_speech"/);
+  assert.match(adaptive, /body\.voice_mode==='provider_audio'&&body\.audio_url/);
   assert.match(adaptive, /speechSynthesis\.speak\(new SpeechSynthesisUtterance/);
-  assert.match(adaptive, /Voice is starting…/);
-  assert.match(adaptive, /Voice is playing\./);
+  assert.match(adaptive, /AI voice is starting…/);
+  assert.match(adaptive, /Playing AI voice\./);
   assert.match(adaptive, /Voice unavailable in this browser\. Please read the text on screen\./);
   assert.match(adaptive, /Voice stopped\./);
 });
 
 test('prK stop voice cancels browser speech', () => {
-  assert.match(adaptive, /function stopGrade1Voice\(\)\{if\(window\.speechSynthesis\) window\.speechSynthesis\.cancel\(\)/);
+  assert.match(adaptive, /function stopGrade1Voice\(\)\{if\(grade1ActiveAudio\)\{grade1ActiveAudio\.pause\(\)/);
 });
 
 test('prK adaptive learning html and non-html runtime stay synced for voice logic', () => {

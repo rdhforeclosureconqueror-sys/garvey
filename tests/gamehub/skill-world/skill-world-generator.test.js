@@ -156,7 +156,7 @@ const stateAfterPageAudio=JSON.stringify(stateBeforePageAudio);
 Renderer.renderPageNarration({read_page_text:'Read this page only.'},dp,'practice');
 assert.equal(JSON.stringify(stateBeforePageAudio),stateAfterPageAudio,'page narration rendering does not count as a hint or answer attempt');
 assert.match(skillWorldIndex,/\.page-read-button/,'Skill World runtime routes Read This Page through existing speech runtime');
-assert.match(skillWorldIndex,/fetch\('\/api\/skill-world\/audio'/,'Skill World runtime calls backend generated-audio route before browser speech when no audio_url exists');
+assert.match(skillWorldIndex,/fetch\('\/api\/assessment\/voice\/section'/,'Skill World runtime calls shared assessment voice endpoint before browser speech when no audio_url exists');
 assert.match(skillWorldIndex,/if\(!prefersBrowser\)[\s\S]*fetchGeneratedAudio\(button\)[\s\S]*speakWithBrowserSpeech\(button\)/,'Skill World runtime falls back to browser speech when backend audio fails');
 assert.match(skillWorldIndex,/if\(!response\.ok\)return '';/,'generated audio fetch failures return no URL so browser speech fallback remains intact');
 assert.match(skillWorldIndex,/\.audio-listen-button,\.question-read-button,\.page-read-button/,'existing Read This Page, Read Question, and Listen controls still share the audio click runtime');
@@ -1180,6 +1180,7 @@ assert.match(readQuestionHtml,/data-audio-fallback hidden aria-live="polite"/, '
 assert.match(skillWorldIndex,/const canSpeak=typeof window!=='undefined'&&'speechSynthesis' in window&&typeof window\.SpeechSynthesisUtterance!=='undefined'/,'click handler checks window.speechSynthesis and window.SpeechSynthesisUtterance');
 assert.match(skillWorldIndex,/if\(!canSpeak\)\{showAudioUnavailable\(button\); return;\}/,'fallback is shown only when speech support is missing');
 assert.match(skillWorldIndex,/async function speakAudio\(button\)\{hideAudioUnavailable\(button\);/,'click handler clears old fallback state before attempting audio playback');
+assert.match(skillWorldIndex,/fetch\('\/api\/assessment\/voice\/section'/,'Skill World generated audio uses the shared assessment voice endpoint');
 assert.match(skillWorldIndex,/childFriendlySpeechConfig=\{lang:'en-US',rate:0\.86,pitch:1,volume:1,initialPauseMs:140,repeatPauseMs:220\}/,'Web Speech uses slower child-friendly config with an initial pause');
 assert.match(skillWorldIndex,/window\.speechSynthesis\.cancel\(\); speakOne\(0\)/,'browser speech cancels previous speech before starting');
 assert.match(skillWorldIndex,/setTimeout\(\(\)=>\{try\{window\.speechSynthesis\.speak\(utterance\)/,'browser speech starts after a short initial pause to avoid clipping');
