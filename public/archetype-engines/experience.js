@@ -12,7 +12,7 @@ function parseRoute() {
   const parts = String(window.location.pathname || "").split("/").filter(Boolean);
   if (parts.length < 3 || parts[0] !== "archetype-engines") return null;
   const engine = parts[1];
-  if (!["love", "leadership", "loyalty"].includes(engine)) return null;
+  if (!engine) return null;
   const section = parts[2];
   if (section === "browse") return { engine, mode: "browse", resultId: "", slug: "" };
   if (section === "assessment") return { engine, mode: "assessment", resultId: "", slug: "" };
@@ -181,7 +181,7 @@ function wireLoveVariantToggle(onChange) {
 }
 
 function stableContextParams(query) {
-  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source"];
+  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source", "return_url", "result_return_url", "dashboard_url", "member_id", "external_user_id"];
   const out = new URLSearchParams();
   for (const key of keys) {
     const value = String(query.get(key) || "").trim();
@@ -196,6 +196,57 @@ function routeTo(engine, path, query) {
   const qs = stable.toString();
   if (!qs) return base;
   return `${base}${base.includes("?") ? "&" : "?"}${qs}`;
+}
+
+function simbaDashboardUrl(query) {
+  const fallback = "https://simbawaujamaa.com/dashboard";
+  const candidates = [
+    query?.get("return_url"),
+    query?.get("result_return_url"),
+    query?.get("dashboard_url"),
+    fallback,
+  ];
+  for (const candidate of candidates) {
+    const raw = String(candidate || "").trim();
+    if (!raw) continue;
+    try {
+      const url = new URL(raw, window.location.origin);
+      if (["http:", "https:"].includes(url.protocol)) return url.href;
+    } catch (_) {
+      // try next candidate
+    }
+  }
+  return fallback;
+}
+
+function dashboardReturnButton(query, position) {
+  return `<a class="simba-dashboard-return simba-dashboard-return-${esc(position || "inline")}" href="${esc(simbaDashboardUrl(query))}" data-simba-dashboard-return="${esc(position || "inline")}">← Back to Simba Dashboard</a>`;
+}
+
+function resultVoiceText(engine, primaryName, secondaryName, payload, actionText) {
+  const canonical = payload?.canonical || {};
+  const summary = [
+    canonical.summary?.headline,
+    canonical.summary?.body,
+    payload?.primaryInsight,
+    payload?.secondaryInsight,
+    payload?.balanceInsight,
+    payload?.stressInsight,
+  ].filter(Boolean).join(" ");
+  const recommendations = [
+    ...(Array.isArray(canonical.recommendations) ? canonical.recommendations : []),
+    ...(Array.isArray(payload?.recommendations) ? payload.recommendations : []),
+    actionText,
+  ].filter(Boolean).join(" ");
+  const next = canonical.next_assessment || payload?.nextAssessment || payload?.loveAssessmentCta?.label || "Return to your Simba dashboard to choose the next best assessment.";
+  return [
+    `Here are your ${titleCase(engine)} assessment results.`,
+    `Your primary archetype is ${primaryName || "not available yet"}.`,
+    `Your secondary archetype is ${secondaryName || "not available yet"}.`,
+    summary ? `In plain language, ${summary}` : "Use this result as a compass, not a fixed identity.",
+    recommendations ? `Recommended next steps: ${recommendations}` : "Recommended next step: review your strongest pattern and choose one small action for this week.",
+    `Next suggested assessment: ${next}.`,
+  ].join(" ").replace(/\s+/g, " ").trim();
 }
 
 function readStoredContext() {
@@ -254,6 +305,11 @@ function pickCtx(query) {
     tap_session: String(query.get("tap_session") || query.get("session_id") || "").trim(),
     entry: String(query.get("entry") || "").trim(),
     session_id: String(query.get("session_id") || "").trim(),
+    return_url: String(query.get("return_url") || "").trim(),
+    result_return_url: String(query.get("result_return_url") || "").trim(),
+    dashboard_url: String(query.get("dashboard_url") || "").trim(),
+    member_id: String(query.get("member_id") || query.get("external_user_id") || "").trim(),
+    external_user_id: String(query.get("external_user_id") || query.get("member_id") || "").trim(),
   };
 }
 
@@ -1559,7 +1615,21 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     "Framing: use this as a compass, not a fixed identity.",
   ].join(" ");
 
+  const fullResultVoiceText = resultVoiceText(
+    engine,
+    displayName(engine, primary, payload.primaryArchetype?.code || ""),
+    displayName(engine, secondary, payload.secondaryArchetype?.code || ""),
+    payload,
+    oneMinutePlan.map((item) => `${item.action}: ${item.next}`).join(" ")
+  );
+
   app.innerHTML = `
+    ${dashboardReturnButton(query, "top")}
+    <section class="section result-reader" data-voice-role="full-result-reader">
+      <h2>Listen to your full result</h2>
+      <p class="muted">Use Garvey AI Voice to read your assessment title, archetypes, summary, explanation, recommendations, and next suggested assessment.</p>
+    </section>
+
     <section class="section hero">
       <div>
         <div class="chip">Result Summary</div>
@@ -1731,13 +1801,23 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
 
     <section class="section">
       <a class="crumb" href="${routeTo(engine, "browse", query)}">Browse all ${titleCase(engine)} archetypes →</a>
-    </section>`;
+    </section>
+    ${dashboardReturnButton(query, "bottom")}`;
   const resultVoiceWarmup = window.AssessmentVoice?.warmup?.({
     surface: "archetype_result",
     scope_id: `${engine}:${resultId}`,
     preflight: false,
   });
   const resultVoice = createVoiceController("archetype_result", `${engine}:${resultId}`, resultVoiceWarmup);
+  resultVoice?.bind(app.querySelector('[data-voice-role="full-result-reader"]'), {
+    section_key: "full_result_reader",
+    section_label: `${engine} complete assessment result`,
+    voice_text: fullResultVoiceText.slice(0, 1800),
+    voice_tier: "full_result",
+    play_label: "Read My Results",
+    pause_label: "Stop Reading",
+    prefetch: true,
+  });
   resultVoice?.bind(app.querySelector('[data-voice-role="summary-intro"]'), {
     section_key: "result_summary_intro",
     section_label: `${engine} result intro summary`,
@@ -1804,7 +1884,25 @@ function renderLoveResultStory(app, engine, archetypes, resultId, payload, query
     return;
   }
 
+  const primary = codeIndex[scores[0]?.code] || {};
+  const secondary = codeIndex[scores[1]?.code] || {};
+  const storyVoiceText = resultVoiceText(
+    engine,
+    displayName(engine, primary, scores[0]?.code || ""),
+    displayName(engine, secondary, scores[1]?.code || ""),
+    payload,
+    scores.map((item, idx) => {
+      const archetype = codeIndex[item.code] || {};
+      return `${idx + 1}. ${displayName(engine, archetype, item.code)} at ${item.score.toFixed(1)} percent: ${archetype.shortDescription || archetype.description || "connection pattern"}.`;
+    }).join(" ")
+  );
+
   app.innerHTML = `
+    ${dashboardReturnButton(query, "top")}
+    <section class="section result-reader" data-voice-role="story-result-reader">
+      <h2>Listen to your result story</h2>
+      <p class="muted">Garvey AI Voice can read your Love result story aloud before you return to Simba.</p>
+    </section>
     <section class="section story-shell">
       <div class="story-header">
         <div class="chip">Love Story View</div>
@@ -1832,7 +1930,24 @@ function renderLoveResultStory(app, engine, archetypes, resultId, payload, query
       <div class="story-footer">
         <button type="button" id="storyExitBtn" class="chip">See full result</button>
       </div>
-    </section>`;
+    </section>
+    ${dashboardReturnButton(query, "bottom")}`;
+
+  const storyVoiceWarmup = window.AssessmentVoice?.warmup?.({
+    surface: "archetype_result_story",
+    scope_id: `${engine}:${resultId}:story`,
+    preflight: false,
+  });
+  const storyVoice = createVoiceController("archetype_result_story", `${engine}:${resultId}:story`, storyVoiceWarmup);
+  storyVoice?.bind(app.querySelector('[data-voice-role="story-result-reader"]'), {
+    section_key: "story_result_reader",
+    section_label: `${engine} result story`,
+    voice_text: storyVoiceText.slice(0, 1800),
+    voice_tier: "full_result",
+    play_label: "Read My Results",
+    pause_label: "Stop Reading",
+    prefetch: true,
+  });
 
   const fullResultHref = routeTo(engine, `result/${encodeURIComponent(resultId)}`, query);
   const slides = Array.from(document.querySelectorAll(".story-slide"));
@@ -1942,6 +2057,10 @@ async function boot() {
       }
       if (route.mode === "story" && route.engine === "love") {
         renderLoveResultStory(app, route.engine, archetypes, route.resultId, resultPayload || {}, query);
+        return;
+      }
+      if (route.mode === "story") {
+        renderResult(app, route.engine, archetypes, route.resultId, resultPayload || {}, query, sharedOptions);
       }
     };
 

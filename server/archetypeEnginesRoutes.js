@@ -16,6 +16,7 @@ const {
   toCanonicalResultPayload,
 } = require("./archetypeEnginesService");
 const { ENGINE_REGISTRY } = require("../archetype-engines/framework");
+const { queueExternalEvent, getExternalEventDiagnostics } = require("./simbawajumaEvents");
 
 const CONSENT_VERSION = "v1";
 
@@ -158,6 +159,44 @@ async function resolveLoveRetakeAttempt(pool, { tenant, userId, fallback = 0 }) 
   return Number(result.rows?.[0]?.completed_count || 0);
 }
 
+function displayReadyCompletionPayload({ req, engineType, assessmentId, resultId, payload, createdAt }) {
+  const canonical = payload.canonical || {};
+  const attribution = payload.attribution || canonical.attribution || {};
+  const primary = payload.primaryArchetype?.label || payload.primaryArchetype?.code || canonical.primary_archetype || null;
+  const secondary = payload.secondaryArchetype?.label || payload.secondaryArchetype?.code || canonical.secondary_archetype || null;
+  const resultPath = `/archetype-engines/${encodeURIComponent(engineType)}/result/${encodeURIComponent(resultId)}${engineType === "love" ? "/story" : ""}`;
+  const query = new URLSearchParams();
+  for (const key of ["tenant", "email", "name", "rid", "crid", "return_url", "result_return_url", "dashboard_url"]) {
+    const value = String(req.body?.[key] || req.query?.[key] || attribution?.[key] || "").trim();
+    if (value) query.set(key, value);
+  }
+  const resultUrl = `${resultPath}${query.toString() ? `?${query.toString()}` : ""}`;
+  return {
+    event_type: "assessment.completed",
+    member_id: String(req.body?.member_id || req.body?.external_user_id || req.body?.user_id || attribution.rid || attribution.crid || "").trim() || null,
+    email: String(req.body?.email || attribution.email || "").trim().toLowerCase() || null,
+    assessment_id: assessmentId,
+    assessment_name: `${titleCase(engineType)} Archetype`,
+    assessment_type: engineType,
+    result_id: resultId,
+    result_url: resultUrl,
+    completed_at: createdAt || new Date().toISOString(),
+    completion_status: "completed",
+    overall_score: payload.overallScore || payload.canonical?.overall_score || null,
+    primary_archetype: primary,
+    secondary_archetype: secondary,
+    summary: canonical.summary?.body || payload.primaryInsight || payload.balanceInsight || null,
+    recommendations: canonical.recommendations || payload.recommendations || [],
+    next_assessment: canonical.next_assessment || payload.nextAssessment || null,
+    badge_unlocks: payload.badgeUnlocks || [],
+    future_review_date: payload.futureReviewDate || null,
+  };
+}
+
+function titleCase(value) {
+  return String(value || "").replace(/(^|[-_\s])(\w)/g, (_, p1, p2) => `${p1}${p2.toUpperCase()}`);
+}
+
 function createArchetypeEnginesRouter({ pool }) {
   const router = express.Router();
 
@@ -191,6 +230,10 @@ function createArchetypeEnginesRouter({ pool }) {
   });
 
   router.get("/registry", (req, res) => res.json({ engines: ENGINE_REGISTRY }));
+
+  router.get("/admin/simba-sync/diagnostics", async (_req, res) => {
+    return res.json(await getExternalEventDiagnostics({ pool }));
+  });
 
   router.get("/:engineType/assessment/consent-contract", (req, res) => {
     const { engineType } = req.params;
@@ -364,7 +407,17 @@ function createArchetypeEnginesRouter({ pool }) {
     await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_completed", ctx: topLevelAttribution, assessmentId, resultId });
     await recordEngineEvent(pool, { engineType, tenant, eventKey: "result_created", ctx: topLevelAttribution, assessmentId, resultId });
 
-    return res.json({ resultId, engineType, ...payload });
+    const completionPayload = displayReadyCompletionPayload({ req, engineType, assessmentId, resultId, payload });
+    const simbaSync = await queueExternalEvent({
+      eventType: "assessment.completed",
+      userId: Number(req.body?.garvey_user_id || req.body?.local_user_id) || null,
+      externalUserId: completionPayload.member_id || completionPayload.email,
+      email: completionPayload.email,
+      payload: completionPayload,
+      pool,
+    }).catch((err) => ({ queued: false, reason: err.message }));
+
+    return res.json({ resultId, engineType, simba_sync: simbaSync, ...payload });
   });
 
   router.get("/:engineType/results/:resultId", async (req, res) => {
