@@ -305,7 +305,7 @@
         <a class="btn" href="${buildResultsPermalink()}">Copy/Bookmark Results Link</a>
       `;
       renderSimbaReturnLinks();
-      bindResultVoice(`Business Owner Results. Primary ${primaryRole}. Secondary ${secondaryRole}. Growth area ${growthRole}. ${g.strengthen_strength || ""} ${g.support_secondary || ""} ${g.fix_weakness || ""}`);
+      bindResultVoice(`Business Owner assessment results. Primary archetype: ${primaryRole}. Secondary archetype: ${secondaryRole}. Summary: your ownership pattern is shown by the ranked roles and guidance on this page. Strengths: ${g.strengthen_strength || primaryRole}. Growth area: ${growthRole}. Recommendations: ${g.support_secondary || "support the secondary role"}. ${g.fix_weakness || "choose one practical next action"}. Next suggested assessment: Start the GARVEY Pathway from this result page.`);
       if (window.GARVEY && window.GARVEY.applyCtxToLinks) {
         window.GARVEY.applyCtxToLinks(document.getElementById("ctas"));
       }

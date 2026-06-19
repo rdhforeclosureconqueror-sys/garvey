@@ -51,6 +51,7 @@ test('assessment voice route uses upstream /speak and streams raw audio bytes', 
   assert.equal(cfgRes.status, 200);
   assert.equal(cfg.provider_ready, true);
   assert.equal(cfg.upstream_route, '/speak');
+  assert.match(cfg.upstream_url, /\/speak$/);
 
   const res = await fetch(`${app.baseUrl}/api/assessment/voice/section`, {
     method: 'POST',
@@ -62,6 +63,7 @@ test('assessment voice route uses upstream /speak and streams raw audio bytes', 
   assert.equal(body.voice_mode, 'provider_audio');
   assert.equal(body.provider_ready, true);
   assert.equal(body.upstream_route, '/speak');
+  assert.match(body.upstream_url, /\/speak$/);
   assert.equal(body.provider_audio_content_type, 'audio/mpeg');
   assert.equal(body.provider_audio_bytes > 0, true);
   assert.match(String(body.audio_url || ''), /\/api\/assessment\/voice\/stream\//);
@@ -95,7 +97,9 @@ test('assessment voice route signals fallback only when upstream/provider is una
   const body = await res.json();
   assert.equal(body.voice_mode, 'fallback_browser_speech');
   assert.equal(body.provider_ready, false);
-  assert.equal(body.fallback_reason, 'voice_repo_http_503');
+  assert.equal(body.fallback_reason, 'failed_tts_request_http_503');
+  assert.ok(body.diagnostics.includes('failed_tts_request'));
+  assert.ok(body.diagnostics.includes('browser_fallback_used'));
 });
 
 test('assessment voice warmup preflights provider readiness without autoplay side effects', async (t) => {
@@ -117,6 +121,7 @@ test('assessment voice warmup preflights provider readiness without autoplay sid
   assert.equal(body.warmup_mode, 'provider_preflight');
   assert.equal(body.provider_ready, true);
   assert.equal(body.upstream_route, '/speak');
+  assert.match(body.upstream_url, /\/speak$/);
   assert.equal(body.voice_mode, 'provider_audio');
   assert.equal(voiceRepo.calls.length, 1);
   assert.equal(voiceRepo.calls[0].path, '/speak');

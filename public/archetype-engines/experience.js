@@ -238,13 +238,27 @@ function resultVoiceText(engine, primaryName, secondaryName, payload, actionText
     ...(Array.isArray(payload?.recommendations) ? payload.recommendations : []),
     actionText,
   ].filter(Boolean).join(" ");
+  const strengths = [
+    ...(Array.isArray(canonical.strengths) ? canonical.strengths : []),
+    ...(Array.isArray(payload?.strengths) ? payload.strengths : []),
+    ...(Array.isArray(payload?.primaryArchetype?.coreStrengths) ? payload.primaryArchetype.coreStrengths : []),
+  ].filter(Boolean).join(" ");
+  const growth = [
+    canonical.growth_area,
+    canonical.growthArea,
+    payload?.growthArea,
+    payload?.growthInsight,
+    payload?.stressInsight,
+  ].filter(Boolean).join(" ");
   const next = canonical.next_assessment || payload?.nextAssessment || payload?.loveAssessmentCta?.label || "Return to your Simba dashboard to choose the next best assessment.";
   return [
     `Here are your ${titleCase(engine)} assessment results.`,
     `Your primary archetype is ${primaryName || "not available yet"}.`,
-    `Your secondary archetype is ${secondaryName || "not available yet"}.`,
-    summary ? `In plain language, ${summary}` : "Use this result as a compass, not a fixed identity.",
-    recommendations ? `Recommended next steps: ${recommendations}` : "Recommended next step: review your strongest pattern and choose one small action for this week.",
+    secondaryName ? `Your secondary archetype is ${secondaryName}.` : "No secondary archetype is available yet.",
+    summary ? `Summary: ${summary}` : "Summary: use this result as a compass, not a fixed identity.",
+    strengths ? `Strengths: ${strengths}` : `Strengths: your ${primaryName || titleCase(engine)} pattern shows the capacities described on this result page.`,
+    growth ? `Growth area: ${growth}` : "Growth area: notice where your strongest pattern may be overused, and choose one small balancing action.",
+    recommendations ? `Recommendations: ${recommendations}` : "Recommendations: review your strongest pattern and choose one small action for this week.",
     `Next suggested assessment: ${next}.`,
   ].join(" ").replace(/\s+/g, " ").trim();
 }
