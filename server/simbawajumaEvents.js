@@ -82,7 +82,15 @@ async function deliverExternalEvent(id, { pool = defaultPool } = {}) {
   if (!event) return { delivered: false, reason: "event_not_found" };
   const body = JSON.stringify(event.payload || {});
   const { headers, signatureValidationResult } = buildDeliveryHeaders(body);
-  console.info("simbawajuma_callback_step", { step: "payload_built", id, assessment_id: event.payload?.assessment_id || null, result_id: event.payload?.result_id || null, member_email: event.payload?.email || null });
+  const displayDiagnostics = event.payload?.display_diagnostics || {
+    primary_result_present: Boolean(event.payload?.primary_result || event.payload?.primary_archetype || event.payload?.archetype),
+    score_present: event.payload?.score !== null && event.payload?.score !== undefined || event.payload?.percentile !== null && event.payload?.percentile !== undefined || event.payload?.overall_score !== null && event.payload?.overall_score !== undefined,
+    strengths_count: Array.isArray(event.payload?.strengths) ? event.payload.strengths.length : 0,
+    growth_edges_count: Array.isArray(event.payload?.growth_edges) ? event.payload.growth_edges.length : Array.isArray(event.payload?.growth_areas) ? event.payload.growth_areas.length : 0,
+    recommendations_count: Array.isArray(event.payload?.recommendations) ? event.payload.recommendations.length : 0,
+    result_url_present: Boolean(event.payload?.result_url),
+  };
+  console.info("simbawajuma_callback_step", { step: "payload_built", id, assessment_id: event.payload?.assessment_id || null, result_id: event.payload?.result_id || null, member_email: event.payload?.email || null, ...displayDiagnostics });
   console.info("simbawajuma_callback_step", { step: "callback_signed", id, signature_validation_result: signatureValidationResult });
   await pool.query("UPDATE external_event_deliveries SET status = 'sending', attempts = attempts + 1, last_attempt_at = NOW(), callback_url = $2, signature_validation_result = $3, updated_at = NOW() WHERE id = $1", [id, webhookUrl, signatureValidationResult]);
   try {
@@ -145,6 +153,12 @@ async function getExternalEventDiagnostics({ provider = PROVIDER, pool = default
     last_callback_exception: row.last_error || null,
     simba_accepted: row.simba_accepted === null || row.simba_accepted === undefined ? row.status === 'delivered' : row.simba_accepted,
     member: row.payload?.member_id || row.external_user_id || row.payload?.email || null,
+    primary_result_present: Boolean(row.payload?.display_diagnostics?.primary_result_present ?? (row.payload?.primary_result || row.payload?.primary_archetype || row.payload?.archetype)),
+    score_present: Boolean(row.payload?.display_diagnostics?.score_present ?? (row.payload?.score !== null && row.payload?.score !== undefined || row.payload?.percentile !== null && row.payload?.percentile !== undefined || row.payload?.overall_score !== null && row.payload?.overall_score !== undefined)),
+    strengths_count: Number(row.payload?.display_diagnostics?.strengths_count ?? (Array.isArray(row.payload?.strengths) ? row.payload.strengths.length : 0)),
+    growth_edges_count: Number(row.payload?.display_diagnostics?.growth_edges_count ?? (Array.isArray(row.payload?.growth_edges) ? row.payload.growth_edges.length : Array.isArray(row.payload?.growth_areas) ? row.payload.growth_areas.length : 0)),
+    recommendations_count: Number(row.payload?.display_diagnostics?.recommendations_count ?? (Array.isArray(row.payload?.recommendations) ? row.payload.recommendations.length : 0)),
+    result_url_present: Boolean(row.payload?.display_diagnostics?.result_url_present ?? row.payload?.result_url),
     error_message: row.last_error,
     updated_at: row.updated_at,
   } : null;
