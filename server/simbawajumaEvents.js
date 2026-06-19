@@ -9,6 +9,29 @@ function signBody(body, secret) {
   return crypto.createHmac("sha256", String(secret || "")).update(body).digest("hex");
 }
 
+function resolveWebhookUrl(env = process.env) {
+  const explicit = String(env.SIMBAWAJUMAA_WEBHOOK_URL || env.SIMBA_CALLBACK_URL || env.GARVEY_CALLBACK_URL || "").trim();
+  if (explicit) return explicit;
+  const base = String(env.SIMBA_BASE_URL || "").trim().replace(/\/+$/, "");
+  return base ? `${base}/garvey/callback` : "";
+}
+
+function resolveWebhookSecret(env = process.env) {
+  return String(env.SIMBAWAJUMAA_WEBHOOK_SECRET || env.SIMBA_CALLBACK_SECRET || env.GARVEY_CALLBACK_SECRET || env.WEBHOOK_SECRET || "").trim();
+}
+
+function buildDeliveryHeaders(body, env = process.env) {
+  const secret = resolveWebhookSecret(env);
+  const headers = { "Content-Type": "application/json" };
+  const signatureValidationResult = secret ? "hmac_sha256_hex_x_garvey_signature" : "unsigned_secret_not_configured";
+  if (secret) {
+    const digest = signBody(body, secret);
+    headers["X-Garvey-Signature"] = `sha256=${digest}`;
+    headers["X-Hub-Signature-256"] = `sha256=${digest}`;
+  }
+  return { headers, signatureValidationResult, signature_algorithm: secret ? "HMAC-SHA256 over raw JSON body, hex digest, sha256= prefix" : "none" };
+}
+
 async function resolveExternalIdentity({ userId, provider = PROVIDER, pool = defaultPool }) {
   if (!userId) return null;
   const result = await pool.query(
@@ -51,15 +74,12 @@ async function queueExternalEvent({ provider = PROVIDER, eventType, userId, exte
 }
 
 async function deliverExternalEvent(id, { pool = defaultPool } = {}) {
-  const webhookUrl = String(process.env.SIMBAWAJUMAA_WEBHOOK_URL || "").trim();
+  const webhookUrl = resolveWebhookUrl();
   if (!webhookUrl || typeof fetch !== "function") return { delivered: false, reason: "webhook_not_configured" };
   const event = (await pool.query("SELECT * FROM external_event_deliveries WHERE id = $1", [id])).rows[0];
   if (!event) return { delivered: false, reason: "event_not_found" };
   const body = JSON.stringify(event.payload || {});
-  const secret = String(process.env.SIMBAWAJUMAA_WEBHOOK_SECRET || "").trim();
-  const headers = { "Content-Type": "application/json" };
-  const signatureValidationResult = secret ? "signed_sha256" : "unsigned_secret_not_configured";
-  if (secret) headers["X-Garvey-Signature"] = `sha256=${signBody(body, secret)}`;
+  const { headers, signatureValidationResult } = buildDeliveryHeaders(body);
   console.info("simbawajuma_callback_step", { step: "payload_built", id, assessment_id: event.payload?.assessment_id || null, result_id: event.payload?.result_id || null, member_email: event.payload?.email || null });
   console.info("simbawajuma_callback_step", { step: "callback_signed", id, signature_validation_result: signatureValidationResult });
   await pool.query("UPDATE external_event_deliveries SET status = 'sending', attempts = attempts + 1, last_attempt_at = NOW(), callback_url = $2, signature_validation_result = $3, updated_at = NOW() WHERE id = $1", [id, webhookUrl, signatureValidationResult]);
@@ -110,10 +130,10 @@ async function getExternalEventDiagnostics({ provider = PROVIDER, pool = default
     event_type: row.event_type,
     status: row.status,
     last_callback_timestamp: row.last_attempt_at || row.updated_at,
-    callback_destination_url: row.callback_url || String(process.env.SIMBAWAJUMAA_WEBHOOK_URL || '').trim() || null,
+    callback_destination_url: row.callback_url || resolveWebhookUrl() || null,
     http_status_code: row.http_status || null,
     response_body: row.response_body || null,
-    signature_validation_result: row.signature_validation_result || (String(process.env.SIMBAWAJUMAA_WEBHOOK_SECRET || '').trim() ? 'signed_sha256' : 'unsigned_secret_not_configured'),
+    signature_validation_result: row.signature_validation_result || (resolveWebhookSecret() ? 'hmac_sha256_hex_x_garvey_signature' : 'unsigned_secret_not_configured'),
     member_email: row.payload?.email || null,
     assessment_id: row.payload?.assessment_id || row.payload?.submission_id || row.payload?.assessment_type || null,
     result_id: row.payload?.result_id || null,
@@ -126,12 +146,33 @@ async function getExternalEventDiagnostics({ provider = PROVIDER, pool = default
     error_message: row.last_error,
     updated_at: row.updated_at,
   } : null;
+  const resolvedUrl = resolveWebhookUrl();
   return {
+    callback: {
+      current_callback_url: String(process.env.SIMBAWAJUMAA_WEBHOOK_URL || process.env.SIMBA_CALLBACK_URL || process.env.GARVEY_CALLBACK_URL || "").trim() || null,
+      resolved_callback_url: resolvedUrl || null,
+      http_method: "POST",
+      signature_algorithm: resolveWebhookSecret() ? "HMAC-SHA256 over raw JSON body, hex digest, sha256= prefix" : "unsigned (no callback secret configured)",
+      configured_headers: ["Content-Type", ...(resolveWebhookSecret() ? ["X-Garvey-Signature", "X-Hub-Signature-256"] : [])],
+    },
+    environment_present: {
+      SIMBAWAJUMAA_WEBHOOK_URL: Boolean(process.env.SIMBAWAJUMAA_WEBHOOK_URL),
+      SIMBA_CALLBACK_URL: Boolean(process.env.SIMBA_CALLBACK_URL),
+      GARVEY_CALLBACK_URL: Boolean(process.env.GARVEY_CALLBACK_URL),
+      SIMBA_BASE_URL: Boolean(process.env.SIMBA_BASE_URL),
+      SIMBAWAJUMAA_WEBHOOK_SECRET: Boolean(process.env.SIMBAWAJUMAA_WEBHOOK_SECRET),
+      SIMBA_CALLBACK_SECRET: Boolean(process.env.SIMBA_CALLBACK_SECRET),
+      GARVEY_CALLBACK_SECRET: Boolean(process.env.GARVEY_CALLBACK_SECRET),
+      WEBHOOK_SECRET: Boolean(process.env.WEBHOOK_SECRET),
+    },
     queued_callbacks: counts.rows.reduce((acc, row) => ({ ...acc, [row.status]: row.count }), {}),
+    queue_size: counts.rows.filter((r) => ["queued", "failed"].includes(r.status)).reduce((sum, r) => sum + Number(r.count || 0), 0),
     last_callback: rowToDiag(lastAny.rows[0]),
     last_success: rowToDiag(lastSuccess.rows[0]),
     last_failure: rowToDiag(lastFailure.rows[0]),
+    payload_preview: lastAny.rows[0]?.payload ? JSON.stringify(lastAny.rows[0].payload).slice(0, 1200) : null,
+    retry_behavior: "Queued/failed events retry every SIMBAWAJUMAA_RETRY_INTERVAL_MS (default 120000 ms); each retry selects events older than 2 minutes, oldest first, limit 25.",
   };
 }
 
-module.exports = { PROVIDER, queueExternalEvent, deliverExternalEvent, retryQueuedExternalEvents, getExternalEventDiagnostics, signBody };
+module.exports = { PROVIDER, queueExternalEvent, deliverExternalEvent, retryQueuedExternalEvents, getExternalEventDiagnostics, signBody, resolveWebhookUrl, resolveWebhookSecret, buildDeliveryHeaders };

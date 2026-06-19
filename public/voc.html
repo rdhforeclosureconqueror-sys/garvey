@@ -170,6 +170,7 @@ input::placeholder { color:#94a3b8; }
 </div>
 <script src="/js/api-contract.js"></script>
 <script src="/garvey_ui.js"></script>
+<script src="/js/assessment-consent.js"></script>
 <script>
 "use strict";
 const { ENDPOINTS, buildUrl } = window.GarveyApi;
@@ -339,23 +340,12 @@ async function submitRequiredConsent() {
     showConsentStatus("Name and email are required.");
     return;
   }
-  const sessionId = `voc-consent:${identity.tenant}:${email}`;
-  const response = await fetch(buildUrl(ENDPOINTS.consentRequired), {
-    method: "POST",
-    headers: { "Content-Type":"application/json", "x-user-role": "customer", "x-user-email": email, "x-tenant-slug": identity.tenant },
-    credentials: "include",
-    body: JSON.stringify({
-      tenant: identity.tenant,
-      email,
-      session_id: sessionId,
-      consent_version: CONSENT_VERSION,
-      consent_type: "business_only_required",
-      require_for_voc: true,
-      accepted: true
-    })
+  await window.GarveyAssessmentConsent.saveRequiredConsent({
+    tenant: identity.tenant,
+    email,
+    name,
+    assessment: "customer",
   });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(payload?.error || "Consent could not be saved");
   writeActiveCustomer({ tenant: identity.tenant, email, name, cid: identity.cid, rid: identity.rid });
   requiredConsentAccepted = true;
   document.getElementById("requiredConsentStep").classList.add("hide");
