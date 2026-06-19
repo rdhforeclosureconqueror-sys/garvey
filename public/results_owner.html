@@ -17,10 +17,12 @@
     .link { text-decoration: underline; }
     .result-id { margin:10px 0 16px; font-size:1.05rem; font-weight:700; color:#facc15; }
     .muted { color:#94a3b8; }
+    .simba-return { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:0 0 14px; }
   </style>
 </head>
 <body>
   <div class="card">
+    <div id="simbaReturnTop" class="simba-return"></div>
     <h1>Business Owner Results</h1>
     <p id="meta">Loading…</p>
     <p id="result-id" class="result-id" style="display:none;"></p>
@@ -40,9 +42,12 @@
     <div id="guidance"></div>
 
     <div id="ctas"></div>
+    <div id="resultVoiceMount" style="margin-top:12px;"></div>
+    <div id="simbaReturnBottom" class="simba-return" style="margin-top:14px;"></div>
   </div>
 
   <script src="/js/api-contract.js"></script>
+  <script src="/js/assessment-voice.js"></script>
   <script>
     // Session is authoritative for owner identity; never bootstrap tenant/email from cached ctx.
     const qs = new URLSearchParams(window.location.search);
@@ -70,6 +75,27 @@
         '"': "&quot;",
         "'": "&#039;"
       }[c]));
+    }
+
+
+    function simbaDashboardUrl() {
+      const q = new URLSearchParams(window.location.search);
+      const picked = safeTrim(q.get("return_url") || q.get("result_return_url") || q.get("dashboard_url"));
+      return picked || "https://simbawaujamaa.com/dashboard";
+    }
+    function renderSimbaReturnLinks() {
+      const html = `<a class="btn alt" href="${escapeHtml(simbaDashboardUrl())}">Back to Simba Dashboard</a>`;
+      const top = document.getElementById("simbaReturnTop");
+      const bottom = document.getElementById("simbaReturnBottom");
+      if (top) top.innerHTML = html;
+      if (bottom) bottom.innerHTML = html;
+    }
+    function bindResultVoice(text) {
+      const node = document.getElementById("resultVoiceMount");
+      if (!node || !window.AssessmentVoice) return;
+      node.textContent = "Assessment result reader";
+      const controller = window.AssessmentVoice.createController({ surface: "assessment_results", scope_id: window.location.pathname });
+      controller.bind(node, { section_key: "full_result", section_label: "Assessment result", voice_text: text, play_label: "Read My Results", pause_label: "Stop Reading" });
     }
 
     function toSlug(s) {
@@ -160,7 +186,7 @@
 
     async function resolveOwnerSession() {
       const url = window.GarveyApi.buildUrl("/api/owner/session");
-      const res = await fetch(url, { credentials: "include" });
+      const res = await fetch(url, { credentials: "include", headers: { "x-user-role": "business_owner", "x-user-email": resolvedEmail, "x-tenant-slug": resolvedTenant } });
       const data = await res.json().catch(() => ({ authenticated: false }));
       if (!res.ok || !data?.authenticated) return null;
       const sessionTenant = normalizedCtxValue(data.tenant);
@@ -204,7 +230,7 @@
         { type: "business_owner", tenant: resolvedTenant, role: "business_owner", email: resolvedEmail }
       );
 
-      const res = await fetch(url, { credentials: "include" });
+      const res = await fetch(url, { credentials: "include", headers: { "x-user-role": "business_owner", "x-user-email": resolvedEmail, "x-tenant-slug": resolvedTenant } });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Failed to load results");
 
@@ -278,11 +304,14 @@
         <a class="btn" href="${buildGarveyUrl()}">Start GARVEY Pathway</a>
         <a class="btn" href="${buildResultsPermalink()}">Copy/Bookmark Results Link</a>
       `;
+      renderSimbaReturnLinks();
+      bindResultVoice(`Business Owner Results. Primary ${primaryRole}. Secondary ${secondaryRole}. Growth area ${growthRole}. ${g.strengthen_strength || ""} ${g.support_secondary || ""} ${g.fix_weakness || ""}`);
       if (window.GARVEY && window.GARVEY.applyCtxToLinks) {
         window.GARVEY.applyCtxToLinks(document.getElementById("ctas"));
       }
     }
 
+    renderSimbaReturnLinks();
     load().catch((err) => {
       document.getElementById("meta").textContent = `Error: ${err.message}`;
     });

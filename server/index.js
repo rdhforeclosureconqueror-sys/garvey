@@ -6595,7 +6595,22 @@ app.get("/api/questions", async (req, res) => {
       });
     }
 
-    const normalized = rows.map((row) => ({
+    const dbByQid = new Map(rows.map((row) => [String(row.qid || "").trim(), row]));
+    const catalogQuestions = getQuestions(assessmentType);
+    const sourceRows = catalogQuestions.length ? catalogQuestions.map((catalogQuestion) => dbByQid.get(catalogQuestion.qid) || {
+      qid: catalogQuestion.qid,
+      assessment_type: assessmentType,
+      question_text: catalogQuestion.text,
+      option_a: catalogQuestion.options?.[0]?.text || "",
+      option_b: catalogQuestion.options?.[1]?.text || "",
+      option_c: catalogQuestion.options?.[2]?.text || "",
+      option_d: catalogQuestion.options?.[3]?.text || "",
+      mapping_a: JSON.stringify(catalogQuestion.options?.[0]?.maps || []),
+      mapping_b: JSON.stringify(catalogQuestion.options?.[1]?.maps || []),
+      mapping_c: JSON.stringify(catalogQuestion.options?.[2]?.maps || []),
+      mapping_d: JSON.stringify(catalogQuestion.options?.[3]?.maps || []),
+    }) : rows;
+    const normalized = sourceRows.map((row) => ({
       qid: row.qid,
       assessment_type: row.assessment_type,
       prompt: row.question_text,
