@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const express = require('express');
 const http = require('http');
 
-const { createAssessmentVoiceRouter } = require('../server/assessmentVoiceRoutes');
+const { createAssessmentVoiceRouter, resolveAssessmentSpeakEndpoint } = require('../server/assessmentVoiceRoutes');
 
 async function startApp(options = {}) {
   const app = express();
@@ -81,6 +81,77 @@ test('assessment voice route uses upstream /speak and streams raw audio bytes', 
   assert.equal(streamBytes.equals(Buffer.from('fake-mpeg-audio-bytes', 'utf8')), true);
 });
 
+test('assessment voice compatibility resolves SKILL_WORLD_TTS_URL without double /speak', async (t) => {
+  const voiceRepo = await startVoiceRepo();
+  const originalSkillWorldUrl = process.env.SKILL_WORLD_TTS_URL;
+  delete process.env.ASSESSMENT_TTS_URL;
+  process.env.SKILL_WORLD_TTS_URL = `${voiceRepo.baseUrl}/speak`;
+  const app = await startApp();
+  t.after(async () => {
+    if (originalSkillWorldUrl === undefined) delete process.env.SKILL_WORLD_TTS_URL;
+    else process.env.SKILL_WORLD_TTS_URL = originalSkillWorldUrl;
+    await voiceRepo.close();
+    await new Promise((resolve) => app.server.close(resolve));
+  });
+
+  assert.deepEqual(resolveAssessmentSpeakEndpoint({ tts_url: 'https://aivoice-wmrv.onrender.com/speak' }), {
+    configured_url: 'https://aivoice-wmrv.onrender.com/speak',
+    already_included_speak: true,
+    final_url: 'https://aivoice-wmrv.onrender.com/speak',
+    upstream_route: '/speak',
+  });
+
+  const res = await fetch(`${app.baseUrl}/api/assessment/voice/section`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ surface: 'assessment_results', section_key: 'full_result', voice_text: 'no double speak' }),
+  });
+  const body = await res.json();
+  assert.equal(res.status, 200);
+  assert.equal(body.upstream_url, `${voiceRepo.baseUrl}/speak`);
+  assert.equal(body.voice_diagnostics.upstream_included_speak, true);
+  assert.equal(body.voice_diagnostics.final_upstream_url, `${voiceRepo.baseUrl}/speak`);
+  assert.equal(body.voice_diagnostics.provider_audio_returned, true);
+  assert.equal(body.voice_diagnostics.browser_fallback_used, false);
+  assert.equal(body.voice_diagnostics.tts_http_status, 200);
+  assert.equal(voiceRepo.calls.length, 1);
+  assert.equal(voiceRepo.calls[0].path, '/speak');
+});
+
+test('assessment voice compatibility appends /speak once when SKILL_WORLD_TTS_URL is origin only', async (t) => {
+  const voiceRepo = await startVoiceRepo();
+  const originalSkillWorldUrl = process.env.SKILL_WORLD_TTS_URL;
+  delete process.env.ASSESSMENT_TTS_URL;
+  process.env.SKILL_WORLD_TTS_URL = voiceRepo.baseUrl;
+  const app = await startApp();
+  t.after(async () => {
+    if (originalSkillWorldUrl === undefined) delete process.env.SKILL_WORLD_TTS_URL;
+    else process.env.SKILL_WORLD_TTS_URL = originalSkillWorldUrl;
+    await voiceRepo.close();
+    await new Promise((resolve) => app.server.close(resolve));
+  });
+
+  assert.deepEqual(resolveAssessmentSpeakEndpoint({ tts_url: 'https://aivoice-wmrv.onrender.com' }), {
+    configured_url: 'https://aivoice-wmrv.onrender.com',
+    already_included_speak: false,
+    final_url: 'https://aivoice-wmrv.onrender.com/speak',
+    upstream_route: '/speak',
+  });
+
+  const res = await fetch(`${app.baseUrl}/api/assessment/voice/section`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ surface: 'assessment_results', section_key: 'full_result', voice_text: 'append once' }),
+  });
+  const body = await res.json();
+  assert.equal(res.status, 200);
+  assert.equal(body.upstream_url, `${voiceRepo.baseUrl}/speak`);
+  assert.equal(body.voice_diagnostics.upstream_included_speak, false);
+  assert.equal(body.voice_diagnostics.final_upstream_url, `${voiceRepo.baseUrl}/speak`);
+  assert.equal(voiceRepo.calls.length, 1);
+  assert.equal(voiceRepo.calls[0].path, '/speak');
+});
+
 test('assessment voice route signals fallback only when upstream/provider is unavailable', async (t) => {
   const voiceRepo = await startVoiceRepo({ fail: true });
   const app = await startApp({ voice_repo_base_url: voiceRepo.baseUrl });
@@ -98,6 +169,10 @@ test('assessment voice route signals fallback only when upstream/provider is una
   assert.equal(body.voice_mode, 'fallback_browser_speech');
   assert.equal(body.provider_ready, false);
   assert.equal(body.fallback_reason, 'failed_tts_request_http_503');
+  assert.equal(body.voice_diagnostics.provider_audio_returned, false);
+  assert.equal(body.voice_diagnostics.browser_fallback_used, true);
+  assert.equal(body.voice_diagnostics.tts_http_status, 503);
+  assert.match(body.voice_diagnostics.error_message, /HTTP 503/);
   assert.ok(body.diagnostics.includes('failed_tts_request'));
   assert.ok(body.diagnostics.includes('browser_fallback_used'));
 });
@@ -160,5 +235,29 @@ test('assessment surfaces include voice controls on results/sections and not que
   assert.match(shared, /ready to hear summary/);
   assert.match(shared, /ready to hear full section/);
   assert.match(shared, /AI voice unavailable, using fallback/);
+  assert.match(shared, /browser_fallback_used:\s*true/);
+  assert.match(shared, /provider_audio_returned/);
   assert.match(indexSource, /app\.use\("\/api\/assessment\/voice", createAssessmentVoiceRouter\(\)\);/);
+});
+
+test('working voice routes remain untouched while assessment results use compatibility layer', () => {
+  const adaptive = fs.readFileSync('public/gamehub/adaptive_learning.html', 'utf8');
+  const skillWorld = fs.readFileSync('public/gamehub/skill-world/index.html', 'utf8');
+  const ownerResults = fs.readFileSync('public/results_owner.html', 'utf8');
+  const customerResults = fs.readFileSync('public/results_customer.html', 'utf8');
+  const experience = fs.readFileSync('public/archetype-engines/experience.js', 'utf8');
+
+  assert.match(adaptive, /fetch\('\/api\/adaptive-v2\/voice\/sections'/, 'Adaptive V2 still posts to its proven voice route');
+  assert.match(adaptive, /runtime_version:'adaptive_v2'/, 'Adaptive V2 still sends adaptive_v2 runtime_version');
+  assert.match(skillWorld, /fetch\('\/api\/skill-world\/audio'/, 'Skill World still posts to its proven audio route');
+  assert.match(ownerResults, /AssessmentVoice\.createController/);
+  assert.match(ownerResults, /play_label: "Read My Results"/);
+  assert.match(ownerResults, /pause_label: "Stop Reading"/);
+  assert.match(customerResults, /AssessmentVoice\.createController/);
+  assert.match(customerResults, /play_label: "Read My Results"/);
+  assert.match(customerResults, /pause_label: "Stop Reading"/);
+  assert.match(experience, /createVoiceController\("archetype_result"/);
+  assert.match(experience, /createVoiceController\("archetype_result_story"/);
+  assert.match(experience, /play_label: "Read My Results"/);
+  assert.match(experience, /pause_label: "Stop Reading"/);
 });
