@@ -3,33 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Assessment Center</title>
+  <title>Simba Assessment Center</title>
   <style>
-    :root{--simba-bg:#07111f;--simba-surface:#0d1b2f;--simba-border:#223655;--simba-text:#e5eefb;--simba-muted:#9fb1c8;--simba-accent:#f7c948;--simba-accent-text:#111827;--simba-disabled-bg:#334155;--simba-disabled-text:#94a3b8;--simba-radius:18px;--simba-font:Inter,system-ui,-apple-system,Segoe UI,sans-serif}body{font-family:var(--simba-font);margin:0;background:var(--simba-bg);color:var(--simba-text)}.wrap{max-width:1100px;margin:0 auto;padding:36px 18px}.eyebrow{color:var(--simba-accent);text-transform:uppercase;letter-spacing:.12em;font-size:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}.card{background:var(--simba-surface);border:1px solid var(--simba-border);border-radius:var(--simba-radius);padding:18px;box-shadow:0 16px 40px rgba(0,0,0,.22)}.meta{color:var(--simba-muted);font-size:14px}.pill{display:inline-block;border:1px solid color-mix(in srgb,var(--simba-border) 80%,#fff 20%);border-radius:999px;padding:4px 9px;margin:6px 6px 10px 0;color:var(--simba-text);font-size:12px}.btn{display:inline-block;margin-top:10px;background:var(--simba-accent);color:var(--simba-accent-text);text-decoration:none;border-radius:12px;padding:10px 14px;font-weight:700}.btn.disabled{background:var(--simba-disabled-bg);color:var(--simba-disabled-text);pointer-events:none}h1{font-size:clamp(32px,5vw,56px);margin:6px 0}h2{margin:0 0 8px}.notice{background:color-mix(in srgb,var(--simba-surface) 86%,var(--simba-accent) 14%);border-left:4px solid var(--simba-accent);padding:12px 14px;border-radius:12px;margin-top:18px;color:var(--simba-text)}
+    :root{--simba-bg:#07111f;--simba-surface:#0d1b2f;--simba-border:#223655;--simba-text:#e5eefb;--simba-muted:#9fb1c8;--simba-accent:#f7c948;--simba-accent-text:#111827;--simba-disabled-bg:#334155;--simba-disabled-text:#94a3b8;--simba-radius:18px;--simba-font:Inter,system-ui,-apple-system,Segoe UI,sans-serif}*{box-sizing:border-box}body{font-family:var(--simba-font);margin:0;background:radial-gradient(circle at top,#10213a 0,var(--simba-bg) 44%);color:var(--simba-text)}.wrap{max-width:1180px;margin:0 auto;padding:36px 18px 56px}.eyebrow{color:var(--simba-accent);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:800}.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);gap:18px;align-items:stretch}.panel,.card{background:rgba(13,27,47,.88);border:1px solid var(--simba-border);border-radius:var(--simba-radius);padding:18px;box-shadow:0 16px 40px rgba(0,0,0,.22)}.meta{color:var(--simba-muted);font-size:14px;line-height:1.5}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.tab{border:1px solid var(--simba-border);background:#0b1628;color:var(--simba-text);border-radius:999px;padding:8px 12px;cursor:pointer}.tab.active{background:var(--simba-accent);color:var(--simba-accent-text);border-color:var(--simba-accent)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:18px}.pill{display:inline-block;border:1px solid color-mix(in srgb,var(--simba-border) 80%,#fff 20%);border-radius:999px;padding:4px 9px;margin:6px 6px 10px 0;color:var(--simba-text);font-size:12px}.btn{display:inline-block;margin-top:10px;background:var(--simba-accent);color:var(--simba-accent-text);text-decoration:none;border-radius:12px;padding:10px 14px;font-weight:800}.btn.disabled{background:var(--simba-disabled-bg);color:var(--simba-disabled-text);pointer-events:none}h1{font-size:clamp(34px,5vw,60px);margin:6px 0}h2{margin:0 0 8px}.progress{height:10px;background:#13243d;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;background:var(--simba-accent)}ul{padding-left:18px}@media(max-width:760px){.hero{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <div class="eyebrow">Member assessments</div>
-    <h1>Assessment Center</h1>
-    <p class="meta">Choose an approved member assessment. Scoring and result storage run in the internal assessment engine.</p>
-    <div class="notice">Some youth and K–6 assessments require a parent account and child profile before they can be opened.</div>
+    <section class="hero">
+      <div class="panel">
+        <div class="eyebrow">Simba wa Ujamaa</div>
+        <h1>Assessment Center</h1>
+        <p class="meta">Choose an approved member assessment without leaving Simba. Scoring and result storage run in the internal assessment engine.</p>
+      </div>
+      <aside class="panel" id="journeyPanel">
+        <div class="eyebrow">Continue Your Journey</div>
+        <p class="meta">Loading dashboard…</p>
+      </aside>
+    </section>
+    <nav class="tabs" id="categoryTabs" aria-label="Assessment categories"></nav>
     <section class="grid" id="assessmentGrid" aria-live="polite"></section>
   </main>
   <script>
     const params = new URLSearchParams(location.search);
-    function withContext(href){
-      const url = new URL(href, location.origin);
-      ["tenant","email","cid"].forEach((key)=>{ if(params.get(key) && !url.searchParams.get(key)) url.searchParams.set(key, params.get(key)); });
-      return url.pathname + url.search;
-    }
-    fetch('/api/simbawajuma/assessments', { credentials: 'include' })
-      .then((r)=>r.json())
-      .then((data)=>{
-        const grid = document.getElementById('assessmentGrid');
-        grid.innerHTML = (data.assessments || []).map((a)=>`<article class="card"><span class="pill">${a.visibility}</span><span class="pill">${a.estimated_time}</span><h2>${a.title || a.name}</h2><p>${a.description}</p><p class="meta"><strong>Category:</strong> ${a.category || 'general'}</p><a class="btn ${a.disabled ? 'disabled' : ''}" href="${a.disabled ? '#' : withContext(a.href)}">${a.disabled ? 'Requires parent setup' : 'Start assessment'}</a></article>`).join('');
-      })
-      .catch(()=>{ document.getElementById('assessmentGrid').innerHTML = '<p>Unable to load assessments.</p>'; });
+    let catalog = [];
+    let activeCategory = 'All';
+    function escapeHtml(value){return String(value ?? '').replace(/[&<>'"]/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+    function withContext(href){const url = new URL(href, location.origin);["tenant","email","cid"].forEach((key)=>{ if(params.get(key) && !url.searchParams.get(key)) url.searchParams.set(key, params.get(key)); });return url.pathname + url.search;}
+    function renderTabs(categories){const tabs = ['All', ...categories];document.getElementById('categoryTabs').innerHTML = tabs.map((cat)=>`<button class="tab ${cat===activeCategory?'active':''}" data-category="${escapeHtml(cat)}">${escapeHtml(cat)}</button>`).join('');}
+    function renderGrid(){const visible = activeCategory === 'All' ? catalog : catalog.filter((a)=>a.category === activeCategory);document.getElementById('assessmentGrid').innerHTML = visible.map((a)=>`<article class="card"><span class="pill">${escapeHtml(a.category || 'General')}</span><span class="pill">${escapeHtml(a.estimated_time)}</span><h2>${escapeHtml(a.title || a.name)}</h2><p>${escapeHtml(a.description)}</p><p class="meta"><strong>Recommended next:</strong> ${escapeHtml(a.recommended_next_assessment || 'Simba journey')}</p><p class="meta"><strong>Rewards:</strong> ${a.star_reward_eligible ? `${Number(a.simba_points || 0)} Simba points + streak` : 'No star reward'}</p><a class="btn ${a.disabled ? 'disabled' : ''}" href="${a.disabled ? '#' : withContext(a.href)}">${a.disabled ? 'Requires parent setup' : 'Start assessment'}</a></article>`).join('') || '<p class="meta">No assessments in this category yet.</p>';}
+    function renderJourney(d){const pct = Number(d.progress_percentage || 0);document.getElementById('journeyPanel').innerHTML = `<div class="eyebrow">Continue Your Journey</div><h2>${pct}% complete</h2><div class="progress"><span style="width:${Math.max(0,Math.min(100,pct))}%"></span></div><ul class="meta"><li>Started: ${(d.assessments_started||[]).length}</li><li>Completed: ${(d.assessments_completed||[]).length}</li><li>Suggested next: ${escapeHtml(d.suggested_next_assessment?.title || 'Choose any assessment')}</li></ul>`;}
+    document.getElementById('categoryTabs').addEventListener('click',(event)=>{const btn=event.target.closest('[data-category]');if(!btn)return;activeCategory=btn.dataset.category;renderTabs([...new Set(catalog.map((a)=>a.category).filter(Boolean))]);renderGrid();});
+    Promise.all([fetch('/api/simbawajuma/assessments',{credentials:'include'}).then((r)=>r.json()),fetch('/api/simbawajuma/dashboard',{credentials:'include'}).then((r)=>r.json()).catch(()=>({}))]).then(([data,dashboard])=>{catalog=data.assessments||[];renderTabs(data.categories || [...new Set(catalog.map((a)=>a.category).filter(Boolean))]);renderGrid();renderJourney(dashboard);}).catch(()=>{document.getElementById('assessmentGrid').innerHTML='<p class="meta">Unable to load assessments.</p>';});
   </script>
 </body>
 </html>

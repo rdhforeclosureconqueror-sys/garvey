@@ -12,6 +12,15 @@ const COOKIE_NAME = "garvey_owner_session";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 const MAX_TOKEN_AGE_SECONDS = 10 * 60;
 
+const SIMBA_ASSESSMENT_CATEGORIES = Object.freeze([
+  "Leadership",
+  "Community Economics",
+  "Rite of Passage",
+  "Business",
+  "Personal Growth",
+  "Family & Youth",
+]);
+
 const APPROVED_ASSESSMENTS = Object.freeze([
   {
     id: "business_owner",
@@ -21,13 +30,21 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     estimated_time: "8–12 minutes",
     access_rule: "Simba member",
     visibility: "member-only",
-    category: "business",
-    recommended_book: "The Ujamaa Business Starter",
-    recommended_audiobook: "The Ujamaa Business Starter Audio Companion",
-    recommended_next_assessment: "customer",
-    recommended_discord_channel: "#business-builders",
+    category: "Business",
+    recommendations: {
+      book: "The Ujamaa Business Starter",
+      audiobook: "The Ujamaa Business Starter Audio Companion",
+      discord_channel: "#business-builders",
+      historical_facts: "Cooperative economics practices from Black Wall Street and ujamaa village-building traditions.",
+      brain_game: "Resource Builder Sprint",
+      swahili_lesson: "Biashara na Ujamaa",
+      next_assessment: "customer",
+    },
     star_reward_eligible: true,
-    href: "/intake.html?assessment=business_owner",
+    simba_points: 50,
+    streak_key: "assessment_completion",
+    achievements: ["business-pathfinder"],
+    href: "/intake.html?assessment=business_owner&surface=simba",
   },
   {
     id: "customer",
@@ -37,13 +54,21 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     estimated_time: "5–8 minutes",
     access_rule: "Simba member",
     visibility: "member-only",
-    category: "customer_discovery",
-    recommended_book: "Voice of the Customer Field Guide",
-    recommended_audiobook: "Voice of the Customer Field Guide Audio Companion",
-    recommended_next_assessment: "business_owner",
-    recommended_discord_channel: "#customer-insights",
+    category: "Community Economics",
+    recommendations: {
+      book: "Voice of the Customer Field Guide",
+      audiobook: "Voice of the Customer Field Guide Audio Companion",
+      discord_channel: "#customer-insights",
+      historical_facts: "Mutual aid societies used member listening circles to guide services and local commerce.",
+      brain_game: "Market Signals Match",
+      swahili_lesson: "Mteja na Soko",
+      next_assessment: "business_owner",
+    },
     star_reward_eligible: true,
-    href: "/intake.html?assessment=customer",
+    simba_points: 35,
+    streak_key: "assessment_completion",
+    achievements: ["customer-listener"],
+    href: "/intake.html?assessment=customer&surface=simba",
   },
   {
     id: "love",
@@ -53,13 +78,21 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     estimated_time: "10–15 minutes",
     access_rule: "Simba member preview",
     visibility: "public preview",
-    category: "relationships",
-    recommended_book: "The Love Archetype Guide",
-    recommended_audiobook: "The Love Archetype Audio Guide",
-    recommended_next_assessment: "leadership",
-    recommended_discord_channel: "#relationship-archetypes",
+    category: "Personal Growth",
+    recommendations: {
+      book: "The Love Archetype Guide",
+      audiobook: "The Love Archetype Audio Guide",
+      discord_channel: "#relationship-archetypes",
+      historical_facts: "Family councils and kinship networks helped preserve relational accountability across the diaspora.",
+      brain_game: "Empathy Pattern Match",
+      swahili_lesson: "Upendo na Heshima",
+      next_assessment: "leadership",
+    },
     star_reward_eligible: false,
-    href: "/archetype-engines/love/assessment",
+    simba_points: 0,
+    streak_key: "assessment_completion",
+    achievements: [],
+    href: "/archetype-engines/love/assessment?surface=simba",
   },
   {
     id: "leadership",
@@ -69,13 +102,21 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     estimated_time: "10–15 minutes",
     access_rule: "Simba member preview",
     visibility: "public preview",
-    category: "leadership",
-    recommended_book: "The Leadership Archetype Guide",
-    recommended_audiobook: "The Leadership Archetype Audio Guide",
-    recommended_next_assessment: "loyalty",
-    recommended_discord_channel: "#leadership-lab",
+    category: "Leadership",
+    recommendations: {
+      book: "The Leadership Archetype Guide",
+      audiobook: "The Leadership Archetype Audio Guide",
+      discord_channel: "#leadership-lab",
+      historical_facts: "Marcus Garvey organized chapters, newspapers, shipping plans, and local leadership structures at global scale.",
+      brain_game: "Council Strategy Grid",
+      swahili_lesson: "Uongozi wa Jamii",
+      next_assessment: "loyalty",
+    },
     star_reward_eligible: false,
-    href: "/archetype-engines/leadership/assessment",
+    simba_points: 0,
+    streak_key: "assessment_completion",
+    achievements: [],
+    href: "/archetype-engines/leadership/assessment?surface=simba",
   },
   {
     id: "loyalty",
@@ -85,13 +126,21 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     estimated_time: "10–15 minutes",
     access_rule: "Simba member preview",
     visibility: "public preview",
-    category: "retention",
-    recommended_book: "The Loyalty Archetype Guide",
-    recommended_audiobook: "The Loyalty Archetype Audio Guide",
-    recommended_next_assessment: "customer",
-    recommended_discord_channel: "#loyalty-retention",
+    category: "Community Economics",
+    recommendations: {
+      book: "The Loyalty Archetype Guide",
+      audiobook: "The Loyalty Archetype Audio Guide",
+      discord_channel: "#loyalty-retention",
+      historical_facts: "Co-ops strengthened loyalty by returning value to members instead of extracting it from communities.",
+      brain_game: "Retention Rhythm",
+      swahili_lesson: "Uaminifu na Ushirika",
+      next_assessment: "customer",
+    },
     star_reward_eligible: false,
-    href: "/archetype-engines/loyalty/assessment",
+    simba_points: 0,
+    streak_key: "assessment_completion",
+    achievements: [],
+    href: "/archetype-engines/loyalty/assessment?surface=simba",
   },
   {
     id: "youth_rite_of_passage",
@@ -101,13 +150,21 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     estimated_time: "Varies",
     access_rule: "Parent-only; requires Gates auth",
     visibility: "parent-only",
-    category: "youth_development",
-    recommended_book: "Parent Guide to Learning Pathways",
-    recommended_audiobook: "Parent Guide to Learning Pathways Audio Companion",
-    recommended_next_assessment: "assessment_mvp_k6",
-    recommended_discord_channel: "#parent-gates",
+    category: "Rite of Passage",
+    recommendations: {
+      book: "Parent Guide to Learning Pathways",
+      audiobook: "Parent Guide to Learning Pathways Audio Companion",
+      discord_channel: "#parent-gates",
+      historical_facts: "Rites of passage use elder guidance, service, and skill demonstration to mark growth.",
+      brain_game: "Gate Practice Quest",
+      swahili_lesson: "Familia na Malezi",
+      next_assessment: "assessment_mvp_k6",
+    },
     star_reward_eligible: false,
-    href: "/gates/signup",
+    simba_points: 0,
+    streak_key: "family_assessment",
+    achievements: [],
+    href: "/gates/signup?surface=simba",
     disabled: true,
   },
   {
@@ -118,13 +175,21 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     estimated_time: "Varies",
     access_rule: "Parent-only; requires Gates child context",
     visibility: "parent-only",
-    category: "k6_learning",
-    recommended_book: "Parent Guide to Learning Pathways",
-    recommended_audiobook: "Parent Guide to Learning Pathways Audio Companion",
-    recommended_next_assessment: "youth_rite_of_passage",
-    recommended_discord_channel: "#parent-gates",
+    category: "Family & Youth",
+    recommendations: {
+      book: "Parent Guide to Learning Pathways",
+      audiobook: "Parent Guide to Learning Pathways Audio Companion",
+      discord_channel: "#parent-gates",
+      historical_facts: "Freedom schools paired academic development with identity, family, and community purpose.",
+      brain_game: "Adaptive Learning Quest",
+      swahili_lesson: "Kujifunza Kila Siku",
+      next_assessment: "youth_rite_of_passage",
+    },
     star_reward_eligible: false,
-    href: "/gates/signup",
+    simba_points: 0,
+    streak_key: "family_assessment",
+    achievements: [],
+    href: "/gates/signup?surface=simba",
     disabled: true,
   },
 ]);
@@ -222,8 +287,26 @@ function verifyTransferToken(token, env = process.env) {
   return payload;
 }
 
+function withLegacyRecommendationFields(assessment) {
+  const recommendations = assessment.recommendations || {};
+  return {
+    ...assessment,
+    recommended_book: recommendations.book || "",
+    recommended_audiobook: recommendations.audiobook || "",
+    recommended_discord_channel: recommendations.discord_channel || "",
+    recommended_historical_facts: recommendations.historical_facts || "",
+    recommended_brain_game: recommendations.brain_game || "",
+    recommended_swahili_lesson: recommendations.swahili_lesson || "",
+    recommended_next_assessment: recommendations.next_assessment || "",
+  };
+}
+
+function getAssessmentCatalog() {
+  return APPROVED_ASSESSMENTS.map(withLegacyRecommendationFields);
+}
+
 function getAssessmentMetadata(id) {
-  return APPROVED_ASSESSMENTS.find((entry) => entry.id === id) || null;
+  return getAssessmentCatalog().find((entry) => entry.id === id) || null;
 }
 
 function recommendedNextStepsFor(id) {
@@ -232,9 +315,26 @@ function recommendedNextStepsFor(id) {
   return [
     metadata.recommended_book ? { type: "book", value: metadata.recommended_book } : null,
     metadata.recommended_audiobook ? { type: "audiobook", value: metadata.recommended_audiobook } : null,
-    metadata.recommended_next_assessment ? { type: "assessment", value: metadata.recommended_next_assessment } : null,
     metadata.recommended_discord_channel ? { type: "discord_channel", value: metadata.recommended_discord_channel } : null,
+    metadata.recommended_historical_facts ? { type: "historical_facts", value: metadata.recommended_historical_facts } : null,
+    metadata.recommended_brain_game ? { type: "brain_game", value: metadata.recommended_brain_game } : null,
+    metadata.recommended_swahili_lesson ? { type: "swahili_lesson", value: metadata.recommended_swahili_lesson } : null,
+    metadata.recommended_next_assessment ? { type: "assessment", value: metadata.recommended_next_assessment } : null,
   ].filter(Boolean);
+}
+
+function buildRewardInstruction(metadata) {
+  return {
+    eligible: Boolean(metadata?.star_reward_eligible),
+    simba_points: metadata?.star_reward_eligible ? Number(metadata.simba_points || 0) : 0,
+    streak_key: metadata?.streak_key || "assessment_completion",
+    achievements: Array.isArray(metadata?.achievements) ? metadata.achievements : [],
+    discord_notification: {
+      enabled: Boolean(metadata?.star_reward_eligible),
+      channel: metadata?.recommended_discord_channel || metadata?.recommendations?.discord_channel || "",
+      event_type: "assessment.completed",
+    },
+  };
 }
 
 function buildAssessmentCompletionPayload({ assessmentType, resultId, primaryResult, completedAt, extra = {} } = {}) {
@@ -245,7 +345,9 @@ function buildAssessmentCompletionPayload({ assessmentType, resultId, primaryRes
     result_id: resultId,
     primary_result: primaryResult || null,
     recommended_next_steps: recommendedNextStepsFor(assessmentType),
+    recommendations: metadata.recommendations || {},
     star_reward_eligible: Boolean(metadata.star_reward_eligible),
+    reward: buildRewardInstruction(metadata),
     completed_at: completedAt || new Date().toISOString(),
     ...extra,
   };
@@ -375,7 +477,27 @@ function createSimbaWajumaRouter(options = {}) {
   });
 
   router.get("/api/simbawajuma/assessments", (req, res) => {
-    return res.json({ provider: PROVIDER, surface: "embedded_assessment_engine", assessments: APPROVED_ASSESSMENTS });
+    return res.json({
+      provider: PROVIDER,
+      surface: "simba_assessment_center",
+      engine: "internal_assessment_engine",
+      categories: SIMBA_ASSESSMENT_CATEGORIES,
+      assessments: getAssessmentCatalog(),
+    });
+  });
+
+  router.get("/api/simbawajuma/dashboard", (req, res) => {
+    const assessments = getAssessmentCatalog();
+    const suggested = assessments.find((entry) => !entry.disabled) || null;
+    return res.json({
+      provider: PROVIDER,
+      title: "Continue Your Journey",
+      assessments_started: [],
+      assessments_completed: [],
+      suggested_next_assessment: suggested,
+      progress_percentage: 0,
+      note: "Member-specific progress is supplied by Simba when available; this fallback keeps legacy assessment engine routes backward compatible.",
+    });
   });
 
   router.get("/simbawajuma/assessments", (req, res) => {
@@ -387,7 +509,9 @@ function createSimbaWajumaRouter(options = {}) {
 
 module.exports = {
   PROVIDER,
-  APPROVED_ASSESSMENTS,
+  SIMBA_ASSESSMENT_CATEGORIES,
+  APPROVED_ASSESSMENTS: getAssessmentCatalog(),
+  getAssessmentCatalog,
   verifyTransferToken,
   findOrCreateLinkedUser,
   getAssessmentMetadata,

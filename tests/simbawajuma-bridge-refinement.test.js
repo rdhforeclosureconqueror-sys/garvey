@@ -19,6 +19,9 @@ const REQUIRED_METADATA_FIELDS = [
   'recommended_audiobook',
   'recommended_next_assessment',
   'recommended_discord_channel',
+  'recommended_historical_facts',
+  'recommended_brain_game',
+  'recommended_swahili_lesson',
   'star_reward_eligible',
 ];
 
@@ -38,6 +41,10 @@ test('Simba assessment catalog exposes member-facing metadata for every approved
     assert.equal(typeof assessment.recommended_audiobook, 'string');
     assert.equal(typeof assessment.recommended_next_assessment, 'string');
     assert.equal(typeof assessment.recommended_discord_channel, 'string');
+    assert.equal(typeof assessment.recommended_historical_facts, 'string');
+    assert.equal(typeof assessment.recommended_brain_game, 'string');
+    assert.equal(typeof assessment.recommended_swahili_lesson, 'string');
+    assert.ok(['Leadership', 'Community Economics', 'Rite of Passage', 'Business', 'Personal Growth', 'Family & Youth'].includes(assessment.category));
     assert.equal(typeof assessment.star_reward_eligible, 'boolean');
   }
 });
@@ -61,9 +68,15 @@ test('Simba completion payload includes expanded callback fields and recommendat
   assert.deepEqual(payload.recommended_next_steps.map((step) => step.type), [
     'book',
     'audiobook',
-    'assessment',
     'discord_channel',
+    'historical_facts',
+    'brain_game',
+    'swahili_lesson',
+    'assessment',
   ]);
+  assert.equal(payload.reward.eligible, true);
+  assert.equal(payload.reward.simba_points, 50);
+  assert.deepEqual(payload.reward.achievements, ['business-pathfinder']);
 });
 
 test('Simba-facing assessment center is skinnable and does not show Garvey branding', () => {
@@ -72,4 +85,6 @@ test('Simba-facing assessment center is skinnable and does not show Garvey brand
   assert.match(html, /--simba-accent/);
   assert.doesNotMatch(html, /Garvey/);
   assert.match(html, /internal assessment engine/);
+  assert.match(html, /Continue Your Journey/);
+  assert.match(html, /data-category/);
 });
