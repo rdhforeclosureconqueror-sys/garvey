@@ -6766,12 +6766,16 @@ app.post("/api/intake", async (req, res) => {
     queueExternalEvent({
       eventType: "assessment.completed",
       userId: user.id,
+      externalUserId: normalizeEmail(email),
+      email: normalizeEmail(email),
       payload: buildAssessmentCompletionPayload({
         assessmentType: "business_owner",
         resultId: submission.id,
         primaryResult: scored.primary,
         completedAt: submission.created_at || new Date().toISOString(),
         extra: {
+          email: normalizeEmail(email),
+          member_id: normalizeEmail(email),
           submission_id: submission.id,
           points_awarded: 0,
           result_url: `/api/results/${encodeURIComponent(normalizeEmail(email))}?type=business_owner&tenant=${encodeURIComponent(tenantRow.slug)}`,
@@ -7926,12 +7930,16 @@ async function handleVocIntake(req, res) {
     queueExternalEvent({
       eventType: "assessment.completed",
       userId: user.id,
+      externalUserId: normalizeEmail(email),
+      email: normalizeEmail(email),
       payload: buildAssessmentCompletionPayload({
         assessmentType: "customer",
         resultId: submission.id,
         primaryResult: scored.primary,
         completedAt: submission.created_at || new Date().toISOString(),
         extra: {
+          email: normalizeEmail(email),
+          member_id: normalizeEmail(email),
           submission_id: submission.id,
           points_awarded: vocPointsAdded,
           result_url: `/api/results/customer/${encodeURIComponent(String(submission.id))}`,

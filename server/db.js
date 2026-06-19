@@ -259,11 +259,22 @@ async function initializeDatabase() {
       status TEXT NOT NULL DEFAULT 'queued',
       attempts INTEGER NOT NULL DEFAULT 0,
       last_error TEXT,
+      callback_url TEXT,
+      http_status INTEGER,
+      response_body TEXT,
+      signature_validation_result TEXT,
+      simba_accepted BOOLEAN,
       last_attempt_at TIMESTAMPTZ,
       delivered_at TIMESTAMPTZ,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
+
+    ALTER TABLE external_event_deliveries ADD COLUMN IF NOT EXISTS callback_url TEXT;
+    ALTER TABLE external_event_deliveries ADD COLUMN IF NOT EXISTS http_status INTEGER;
+    ALTER TABLE external_event_deliveries ADD COLUMN IF NOT EXISTS response_body TEXT;
+    ALTER TABLE external_event_deliveries ADD COLUMN IF NOT EXISTS signature_validation_result TEXT;
+    ALTER TABLE external_event_deliveries ADD COLUMN IF NOT EXISTS simba_accepted BOOLEAN;
 
     CREATE INDEX IF NOT EXISTS idx_external_event_deliveries_status_created
       ON external_event_deliveries(status, created_at);

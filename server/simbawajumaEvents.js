@@ -58,15 +58,27 @@ async function deliverExternalEvent(id, { pool = defaultPool } = {}) {
   const body = JSON.stringify(event.payload || {});
   const secret = String(process.env.SIMBAWAJUMAA_WEBHOOK_SECRET || "").trim();
   const headers = { "Content-Type": "application/json" };
+  const signatureValidationResult = secret ? "signed_sha256" : "unsigned_secret_not_configured";
   if (secret) headers["X-Garvey-Signature"] = `sha256=${signBody(body, secret)}`;
-  await pool.query("UPDATE external_event_deliveries SET status = 'sending', attempts = attempts + 1, last_attempt_at = NOW(), updated_at = NOW() WHERE id = $1", [id]);
+  console.info("simbawajuma_callback_step", { step: "payload_built", id, assessment_id: event.payload?.assessment_id || null, result_id: event.payload?.result_id || null, member_email: event.payload?.email || null });
+  console.info("simbawajuma_callback_step", { step: "callback_signed", id, signature_validation_result: signatureValidationResult });
+  await pool.query("UPDATE external_event_deliveries SET status = 'sending', attempts = attempts + 1, last_attempt_at = NOW(), callback_url = $2, signature_validation_result = $3, updated_at = NOW() WHERE id = $1", [id, webhookUrl, signatureValidationResult]);
   try {
+    console.info("simbawajuma_callback_step", { step: "post_sending", id, callback_url: webhookUrl });
     const response = await fetch(webhookUrl, { method: "POST", headers, body });
-    if (!response.ok) throw new Error(`webhook responded ${response.status}`);
-    await pool.query("UPDATE external_event_deliveries SET status = 'delivered', delivered_at = NOW(), updated_at = NOW(), last_error = NULL WHERE id = $1", [id]);
-    return { delivered: true };
+    const responseBody = await response.text().catch(() => "");
+    const simbaAccepted = response.ok;
+    console.info("simbawajuma_callback_step", { step: "response_received", id, http_status: response.status, simba_accepted: simbaAccepted });
+    if (!response.ok) {
+      const message = `webhook responded ${response.status}: ${responseBody.slice(0, 500)}`;
+      await pool.query("UPDATE external_event_deliveries SET status = 'queued', updated_at = NOW(), http_status = $2, response_body = $3, simba_accepted = FALSE, last_error = $4 WHERE id = $1", [id, response.status, responseBody.slice(0, 4000), message]);
+      return { delivered: false, reason: message, http_status: response.status, simba_accepted: false };
+    }
+    await pool.query("UPDATE external_event_deliveries SET status = 'delivered', delivered_at = NOW(), updated_at = NOW(), http_status = $2, response_body = $3, simba_accepted = TRUE, last_error = NULL WHERE id = $1", [id, response.status, responseBody.slice(0, 4000)]);
+    return { delivered: true, http_status: response.status, simba_accepted: true };
   } catch (err) {
-    await pool.query("UPDATE external_event_deliveries SET status = 'queued', last_error = $2, updated_at = NOW() WHERE id = $1", [id, err.message]);
+    await pool.query("UPDATE external_event_deliveries SET status = 'queued', last_error = $2, updated_at = NOW(), simba_accepted = COALESCE(simba_accepted, FALSE) WHERE id = $1", [id, err.message]);
+    console.error("simbawajuma_callback_step", { step: "callback_exception", id, error: err.message });
     return { delivered: false, reason: err.message };
   }
 }
@@ -97,12 +109,21 @@ async function getExternalEventDiagnostics({ provider = PROVIDER, pool = default
     id: row.id,
     event_type: row.event_type,
     status: row.status,
-    assessment_id: row.payload?.assessment_id || row.payload?.assessment_type || null,
+    last_callback_timestamp: row.last_attempt_at || row.updated_at,
+    callback_destination_url: row.callback_url || String(process.env.SIMBAWAJUMAA_WEBHOOK_URL || '').trim() || null,
+    http_status_code: row.http_status || null,
+    response_body: row.response_body || null,
+    signature_validation_result: row.signature_validation_result || (String(process.env.SIMBAWAJUMAA_WEBHOOK_SECRET || '').trim() ? 'signed_sha256' : 'unsigned_secret_not_configured'),
+    member_email: row.payload?.email || null,
+    assessment_id: row.payload?.assessment_id || row.payload?.submission_id || row.payload?.assessment_type || null,
     result_id: row.payload?.result_id || null,
-    member: row.payload?.member_id || row.external_user_id || row.payload?.email || null,
+    queue_status: row.status,
     retry_count: row.attempts,
+    last_retry_timestamp: row.last_attempt_at || null,
+    last_callback_exception: row.last_error || null,
+    simba_accepted: row.simba_accepted === null || row.simba_accepted === undefined ? row.status === 'delivered' : row.simba_accepted,
+    member: row.payload?.member_id || row.external_user_id || row.payload?.email || null,
     error_message: row.last_error,
-    signature_validation: String(process.env.SIMBAWAJUMAA_WEBHOOK_SECRET || '').trim() ? 'signed_sha256' : 'unsigned_secret_not_configured',
     updated_at: row.updated_at,
   } : null;
   return {
