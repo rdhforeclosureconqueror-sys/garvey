@@ -7,6 +7,7 @@ const {
   APPROVED_ASSESSMENTS,
   buildAssessmentCompletionPayload,
 } = require('../server/simbawajumaBridge');
+const { buildDeliveryHeaders } = require('../server/simbawajumaEvents');
 
 const REQUIRED_METADATA_FIELDS = [
   'id',
@@ -87,4 +88,34 @@ test('Simba-facing assessment center is skinnable and does not show Garvey brand
   assert.match(html, /internal assessment engine/);
   assert.match(html, /Continue Your Journey/);
   assert.match(html, /data-category/);
+});
+
+
+test('Garvey callback signs with Simba-compatible signature and secret headers', () => {
+  const body = JSON.stringify({ event: 'assessment.completed', result_id: 'result-123' });
+  const { headers, signatureValidationResult, signature_algorithm } = buildDeliveryHeaders(body, {
+    SIMBAWAJUMAA_WEBHOOK_SECRET: 'shared-secret',
+  });
+
+  assert.equal(headers['Content-Type'], 'application/json');
+  assert.match(headers['X-Garvey-Signature'], /^sha256=[a-f0-9]{64}$/);
+  assert.equal(headers['X-Hub-Signature-256'], headers['X-Garvey-Signature']);
+  assert.equal(headers['X-Garvey-Callback-Secret'], 'shared-secret');
+  assert.equal(headers.Authorization, 'Bearer shared-secret');
+  assert.equal(signatureValidationResult, 'hmac_sha256_hex_plus_callback_secret_headers');
+  assert.match(signature_algorithm, /HMAC-SHA256/);
+});
+
+test('Simba-facing CTAs use high-contrast dark glossy buttons with gold text', () => {
+  const html = fs.readFileSync(path.join(__dirname, '..', 'public', 'simbawajuma', 'assessments.html'), 'utf8');
+  assert.match(html, /--simba-cta-bg:linear-gradient/);
+  assert.match(html, /color:var\(--simba-accent\)/);
+  assert.match(html, /border:1px solid var\(--simba-cta-border\)/);
+  assert.match(html, /\.btn:hover,\.btn:focus-visible/);
+});
+
+test('Owner results page preserves signed Simba context on business owner result fetch', () => {
+  const html = fs.readFileSync(path.join(__dirname, '..', 'public', 'results_owner.html'), 'utf8');
+  assert.match(html, /Object\.fromEntries\(Array\.from\(qs\.entries\(\)\)\.concat/);
+  assert.match(html, /"x-user-email": email, "x-tenant-slug": tenant/);
 });

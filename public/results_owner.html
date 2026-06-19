@@ -186,7 +186,7 @@
 
     async function resolveOwnerSession() {
       const url = window.GarveyApi.buildUrl("/api/owner/session");
-      const res = await fetch(url, { credentials: "include", headers: { "x-user-role": "business_owner", "x-user-email": resolvedEmail, "x-tenant-slug": resolvedTenant } });
+      const res = await fetch(url, { credentials: "include", headers: { "x-user-role": "business_owner", "x-user-email": email, "x-tenant-slug": tenant } });
       const data = await res.json().catch(() => ({ authenticated: false }));
       if (!res.ok || !data?.authenticated) return null;
       const sessionTenant = normalizedCtxValue(data.tenant);
@@ -227,7 +227,7 @@
 
       const url = window.GarveyApi.buildUrl(
         `/api/results/${encodeURIComponent(resolvedEmail)}`,
-        { type: "business_owner", tenant: resolvedTenant, role: "business_owner", email: resolvedEmail }
+        Object.fromEntries(Array.from(qs.entries()).concat([["type", "business_owner"], ["tenant", resolvedTenant], ["role", "business_owner"], ["email", resolvedEmail]]))
       );
 
       const res = await fetch(url, { credentials: "include", headers: { "x-user-role": "business_owner", "x-user-email": resolvedEmail, "x-tenant-slug": resolvedTenant } });
