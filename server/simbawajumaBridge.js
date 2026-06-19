@@ -15,66 +15,115 @@ const MAX_TOKEN_AGE_SECONDS = 10 * 60;
 const APPROVED_ASSESSMENTS = Object.freeze([
   {
     id: "business_owner",
+    title: "Business Owner Assessment",
     name: "Business Owner Assessment",
-    description: "GARVEY owner readiness and business archetype assessment.",
+    description: "Owner readiness and business archetype assessment.",
     estimated_time: "8–12 minutes",
     access_rule: "Simba member",
     visibility: "member-only",
+    category: "business",
+    recommended_book: "The Ujamaa Business Starter",
+    recommended_audiobook: "The Ujamaa Business Starter Audio Companion",
+    recommended_next_assessment: "customer",
+    recommended_discord_channel: "#business-builders",
+    star_reward_eligible: true,
     href: "/intake.html?assessment=business_owner",
   },
   {
     id: "customer",
+    title: "Customer / Voice of Customer",
     name: "Customer / Voice of Customer",
     description: "Customer profile and voice-of-customer archetype assessment.",
     estimated_time: "5–8 minutes",
     access_rule: "Simba member",
     visibility: "member-only",
+    category: "customer_discovery",
+    recommended_book: "Voice of the Customer Field Guide",
+    recommended_audiobook: "Voice of the Customer Field Guide Audio Companion",
+    recommended_next_assessment: "business_owner",
+    recommended_discord_channel: "#customer-insights",
+    star_reward_eligible: true,
     href: "/intake.html?assessment=customer",
   },
   {
     id: "love",
+    title: "Love Archetype Engine",
     name: "Love Archetype Engine",
-    description: "Relationship archetype assessment powered by Garvey archetype engines.",
+    description: "Relationship archetype assessment powered by the internal assessment engine.",
     estimated_time: "10–15 minutes",
     access_rule: "Simba member preview",
     visibility: "public preview",
+    category: "relationships",
+    recommended_book: "The Love Archetype Guide",
+    recommended_audiobook: "The Love Archetype Audio Guide",
+    recommended_next_assessment: "leadership",
+    recommended_discord_channel: "#relationship-archetypes",
+    star_reward_eligible: false,
     href: "/archetype-engines/love/assessment",
   },
   {
     id: "leadership",
+    title: "Leadership Archetype Engine",
     name: "Leadership Archetype Engine",
-    description: "Leadership profile assessment powered by Garvey archetype engines.",
+    description: "Leadership profile assessment powered by the internal assessment engine.",
     estimated_time: "10–15 minutes",
     access_rule: "Simba member preview",
     visibility: "public preview",
+    category: "leadership",
+    recommended_book: "The Leadership Archetype Guide",
+    recommended_audiobook: "The Leadership Archetype Audio Guide",
+    recommended_next_assessment: "loyalty",
+    recommended_discord_channel: "#leadership-lab",
+    star_reward_eligible: false,
     href: "/archetype-engines/leadership/assessment",
   },
   {
     id: "loyalty",
+    title: "Loyalty Archetype Engine",
     name: "Loyalty Archetype Engine",
-    description: "Loyalty and retention profile assessment powered by Garvey archetype engines.",
+    description: "Loyalty and retention profile assessment powered by the internal assessment engine.",
     estimated_time: "10–15 minutes",
     access_rule: "Simba member preview",
     visibility: "public preview",
+    category: "retention",
+    recommended_book: "The Loyalty Archetype Guide",
+    recommended_audiobook: "The Loyalty Archetype Audio Guide",
+    recommended_next_assessment: "customer",
+    recommended_discord_channel: "#loyalty-retention",
+    star_reward_eligible: false,
     href: "/archetype-engines/loyalty/assessment",
   },
   {
     id: "youth_rite_of_passage",
+    title: "Youth Rite of Passage / Gates",
     name: "Youth Rite of Passage / Gates",
     description: "Parent-gated youth development and rite-of-passage flow.",
     estimated_time: "Varies",
     access_rule: "Parent-only; requires Gates auth",
     visibility: "parent-only",
+    category: "youth_development",
+    recommended_book: "Parent Guide to Learning Pathways",
+    recommended_audiobook: "Parent Guide to Learning Pathways Audio Companion",
+    recommended_next_assessment: "assessment_mvp_k6",
+    recommended_discord_channel: "#parent-gates",
+    star_reward_eligible: false,
     href: "/gates/signup",
     disabled: true,
   },
   {
     id: "assessment_mvp_k6",
+    title: "K–6 Assessment MVP",
     name: "K–6 Assessment MVP",
     description: "Grade 1–6 math/English adaptive assessment API requiring a Gates parent and child profile.",
     estimated_time: "Varies",
     access_rule: "Parent-only; requires Gates child context",
     visibility: "parent-only",
+    category: "k6_learning",
+    recommended_book: "Parent Guide to Learning Pathways",
+    recommended_audiobook: "Parent Guide to Learning Pathways Audio Companion",
+    recommended_next_assessment: "youth_rite_of_passage",
+    recommended_discord_channel: "#parent-gates",
+    star_reward_eligible: false,
     href: "/gates/signup",
     disabled: true,
   },
@@ -171,6 +220,35 @@ function verifyTransferToken(token, env = process.env) {
     throw err;
   }
   return payload;
+}
+
+function getAssessmentMetadata(id) {
+  return APPROVED_ASSESSMENTS.find((entry) => entry.id === id) || null;
+}
+
+function recommendedNextStepsFor(id) {
+  const metadata = getAssessmentMetadata(id);
+  if (!metadata) return [];
+  return [
+    metadata.recommended_book ? { type: "book", value: metadata.recommended_book } : null,
+    metadata.recommended_audiobook ? { type: "audiobook", value: metadata.recommended_audiobook } : null,
+    metadata.recommended_next_assessment ? { type: "assessment", value: metadata.recommended_next_assessment } : null,
+    metadata.recommended_discord_channel ? { type: "discord_channel", value: metadata.recommended_discord_channel } : null,
+  ].filter(Boolean);
+}
+
+function buildAssessmentCompletionPayload({ assessmentType, resultId, primaryResult, completedAt, extra = {} } = {}) {
+  const metadata = getAssessmentMetadata(assessmentType) || {};
+  return {
+    assessment_type: assessmentType,
+    assessment_name: metadata.title || metadata.name || assessmentType,
+    result_id: resultId,
+    primary_result: primaryResult || null,
+    recommended_next_steps: recommendedNextStepsFor(assessmentType),
+    star_reward_eligible: Boolean(metadata.star_reward_eligible),
+    completed_at: completedAt || new Date().toISOString(),
+    ...extra,
+  };
 }
 
 function assessmentPathFor(id) {
@@ -297,7 +375,7 @@ function createSimbaWajumaRouter(options = {}) {
   });
 
   router.get("/api/simbawajuma/assessments", (req, res) => {
-    return res.json({ provider: PROVIDER, assessments: APPROVED_ASSESSMENTS });
+    return res.json({ provider: PROVIDER, surface: "embedded_assessment_engine", assessments: APPROVED_ASSESSMENTS });
   });
 
   router.get("/simbawajuma/assessments", (req, res) => {
@@ -312,5 +390,8 @@ module.exports = {
   APPROVED_ASSESSMENTS,
   verifyTransferToken,
   findOrCreateLinkedUser,
+  getAssessmentMetadata,
+  recommendedNextStepsFor,
+  buildAssessmentCompletionPayload,
   createSimbaWajumaRouter,
 };

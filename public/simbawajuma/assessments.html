@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Simba Wajuma Assessment Center</title>
+  <title>Assessment Center</title>
   <style>
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;margin:0;background:#07111f;color:#e5eefb} .wrap{max-width:1100px;margin:0 auto;padding:36px 18px}.eyebrow{color:#f7c948;text-transform:uppercase;letter-spacing:.12em;font-size:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}.card{background:#0d1b2f;border:1px solid #223655;border-radius:18px;padding:18px;box-shadow:0 16px 40px rgba(0,0,0,.22)}.meta{color:#9fb1c8;font-size:14px}.pill{display:inline-block;border:1px solid #365475;border-radius:999px;padding:4px 9px;margin:6px 6px 10px 0;color:#cfe1f8;font-size:12px}.btn{display:inline-block;margin-top:10px;background:#f7c948;color:#111827;text-decoration:none;border-radius:12px;padding:10px 14px;font-weight:700}.btn.disabled{background:#334155;color:#94a3b8;pointer-events:none}h1{font-size:clamp(32px,5vw,56px);margin:6px 0}h2{margin:0 0 8px}.notice{background:#11243d;border-left:4px solid #f7c948;padding:12px 14px;border-radius:12px;margin-top:18px;color:#d6e5f8}
+    :root{--simba-bg:#07111f;--simba-surface:#0d1b2f;--simba-border:#223655;--simba-text:#e5eefb;--simba-muted:#9fb1c8;--simba-accent:#f7c948;--simba-accent-text:#111827;--simba-disabled-bg:#334155;--simba-disabled-text:#94a3b8;--simba-radius:18px;--simba-font:Inter,system-ui,-apple-system,Segoe UI,sans-serif}body{font-family:var(--simba-font);margin:0;background:var(--simba-bg);color:var(--simba-text)}.wrap{max-width:1100px;margin:0 auto;padding:36px 18px}.eyebrow{color:var(--simba-accent);text-transform:uppercase;letter-spacing:.12em;font-size:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}.card{background:var(--simba-surface);border:1px solid var(--simba-border);border-radius:var(--simba-radius);padding:18px;box-shadow:0 16px 40px rgba(0,0,0,.22)}.meta{color:var(--simba-muted);font-size:14px}.pill{display:inline-block;border:1px solid color-mix(in srgb,var(--simba-border) 80%,#fff 20%);border-radius:999px;padding:4px 9px;margin:6px 6px 10px 0;color:var(--simba-text);font-size:12px}.btn{display:inline-block;margin-top:10px;background:var(--simba-accent);color:var(--simba-accent-text);text-decoration:none;border-radius:12px;padding:10px 14px;font-weight:700}.btn.disabled{background:var(--simba-disabled-bg);color:var(--simba-disabled-text);pointer-events:none}h1{font-size:clamp(32px,5vw,56px);margin:6px 0}h2{margin:0 0 8px}.notice{background:color-mix(in srgb,var(--simba-surface) 86%,var(--simba-accent) 14%);border-left:4px solid var(--simba-accent);padding:12px 14px;border-radius:12px;margin-top:18px;color:var(--simba-text)}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <div class="eyebrow">Garvey × Simba Wa Ujamaa</div>
+    <div class="eyebrow">Member assessments</div>
     <h1>Assessment Center</h1>
-    <p class="meta">Choose an approved Garvey assessment. Existing Garvey scoring and result storage are used without duplication.</p>
+    <p class="meta">Choose an approved member assessment. Scoring and result storage run in the internal assessment engine.</p>
     <div class="notice">Some youth and K–6 assessments require a parent account and child profile before they can be opened.</div>
     <section class="grid" id="assessmentGrid" aria-live="polite"></section>
   </main>
@@ -27,7 +27,7 @@
       .then((r)=>r.json())
       .then((data)=>{
         const grid = document.getElementById('assessmentGrid');
-        grid.innerHTML = (data.assessments || []).map((a)=>`<article class="card"><span class="pill">${a.visibility}</span><span class="pill">${a.estimated_time}</span><h2>${a.name}</h2><p>${a.description}</p><p class="meta"><strong>Access:</strong> ${a.access_rule}</p><a class="btn ${a.disabled ? 'disabled' : ''}" href="${a.disabled ? '#' : withContext(a.href)}">${a.disabled ? 'Requires parent setup' : 'Start assessment'}</a></article>`).join('');
+        grid.innerHTML = (data.assessments || []).map((a)=>`<article class="card"><span class="pill">${a.visibility}</span><span class="pill">${a.estimated_time}</span><h2>${a.title || a.name}</h2><p>${a.description}</p><p class="meta"><strong>Category:</strong> ${a.category || 'general'}</p><a class="btn ${a.disabled ? 'disabled' : ''}" href="${a.disabled ? '#' : withContext(a.href)}">${a.disabled ? 'Requires parent setup' : 'Start assessment'}</a></article>`).join('');
       })
       .catch(()=>{ document.getElementById('assessmentGrid').innerHTML = '<p>Unable to load assessments.</p>'; });
   </script>
