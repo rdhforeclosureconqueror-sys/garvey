@@ -5,7 +5,7 @@ const express = require("express");
 const { DEFAULT_SKILL_WORLD_TTS_URL } = require("./skillWorldAudioRoutes");
 const { registerVoiceReadableContentBlock } = require("../youth-development/tde/voiceContentRegistry");
 
-function normalizeBaseUrl(options = {}) {
+function getConfiguredUpstreamUrl(options = {}) {
   return String(
     options.voice_repo_base_url
       || options.tts_url
@@ -14,13 +14,25 @@ function normalizeBaseUrl(options = {}) {
       || process.env.VOICE_REPO_BASE_URL
       || process.env.VOICE_GATEWAY_BASE_URL
       || DEFAULT_SKILL_WORLD_TTS_URL
-  )
-    .trim()
-    .replace(/\/+$/, "");
+  ).trim();
 }
 
-function endpointDiagnostic(baseUrl) {
-  return baseUrl ? null : "missing_voice_endpoint";
+function resolveAssessmentSpeakEndpoint(options = {}) {
+  const configured_url = getConfiguredUpstreamUrl(options).replace(/\/+$/, "");
+  const already_included_speak = /(?:^|\/)speak$/i.test(configured_url);
+  const final_url = configured_url
+    ? (already_included_speak ? configured_url : `${configured_url}/speak`)
+    : "";
+  return {
+    configured_url,
+    already_included_speak,
+    final_url,
+    upstream_route: "/speak",
+  };
+}
+
+function endpointDiagnostic(finalUrl) {
+  return finalUrl ? null : "missing_voice_endpoint";
 }
 
 function tokenDiagnostic() {
@@ -32,7 +44,9 @@ function tokenDiagnostic() {
 function createAssessmentVoiceRouter(options = {}) {
   const router = express.Router();
   const fetchImpl = options.fetch_impl || fetch;
-  const voiceRepoBaseUrl = normalizeBaseUrl(options);
+  const resolvedEndpoint = resolveAssessmentSpeakEndpoint(options);
+  const voiceRepoBaseUrl = resolvedEndpoint.configured_url;
+  const voiceSpeakUrl = resolvedEndpoint.final_url;
   const voiceToken = String(options.tts_token || process.env.ASSESSMENT_TTS_TOKEN || process.env.SKILL_WORLD_TTS_TOKEN || process.env.VOICE_GATEWAY_TOKEN || "").trim();
   const audioStore = new Map();
   const audioTtlMs = Math.max(15_000, Number(options.audio_ttl_ms || 5 * 60_000));
@@ -50,8 +64,22 @@ function createAssessmentVoiceRouter(options = {}) {
     }
   }
 
+
+  function responseDiagnostics(providerPayload = {}) {
+    const providerAudioReturned = Boolean(providerPayload.provider_status === "available" && providerPayload.stream_token);
+    return {
+      resolved_upstream_url: voiceRepoBaseUrl || null,
+      upstream_included_speak: Boolean(resolvedEndpoint.already_included_speak),
+      final_upstream_url: voiceSpeakUrl || null,
+      provider_audio_returned: providerAudioReturned,
+      browser_fallback_used: !providerAudioReturned,
+      tts_http_status: Number.isFinite(Number(providerPayload.tts_http_status)) ? Number(providerPayload.tts_http_status) : null,
+      error_message: providerPayload.error_message || null,
+    };
+  }
+
   async function synthesizeViaSpeak(payload = {}) {
-    if (!voiceRepoBaseUrl) {
+    if (!voiceSpeakUrl) {
       return {
         ok: false,
         provider_status: "provider_unavailable",
@@ -64,7 +92,7 @@ function createAssessmentVoiceRouter(options = {}) {
     const headers = { "content-type": "application/json" };
     if (voiceToken) headers["x-internal-token"] = voiceToken;
 
-    const response = await fetchImpl(`${voiceRepoBaseUrl}/speak`, {
+    const response = await fetchImpl(voiceSpeakUrl, {
       method: "POST",
       headers,
       body: JSON.stringify(payload),
@@ -76,6 +104,7 @@ function createAssessmentVoiceRouter(options = {}) {
         provider_status: "provider_unavailable",
         fallback_reason: "failed_tts_request",
         diagnostic_code: "failed_tts_request",
+        error_message: "TTS request failed before receiving an HTTP response",
         playable_text: String(payload.text || "").trim(),
       };
     }
@@ -86,6 +115,8 @@ function createAssessmentVoiceRouter(options = {}) {
         provider_status: "provider_unavailable",
         fallback_reason: response.status === 401 ? "missing_token_or_key" : `failed_tts_request_http_${response.status}`,
         diagnostic_code: response.status === 401 ? "missing_token_or_key" : "failed_tts_request",
+        tts_http_status: response.status,
+        error_message: `TTS upstream returned HTTP ${response.status}`,
         playable_text: String(payload.text || "").trim(),
       };
     }
@@ -97,6 +128,8 @@ function createAssessmentVoiceRouter(options = {}) {
         provider_status: "fallback",
         fallback_reason: "failed_tts_request_non_audio_response",
         diagnostic_code: "failed_tts_request",
+        tts_http_status: response.status,
+        error_message: `TTS upstream returned non-audio content-type: ${contentType || "missing"}`,
         playable_text: String(payload.text || "").trim(),
       };
     }
@@ -108,6 +141,8 @@ function createAssessmentVoiceRouter(options = {}) {
         provider_status: "fallback",
         fallback_reason: "failed_tts_request_empty_audio",
         diagnostic_code: "failed_tts_request",
+        tts_http_status: response.status,
+        error_message: "TTS upstream returned empty audio",
         playable_text: String(payload.text || "").trim(),
       };
     }
@@ -121,22 +156,24 @@ function createAssessmentVoiceRouter(options = {}) {
       stream_token: token,
       content_type: contentType,
       bytes_length: bytes.length,
+      tts_http_status: response.status,
     };
   }
 
   router.get("/config", async (_req, res) => {
     return res.status(200).json({
       ok: true,
-      voice_availability_status: voiceRepoBaseUrl ? "voice_available" : "voice_fallback_active",
-      provider_ready: Boolean(voiceRepoBaseUrl),
+      voice_availability_status: voiceSpeakUrl ? "voice_available" : "voice_fallback_active",
+      provider_ready: Boolean(voiceSpeakUrl),
       provider: "skill-world-openai-voice-pipeline",
-      tts_url_configured: Boolean(voiceRepoBaseUrl),
+      tts_url_configured: Boolean(voiceSpeakUrl),
       token_configured: Boolean(voiceToken),
-      diagnostics: [endpointDiagnostic(voiceRepoBaseUrl), tokenDiagnostic()].filter(Boolean),
+      diagnostics: [endpointDiagnostic(voiceSpeakUrl), tokenDiagnostic()].filter(Boolean),
+      voice_diagnostics: responseDiagnostics({ provider_status: voiceSpeakUrl ? "available" : "provider_unavailable" }),
       fallback_provider: "browser_speech_synthesis",
-      mode: voiceRepoBaseUrl ? "provider_preferred" : "fallback_only",
+      mode: voiceSpeakUrl ? "provider_preferred" : "fallback_only",
       upstream_route: "/speak",
-      upstream_url: `${voiceRepoBaseUrl || "[missing_voice_endpoint]"}/speak`,
+      upstream_url: voiceSpeakUrl || "[missing_voice_endpoint]",
       upstream_method: "POST",
       upstream_response: "raw_audio_bytes",
     });
@@ -158,7 +195,7 @@ function createAssessmentVoiceRouter(options = {}) {
     }
     const providerReady = preflight
       ? Boolean(providerPayload?.provider_status === "available" && providerPayload?.stream_token)
-      : Boolean(voiceRepoBaseUrl);
+      : Boolean(voiceSpeakUrl);
     return res.status(200).json({
       ok: true,
       endpoint: "/api/assessment/voice/warmup",
@@ -168,11 +205,12 @@ function createAssessmentVoiceRouter(options = {}) {
       provider_ready: providerReady,
       provider_status: providerPayload?.provider_status || (voiceRepoBaseUrl ? "available" : "provider_unavailable"),
       upstream_route: "/speak",
-      upstream_url: `${voiceRepoBaseUrl || "[missing_voice_endpoint]"}/speak`,
+      upstream_url: voiceSpeakUrl || "[missing_voice_endpoint]",
       upstream_method: "POST",
       voice_mode: providerReady ? "provider_audio" : "fallback_browser_speech",
-      fallback_reason: providerReady ? null : (providerPayload?.fallback_reason || endpointDiagnostic(voiceRepoBaseUrl) || tokenDiagnostic() || "provider_audio_unavailable"),
-      diagnostics: [providerPayload?.diagnostic_code, endpointDiagnostic(voiceRepoBaseUrl), tokenDiagnostic()].filter(Boolean),
+      fallback_reason: providerReady ? null : (providerPayload?.fallback_reason || endpointDiagnostic(voiceSpeakUrl) || tokenDiagnostic() || "provider_audio_unavailable"),
+      diagnostics: [providerPayload?.diagnostic_code, endpointDiagnostic(voiceSpeakUrl), tokenDiagnostic()].filter(Boolean),
+      voice_diagnostics: responseDiagnostics(providerPayload || { provider_status: providerReady ? "available" : "provider_unavailable" }),
       preflight_audio_url: providerPayload?.stream_token ? `/api/assessment/voice/stream/${providerPayload.stream_token}` : null,
       provider_audio_content_type: providerPayload?.content_type || null,
       provider_audio_bytes: Number(providerPayload?.bytes_length || 0),
@@ -228,13 +266,14 @@ function createAssessmentVoiceRouter(options = {}) {
       voice_chunk_id: block.voice_chunk_id,
       endpoint: "/api/assessment/voice/section",
       upstream_route: "/speak",
-      upstream_url: `${voiceRepoBaseUrl || "[missing_voice_endpoint]"}/speak`,
+      upstream_url: voiceSpeakUrl || "[missing_voice_endpoint]",
       upstream_method: "POST",
       provider_status: providerPayload.provider_status,
       provider_ready: Boolean(providerReady),
       voice_mode: providerReady ? "provider_audio" : "fallback_browser_speech",
-      fallback_reason: providerReady ? null : (providerPayload.fallback_reason || endpointDiagnostic(voiceRepoBaseUrl) || tokenDiagnostic() || "provider_audio_unavailable"),
-      diagnostics: [providerPayload.diagnostic_code, endpointDiagnostic(voiceRepoBaseUrl), tokenDiagnostic(), providerReady ? null : "browser_fallback_used"].filter(Boolean),
+      fallback_reason: providerReady ? null : (providerPayload.fallback_reason || endpointDiagnostic(voiceSpeakUrl) || tokenDiagnostic() || "provider_audio_unavailable"),
+      diagnostics: [providerPayload.diagnostic_code, endpointDiagnostic(voiceSpeakUrl), tokenDiagnostic(), providerReady ? null : "browser_fallback_used"].filter(Boolean),
+      voice_diagnostics: responseDiagnostics(providerPayload),
       playable_text: String(providerPayload.playable_text || block.voice_text || "").trim(),
       audio_url: providerReady ? `/api/assessment/voice/stream/${providerPayload.stream_token}` : null,
       asset_ref: null,
@@ -260,4 +299,4 @@ function createAssessmentVoiceRouter(options = {}) {
   return router;
 }
 
-module.exports = { createAssessmentVoiceRouter };
+module.exports = { createAssessmentVoiceRouter, resolveAssessmentSpeakEndpoint };

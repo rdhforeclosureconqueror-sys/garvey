@@ -124,6 +124,14 @@
           provider_status: hydrated.provider_status || null,
           playback_mode: hydrated.voice_mode || "unknown",
           fallback_reason: hydrated.fallback_reason || null,
+          voice_diagnostics: hydrated.voice_diagnostics || null,
+          resolved_upstream_url: hydrated.voice_diagnostics?.resolved_upstream_url || hydrated.upstream_url || null,
+          upstream_included_speak: Boolean(hydrated.voice_diagnostics?.upstream_included_speak),
+          final_upstream_url: hydrated.voice_diagnostics?.final_upstream_url || hydrated.upstream_url || null,
+          provider_audio_returned: Boolean(hydrated.voice_diagnostics?.provider_audio_returned),
+          browser_fallback_used: Boolean(hydrated.voice_diagnostics?.browser_fallback_used),
+          tts_http_status: hydrated.voice_diagnostics?.tts_http_status || null,
+          error_message: hydrated.voice_diagnostics?.error_message || null,
         });
         return hydrated;
       };
@@ -150,6 +158,10 @@
                 playback_mode: "provider_audio",
                 upstream_route: payload.upstream_route || "/speak",
                 stream_url: payload.audio_url,
+                voice_diagnostics: payload.voice_diagnostics || null,
+                provider_audio_returned: true,
+                browser_fallback_used: false,
+                tts_http_status: payload.voice_diagnostics?.tts_http_status || null,
               });
               return;
             } catch (audioErr) {
@@ -161,6 +173,10 @@
                 diagnostic_code: "failed_tts_request",
                 fallback_reason: "provider_audio_play_failed",
                 message: String(audioErr && audioErr.message || audioErr || ""),
+                voice_diagnostics: payload.voice_diagnostics || null,
+                provider_audio_returned: false,
+                browser_fallback_used: true,
+                tts_http_status: payload.voice_diagnostics?.tts_http_status || null,
               });
             }
           }
@@ -175,6 +191,11 @@
               playback_mode: "fallback_browser_speech",
               fallback_reason: payload.fallback_reason || "provider_audio_unavailable",
               diagnostics: Array.isArray(payload.diagnostics) ? payload.diagnostics : ["browser_fallback_used"],
+              voice_diagnostics: payload.voice_diagnostics || null,
+              provider_audio_returned: Boolean(payload.voice_diagnostics?.provider_audio_returned),
+              browser_fallback_used: true,
+              tts_http_status: payload.voice_diagnostics?.tts_http_status || null,
+              error_message: payload.voice_diagnostics?.error_message || null,
             });
             return;
           }
