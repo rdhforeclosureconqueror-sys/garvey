@@ -62,7 +62,17 @@
       const scopeId = String(block.scope_id || defaults.scope_id || "default_scope").trim();
       const surface = String(block.surface || defaults.surface || "assessment").trim();
       const voiceTier = String(block.voice_tier || "full_section").trim();
-      if (!voiceText) return;
+      if (!voiceText) {
+        emitDiagnostic({
+          mode: "bind_skipped",
+          section_key: sectionKey,
+          surface,
+          scope_id: scopeId,
+          diagnostic_code: "empty_text_payload",
+          playback_mode: "none",
+        });
+        return;
+      }
 
       const controls = document.createElement("div");
       controls.className = "assessment-voice-controls";
@@ -129,18 +139,30 @@
           const payload = await hydrate();
           stopCurrent();
           if (payload.voice_mode === "provider_audio" && payload.audio_url) {
-            currentAudio = new Audio(payload.audio_url);
-            await currentAudio.play();
-            setStatus("Playing AI voice (OpenAI/provider audio).");
-            emitDiagnostic({
-              mode: "playback_selected",
-              section_key: sectionKey,
-              surface,
-              playback_mode: "provider_audio",
-              upstream_route: payload.upstream_route || "/speak",
-              stream_url: payload.audio_url,
-            });
-            return;
+            try {
+              currentAudio = new Audio(payload.audio_url);
+              await currentAudio.play();
+              setStatus("Playing AI voice (OpenAI/provider audio).");
+              emitDiagnostic({
+                mode: "playback_selected",
+                section_key: sectionKey,
+                surface,
+                playback_mode: "provider_audio",
+                upstream_route: payload.upstream_route || "/speak",
+                stream_url: payload.audio_url,
+              });
+              return;
+            } catch (audioErr) {
+              emitDiagnostic({
+                mode: "provider_audio_failed",
+                section_key: sectionKey,
+                surface,
+                playback_mode: "fallback_browser_speech",
+                diagnostic_code: "failed_tts_request",
+                fallback_reason: "provider_audio_play_failed",
+                message: String(audioErr && audioErr.message || audioErr || ""),
+              });
+            }
           }
           if (synth) {
             const ut = new SpeechSynthesisUtterance(payload.playable_text || voiceText);
@@ -152,17 +174,38 @@
               surface,
               playback_mode: "fallback_browser_speech",
               fallback_reason: payload.fallback_reason || "provider_audio_unavailable",
+              diagnostics: Array.isArray(payload.diagnostics) ? payload.diagnostics : ["browser_fallback_used"],
             });
             return;
           }
           setStatus("No audio path available in this browser.");
         } catch (_err) {
+          const fallbackText = String(voiceText || "").trim();
+          if (synth && fallbackText) {
+            try {
+              synth.cancel();
+              synth.speak(new SpeechSynthesisUtterance(fallbackText));
+              setStatus("AI voice request failed, using fallback browser speech.");
+              emitDiagnostic({
+                mode: "playback_error_fallback_used",
+                section_key: sectionKey,
+                surface,
+                playback_mode: "fallback_browser_speech",
+                diagnostic_code: "failed_tts_request",
+                fallback_reason: "browser_fallback_used",
+              });
+              return;
+            } catch (_) {
+              // fall through to hard failure status
+            }
+          }
           setStatus("Voice playback unavailable right now.");
           emitDiagnostic({
             mode: "playback_error",
             section_key: sectionKey,
             surface,
             playback_mode: "error",
+            diagnostic_code: fallbackText ? "failed_tts_request" : "empty_text_payload",
           });
         }
       });
