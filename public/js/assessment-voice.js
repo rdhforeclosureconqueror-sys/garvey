@@ -68,9 +68,11 @@
       controls.className = "assessment-voice-controls";
       controls.setAttribute("data-assessment-voice-control", sectionKey);
       controls.setAttribute("data-voice-route", "/api/assessment/voice/section");
+      const playLabel = esc(block.play_label || "Listen");
+      const pauseLabel = esc(block.pause_label || "Pause");
       controls.innerHTML = `
-        <button type="button" data-voice-action="play">Listen</button>
-        <button type="button" data-voice-action="pause">Pause</button>
+        <button type="button" data-voice-action="play">${playLabel}</button>
+        <button type="button" data-voice-action="pause">${pauseLabel}</button>
         <button type="button" data-voice-action="back10">« 10s</button>
         <button type="button" data-voice-action="forward10">10s »</button>
         <span data-voice-status>${warmupPromise ? "Warming AI voice…" : "AI voice status checking…"}</span>`;
@@ -166,9 +168,8 @@
       });
 
       controls.querySelector('[data-voice-action="pause"]')?.addEventListener("click", () => {
-        if (currentAudio) currentAudio.pause();
-        if (synth?.speaking) synth.pause();
-        setStatus("Playback paused.");
+        stopCurrent();
+        setStatus(pauseLabel === "Stop Reading" ? "Reading stopped." : "Playback paused.");
       });
 
       controls.querySelector('[data-voice-action="back10"]')?.addEventListener("click", () => {

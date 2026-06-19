@@ -97,7 +97,7 @@ const { createGatesRouter } = require("./gatesRoutes");
 const { createAdaptiveV2Router } = require("./adaptiveV2Routes");
 const { createAssessmentMvpRouter } = require("./assessmentMvpRoutes");
 const { createSimbaWajumaRouter, buildAssessmentCompletionPayload } = require("./simbawajumaBridge");
-const { queueExternalEvent } = require("./simbawajumaEvents");
+const { queueExternalEvent, retryQueuedExternalEvents } = require("./simbawajumaEvents");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -109,6 +109,10 @@ try {
 }
 
 const app = express();
+setInterval(() => {
+  retryQueuedExternalEvents({ pool }).catch((err) => console.error("simbawajuma_callback_retry_failed", err));
+}, Number(process.env.SIMBAWAJUMAA_RETRY_INTERVAL_MS || 120000)).unref?.();
+
 app.set("trust proxy", 1);
 const PORT = Number(process.env.PORT || 3000);
 const TAP_CRM_MODE = getTapCrmMode();
