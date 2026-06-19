@@ -337,20 +337,114 @@ function buildRewardInstruction(metadata) {
   };
 }
 
+
+function humanizeKey(value) {
+  return String(value || "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (ch) => ch.toUpperCase());
+}
+
+function cleanTextArray(...candidates) {
+  const out = [];
+  const visit = (value) => {
+    if (!value) return;
+    if (Array.isArray(value)) return value.forEach(visit);
+    if (typeof value === "object") {
+      const text = value.text || value.label || value.title || value.value || value.message || value.summary;
+      if (text) visit(text);
+      return;
+    }
+    const text = String(value).replace(/^[-•*]\s*/, "").trim();
+    if (text && !out.includes(text)) out.push(text);
+  };
+  candidates.forEach(visit);
+  return out;
+}
+
+function normalizeRecommendations(value, fallback = []) {
+  const out = [];
+  const add = (type, raw) => {
+    if (raw === null || raw === undefined || raw === "") return;
+    if (typeof raw === "object" && !Array.isArray(raw)) {
+      out.push({
+        type: String(raw.type || type || "recommendation"),
+        label: String(raw.label || raw.title || raw.value || raw.message || humanizeKey(type)).trim(),
+        value: raw.value || raw.href || raw.url || raw.text || raw.message || raw.label || raw.title || null,
+      });
+      return;
+    }
+    out.push({ type: String(type || "recommendation"), label: humanizeKey(type) || "Recommendation", value: String(raw).trim() });
+  };
+  if (Array.isArray(value)) value.forEach((item) => add(item?.type, item));
+  else if (value && typeof value === "object") Object.entries(value).forEach(([k, v]) => add(k, v));
+  fallback.forEach((item) => add(item?.type, item));
+  return out.filter((r) => r.value || r.label);
+}
+
+function buildDisplayDiagnostics(payload) {
+  return {
+    primary_result_present: Boolean(payload.primary_result || payload.primary_archetype || payload.archetype),
+    score_present: payload.score !== null && payload.score !== undefined || payload.percentile !== null && payload.percentile !== undefined || payload.overall_score !== null && payload.overall_score !== undefined,
+    strengths_count: Array.isArray(payload.strengths) ? payload.strengths.length : 0,
+    growth_edges_count: Array.isArray(payload.growth_edges) ? payload.growth_edges.length : Array.isArray(payload.growth_areas) ? payload.growth_areas.length : 0,
+    recommendations_count: Array.isArray(payload.recommendations) ? payload.recommendations.length : 0,
+    result_url_present: Boolean(payload.result_url),
+  };
+}
+
 function buildAssessmentCompletionPayload({ assessmentType, resultId, primaryResult, completedAt, extra = {} } = {}) {
   const metadata = getAssessmentMetadata(assessmentType) || {};
-  return {
+  const score = extra.score ?? extra.overall_score ?? extra.percentile ?? null;
+  const primary = primaryResult || extra.primary_result || extra.primary_role || extra.primary_archetype || null;
+  const secondary = extra.secondary_result || extra.secondary_role || extra.secondary_archetype || null;
+  const weakness = extra.weakness_role || extra.growth_edge || extra.growth_area || null;
+  const strengths = cleanTextArray(
+    extra.strengths,
+    extra.primary_strength,
+    extra.archetype_definition?.strength,
+    primary ? `Your strongest pattern is ${humanizeKey(primary)}.` : null,
+    secondary ? `${humanizeKey(secondary)} adds a useful secondary support pattern.` : null
+  );
+  const growthEdges = cleanTextArray(
+    extra.growth_edges,
+    extra.growth_areas,
+    extra.weakness_advice,
+    extra.improvement,
+    weakness ? `Practice strengthening ${humanizeKey(weakness)} with one focused weekly action.` : null
+  );
+  const recommendations = normalizeRecommendations(extra.recommendations || metadata.recommendations, recommendedNextStepsFor(assessmentType));
+  const payload = {
+    ...extra,
+    event_type: "assessment.completed",
+    assessment_id: extra.assessment_id || resultId,
+    assessment_key: assessmentType,
     assessment_type: assessmentType,
     assessment_name: metadata.title || metadata.name || assessmentType,
     result_id: resultId,
-    primary_result: primaryResult || null,
-    recommended_next_steps: recommendedNextStepsFor(assessmentType),
-    recommendations: metadata.recommendations || {},
-    star_reward_eligible: Boolean(metadata.star_reward_eligible),
-    reward: buildRewardInstruction(metadata),
+    result_url: extra.result_url || null,
+    completion_status: extra.completion_status || "completed",
     completed_at: completedAt || new Date().toISOString(),
-    ...extra,
+    score,
+    percentile: extra.percentile ?? null,
+    overall_score: score,
+    primary_result: primary,
+    secondary_result: secondary,
+    archetype: primary,
+    summary: extra.summary || (primary ? `Your primary result is ${humanizeKey(primary)}${secondary ? ` with ${humanizeKey(secondary)} as a secondary pattern` : ""}.` : null),
+    strengths,
+    growth_edges: growthEdges,
+    growth_areas: growthEdges,
+    recommendations,
+    recommended_next_assessment: extra.recommended_next_assessment || metadata.recommended_next_assessment || metadata.recommendations?.next_assessment || null,
+    recommended_next_steps: recommendations,
+    star_reward_eligible: Boolean(metadata.star_reward_eligible),
+    badge_reward_eligible: Boolean(metadata.star_reward_eligible),
+    reward: buildRewardInstruction(metadata),
   };
+  payload.display_diagnostics = buildDisplayDiagnostics(payload);
+  return payload;
 }
 
 function assessmentPathFor(id) {

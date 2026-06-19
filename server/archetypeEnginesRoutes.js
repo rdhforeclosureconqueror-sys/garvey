@@ -159,11 +159,33 @@ async function resolveLoveRetakeAttempt(pool, { tenant, userId, fallback = 0 }) 
   return Number(result.rows?.[0]?.completed_count || 0);
 }
 
+function cleanPayloadTextArray(...candidates) {
+  const out = [];
+  const visit = (value) => {
+    if (!value) return;
+    if (Array.isArray(value)) return value.forEach(visit);
+    if (typeof value === "object") return visit(value.text || value.label || value.title || value.value || value.message || value.summary || value.body);
+    const text = String(value).replace(/^[-•*]\s*/, "").trim();
+    if (text && !out.includes(text)) out.push(text);
+  };
+  candidates.forEach(visit);
+  return out;
+}
+
+function normalizePayloadRecommendations(value) {
+  if (Array.isArray(value)) return value.map((item) => {
+    if (item && typeof item === "object") return { type: String(item.type || "recommendation"), label: String(item.label || item.title || item.value || item.message || "Recommendation"), value: item.value || item.url || item.href || item.text || item.message || item.label || null };
+    return { type: "recommendation", label: "Recommendation", value: String(item || "").trim() };
+  }).filter((item) => item.value || item.label);
+  if (value && typeof value === "object") return Object.entries(value).map(([type, raw]) => ({ type, label: titleCase(type), value: raw && typeof raw === "object" ? (raw.value || raw.label || raw.title || raw.message || null) : raw })).filter((item) => item.value);
+  return [];
+}
+
 function displayReadyCompletionPayload({ req, engineType, assessmentId, resultId, payload, createdAt }) {
   const canonical = payload.canonical || {};
   const attribution = payload.attribution || canonical.attribution || {};
-  const primary = payload.primaryArchetype?.label || payload.primaryArchetype?.code || canonical.primary_archetype || null;
-  const secondary = payload.secondaryArchetype?.label || payload.secondaryArchetype?.code || canonical.secondary_archetype || null;
+  const primary = payload.primaryArchetype?.label || payload.primaryArchetype?.name || payload.primaryArchetype?.code || canonical.primary_archetype || null;
+  const secondary = payload.secondaryArchetype?.label || payload.secondaryArchetype?.name || payload.secondaryArchetype?.code || canonical.secondary_archetype || null;
   const resultPath = `/archetype-engines/${encodeURIComponent(engineType)}/result/${encodeURIComponent(resultId)}${engineType === "love" ? "/story" : ""}`;
   const query = new URLSearchParams();
   for (const key of ["tenant", "email", "name", "rid", "crid", "return_url", "result_return_url", "dashboard_url"]) {
@@ -171,26 +193,67 @@ function displayReadyCompletionPayload({ req, engineType, assessmentId, resultId
     if (value) query.set(key, value);
   }
   const resultUrl = `${resultPath}${query.toString() ? `?${query.toString()}` : ""}`;
-  return {
+  const score = payload.overallScore ?? payload.confidence ?? payload.canonical?.overall_score ?? payload.summaryBlock?.confidence ?? null;
+  const strengths = cleanPayloadTextArray(
+    canonical.strengths,
+    payload.strengths,
+    payload.primaryInsight,
+    payload.secondaryInsight,
+    primary ? `Primary strength: ${primary}.` : null,
+    secondary ? `Secondary support pattern: ${secondary}.` : null
+  );
+  const growthEdges = cleanPayloadTextArray(
+    canonical.growth_edges,
+    canonical.growth_areas,
+    payload.growthEdges,
+    payload.growthAreas,
+    payload.balanceInsight,
+    payload.identityGapInsight,
+    payload.consistencyInsight
+  );
+  const recommendations = normalizePayloadRecommendations(canonical.recommendations || payload.recommendations || []);
+  const completion = {
     event_type: "assessment.completed",
     member_id: String(req.body?.member_id || req.body?.external_user_id || req.body?.user_id || attribution.rid || attribution.crid || "").trim() || null,
     email: String(req.body?.email || attribution.email || "").trim().toLowerCase() || null,
     assessment_id: assessmentId,
-    assessment_name: `${titleCase(engineType)} Archetype`,
+    assessment_key: engineType,
+    assessment_name: `${titleCase(engineType)} Archetype Engine`,
     assessment_type: engineType,
     result_id: resultId,
     result_url: resultUrl,
     completed_at: createdAt || new Date().toISOString(),
     completion_status: "completed",
-    overall_score: payload.overallScore || payload.canonical?.overall_score || null,
+    score,
+    percentile: payload.percentile ?? null,
+    overall_score: score,
+    primary_result: primary,
+    secondary_result: secondary,
     primary_archetype: primary,
     secondary_archetype: secondary,
+    archetype: primary,
     summary: canonical.summary?.body || payload.primaryInsight || payload.balanceInsight || null,
-    recommendations: canonical.recommendations || payload.recommendations || [],
+    strengths,
+    growth_edges: growthEdges,
+    growth_areas: growthEdges,
+    recommendations,
+    recommended_next_assessment: canonical.next_assessment || payload.nextAssessment || null,
     next_assessment: canonical.next_assessment || payload.nextAssessment || null,
+    star_reward_eligible: false,
+    badge_reward_eligible: false,
+    reward: { eligible: false, simba_points: 0, achievements: [] },
     badge_unlocks: payload.badgeUnlocks || [],
     future_review_date: payload.futureReviewDate || null,
   };
+  completion.display_diagnostics = {
+    primary_result_present: Boolean(completion.primary_result || completion.primary_archetype || completion.archetype),
+    score_present: completion.score !== null && completion.score !== undefined || completion.percentile !== null && completion.percentile !== undefined,
+    strengths_count: completion.strengths.length,
+    growth_edges_count: completion.growth_edges.length,
+    recommendations_count: completion.recommendations.length,
+    result_url_present: Boolean(completion.result_url),
+  };
+  return completion;
 }
 
 function titleCase(value) {
