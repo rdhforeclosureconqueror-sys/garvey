@@ -19,6 +19,10 @@
     .options { display:grid; gap:10px; margin-top:10px; }
     .optBtn { text-align:left; }
     .err { color:#fca5a5; white-space:pre-wrap; }
+    .consent-card { display:none; margin-top:14px; background:#0b1020; border:1px solid #334155; border-radius:12px; padding:14px; }
+    .consent-card.show { display:block; }
+    .consent-card label { display:flex; gap:10px; align-items:flex-start; }
+    .consent-card input { width:auto; margin-top:3px; }
     .result-card { background:#0b1020; border:1px solid #334155; border-radius:12px; padding:14px; margin-top:12px; }
     .bar-wrap { margin:8px 0; }
     .bar-label { font-size:12px; color:#cbd5e1; margin-bottom:4px; display:flex; justify-content:space-between; }
@@ -40,6 +44,14 @@
     <div class="row">
       <input id="name" placeholder="Name" autocomplete="name" />
       <input id="email" placeholder="Email" autocomplete="email" />
+    </div>
+
+    <div id="consentCard" class="consent-card" aria-live="polite">
+      <label>
+        <input id="requiredConsent" type="checkbox" />
+        <span>I agree to the use of my assessment responses to create my profile and personalize my experience with this business.</span>
+      </label>
+      <div class="meta">Required before submitting this assessment.</div>
     </div>
 
     <div style="margin-top:14px;">
@@ -68,6 +80,8 @@
   let answers = [];
   let isSubmitting = false;
   let submissionSucceeded = false;
+  let consentRequired = false;
+  let consentAccepted = false;
 
   const REQUIRED_IDS = ["email","progressBarFill","progress","questionText","optionsContainer","tenantLine"];
 
@@ -127,6 +141,39 @@
       if (normalized) params.set(key, normalized);
     });
     return { href: `${path}?${params.toString()}`, missing: [] };
+  }
+
+  async function loadConsentRequirement(assessment, tenant, email) {
+    const consentCard = $("consentCard");
+    const checkbox = $("requiredConsent");
+    if (!consentCard || !checkbox) return false;
+    const shouldCheck = assessment === "customer" || assessment === "business_owner";
+    if (!shouldCheck) return false;
+    try {
+      const full = buildUrlCompat("/api/features/consent", { tenant, email, assessment, ts: Date.now() });
+      const res = await fetch(full, { cache: "no-store", credentials: "include" });
+      const data = await res.json().catch(() => ({}));
+      consentRequired = assessment === "customer" ? Boolean(data.required_for_voc) : Boolean(data.enabled);
+    } catch (_) {
+      consentRequired = assessment === "customer";
+    }
+    consentCard.classList.toggle("show", consentRequired);
+    checkbox.onchange = () => { consentAccepted = checkbox.checked === true; };
+    return consentRequired;
+  }
+
+  async function ensureRequiredConsent({ tenant, email, name, assessment }) {
+    if (!consentRequired) return;
+    if (!$("requiredConsent")?.checked) throw new Error("Please accept the required consent before submitting.");
+    const res = await fetch(window.GarveyApi?.buildUrl ? window.GarveyApi.buildUrl("/api/consent/required") : "/api/consent/required", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ tenant, email, name, accepted: true, require_for_voc: assessment === "customer", consent_version: "v1" }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || "Consent submission failed");
+    consentAccepted = true;
   }
 
   async function fetchQuestions(assessment) {
@@ -313,6 +360,8 @@
       return showError("Assessment responses are incomplete. Please answer all questions.");
     }
 
+    await ensureRequiredConsent({ tenant, email, name, assessment });
+
     const submitPayload = { email, name, tenant, cid, answers };
     isSubmitting = true;
 
@@ -380,6 +429,7 @@
     }
 
     try {
+      await loadConsentRequirement(assessment, tenant, email);
       const data = await fetchQuestions(assessment);
       questions = normalizeQuestions(data.questions);
       if (!questions.length) throw new Error("No questions returned after normalization");

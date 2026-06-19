@@ -172,7 +172,7 @@
 
     async function load() {
       const session = await resolveOwnerSession().catch(() => null);
-      if (!session) {
+      if (!session && (!tenant || !email)) {
         if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
         const params = new URLSearchParams(window.location.search);
         params.delete("tenant");
@@ -187,9 +187,9 @@
         return;
       }
 
-      let resolvedTenant = session.tenant;
-      let resolvedEmail = session.email;
-      if (tenant !== resolvedTenant || email !== resolvedEmail) {
+      let resolvedTenant = session?.tenant || tenant;
+      let resolvedEmail = session?.email || email;
+      if (session && (tenant !== resolvedTenant || email !== resolvedEmail)) {
         const params = new URLSearchParams(window.location.search);
         params.set("tenant", resolvedTenant);
         params.set("email", resolvedEmail);
