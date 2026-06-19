@@ -223,6 +223,7 @@ async function initializeDatabase() {
 
   await pool.query(`
     ALTER TABLE tenants ADD COLUMN IF NOT EXISTS name TEXT;
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS name TEXT;
     ALTER TABLE users ADD COLUMN IF NOT EXISTS points INTEGER DEFAULT 0;
     ALTER TABLE users ADD COLUMN IF NOT EXISTS password_hash TEXT;
   `).catch(() => {});
@@ -230,6 +231,45 @@ async function initializeDatabase() {
   await pool.query(`CREATE INDEX IF NOT EXISTS idx_users_email_lower ON users(LOWER(email));`);
   await pool.query(`CREATE INDEX IF NOT EXISTS idx_memberships_tenant_role ON tenant_memberships(tenant_id, role);`);
   await pool.query(`CREATE INDEX IF NOT EXISTS idx_sessions_token_hash ON auth_sessions(token_hash);`);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS user_external_identities (
+      id BIGSERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      provider TEXT NOT NULL,
+      external_user_id TEXT NOT NULL,
+      external_membership_id TEXT,
+      email TEXT,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (provider, external_user_id)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_user_external_identities_user_provider
+      ON user_external_identities(user_id, provider);
+
+    CREATE TABLE IF NOT EXISTS external_event_deliveries (
+      id BIGSERIAL PRIMARY KEY,
+      provider TEXT NOT NULL,
+      event_type TEXT NOT NULL,
+      user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      external_user_id TEXT,
+      payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+      status TEXT NOT NULL DEFAULT 'queued',
+      attempts INTEGER NOT NULL DEFAULT 0,
+      last_error TEXT,
+      last_attempt_at TIMESTAMPTZ,
+      delivered_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_external_event_deliveries_status_created
+      ON external_event_deliveries(status, created_at);
+    CREATE INDEX IF NOT EXISTS idx_external_event_deliveries_provider_external_user
+      ON external_event_deliveries(provider, external_user_id);
+  `);
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS adaptive_v2_skill_progress (

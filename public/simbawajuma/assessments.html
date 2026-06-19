@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Simba Wajuma Assessment Center</title>
+  <style>
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;margin:0;background:#07111f;color:#e5eefb} .wrap{max-width:1100px;margin:0 auto;padding:36px 18px}.eyebrow{color:#f7c948;text-transform:uppercase;letter-spacing:.12em;font-size:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}.card{background:#0d1b2f;border:1px solid #223655;border-radius:18px;padding:18px;box-shadow:0 16px 40px rgba(0,0,0,.22)}.meta{color:#9fb1c8;font-size:14px}.pill{display:inline-block;border:1px solid #365475;border-radius:999px;padding:4px 9px;margin:6px 6px 10px 0;color:#cfe1f8;font-size:12px}.btn{display:inline-block;margin-top:10px;background:#f7c948;color:#111827;text-decoration:none;border-radius:12px;padding:10px 14px;font-weight:700}.btn.disabled{background:#334155;color:#94a3b8;pointer-events:none}h1{font-size:clamp(32px,5vw,56px);margin:6px 0}h2{margin:0 0 8px}.notice{background:#11243d;border-left:4px solid #f7c948;padding:12px 14px;border-radius:12px;margin-top:18px;color:#d6e5f8}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="eyebrow">Garvey × Simba Wa Ujamaa</div>
+    <h1>Assessment Center</h1>
+    <p class="meta">Choose an approved Garvey assessment. Existing Garvey scoring and result storage are used without duplication.</p>
+    <div class="notice">Some youth and K–6 assessments require a parent account and child profile before they can be opened.</div>
+    <section class="grid" id="assessmentGrid" aria-live="polite"></section>
+  </main>
+  <script>
+    const params = new URLSearchParams(location.search);
+    function withContext(href){
+      const url = new URL(href, location.origin);
+      ["tenant","email","cid"].forEach((key)=>{ if(params.get(key) && !url.searchParams.get(key)) url.searchParams.set(key, params.get(key)); });
+      return url.pathname + url.search;
+    }
+    fetch('/api/simbawajuma/assessments', { credentials: 'include' })
+      .then((r)=>r.json())
+      .then((data)=>{
+        const grid = document.getElementById('assessmentGrid');
+        grid.innerHTML = (data.assessments || []).map((a)=>`<article class="card"><span class="pill">${a.visibility}</span><span class="pill">${a.estimated_time}</span><h2>${a.name}</h2><p>${a.description}</p><p class="meta"><strong>Access:</strong> ${a.access_rule}</p><a class="btn ${a.disabled ? 'disabled' : ''}" href="${a.disabled ? '#' : withContext(a.href)}">${a.disabled ? 'Requires parent setup' : 'Start assessment'}</a></article>`).join('');
+      })
+      .catch(()=>{ document.getElementById('assessmentGrid').innerHTML = '<p>Unable to load assessments.</p>'; });
+  </script>
+</body>
+</html>

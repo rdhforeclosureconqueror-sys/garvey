@@ -96,6 +96,8 @@ const { buildTapHubViewModel, renderTapHubPage, renderTapHubErrorPage } = requir
 const { createGatesRouter } = require("./gatesRoutes");
 const { createAdaptiveV2Router } = require("./adaptiveV2Routes");
 const { createAssessmentMvpRouter } = require("./assessmentMvpRoutes");
+const { createSimbaWajumaRouter } = require("./simbawajumaBridge");
+const { queueExternalEvent } = require("./simbawajumaEvents");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -300,6 +302,7 @@ app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew
 app.use(createGatesRouter());
 app.use(createAdaptiveV2Router({ pool }));
 app.use("/api/assessment-mvp", createAssessmentMvpRouter());
+app.use(createSimbaWajumaRouter({ pool }));
 console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_router_mounted" }));
 
 if (TAP_CRM_ROUTES_MOUNTED) {
@@ -6756,6 +6759,20 @@ app.post("/api/intake", async (req, res) => {
       },
     });
     const resultContract = buildResultContract(scored);
+    queueExternalEvent({
+      eventType: "assessment.completed",
+      userId: user.id,
+      payload: {
+        assessment_type: "business_owner",
+        assessment_name: "Business Owner Assessment",
+        result_id: submission.id,
+        submission_id: submission.id,
+        primary_result: scored.primary,
+        points_awarded: 0,
+        completed_at: submission.created_at || new Date().toISOString(),
+        result_url: `/api/results/${encodeURIComponent(normalizeEmail(email))}?type=business_owner&tenant=${encodeURIComponent(tenantRow.slug)}`,
+      },
+    }).catch((err) => console.error("simbawajuma_owner_assessment_event_queue_failed", err));
     console.log({
       email: normalizeEmail(email),
       tenant: tenantRow.slug,
@@ -7901,6 +7918,20 @@ async function handleVocIntake(req, res) {
       },
     });
     const resultContract = buildResultContract(scored);
+    queueExternalEvent({
+      eventType: "assessment.completed",
+      userId: user.id,
+      payload: {
+        assessment_type: "customer",
+        assessment_name: "Customer / Voice of Customer",
+        result_id: submission.id,
+        submission_id: submission.id,
+        primary_result: scored.primary,
+        points_awarded: vocPointsAdded,
+        completed_at: submission.created_at || new Date().toISOString(),
+        result_url: `/api/results/customer/${encodeURIComponent(String(submission.id))}`,
+      },
+    }).catch((err) => console.error("simbawajuma_customer_assessment_event_queue_failed", err));
 
     return res.json({
       ...payload,
