@@ -96,7 +96,7 @@ const { buildTapHubViewModel, renderTapHubPage, renderTapHubErrorPage } = requir
 const { createGatesRouter } = require("./gatesRoutes");
 const { createAdaptiveV2Router } = require("./adaptiveV2Routes");
 const { createAssessmentMvpRouter } = require("./assessmentMvpRoutes");
-const { createSimbaWajumaRouter, buildAssessmentCompletionPayload } = require("./simbawajumaBridge");
+const { createSimbaWajumaRouter, buildAssessmentCompletionPayload, verifyTransferToken } = require("./simbawajumaBridge");
 const { queueExternalEvent, retryQueuedExternalEvents } = require("./simbawajumaEvents");
 
 // Optional Site Generator (won't crash if missing)
@@ -1693,6 +1693,43 @@ async function requireTenantReadAccess(req, res) {
   }
 
   return actor;
+}
+
+function hasSimbaParticipantResultAccess(req, { row, requestedEmail, actor }) {
+  if (!row || row.assessment_type !== "business_owner") return { allow: false, reason: "not a Simba business owner result" };
+  if (String(row.tenant_slug || "").trim().toLowerCase() !== "simbawajuma") return { allow: false, reason: "not Simba tenant" };
+  const participantEmail = normalizeEmail(requestedEmail);
+  if (!participantEmail) return { allow: false, reason: "participant email missing" };
+
+  const sessionActor = req.authActor || null;
+  const sessionMatches = sessionActor
+    && normalizeEmail(sessionActor.email) === participantEmail
+    && String(sessionActor.tenantSlug || "").trim().toLowerCase() === "simbawajuma"
+    && [ROLES.CUSTOMER, ROLES.BUSINESS_OWNER].includes(normalizeRole(sessionActor.role));
+  if (sessionMatches) return { allow: true, reason: "verified Simba transfer session participant" };
+
+  const token = String(req.query.token || req.query.transfer_token || "").trim();
+  if (token) {
+    try {
+      const payload = verifyTransferToken(token);
+      const tokenEmail = normalizeEmail(payload.email);
+      const tokenRole = String(payload.role || payload.member_role || payload.bridge_role || "").trim().toLowerCase();
+      const simbaMemberRole = !tokenRole || ["business_owner", "member", "customer", "simba_member"].includes(tokenRole);
+      if (tokenEmail === participantEmail && simbaMemberRole) {
+        return { allow: true, reason: "signed Simba transfer token participant" };
+      }
+    } catch (err) {
+      return { allow: false, reason: `invalid Simba transfer token: ${err.message}` };
+    }
+  }
+
+  const actorMatches = actor
+    && [ROLES.BUSINESS_OWNER, ROLES.CUSTOMER].includes(actor.role)
+    && normalizeEmail(actor.email) === participantEmail
+    && String(actor.tenantSlug || "").trim().toLowerCase() === "simbawajuma";
+  if (actorMatches) return { allow: true, reason: "matching Simba participant context" };
+
+  return { allow: false, reason: "no verified Simba participant context" };
 }
 
 function requirePolicyAction(req, res, { action, resourceTenantSlug }) {
@@ -6848,7 +6885,7 @@ app.get("/api/results/:email", async (req, res) => {
     });
     const actor = deriveActor(req);
     const consentFeature = getConsentFeatureContext(req, email);
-    if (actor.role === ROLES.ANONYMOUS && !actor.isAdmin) {
+    if (actor.role === ROLES.ANONYMOUS && !actor.isAdmin && !String(req.query.token || req.query.transfer_token || "").trim()) {
       return deny(res, 401, "authentication required", "Provide x-user-role and tenant context");
     }
 
@@ -7020,7 +7057,11 @@ app.get("/api/results/:email", async (req, res) => {
       resourceTenantSlug: row.tenant_slug,
     });
     if (!policy.allow) {
-      return deny(res, 403, "forbidden", policy.reason);
+      const simbaParticipantAccess = hasSimbaParticipantResultAccess(req, { row, requestedEmail: email, actor });
+      if (!simbaParticipantAccess.allow) {
+        return deny(res, 403, "forbidden", policy.reason);
+      }
+      res.setHeader("X-Garvey-Result-Access", simbaParticipantAccess.reason);
     }
     const payload = buildAssessmentResultPayload({
       assessmentType: row.assessment_type,

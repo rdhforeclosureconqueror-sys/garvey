@@ -358,11 +358,12 @@ function assessmentPathFor(id) {
   return found ? found.href : "/simbawajuma/assessments";
 }
 
-function appendContext(urlPath, { tenant, email }) {
+function appendContext(urlPath, { tenant, email, token }) {
   if (!urlPath || urlPath.startsWith("http")) return urlPath || "/simbawajuma/assessments";
   const url = new URL(urlPath, "http://garvey.local");
   if (tenant && !url.searchParams.has("tenant")) url.searchParams.set("tenant", tenant);
   if (email && !url.searchParams.has("email")) url.searchParams.set("email", email);
+  if (token && !url.searchParams.has("token")) url.searchParams.set("token", token);
   return `${url.pathname}${url.search}`;
 }
 
@@ -452,6 +453,7 @@ function createSimbaWajumaRouter(options = {}) {
       const nextPath = appendContext(assessmentPathFor(payload.redirect_assessment), {
         tenant: linked.tenant.slug,
         email: linked.email,
+        token,
       });
       res.setHeader("Set-Cookie", buildSessionCookie(req, linked.sessionToken, Math.floor(SESSION_TTL_MS / 1000)));
       return res.json({ success: true, provider: PROVIDER, tenant: linked.tenant.slug, email: linked.email, user_id: linked.user.id, next_route: nextPath });
@@ -468,6 +470,7 @@ function createSimbaWajumaRouter(options = {}) {
       const nextPath = appendContext(assessmentPathFor(payload.redirect_assessment), {
         tenant: linked.tenant.slug,
         email: linked.email,
+        token,
       });
       res.setHeader("Set-Cookie", buildSessionCookie(req, linked.sessionToken, Math.floor(SESSION_TTL_MS / 1000)));
       return res.redirect(302, nextPath);

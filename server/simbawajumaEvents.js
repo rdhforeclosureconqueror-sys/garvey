@@ -23,11 +23,13 @@ function resolveWebhookSecret(env = process.env) {
 function buildDeliveryHeaders(body, env = process.env) {
   const secret = resolveWebhookSecret(env);
   const headers = { "Content-Type": "application/json" };
-  const signatureValidationResult = secret ? "hmac_sha256_hex_x_garvey_signature" : "unsigned_secret_not_configured";
+  const signatureValidationResult = secret ? "hmac_sha256_hex_plus_callback_secret_headers" : "unsigned_secret_not_configured";
   if (secret) {
     const digest = signBody(body, secret);
     headers["X-Garvey-Signature"] = `sha256=${digest}`;
     headers["X-Hub-Signature-256"] = `sha256=${digest}`;
+    headers["X-Garvey-Callback-Secret"] = secret;
+    headers.Authorization = `Bearer ${secret}`;
   }
   return { headers, signatureValidationResult, signature_algorithm: secret ? "HMAC-SHA256 over raw JSON body, hex digest, sha256= prefix" : "none" };
 }
@@ -152,8 +154,9 @@ async function getExternalEventDiagnostics({ provider = PROVIDER, pool = default
       current_callback_url: String(process.env.SIMBAWAJUMAA_WEBHOOK_URL || process.env.SIMBA_CALLBACK_URL || process.env.GARVEY_CALLBACK_URL || "").trim() || null,
       resolved_callback_url: resolvedUrl || null,
       http_method: "POST",
-      signature_algorithm: resolveWebhookSecret() ? "HMAC-SHA256 over raw JSON body, hex digest, sha256= prefix" : "unsigned (no callback secret configured)",
-      configured_headers: ["Content-Type", ...(resolveWebhookSecret() ? ["X-Garvey-Signature", "X-Hub-Signature-256"] : [])],
+      signature_algorithm: resolveWebhookSecret() ? "HMAC-SHA256 over raw JSON body, hex digest, sha256= prefix; callback secret also sent as direct secret headers for legacy Simba callback receivers" : "unsigned (no callback secret configured)",
+      configured_headers: ["Content-Type", ...(resolveWebhookSecret() ? ["X-Garvey-Signature", "X-Hub-Signature-256", "X-Garvey-Callback-Secret", "Authorization: Bearer <secret>"] : [])],
+      env_variable_match: "Simba's Garvey callback secret must equal Garvey SIMBAWAJUMAA_WEBHOOK_SECRET (fallbacks: SIMBA_CALLBACK_SECRET, GARVEY_CALLBACK_SECRET, WEBHOOK_SECRET).",
     },
     environment_present: {
       SIMBAWAJUMAA_WEBHOOK_URL: Boolean(process.env.SIMBAWAJUMAA_WEBHOOK_URL),
