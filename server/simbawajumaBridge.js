@@ -45,6 +45,7 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     streak_key: "assessment_completion",
     achievements: ["business-pathfinder"],
     href: "/intake.html?assessment=business_owner&surface=simba",
+    info_href: "/owner_archetype.html",
   },
   {
     id: "customer",
@@ -69,6 +70,7 @@ const APPROVED_ASSESSMENTS = Object.freeze([
     streak_key: "assessment_completion",
     achievements: ["customer-listener"],
     href: "/intake.html?assessment=customer&surface=simba",
+    info_href: "/customer_archetype.html",
   },
   {
     id: "love",
@@ -88,11 +90,12 @@ const APPROVED_ASSESSMENTS = Object.freeze([
       swahili_lesson: "Upendo na Heshima",
       next_assessment: "leadership",
     },
-    star_reward_eligible: false,
-    simba_points: 0,
+    star_reward_eligible: true,
+    simba_points: 35,
     streak_key: "assessment_completion",
-    achievements: [],
+    achievements: ["love-archetype-explorer"],
     href: "/archetype-engines/love/assessment?surface=simba",
+    info_href: "/archetype-engines/love/browse",
   },
   {
     id: "leadership",
@@ -112,11 +115,12 @@ const APPROVED_ASSESSMENTS = Object.freeze([
       swahili_lesson: "Uongozi wa Jamii",
       next_assessment: "loyalty",
     },
-    star_reward_eligible: false,
-    simba_points: 0,
+    star_reward_eligible: true,
+    simba_points: 35,
     streak_key: "assessment_completion",
-    achievements: [],
+    achievements: ["leadership-archetype-explorer"],
     href: "/archetype-engines/leadership/assessment?surface=simba",
+    info_href: "/archetype-engines/leadership/browse",
   },
   {
     id: "loyalty",
@@ -136,11 +140,12 @@ const APPROVED_ASSESSMENTS = Object.freeze([
       swahili_lesson: "Uaminifu na Ushirika",
       next_assessment: "customer",
     },
-    star_reward_eligible: false,
-    simba_points: 0,
+    star_reward_eligible: true,
+    simba_points: 35,
     streak_key: "assessment_completion",
-    achievements: [],
+    achievements: ["loyalty-archetype-explorer"],
     href: "/archetype-engines/loyalty/assessment?surface=simba",
+    info_href: "/archetype-engines/loyalty/browse",
   },
   {
     id: "youth_rite_of_passage",
@@ -160,11 +165,12 @@ const APPROVED_ASSESSMENTS = Object.freeze([
       swahili_lesson: "Familia na Malezi",
       next_assessment: "assessment_mvp_k6",
     },
-    star_reward_eligible: false,
-    simba_points: 0,
+    star_reward_eligible: true,
+    simba_points: 35,
     streak_key: "family_assessment",
-    achievements: [],
+    achievements: ["youth-rite-of-passage-starter"],
     href: "/gates/signup?surface=simba",
+    info_href: "/gates",
     disabled: true,
   },
   {
@@ -185,11 +191,12 @@ const APPROVED_ASSESSMENTS = Object.freeze([
       swahili_lesson: "Kujifunza Kila Siku",
       next_assessment: "youth_rite_of_passage",
     },
-    star_reward_eligible: false,
-    simba_points: 0,
+    star_reward_eligible: true,
+    simba_points: 35,
     streak_key: "family_assessment",
-    achievements: [],
+    achievements: ["youth-k6-learning-starter"],
     href: "/gates/signup?surface=simba",
+    info_href: "/gamehub/adaptive-grade1-v2.html",
     disabled: true,
   },
 ]);
@@ -414,7 +421,7 @@ function buildAssessmentCompletionPayload({ assessmentType, resultId, primaryRes
     extra.improvement,
     weakness ? `Practice strengthening ${humanizeKey(weakness)} with one focused weekly action.` : null
   );
-  const recommendations = normalizeRecommendations(extra.recommendations || metadata.recommendations, recommendedNextStepsFor(assessmentType));
+  const recommendations = normalizeRecommendations(extra.recommendations, recommendedNextStepsFor(assessmentType));
   const payload = {
     ...extra,
     event_type: "assessment.completed",
@@ -571,6 +578,12 @@ function createSimbaWajumaRouter(options = {}) {
     } catch (err) {
       return res.status(err.statusCode || 500).send(`Simba Wajuma transfer failed: ${err.message || "unknown error"}`);
     }
+  });
+
+  router.get("/api/simbawajuma/session", (req, res) => {
+    const role = String(req.authActor?.role || req.query.role || req.headers["x-user-role"] || "").trim().toLowerCase();
+    const isAdmin = req.isAdmin === true || req.authActor?.isAdmin === true || role === ROLES.ADMIN || role === "super_admin";
+    return res.json({ authenticated: Boolean(req.authActor), role: role || "anonymous", is_admin: isAdmin });
   });
 
   router.get("/api/simbawajuma/assessments", (req, res) => {
