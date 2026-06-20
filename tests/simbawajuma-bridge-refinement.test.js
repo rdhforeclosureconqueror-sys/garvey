@@ -85,7 +85,7 @@ test('Simba-facing assessment center is skinnable and does not show Garvey brand
   assert.match(html, /--simba-bg/);
   assert.match(html, /--simba-accent/);
   assert.doesNotMatch(html, /Garvey/);
-  assert.match(html, /internal assessment engine/);
+  assert.match(html, /Welcome to the Assessment Center/);
   assert.match(html, /Continue Your Journey/);
   assert.match(html, /data-category/);
 });
@@ -118,4 +118,29 @@ test('Owner results page preserves signed Simba context on business owner result
   const html = fs.readFileSync(path.join(__dirname, '..', 'public', 'results_owner.html'), 'utf8');
   assert.match(html, /Object\.fromEntries\(Array\.from\(qs\.entries\(\)\)\.concat/);
   assert.match(html, /"x-user-email": email, "x-tenant-slug": tenant/);
+});
+
+
+test('Simba assessment center hides diagnostics behind admin-only lazy panel and adds archetype explorer', () => {
+  const html = fs.readFileSync(path.join(__dirname, '..', 'public', 'simbawajuma', 'assessments.html'), 'utf8');
+  assert.match(html, /Explore Assessment Archetypes/);
+  assert.match(html, /archetypeGrid/);
+  assert.match(html, /info_href/);
+  assert.match(html, /api\/simbawajuma\/session/);
+  assert.match(html, /if\(isAdmin\)\{fetch\('\/api\/archetype-engines\/admin\/simba-sync\/diagnostics'/);
+  assert.doesNotMatch(html, /id="callbackDiagnostics"/);
+  assert.match(html, /<details class="panel admin-panel">/);
+});
+
+test('All Simba ecosystem assessments are star reward eligible through the existing reward instruction', () => {
+  const required = ['love', 'leadership', 'loyalty', 'youth_rite_of_passage', 'assessment_mvp_k6'];
+  for (const id of required) {
+    const assessment = APPROVED_ASSESSMENTS.find((entry) => entry.id === id);
+    assert.ok(assessment, `${id} should exist in catalog`);
+    assert.equal(assessment.star_reward_eligible, true, `${id} should award stars`);
+    assert.ok(Number(assessment.simba_points) > 0, `${id} should expose configurable Simba points`);
+    const payload = buildAssessmentCompletionPayload({ assessmentType: id, resultId: `${id}-result`, primaryResult: 'Explorer' });
+    assert.equal(payload.reward.eligible, true, `${id} completion should use reward engine`);
+    assert.ok(Number(payload.reward.simba_points) > 0, `${id} completion should carry points`);
+  }
 });
