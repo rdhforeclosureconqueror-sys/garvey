@@ -96,6 +96,45 @@ function createVoiceProviderAdapter(options = {}) {
     };
   }
 
+  function normalizeGatewaySuccess(payload = {}, gatewayPayload = {}, diagnostics = {}) {
+    const audioUrl = String(gatewayPayload.audio_url || gatewayPayload.audioUrl || gatewayPayload.url || "").trim();
+    const assetRef = String(gatewayPayload.asset_ref || gatewayPayload.assetRef || "").trim();
+    if (!audioUrl && !assetRef) {
+      return normalizeFallback(payload, "fallback", "malformed_gateway_success_missing_playable_asset", {
+        diagnostics: {
+          last_gateway_health_status: lastGatewayHealthStatus,
+          malformed_gateway_payload: true,
+          provider_audio_available: false,
+          missing_playable_asset: true,
+          upstream_route: diagnostics.upstream_route || "/speak",
+          ...diagnostics,
+        },
+      });
+    }
+
+    return {
+      ok: gatewayPayload.ok === false ? false : true,
+      status: String(gatewayPayload.status || "ready"),
+      provider: String(gatewayPayload.provider || "openai-via-upstream-speak"),
+      provider_status: String(gatewayPayload.provider_status || "available"),
+      fallback_active: false,
+      fallback_reason: null,
+      playable_text: String(gatewayPayload.playable_text || payload.voice_text || payload.text_content || "").trim(),
+      audio_url: audioUrl || null,
+      asset_ref: assetRef || null,
+      replay_token: gatewayPayload.replay_token || deterministicId("voice_replay", { payload, provider: gatewayPayload.provider || "openai-via-upstream-speak" }),
+      chunk_index: Number(gatewayPayload.chunk_index ?? payload.chunk_index ?? 0),
+      expires_at: gatewayPayload.expires_at || null,
+      diagnostics: {
+        last_gateway_health_status: lastGatewayHealthStatus,
+        missing_playable_asset: false,
+        upstream_route: diagnostics.upstream_route || "/speak",
+        provider_audio_available: true,
+        ...diagnostics,
+      },
+    };
+  }
+
   function toDataAudioUrl(contentType, bytes) {
     if (!bytes || !bytes.length) return null;
     return `data:${contentType || "audio/mpeg"};base64,${Buffer.from(bytes).toString("base64")}`;
@@ -112,6 +151,12 @@ function createVoiceProviderAdapter(options = {}) {
     return { playable: false, contentType: normalized || "unknown", reason: "non_audio_content_type" };
   }
 
+  function legacyGatewayRouteForPayload(payload = {}) {
+    const key = String(payload.section_key || "").trim();
+    const parentSections = new Set(["summary", "strengths", "growth", "still_building", "environment", "next_steps", "section"]);
+    return parentSections.has(key) ? "/internal/voice/report-section" : "/internal/voice/checkin-prompt";
+  }
+
   async function callGateway(payload = {}) {
     if (!isAvailable()) {
       return normalizeFallback(payload, "provider_unavailable", "voice_gateway_unavailable");
@@ -120,7 +165,8 @@ function createVoiceProviderAdapter(options = {}) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      const response = await fetch(`${baseUrl}/speak`, {
+      const upstreamRoute = String(payload.__route || "/speak");
+      const response = await fetch(`${baseUrl}${upstreamRoute}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -128,12 +174,21 @@ function createVoiceProviderAdapter(options = {}) {
         },
         body: JSON.stringify({
           text: String(payload.voice_text || payload.text_content || "").trim(),
+          voice_text: String(payload.voice_text || payload.text_content || "").trim(),
+          text_content: String(payload.text_content || payload.voice_text || "").trim(),
           voice: payload.voice || undefined,
+          child_id: payload.child_id || undefined,
+          section_key: payload.section_key || undefined,
+          voice_chunk_id: payload.voice_chunk_id || undefined,
+          chunk_index: payload.chunk_index ?? undefined,
         }),
         signal: controller.signal,
       });
 
       if (!response.ok) {
+        if (response.status === 404 && !payload.__legacyRetry && upstreamRoute === "/speak") {
+          return callGateway({ ...payload, __legacyRetry: true, __route: legacyGatewayRouteForPayload(payload) });
+        }
         const status = response.status >= 400 && response.status < 500 ? "invalid_request" : "fallback";
         return normalizeFallback(payload, status, `voice_repo_http_${response.status}`, {
           diagnostics: {
@@ -143,12 +198,37 @@ function createVoiceProviderAdapter(options = {}) {
             provider_audio_bytes: 0,
             provider_audio_available: false,
             missing_playable_asset: true,
-            upstream_route: "/speak",
+            upstream_route: upstreamRoute,
           },
         });
       }
 
       const contentType = String(response.headers.get("content-type") || "").toLowerCase();
+      if (contentType.includes("application/json")) {
+        const gatewayPayload = await response.json().catch(() => null);
+        if (!gatewayPayload || typeof gatewayPayload !== "object") {
+          return normalizeFallback(payload, "fallback", "malformed_gateway_success_missing_playable_asset", {
+            diagnostics: {
+              last_gateway_health_status: lastGatewayHealthStatus,
+              malformed_gateway_payload: true,
+              gateway_http_status: response.status,
+              gateway_content_type: contentType || null,
+              provider_audio_bytes: 0,
+              provider_audio_available: false,
+              missing_playable_asset: true,
+              upstream_route: upstreamRoute,
+            },
+          });
+        }
+        return normalizeGatewaySuccess(payload, gatewayPayload, {
+          gateway_http_status: response.status,
+          gateway_content_type: contentType || null,
+          provider_audio_bytes: 0,
+          provider_audio_content_type: null,
+          upstream_route: upstreamRoute,
+        });
+      }
+
       const audioBytes = Buffer.from(await response.arrayBuffer());
       const contentTypeResolution = resolveAudioContentType(contentType, audioBytes.length);
       if (!contentTypeResolution.playable) {
@@ -161,7 +241,7 @@ function createVoiceProviderAdapter(options = {}) {
             provider_audio_bytes: audioBytes.length,
             provider_audio_available: false,
             missing_playable_asset: true,
-            upstream_route: "/speak",
+            upstream_route: upstreamRoute,
           },
         });
       }
@@ -175,7 +255,7 @@ function createVoiceProviderAdapter(options = {}) {
             provider_audio_bytes: audioBytes.length,
             provider_audio_available: false,
             missing_playable_asset: true,
-            upstream_route: "/speak",
+            upstream_route: upstreamRoute,
           },
         });
       }
@@ -196,7 +276,7 @@ function createVoiceProviderAdapter(options = {}) {
         diagnostics: {
           last_gateway_health_status: lastGatewayHealthStatus,
           missing_playable_asset: false,
-          upstream_route: "/speak",
+          upstream_route: upstreamRoute,
           gateway_http_status: response.status,
           gateway_content_type: contentType || null,
           provider_audio_available: true,
