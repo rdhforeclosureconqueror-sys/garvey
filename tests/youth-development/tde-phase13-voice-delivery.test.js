@@ -284,3 +284,44 @@ test("phase14 parent /voice/speak route exposes upstream diagnostics and provide
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test("phase14 adapter accepts JSON /speak responses with provider audio references", async () => {
+  const app = express();
+  app.use(express.json());
+  app.get("/health", (_req, res) => res.status(200).json({ ok: true, status: "healthy" }));
+  app.post("/speak", (req, res) => res.status(200).json({
+    status: "ready",
+    provider: "openai-via-gateway",
+    audio_url: "https://audio.example/generated.mp3",
+    playable_text: req.body.voice_text,
+    replay_token: "replay-json-speak",
+    chunk_index: req.body.chunk_index,
+  }));
+  const server = app.listen(0);
+  const adapter = createVoiceProviderAdapter({
+    gateway_mode: "external_gateway",
+    gateway_base_url: `http://127.0.0.1:${server.address().port}`,
+    gateway_timeout_ms: 500,
+  });
+
+  try {
+    const synth = await adapter.synthesizeReportSection({
+      child_id: "child-json-speak",
+      section_key: "summary",
+      text_content: "Read this dashboard section.",
+      voice_text: "Read this dashboard section.",
+      voice_chunk_id: "chunk-json-speak",
+      chunk_index: 2,
+    });
+    assert.equal(synth.ok, true);
+    assert.equal(synth.provider, "openai-via-gateway");
+    assert.equal(synth.provider_status, "available");
+    assert.equal(synth.audio_url, "https://audio.example/generated.mp3");
+    assert.equal(synth.playable_text, "Read this dashboard section.");
+    assert.equal(synth.replay_token, "replay-json-speak");
+    assert.equal(synth.chunk_index, 2);
+    assert.equal(synth.diagnostics.gateway_content_type.includes("application/json"), true);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
