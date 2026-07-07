@@ -1059,3 +1059,64 @@ test('loyalty retakes use governed generated source and never authored fallback'
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test('leadership youth variant reuses authored scoring ids with youth-facing content', () => {
+  const standard = getQuestionBanks('leadership', { retakeAttempt: 0 });
+  const youth = getQuestionBanks('leadership', { retakeAttempt: 0, audience: 'youth' });
+  assert.equal(youth.selectedBankId, 'AUTHORED_BANK_1');
+  assert.equal(youth.activeQuestions.length, standard.activeQuestions.length);
+  assert.equal(youth.activeQuestions[0].id, standard.activeQuestions[0].id);
+  assert.notEqual(youth.activeQuestions[0].prompt, standard.activeQuestions[0].prompt);
+  const youthAnswers = Object.fromEntries(youth.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
+  const standardAnswers = Object.fromEntries(standard.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
+  assert.deepEqual(
+    scoreEngineAssessment('leadership', youthAnswers, { bankId: youth.selectedBankId }).normalizedScores,
+    scoreEngineAssessment('leadership', standardAnswers, { bankId: standard.selectedBankId }).normalizedScores
+  );
+});
+
+test('pocketpt youth metadata is retained and unsafe return urls are rejected', async () => {
+  const { server, baseUrl } = await startServer(createMockPool());
+  try {
+    const consentId = await createConsent(baseUrl, 'leadership', 'youth@example.com');
+    const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', consent_id: consentId, audience_type: 'youth', source_application: 'pocketpt', external_user_reference: 'pt-123', external_enrollment_reference: 'enr-9', external_cohort_reference: 'cohort-a', return_url: 'https://evil.example/steal' }),
+    });
+    assert.equal(startRes.status, 200);
+    const startJson = await startRes.json();
+    assert.equal(startJson.audience_type, 'youth');
+    assert.equal(startJson.source_application, 'pocketpt');
+    assert.equal(startJson.safe_return_url, null);
+    assert.match(startJson.questionBanks.activeQuestions[9].prompt, /teammate|classmate/);
+
+    const answers = Object.fromEntries(startJson.questionBanks.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
+    const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/score`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', assessmentId: startJson.assessmentId, answers, audience_type: 'youth', source_application: 'pocketpt', external_user_reference: 'pt-123' }),
+    });
+    assert.equal(scoreRes.status, 200);
+    const scoreJson = await scoreRes.json();
+    assert.equal(scoreJson.audience_type, 'youth');
+    assert.equal(scoreJson.source_application, 'pocketpt');
+    assert.ok(scoreJson.primaryArchetype?.code);
+
+    const denied = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}/summary`);
+    assert.equal(denied.status, 403);
+
+    const summary = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}/summary?source_application=pocketpt`, { headers: { 'x-source-application': 'pocketpt' } });
+    assert.equal(summary.status, 200);
+    const summaryJson = await summary.json();
+    assert.equal(summaryJson.completion_status, 'completed');
+    assert.equal(summaryJson.audience_type, 'youth');
+    assert.ok(summaryJson.primary_archetype_id);
+    assert.equal(Object.prototype.hasOwnProperty.call(summaryJson, 'answers'), false);
+  } finally { await new Promise((resolve) => server.close(resolve)); }
+});
+
+test('youth result UI copy and PocketPT return affordance are present', () => {
+  const source = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js'), 'utf8');
+  assert.match(source, /The Leader Within/);
+  assert.match(source, /does not limit what kind of leader you can become/);
+  assert.match(source, /Return to PocketPT/);
+});

@@ -52,6 +52,26 @@ function pickAttribution(req) {
   return ctx;
 }
 
+
+function pickAudienceVariant(req) {
+  const raw = String(req.query.audience_type || req.body?.audience_type || req.query.assessment_variant || req.body?.assessment_variant || req.query.content_variant || req.body?.content_variant || req.query.variant || req.body?.variant || "").trim().toLowerCase();
+  return raw === "youth" ? "youth" : "standard";
+}
+
+function safeExternalReturnDestination(req) {
+  const source = String(req.query.source_application || req.body?.source_application || req.query.source_type || req.body?.source_type || req.query.tap_source || req.body?.tap_source || "").trim().toLowerCase();
+  const raw = String(req.query.return_url || req.body?.return_url || req.query.result_return_url || req.body?.result_return_url || "").trim();
+  if (!raw) return null;
+  const allowed = String(process.env.POCKETPT_RETURN_ORIGINS || "https://pocketpt.app,https://www.pocketpt.app").split(",").map((v) => v.trim()).filter(Boolean);
+  try {
+    const url = new URL(raw);
+    if (source === "pocketpt" && allowed.includes(url.origin)) return url.href;
+  } catch (_) {
+    return null;
+  }
+  return null;
+}
+
 function normalizeAttribution(ctx = {}) {
   const campaign = String(ctx.campaign || ctx.cid || "").trim() || null;
   const cid = String(ctx.cid || ctx.campaign || "").trim() || null;
@@ -84,6 +104,14 @@ function normalizeAttribution(ctx = {}) {
     route_mode: String(ctx.route_mode || "").trim() || null,
     email: String(ctx.email || "").trim().toLowerCase() || null,
     name: String(ctx.name || ctx.full_name || "").trim() || null,
+    audience_type: String(ctx.audience_type || ctx.assessment_variant || ctx.content_variant || "").trim().toLowerCase() || null,
+    assessment_variant: String(ctx.assessment_variant || ctx.audience_type || ctx.content_variant || "").trim().toLowerCase() || null,
+    content_variant: String(ctx.content_variant || ctx.assessment_variant || ctx.audience_type || "").trim().toLowerCase() || null,
+    source_application: String(ctx.source_application || ctx.source_type || "").trim().toLowerCase() || null,
+    external_user_reference: String(ctx.external_user_reference || ctx.member_id || ctx.external_user_id || ctx.rid || "").trim() || null,
+    external_enrollment_reference: String(ctx.external_enrollment_reference || ctx.enrollment_reference || "").trim() || null,
+    external_cohort_reference: String(ctx.external_cohort_reference || ctx.cohort_reference || "").trim() || null,
+    safe_return_url: String(ctx.safe_return_url || "").trim() || null,
   };
 }
 
@@ -355,7 +383,7 @@ function createArchetypeEnginesRouter({ pool }) {
     if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
     const content = getEngineContent(engineType);
     const tenant = pickTenant(req);
-    const attribution = pickAttribution(req);
+    const attribution = { ...pickAttribution(req), audience_type: pickAudienceVariant(req), assessment_variant: pickAudienceVariant(req), content_variant: pickAudienceVariant(req), source_application: String(req.query.source_application || req.body?.source_application || "").trim().toLowerCase() || null, safe_return_url: safeExternalReturnDestination(req) };
     const routeMode = String(req.query.route_mode || "").trim().toLowerCase();
     const pageKey = routeMode === "assessment" ? "assessment_opened" : `${engineType}_archetypes`;
     await pool.query(
@@ -387,7 +415,7 @@ function createArchetypeEnginesRouter({ pool }) {
     if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
 
     const tenant = pickTenant(req);
-    const attribution = pickAttribution(req);
+    const attribution = { ...pickAttribution(req), audience_type: pickAudienceVariant(req), assessment_variant: pickAudienceVariant(req), content_variant: pickAudienceVariant(req), source_application: String(req.body?.source_application || req.query.source_application || "").trim().toLowerCase() || null, external_user_reference: String(req.body?.external_user_reference || req.body?.external_user_id || req.body?.member_id || "").trim() || null, external_enrollment_reference: String(req.body?.external_enrollment_reference || req.body?.enrollment_reference || "").trim() || null, external_cohort_reference: String(req.body?.external_cohort_reference || req.body?.cohort_reference || "").trim() || null, safe_return_url: safeExternalReturnDestination(req) };
     const consentId = String(req.body?.consent_id || "").trim();
     if (!consentId) return res.status(403).json({ error: "consent_required_before_assessment" });
     const consentCheck = await pool.query(
@@ -413,7 +441,7 @@ function createArchetypeEnginesRouter({ pool }) {
       });
     }
 
-    const banks = getQuestionBanks(engineType, { retakeAttempt });
+    const banks = getQuestionBanks(engineType, { retakeAttempt, audience: pickAudienceVariant(req), assessment_variant: pickAudienceVariant(req), content_variant: pickAudienceVariant(req) });
     if (banks.questionSource === "generated_validated_bank" && !banks.generatedBankAvailable) {
       return res.status(409).json({ error: "generated_retake_bank_unavailable", questionSource: "generated_validated_bank", diagnostics: banks.diagnostics || null });
     }
@@ -434,6 +462,11 @@ function createArchetypeEnginesRouter({ pool }) {
       questionSource: banks.questionSource,
       useGeneratorOnFirstAttempt: false,
       questionSourceConfig: sourceConfig,
+      audience_type: pickAudienceVariant(req),
+      assessment_variant: pickAudienceVariant(req),
+      content_variant: pickAudienceVariant(req),
+      source_application: attribution.source_application || null,
+      safe_return_url: attribution.safe_return_url || null,
       diagnostics: banks.diagnostics || null,
     });
   });
@@ -445,7 +478,7 @@ function createArchetypeEnginesRouter({ pool }) {
     const assessmentId = String(req.body?.assessmentId || "").trim();
     const answers = req.body?.answers || {};
     const tenant = pickTenant(req);
-    const attribution = pickAttribution(req);
+    const attribution = { ...pickAttribution(req), audience_type: pickAudienceVariant(req), assessment_variant: pickAudienceVariant(req), content_variant: pickAudienceVariant(req), source_application: String(req.body?.source_application || req.query.source_application || "").trim().toLowerCase() || null, external_user_reference: String(req.body?.external_user_reference || req.body?.external_user_id || req.body?.member_id || "").trim() || null, external_enrollment_reference: String(req.body?.external_enrollment_reference || req.body?.enrollment_reference || "").trim() || null, external_cohort_reference: String(req.body?.external_cohort_reference || req.body?.cohort_reference || "").trim() || null, safe_return_url: safeExternalReturnDestination(req) };
     if (!assessmentId) return res.status(400).json({ error: "assessmentId_required" });
 
     const bankId = String(req.body?.bank_id || "").trim() || null;
@@ -460,7 +493,7 @@ function createArchetypeEnginesRouter({ pool }) {
       attribution: { ...attribution, tenant, tenant_id: attribution.tenant_id || tenant },
     });
     const topLevelAttribution = normalizeAttribution({ ...attribution, tenant, tenant_id: attribution.tenant_id || tenant });
-    const payload = { ...scored, attribution: topLevelAttribution, canonical };
+    const payload = { ...scored, audience_type: pickAudienceVariant(req), assessment_variant: pickAudienceVariant(req), content_variant: pickAudienceVariant(req), source_application: topLevelAttribution.source_application || null, safe_return_url: topLevelAttribution.safe_return_url || null, attribution: topLevelAttribution, canonical };
     const resultId = newId("result");
     await pool.query(
       `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)
@@ -481,6 +514,43 @@ function createArchetypeEnginesRouter({ pool }) {
     }).catch((err) => ({ queued: false, reason: err.message }));
 
     return res.json({ resultId, engineType, simba_sync: simbaSync, ...payload });
+  });
+
+
+  router.get("/:engineType/results/:resultId/summary", async (req, res) => {
+    const { engineType, resultId } = req.params;
+    if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+    const source = String(req.headers["x-source-application"] || req.query.source_application || "").trim().toLowerCase();
+    const token = String(req.headers["x-pocketpt-token"] || "").trim();
+    if (source !== "pocketpt" || (process.env.POCKETPT_API_TOKEN && token !== process.env.POCKETPT_API_TOKEN)) {
+      return res.status(403).json({ error: "pocketpt_authorization_required" });
+    }
+    const result = await pool.query(
+      "SELECT result_id, assessment_id, engine_type, tenant_slug, result_payload, created_at FROM engine_results WHERE result_id = $1 AND engine_type = $2 LIMIT 1",
+      [resultId, engineType]
+    );
+    if (!result.rows[0]) return res.status(404).json({ error: "result_not_found" });
+    const payload = result.rows[0].result_payload || {};
+    const canonical = payload.canonical || {};
+    const primaryCode = payload.primaryArchetype?.code || canonical.identity?.primary || canonical.primary_archetype || null;
+    const secondaryCode = payload.secondaryArchetype?.code || canonical.identity?.secondary || canonical.secondary_archetype || null;
+    const content = getEngineContent(engineType);
+    const byCode = Object.fromEntries((content?.archetypes || []).map((a) => [a.code, a]));
+    return res.json({
+      completion_status: "completed",
+      completed_at: result.rows[0].created_at,
+      assessment_version: canonical.version || "v1",
+      audience_type: payload.audience_type || payload.attribution?.audience_type || "standard",
+      source_application: payload.source_application || payload.attribution?.source_application || null,
+      primary_archetype_id: primaryCode,
+      primary_archetype_name: byCode[primaryCode]?.canonicalName || byCode[primaryCode]?.name || primaryCode,
+      secondary_archetype_id: secondaryCode,
+      secondary_archetype_name: byCode[secondaryCode]?.canonicalName || byCode[secondaryCode]?.name || secondaryCode,
+      strength_summary: payload.primaryInsight || canonical.summary?.body || byCode[primaryCode]?.shortDescription || null,
+      growth_summary: payload.balanceInsight || payload.identityGapInsight || byCode[primaryCode]?.rebalanceGuidance || null,
+      suggested_weekly_leadership_practice: payload.youth_weekly_practice || byCode[primaryCode]?.rebalanceGuidance || "Choose one group situation this week and practice using your strength in a balanced way.",
+      garvey_result_reference: resultId,
+    });
   });
 
   router.get("/:engineType/results/:resultId", async (req, res) => {
