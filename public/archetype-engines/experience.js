@@ -181,7 +181,7 @@ function wireLoveVariantToggle(onChange) {
 }
 
 function stableContextParams(query) {
-  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source", "return_url", "result_return_url", "dashboard_url", "member_id", "external_user_id"];
+  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source", "return_url", "result_return_url", "dashboard_url", "member_id", "external_user_id", "audience_type", "assessment_variant", "content_variant", "source_application", "external_user_reference", "external_enrollment_reference", "external_cohort_reference", "cohort_reference"];
   const out = new URLSearchParams();
   for (const key of keys) {
     const value = String(query.get(key) || "").trim();
@@ -200,6 +200,8 @@ function routeTo(engine, path, query) {
 
 function simbaDashboardUrl(query) {
   const fallback = "https://simbawaujamaa.com/dashboard";
+  const source = String(query?.get("source_application") || query?.get("source_type") || "").trim().toLowerCase();
+  const pocketPtOrigins = ["https://pocketpt.app", "https://www.pocketpt.app", "https://pocketpt.example", "https://app.pocketpt.example"];
   const candidates = [
     query?.get("return_url"),
     query?.get("result_return_url"),
@@ -211,7 +213,9 @@ function simbaDashboardUrl(query) {
     if (!raw) continue;
     try {
       const url = new URL(raw, window.location.origin);
-      if (["http:", "https:"].includes(url.protocol)) return url.href;
+      if (!["http:", "https:"].includes(url.protocol)) continue;
+      if (source === "pocketpt" && !pocketPtOrigins.includes(url.origin)) continue;
+      return url.href;
     } catch (_) {
       // try next candidate
     }
@@ -220,7 +224,9 @@ function simbaDashboardUrl(query) {
 }
 
 function dashboardReturnButton(query, position) {
-  return `<a class="simba-dashboard-return simba-dashboard-return-${esc(position || "inline")}" href="${esc(simbaDashboardUrl(query))}" data-simba-dashboard-return="${esc(position || "inline")}">← Back to Simba Dashboard</a>`;
+  const source = String(query?.get("source_application") || query?.get("source_type") || "").trim().toLowerCase();
+  const label = source === "pocketpt" ? "Return to PocketPT" : "← Back to Simba Dashboard";
+  return `<a class="simba-dashboard-return simba-dashboard-return-${esc(position || "inline")}" href="${esc(simbaDashboardUrl(query))}" data-simba-dashboard-return="${esc(position || "inline")}">${esc(label)}</a>`;
 }
 
 function resultVoiceText(engine, primaryName, secondaryName, payload, actionText) {
@@ -324,6 +330,14 @@ function pickCtx(query) {
     dashboard_url: String(query.get("dashboard_url") || "").trim(),
     member_id: String(query.get("member_id") || query.get("external_user_id") || "").trim(),
     external_user_id: String(query.get("external_user_id") || query.get("member_id") || "").trim(),
+    audience_type: String(query.get("audience_type") || "").trim(),
+    assessment_variant: String(query.get("assessment_variant") || "").trim(),
+    content_variant: String(query.get("content_variant") || "").trim(),
+    source_application: String(query.get("source_application") || "").trim(),
+    external_user_reference: String(query.get("external_user_reference") || "").trim(),
+    external_enrollment_reference: String(query.get("external_enrollment_reference") || "").trim(),
+    external_cohort_reference: String(query.get("external_cohort_reference") || query.get("cohort_reference") || "").trim(),
+    cohort_reference: String(query.get("cohort_reference") || "").trim(),
   };
 }
 
@@ -342,6 +356,15 @@ function buildPayload(query, extra) {
     ...(ctx.tap_session ? { tap_session: ctx.tap_session } : {}),
     ...(ctx.entry ? { entry: ctx.entry } : {}),
     ...(ctx.session_id ? { session_id: ctx.session_id } : {}),
+    ...(ctx.audience_type ? { audience_type: ctx.audience_type } : {}),
+    ...(ctx.assessment_variant ? { assessment_variant: ctx.assessment_variant } : {}),
+    ...(ctx.content_variant ? { content_variant: ctx.content_variant } : {}),
+    ...(ctx.source_application ? { source_application: ctx.source_application } : {}),
+    ...(ctx.external_user_reference ? { external_user_reference: ctx.external_user_reference } : {}),
+    ...(ctx.external_enrollment_reference ? { external_enrollment_reference: ctx.external_enrollment_reference } : {}),
+    ...(ctx.external_cohort_reference ? { external_cohort_reference: ctx.external_cohort_reference } : {}),
+    ...(ctx.cohort_reference ? { cohort_reference: ctx.cohort_reference } : {}),
+    ...(ctx.return_url ? { return_url: ctx.return_url } : {}),
     ...(extra || {}),
   };
 }
@@ -1421,6 +1444,9 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const isLoveEngine = engine === "love";
   const isLoyaltyEngine = engine === "loyalty";
   const isLeadershipEngine = engine === "leadership";
+  const resultAttribution = payload.attribution || payload.canonical?.attribution || {};
+  const isYouthResult = isLeadershipEngine && String(payload.audience_type || resultAttribution.audience_type || payload.assessment_variant || resultAttribution.assessment_variant || "").trim().toLowerCase() === "youth";
+  const isPocketPtYouthResult = isYouthResult && String(payload.source_application || resultAttribution.source_application || query?.get("source_application") || "").trim().toLowerCase() === "pocketpt";
   const consistencyValue = payload.contradictionConsistency?.consistency;
   const confidenceValue = payload.confidence;
   const dominantLoop = isLoveEngine ? inferDominantLoop({ payload, codeToName }) : null;
@@ -1646,10 +1672,11 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
 
     <section class="section hero">
       <div>
-        <div class="chip">Result Summary</div>
+        ${isYouthResult ? `<div class="chip">The Leader Within • Youth Result</div>` : `<div class="chip">Result Summary</div>`}
         <h1 class="primary">${esc(primary?.emoji || "") } ${esc(displayName(engine, primary, payload.primaryArchetype?.code || ""))}</h1>
         ${displaySubtitle(engine, primary, payload.primaryArchetype?.code || "") ? `<p class="muted">${esc(displaySubtitle(engine, primary, payload.primaryArchetype?.code || ""))}</p>` : ""}
         <p class="muted">Secondary: ${esc(displayName(engine, secondary, payload.secondaryArchetype?.code || ""))}</p>
+        ${isYouthResult ? `<p class="muted">This result shows some ways your leadership may appear right now. It does not limit what kind of leader you can become.</p>` : ""}
         ${payload.hybridArchetype ? `<div class="chip">Hybrid (${Number(hybridGap).toFixed(1)} gap): ${esc(hybridLabel)}</div>` : ""}
         ${engine === "love" ? `<div class="muted">View cards</div>${loveVariantToggle(selectedVariant)}` : ""}
         <div class="muted">Result ID: ${esc(resultId)}</div>
@@ -1687,6 +1714,13 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         <div class="kv"><b>Interrupt strategy</b>${esc(dominantLoop?.interrupt || "-")}</div>
       </div>
       ${primary?.slug ? `<a class="metric-cta" href="${routeTo("love", `archetype/${primary.slug}`, query)}">View full archetype guidance →</a>` : ""}
+    </section>` : ""}
+
+    ${isYouthResult ? `<section class="section leadership-youth-practice">
+      <h2>Your leadership practice for this week</h2>
+      <p class="muted">Choose one class, sport, club, family, or friend-group moment this week. Practice using your strongest pattern while also listening, making a clear plan, and helping others participate.</p>
+      <p class="muted">These patterns are not ranks. No pattern is better or worse than another.</p>
+      ${isPocketPtYouthResult ? `<a class="metric-cta" href="${esc(simbaDashboardUrl(query))}">Return to PocketPT</a>` : ""}
     </section>` : ""}
 
     ${!isLoyaltyEngine ? `<section class="section">

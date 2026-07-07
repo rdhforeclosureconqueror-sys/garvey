@@ -10,6 +10,7 @@ const {
   LOVE_QUESTIONS,
   LOVE_QUESTION_SOURCE,
   LEADERSHIP_QUESTIONS,
+  LEADERSHIP_YOUTH_QUESTIONS,
   LOYALTY_QUESTIONS,
   LEADERSHIP_QUESTION_SOURCE,
   LOYALTY_QUESTION_SOURCE,
@@ -1058,4 +1059,123 @@ test('loyalty retakes use governed generated source and never authored fallback'
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
+});
+
+
+test('leadership youth variant reuses authored scoring ids with youth-facing content', () => {
+  const standard = getQuestionBanks('leadership', { retakeAttempt: 0 });
+  const youth = getQuestionBanks('leadership', { retakeAttempt: 0, audience_type: 'youth' });
+  assert.equal(standard.activeQuestions.length, 25);
+  assert.equal(youth.activeQuestions.length, 25);
+  assert.equal(youth.questionSource, 'authored_bank_1_youth_variant');
+  assert.equal(LEADERSHIP_YOUTH_QUESTIONS.length, 25);
+  assert.notEqual(youth.activeQuestions[0].prompt, standard.activeQuestions[0].prompt);
+  assert.match(youth.activeQuestions.find((q) => q.id === 'LEAD_B1_Q10').prompt, /teammate or classmate/);
+
+  for (let i = 0; i < standard.activeQuestions.length; i += 1) {
+    const a = standard.activeQuestions[i];
+    const b = youth.activeQuestions[i];
+    assert.equal(b.id, a.id);
+    assert.equal(b.bankId, a.bankId);
+    assert.equal(b.displayOrder, a.displayOrder);
+    assert.equal(b.options.length, a.options.length);
+    for (let j = 0; j < a.options.length; j += 1) {
+      assert.equal(b.options[j].id, a.options[j].id);
+      assert.equal(b.options[j].primary, a.options[j].primary);
+      assert.equal(b.options[j].secondary, a.options[j].secondary);
+      assert.equal(b.options[j].weightType, a.options[j].weightType);
+      assert.equal(b.options[j].signalType, a.options[j].signalType);
+    }
+  }
+
+  const answers = Object.fromEntries(standard.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
+  const scored = scoreEngineAssessment('leadership', answers, { bankId: 'AUTHORED_BANK_1' });
+  assert.equal(scored.questionCount, 25);
+  assert.ok(['VD', 'SD', 'RI', 'IE', 'AC'].includes(scored.primaryArchetype.code));
+});
+
+test('pocketpt youth metadata is retained and unsafe return urls are rejected', async () => {
+  const { server, baseUrl } = await startServer(createMockPool());
+  try {
+    const consentId = await createConsent(baseUrl, 'leadership', 'pocketpt-youth@example.com');
+    const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', consent_id: consentId, audience_type: 'youth', assessment_variant: 'youth', content_variant: 'youth', source_application: 'pocketpt', external_user_reference: 'p1', external_enrollment_reference: 'e1', external_cohort_reference: 'c1', return_url: 'https://evil.example/return' }),
+    });
+    assert.equal(startRes.status, 200);
+    const startJson = await startRes.json();
+    assert.equal(startJson.audience_type, 'youth');
+    assert.equal(startJson.questionSource, 'authored_bank_1_youth_variant');
+    assert.equal(startJson.safe_return_url, null);
+    const savedAssessment = [...server.listeners ? [] : []];
+
+    const answers = Object.fromEntries(startJson.questionBanks.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
+    const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/score`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', assessmentId: startJson.assessmentId, answers, audience_type: 'youth', assessment_variant: 'youth', content_variant: 'youth', source_application: 'pocketpt', external_user_reference: 'p1', external_enrollment_reference: 'e1', external_cohort_reference: 'c1', return_url: 'https://evil.example/return' }),
+    });
+    assert.equal(scoreRes.status, 200);
+    const scoreJson = await scoreRes.json();
+    assert.equal(scoreJson.audience_type, 'youth');
+    assert.equal(scoreJson.source_application, 'pocketpt');
+    assert.equal(scoreJson.external_user_reference, 'p1');
+    assert.equal(scoreJson.external_enrollment_reference, 'e1');
+    assert.equal(scoreJson.external_cohort_reference, 'c1');
+    assert.equal(scoreJson.safe_return_url, null);
+    assert.equal(savedAssessment.length, 0);
+  } finally { await new Promise((resolve) => server.close(resolve)); }
+});
+
+test('pocketpt summary endpoint fails closed and validates stored attribution ownership', async () => {
+  const originalToken = process.env.POCKETPT_API_TOKEN;
+  const pool = createMockPool();
+  const { server, baseUrl } = await startServer(pool);
+  const headers = (token = 'secret', overrides = {}) => ({
+    'x-source-application': 'pocketpt', 'x-pocketpt-token': token, 'x-pocketpt-participant-id': 'p1', 'x-pocketpt-enrollment-id': 'e1', 'x-pocketpt-cohort-id': 'c1', ...overrides,
+  });
+  try {
+    pool.state.results.set('r1', { result_id: 'r1', assessment_id: 'a1', engine_type: 'leadership', tenant_slug: 'demo', created_at: '2026-01-01T00:00:00.000Z', result_payload: { audience_type: 'youth', source_application: 'pocketpt', external_user_reference: 'p1', external_enrollment_reference: 'e1', external_cohort_reference: 'c1', primaryArchetype: { code: 'VD', name: 'Vision Drive' }, secondaryArchetype: { code: 'SD', name: 'Structure Drive' }, primaryInsight: 'strength', balanceInsight: 'growth' } });
+    delete process.env.POCKETPT_API_TOKEN;
+    let res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r1/summary`, { headers: headers() });
+    assert.equal(res.status, 503);
+    assert.deepEqual(await res.json(), { error: 'Integration unavailable' });
+
+    process.env.POCKETPT_API_TOKEN = 'secret';
+    res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r1/summary`, { headers: headers('', { 'x-pocketpt-token': '' }) });
+    assert.equal(res.status, 401);
+    res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r1/summary`, { headers: headers('wrong') });
+    assert.equal(res.status, 403);
+    res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r1/summary`, { headers: headers('secret', { 'x-pocketpt-participant-id': '' }) });
+    assert.equal(res.status, 403);
+    res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r1/summary`, { headers: headers('secret', { 'x-pocketpt-enrollment-id': 'bad' }) });
+    assert.equal(res.status, 403);
+    res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r1/summary`, { headers: headers('secret', { 'x-pocketpt-cohort-id': 'bad' }) });
+    assert.equal(res.status, 403);
+
+    pool.state.results.set('r2', { ...pool.state.results.get('r1'), result_id: 'r2', result_payload: { ...pool.state.results.get('r1').result_payload, source_application: 'other' } });
+    res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r2/summary`, { headers: headers() });
+    assert.equal(res.status, 403);
+    pool.state.results.set('r3', { ...pool.state.results.get('r1'), result_id: 'r3', result_payload: { ...pool.state.results.get('r1').result_payload, audience_type: 'standard' } });
+    res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r3/summary`, { headers: headers() });
+    assert.equal(res.status, 403);
+
+    res = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/r1/summary`, { headers: headers() });
+    assert.equal(res.status, 200);
+    const json = await res.json();
+    assert.deepEqual(Object.keys(json).sort(), ['assessment_version','audience_type','completed_at','completion_status','garvey_result_reference','growth_summary','primary_archetype_id','primary_archetype_name','secondary_archetype_id','secondary_archetype_name','source_application','strength_summary','suggested_weekly_leadership_practice'].sort());
+    for (const forbidden of ['answers', 'questions', 'rawScores', 'normalizedScores', 'attribution', 'token', 'result_payload']) assert.equal(Object.hasOwn(json, forbidden), false);
+  } finally {
+    if (originalToken === undefined) delete process.env.POCKETPT_API_TOKEN; else process.env.POCKETPT_API_TOKEN = originalToken;
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('youth result UI copy and PocketPT return affordance are present', () => {
+  const source = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js'), 'utf8');
+  assert.match(source, /This result shows some ways your leadership may appear right now/);
+  assert.match(source, /The Leader Within • Youth Result/);
+  assert.match(source, /Your leadership practice for this week/);
+  assert.match(source, /These patterns are not ranks/);
+  assert.match(source, /Return to PocketPT/);
+  assert.match(source, /external_cohort_reference/);
 });

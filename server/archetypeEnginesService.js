@@ -9,6 +9,7 @@ const LEADERSHIP_ARCHETYPES = require("../archetype-engines/content/leadershipAr
 const LOYALTY_ARCHETYPES = require("../archetype-engines/content/loyaltyArchetypes");
 const AUTHORED_LOVE_BANK_1 = require("../archetype-engines/question-banks/love.bank1");
 const LEADERSHIP_BANK1 = require("../archetype-engines/question-banks/leadership.bank1");
+const LEADERSHIP_YOUTH_BANK1 = require("../archetype-engines/engines/leadership/question-banks/leadership.youth.bank1");
 const LOYALTY_BANK1 = require("../archetype-engines/question-banks/loyalty.bank1");
 const LOYALTY_BANK2 = require("../archetype-engines/question-banks/loyalty.bank2");
 const LOYALTY_BANK3 = require("../archetype-engines/question-banks/loyalty.bank3");
@@ -28,6 +29,7 @@ const WEIGHT_TYPE_MULTIPLIER = Object.freeze({ standard: 1.0, baseline: 1.0, sce
 const PRIMARY_WEIGHT = 2;
 const SECONDARY_WEIGHT = 1;
 const LEADERSHIP_AUTHORED_BANK_1 = Object.freeze([...LEADERSHIP_BANK1]);
+const LEADERSHIP_YOUTH_AUTHORED_BANK_1 = Object.freeze([...LEADERSHIP_YOUTH_BANK1]);
 const LOYALTY_AUTHORED_BANK_1 = Object.freeze([...LOYALTY_BANK1]);
 // Retained intentionally for scoring-only backward compatibility with previously-issued
 // authored bank IDs that may still appear in persisted answer payloads.
@@ -243,6 +245,7 @@ function resolveGovernedEngineSource({ engineType, attempt = 0, authoredBankId, 
 
 const LEADERSHIP_QUESTION_SOURCE = Object.freeze({
   authored: { sourceType: "authored_bank_1", sourcePath: "archetype-engines/engines/leadership/question-banks/leadership.bank1.js", bankId: "AUTHORED_BANK_1", questionCount: LEADERSHIP_AUTHORED_BANK_1.length },
+  youth: { sourceType: "authored_bank_1_youth_variant", sourcePath: "archetype-engines/engines/leadership/question-banks/leadership.youth.bank1.js", bankId: "AUTHORED_BANK_1", scoringBankId: "AUTHORED_BANK_1", questionCount: LEADERSHIP_YOUTH_AUTHORED_BANK_1.length },
   generated: { sourceType: "promotion_manifest_governed", sourcePath: path.relative(ROOT_DIR, LEADERSHIP_PROMOTION_MANIFEST), statuses: REVIEW_STATUSES },
   useGeneratorOnFirstAttempt: false,
 });
@@ -308,13 +311,19 @@ const LOYALTY_ENGINE = createAssessmentEngine({
   },
 });
 
+function isYouthLeadershipVariant(opts = {}) {
+  return [opts.audience, opts.audience_type, opts.assessment_variant, opts.content_variant, opts.variant]
+    .some((value) => String(value || "").trim().toLowerCase() === "youth");
+}
+
 const LEADERSHIP_ENGINE = createAssessmentEngine({
   engineType: "leadership",
   resolveQuestionBank: (opts = {}) => resolveGovernedEngineSource({
     engineType: "leadership",
     attempt: Number(opts.retakeAttempt || 0),
     authoredBankId: "AUTHORED_BANK_1",
-    authoredQuestions: LEADERSHIP_AUTHORED_BANK_1,
+    authoredSourceType: isYouthLeadershipVariant(opts) ? "authored_bank_1_youth_variant" : "authored_bank_1",
+    authoredQuestions: isYouthLeadershipVariant(opts) ? LEADERSHIP_YOUTH_AUTHORED_BANK_1 : LEADERSHIP_AUTHORED_BANK_1,
     manifestPath: LEADERSHIP_PROMOTION_MANIFEST,
   }),
   scoreAssessment: (answers = {}, opts = {}) => {
@@ -894,6 +903,7 @@ module.exports = {
   LEADERSHIP_QUESTION_SOURCE,
   LOYALTY_QUESTION_SOURCE,
   LEADERSHIP_QUESTIONS,
+  LEADERSHIP_YOUTH_QUESTIONS: LEADERSHIP_YOUTH_AUTHORED_BANK_1,
   LOYALTY_QUESTIONS,
   SIGNAL_MULTIPLIER,
   WEIGHT_TYPE_MULTIPLIER,
