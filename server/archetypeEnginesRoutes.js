@@ -48,8 +48,85 @@ function pickAttribution(req) {
     business_owner_id: String(req.query.business_owner_id || req.body?.business_owner_id || req.query.owner_id || req.body?.owner_id || "").trim() || null,
     email: String(req.query.email || req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase() || null,
     name: String(req.query.name || req.body?.name || req.body?.full_name || "").trim() || null,
+    ...pickYouthPocketPtAttribution(req),
   };
   return ctx;
+}
+
+function pickIntegrationValue(req, key) {
+  return String(req.query?.[key] || req.body?.[key] || "").trim() || null;
+}
+
+function pickAudienceVariant(req) {
+  const values = ["audience_type", "assessment_variant", "content_variant", "variant"].map((key) => pickIntegrationValue(req, key));
+  return values.some((value) => String(value || "").toLowerCase() === "youth") ? "youth" : "standard";
+}
+
+function pocketPtReturnOrigins() {
+  return String(process.env.POCKETPT_RETURN_ORIGINS || "https://pocketpt.app,https://www.pocketpt.app")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+}
+
+function safeExternalReturnDestination(req) {
+  const source = String(pickIntegrationValue(req, "source_application") || pickIntegrationValue(req, "source_type") || pickIntegrationValue(req, "tap_source") || "").trim().toLowerCase();
+  if (source !== "pocketpt") return null;
+  const submitted = pickIntegrationValue(req, "return_url") || pickIntegrationValue(req, "result_return_url");
+  if (!submitted) return null;
+  try {
+    const parsed = new URL(submitted);
+    return pocketPtReturnOrigins().includes(parsed.origin) ? parsed.href : null;
+  } catch (_err) {
+    return null;
+  }
+}
+
+function pickYouthPocketPtAttribution(req) {
+  const audienceVariant = pickAudienceVariant(req);
+  const sourceApplication = String(pickIntegrationValue(req, "source_application") || "").trim().toLowerCase() || null;
+  return {
+    audience_type: audienceVariant === "youth" ? "youth" : pickIntegrationValue(req, "audience_type"),
+    assessment_variant: pickIntegrationValue(req, "assessment_variant") || (audienceVariant === "youth" ? "youth" : null),
+    content_variant: pickIntegrationValue(req, "content_variant") || (audienceVariant === "youth" ? "youth" : null),
+    source_application: sourceApplication,
+    external_user_reference: pickIntegrationValue(req, "external_user_reference"),
+    external_enrollment_reference: pickIntegrationValue(req, "external_enrollment_reference"),
+    external_cohort_reference: pickIntegrationValue(req, "external_cohort_reference") || pickIntegrationValue(req, "cohort_reference"),
+    cohort_reference: pickIntegrationValue(req, "cohort_reference"),
+    safe_return_url: safeExternalReturnDestination(req),
+  };
+}
+
+function safeEqualToken(expected, submitted) {
+  const expectedBuffer = Buffer.from(String(expected || ""));
+  const submittedBuffer = Buffer.from(String(submitted || ""));
+  return expectedBuffer.length === submittedBuffer.length && crypto.timingSafeEqual(expectedBuffer, submittedBuffer);
+}
+
+function storedValue(payload, key) {
+  return String(payload?.[key] ?? payload?.attribution?.[key] ?? "").trim();
+}
+
+function approvedLeadershipSummary(row) {
+  const payload = row.result_payload || {};
+  const primary = payload.primaryArchetype || payload.primary_archetype || payload.canonical?.identity?.primary || {};
+  const secondary = payload.secondaryArchetype || payload.secondary_archetype || payload.canonical?.identity?.secondary || {};
+  return {
+    completion_status: "completed",
+    completed_at: row.created_at || null,
+    assessment_version: payload.canonical?.version || payload.assessment_version || "v1",
+    audience_type: "youth",
+    source_application: "pocketpt",
+    primary_archetype_id: primary.code || payload.canonical?.primary_archetype || null,
+    primary_archetype_name: primary.name || primary.label || primary.code || payload.canonical?.identity?.primary?.label || null,
+    secondary_archetype_id: secondary.code || payload.canonical?.secondary_archetype || null,
+    secondary_archetype_name: secondary.name || secondary.label || secondary.code || payload.canonical?.identity?.secondary?.label || null,
+    strength_summary: payload.primaryInsight || payload.canonical?.summary?.body || "Your strongest leadership pattern is ready to practice in real situations.",
+    growth_summary: payload.balanceInsight || payload.growthInsight || "Keep building balance by listening, planning clearly, and helping others participate.",
+    suggested_weekly_leadership_practice: "Choose one class, sport, club, family, or friend-group moment this week. Practice using your strongest pattern while also listening, making a clear plan, and helping others participate.",
+    garvey_result_reference: row.result_id,
+  };
 }
 
 function normalizeAttribution(ctx = {}) {
@@ -84,6 +161,15 @@ function normalizeAttribution(ctx = {}) {
     route_mode: String(ctx.route_mode || "").trim() || null,
     email: String(ctx.email || "").trim().toLowerCase() || null,
     name: String(ctx.name || ctx.full_name || "").trim() || null,
+    audience_type: String(ctx.audience_type || "").trim().toLowerCase() || null,
+    assessment_variant: String(ctx.assessment_variant || "").trim().toLowerCase() || null,
+    content_variant: String(ctx.content_variant || "").trim().toLowerCase() || null,
+    source_application: String(ctx.source_application || "").trim().toLowerCase() || null,
+    external_user_reference: String(ctx.external_user_reference || "").trim() || null,
+    external_enrollment_reference: String(ctx.external_enrollment_reference || "").trim() || null,
+    external_cohort_reference: String(ctx.external_cohort_reference || ctx.cohort_reference || "").trim() || null,
+    cohort_reference: String(ctx.cohort_reference || "").trim() || null,
+    safe_return_url: String(ctx.safe_return_url || "").trim() || null,
   };
 }
 
@@ -188,7 +274,7 @@ function displayReadyCompletionPayload({ req, engineType, assessmentId, resultId
   const secondary = payload.secondaryArchetype?.label || payload.secondaryArchetype?.name || payload.secondaryArchetype?.code || canonical.secondary_archetype || null;
   const resultPath = `/archetype-engines/${encodeURIComponent(engineType)}/result/${encodeURIComponent(resultId)}${engineType === "love" ? "/story" : ""}`;
   const query = new URLSearchParams();
-  for (const key of ["tenant", "email", "name", "rid", "crid", "return_url", "result_return_url", "dashboard_url"]) {
+  for (const key of ["tenant", "email", "name", "rid", "crid", "return_url", "result_return_url", "dashboard_url", "audience_type", "assessment_variant", "content_variant", "source_application", "external_user_reference", "external_enrollment_reference", "external_cohort_reference", "cohort_reference"]) {
     const value = String(req.body?.[key] || req.query?.[key] || attribution?.[key] || "").trim();
     if (value) query.set(key, value);
   }
@@ -413,7 +499,7 @@ function createArchetypeEnginesRouter({ pool }) {
       });
     }
 
-    const banks = getQuestionBanks(engineType, { retakeAttempt });
+    const banks = getQuestionBanks(engineType, { retakeAttempt, audience: attribution.audience_type, audience_type: attribution.audience_type, assessment_variant: attribution.assessment_variant, content_variant: attribution.content_variant });
     if (banks.questionSource === "generated_validated_bank" && !banks.generatedBankAvailable) {
       return res.status(409).json({ error: "generated_retake_bank_unavailable", questionSource: "generated_validated_bank", diagnostics: banks.diagnostics || null });
     }
@@ -434,6 +520,11 @@ function createArchetypeEnginesRouter({ pool }) {
       questionSource: banks.questionSource,
       useGeneratorOnFirstAttempt: false,
       questionSourceConfig: sourceConfig,
+      audience_type: attribution.audience_type,
+      assessment_variant: attribution.assessment_variant,
+      content_variant: attribution.content_variant,
+      source_application: attribution.source_application,
+      safe_return_url: attribution.safe_return_url,
       diagnostics: banks.diagnostics || null,
     });
   });
@@ -460,7 +551,7 @@ function createArchetypeEnginesRouter({ pool }) {
       attribution: { ...attribution, tenant, tenant_id: attribution.tenant_id || tenant },
     });
     const topLevelAttribution = normalizeAttribution({ ...attribution, tenant, tenant_id: attribution.tenant_id || tenant });
-    const payload = { ...scored, attribution: topLevelAttribution, canonical };
+    const payload = { ...scored, audience_type: topLevelAttribution.audience_type, assessment_variant: topLevelAttribution.assessment_variant, content_variant: topLevelAttribution.content_variant, source_application: topLevelAttribution.source_application, external_user_reference: topLevelAttribution.external_user_reference, external_enrollment_reference: topLevelAttribution.external_enrollment_reference, external_cohort_reference: topLevelAttribution.external_cohort_reference, safe_return_url: topLevelAttribution.safe_return_url, attribution: topLevelAttribution, canonical };
     const resultId = newId("result");
     await pool.query(
       `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)
@@ -481,6 +572,39 @@ function createArchetypeEnginesRouter({ pool }) {
     }).catch((err) => ({ queued: false, reason: err.message }));
 
     return res.json({ resultId, engineType, simba_sync: simbaSync, ...payload });
+  });
+
+  router.get("/:engineType/results/:resultId/summary", async (req, res) => {
+    const { engineType, resultId } = req.params;
+    if (engineType !== "leadership") return res.status(404).json({ error: "engine_not_found" });
+    if (String(req.headers["x-source-application"] || "").trim().toLowerCase() !== "pocketpt") return res.status(403).json({ error: "Access denied" });
+    const configuredToken = String(process.env.POCKETPT_API_TOKEN || "");
+    if (!configuredToken) return res.status(503).json({ error: "Integration unavailable" });
+    const submittedToken = String(req.headers["x-pocketpt-token"] || "");
+    if (!submittedToken) return res.status(401).json({ error: "Authentication required" });
+    if (!safeEqualToken(configuredToken, submittedToken)) return res.status(403).json({ error: "Access denied" });
+
+    const participant = String(req.headers["x-pocketpt-participant-id"] || "").trim();
+    const enrollment = String(req.headers["x-pocketpt-enrollment-id"] || "").trim();
+    const cohort = String(req.headers["x-pocketpt-cohort-id"] || "").trim();
+    if (!participant || !enrollment || !cohort) return res.status(403).json({ error: "Access denied" });
+
+    const result = await pool.query(
+      "SELECT result_id, assessment_id, engine_type, tenant_slug, result_payload, created_at FROM engine_results WHERE result_id = $1 AND engine_type = $2 LIMIT 1",
+      [resultId, engineType]
+    );
+    const row = result.rows[0];
+    if (!row) return res.status(403).json({ error: "Access denied" });
+    const payload = row.result_payload || {};
+    const source = storedValue(payload, "source_application").toLowerCase();
+    const audience = (storedValue(payload, "audience_type") || storedValue(payload, "assessment_variant")).toLowerCase();
+    const storedParticipant = storedValue(payload, "external_user_reference");
+    const storedEnrollment = storedValue(payload, "external_enrollment_reference");
+    const storedCohort = storedValue(payload, "external_cohort_reference") || storedValue(payload, "cohort_reference");
+    if (source !== "pocketpt" || audience !== "youth" || storedParticipant !== participant || storedEnrollment !== enrollment || storedCohort !== cohort) {
+      return res.status(403).json({ error: "Access denied" });
+    }
+    return res.json(approvedLeadershipSummary(row));
   });
 
   router.get("/:engineType/results/:resultId", async (req, res) => {
