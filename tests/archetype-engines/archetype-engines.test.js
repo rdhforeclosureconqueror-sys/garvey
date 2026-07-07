@@ -1179,3 +1179,106 @@ test('youth result UI copy and PocketPT return affordance are present', () => {
   assert.match(source, /Return to PocketPT/);
   assert.match(source, /external_cohort_reference/);
 });
+
+test('The Leader Within cards appear and link to Garvey youth-program launch context', () => {
+  const youthPage = fs.readFileSync(path.join(process.cwd(), 'public', 'youth-development.html'), 'utf8');
+  const hubPage = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'index.html'), 'utf8');
+  for (const html of [youthPage, hubPage]) {
+    assert.match(html, /The Leader Within/);
+    assert.match(html, /Youth Leadership Assessment/);
+    assert.match(html, /Discover how your leadership shows up through your choices, teamwork, communication, and response to challenges\./);
+    assert.match(html, /Discover My Leadership Style/);
+    assert.match(html, /Ages 11–18/);
+    assert.match(html, /\/archetype-engines\/leadership\/assessment\?audience_type=youth&amp;assessment_variant=youth&amp;content_variant=youth&amp;source_application=garvey&amp;program_context=leader_within&amp;first_party_program=true|\/archetype-engines\/leadership\/assessment\?audience_type=youth&assessment_variant=youth&content_variant=youth&source_application=garvey&program_context=leader_within&first_party_program=true/);
+  }
+});
+
+test('Garvey youth-program consent contract uses Leader Within copy and no customer-rewards copy', async () => {
+  const { server, baseUrl } = await startServer(createMockPool());
+  try {
+    const url = `${baseUrl}/api/archetype-engines/leadership/assessment/consent-contract?audience_type=youth&assessment_variant=youth&content_variant=youth&source_application=garvey&program_context=leader_within&first_party_program=true&tenant=browser-supplied`;
+    const res = await fetch(url);
+    assert.equal(res.status, 200);
+    const payload = await res.json();
+    assert.equal(payload.heading, 'Discover the Leader Within You');
+    assert.equal(payload.consent_type, 'garvey_youth_program_required');
+    assert.equal(payload.auth_required, true);
+    assert.equal(payload.authenticated, false);
+    assert.equal(payload.tenant_strategy, 'server_controlled_garvey_youth_program');
+    const copy = JSON.stringify(payload);
+    assert.match(copy, /This assessment helps you explore how your leadership appears in school, sports, friendships, family, teamwork, and challenging situations\./);
+    assert.doesNotMatch(copy, /Get Your Customer Profile \+ Rewards/);
+    assert.doesNotMatch(copy, /start earning rewards/i);
+    assert.doesNotMatch(copy, /Return to Rewards/);
+    assert.doesNotMatch(copy, /help this business serve you better/i);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('Garvey youth-program mode requires authentication and uses server-controlled tenant', async () => {
+  const originalTenant = process.env.GARVEY_YOUTH_PROGRAM_TENANT;
+  process.env.GARVEY_YOUTH_PROGRAM_TENANT = 'garvey-youth-development';
+  const app = express();
+  const pool = createMockPool();
+  app.use(express.json());
+  app.use((req, _res, next) => {
+    if (req.headers['x-test-auth'] === '1') req.authActor = { userId: 'user-1', email: 'leader@example.com', name: 'Leader Student', tenantSlug: 'signed-tenant' };
+    next();
+  });
+  app.use('/api/archetype-engines', createArchetypeEnginesRouter({ pool }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const baseUrl = `http://127.0.0.1:${server.address().port}`;
+  const youthCtx = 'audience_type=youth&assessment_variant=youth&content_variant=youth&source_application=garvey&program_context=leader_within&first_party_program=true&tenant=browser-supplied';
+  try {
+    const blockedConsent = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/consent`, {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ accepted: true, tenant: 'browser-supplied', email: 'fake@example.com', name: 'Fake', audience_type: 'youth', assessment_variant: 'youth', content_variant: 'youth', source_application: 'garvey', program_context: 'leader_within', first_party_program: 'true' }),
+    });
+    assert.equal(blockedConsent.status, 401);
+
+    const consent = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/consent?${youthCtx}`, {
+      method: 'POST', headers: { 'content-type': 'application/json', 'x-test-auth': '1' }, body: JSON.stringify({ accepted: true, tenant: 'browser-supplied', email: 'fake@example.com', name: 'Fake', audience_type: 'youth', assessment_variant: 'youth', content_variant: 'youth', source_application: 'garvey', program_context: 'leader_within', first_party_program: 'true' }),
+    });
+    assert.equal(consent.status, 200);
+    const consentJson = await consent.json();
+    assert.equal(consentJson.consent_type, 'garvey_youth_program_required');
+    assert.equal(pool.state.consents.get(consentJson.consent_id).tenant_slug, 'garvey-youth-development');
+    assert.equal(pool.state.consents.get(consentJson.consent_id).email, 'leader@example.com');
+
+    const start = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start?${youthCtx}`, {
+      method: 'POST', headers: { 'content-type': 'application/json', 'x-test-auth': '1' }, body: JSON.stringify({ tenant: 'browser-supplied', consent_id: consentJson.consent_id, audience_type: 'youth', assessment_variant: 'youth', content_variant: 'youth', source_application: 'garvey', program_context: 'leader_within', first_party_program: 'true' }),
+    });
+    assert.equal(start.status, 200);
+    const startJson = await start.json();
+    assert.equal(startJson.questionBanks.activeQuestions.length, LEADERSHIP_YOUTH_QUESTIONS.length);
+    assert.equal(startJson.audience_type, 'youth');
+    assert.equal(startJson.source_application, 'garvey');
+    assert.equal(pool.state.assessments.get(startJson.assessmentId).tenant_slug, 'garvey-youth-development');
+
+    const answers = Object.fromEntries(startJson.questionBanks.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
+    const score = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/score?${youthCtx}`, {
+      method: 'POST', headers: { 'content-type': 'application/json', 'x-test-auth': '1' }, body: JSON.stringify({ tenant: 'browser-supplied', assessmentId: startJson.assessmentId, answers, audience_type: 'youth', assessment_variant: 'youth', content_variant: 'youth', source_application: 'garvey', program_context: 'leader_within', first_party_program: 'true' }),
+    });
+    assert.equal(score.status, 200);
+    const scoreJson = await score.json();
+    assert.equal(scoreJson.audience_type, 'youth');
+    assert.equal(scoreJson.source_application, 'garvey');
+    assert.equal(scoreJson.program_context, 'leader_within');
+    assert.equal(scoreJson.first_party_program, 'true');
+    assert.equal(pool.state.results.get(scoreJson.resultId).tenant_slug, 'garvey-youth-development');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+    if (originalTenant === undefined) delete process.env.GARVEY_YOUTH_PROGRAM_TENANT;
+    else process.env.GARVEY_YOUTH_PROGRAM_TENANT = originalTenant;
+  }
+});
+
+test('Garvey youth result UI shows Youth Development return and not PocketPT or Rewards returns', () => {
+  const source = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js'), 'utf8');
+  assert.match(source, /The Leader Within • Youth Result/);
+  assert.match(source, /Return to Youth Development/);
+  assert.match(source, /Your leadership practice for this week/);
+  assert.match(source, /It does not limit what kind of leader you can become/);
+  assert.match(source, /isPocketPtYouthResult \? `<a class="metric-cta"/);
+});
