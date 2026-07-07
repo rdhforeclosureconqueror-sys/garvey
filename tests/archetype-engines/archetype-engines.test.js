@@ -1076,6 +1076,8 @@ test('leadership youth variant reuses authored scoring ids with youth-facing con
 });
 
 test('pocketpt youth metadata is retained and unsafe return urls are rejected', async () => {
+  const originalToken = process.env.POCKETPT_API_TOKEN;
+  process.env.POCKETPT_API_TOKEN = 'test-pocketpt-secret';
   const { server, baseUrl } = await startServer(createMockPool());
   try {
     const consentId = await createConsent(baseUrl, 'leadership', 'youth@example.com');
@@ -1093,7 +1095,7 @@ test('pocketpt youth metadata is retained and unsafe return urls are rejected', 
     const answers = Object.fromEntries(startJson.questionBanks.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
     const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/score`, {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo', assessmentId: startJson.assessmentId, answers, audience_type: 'youth', source_application: 'pocketpt', external_user_reference: 'pt-123' }),
+      body: JSON.stringify({ tenant: 'demo', assessmentId: startJson.assessmentId, answers, audience_type: 'youth', source_application: 'pocketpt', external_user_reference: 'pt-123', external_enrollment_reference: 'enr-9', external_cohort_reference: 'cohort-a' }),
     });
     assert.equal(scoreRes.status, 200);
     const scoreJson = await scoreRes.json();
@@ -1101,17 +1103,150 @@ test('pocketpt youth metadata is retained and unsafe return urls are rejected', 
     assert.equal(scoreJson.source_application, 'pocketpt');
     assert.ok(scoreJson.primaryArchetype?.code);
 
-    const denied = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}/summary`);
-    assert.equal(denied.status, 403);
+    const denied = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}/summary`, {
+      headers: {
+        'x-source-application': 'pocketpt',
+        'x-pocketpt-participant-id': 'pt-123',
+        'x-pocketpt-enrollment-id': 'enr-9',
+        'x-pocketpt-cohort-id': 'cohort-a',
+      },
+    });
+    assert.equal(denied.status, 401);
 
-    const summary = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}/summary?source_application=pocketpt`, { headers: { 'x-source-application': 'pocketpt' } });
+    const summary = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}/summary?source_application=pocketpt`, {
+      headers: {
+        'x-source-application': 'pocketpt',
+        'x-pocketpt-token': 'test-pocketpt-secret',
+        'x-pocketpt-participant-id': 'pt-123',
+        'x-pocketpt-enrollment-id': 'enr-9',
+        'x-pocketpt-cohort-id': 'cohort-a',
+      },
+    });
     assert.equal(summary.status, 200);
     const summaryJson = await summary.json();
     assert.equal(summaryJson.completion_status, 'completed');
     assert.equal(summaryJson.audience_type, 'youth');
     assert.ok(summaryJson.primary_archetype_id);
     assert.equal(Object.prototype.hasOwnProperty.call(summaryJson, 'answers'), false);
-  } finally { await new Promise((resolve) => server.close(resolve)); }
+  } finally {
+    if (originalToken === undefined) delete process.env.POCKETPT_API_TOKEN;
+    else process.env.POCKETPT_API_TOKEN = originalToken;
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('pocketpt summary endpoint fails closed and validates stored attribution ownership', async () => {
+  const originalToken = process.env.POCKETPT_API_TOKEN;
+  const makeHeaders = (overrides = {}) => {
+    const headers = {
+      'x-source-application': 'pocketpt',
+      'x-pocketpt-token': 'test-pocketpt-secret',
+      'x-pocketpt-participant-id': 'pt-123',
+      'x-pocketpt-enrollment-id': 'enr-9',
+      'x-pocketpt-cohort-id': 'cohort-a',
+      ...overrides,
+    };
+    for (const [key, value] of Object.entries(headers)) {
+      if (value === undefined) delete headers[key];
+    }
+    return headers;
+  };
+  async function createScoredResult(baseUrl, overrides = {}) {
+    const consentId = await createConsent(baseUrl, 'leadership', `${overrides.emailPrefix || 'secure-youth'}@example.com`);
+    const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', consent_id: consentId, audience_type: overrides.audience_type || 'youth', source_application: overrides.source_application || 'pocketpt' }),
+    });
+    assert.equal(startRes.status, 200);
+    const startJson = await startRes.json();
+    const answers = Object.fromEntries(startJson.questionBanks.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
+    const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/score`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo', assessmentId: startJson.assessmentId, answers,
+        audience_type: overrides.audience_type || 'youth',
+        source_application: overrides.source_application || 'pocketpt',
+        external_user_reference: overrides.external_user_reference || 'pt-123',
+        external_enrollment_reference: overrides.external_enrollment_reference || 'enr-9',
+        external_cohort_reference: overrides.external_cohort_reference || 'cohort-a',
+      }),
+    });
+    assert.equal(scoreRes.status, 200);
+    return scoreRes.json();
+  }
+
+  try {
+    delete process.env.POCKETPT_API_TOKEN;
+    let serverInfo = await startServer(createMockPool());
+    let scoreJson = await createScoredResult(serverInfo.baseUrl);
+    let res = await fetch(`${serverInfo.baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}/summary?source_application=pocketpt`, { headers: makeHeaders() });
+    assert.equal(res.status, 503);
+    assert.deepEqual(await res.json(), { error: 'Integration unavailable' });
+    await new Promise((resolve) => serverInfo.server.close(resolve));
+
+    process.env.POCKETPT_API_TOKEN = 'test-pocketpt-secret';
+    serverInfo = await startServer(createMockPool());
+    scoreJson = await createScoredResult(serverInfo.baseUrl);
+    const url = `${serverInfo.baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}/summary?source_application=pocketpt`;
+
+    res = await fetch(url, { headers: makeHeaders({ 'x-pocketpt-token': undefined }) });
+    assert.equal(res.status, 401);
+    assert.deepEqual(await res.json(), { error: 'Authentication required' });
+
+    res = await fetch(url, { headers: makeHeaders({ 'x-pocketpt-token': 'wrong-secret' }) });
+    assert.equal(res.status, 403);
+    assert.deepEqual(await res.json(), { error: 'Access denied' });
+
+    for (const [header, expectedStatus] of [
+      ['x-pocketpt-participant-id', 403],
+      ['x-pocketpt-enrollment-id', 403],
+      ['x-pocketpt-cohort-id', 403],
+    ]) {
+      res = await fetch(url, { headers: makeHeaders({ [header]: undefined }) });
+      assert.equal(res.status, expectedStatus);
+      assert.deepEqual(await res.json(), { error: 'Access denied' });
+    }
+
+    const standardSource = await createScoredResult(serverInfo.baseUrl, { source_application: 'garvey', emailPrefix: 'standard-source' });
+    res = await fetch(`${serverInfo.baseUrl}/api/archetype-engines/leadership/results/${standardSource.resultId}/summary?source_application=pocketpt`, { headers: makeHeaders() });
+    assert.equal(res.status, 403);
+
+    const standardAudience = await createScoredResult(serverInfo.baseUrl, { audience_type: 'standard', emailPrefix: 'standard-audience' });
+    res = await fetch(`${serverInfo.baseUrl}/api/archetype-engines/leadership/results/${standardAudience.resultId}/summary?source_application=pocketpt`, { headers: makeHeaders() });
+    assert.equal(res.status, 403);
+
+    for (const [header, value] of [
+      ['x-pocketpt-participant-id', 'different-participant'],
+      ['x-pocketpt-enrollment-id', 'different-enrollment'],
+      ['x-pocketpt-cohort-id', 'different-cohort'],
+    ]) {
+      res = await fetch(url, { headers: makeHeaders({ [header]: value }) });
+      assert.equal(res.status, 403);
+      assert.deepEqual(await res.json(), { error: 'Access denied' });
+    }
+
+    res = await fetch(url, { headers: makeHeaders() });
+    assert.equal(res.status, 200);
+    const summaryJson = await res.json();
+    assert.equal(summaryJson.completion_status, 'completed');
+    assert.equal(summaryJson.audience_type, 'youth');
+    assert.equal(summaryJson.source_application, 'pocketpt');
+    assert.ok(summaryJson.primary_archetype_id);
+    const approved = new Set([
+      'completion_status', 'completed_at', 'assessment_version', 'audience_type', 'source_application',
+      'primary_archetype_id', 'primary_archetype_name', 'secondary_archetype_id', 'secondary_archetype_name',
+      'strength_summary', 'growth_summary', 'suggested_weekly_leadership_practice', 'garvey_result_reference',
+    ]);
+    assert.deepEqual(Object.keys(summaryJson).sort(), [...approved].sort());
+    for (const forbidden of ['answers', 'rawScores', 'weightedScores', 'normalizedScores', 'scoring_dimensions', 'signalValues', 'archetypeMappings', 'email', 'name', 'attribution', 'token']) {
+      assert.equal(Object.prototype.hasOwnProperty.call(summaryJson, forbidden), false);
+    }
+
+    await new Promise((resolve) => serverInfo.server.close(resolve));
+  } finally {
+    if (originalToken === undefined) delete process.env.POCKETPT_API_TOKEN;
+    else process.env.POCKETPT_API_TOKEN = originalToken;
+  }
 });
 
 test('youth result UI copy and PocketPT return affordance are present', () => {

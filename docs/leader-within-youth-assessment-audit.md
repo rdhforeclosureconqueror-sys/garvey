@@ -67,3 +67,27 @@ The youth set is stored at `archetype-engines/engines/leadership/question-banks/
 - **PocketPT return behavior**: if the source is PocketPT, only allowlisted `https://pocketpt.app` or `https://www.pocketpt.app` return destinations are accepted by default; additional origins can be configured with `POCKETPT_RETURN_ORIGINS`.
 - **Approved result-summary API**: `GET /api/archetype-engines/leadership/results/:resultId/summary?source_application=pocketpt` returns completion status, dates, version, primary/secondary archetypes, strength/growth summaries, weekly practice, and Garvey result reference. It does not return individual answers.
 - **Remaining PocketPT requirements**: PocketPT must supply participant/enrollment/cohort references, use an allowlisted return origin, and send an approved `x-pocketpt-token` when `POCKETPT_API_TOKEN` is configured.
+
+## PocketPT server-to-server security contract
+
+Garvey must be configured with:
+
+```text
+POCKETPT_API_TOKEN=<shared-secret-placeholder>
+POCKETPT_RETURN_ORIGINS=https://pocketpt.example,https://app.pocketpt.example
+```
+
+`POCKETPT_API_TOKEN` is mandatory for the result-summary endpoint. If it is absent, Garvey fails closed with HTTP 503 and does not return a summary. The same shared token must be configured only in Garvey and PocketPT server environments. It must never be exposed to browser JavaScript, client-side routes, local storage, or query strings.
+
+PocketPT must call the summary endpoint from its backend only:
+
+```text
+GET /api/archetype-engines/leadership/results/:resultId/summary?source_application=pocketpt
+x-source-application: pocketpt
+x-pocketpt-token: <shared-secret>
+x-pocketpt-participant-id: <participant-id>
+x-pocketpt-enrollment-id: <enrollment-id>
+x-pocketpt-cohort-id: <cohort-id>
+```
+
+Participant, enrollment, and cohort identifiers are mandatory for result retrieval. Garvey verifies that the stored result originated from PocketPT, is a youth result, and exactly matches the participant, enrollment, and cohort headers before returning the approved summary fields.

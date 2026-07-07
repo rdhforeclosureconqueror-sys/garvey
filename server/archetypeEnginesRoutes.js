@@ -520,17 +520,52 @@ function createArchetypeEnginesRouter({ pool }) {
   router.get("/:engineType/results/:resultId/summary", async (req, res) => {
     const { engineType, resultId } = req.params;
     if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
-    const source = String(req.headers["x-source-application"] || req.query.source_application || "").trim().toLowerCase();
-    const token = String(req.headers["x-pocketpt-token"] || "").trim();
-    if (source !== "pocketpt" || (process.env.POCKETPT_API_TOKEN && token !== process.env.POCKETPT_API_TOKEN)) {
-      return res.status(403).json({ error: "pocketpt_authorization_required" });
+
+    const configuredToken = String(process.env.POCKETPT_API_TOKEN || "");
+    if (!configuredToken) return res.status(503).json({ error: "Integration unavailable" });
+
+    const source = String(req.headers["x-source-application"] || "").trim().toLowerCase();
+    if (source !== "pocketpt") return res.status(403).json({ error: "Access denied" });
+
+    const submittedToken = String(req.headers["x-pocketpt-token"] || "");
+    if (!submittedToken) return res.status(401).json({ error: "Authentication required" });
+    const configuredTokenBytes = Buffer.from(configuredToken);
+    const submittedTokenBytes = Buffer.from(submittedToken);
+    if (configuredTokenBytes.length !== submittedTokenBytes.length || !crypto.timingSafeEqual(configuredTokenBytes, submittedTokenBytes)) {
+      return res.status(403).json({ error: "Access denied" });
     }
+
+    const requiredContext = {
+      participant: String(req.headers["x-pocketpt-participant-id"] || "").trim(),
+      enrollment: String(req.headers["x-pocketpt-enrollment-id"] || "").trim(),
+      cohort: String(req.headers["x-pocketpt-cohort-id"] || "").trim(),
+    };
+    if (!requiredContext.participant || !requiredContext.enrollment || !requiredContext.cohort) {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
     const result = await pool.query(
       "SELECT result_id, assessment_id, engine_type, tenant_slug, result_payload, created_at FROM engine_results WHERE result_id = $1 AND engine_type = $2 LIMIT 1",
       [resultId, engineType]
     );
     if (!result.rows[0]) return res.status(404).json({ error: "result_not_found" });
     const payload = result.rows[0].result_payload || {};
+    const attribution = payload.attribution || payload.canonical?.attribution || {};
+    const storedContext = {
+      source: String(payload.source_application || attribution.source_application || "").trim().toLowerCase(),
+      audience: String(payload.audience_type || attribution.audience_type || payload.assessment_variant || attribution.assessment_variant || "").trim().toLowerCase(),
+      participant: String(payload.external_user_reference || attribution.external_user_reference || "").trim(),
+      enrollment: String(payload.external_enrollment_reference || attribution.external_enrollment_reference || "").trim(),
+      cohort: String(payload.external_cohort_reference || attribution.external_cohort_reference || payload.cohort_reference || attribution.cohort_reference || "").trim(),
+    };
+    if (storedContext.source !== "pocketpt"
+      || storedContext.audience !== "youth"
+      || storedContext.participant !== requiredContext.participant
+      || storedContext.enrollment !== requiredContext.enrollment
+      || storedContext.cohort !== requiredContext.cohort) {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
     const canonical = payload.canonical || {};
     const primaryCode = payload.primaryArchetype?.code || canonical.identity?.primary || canonical.primary_archetype || null;
     const secondaryCode = payload.secondaryArchetype?.code || canonical.identity?.secondary || canonical.secondary_archetype || null;
@@ -540,8 +575,8 @@ function createArchetypeEnginesRouter({ pool }) {
       completion_status: "completed",
       completed_at: result.rows[0].created_at,
       assessment_version: canonical.version || "v1",
-      audience_type: payload.audience_type || payload.attribution?.audience_type || "standard",
-      source_application: payload.source_application || payload.attribution?.source_application || null,
+      audience_type: storedContext.audience,
+      source_application: storedContext.source,
       primary_archetype_id: primaryCode,
       primary_archetype_name: byCode[primaryCode]?.canonicalName || byCode[primaryCode]?.name || primaryCode,
       secondary_archetype_id: secondaryCode,
