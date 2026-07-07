@@ -181,7 +181,7 @@ function wireLoveVariantToggle(onChange) {
 }
 
 function stableContextParams(query) {
-  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source", "return_url", "result_return_url", "dashboard_url", "member_id", "external_user_id"];
+  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source", "return_url", "result_return_url", "dashboard_url", "member_id", "external_user_id", "audience_type", "assessment_variant", "content_variant", "source_application", "external_user_reference", "external_enrollment_reference", "external_cohort_reference", "cohort_reference"];
   const out = new URLSearchParams();
   for (const key of keys) {
     const value = String(query.get(key) || "").trim();
@@ -211,7 +211,9 @@ function simbaDashboardUrl(query) {
     if (!raw) continue;
     try {
       const url = new URL(raw, window.location.origin);
-      if (["http:", "https:"].includes(url.protocol)) return url.href;
+      if ((query?.get("source_application") || query?.get("source_type") || "").toLowerCase() === "pocketpt") {
+        if (["https://pocketpt.app", "https://www.pocketpt.app"].includes(url.origin)) return url.href;
+      } else if (["http:", "https:"].includes(url.protocol)) return url.href;
     } catch (_) {
       // try next candidate
     }
@@ -324,6 +326,13 @@ function pickCtx(query) {
     dashboard_url: String(query.get("dashboard_url") || "").trim(),
     member_id: String(query.get("member_id") || query.get("external_user_id") || "").trim(),
     external_user_id: String(query.get("external_user_id") || query.get("member_id") || "").trim(),
+    audience_type: String(query.get("audience_type") || query.get("assessment_variant") || query.get("content_variant") || "").trim(),
+    assessment_variant: String(query.get("assessment_variant") || query.get("audience_type") || query.get("content_variant") || "").trim(),
+    content_variant: String(query.get("content_variant") || query.get("assessment_variant") || query.get("audience_type") || "").trim(),
+    source_application: String(query.get("source_application") || "").trim(),
+    external_user_reference: String(query.get("external_user_reference") || query.get("external_user_id") || query.get("member_id") || "").trim(),
+    external_enrollment_reference: String(query.get("external_enrollment_reference") || query.get("enrollment_reference") || "").trim(),
+    external_cohort_reference: String(query.get("external_cohort_reference") || query.get("cohort_reference") || "").trim(),
   };
 }
 
@@ -342,6 +351,11 @@ function buildPayload(query, extra) {
     ...(ctx.tap_session ? { tap_session: ctx.tap_session } : {}),
     ...(ctx.entry ? { entry: ctx.entry } : {}),
     ...(ctx.session_id ? { session_id: ctx.session_id } : {}),
+    ...(ctx.audience_type ? { audience_type: ctx.audience_type, assessment_variant: ctx.assessment_variant || ctx.audience_type, content_variant: ctx.content_variant || ctx.audience_type } : {}),
+    ...(ctx.source_application ? { source_application: ctx.source_application } : {}),
+    ...(ctx.external_user_reference ? { external_user_reference: ctx.external_user_reference } : {}),
+    ...(ctx.external_enrollment_reference ? { external_enrollment_reference: ctx.external_enrollment_reference } : {}),
+    ...(ctx.external_cohort_reference ? { external_cohort_reference: ctx.external_cohort_reference } : {}),
     ...(extra || {}),
   };
 }
@@ -1638,6 +1652,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   );
 
   app.innerHTML = `
+    ${(payload.audience_type || payload.attribution?.audience_type) === "youth" ? `<section class="section"><p>This result shows some ways your leadership may appear right now. It does not limit what kind of leader you can become.</p></section>` : ""}
     ${dashboardReturnButton(query, "top")}
     <section class="section result-reader" data-voice-role="full-result-reader">
       <h2>Listen to your full result</h2>
@@ -1646,7 +1661,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
 
     <section class="section hero">
       <div>
-        <div class="chip">Result Summary</div>
+        ${(payload.audience_type || payload.attribution?.audience_type) === "youth" ? `<div class="chip">The Leader Within • Youth Result</div>` : `<div class="chip">Result Summary</div>`}
         <h1 class="primary">${esc(primary?.emoji || "") } ${esc(displayName(engine, primary, payload.primaryArchetype?.code || ""))}</h1>
         ${displaySubtitle(engine, primary, payload.primaryArchetype?.code || "") ? `<p class="muted">${esc(displaySubtitle(engine, primary, payload.primaryArchetype?.code || ""))}</p>` : ""}
         <p class="muted">Secondary: ${esc(displayName(engine, secondary, payload.secondaryArchetype?.code || ""))}</p>
@@ -1754,6 +1769,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     </section>` : ""}
 
     ${loyaltySystemSection}
+    ${(isLeadershipEngine && (payload.audience_type || payload.attribution?.audience_type) === "youth") ? `<section class="section"><h2>Your leadership practice for this week</h2><p>Choose one class, sport, club, family, or friend-group moment this week. Practice using your strongest pattern while also listening, making a clear plan, and helping others participate.</p><p class="muted">These patterns are not ranks. No pattern is better or worse than another.</p>${(payload.source_application || payload.attribution?.source_application) === "pocketpt" ? `<a class="metric-cta" href="${esc(simbaDashboardUrl(query))}">Return to PocketPT</a>` : ""}</section>` : ""}
     ${leadershipSystemSection}
 
     ${isLoyaltyEngine ? `
@@ -1912,6 +1928,7 @@ function renderLoveResultStory(app, engine, archetypes, resultId, payload, query
   );
 
   app.innerHTML = `
+    ${(payload.audience_type || payload.attribution?.audience_type) === "youth" ? `<section class="section"><p>This result shows some ways your leadership may appear right now. It does not limit what kind of leader you can become.</p></section>` : ""}
     ${dashboardReturnButton(query, "top")}
     <section class="section result-reader" data-voice-role="story-result-reader">
       <h2>Listen to your result story</h2>
