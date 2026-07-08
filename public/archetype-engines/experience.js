@@ -150,7 +150,12 @@ function cardVisual(archetype, options = {}) {
   } else {
     src = safeAssetPath(archetype?.imageSrc || archetype?.cardImage || archetype?.image || archetype?.image_url || "");
   }
-  if (src) return `<img class="card-visual" src="${esc(src)}" alt="${esc(archetype?.name || archetype?.code || "Archetype")} card" loading="lazy" />`;
+  if (src) {
+    const visualLabel = options.altText || (options.engine === "leadership"
+      ? `${archetype?.name || "Leadership style"} leadership style illustration`
+      : `${archetype?.name || archetype?.code || "Archetype"} card`);
+    return `<img class="card-visual" src="${esc(src)}" alt="${esc(visualLabel)}" loading="lazy" />`;
+  }
   return cardPlaceholder(archetype);
 }
 
@@ -1451,7 +1456,8 @@ const LEADERSHIP_YOUTH_COPY = Object.freeze({
     reset: "Pause for three breaths and ask: What does the group need from me right now?",
     practices: ["Ask one person what they think before sharing your full plan.", "Break one big idea into three smaller steps.", "Notice when your energy is moving faster than the group.", "Finish one agreed task before introducing a new idea."],
     weekly: "This week, choose one moment at school, in sports, at home, or with friends. Share one idea, ask another person for their view, and help the group agree on one clear next step.",
-    goals: ["Listen before leading", "Complete one plan", "Turn one idea into steps", "Ask for help", "Help the group choose a direction"]
+    goals: ["Listen before leading", "Complete one plan", "Turn one idea into three steps", "Ask for help", "Help the group choose one direction"],
+    closingAffirmation: "Your ability to see what could be possible is a gift. Your next step is learning how to turn that vision into something you and others can build together."
   },
   SD: {
     affirmation: "Your answers suggest you may be someone who helps people feel more steady by creating order, plans, and clear expectations. You may notice what needs to be organized so a group can finish what it started. This result is a guide, not a limit, and this strength can grow when your structure leaves room for people and new ideas.",
@@ -1462,7 +1468,8 @@ const LEADERSHIP_YOUTH_COPY = Object.freeze({
     reset: "Pause and ask: What needs structure, and what needs flexibility?",
     practices: ["Invite one new idea before finalizing a plan.", "Choose the three details that matter most.", "Let someone else own one part of the task.", "Adjust the plan when new information appears."],
     weekly: "This week, help a group organize one shared task, then ask what should stay flexible so everyone can contribute.",
-    goals: ["Organize one shared task", "Complete one plan", "Let someone help", "Adjust when a plan changes", "Choose the next step"]
+    goals: ["Organize one shared task", "Complete one plan", "Let someone help", "Adjust when a plan changes", "Choose the next step"],
+    closingAffirmation: "Your ability to create order can help people feel steady. Your next step is learning how to use structure in a way that leaves room for people, creativity, and change."
   },
   RI: {
     affirmation: "Your answers suggest you may be someone who notices how people are feeling and helps others feel included. You may build trust by listening carefully and paying attention to what a group needs. This result is a guide, not a limit, and this strength can grow when kindness is paired with honest words and clear boundaries.",
@@ -1473,7 +1480,8 @@ const LEADERSHIP_YOUTH_COPY = Object.freeze({
     reset: "Pause and ask: What is kind and honest at the same time?",
     practices: ["Say one honest sentence kindly.", "Ask what someone needs, then say what you need too.", "Do not carry a problem alone when others should help.", "Name the next step after listening."],
     weekly: "This week, notice one person who needs to be heard. Listen well, then help the group choose one fair next step.",
-    goals: ["Speak up once", "Build trust", "Say what I need", "Encourage one teammate", "Help solve one misunderstanding"]
+    goals: ["Speak up once", "Build trust", "Say what I need", "Encourage one teammate", "Help solve one misunderstanding"],
+    closingAffirmation: "Your ability to notice people and build trust matters. Your next step is learning how to stay kind while also being honest, clear, and brave."
   },
   IE: {
     affirmation: "Your answers suggest you may be someone who brings energy to ideas and helps people understand why something matters. You may encourage others through words, expression, or enthusiasm. This result is a guide, not a limit, and this strength can grow when your voice also makes space for quieter voices.",
@@ -1484,7 +1492,8 @@ const LEADERSHIP_YOUTH_COPY = Object.freeze({
     reset: "Pause and ask: Who has not been heard yet?",
     practices: ["Ask one question before giving your opinion.", "Leave space after you speak.", "Invite a quieter person to add an idea.", "Summarize what the group decided."],
     weekly: "This week, use your voice to encourage one group, then pause and invite someone else to share before the group decides.",
-    goals: ["Listen before speaking", "Encourage one teammate", "Ask one question", "Share one clear idea", "Make room for another voice"]
+    goals: ["Listen before speaking", "Encourage one teammate", "Ask one question", "Share one clear idea", "Make room for another voice"],
+    closingAffirmation: "Your ability to give ideas energy can lift a group. Your next step is learning how to use your voice while also making room for others to be heard."
   },
   AC: {
     affirmation: "Your answers suggest you may be someone who can stay alert when plans change and help a group adjust. You may notice risks, shifts, or new information quickly. This result is a guide, not a limit, and this strength can grow when your flexibility is paired with calm communication and steady anchors.",
@@ -1495,25 +1504,85 @@ const LEADERSHIP_YOUTH_COPY = Object.freeze({
     reset: "Pause and ask: What is changing, and what needs to stay steady?",
     practices: ["Explain the reason for a change before moving.", "Name one thing that will stay the same.", "Ask if the group understands the new plan.", "Slow down before making the second change."],
     weekly: "This week, when something changes, help the group adjust by naming one steady goal and one new next step.",
-    goals: ["Stay calm during one disagreement", "Adjust when a plan changes", "Explain one change clearly", "Keep one steady goal", "Ask before pivoting"]
+    goals: ["Stay calm during one disagreement", "Adjust when a plan changes", "Explain one change clearly", "Keep one steady goal", "Ask before pivoting"],
+    closingAffirmation: "Your ability to adjust when things change can help a group keep going. Your next step is learning how to stay flexible while helping others feel steady and included."
   }
 });
 
+const LEADERSHIP_YOUTH_SUPPORTING_ADDS = Object.freeze({
+  VD: "give your vision a voice",
+  SD: "turn your structure into clear encouragement",
+  RI: "help trust become easier to understand and share",
+  IE: "give your energy more direction and follow-through",
+  AC: "explain change in a way that helps people stay calm",
+});
+
+const LEADERSHIP_YOUTH_SECONDARY_ACTIONS = Object.freeze({
+  VD: "see what could be possible and point the group toward a hopeful direction",
+  SD: "organize the plan, make next steps clear, and help people follow through",
+  RI: "listen carefully, include others, and notice what people need",
+  IE: "explain your ideas with energy, encourage others, and help people believe a goal is possible",
+  AC: "stay calm when plans change, explain shifts clearly, and help the group adjust",
+});
+
+const LEADERSHIP_YOUTH_PRIMARY_NEEDS = Object.freeze({
+  VD: "listen carefully and give other people room to shape the plan",
+  SD: "stay open to new ideas and adjust the plan when people or facts need flexibility",
+  RI: "pair care with honest words, clear boundaries, and a next step",
+  IE: "pause long enough to hear quieter voices and confirm what the group actually decided",
+  AC: "name what is staying steady before moving the group into a new direction",
+});
+
+function buildYouthSupportingCopy(primaryCode, secondaryCode, secondaryName, secondaryCopy) {
+  if (!secondaryName) return "Your supporting style may become clearer as you keep practicing leadership in real situations.";
+  const primaryKey = String(primaryCode || "").toUpperCase();
+  const secondaryKey = String(secondaryCode || "").toUpperCase();
+  const add = LEADERSHIP_YOUTH_SUPPORTING_ADDS[secondaryKey] || `add ${String((secondaryCopy.strengths || ["another strength"])[0]).toLowerCase()} to your leadership`;
+  const balance = LEADERSHIP_YOUTH_PRIMARY_NEEDS[primaryKey] || "use both styles with balance so one strength does not take over";
+  const actionPhrase = LEADERSHIP_YOUTH_SECONDARY_ACTIONS[secondaryKey] || "use another leadership strength in practical ways";
+  return `Your supporting style, ${secondaryName}, can help you ${add}. You may be able to ${actionPhrase} in school projects, teams, clubs, family moments, or friendships. This combination becomes strongest when you also ${balance}.`;
+}
+
+function buildYouthClosingCopy(primaryCopy) {
+  return `You do not have to become a perfect leader. Leadership grows every time you listen, make a thoughtful choice, finish what you started, help someone else, or try again after a mistake. Use this result as a guide, practice one step at a time, and notice how your leadership grows. ${primaryCopy.closingAffirmation || "Your leadership can keep growing as you practice with courage, care, and responsibility."}`;
+}
+
 function youthCopyFor(code) { return LEADERSHIP_YOUTH_COPY[String(code || "").toUpperCase()] || LEADERSHIP_YOUTH_COPY.VD; }
 function renderList(items) { return `<ul>${(items || []).map((item) => `<li>${esc(item)}</li>`).join("")}</ul>`; }
-function buildYouthNarration(primaryName, secondaryName, primaryCopy, secondaryCopy) {
+function buildYouthNarration(primaryName, secondaryName, primaryCopy, secondaryCopy, supportingCopy, closingCopy, suggestedGoal) {
   return [
     "The Leader Within youth result.",
     `Your primary leadership style is ${primaryName}.`,
     secondaryName ? `Your supporting leadership style is ${secondaryName}.` : "Your supporting leadership style is still developing.",
     primaryCopy.affirmation,
+    `In youth life, this may show up like this: ${primaryCopy.life.slice(0, 2).join(" ")}`,
     `Some natural strengths may include ${primaryCopy.strengths.slice(0, 5).join(", ")}.`,
-    secondaryName ? `Your supporting style, ${secondaryName}, may add ${secondaryCopy.strengths.slice(0, 2).join(" and ").toLowerCase()} when you use it with balance.` : "",
+    supportingCopy,
     primaryCopy.imbalance,
     `When you feel pressure: ${primaryCopy.pressure} ${primaryCopy.reset}`,
     `Your leadership practice this week: ${primaryCopy.weekly}`,
-    `For your next seven day goal, choose one small practice such as ${primaryCopy.goals.slice(0, 3).join(", ")}.`
+    `For your next seven day goal, you might choose: ${suggestedGoal || primaryCopy.goals[0]}.`,
+    closingCopy
   ].filter(Boolean).join(" ");
+}
+
+function bindYouthGoalControls(app) {
+  const chips = Array.from(app.querySelectorAll("[data-youth-goal-option]"));
+  const input = app.querySelector("[data-youth-custom-goal]");
+  const status = app.querySelector("[data-youth-goal-status]");
+  let selectedGoal = "";
+  const setSelected = (goal, source) => {
+    selectedGoal = String(goal || "").trim();
+    chips.forEach((chip) => {
+      const active = source === "chip" && chip.getAttribute("data-youth-goal-option") === selectedGoal;
+      chip.classList.toggle("is-selected", active);
+      chip.setAttribute("aria-checked", active ? "true" : "false");
+    });
+    if (status) status.textContent = selectedGoal ? `Selected for this session: ${selectedGoal}` : "Your selected goal will stay visible during this session.";
+  };
+  chips.forEach((chip) => chip.addEventListener("click", () => setSelected(chip.getAttribute("data-youth-goal-option"), "chip")));
+  input?.addEventListener("input", () => setSelected(input.value, "custom"));
+  app.querySelector("[data-youth-goal-confirm]")?.addEventListener("click", () => setSelected(selectedGoal || input?.value || chips[0]?.getAttribute("data-youth-goal-option") || "", selectedGoal ? "custom" : "chip"));
 }
 
 function renderYouthLeadershipResult(app, engine, primary, secondary, payload, query, resultId) {
@@ -1521,9 +1590,10 @@ function renderYouthLeadershipResult(app, engine, primary, secondary, payload, q
   const secondaryName = displayName(engine, secondary, payload.secondaryArchetype?.code || "");
   const primaryCopy = youthCopyFor(payload.primaryArchetype?.code || primary?.code);
   const secondaryCopy = youthCopyFor(payload.secondaryArchetype?.code || secondary?.code);
-  const supporting = secondaryName ? `Your supporting style, ${secondaryName}, may help you add ${secondaryCopy.strengths.slice(0, 2).join(" and ").toLowerCase()}. It is most helpful when you use it with balance, so it supports your main strength instead of taking over.` : "Your supporting style may become clearer as you keep practicing leadership in real situations.";
+  const supporting = buildYouthSupportingCopy(payload.primaryArchetype?.code || primary?.code, payload.secondaryArchetype?.code || secondary?.code, secondaryName, secondaryCopy);
   const goals = Array.from(new Set([...(primaryCopy.goals || []), ...(secondaryCopy.goals || [])])).slice(0, 6);
-  const narration = buildYouthNarration(primaryName, secondaryName, primaryCopy, secondaryCopy);
+  const closing = buildYouthClosingCopy(primaryCopy);
+  const narration = buildYouthNarration(primaryName, secondaryName, primaryCopy, secondaryCopy, supporting, closing, goals[0]);
   app.innerHTML = `
     <section class="section result-reader leadership-youth-story" data-voice-role="youth-leadership-story">
       <h2>Listen to My Leadership Story</h2>
@@ -1536,7 +1606,7 @@ function renderYouthLeadershipResult(app, engine, primary, secondary, payload, q
         ${secondaryName ? `<p class="muted">Supporting leadership style: ${esc(secondaryName)}</p>` : ""}
         <p class="muted">This result is a guide, not a limit. It describes strengths you can practice and balance.</p>
       </div>
-      <div>${cardVisual(primary || secondary, { engine })}</div>
+      <div>${cardVisual(primary || secondary, { engine, altText: `${primaryName} leadership style illustration` })}</div>
     </section>
     <section class="section"><h2>Personal Affirmation</h2><p>${esc(primaryCopy.affirmation)}</p></section>
     <section class="section"><h2>What This May Look Like in Your Life</h2>${renderList(primaryCopy.life)}</section>
@@ -1546,10 +1616,12 @@ function renderYouthLeadershipResult(app, engine, primary, secondary, payload, q
     <section class="section"><h2>What to Practice Next</h2>${renderList((primaryCopy.practices || []).slice(0, 4))}</section>
     <section class="section"><h2>When You Feel Pressure</h2><p>${esc(primaryCopy.pressure)} ${esc(primaryCopy.reset)}</p></section>
     <section class="section"><h2>Your Leadership Practice for This Week</h2><p>${esc(primaryCopy.weekly)}</p><p class="muted">Reflection: What changed when you used your strength and made room for someone else?</p></section>
-    <section class="section"><h2>Your Next 7-Day Goal</h2><p class="muted">Choose one goal to practice. Goal saving can connect to PocketPT later when a safe tracking hook is available.</p>${goals.map((goal) => `<button type="button" class="chip" data-youth-goal-option="${esc(goal)}">${esc(goal)}</button>`).join(" ")}<label class="kv"><b>My own goal</b><input aria-label="My own 7-day leadership goal" placeholder="Write one small goal for this week" /></label></section>
+    <section class="section youth-goal-section"><h2>Your Next 7-Day Goal</h2><p class="muted">Choose one goal you want to practice during the next seven days.</p><p class="muted">Small actions become strong habits when you practice them consistently.</p><div class="youth-goal-options" role="radiogroup" aria-label="Choose your next 7-day leadership goal">${goals.map((goal) => `<button type="button" class="chip youth-goal-chip" role="radio" aria-checked="false" data-youth-goal-option="${esc(goal)}">${esc(goal)}</button>`).join(" ")}</div><label class="kv youth-custom-goal"><b>Write My Own Goal</b><input data-youth-custom-goal aria-label="Write my own 7-day leadership goal" placeholder="What is one leadership goal you want to practice?" /></label><button type="button" class="chip youth-goal-confirm" data-youth-goal-confirm>Choose This Goal</button><p class="muted" data-youth-goal-status>Your selected goal will stay visible during this session.</p></section>
+    <section class="section leadership-youth-closing"><h2>Keep Growing Into Your Leadership</h2><p>${esc(closing)}</p></section>
     <section class="section"><a class="simba-dashboard-return simba-dashboard-return-bottom" href="/youth-development.html">Return to Youth Development</a></section>`;
   const resultVoiceWarmup = window.AssessmentVoice?.warmup?.({ surface: "archetype_result", scope_id: `${engine}:${resultId}:youth`, preflight: false });
   const resultVoice = createVoiceController("archetype_result", `${engine}:${resultId}:youth`, resultVoiceWarmup);
+  bindYouthGoalControls(app);
   resultVoice?.bind(app.querySelector('[data-voice-role="youth-leadership-story"]'), {
     section_key: "youth_leadership_story",
     section_label: "The Leader Within youth leadership story",
