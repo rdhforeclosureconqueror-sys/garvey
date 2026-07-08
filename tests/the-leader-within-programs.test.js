@@ -27,7 +27,7 @@ test('12-week phases and all weekly titles/core questions are present in content
 
 test('week one has story, practices, reflections, sessions, navigation, and mirror-not-label guidance',()=>{
  const w=D.weeks[0];
- assert.match(w.story,/captains, class officers, adults/);
+ assert.match(w.story,/Leadership does not begin with a title/);
  assert.ok(w.practices.length>=5);
  assert.ok(w.before.length>=4);
  assert.ok(w.after.length>=4);
