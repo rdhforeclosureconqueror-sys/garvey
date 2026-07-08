@@ -37,6 +37,13 @@ function buildAssessmentRegistry() {
       engineType: "youth",
     },
     {
+      key: "leader_within",
+      title: "The Leader Within",
+      description: "Discover how your leadership shows up through your choices, teamwork, communication, and response to challenges.",
+      secondaryLabel: "Youth Leadership Assessment • Ages 11–18",
+      engineType: "leadership",
+    },
+    {
       key: "gates",
       title: "Youth Rite of Passage Assessment",
       description: "Explore your child's developmental Gates through guided parent observation.",
@@ -79,8 +86,16 @@ function buildAssessmentHref(option, params) {
       ? "/youth-development/intake"
       : option?.key === "gates"
         ? "/gates"
-    : `/archetype-engines/${option.engineType}/assessment`;
+        : `/archetype-engines/${option.engineType}/assessment`;
   const url = new URL(basePath, origin || "http://localhost");
+  if (option?.key === "leader_within") {
+    url.searchParams.set("audience_type", "youth");
+    url.searchParams.set("assessment_variant", "youth");
+    url.searchParams.set("content_variant", "youth");
+    url.searchParams.set("source_application", "garvey");
+    url.searchParams.set("program_context", "leader_within");
+    url.searchParams.set("first_party_program", "true");
+  }
   applyCommonContext(url, ctx, query, sourceType);
   return `${url.pathname}${url.search}`;
 }
