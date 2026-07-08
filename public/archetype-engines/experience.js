@@ -1513,8 +1513,14 @@ const LEADERSHIP_YOUTH_SUPPORTING_ADDS = Object.freeze({
   VD: "give your vision a voice",
   SD: "turn your structure into clear encouragement",
   RI: "help trust become easier to understand and share",
-  IE: "give your energy more direction and follow-through",
+  IE: "give ideas a clear, encouraging voice",
   AC: "explain change in a way that helps people stay calm",
+});
+
+const LEADERSHIP_YOUTH_PAIR_SUPPORTING_COPY = Object.freeze({
+  VD: Object.freeze({
+    IE: "Your supporting style, Influence Expression, can help you give your vision a voice. You may be able to explain your ideas with energy, encourage others, and help people believe a goal is possible. This combination becomes strongest when you also listen carefully, make room for other people’s ideas, and turn the shared vision into clear next steps.",
+  }),
 });
 
 const LEADERSHIP_YOUTH_SECONDARY_ACTIONS = Object.freeze({
@@ -1537,6 +1543,8 @@ function buildYouthSupportingCopy(primaryCode, secondaryCode, secondaryName, sec
   if (!secondaryName) return "Your supporting style may become clearer as you keep practicing leadership in real situations.";
   const primaryKey = String(primaryCode || "").toUpperCase();
   const secondaryKey = String(secondaryCode || "").toUpperCase();
+  const pairCopy = LEADERSHIP_YOUTH_PAIR_SUPPORTING_COPY[primaryKey]?.[secondaryKey];
+  if (pairCopy) return pairCopy;
   const add = LEADERSHIP_YOUTH_SUPPORTING_ADDS[secondaryKey] || `add ${String((secondaryCopy.strengths || ["another strength"])[0]).toLowerCase()} to your leadership`;
   const balance = LEADERSHIP_YOUTH_PRIMARY_NEEDS[primaryKey] || "use both styles with balance so one strength does not take over";
   const actionPhrase = LEADERSHIP_YOUTH_SECONDARY_ACTIONS[secondaryKey] || "use another leadership strength in practical ways";

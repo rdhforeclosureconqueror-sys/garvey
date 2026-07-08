@@ -5,6 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 
 const src = fs.readFileSync('public/archetype-engines/experience.js', 'utf8');
+const leadershipContentSrc = fs.readFileSync('archetype-engines/engines/leadership/content/leadershipArchetypes.js', 'utf8');
 const audit = JSON.parse(fs.readFileSync('artifacts/leadership-audits/youth-scoring-audit.json', 'utf8'));
 
 test('youth participant result view is selected for Garvey Leader Within youth and hides diagnostics', () => {
@@ -123,4 +124,35 @@ test('leadership card visual alt text is meaningful without visible internal car
   assert.match(src, /leadership style illustration/);
   assert.match(src, /altText: `\$\{primaryName\} leadership style illustration`/);
   assert.doesNotMatch(src, /\$\{esc\(archetype\?\.name \|\| archetype\?\.code \|\| "Archetype"\)\} card/);
+});
+
+test('leadership youth copy uses canonical archetype names and excludes incorrect names', () => {
+  const canonicalNames = ['Vision Drive', 'Structure Drive', 'Relational Intelligence', 'Influence Expression', 'Adaptive Control'];
+  for (const name of canonicalNames) {
+    assert.match(leadershipContentSrc, new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+  const youthRelevant = [
+    src.slice(src.indexOf('const LEADERSHIP_YOUTH_COPY'), src.indexOf('function renderResult')),
+    src.slice(src.indexOf('function buildYouthNarration'), src.indexOf('function renderResult')),
+  ].join('\n');
+  for (const incorrect of ['Structure Directive', 'Relational Insight', 'Adaptive Command']) {
+    assert.doesNotMatch(youthRelevant, new RegExp(incorrect.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+});
+
+test('Vision Drive plus Influence Expression copy assigns communication and energy, not direction and follow-through', () => {
+  const supportingCopy = src.slice(src.indexOf('const LEADERSHIP_YOUTH_PAIR_SUPPORTING_COPY'), src.indexOf('const LEADERSHIP_YOUTH_SECONDARY_ACTIONS'));
+  assert.match(supportingCopy, /Your supporting style, Influence Expression, can help you give your vision a voice\./);
+  assert.match(supportingCopy, /explain your ideas with energy, encourage others, and help people believe a goal is possible/);
+  assert.match(supportingCopy, /listen carefully, make room for other people’s ideas, and turn the shared vision into clear next steps/);
+  assert.doesNotMatch(supportingCopy, /direction and follow-through/i);
+});
+
+test('secondary contribution maps preserve canonical archetype boundaries', () => {
+  assert.match(src, /SD: "turn your structure into clear encouragement"/);
+  assert.match(src, /SD: "organize the plan, make next steps clear, and help people follow through"/);
+  assert.match(src, /RI: "listen carefully, include others, and notice what people need"/);
+  assert.match(src, /IE: "give ideas a clear, encouraging voice"/);
+  assert.match(src, /AC: "stay calm when plans change, explain shifts clearly, and help the group adjust"/);
+  assert.doesNotMatch(src, /IE: "give your energy more direction and follow-through"/);
 });
