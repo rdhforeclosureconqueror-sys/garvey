@@ -1,0 +1,348 @@
+{
+  "generated_at": "2026-07-08T03:20:41.838Z",
+  "question_counts": {
+    "adult": 25,
+    "youth": 25
+  },
+  "parity_pass": true,
+  "parity_differences": [],
+  "option_position_distribution": {
+    "VD": {
+      "1": 25,
+      "2": 0,
+      "3": 0,
+      "4": 0
+    },
+    "SD": {
+      "1": 0,
+      "2": 25,
+      "3": 0,
+      "4": 0
+    },
+    "RI": {
+      "1": 0,
+      "2": 0,
+      "3": 25,
+      "4": 0
+    },
+    "IE": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0
+    },
+    "AC": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 25
+    }
+  },
+  "simulations": [
+    {
+      "name": "all_first",
+      "primary": "VD",
+      "secondary": "IE",
+      "normalizedScores": {
+        "VD": 100,
+        "IE": 88.07,
+        "SD": 3.54,
+        "AC": 1.77,
+        "RI": 2.21
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 98.23
+    },
+    {
+      "name": "all_second",
+      "primary": "SD",
+      "secondary": "AC",
+      "normalizedScores": {
+        "VD": 0,
+        "IE": 0,
+        "SD": 100,
+        "AC": 50,
+        "RI": 0
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 100
+    },
+    {
+      "name": "all_third",
+      "primary": "RI",
+      "secondary": "IE",
+      "normalizedScores": {
+        "VD": 0,
+        "IE": 86.24,
+        "SD": 3.98,
+        "AC": 4.42,
+        "RI": 100
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 100
+    },
+    {
+      "name": "all_fourth",
+      "primary": "AC",
+      "secondary": "VD",
+      "normalizedScores": {
+        "VD": 34.51,
+        "IE": 0,
+        "SD": 3.54,
+        "AC": 100,
+        "RI": 11.95
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 100
+    },
+    {
+      "name": "alternating_1_2",
+      "primary": "VD",
+      "secondary": "SD",
+      "normalizedScores": {
+        "VD": 51.33,
+        "IE": 49.54,
+        "SD": 50.44,
+        "AC": 24.34,
+        "RI": 0
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": "VD-SD",
+      "spread": 51.33
+    },
+    {
+      "name": "alternating_3_4",
+      "primary": "RI",
+      "secondary": "AC",
+      "normalizedScores": {
+        "VD": 12.39,
+        "IE": 44.95,
+        "SD": 5.75,
+        "AC": 48.67,
+        "RI": 61.5
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 55.75
+    },
+    {
+      "name": "cycling_1_2_3_4",
+      "primary": "IE",
+      "secondary": "VD",
+      "normalizedScores": {
+        "VD": 38.94,
+        "IE": 49.54,
+        "SD": 25.66,
+        "AC": 36.73,
+        "RI": 24.78
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 24.759999999999998
+    },
+    {
+      "name": "cycling_4_3_2_1",
+      "primary": "IE",
+      "secondary": "AC",
+      "normalizedScores": {
+        "VD": 37.17,
+        "IE": 46.79,
+        "SD": 23.01,
+        "AC": 41.59,
+        "RI": 25.66
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": "IE-AC",
+      "spread": 23.779999999999998
+    },
+    {
+      "name": "seeded_random_1",
+      "primary": "AC",
+      "secondary": "VD",
+      "normalizedScores": {
+        "VD": 40.71,
+        "IE": 40.37,
+        "SD": 23.01,
+        "AC": 41.59,
+        "RI": 25.22
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": "AC-VD",
+      "spread": 18.580000000000002
+    },
+    {
+      "name": "seeded_random_2",
+      "primary": "AC",
+      "secondary": "IE",
+      "normalizedScores": {
+        "VD": 32.74,
+        "IE": 37.61,
+        "SD": 26.55,
+        "AC": 46.9,
+        "RI": 25.66
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 21.24
+    },
+    {
+      "name": "seeded_random_3",
+      "primary": "SD",
+      "secondary": "AC",
+      "normalizedScores": {
+        "VD": 18.58,
+        "IE": 30.28,
+        "SD": 43.81,
+        "AC": 41.15,
+        "RI": 31.86
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": "SD-AC",
+      "spread": 25.230000000000004
+    },
+    {
+      "name": "seeded_random_4",
+      "primary": "IE",
+      "secondary": "RI",
+      "normalizedScores": {
+        "VD": 27.43,
+        "IE": 58.72,
+        "SD": 15.04,
+        "AC": 34.07,
+        "RI": 45.13
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 43.68
+    },
+    {
+      "name": "seeded_random_5",
+      "primary": "IE",
+      "secondary": "AC",
+      "normalizedScores": {
+        "VD": 42.48,
+        "IE": 50.46,
+        "SD": 12.39,
+        "AC": 43.36,
+        "RI": 27.43
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 38.07
+    },
+    {
+      "name": "target_VD",
+      "primary": "VD",
+      "secondary": "IE",
+      "normalizedScores": {
+        "VD": 100,
+        "IE": 88.07,
+        "SD": 3.54,
+        "AC": 1.77,
+        "RI": 2.21
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 98.23
+    },
+    {
+      "name": "target_SD",
+      "primary": "SD",
+      "secondary": "AC",
+      "normalizedScores": {
+        "VD": 0,
+        "IE": 0,
+        "SD": 100,
+        "AC": 50,
+        "RI": 0
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 100
+    },
+    {
+      "name": "target_RI",
+      "primary": "RI",
+      "secondary": "IE",
+      "normalizedScores": {
+        "VD": 0,
+        "IE": 86.24,
+        "SD": 3.98,
+        "AC": 4.42,
+        "RI": 100
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 100
+    },
+    {
+      "name": "target_IE",
+      "primary": "VD",
+      "secondary": "IE",
+      "normalizedScores": {
+        "VD": 100,
+        "IE": 88.07,
+        "SD": 3.54,
+        "AC": 1.77,
+        "RI": 2.21
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 98.23
+    },
+    {
+      "name": "target_AC",
+      "primary": "AC",
+      "secondary": "VD",
+      "normalizedScores": {
+        "VD": 34.51,
+        "IE": 0,
+        "SD": 3.54,
+        "AC": 100,
+        "RI": 11.95
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 100
+    },
+    {
+      "name": "balanced_position_cycle",
+      "primary": "IE",
+      "secondary": "VD",
+      "normalizedScores": {
+        "VD": 38.94,
+        "IE": 49.54,
+        "SD": 25.66,
+        "AC": 36.73,
+        "RI": 24.78
+      },
+      "confidence": 100,
+      "consistency": 100,
+      "hybrid": null,
+      "spread": 24.759999999999998
+    }
+  ],
+  "conclusion": "Youth wording preserves adult scoring mappings. Repeated visible positions produce predictable archetype skew according to option placement; no weight defect was found."
+}
