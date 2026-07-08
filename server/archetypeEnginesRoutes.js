@@ -27,7 +27,20 @@ function isEnabled(req) {
   return true;
 }
 
+function isGarveyYouthProgramRequest(req) {
+  const source = String(req.query.source_application || req.body?.source_application || "").trim().toLowerCase();
+  const program = String(req.query.program_context || req.body?.program_context || "").trim().toLowerCase();
+  const firstParty = String(req.query.first_party_program || req.body?.first_party_program || "").trim().toLowerCase();
+  const audience = String(req.query.audience_type || req.body?.audience_type || req.query.assessment_variant || req.body?.assessment_variant || req.query.content_variant || req.body?.content_variant || "").trim().toLowerCase();
+  return source === "garvey" && program === "leader_within" && audience === "youth" && (firstParty === "true" || firstParty === "1" || firstParty === "yes");
+}
+
+function garveyYouthProgramTenant(req) {
+  return String(req.authActor?.tenantSlug || process.env.GARVEY_YOUTH_PROGRAM_TENANT || "").trim().toLowerCase() || null;
+}
+
 function pickTenant(req) {
+  if (isGarveyYouthProgramRequest(req)) return garveyYouthProgramTenant(req);
   return String(req.query.tenant || req.body?.tenant || req.headers["x-tenant-slug"] || "").trim().toLowerCase() || null;
 }
 
@@ -46,7 +59,7 @@ function pickAttribution(req) {
     route_mode: String(req.query.route_mode || req.body?.route_mode || "").trim() || null,
     tenant_id: String(req.query.tenant_id || req.body?.tenant_id || req.query.tenant || req.body?.tenant || "").trim().toLowerCase() || null,
     business_owner_id: String(req.query.business_owner_id || req.body?.business_owner_id || req.query.owner_id || req.body?.owner_id || "").trim() || null,
-    email: String(req.query.email || req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase() || null,
+    email: String(req.authActor?.email || req.query.email || req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase() || null,
     name: String(req.query.name || req.body?.name || req.body?.full_name || "").trim() || null,
     ...pickYouthPocketPtAttribution(req),
   };
@@ -95,6 +108,8 @@ function pickYouthPocketPtAttribution(req) {
     external_cohort_reference: pickIntegrationValue(req, "external_cohort_reference") || pickIntegrationValue(req, "cohort_reference"),
     cohort_reference: pickIntegrationValue(req, "cohort_reference"),
     safe_return_url: safeExternalReturnDestination(req),
+    program_context: pickIntegrationValue(req, "program_context"),
+    first_party_program: pickIntegrationValue(req, "first_party_program"),
   };
 }
 
@@ -170,6 +185,8 @@ function normalizeAttribution(ctx = {}) {
     external_cohort_reference: String(ctx.external_cohort_reference || ctx.cohort_reference || "").trim() || null,
     cohort_reference: String(ctx.cohort_reference || "").trim() || null,
     safe_return_url: String(ctx.safe_return_url || "").trim() || null,
+    program_context: String(ctx.program_context || "").trim().toLowerCase() || null,
+    first_party_program: String(ctx.first_party_program || "").trim().toLowerCase() || null,
   };
 }
 
@@ -201,7 +218,26 @@ async function recordEngineEvent(pool, { engineType, tenant, eventKey, ctx = {},
   );
 }
 
-function consentCopy(engineType) {
+function consentCopy(engineType, options = {}) {
+  if (options.garveyYouthProgram) {
+    return {
+      engineType,
+      consent_version: CONSENT_VERSION,
+      consent_type: "garvey_youth_program_required",
+      auth_required: true,
+      heading: "Discover the Leader Within You",
+      body: [
+        "This assessment helps you explore how your leadership appears in school, sports, friendships, family, teamwork, and challenging situations.",
+        "There are no good or bad leadership patterns. Your result shows strengths you may already use and skills you can continue developing.",
+        "Authorized Garvey program staff may review results to support your progress in The Leader Within program.",
+      ],
+      agreement: "I understand that my responses will be used to create my leadership profile and support my progress in The Leader Within program.",
+      button_label: "Begin Assessment",
+      unauthenticated_message: "This assessment is available to enrolled participants. Sign in to continue.",
+      sign_in_href: "/index.html",
+      tenant_strategy: "server_controlled_garvey_youth_program",
+    };
+  }
   return {
     engineType,
     consent_version: CONSENT_VERSION,
@@ -389,8 +425,9 @@ function createArchetypeEnginesRouter({ pool }) {
     if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
     const tenant = pickTenant(req);
     const attribution = normalizeAttribution(pickAttribution(req));
+    const garveyYouthProgram = isGarveyYouthProgramRequest(req);
     recordEngineEvent(pool, { engineType, tenant, eventKey: "consent_viewed", ctx: attribution }).catch(() => {});
-    return res.json(consentCopy(engineType));
+    return res.json({ ...consentCopy(engineType, { garveyYouthProgram }), authenticated: garveyYouthProgram ? Boolean(req.authActor?.email) : undefined, tenant_strategy: garveyYouthProgram ? "server_controlled_garvey_youth_program" : undefined });
   });
 
   router.post("/:engineType/assessment/consent", async (req, res) => {
@@ -401,8 +438,10 @@ function createArchetypeEnginesRouter({ pool }) {
 
     const tenant = pickTenant(req);
     const attribution = pickAttribution(req);
-    const email = String(req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase();
-    const fullName = inferFullName(req.body?.name || req.body?.full_name, email);
+    const garveyYouthProgram = isGarveyYouthProgramRequest(req);
+    if (garveyYouthProgram && !req.authActor?.email) return res.status(401).json({ error: "authentication_required", message: "This assessment is available to enrolled participants. Sign in to continue." });
+    const email = String((garveyYouthProgram ? req.authActor?.email : null) || req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase();
+    const fullName = inferFullName((garveyYouthProgram ? req.authActor?.name : null) || req.body?.name || req.body?.full_name, email);
     if (!tenant || !email || !fullName) {
       return res.status(400).json({
         error: "tenant_email_name_required",
@@ -422,7 +461,7 @@ function createArchetypeEnginesRouter({ pool }) {
       `INSERT INTO engine_assessment_consents
        (id, engine_type, tenant_slug, email, full_name, consent_version, consent_type, accepted, consent_signature, session_id)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
-      [consentId, engineType, tenant, email, fullName, consentVersion, "business_only_required", true, signature, String(req.body?.session_id || "").trim() || null]
+      [consentId, engineType, tenant, email, fullName, consentVersion, garveyYouthProgram ? "garvey_youth_program_required" : "business_only_required", true, signature, String(req.body?.session_id || "").trim() || null]
     );
     await recordEngineEvent(pool, { engineType, tenant, eventKey: "consent_accepted", ctx: attribution });
 
@@ -430,7 +469,7 @@ function createArchetypeEnginesRouter({ pool }) {
       consent_id: consentId,
       engineType,
       accepted: true,
-      consent_type: "business_only_required",
+      consent_type: garveyYouthProgram ? "garvey_youth_program_required" : "business_only_required",
       consent_version: consentVersion,
       consent_signature: signature,
     });
@@ -486,7 +525,7 @@ function createArchetypeEnginesRouter({ pool }) {
     await pool.query(
       `INSERT INTO engine_assessments (id, engine_type, tenant_slug, session_id, user_id, campaign_context)
        VALUES ($1,$2,$3,$4,$5,$6)`,
-      [assessmentId, engineType, tenant, String(req.body?.session_id || req.body?.tap_session || "").trim() || null, String(req.body?.user_id || req.body?.rid || req.body?.crid || "").trim() || null, JSON.stringify(attribution)]
+      [assessmentId, engineType, tenant, String(req.body?.session_id || req.body?.tap_session || "").trim() || null, String(req.authActor?.userId || req.body?.user_id || req.body?.rid || req.body?.crid || "").trim() || null, JSON.stringify(attribution)]
     );
     await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_started", ctx: attribution, assessmentId });
 
@@ -524,6 +563,8 @@ function createArchetypeEnginesRouter({ pool }) {
       assessment_variant: attribution.assessment_variant,
       content_variant: attribution.content_variant,
       source_application: attribution.source_application,
+      program_context: attribution.program_context,
+      first_party_program: attribution.first_party_program,
       safe_return_url: attribution.safe_return_url,
       diagnostics: banks.diagnostics || null,
     });
@@ -545,13 +586,13 @@ function createArchetypeEnginesRouter({ pool }) {
       engineType,
       scored,
       assessmentId,
-      userId: String(req.body?.user_id || req.body?.rid || req.body?.crid || attribution.rid || attribution.crid || "").trim() || null,
+      userId: String(req.authActor?.userId || req.body?.user_id || req.body?.rid || req.body?.crid || attribution.rid || attribution.crid || "").trim() || null,
       bankId,
       questionSource: String(req.body?.questionSource || "").trim() || null,
       attribution: { ...attribution, tenant, tenant_id: attribution.tenant_id || tenant },
     });
     const topLevelAttribution = normalizeAttribution({ ...attribution, tenant, tenant_id: attribution.tenant_id || tenant });
-    const payload = { ...scored, audience_type: topLevelAttribution.audience_type, assessment_variant: topLevelAttribution.assessment_variant, content_variant: topLevelAttribution.content_variant, source_application: topLevelAttribution.source_application, external_user_reference: topLevelAttribution.external_user_reference, external_enrollment_reference: topLevelAttribution.external_enrollment_reference, external_cohort_reference: topLevelAttribution.external_cohort_reference, safe_return_url: topLevelAttribution.safe_return_url, attribution: topLevelAttribution, canonical };
+    const payload = { ...scored, audience_type: topLevelAttribution.audience_type, assessment_variant: topLevelAttribution.assessment_variant, content_variant: topLevelAttribution.content_variant, source_application: topLevelAttribution.source_application, program_context: topLevelAttribution.program_context, first_party_program: topLevelAttribution.first_party_program, external_user_reference: topLevelAttribution.external_user_reference, external_enrollment_reference: topLevelAttribution.external_enrollment_reference, external_cohort_reference: topLevelAttribution.external_cohort_reference, safe_return_url: topLevelAttribution.safe_return_url, attribution: topLevelAttribution, canonical };
     const resultId = newId("result");
     await pool.query(
       `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)

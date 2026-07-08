@@ -181,7 +181,7 @@ function wireLoveVariantToggle(onChange) {
 }
 
 function stableContextParams(query) {
-  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source", "return_url", "result_return_url", "dashboard_url", "member_id", "external_user_id", "audience_type", "assessment_variant", "content_variant", "source_application", "external_user_reference", "external_enrollment_reference", "external_cohort_reference", "cohort_reference"];
+  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source", "return_url", "result_return_url", "dashboard_url", "member_id", "external_user_id", "audience_type", "assessment_variant", "content_variant", "source_application", "external_user_reference", "external_enrollment_reference", "external_cohort_reference", "cohort_reference", "program_context", "first_party_program"];
   const out = new URLSearchParams();
   for (const key of keys) {
     const value = String(query.get(key) || "").trim();
@@ -225,8 +225,11 @@ function simbaDashboardUrl(query) {
 
 function dashboardReturnButton(query, position) {
   const source = String(query?.get("source_application") || query?.get("source_type") || "").trim().toLowerCase();
-  const label = source === "pocketpt" ? "Return to PocketPT" : "← Back to Simba Dashboard";
-  return `<a class="simba-dashboard-return simba-dashboard-return-${esc(position || "inline")}" href="${esc(simbaDashboardUrl(query))}" data-simba-dashboard-return="${esc(position || "inline")}">${esc(label)}</a>`;
+  const program = String(query?.get("program_context") || "").trim().toLowerCase();
+  const isGarveyYouthProgram = source === "garvey" && program === "leader_within";
+  const label = source === "pocketpt" ? "Return to PocketPT" : (isGarveyYouthProgram ? "Return to Youth Development" : "← Back to Simba Dashboard");
+  const href = isGarveyYouthProgram ? "/youth-development.html" : simbaDashboardUrl(query);
+  return `<a class="simba-dashboard-return simba-dashboard-return-${esc(position || "inline")}" href="${esc(href)}" data-simba-dashboard-return="${esc(position || "inline")}">${esc(label)}</a>`;
 }
 
 function resultVoiceText(engine, primaryName, secondaryName, payload, actionText) {
@@ -338,6 +341,8 @@ function pickCtx(query) {
     external_enrollment_reference: String(query.get("external_enrollment_reference") || "").trim(),
     external_cohort_reference: String(query.get("external_cohort_reference") || query.get("cohort_reference") || "").trim(),
     cohort_reference: String(query.get("cohort_reference") || "").trim(),
+    program_context: String(query.get("program_context") || "").trim(),
+    first_party_program: String(query.get("first_party_program") || "").trim(),
   };
 }
 
@@ -364,6 +369,8 @@ function buildPayload(query, extra) {
     ...(ctx.external_enrollment_reference ? { external_enrollment_reference: ctx.external_enrollment_reference } : {}),
     ...(ctx.external_cohort_reference ? { external_cohort_reference: ctx.external_cohort_reference } : {}),
     ...(ctx.cohort_reference ? { cohort_reference: ctx.cohort_reference } : {}),
+    ...(ctx.program_context ? { program_context: ctx.program_context } : {}),
+    ...(ctx.first_party_program ? { first_party_program: ctx.first_party_program } : {}),
     ...(ctx.return_url ? { return_url: ctx.return_url } : {}),
     ...(extra || {}),
   };
@@ -973,19 +980,26 @@ async function startAssessmentFlow(app, engine, query, consentId) {
 }
 
 function renderConsentStep(app, engine, query, contract) {
+  const requiresSignIn = contract?.auth_required && contract?.authenticated === false;
   app.innerHTML = `
     <section class="section">
       <h1>${esc(contract?.heading || `${titleCase(engine)} Assessment`)}</h1>
       <p class="muted">${(contract?.body || []).map(esc).join(" ")}</p>
-      <label class="kv">
-        <input id="consentCheck" type="checkbox" />
-        <span>${esc(contract?.agreement || "I agree to continue.")}</span>
-      </label>
-      <button id="consentContinue" class="chip">Accept and continue</button>
-      <div id="assessmentStatus" class="muted"></div>
+      ${requiresSignIn ? `
+        <p id="assessmentStatus" class="muted">${esc(contract?.unauthenticated_message || "This assessment is available to enrolled participants. Sign in to continue.")}</p>
+        <a id="signInContinue" class="chip" href="${esc(contract?.sign_in_href || "/index.html")}">${esc("Sign in to continue")}</a>
+      ` : `
+        <label class="kv">
+          <input id="consentCheck" type="checkbox" />
+          <span>${esc(contract?.agreement || "I agree to continue.")}</span>
+        </label>
+        <button id="consentContinue" class="chip">${esc(contract?.button_label || "Accept and continue")}</button>
+        <div id="assessmentStatus" class="muted"></div>
+      `}
     </section>`;
   const statusNode = document.getElementById("assessmentStatus");
   const continueBtn = document.getElementById("consentContinue");
+  if (requiresSignIn) return;
   continueBtn?.addEventListener("click", async () => {
     const checked = document.getElementById("consentCheck")?.checked;
     if (!checked) {
@@ -994,7 +1008,8 @@ function renderConsentStep(app, engine, query, contract) {
     }
     try {
       const ctx = normalizeAssessmentContext(query);
-      if (!ctx.tenant || !ctx.email || !ctx.name) {
+      const isGarveyYouthProgram = String(query.get("source_application") || "").trim().toLowerCase() === "garvey" && String(query.get("program_context") || "").trim().toLowerCase() === "leader_within" && String(query.get("first_party_program") || "").trim().toLowerCase() === "true";
+      if (!isGarveyYouthProgram && (!ctx.tenant || !ctx.email || !ctx.name)) {
         const missing = ["tenant", "email", "name"].filter((field) => !ctx[field]);
         if (statusNode) statusNode.textContent = `We need ${missing.join(", ")} to continue. Return to Rewards to confirm your profile.`;
         return;
