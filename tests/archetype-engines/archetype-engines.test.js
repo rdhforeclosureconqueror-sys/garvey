@@ -1180,7 +1180,7 @@ test('youth result UI copy and PocketPT return affordance are present', () => {
   assert.match(source, /external_cohort_reference/);
 });
 
-test('The Leader Within cards appear and link to Garvey youth-program launch context', () => {
+test('The Leader Within cards appear and link to The Leader Within landing page', () => {
   const youthPage = fs.readFileSync(path.join(process.cwd(), 'public', 'youth-development.html'), 'utf8');
   const hubPage = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'index.html'), 'utf8');
   for (const html of [youthPage, hubPage]) {
@@ -1189,7 +1189,7 @@ test('The Leader Within cards appear and link to Garvey youth-program launch con
     assert.match(html, /Discover how your leadership shows up through your choices, teamwork, communication, and response to challenges\./);
     assert.match(html, /Discover My Leadership Style/);
     assert.match(html, /Ages 11–18/);
-    assert.match(html, /\/archetype-engines\/leadership\/assessment\?audience_type=youth&amp;assessment_variant=youth&amp;content_variant=youth&amp;source_application=garvey&amp;program_context=leader_within&amp;first_party_program=true|\/archetype-engines\/leadership\/assessment\?audience_type=youth&assessment_variant=youth&content_variant=youth&source_application=garvey&program_context=leader_within&first_party_program=true/);
+    assert.match(html, /\/the-leader-within\.html/);
   }
 });
 

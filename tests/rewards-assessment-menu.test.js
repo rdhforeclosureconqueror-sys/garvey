@@ -47,19 +47,13 @@ test("assessment routes stay isolated and carry return-page context", () => {
   assert.match(links.leadership, /^\/archetype-engines\/leadership\/assessment\?/);
   assert.match(links.loyalty, /^\/archetype-engines\/loyalty\/assessment\?/);
   assert.match(links.youth, /^\/youth-development\/intake\?/);
-  assert.match(links.leader_within, /^\/archetype-engines\/leadership\/assessment\?/);
+  assert.equal(links.leader_within, "/the-leader-within.html?tenant=demo&email=user%40example.com&name=Jane&cid=c-1&crid=r-1&rid=r-1&entry=tap-hub&tap_source=tap&tap_tag=spring&tap_session=sess-1&source_type=tap");
   assert.doesNotMatch(links.love, /\/browse\?/);
   assert.doesNotMatch(links.leadership, /\/browse\?/);
   assert.doesNotMatch(links.loyalty, /\/browse\?/);
   assert.match(links.gates, /^\/gates\?/);
   assert.doesNotMatch(links.leader_within, /^\/youth-development\/intake/);
   assert.doesNotMatch(links.leader_within, /^\/gates/);
-  assert.match(links.leader_within, /audience_type=youth/);
-  assert.match(links.leader_within, /assessment_variant=youth/);
-  assert.match(links.leader_within, /content_variant=youth/);
-  assert.match(links.leader_within, /source_application=garvey/);
-  assert.match(links.leader_within, /program_context=leader_within/);
-  assert.match(links.leader_within, /first_party_program=true/);
 
   for (const href of Object.values(links)) {
     assert.match(href, /tenant=demo/);
