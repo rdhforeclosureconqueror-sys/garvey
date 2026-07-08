@@ -36,7 +36,7 @@ function isGarveyYouthProgramRequest(req) {
 }
 
 function garveyYouthProgramTenant(req) {
-  return String(process.env.GARVEY_YOUTH_PROGRAM_TENANT || req.authActor?.tenantSlug || "garvey-youth-development").trim().toLowerCase();
+  return String(req.authActor?.tenantSlug || process.env.GARVEY_YOUTH_PROGRAM_TENANT || "").trim().toLowerCase() || null;
 }
 
 function pickTenant(req) {
@@ -234,7 +234,7 @@ function consentCopy(engineType, options = {}) {
       agreement: "I understand that my responses will be used to create my leadership profile and support my progress in The Leader Within program.",
       button_label: "Begin Assessment",
       unauthenticated_message: "This assessment is available to enrolled participants. Sign in to continue.",
-      sign_in_href: "/login.html",
+      sign_in_href: "/index.html",
       tenant_strategy: "server_controlled_garvey_youth_program",
     };
   }

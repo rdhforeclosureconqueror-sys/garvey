@@ -1205,6 +1205,7 @@ test('Garvey youth-program consent contract uses Leader Within copy and no custo
     assert.equal(payload.auth_required, true);
     assert.equal(payload.authenticated, false);
     assert.equal(payload.tenant_strategy, 'server_controlled_garvey_youth_program');
+    assert.equal(payload.sign_in_href, '/index.html');
     const copy = JSON.stringify(payload);
     assert.match(copy, /This assessment helps you explore how your leadership appears in school, sports, friendships, family, teamwork, and challenging situations\./);
     assert.doesNotMatch(copy, /Get Your Customer Profile \+ Rewards/);
@@ -1216,7 +1217,7 @@ test('Garvey youth-program consent contract uses Leader Within copy and no custo
   }
 });
 
-test('Garvey youth-program mode requires authentication and uses server-controlled tenant', async () => {
+test('Garvey youth-program mode requires authentication and uses authenticated server-controlled tenant before configured fallback', async () => {
   const originalTenant = process.env.GARVEY_YOUTH_PROGRAM_TENANT;
   process.env.GARVEY_YOUTH_PROGRAM_TENANT = 'garvey-youth-development';
   const app = express();
@@ -1243,7 +1244,7 @@ test('Garvey youth-program mode requires authentication and uses server-controll
     assert.equal(consent.status, 200);
     const consentJson = await consent.json();
     assert.equal(consentJson.consent_type, 'garvey_youth_program_required');
-    assert.equal(pool.state.consents.get(consentJson.consent_id).tenant_slug, 'garvey-youth-development');
+    assert.equal(pool.state.consents.get(consentJson.consent_id).tenant_slug, 'signed-tenant');
     assert.equal(pool.state.consents.get(consentJson.consent_id).email, 'leader@example.com');
 
     const start = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start?${youthCtx}`, {
@@ -1254,7 +1255,8 @@ test('Garvey youth-program mode requires authentication and uses server-controll
     assert.equal(startJson.questionBanks.activeQuestions.length, LEADERSHIP_YOUTH_QUESTIONS.length);
     assert.equal(startJson.audience_type, 'youth');
     assert.equal(startJson.source_application, 'garvey');
-    assert.equal(pool.state.assessments.get(startJson.assessmentId).tenant_slug, 'garvey-youth-development');
+    assert.equal(pool.state.assessments.get(startJson.assessmentId).tenant_slug, 'signed-tenant');
+    assert.equal(pool.state.assessments.get(startJson.assessmentId).user_id, 'user-1');
 
     const answers = Object.fromEntries(startJson.questionBanks.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
     const score = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/score?${youthCtx}`, {
@@ -1266,7 +1268,40 @@ test('Garvey youth-program mode requires authentication and uses server-controll
     assert.equal(scoreJson.source_application, 'garvey');
     assert.equal(scoreJson.program_context, 'leader_within');
     assert.equal(scoreJson.first_party_program, 'true');
-    assert.equal(pool.state.results.get(scoreJson.resultId).tenant_slug, 'garvey-youth-development');
+    assert.equal(pool.state.results.get(scoreJson.resultId).tenant_slug, 'signed-tenant');
+    assert.equal(scoreJson.canonical.user_id, 'user-1');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+    if (originalTenant === undefined) delete process.env.GARVEY_YOUTH_PROGRAM_TENANT;
+    else process.env.GARVEY_YOUTH_PROGRAM_TENANT = originalTenant;
+  }
+});
+
+
+test('Garvey youth-program tenant falls back to authenticated tenant when no configured tenant is set', async () => {
+  const originalTenant = process.env.GARVEY_YOUTH_PROGRAM_TENANT;
+  delete process.env.GARVEY_YOUTH_PROGRAM_TENANT;
+  const app = express();
+  const pool = createMockPool();
+  app.use(express.json());
+  app.use((req, _res, next) => {
+    req.authActor = { userId: 'user-2', email: 'tenant-fallback@example.com', name: 'Tenant Fallback', tenantSlug: 'signed-tenant' };
+    next();
+  });
+  app.use('/api/archetype-engines', createArchetypeEnginesRouter({ pool }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const baseUrl = `http://127.0.0.1:${server.address().port}`;
+  try {
+    const body = { accepted: true, tenant: 'browser-supplied', email: 'fake@example.com', name: 'Fake', audience_type: 'youth', assessment_variant: 'youth', content_variant: 'youth', source_application: 'garvey', program_context: 'leader_within', first_party_program: 'true' };
+    const consent = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/consent`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    assert.equal(consent.status, 200);
+    const consentJson = await consent.json();
+    assert.equal(pool.state.consents.get(consentJson.consent_id).tenant_slug, 'signed-tenant');
   } finally {
     await new Promise((resolve) => server.close(resolve));
     if (originalTenant === undefined) delete process.env.GARVEY_YOUTH_PROGRAM_TENANT;

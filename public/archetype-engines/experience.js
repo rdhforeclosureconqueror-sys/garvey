@@ -980,23 +980,26 @@ async function startAssessmentFlow(app, engine, query, consentId) {
 }
 
 function renderConsentStep(app, engine, query, contract) {
+  const requiresSignIn = contract?.auth_required && contract?.authenticated === false;
   app.innerHTML = `
     <section class="section">
       <h1>${esc(contract?.heading || `${titleCase(engine)} Assessment`)}</h1>
       <p class="muted">${(contract?.body || []).map(esc).join(" ")}</p>
-      <label class="kv">
-        <input id="consentCheck" type="checkbox" />
-        <span>${esc(contract?.agreement || "I agree to continue.")}</span>
-      </label>
-      ${contract?.auth_required && contract?.authenticated === false ? `<a id="signInContinue" class="chip" href="${esc(contract?.sign_in_href || "/login.html")}">${esc("Sign in to continue")}</a>` : `<button id="consentContinue" class="chip">${esc(contract?.button_label || "Accept and continue")}</button>`}
-      <div id="assessmentStatus" class="muted"></div>
+      ${requiresSignIn ? `
+        <p id="assessmentStatus" class="muted">${esc(contract?.unauthenticated_message || "This assessment is available to enrolled participants. Sign in to continue.")}</p>
+        <a id="signInContinue" class="chip" href="${esc(contract?.sign_in_href || "/index.html")}">${esc("Sign in to continue")}</a>
+      ` : `
+        <label class="kv">
+          <input id="consentCheck" type="checkbox" />
+          <span>${esc(contract?.agreement || "I agree to continue.")}</span>
+        </label>
+        <button id="consentContinue" class="chip">${esc(contract?.button_label || "Accept and continue")}</button>
+        <div id="assessmentStatus" class="muted"></div>
+      `}
     </section>`;
   const statusNode = document.getElementById("assessmentStatus");
   const continueBtn = document.getElementById("consentContinue");
-  if (contract?.auth_required && contract?.authenticated === false) {
-    if (statusNode) statusNode.textContent = contract?.unauthenticated_message || "This assessment is available to enrolled participants. Sign in to continue.";
-    return;
-  }
+  if (requiresSignIn) return;
   continueBtn?.addEventListener("click", async () => {
     const checked = document.getElementById("consentCheck")?.checked;
     if (!checked) {
