@@ -5,6 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 
 const src = fs.readFileSync('public/archetype-engines/experience.js', 'utf8');
+const leadershipContentSrc = fs.readFileSync('archetype-engines/engines/leadership/content/leadershipArchetypes.js', 'utf8');
 const audit = JSON.parse(fs.readFileSync('artifacts/leadership-audits/youth-scoring-audit.json', 'utf8'));
 
 test('youth participant result view is selected for Garvey Leader Within youth and hides diagnostics', () => {
@@ -54,4 +55,104 @@ test('leadership youth scoring audit is machine-verifiable and documents positio
   assert.equal(allFirst.primary, 'VD');
   assert.equal(allFirst.secondary, 'IE');
   assert.equal(allFirst.normalizedScores.VD, 100);
+});
+
+test('youth result polish removes internal language and PocketPT roadmap text', () => {
+  const youthRenderer = src.slice(src.indexOf('function renderYouthLeadershipResult'), src.indexOf('function renderResult'));
+  const narrationBuilder = src.slice(src.indexOf('function buildYouthNarration'), src.indexOf('function bindYouthGoalControls'));
+  for (const forbidden of ['VD card', 'IE card', 'SD card', 'RI card', 'AC card', 'MY OWN GOAL']) {
+    assert.doesNotMatch(youthRenderer, new RegExp(forbidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    assert.doesNotMatch(narrationBuilder, new RegExp(forbidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+  for (const forbidden of ['PocketPT later', 'safe tracking hook', 'Goal saving can connect']) {
+    assert.doesNotMatch(youthRenderer, new RegExp(forbidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+    assert.doesNotMatch(narrationBuilder, new RegExp(forbidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
+  }
+  assert.match(youthRenderer, /Primary leadership style:/);
+  assert.match(youthRenderer, /Supporting leadership style:/);
+});
+
+test('youth 7-day goal experience is selectable, youth-facing, and session-only', () => {
+  const youthRenderer = src.slice(src.indexOf('function renderYouthLeadershipResult'), src.indexOf('function renderResult'));
+  const goalControls = src.slice(src.indexOf('function bindYouthGoalControls'), src.indexOf('function renderYouthLeadershipResult'));
+  assert.match(youthRenderer, /Your Next 7-Day Goal/);
+  assert.match(youthRenderer, /Choose one goal you want to practice during the next seven days\./);
+  assert.match(youthRenderer, /Write My Own Goal/);
+  assert.match(youthRenderer, /What is one leadership goal you want to practice\?/);
+  assert.match(youthRenderer, /Choose This Goal/);
+  assert.match(youthRenderer, /Your selected goal will stay visible during this session\./);
+  assert.doesNotMatch(youthRenderer, /permanently saved|saved permanently|durable/i);
+  assert.match(goalControls, /addEventListener\("click"/);
+  assert.match(goalControls, /aria-checked/);
+  assert.match(goalControls, /Selected for this session:/);
+});
+
+test('Vision Drive goal suggestions are deduplicated and use requested language', () => {
+  const copyStart = src.indexOf('const LEADERSHIP_YOUTH_COPY');
+  const vdBlock = src.slice(src.indexOf('  VD: {', copyStart), src.indexOf('  SD: {', copyStart));
+  for (const goal of ['Listen before leading', 'Complete one plan', 'Turn one idea into three steps', 'Ask for help', 'Help the group choose one direction']) {
+    assert.match(vdBlock, new RegExp(goal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+  assert.doesNotMatch(vdBlock, /Listen before speaking/);
+  const goals = [...vdBlock.matchAll(/"([^"]+)"/g)].map((m) => m[1]).filter((x) => ['Listen before leading', 'Complete one plan', 'Turn one idea into three steps', 'Ask for help', 'Help the group choose one direction'].includes(x));
+  assert.equal(new Set(goals).size, goals.length);
+});
+
+test('supporting style copy is composable, specific, and grammatically natural', () => {
+  assert.match(src, /function buildYouthSupportingCopy/);
+  assert.match(src, /can help you \$\{add\}/);
+  assert.match(src, /This combination becomes strongest when you also \$\{balance\}/);
+  assert.match(src, /give your vision a voice/);
+  assert.match(src, /explain your ideas with energy, encourage others, and help people believe a goal is possible/);
+  assert.doesNotMatch(src, /may help you add \$\{secondaryCopy\.strengths/);
+});
+
+test('youth closing message and archetype-specific closing affirmations are present and narrated', () => {
+  const narrationBuilder = src.slice(src.indexOf('function buildYouthNarration'), src.indexOf('function bindYouthGoalControls'));
+  assert.match(src, /Keep Growing Into Your Leadership/);
+  assert.match(src, /You do not have to become a perfect leader/);
+  for (const code of ['VD', 'SD', 'RI', 'IE', 'AC']) {
+    const blockEnd = code === 'AC' ? src.indexOf('\n  }\n});', src.indexOf('  AC: {')) : src.indexOf(`\n  ${['VD','SD','RI','IE','AC'][['VD','SD','RI','IE','AC'].indexOf(code)+1]}: {`);
+    const block = src.slice(src.indexOf(`  ${code}: {`), blockEnd);
+    assert.match(block, /closingAffirmation:/);
+  }
+  assert.match(narrationBuilder, /closingCopy/);
+  assert.doesNotMatch(narrationBuilder, /PocketPT|VD card|raw metadata|diagnostics/i);
+});
+
+test('leadership card visual alt text is meaningful without visible internal card codes', () => {
+  assert.match(src, /leadership style illustration/);
+  assert.match(src, /altText: `\$\{primaryName\} leadership style illustration`/);
+  assert.doesNotMatch(src, /\$\{esc\(archetype\?\.name \|\| archetype\?\.code \|\| "Archetype"\)\} card/);
+});
+
+test('leadership youth copy uses canonical archetype names and excludes incorrect names', () => {
+  const canonicalNames = ['Vision Drive', 'Structure Drive', 'Relational Intelligence', 'Influence Expression', 'Adaptive Control'];
+  for (const name of canonicalNames) {
+    assert.match(leadershipContentSrc, new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+  const youthRelevant = [
+    src.slice(src.indexOf('const LEADERSHIP_YOUTH_COPY'), src.indexOf('function renderResult')),
+    src.slice(src.indexOf('function buildYouthNarration'), src.indexOf('function renderResult')),
+  ].join('\n');
+  for (const incorrect of ['Structure Directive', 'Relational Insight', 'Adaptive Command']) {
+    assert.doesNotMatch(youthRelevant, new RegExp(incorrect.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+});
+
+test('Vision Drive plus Influence Expression copy assigns communication and energy, not direction and follow-through', () => {
+  const supportingCopy = src.slice(src.indexOf('const LEADERSHIP_YOUTH_PAIR_SUPPORTING_COPY'), src.indexOf('const LEADERSHIP_YOUTH_SECONDARY_ACTIONS'));
+  assert.match(supportingCopy, /Your supporting style, Influence Expression, can help you give your vision a voice\./);
+  assert.match(supportingCopy, /explain your ideas with energy, encourage others, and help people believe a goal is possible/);
+  assert.match(supportingCopy, /listen carefully, make room for other people’s ideas, and turn the shared vision into clear next steps/);
+  assert.doesNotMatch(supportingCopy, /direction and follow-through/i);
+});
+
+test('secondary contribution maps preserve canonical archetype boundaries', () => {
+  assert.match(src, /SD: "turn your structure into clear encouragement"/);
+  assert.match(src, /SD: "organize the plan, make next steps clear, and help people follow through"/);
+  assert.match(src, /RI: "listen carefully, include others, and notice what people need"/);
+  assert.match(src, /IE: "give ideas a clear, encouraging voice"/);
+  assert.match(src, /AC: "stay calm when plans change, explain shifts clearly, and help the group adjust"/);
+  assert.doesNotMatch(src, /IE: "give your energy more direction and follow-through"/);
 });
