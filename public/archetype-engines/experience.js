@@ -1439,6 +1439,130 @@ function buildLeadershipPatternInAction(archetype = {}) {
   };
 }
 
+
+
+const LEADERSHIP_YOUTH_COPY = Object.freeze({
+  VD: {
+    affirmation: "Your answers suggest you may be someone who notices what could be possible before everyone else can see it. You may bring ideas, direction, or a hopeful picture of the future when a group feels unsure. This result is a guide, not a limit, and this strength can grow when you learn to slow down, listen, and turn your ideas into clear next steps.",
+    life: ["In school, you may see a bigger goal for a project before the plan is fully built.", "In sports, clubs, or creative projects, you may help people imagine what the group could become.", "With friends or family, you may suggest a new direction when people feel stuck.", "In difficult decisions, you may look for the choice that leads toward a better future."],
+    strengths: ["Seeing possibilities", "Naming a direction", "Bringing hopeful energy", "Helping a group move forward", "Connecting today’s choices to tomorrow’s goal"],
+    imbalance: "Every strength needs balance. When this strength gets too loud, you may move so quickly toward a big idea that other people have trouble keeping up, or you may skip the small steps that make the idea real.",
+    pressure: "When pressure rises, you may try to move faster, speak more strongly, or take control of the direction.",
+    reset: "Pause for three breaths and ask: What does the group need from me right now?",
+    practices: ["Ask one person what they think before sharing your full plan.", "Break one big idea into three smaller steps.", "Notice when your energy is moving faster than the group.", "Finish one agreed task before introducing a new idea."],
+    weekly: "This week, choose one moment at school, in sports, at home, or with friends. Share one idea, ask another person for their view, and help the group agree on one clear next step.",
+    goals: ["Listen before leading", "Complete one plan", "Turn one idea into steps", "Ask for help", "Help the group choose a direction"]
+  },
+  SD: {
+    affirmation: "Your answers suggest you may be someone who helps people feel more steady by creating order, plans, and clear expectations. You may notice what needs to be organized so a group can finish what it started. This result is a guide, not a limit, and this strength can grow when your structure leaves room for people and new ideas.",
+    life: ["In school, you may keep a group assignment on track.", "At home, you may notice routines that help things run smoothly.", "In clubs or community activities, you may help divide tasks fairly.", "During difficult decisions, you may look for the practical next step."],
+    strengths: ["Creating order", "Following through", "Organizing shared tasks", "Making plans clear", "Helping people know what comes next"],
+    imbalance: "Every strength needs balance. When this strength gets too loud, you may focus so much on the plan that changes, feelings, or creative ideas feel frustrating.",
+    pressure: "When pressure rises, you may try to tighten the rules, fix every detail, or take over the plan.",
+    reset: "Pause and ask: What needs structure, and what needs flexibility?",
+    practices: ["Invite one new idea before finalizing a plan.", "Choose the three details that matter most.", "Let someone else own one part of the task.", "Adjust the plan when new information appears."],
+    weekly: "This week, help a group organize one shared task, then ask what should stay flexible so everyone can contribute.",
+    goals: ["Organize one shared task", "Complete one plan", "Let someone help", "Adjust when a plan changes", "Choose the next step"]
+  },
+  RI: {
+    affirmation: "Your answers suggest you may be someone who notices how people are feeling and helps others feel included. You may build trust by listening carefully and paying attention to what a group needs. This result is a guide, not a limit, and this strength can grow when kindness is paired with honest words and clear boundaries.",
+    life: ["In school, you may notice when someone is being left out.", "With friends, you may help people talk through a misunderstanding.", "In family moments, you may sense when someone needs patience.", "In group projects, you may help people feel safe enough to contribute."],
+    strengths: ["Listening carefully", "Building trust", "Including others", "Noticing feelings", "Helping people work through tension"],
+    imbalance: "Every strength needs balance. When this strength gets too loud, you may focus so much on keeping peace that you forget to say what you need or avoid a hard but helpful conversation.",
+    pressure: "When pressure rises, you may try to make everyone okay, even when the group needs a clear decision.",
+    reset: "Pause and ask: What is kind and honest at the same time?",
+    practices: ["Say one honest sentence kindly.", "Ask what someone needs, then say what you need too.", "Do not carry a problem alone when others should help.", "Name the next step after listening."],
+    weekly: "This week, notice one person who needs to be heard. Listen well, then help the group choose one fair next step.",
+    goals: ["Speak up once", "Build trust", "Say what I need", "Encourage one teammate", "Help solve one misunderstanding"]
+  },
+  IE: {
+    affirmation: "Your answers suggest you may be someone who brings energy to ideas and helps people understand why something matters. You may encourage others through words, expression, or enthusiasm. This result is a guide, not a limit, and this strength can grow when your voice also makes space for quieter voices.",
+    life: ["In school, you may explain an idea in a way classmates understand.", "In sports or clubs, you may encourage people to keep going.", "With friends, you may bring energy when the group feels flat.", "In creative projects, you may help a message or performance come alive."],
+    strengths: ["Communicating ideas", "Encouraging others", "Creating momentum", "Sharing enthusiasm", "Helping people get interested"],
+    imbalance: "Every strength needs balance. When this strength gets too loud, you may talk before listening, push excitement faster than the group is ready for, or miss a quiet concern.",
+    pressure: "When pressure rises, you may speak more strongly, try to convince quickly, or fill the space with energy.",
+    reset: "Pause and ask: Who has not been heard yet?",
+    practices: ["Ask one question before giving your opinion.", "Leave space after you speak.", "Invite a quieter person to add an idea.", "Summarize what the group decided."],
+    weekly: "This week, use your voice to encourage one group, then pause and invite someone else to share before the group decides.",
+    goals: ["Listen before speaking", "Encourage one teammate", "Ask one question", "Share one clear idea", "Make room for another voice"]
+  },
+  AC: {
+    affirmation: "Your answers suggest you may be someone who can stay alert when plans change and help a group adjust. You may notice risks, shifts, or new information quickly. This result is a guide, not a limit, and this strength can grow when your flexibility is paired with calm communication and steady anchors.",
+    life: ["In school, you may adapt when an assignment changes.", "In sports, clubs, or community activities, you may help the group recover after a setback.", "At home, you may find another way when the first plan does not work.", "In difficult decisions, you may stay practical while things are uncertain."],
+    strengths: ["Adjusting when plans change", "Remaining calm", "Solving problems quickly", "Noticing what needs to shift", "Helping a group recover"],
+    imbalance: "Every strength needs balance. When this strength gets too loud, you may change direction so quickly that others feel confused or unsure what is still steady.",
+    pressure: "When pressure rises, you may pivot fast, take control, or switch plans before everyone understands why.",
+    reset: "Pause and ask: What is changing, and what needs to stay steady?",
+    practices: ["Explain the reason for a change before moving.", "Name one thing that will stay the same.", "Ask if the group understands the new plan.", "Slow down before making the second change."],
+    weekly: "This week, when something changes, help the group adjust by naming one steady goal and one new next step.",
+    goals: ["Stay calm during one disagreement", "Adjust when a plan changes", "Explain one change clearly", "Keep one steady goal", "Ask before pivoting"]
+  }
+});
+
+function youthCopyFor(code) { return LEADERSHIP_YOUTH_COPY[String(code || "").toUpperCase()] || LEADERSHIP_YOUTH_COPY.VD; }
+function renderList(items) { return `<ul>${(items || []).map((item) => `<li>${esc(item)}</li>`).join("")}</ul>`; }
+function buildYouthNarration(primaryName, secondaryName, primaryCopy, secondaryCopy) {
+  return [
+    "The Leader Within youth result.",
+    `Your primary leadership style is ${primaryName}.`,
+    secondaryName ? `Your supporting leadership style is ${secondaryName}.` : "Your supporting leadership style is still developing.",
+    primaryCopy.affirmation,
+    `Some natural strengths may include ${primaryCopy.strengths.slice(0, 5).join(", ")}.`,
+    secondaryName ? `Your supporting style, ${secondaryName}, may add ${secondaryCopy.strengths.slice(0, 2).join(" and ").toLowerCase()} when you use it with balance.` : "",
+    primaryCopy.imbalance,
+    `When you feel pressure: ${primaryCopy.pressure} ${primaryCopy.reset}`,
+    `Your leadership practice this week: ${primaryCopy.weekly}`,
+    `For your next seven day goal, choose one small practice such as ${primaryCopy.goals.slice(0, 3).join(", ")}.`
+  ].filter(Boolean).join(" ");
+}
+
+function renderYouthLeadershipResult(app, engine, primary, secondary, payload, query, resultId) {
+  const primaryName = displayName(engine, primary, payload.primaryArchetype?.code || "");
+  const secondaryName = displayName(engine, secondary, payload.secondaryArchetype?.code || "");
+  const primaryCopy = youthCopyFor(payload.primaryArchetype?.code || primary?.code);
+  const secondaryCopy = youthCopyFor(payload.secondaryArchetype?.code || secondary?.code);
+  const supporting = secondaryName ? `Your supporting style, ${secondaryName}, may help you add ${secondaryCopy.strengths.slice(0, 2).join(" and ").toLowerCase()}. It is most helpful when you use it with balance, so it supports your main strength instead of taking over.` : "Your supporting style may become clearer as you keep practicing leadership in real situations.";
+  const goals = Array.from(new Set([...(primaryCopy.goals || []), ...(secondaryCopy.goals || [])])).slice(0, 6);
+  const narration = buildYouthNarration(primaryName, secondaryName, primaryCopy, secondaryCopy);
+  app.innerHTML = `
+    <section class="section result-reader leadership-youth-story" data-voice-role="youth-leadership-story">
+      <h2>Listen to My Leadership Story</h2>
+      <p class="muted">Garvey AI Voice can read your youth leadership story in encouraging, practical language.</p>
+    </section>
+    <section class="section hero leadership-youth-result" data-youth-result-view="participant">
+      <div>
+        <div class="chip">The Leader Within • Youth Result</div>
+        <h1>Primary leadership style: ${esc(primaryName)}</h1>
+        ${secondaryName ? `<p class="muted">Supporting leadership style: ${esc(secondaryName)}</p>` : ""}
+        <p class="muted">This result is a guide, not a limit. It describes strengths you can practice and balance.</p>
+      </div>
+      <div>${cardVisual(primary || secondary, { engine })}</div>
+    </section>
+    <section class="section"><h2>Personal Affirmation</h2><p>${esc(primaryCopy.affirmation)}</p></section>
+    <section class="section"><h2>What This May Look Like in Your Life</h2>${renderList(primaryCopy.life)}</section>
+    <section class="section"><h2>Your Natural Strengths</h2>${renderList(Array.from(new Set([...(primaryCopy.strengths || []), ...(secondaryCopy.strengths || [])])).slice(0, 6))}</section>
+    <section class="section"><h2>When Your Strength Becomes Too Strong</h2><p>${esc(primaryCopy.imbalance)}</p></section>
+    <section class="section"><h2>Your Supporting Strength</h2><p>${esc(supporting)}</p></section>
+    <section class="section"><h2>What to Practice Next</h2>${renderList((primaryCopy.practices || []).slice(0, 4))}</section>
+    <section class="section"><h2>When You Feel Pressure</h2><p>${esc(primaryCopy.pressure)} ${esc(primaryCopy.reset)}</p></section>
+    <section class="section"><h2>Your Leadership Practice for This Week</h2><p>${esc(primaryCopy.weekly)}</p><p class="muted">Reflection: What changed when you used your strength and made room for someone else?</p></section>
+    <section class="section"><h2>Your Next 7-Day Goal</h2><p class="muted">Choose one goal to practice. Goal saving can connect to PocketPT later when a safe tracking hook is available.</p>${goals.map((goal) => `<button type="button" class="chip" data-youth-goal-option="${esc(goal)}">${esc(goal)}</button>`).join(" ")}<label class="kv"><b>My own goal</b><input aria-label="My own 7-day leadership goal" placeholder="Write one small goal for this week" /></label></section>
+    <section class="section"><a class="simba-dashboard-return simba-dashboard-return-bottom" href="/youth-development.html">Return to Youth Development</a></section>`;
+  const resultVoiceWarmup = window.AssessmentVoice?.warmup?.({ surface: "archetype_result", scope_id: `${engine}:${resultId}:youth`, preflight: false });
+  const resultVoice = createVoiceController("archetype_result", `${engine}:${resultId}:youth`, resultVoiceWarmup);
+  resultVoice?.bind(app.querySelector('[data-voice-role="youth-leadership-story"]'), {
+    section_key: "youth_leadership_story",
+    section_label: "The Leader Within youth leadership story",
+    voice_text: narration.slice(0, 1800),
+    voice_tier: "full_result",
+    play_label: "Listen to My Leadership Story",
+    pause_label: "Pause",
+    prefetch: true,
+  });
+  app.setAttribute("data-live-assessment-page", "archetype-engines-experience");
+  app.setAttribute("data-youth-leadership-result", "participant");
+}
+
 function renderResult(app, engine, archetypes, resultId, payload, query, options = {}) {
   const scores = sortScores(payload.normalizedScores);
   const top3 = scores.slice(0, 3);
@@ -1475,6 +1599,11 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       return [code, `${titleCase(band.label)} (${Math.abs(Number(value)).toFixed(1)})`];
     })
     : identityBehaviorEntries;
+
+  if (isYouthResult && !isPocketPtYouthResult) {
+    renderYouthLeadershipResult(app, engine, primary, secondary, payload, query, resultId);
+    return;
+  }
 
   const loyaltyProfile = payload.communication_profile || {};
   const relationshipInterpretation = payload.relationshipInterpretation || {};
