@@ -84,18 +84,12 @@ function buildAssessmentHref(option, params) {
     ? "/voc.html"
     : option?.key === "youth"
       ? "/youth-development/intake"
-      : option?.key === "gates"
-        ? "/gates"
-        : `/archetype-engines/${option.engineType}/assessment`;
+      : option?.key === "leader_within"
+        ? "/the-leader-within.html"
+        : option?.key === "gates"
+          ? "/gates"
+          : `/archetype-engines/${option.engineType}/assessment`;
   const url = new URL(basePath, origin || "http://localhost");
-  if (option?.key === "leader_within") {
-    url.searchParams.set("audience_type", "youth");
-    url.searchParams.set("assessment_variant", "youth");
-    url.searchParams.set("content_variant", "youth");
-    url.searchParams.set("source_application", "garvey");
-    url.searchParams.set("program_context", "leader_within");
-    url.searchParams.set("first_party_program", "true");
-  }
   applyCommonContext(url, ctx, query, sourceType);
   return `${url.pathname}${url.search}`;
 }

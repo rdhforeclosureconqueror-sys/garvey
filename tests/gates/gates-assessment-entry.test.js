@@ -36,8 +36,7 @@ test("assessment selector includes Gates entry while preserving existing cards",
   assert.equal(youth.title, "Take Youth Assessment");
   assert.match(youth.href, /^\/youth-development\/intake\?/);
   assert.equal(leaderWithin.title, "The Leader Within");
-  assert.match(leaderWithin.href, /^\/archetype-engines\/leadership\/assessment\?/);
-  assert.match(leaderWithin.href, /program_context=leader_within/);
+  assert.match(leaderWithin.href, /^\/the-leader-within\.html\?/);
   assert.equal(
     gates.description,
     "Explore your child's developmental Gates through guided parent observation.",
