@@ -21,18 +21,23 @@ test("assessment selector includes Gates entry while preserving existing cards",
   });
 
   const labels = options.map((x) => x.title);
-  assert.deepEqual(options.map((x) => x.key), ["voc", "love", "leadership", "loyalty", "youth", "gates"]);
+  assert.deepEqual(options.map((x) => x.key), ["voc", "love", "leadership", "loyalty", "youth", "leader_within", "gates"]);
   assert.ok(labels.includes("Voice of the Customer"));
   assert.ok(labels.includes("Take Love Assessment"));
   assert.ok(labels.includes("Take Leadership Assessment"));
   assert.ok(labels.includes("Take Loyalty Assessment"));
   assert.ok(labels.includes("Take Youth Assessment"));
+  assert.ok(labels.includes("The Leader Within"));
   assert.ok(labels.includes("Youth Rite of Passage Assessment"));
 
   const youth = options.find((x) => x.key === "youth");
+  const leaderWithin = options.find((x) => x.key === "leader_within");
   const gates = options.find((x) => x.key === "gates");
   assert.equal(youth.title, "Take Youth Assessment");
   assert.match(youth.href, /^\/youth-development\/intake\?/);
+  assert.equal(leaderWithin.title, "The Leader Within");
+  assert.match(leaderWithin.href, /^\/archetype-engines\/leadership\/assessment\?/);
+  assert.match(leaderWithin.href, /program_context=leader_within/);
   assert.equal(
     gates.description,
     "Explore your child's developmental Gates through guided parent observation.",

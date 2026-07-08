@@ -1232,6 +1232,7 @@ function renderAssessmentMenu() {
   wrap.innerHTML = state.assessmentOptions.map((item) => `
     <button type="button" class="assessment-option" data-assessment-key="${escapeHtml(item.key)}">
       <strong>${escapeHtml(item.title)}</strong>
+      ${item.secondaryLabel ? `<span>${escapeHtml(item.secondaryLabel)}</span>` : ""}
       <span>${escapeHtml(item.description)}</span>
     </button>
   `).join("");
