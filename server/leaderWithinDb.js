@@ -28,6 +28,74 @@ async function applyLeaderWithinMigrations(pool) {
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
     );
+    CREATE TABLE IF NOT EXISTS leader_within_participants (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER REFERENCES tenants(id) ON DELETE CASCADE,
+      location_id TEXT,
+      first_name TEXT NOT NULL,
+      last_name TEXT NOT NULL,
+      preferred_name TEXT NOT NULL,
+      nickname TEXT,
+      status TEXT NOT NULL DEFAULT 'active',
+      consent_status TEXT NOT NULL DEFAULT 'pending',
+      consent_recorded_at TIMESTAMP,
+      consent_source TEXT,
+      consent_recorded_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_participant_credentials (
+      id SERIAL PRIMARY KEY,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      leader_id TEXT NOT NULL UNIQUE,
+      secret_hash TEXT NOT NULL,
+      secret_type TEXT NOT NULL DEFAULT 'pin',
+      temporary BOOLEAN NOT NULL DEFAULT TRUE,
+      must_change BOOLEAN NOT NULL DEFAULT TRUE,
+      failed_attempts INTEGER NOT NULL DEFAULT 0,
+      locked_until TIMESTAMP,
+      last_login_at TIMESTAMP,
+      credential_version INTEGER NOT NULL DEFAULT 1,
+      status TEXT NOT NULL DEFAULT 'active',
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_participant_sessions (
+      id SERIAL PRIMARY KEY,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
+      token_hash TEXT NOT NULL UNIQUE,
+      credential_version INTEGER NOT NULL,
+      expires_at TIMESTAMP NOT NULL,
+      revoked_at TIMESTAMP,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_cohort_facilitators (
+      id SERIAL PRIMARY KEY,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE CASCADE,
+      facilitator_user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+      tenant_id INTEGER REFERENCES tenants(id) ON DELETE CASCADE,
+      assignment_role TEXT NOT NULL DEFAULT 'primary',
+      status TEXT NOT NULL DEFAULT 'active',
+      assigned_at TIMESTAMP DEFAULT NOW(),
+      assigned_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      removed_at TIMESTAMP,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (cohort_id, facilitator_user_id)
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_audit_events (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER REFERENCES tenants(id) ON DELETE SET NULL,
+      actor_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE SET NULL,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE SET NULL,
+      event_type TEXT NOT NULL,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMP DEFAULT NOW()
+    );
     CREATE TABLE IF NOT EXISTS leader_within_program_enrollments (
       id SERIAL PRIMARY KEY,
       participant_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -152,6 +220,15 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_session_progress ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
+    ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS leader_within_participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE;
+    CREATE INDEX IF NOT EXISTS idx_lw_credentials_leader_id_lower ON leader_within_participant_credentials (lower(leader_id));
+    CREATE INDEX IF NOT EXISTS idx_lw_sessions_token_hash ON leader_within_participant_sessions (token_hash);
+    CREATE INDEX IF NOT EXISTS idx_lw_cohort_facilitators_active ON leader_within_cohort_facilitators (cohort_id, facilitator_user_id, tenant_id, status);
+    INSERT INTO leader_within_cohort_facilitators (cohort_id, facilitator_user_id, tenant_id, assignment_role, status)
+      SELECT id, assigned_facilitator_user_id, tenant_id, 'primary', 'active'
+      FROM leader_within_cohorts
+      WHERE assigned_facilitator_user_id IS NOT NULL
+      ON CONFLICT (cohort_id, facilitator_user_id) DO UPDATE SET status='active', updated_at=NOW();
   `);
   await pool.query(`INSERT INTO leader_within_programs (slug,title,duration_weeks,version,status)
     VALUES ('the-leader-within-12-week','The Leader Within — 12-Week Program',12,'2026.07','active')
