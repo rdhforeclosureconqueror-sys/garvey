@@ -99,6 +99,7 @@ const { createAssessmentMvpRouter } = require("./assessmentMvpRoutes");
 const { createSimbaWajumaRouter, buildAssessmentCompletionPayload, verifyTransferToken } = require("./simbawajumaBridge");
 const { queueExternalEvent, retryQueuedExternalEvents } = require("./simbawajumaEvents");
 const { createLeaderWithinRouter } = require("./leaderWithinRoutes");
+const { bootstrapLeaderWithinSuperAdmins } = require("./leaderWithinService");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -8127,6 +8128,7 @@ app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => 
 (async () => {
   try {
     await initializeDatabase();
+    await bootstrapLeaderWithinSuperAdmins(pool);
     await seed(pool);
 
     // ✅ ensure Kanban schema exists

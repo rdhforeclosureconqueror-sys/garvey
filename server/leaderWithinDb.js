@@ -82,6 +82,8 @@ async function applyLeaderWithinMigrations(pool) {
       email TEXT NOT NULL,
       normalized_email TEXT NOT NULL,
       password_hash TEXT NOT NULL,
+      setup_token_hash TEXT,
+      setup_token_expires_at TIMESTAMP,
       first_name TEXT,
       last_name TEXT,
       preferred_name TEXT,
@@ -94,10 +96,36 @@ async function applyLeaderWithinMigrations(pool) {
       credential_version INTEGER NOT NULL DEFAULT 1,
       created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
       approved_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      approved_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
       approved_at TIMESTAMP,
+      suspended_at TIMESTAMP,
+      disabled_at TIMESTAMP,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW(),
       UNIQUE (tenant_id, normalized_email)
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_facilitator_requests (
+      id SERIAL PRIMARY KEY,
+      normalized_email TEXT NOT NULL,
+      first_name TEXT NOT NULL,
+      last_name TEXT NOT NULL,
+      preferred_name TEXT NOT NULL,
+      organization_name TEXT NOT NULL,
+      requested_location TEXT NOT NULL,
+      phone_number TEXT,
+      existing_relationship TEXT,
+      organization_role TEXT,
+      request_reason TEXT NOT NULL,
+      request_notes TEXT,
+      status TEXT NOT NULL DEFAULT 'pending',
+      submitted_at TIMESTAMP DEFAULT NOW(),
+      reviewed_at TIMESTAMP,
+      reviewed_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
+      review_notes TEXT,
+      converted_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
+      expires_at TIMESTAMP,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
     );
     CREATE TABLE IF NOT EXISTS leader_within_facilitator_sessions (
       id SERIAL PRIMARY KEY,
@@ -264,7 +292,14 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_session_progress ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS leader_within_participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE;
+    ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS setup_token_hash TEXT;
+    ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS setup_token_expires_at TIMESTAMP;
+    ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS approved_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS suspended_at TIMESTAMP;
+    ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS disabled_at TIMESTAMP;
     ALTER TABLE leader_within_cohort_facilitators ADD COLUMN IF NOT EXISTS facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE CASCADE;
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_lw_facilitator_requests_pending_email ON leader_within_facilitator_requests (normalized_email) WHERE status IN ('pending','more_information_requested');
+    CREATE INDEX IF NOT EXISTS idx_lw_facilitator_requests_status ON leader_within_facilitator_requests (status, submitted_at);
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_email ON leader_within_facilitator_accounts (tenant_id, normalized_email);
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_code ON leader_within_facilitator_accounts (lower(facilitator_id));
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_sessions_token_hash ON leader_within_facilitator_sessions (token_hash);
