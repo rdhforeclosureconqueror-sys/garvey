@@ -523,7 +523,9 @@
         try {
           const email = trim(document.getElementById("ownerEmailInput")?.value).toLowerCase();
           const password = trim(document.getElementById("ownerPasswordInput")?.value);
-          const data = await postJson(ownerApiUrl("/api/owner/signin"), { email, password });
+          const u = new URL(window.location.href);
+          const safeNext = u.searchParams.get("next") || u.searchParams.get("returnTo") || "";
+          const data = await postJson(ownerApiUrl("/api/owner/signin"), { email, password, next: safeNext });
           const tenant = cleanCtxValue(data.tenant);
           if (!tenant) throw new Error("Sign in succeeded but tenant context was missing. Please retry.");
           if (window.GARVEY && window.GARVEY.setLoginCtx) {
