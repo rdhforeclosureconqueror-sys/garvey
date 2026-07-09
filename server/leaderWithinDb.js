@@ -21,7 +21,10 @@ async function applyLeaderWithinMigrations(pool) {
       current_week INTEGER NOT NULL DEFAULT 1,
       current_session TEXT NOT NULL DEFAULT 'A',
       assigned_facilitator_email TEXT,
+      assigned_facilitator_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
       alternate_story_title TEXT,
+      is_demo BOOLEAN NOT NULL DEFAULT FALSE,
+      created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
     );
@@ -38,6 +41,8 @@ async function applyLeaderWithinMigrations(pool) {
       current_week INTEGER NOT NULL DEFAULT 1,
       current_session TEXT NOT NULL DEFAULT 'A',
       completed_at TIMESTAMP,
+      is_demo BOOLEAN NOT NULL DEFAULT FALSE,
+      created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW(),
       UNIQUE (participant_id, program_id)
@@ -55,6 +60,7 @@ async function applyLeaderWithinMigrations(pool) {
       facilitator_verified_at TIMESTAMP,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW(),
+      is_demo BOOLEAN NOT NULL DEFAULT FALSE,
       UNIQUE (enrollment_id, week_number, session_code)
     );
     CREATE TABLE IF NOT EXISTS leader_within_practice_selections (
@@ -137,6 +143,15 @@ async function applyLeaderWithinMigrations(pool) {
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
     );
+  `);
+
+  await pool.query(`
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS assigned_facilitator_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
+    ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_session_progress ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
   `);
   await pool.query(`INSERT INTO leader_within_programs (slug,title,duration_weeks,version,status)
     VALUES ('the-leader-within-12-week','The Leader Within — 12-Week Program',12,'2026.07','active')
