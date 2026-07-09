@@ -24,19 +24,20 @@ function invoke(router, method, url, extra = {}) {
   });
 }
 
-test('landing-page facilitator CTA uses branded route and not nonexistent /login', () => {
+test('landing-page facilitator CTA goes directly to trusted sign-in and youth CTA remains unchanged', () => {
   const html = fs.readFileSync('public/the-leader-within.html', 'utf8');
-  assert.match(html, /href="\/the-leader-within\/facilitator\/sign-in"/);
+  assert.match(html, /href="\/index\.html\?next=%2Fadmin%2Fthe-leader-within"[^>]*>Facilitator Sign In/);
+  assert.match(html, /href="\/the-leader-within\/sign-in"[^>]*>Start or Continue My Journey/);
   assert.doesNotMatch(html, /href="\/login"/);
+  assert.doesNotMatch(html, /href="\/the-leader-within\/facilitator\/sign-in"[^>]*>Facilitator Sign In/);
   assert.match(html, /Already registered by your facilitator\? Use your Leader ID and private sign-in code to continue\./);
 });
 
-test('signed-out facilitator route shows branded secure sign-in entry', async () => {
+test('signed-out facilitator route redirects directly to trusted sign-in without access-needed page', async () => {
   const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/the-leader-within/facilitator/sign-in');
-  assert.equal(res.statusCode, 200);
-  assert.match(res.body, /Facilitator Sign In/);
-  assert.match(res.body, /Continue to Secure Sign In/);
-  assert.match(res.body, /\/index\.html\?next=/);
+  assert.equal(res.statusCode, 302);
+  assert.equal(res.headers.location, '/index.html?next=%2Fadmin%2Fthe-leader-within');
+  assert.equal(res.body, undefined);
 });
 
 test('/login compatibility route redirects to trusted Garvey sign-in page with safe internal return path', async () => {
@@ -48,6 +49,15 @@ test('/login compatibility route redirects to trusted Garvey sign-in page with s
   assert.equal(bad.headers.location, '/index.html?next=%2Fadmin%2Fthe-leader-within');
 });
 
+test('one tap from the landing CTA reaches the real trusted sign-in page', () => {
+  const html = fs.readFileSync('public/the-leader-within.html', 'utf8');
+  assert.match(html, /href="\/index\.html\?next=%2Fadmin%2Fthe-leader-within"/);
+  const login = fs.readFileSync('public/index.html', 'utf8');
+  assert.match(login, /ownerSignInBtn/);
+  assert.match(login, /\/api\/owner\/signin/);
+  assert.match(login, /Sign in to continue to The Leader Within facilitator dashboard/);
+});
+
 test('trusted authenticated facilitator is redirected to dashboard', async () => {
   const pool = { query: async () => ({ rows: [] }) };
   const res = await invoke(createLeaderWithinRouter(pool), 'GET', '/the-leader-within/facilitator/sign-in', { authActor: { userId: 9, email: 'fac@example.com', role: 'facilitator', tenantSlug: 'tenant-a' } });
@@ -55,15 +65,41 @@ test('trusted authenticated facilitator is redirected to dashboard', async () =>
   assert.equal(res.headers.location, '/admin/the-leader-within');
 });
 
+test('trusted authenticated admin is redirected to dashboard', async () => {
+  const pool = { query: async () => ({ rows: [] }) };
+  const res = await invoke(createLeaderWithinRouter(pool), 'GET', '/the-leader-within/facilitator/sign-in', { authActor: { userId: 1, email: 'admin@example.com', role: 'admin', tenantSlug: 'tenant-a', isAdmin: true } });
+  assert.equal(res.statusCode, 302);
+  assert.equal(res.headers.location, '/admin/the-leader-within');
+});
+
 test('authenticated unauthorized user receives branded not-authorized state', async () => {
   const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/admin/the-leader-within', { authActor: { userId: 8, email: 'member@example.com', role: 'customer', tenantSlug: 'tenant-a' } });
   assert.equal(res.statusCode, 403);
+  assert.match(res.body, /Leader Within Access Needed/);
   assert.match(res.body, /has not been assigned to a Leader Within facilitator role or cohort/);
+  assert.match(res.body, /Return to The Leader Within/);
+  assert.match(res.body, /Sign Out/);
+  assert.match(res.body, /Contact a Program Administrator/);
+  assert.doesNotMatch(res.body, /Continue to Secure Sign In/);
+});
+
+test('authorized facilitator with no cohort sees no-cohort dashboard empty state', async () => {
+  const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/admin/the-leader-within', { authActor: { userId: 9, email: 'fac@example.com', role: 'facilitator', tenantSlug: 'tenant-a' } });
+  assert.equal(res.statusCode, 200);
+  assert.match(res.body, /No Leader Within cohorts are currently assigned to you/);
+});
+
+test('signed-out dashboard redirects to trusted sign-in and not /login', async () => {
+  const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/admin/the-leader-within');
+  assert.equal(res.statusCode, 302);
+  assert.equal(res.headers.location, '/index.html?next=%2Fadmin%2Fthe-leader-within');
+  assert.notEqual(res.headers.location, '/login');
 });
 
 test('query role and untrusted browser headers do not grant facilitator access', async () => {
   const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/admin/the-leader-within?role=facilitator', { headers: { 'x-user-role': 'facilitator', 'x-user-email': 'fake@example.com', 'x-tenant-slug': 'tenant-a' } });
-  assert.equal(res.statusCode, 401);
+  assert.equal(res.statusCode, 302);
+  assert.equal(res.headers.location, '/index.html?next=%2Fadmin%2Fthe-leader-within');
 });
 
 test('admin-only bootstrap requires admin and stable facilitator user id in tenant', async () => {
