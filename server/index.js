@@ -149,6 +149,7 @@ function isAdminEmail(email) {
 }
 
 app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ extended: false, limit: "64kb" }));
 
 function applyCorsHeaders(req, res) {
   const origin = String(req.headers.origin || "").trim();
@@ -1031,6 +1032,20 @@ function verifyPasswordHash(password, encodedHash) {
 
 function createSessionToken() {
   return crypto.randomBytes(32).toString("hex");
+}
+
+
+function safeInternalReturnPath(value, fallback = "") {
+  const raw = String(value || "").trim();
+  if (!raw || raw.length > 300) return fallback;
+  if (!raw.startsWith("/") || raw.startsWith("//") || raw.includes("\\")) return fallback;
+  try {
+    const parsed = new URL(raw, "https://garvey.local");
+    if (parsed.origin !== "https://garvey.local") return fallback;
+    return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+  } catch (_) {
+    return fallback;
+  }
 }
 
 function buildOwnerSessionCookie(req, token, maxAgeSeconds) {
@@ -1964,9 +1979,10 @@ app.post("/api/owner/signin", async (req, res) => {
     );
 
     res.setHeader("Set-Cookie", buildOwnerSessionCookie(req, token, Math.floor(OWNER_SESSION_TTL_MS / 1000)));
-    const nextRoute = account.onboarding_complete
+    const requestedNext = safeInternalReturnPath(req.body?.next || req.body?.returnTo, "");
+    const nextRoute = requestedNext || (account.onboarding_complete
       ? `/dashboard.html?tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`
-      : `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`;
+      : `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`);
     return res.json({
       success: true,
       tenant: account.tenant_slug,
