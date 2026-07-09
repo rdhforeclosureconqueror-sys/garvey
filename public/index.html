@@ -63,6 +63,7 @@
 
           <div class="au-card au-card--glass" style="margin:12px 0">
             <div class="au-card__title">Business Owner Access</div>
+            <p class="au-note" id="leaderWithinLoginContext" hidden>Sign in to continue to The Leader Within facilitator dashboard.</p>
             <div class="row" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
               <input id="businessNameInput" type="text" placeholder="Business Name" style="width:100%;padding:10px;border-radius:10px;border:1px solid #334155;background:#0b1223;color:#e5e7eb;">
               <input id="ownerEmailInput" type="email" placeholder="owner@business.com" style="width:100%;padding:10px;border-radius:10px;border:1px solid #334155;background:#0b1223;color:#e5e7eb;">
@@ -417,6 +418,11 @@
       function setOwnerSignedInState(session) {
         const c = session || null;
         const fallback = ownerCtx();
+        const leaderWithinLoginContext = document.getElementById("leaderWithinLoginContext");
+        if (leaderWithinLoginContext) {
+          const next = new URL(window.location.href).searchParams.get("next") || "";
+          leaderWithinLoginContext.hidden = next !== "/admin/the-leader-within";
+        }
         const status = document.getElementById("ownerAuthStatus");
         const out = document.getElementById("ownerSignOutBtn");
         const signedIn = !!cleanCtxValue(c && c.email);
