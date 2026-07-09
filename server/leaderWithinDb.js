@@ -72,10 +72,52 @@ async function applyLeaderWithinMigrations(pool) {
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
     );
+    CREATE TABLE IF NOT EXISTS leader_within_facilitator_accounts (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER REFERENCES tenants(id) ON DELETE CASCADE,
+      organization_id TEXT,
+      location_id TEXT,
+      linked_garvey_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      facilitator_id TEXT NOT NULL UNIQUE,
+      email TEXT NOT NULL,
+      normalized_email TEXT NOT NULL,
+      password_hash TEXT NOT NULL,
+      first_name TEXT,
+      last_name TEXT,
+      preferred_name TEXT,
+      status TEXT NOT NULL DEFAULT 'invited',
+      role TEXT NOT NULL DEFAULT 'facilitator',
+      must_change_password BOOLEAN NOT NULL DEFAULT TRUE,
+      failed_attempts INTEGER NOT NULL DEFAULT 0,
+      locked_until TIMESTAMP,
+      last_login_at TIMESTAMP,
+      credential_version INTEGER NOT NULL DEFAULT 1,
+      created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      approved_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      approved_at TIMESTAMP,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (tenant_id, normalized_email)
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_facilitator_sessions (
+      id SERIAL PRIMARY KEY,
+      facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE CASCADE,
+      tenant_id INTEGER REFERENCES tenants(id) ON DELETE CASCADE,
+      token_hash TEXT NOT NULL UNIQUE,
+      credential_version INTEGER NOT NULL,
+      expires_at TIMESTAMP NOT NULL,
+      revoked_at TIMESTAMP,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      last_seen_at TIMESTAMP,
+      user_agent_hash TEXT,
+      ip_hash TEXT
+    );
     CREATE TABLE IF NOT EXISTS leader_within_cohort_facilitators (
       id SERIAL PRIMARY KEY,
       cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE CASCADE,
       facilitator_user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+      facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE CASCADE,
       tenant_id INTEGER REFERENCES tenants(id) ON DELETE CASCADE,
       assignment_role TEXT NOT NULL DEFAULT 'primary',
       status TEXT NOT NULL DEFAULT 'active',
@@ -84,7 +126,8 @@ async function applyLeaderWithinMigrations(pool) {
       removed_at TIMESTAMP,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW(),
-      UNIQUE (cohort_id, facilitator_user_id)
+      UNIQUE (cohort_id, facilitator_user_id),
+      UNIQUE (cohort_id, facilitator_account_id)
     );
     CREATE TABLE IF NOT EXISTS leader_within_audit_events (
       id SERIAL PRIMARY KEY,
@@ -221,6 +264,11 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_session_progress ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS leader_within_participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE;
+    ALTER TABLE leader_within_cohort_facilitators ADD COLUMN IF NOT EXISTS facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE CASCADE;
+    CREATE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_email ON leader_within_facilitator_accounts (tenant_id, normalized_email);
+    CREATE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_code ON leader_within_facilitator_accounts (lower(facilitator_id));
+    CREATE INDEX IF NOT EXISTS idx_lw_facilitator_sessions_token_hash ON leader_within_facilitator_sessions (token_hash);
+    CREATE INDEX IF NOT EXISTS idx_lw_cohort_facilitator_accounts_active ON leader_within_cohort_facilitators (cohort_id, facilitator_account_id, tenant_id, status);
     CREATE INDEX IF NOT EXISTS idx_lw_credentials_leader_id_lower ON leader_within_participant_credentials (lower(leader_id));
     CREATE INDEX IF NOT EXISTS idx_lw_sessions_token_hash ON leader_within_participant_sessions (token_hash);
     CREATE INDEX IF NOT EXISTS idx_lw_cohort_facilitators_active ON leader_within_cohort_facilitators (cohort_id, facilitator_user_id, tenant_id, status);
