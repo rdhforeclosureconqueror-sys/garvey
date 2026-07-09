@@ -98,6 +98,7 @@ const { createAdaptiveV2Router } = require("./adaptiveV2Routes");
 const { createAssessmentMvpRouter } = require("./assessmentMvpRoutes");
 const { createSimbaWajumaRouter, buildAssessmentCompletionPayload, verifyTransferToken } = require("./simbawajumaBridge");
 const { queueExternalEvent, retryQueuedExternalEvents } = require("./simbawajumaEvents");
+const { createLeaderWithinRouter } = require("./leaderWithinRoutes");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -301,6 +302,7 @@ app.get("/skill-world/:skillId", (req, res) => {
 });
 
 app.use("/generated-audio/skill-world", express.static(path.join(__dirname, "..", "public", "generated-audio", "skill-world")));
+app.use(createLeaderWithinRouter(pool));
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());

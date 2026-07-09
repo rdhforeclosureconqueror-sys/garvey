@@ -6,6 +6,7 @@ const { applyTapCrmMigrations, verifyTapCrmSchema } = require("./tapCrmDb");
 const { applyTdeMigrations, verifyTdeSchema } = require("./youthDevelopmentTdeDb");
 const { applyGatesMigrations, verifyGatesSchema } = require("./gatesDb");
 const { initializeAssessmentMvpDatabase, verifyAssessmentMvpSchema } = require("./assessmentMvpDb");
+const { applyLeaderWithinMigrations } = require("./leaderWithinDb");
 
 function readEnvTrimmed(name) {
   const value = process.env[name];
@@ -1473,6 +1474,7 @@ async function initializeDatabase() {
   }
 
   const assessmentMvpMigrationResult = await initializeAssessmentMvpDatabase(pool);
+  await applyLeaderWithinMigrations(pool);
   const assessmentMvpSchemaReport = await verifyAssessmentMvpSchema(pool);
   console.log("✅ Assessment MVP schema ready", {
     applied_migrations: assessmentMvpMigrationResult.appliedCount,
