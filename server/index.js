@@ -180,7 +180,7 @@ function applyCorsHeaders(req, res) {
   res.header("Vary", "Origin");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, x-user-role, x-user-email, x-tenant-slug");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, x-user-role, x-user-email, x-tenant-slug, x-csrf-token");
   return { allowed: true };
 }
 
@@ -232,6 +232,7 @@ app.use(async (req, res, next) => {
 
     req.authActor = {
       userId: session.user_id,
+      tenantId: session.tenant_id,
       email: normalizeEmail(session.email),
       role: session.role,
       tenantSlug: session.tenant_slug,
