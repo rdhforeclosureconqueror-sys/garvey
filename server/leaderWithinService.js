@@ -26,6 +26,11 @@ const FACILITATOR_ACCOUNT_STATUSES = new Set(["invited","setup_pending","active"
 const FACILITATOR_REQUEST_STATUSES = new Set(["pending","more_information_requested","approved","declined","withdrawn","expired"]);
 
 function fail(status, message) { const e = new Error(message); e.status = status; throw e; }
+
+function safePublicError(status, code, message) { const e = new Error(message); e.status = status; e.code = code; throw e; }
+function normalizePathway(v) { const x = norm(v || PROGRAM_SLUG).replace(/\s+/g, "-"); const aliases = { "12-week-program": "the-leader-within-12-week", "12-week": "the-leader-within-12-week", "12_week": "the-leader-within-12-week", "twelve_week": "the-leader-within-12-week", "8-week-program": "the-leader-within-8-week", "8-week": "the-leader-within-8-week", "32-week-program": "the-leader-within-32-week", "32-week": "the-leader-within-32-week" }; return aliases[x] || x; }
+function normalizeIsoDate(v) { const raw=String(v||"").trim(); if(!raw) return null; if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) safePublicError(400,"invalid_start_date","Enter a valid start date."); const d=new Date(`${raw}T00:00:00Z`); if(Number.isNaN(d.getTime()) || d.toISOString().slice(0,10)!==raw) safePublicError(400,"invalid_start_date","Enter a valid start date."); return raw; }
+function normalizePositiveInt(v, code, message, { required=false, min=1, max=10000 }={}) { if(v===""||v===null||v===undefined) { if(required) safePublicError(400,code,message); return null; } const n=Number(v); if(!Number.isInteger(n)||n<min||n>max) safePublicError(400,code,message); return n; }
 function norm(v) { return String(v || "").trim().toLowerCase(); }
 function enabled(name) { return ["1", "true", "yes", "on"].includes(norm(process.env[name])); }
 function nonProduction() { return process.env.NODE_ENV === "test" || process.env.NODE_ENV === "development"; }
@@ -280,39 +285,47 @@ async function bootstrapCohort(pool, req){
   requireLeaderWithinPlatformAdmin(actor);
   const b=req.body||{};
   const tenantSlug=norm(b.tenant_slug||actor.active_tenant_slug);
-  const name=String(b.cohort_name||b.name||"Leader Within Pilot Cohort").trim().slice(0,160);
-  const location=String(b.location_id||b.location||"Dallas Pilot").trim().slice(0,120);
+  const name=String(b.cohort_name||b.name||"").trim().slice(0,160);
+  const location=String(b.location||b.location_id||"").trim().slice(0,120);
+  const organization=String(b.organization||b.organization_id||"").trim().slice(0,160) || null;
   const status=norm(b.status||"active");
-  const currentWeek=Math.max(1,Math.min(32,Number(b.current_week||1)||1));
-  const currentSession=["A","B","C"].includes(String(b.current_session||"A").toUpperCase()) ? String(b.current_session||"A").toUpperCase() : "A";
+  const startDate=normalizeIsoDate(b.start_date);
+  const currentWeek=normalizePositiveInt(b.current_week||1,"invalid_current_week","Current week must be between 1 and 32.",{required:true,min:1,max:32});
+  const capacity=normalizePositiveInt(b.capacity,"invalid_capacity","Capacity must be a positive number.",{required:false,min:1,max:10000});
+  const currentSession=["A","B","C"].includes(String(b.current_session||"A").toUpperCase()) ? String(b.current_session||"A").toUpperCase() : null;
+  const pathwaySlug=normalizePathway(b.program_pathway||b.pathway||b.program_slug||PROGRAM_SLUG);
   const facilitatorAccountId=Number(actor.facilitator_account_id||0);
   const facilitatorUserId=facilitatorAccountId ? Number(actor.linked_garvey_user_id||actor.user_id||0) : Number(b.facilitator_user_id||actor.user_id||0);
-  if(!tenantSlug||!name||!location||!["active","ready"].includes(status)) fail(400,"tenant, cohort_name, location_id, and active/ready status are required.");
-  if(actor.active_tenant_slug && !actor.is_superadmin && tenantSlug!==actor.active_tenant_slug) fail(403,"Cross-tenant cohort creation is not allowed.");
-  if(b.facilitator_account_id && Number(b.facilitator_account_id)!==facilitatorAccountId) fail(403,"Browser-supplied facilitator escalation is not allowed.");
+  if(!tenantSlug) safePublicError(400,"tenant_required","The cohort could not be saved.");
+  if(!name) safePublicError(400,"missing_cohort_name","Enter a cohort name.");
+  if(!location) safePublicError(400,"location_required","Enter a location.");
+  if(!currentSession) safePublicError(400,"invalid_current_session","Current session must be A, B, or C.");
+  if(!["active","ready"].includes(status)) safePublicError(400,"invalid_status","Choose Active or Ready status.");
+  if(actor.active_tenant_slug && !actor.is_superadmin && tenantSlug!==actor.active_tenant_slug) safePublicError(403,"cross_tenant_creation_blocked","Cross-tenant cohort creation is not allowed.");
+  if(b.facilitator_account_id && Number(b.facilitator_account_id)!==facilitatorAccountId) safePublicError(403,"facilitator_escalation_blocked","You do not have permission to create this cohort.");
   const client=pool.connect ? await pool.connect() : pool;
   try{
     if(pool.connect) await client.query("BEGIN");
     const tenant=(await client.query(`SELECT id,slug FROM tenants WHERE lower(slug)=lower($1) LIMIT 1`,[tenantSlug])).rows[0];
-    if(!tenant) fail(404,"Tenant not found.");
+    if(!tenant) safePublicError(404,"tenant_not_found","The cohort could not be saved.");
     let account=null;
     if(facilitatorAccountId){
       account=(await client.query(`SELECT id,linked_garvey_user_id,tenant_id,status,role FROM leader_within_facilitator_accounts WHERE id=$1 AND tenant_id=$2 LIMIT 1`,[facilitatorAccountId,tenant.id])).rows[0]||null;
-      if(!account||account.status!=="active") fail(403,"Active linked Leader Within facilitator account required.");
+      if(!account||account.status!=="active") safePublicError(403,"facilitator_account_inactive","You do not have permission to create this cohort.");
     }
     if(!facilitatorAccountId){
       const membership=(await client.query(`SELECT user_id FROM tenant_memberships WHERE tenant_id=$1 AND user_id=$2 LIMIT 1`,[tenant.id,facilitatorUserId])).rows[0];
-      if(!membership) fail(403,"Facilitator must belong to the selected tenant.");
+      if(!membership) safePublicError(403,"facilitator_not_in_tenant","You do not have permission to create this cohort.");
     }
-    const program=(await client.query(`SELECT id FROM leader_within_programs WHERE slug=$1`,[PROGRAM_SLUG])).rows[0];
-    if(!program) fail(500,"Leader Within program is not configured.");
+    const program=(await client.query(`SELECT id,slug FROM leader_within_programs WHERE slug=$1`,[pathwaySlug])).rows[0];
+    if(!program) safePublicError(400,"invalid_program_pathway","Choose a valid program pathway.");
     const existing=(await client.query(`SELECT * FROM leader_within_cohorts WHERE tenant_id=$1 AND lower(name)=lower($2) LIMIT 1`,[tenant.id,name])).rows[0];
-    const cohort=existing || (await client.query(`INSERT INTO leader_within_cohorts (tenant_id,name,program_id,location_id,start_date,current_week,current_session,status,assigned_facilitator_user_id,assigned_facilitator_email,created_by_user_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,[tenant.id,name,program.id,location,b.start_date||null,currentWeek,currentSession,status,facilitatorUserId||null,actor.email||null,actor.user_id])).rows[0];
+    const cohort=existing || (await client.query(`INSERT INTO leader_within_cohorts (tenant_id,name,program_id,location_id,organization_id,start_date,capacity,current_week,current_session,status,assigned_facilitator_user_id,assigned_facilitator_email,created_by_user_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`,[tenant.id,name,program.id,location,organization,startDate,capacity,currentWeek,currentSession,status,facilitatorUserId||null,actor.email||null,actor.user_id])).rows[0];
     if(facilitatorAccountId) await client.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_account_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,$4,'primary','active',$5) ON CONFLICT (cohort_id, facilitator_account_id) DO UPDATE SET status='active', assignment_role='primary', removed_at=NULL, updated_at=NOW()`,[cohort.id,facilitatorAccountId,facilitatorUserId||null,tenant.id,actor.user_id]);
     else await client.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,'primary','active',$4) ON CONFLICT DO NOTHING`,[cohort.id,facilitatorUserId,tenant.id,actor.user_id]);
-    await audit(client,existing?"cohort_bootstrap_reused":"cohort_bootstrap_created",{tenant_id:tenant.id,actor_user_id:actor.user_id,cohort_id:cohort.id,metadata:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,program:"The Leader Within — 12-Week Program"}});
+    await audit(client,existing?"cohort_bootstrap_reused":"cohort_bootstrap_created",{tenant_id:tenant.id,actor_user_id:actor.user_id,cohort_id:cohort.id,metadata:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,program_pathway:pathwaySlug,organization,location}});
     if(pool.connect) await client.query("COMMIT");
-    return {ok:true,cohort,redirect:"/the-leader-within/facilitator/dashboard",assignment:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,status:"active",assignment_role:"primary"},idempotent:!!existing};
+    return {ok:true,cohort_id:cohort.id,redirect_to:"/the-leader-within/facilitator/dashboard",cohort,assignment:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,status:"active",assignment_role:"primary"},idempotent:!!existing};
   } catch(e){ if(pool.connect) { try{await client.query("ROLLBACK");}catch(_){} } throw e; }
   finally{ if(pool.connect) client.release(); }
 }

@@ -425,3 +425,72 @@ test('bootstrap route emits safe cookie diagnostic headers for duplicate cookies
     facilitatorActor.role = original;
   }
 });
+
+test('bootstrap first-cohort form posts JSON with credentials CSRF and actionable errors', async () => {
+  const actor = { ...facilitatorActor, role: 'super_admin', is_admin: true, is_superadmin: true, csrf_token: 'csrf-ok', authenticated: true };
+  const res = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/admin/the-leader-within/bootstrap', { authActor: { userId: 9, email: 'admin@example.com', role: 'business_owner', tenantSlug: 'tenant-a', tenantId: 1, isAdmin: true }, headers: {} });
+  assert.equal(res.statusCode, 200);
+  assert.match(res.body, /fetch\("\/api\/admin\/the-leader-within\/bootstrap\/cohort",\{method:"POST"/);
+  assert.match(res.body, /"Content-Type":"application\/json","x-csrf-token":csrf/);
+  assert.match(res.body, /credentials:"include"/);
+  assert.match(res.body, /name="cohort_name"/);
+  assert.match(res.body, /name="program_pathway"/);
+  assert.match(res.body, /name="organization"/);
+  assert.match(res.body, /name="location"/);
+  assert.match(res.body, /name="start_date" type="date" value="2026-07-10"/);
+  assert.match(res.body, /name="capacity" type="number" min="1" value="10"/);
+  assert.match(res.body, /The cohort could not be saved\./);
+});
+
+test('bootstrap POST accepts trusted Render backend origin and rejects invalid origin before CSRF', async () => {
+  const actor = { ...facilitatorActor, role: 'super_admin', is_admin: true, is_superadmin: true, csrf_token: 'csrf-ok', authenticated: true };
+  const bad = await invoke(createLeaderWithinRouter(facilitatorPool()), 'POST', '/api/admin/the-leader-within/bootstrap/cohort', { headers: { origin: 'https://evil.example', 'x-csrf-token': 'csrf-ok' }, leaderWithinFacilitatorActor: actor, body: {} });
+  assert.equal(bad.statusCode, 403);
+  assert.equal(bad.body.error, 'trusted_origin_required');
+  const missingCsrf = await invoke(createLeaderWithinRouter(facilitatorPool()), 'POST', '/api/admin/the-leader-within/bootstrap/cohort', { headers: { origin: 'https://garveybackend.onrender.com' }, leaderWithinFacilitatorActor: actor, body: {} });
+  assert.equal(missingCsrf.statusCode, 403);
+  assert.equal(missingCsrf.body.error, 'csrf_required');
+});
+
+test('bootstrapCohort validates body, normalizes pathway date status capacity, and assigns facilitator account id', async () => {
+  const calls = [];
+  const pool = { async query(sql, params) {
+    calls.push({ sql, params });
+    if (sql.includes('FROM tenants')) return { rows: [{ id: 1, slug: 'tenant-a' }] };
+    if (sql.includes('FROM leader_within_facilitator_accounts')) return { rows: [{ id: 501, tenant_id: 1, status: 'active', role: 'super_admin', linked_garvey_user_id: 9 }] };
+    if (sql.includes('FROM leader_within_programs')) return { rows: [{ id: 12, slug: 'the-leader-within-12-week' }] };
+    if (sql.includes('SELECT * FROM leader_within_cohorts')) return { rows: [] };
+    if (sql.includes('INSERT INTO leader_within_cohorts')) return { rows: [{ id: 44, tenant_id: 1, name: params[1], program_id: params[2], location_id: params[3], organization_id: params[4], start_date: params[5], capacity: params[6] }] };
+    return { rows: [] };
+  }};
+  const out = await svc.bootstrapCohort(pool, { leaderWithinFacilitatorActor: { ...facilitatorActor, user_id: 9, linked_garvey_user_id: 9, role: 'super_admin', is_admin: true, is_superadmin: true }, body: { cohort_name: 'Leader Within Pilot Cohort', program_pathway: '12-Week Program', organization: 'Leader Within', location: 'Dallas Pilot', start_date: '2026-07-10', current_week: '1', current_session: 'A', status: 'Active', capacity: '10' } });
+  assert.equal(out.ok, true);
+  assert.equal(out.cohort_id, 44);
+  assert.equal(out.redirect_to, '/the-leader-within/facilitator/dashboard');
+  const cohortInsert = calls.find(c => c.sql.includes('INSERT INTO leader_within_cohorts'));
+  assert.deepEqual(cohortInsert.params.slice(1, 10), ['Leader Within Pilot Cohort', 12, 'Dallas Pilot', 'Leader Within', '2026-07-10', 10, 1, 'A', 'active']);
+  const assignment = calls.find(c => c.sql.includes('INSERT INTO leader_within_cohort_facilitators'));
+  assert.ok(assignment);
+  assert.equal(assignment.params[1], 501);
+  assert.equal(out.assignment.assignment_role, 'primary');
+});
+
+test('bootstrapCohort rejects localized dates invalid capacity missing name and is idempotent by cohort name', async () => {
+  const actor = { leaderWithinFacilitatorActor: { ...facilitatorActor, user_id: 9, linked_garvey_user_id: 9, role: 'super_admin', is_admin: true, is_superadmin: true }, body: {} };
+  await assert.rejects(() => svc.bootstrapCohort({ query: async () => ({ rows: [] }) }, { ...actor, body: { cohort_name: 'X', location: 'Dallas', start_date: 'Jul 10, 2026' } }), /valid start date/);
+  await assert.rejects(() => svc.bootstrapCohort({ query: async () => ({ rows: [] }) }, { ...actor, body: { cohort_name: 'X', location: 'Dallas', capacity: '0' } }), /Capacity must be a positive number/);
+  await assert.rejects(() => svc.bootstrapCohort({ query: async () => ({ rows: [] }) }, { ...actor, body: { location: 'Dallas' } }), /cohort name/);
+  const calls = [];
+  const pool = { async query(sql, params) {
+    calls.push(sql);
+    if (sql.includes('FROM tenants')) return { rows: [{ id: 1, slug: 'tenant-a' }] };
+    if (sql.includes('FROM leader_within_facilitator_accounts')) return { rows: [{ id: 501, tenant_id: 1, status: 'active', role: 'super_admin' }] };
+    if (sql.includes('FROM leader_within_programs')) return { rows: [{ id: 12, slug: 'the-leader-within-12-week' }] };
+    if (sql.includes('SELECT * FROM leader_within_cohorts')) return { rows: [{ id: 55, tenant_id: 1, name: params[1] }] };
+    return { rows: [] };
+  }};
+  const out = await svc.bootstrapCohort(pool, { ...actor, body: { cohort_name: 'Leader Within Pilot Cohort', location: 'Dallas Pilot' } });
+  assert.equal(out.idempotent, true);
+  assert.equal(out.cohort_id, 55);
+  assert.equal(calls.some(sql => sql.includes('INSERT INTO leader_within_cohorts')), false);
+});
