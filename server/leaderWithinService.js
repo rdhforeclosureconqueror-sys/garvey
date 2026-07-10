@@ -16,6 +16,9 @@ const ALLOWED_SESSION_ACTIONS = new Set(["open", "reopen", "make_up", "complete"
 const YOUTH_COOKIE = "tlw_youth_session";
 const FACILITATOR_COOKIE = "tlw_facilitator_session";
 const FACILITATOR_SESSION_TTL_MS = 1000 * 60 * 60 * 8;
+const TLW_COOKIE_VERSION = "v2-root-path";
+const FACILITATOR_COOKIE_CANONICAL_PATH = "/";
+const FACILITATOR_COOKIE_LEGACY_PATHS = ["/", "/the-leader-within", "/the-leader-within/", "/the-leader-within/facilitator", "/the-leader-within/facilitator/", "/admin", "/admin/the-leader-within", "/api/admin/the-leader-within"];
 const YOUTH_SESSION_TTL_MS = 1000 * 60 * 60 * 8;
 const CONSENT_STATES = new Set(["pending", "approved", "declined", "withdrawn", "not_required_by_policy"]);
 const LEADER_WITHIN_ROLES = new Set(["super_admin","program_admin","program_director","lead_facilitator","facilitator","observer"]);
@@ -113,12 +116,16 @@ function verifyPasswordHash(secret, hash){ const [scheme,salt,stored]=String(has
 function hashToken(v){ return crypto.createHash("sha256").update(String(v||"")).digest("hex"); }
 
 function parseCookieHeader(rawCookie = "") {
-  return String(rawCookie || "").split(";").map((part) => part.trim()).filter(Boolean).reduce((acc, part) => {
-    const idx = part.indexOf("=");
-    if (idx > -1) acc[decodeURIComponent(part.slice(0, idx).trim())] = decodeURIComponent(part.slice(idx + 1));
-    return acc;
-  }, {});
+  return parseCookiePairs(rawCookie).reduce((acc, part) => { acc[part.name] = part.value; return acc; }, {});
 }
+function parseCookiePairs(rawCookie = "") {
+  return String(rawCookie || "").split(";").map((part) => part.trim()).filter(Boolean).map((part) => {
+    const idx = part.indexOf("=");
+    if (idx < 0) return null;
+    try { return { name: decodeURIComponent(part.slice(0, idx).trim()), value: decodeURIComponent(part.slice(idx + 1)) }; } catch { return null; }
+  }).filter(Boolean);
+}
+function cookieValues(rawCookie, name) { return parseCookiePairs(rawCookie).filter((p) => p.name === name).map((p, index) => ({ value: String(p.value || "").trim(), index })).filter((p) => p.value); }
 function csrfTokenForSessionHash(tokenHash) { return crypto.createHmac("sha256", String(process.env.SESSION_SECRET || process.env.LEADER_WITHIN_SESSION_SECRET || "leader-within-dev-secret")).update(String(tokenHash)).digest("hex"); }
 function csrfTokenForRequest(req) { return req.leaderWithinYouthActor?.csrf_token || null; }
 async function resolveYouthSession(pool, req) {
@@ -148,15 +155,20 @@ async function firstLogin(pool, req){ const leaderId=normalizeLeaderId(req.body?
 function normalizeIdentity(value){ return norm(value); }
 function buildCookie(req, name, token, maxAgeSeconds, path="/"){ const forwardedProto=String(req.headers["x-forwarded-proto"]||"").trim().toLowerCase(); const isSecure=req.secure||forwardedProto==="https"||process.env.NODE_ENV==="production"; const sameSite=isSecure?"None":"Lax"; return `${name}=${encodeURIComponent(token)}; Path=${path}; HttpOnly; SameSite=${sameSite}${isSecure?"; Secure":""}; Max-Age=${Math.max(0,Number(maxAgeSeconds)||0)}`; }
 function buildTrustedSessionCookie(req, token, maxAgeSeconds){ return buildCookie(req,"garvey_owner_session",token,maxAgeSeconds,"/"); }
-function buildFacilitatorSessionCookie(req, token, maxAgeSeconds){ return buildCookie(req,FACILITATOR_COOKIE,token,maxAgeSeconds,"/"); }
+function getLeaderWithinFacilitatorCookieOptions(req, maxAgeSeconds=Math.floor(FACILITATOR_SESSION_TTL_MS/1000), path=FACILITATOR_COOKIE_CANONICAL_PATH){ const forwardedProto=String(req.headers["x-forwarded-proto"]||"").trim().toLowerCase(); const secure=!!(req.secure||forwardedProto==="https"||process.env.NODE_ENV==="production"); return { path, httpOnly:true, secure, sameSite:secure?"None":"Lax", maxAge:Math.max(0,Number(maxAgeSeconds)||0) }; }
+function serializeFacilitatorCookie(req, token, maxAgeSeconds, path=FACILITATOR_COOKIE_CANONICAL_PATH){ return buildCookie(req,FACILITATOR_COOKIE,token,maxAgeSeconds,path); }
+function buildFacilitatorSessionCookie(req, token, maxAgeSeconds){ return serializeFacilitatorCookie(req,token,maxAgeSeconds,FACILITATOR_COOKIE_CANONICAL_PATH); }
 function clearFacilitatorSessionCookie(req){ return buildFacilitatorSessionCookie(req,"",0); }
+function clearAllLeaderWithinFacilitatorCookies(req){ return FACILITATOR_COOKIE_LEGACY_PATHS.map((path)=>serializeFacilitatorCookie(req,"",0,path)); }
+function setLeaderWithinFacilitatorCookie(req, token){ return [...clearAllLeaderWithinFacilitatorCookies(req), buildFacilitatorSessionCookie(req,token,Math.floor(FACILITATOR_SESSION_TTL_MS/1000))]; }
 function normalizeFacilitatorIdentity(value){ return String(value||"").trim().toLowerCase(); }
-async function resolveFacilitatorSession(pool, req){
-  const token=String(parseCookieHeader(req.headers?.cookie||"")[FACILITATOR_COOKIE]||"").trim();
-  if(!token) return null;
+async function lookupFacilitatorSessionByToken(pool, token){
   const tokenHash=hashToken(token);
   const row=(await pool.query(`SELECT s.id session_id,s.facilitator_account_id,s.tenant_id,s.credential_version session_credential_version,s.expires_at,s.revoked_at,a.email,a.facilitator_id,a.first_name,a.last_name,a.preferred_name,a.role,a.status account_status,a.credential_version current_credential_version,a.linked_garvey_user_id,t.slug tenant_slug FROM leader_within_facilitator_sessions s JOIN leader_within_facilitator_accounts a ON a.id=s.facilitator_account_id JOIN tenants t ON t.id=s.tenant_id WHERE s.token_hash=$1 LIMIT 1`,[tokenHash])).rows[0];
   if(!row || row.revoked_at || new Date(row.expires_at)<=new Date() || row.account_status!=="active" || Number(row.session_credential_version)!==Number(row.current_credential_version)) return null;
+  return { row, tokenHash };
+}
+async function actorFromFacilitatorSessionRow(pool, row, tokenHash, sourceIndex=0){
   await pool.query(`UPDATE leader_within_facilitator_sessions SET last_seen_at=NOW(), updated_at=NOW() WHERE id=$1`,[row.session_id]).catch(()=>{});
   let canonicalEmail = norm(row.email);
   let garveyAdmin = false;
@@ -170,7 +182,19 @@ async function resolveFacilitatorSession(pool, req){
   }
   const roleAdmin=["super_admin","program_admin","administrator","program_director"].includes(row.role);
   const displayName=row.preferred_name||[row.first_name,row.last_name].filter(Boolean).join(" ")||canonicalEmail||row.facilitator_id;
-  return { authenticated:true, actor_type:"leader_within_facilitator", facilitator_account_id:Number(row.facilitator_account_id), linked_garvey_user_id:row.linked_garvey_user_id ? Number(row.linked_garvey_user_id) : null, user_id:Number(row.linked_garvey_user_id||0) || Number(row.facilitator_account_id), email:canonicalEmail, canonical_email:canonicalEmail, facilitator_id:row.facilitator_id, display_name:displayName, account_status:row.account_status, facilitator_role:row.role, tenant_id:Number(row.tenant_id), active_tenant_id:Number(row.tenant_id), active_tenant_slug:norm(row.tenant_slug), tenant_memberships:[{tenant_id:Number(row.tenant_id),tenant_slug:norm(row.tenant_slug),role:row.role}], role:row.role, is_admin:roleAdmin || garveyAdmin, is_superadmin:row.role==="super_admin" || garveyAdmin, canonical_garvey_admin:garveyAdmin, csrf_token:csrfTokenForSessionHash(tokenHash) };
+  return { authenticated:true, actor_type:"leader_within_facilitator", facilitator_account_id:Number(row.facilitator_account_id), linked_garvey_user_id:row.linked_garvey_user_id ? Number(row.linked_garvey_user_id) : null, user_id:Number(row.linked_garvey_user_id||0) || Number(row.facilitator_account_id), email:canonicalEmail, canonical_email:canonicalEmail, facilitator_id:row.facilitator_id, display_name:displayName, account_status:row.account_status, facilitator_role:row.role, tenant_id:Number(row.tenant_id), active_tenant_id:Number(row.tenant_id), active_tenant_slug:norm(row.tenant_slug), tenant_memberships:[{tenant_id:Number(row.tenant_id),tenant_slug:norm(row.tenant_slug),role:row.role}], role:row.role, is_admin:roleAdmin || garveyAdmin, is_superadmin:row.role==="super_admin" || garveyAdmin, canonical_garvey_admin:garveyAdmin, csrf_token:csrfTokenForSessionHash(tokenHash), session_cookie_source_index:sourceIndex };
+}
+async function resolveFacilitatorSession(pool, req){
+  const candidates=cookieValues(req.headers?.cookie||"", FACILITATOR_COOKIE);
+  req.tlwCookieDiagnostics={ raw_cookie_present: !!req.headers?.cookie, tlw_cookie_count: candidates.length, parsed_candidate_count: candidates.length, parsed_cookie_present: candidates.length>0, valid_session_found:false, matched_session_token_source_index:null };
+  for(const candidate of candidates){
+    const match=await lookupFacilitatorSessionByToken(pool, candidate.value);
+    if(!match) continue;
+    req.tlwCookieDiagnostics.valid_session_found=true;
+    req.tlwCookieDiagnostics.matched_session_token_source_index=candidate.index;
+    return actorFromFacilitatorSessionRow(pool, match.row, match.tokenHash, candidate.index);
+  }
+  return null;
 }
 async function reconcileLinkedGarveyAdminFacilitator(pool, garveyAccount){
   const actor=resolveGarveyAuthActor(garveyAccount);
@@ -193,7 +217,7 @@ async function issueFacilitatorSession(pool, req, account, eventPrefix="facilita
   const token=crypto.randomBytes(32).toString("hex");
   await pool.query(`INSERT INTO leader_within_facilitator_sessions (facilitator_account_id,tenant_id,token_hash,credential_version,expires_at,user_agent_hash,ip_hash) VALUES ($1,$2,$3,$4,NOW()+($5 || ' milliseconds')::interval,$6,$7)`,[account.id,account.tenant_id,hashToken(token),account.credential_version,String(FACILITATOR_SESSION_TTL_MS),hashToken(req.headers["user-agent"]||""),hashToken(req.ip||"")]);
   await audit(pool,"facilitator_session_created",{tenant_id:account.tenant_id,actor_user_id:account.linked_garvey_user_id,metadata:{facilitator_account_id:account.id,source:eventPrefix}});
-  return {ok:true,set_cookie:buildFacilitatorSessionCookie(req,token,Math.floor(FACILITATOR_SESSION_TTL_MS/1000)),role:account.role,must_change_password:!!account.must_change_password,next_route:facilitatorDashboardRoute(account)};
+  return {ok:true,set_cookie:setLeaderWithinFacilitatorCookie(req,token),role:account.role,must_change_password:!!account.must_change_password,next_route:facilitatorDashboardRoute(account)};
 }
 async function findFacilitatorAccount(pool, identity){
   return (await pool.query(`SELECT a.*,t.slug tenant_slug FROM leader_within_facilitator_accounts a JOIN tenants t ON t.id=a.tenant_id WHERE lower(a.normalized_email)=$1 OR lower(a.facilitator_id)=$1 ORDER BY a.id DESC LIMIT 1`,[identity])).rows[0];
@@ -246,7 +270,7 @@ async function signInFacilitator(pool, req){
   const linked=await bootstrapGarveyAdminFacilitator(pool,garveyAccount);
   return issueFacilitatorSession(pool,req,linked,"garvey_admin_fallback");
 }
-async function revokeFacilitatorSession(pool, req){ const token=String(parseCookieHeader(req.headers?.cookie||"")[FACILITATOR_COOKIE]||"").trim(); if(!token) return false; await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(), updated_at=NOW() WHERE token_hash=$1 AND revoked_at IS NULL`,[hashToken(token)]); return true; }
+async function revokeFacilitatorSession(pool, req){ const tokens=cookieValues(req.headers?.cookie||"", FACILITATOR_COOKIE); if(!tokens.length) return false; for(const token of tokens) await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(), updated_at=NOW() WHERE token_hash=$1 AND revoked_at IS NULL`,[hashToken(token.value)]); return true; }
 async function createFacilitatorAccount(pool, req){
   const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const b=req.body||{}; const tenantSlug=norm(b.tenant_slug||actor.active_tenant_slug); const tenant=(await pool.query(`SELECT id,slug FROM tenants WHERE lower(slug)=lower($1) LIMIT 1`,[tenantSlug])).rows[0]; if(!tenant) fail(404,"Tenant not found."); if(actor.active_tenant_slug&&!actor.is_superadmin&&tenantSlug!==actor.active_tenant_slug) fail(403,"Cross-tenant facilitator creation is not allowed."); const email=normalizeFacilitatorIdentity(b.email); if(!email) fail(400,"email is required."); const approvedRole=norm(b.role||"facilitator"); if(approvedRole==="super_admin"||!LEADER_WITHIN_ROLES.has(approvedRole)) fail(400,"Invalid facilitator role."); const temp=generateOneTimeSetupCredential(); const fid=`TLW-F-${crypto.randomBytes(5).toString("hex").toUpperCase()}`; const acct=(await pool.query(`INSERT INTO leader_within_facilitator_accounts (tenant_id,organization_id,location_id,linked_garvey_user_id,facilitator_id,email,normalized_email,password_hash,setup_token_hash,setup_token_expires_at,first_name,last_name,preferred_name,status,role,must_change_password,created_by_user_id,approved_by_facilitator_account_id,approved_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,NOW()+INTERVAL '14 days',$10,$11,$12,'setup_pending',$13,TRUE,$14,$14,NOW()) RETURNING id,facilitator_id,email,first_name,last_name,preferred_name,status,role,tenant_id,location_id`,[tenant.id,b.organization_id||null,b.location_id||null,b.linked_garvey_user_id||null,fid,email,email,createPasswordHash(crypto.randomBytes(18).toString("hex")),hashToken(temp),b.first_name||null,b.last_name||null,b.preferred_name||null,approvedRole,actor.facilitator_account_id||actor.user_id])).rows[0]; if(b.cohort_id) await pool.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_account_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,$4,'active',$5) ON CONFLICT (cohort_id, facilitator_account_id) DO UPDATE SET status='active', updated_at=NOW()`,[Number(b.cohort_id),acct.id,tenant.id,norm(b.assignment_role||"primary"),actor.user_id]); await audit(pool,"facilitator_account_created",{tenant_id:tenant.id,actor_user_id:actor.user_id,metadata:{facilitator_account_id:acct.id, linked_garvey_user_id:b.linked_garvey_user_id||null}}); return {ok:true,facilitator:acct,one_time_setup_credential:temp,start_here:"/the-leader-within/facilitator/setup"};
 }
@@ -330,6 +354,8 @@ async function leaderWithinAdminDiagnostic(pool, req){
   const platformAdmin = canAdministerLeaderWithin(actor);
   return {
     facilitator_cookie_present: !!cookies[FACILITATOR_COOKIE],
+    facilitator_cookie_occurrence_count: cookieValues(req.headers?.cookie || "", FACILITATOR_COOKIE).length,
+    facilitator_cookie_parsed_candidate_count: req.tlwCookieDiagnostics?.parsed_candidate_count || 0,
     garvey_cookie_present: !!cookies.garvey_owner_session,
     facilitator_session_resolved: facilitatorActor?.authenticated === true,
     facilitator_account_present: !!(facilitatorActor?.facilitator_account_id || linked?.id),
@@ -374,4 +400,4 @@ async function reviewFacilitatorRequest(pool, req){
 async function completeFacilitatorSetup(pool, req){ const email=normalizeFacilitatorIdentity(req.body.email||req.body.identity), setup=String(req.body.setup_credential||""), password=String(req.body.password||""); if(!email||!setup||password.length<12) fail(400,"Email, setup credential, and a private password of at least 12 characters are required."); const acct=(await pool.query(`SELECT * FROM leader_within_facilitator_accounts WHERE normalized_email=$1 AND status IN ('invited','setup_pending') LIMIT 1`,[email])).rows[0]; if(!acct||!acct.setup_token_hash||acct.setup_token_expires_at&&new Date(acct.setup_token_expires_at)<=new Date()||hashToken(setup)!==acct.setup_token_hash) fail(401,"We could not complete setup with those details."); await pool.query(`UPDATE leader_within_facilitator_accounts SET password_hash=$1,setup_token_hash=NULL,setup_token_expires_at=NULL,status='active',must_change_password=FALSE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[createPasswordHash(password),acct.id]); await audit(pool,"facilitator_setup_completed",{tenant_id:acct.tenant_id,metadata:{facilitator_account_id:acct.id}}); return {ok:true,next_route:"/the-leader-within/facilitator/sign-in"}; }
 async function resetFacilitatorCredential(pool, req){ const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const id=Number(req.params.facilitatorId); const setup=generateOneTimeSetupCredential(); await pool.query(`UPDATE leader_within_facilitator_accounts SET status='setup_pending',setup_token_hash=$1,setup_token_expires_at=NOW()+INTERVAL '14 days',must_change_password=TRUE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[hashToken(setup),id]); await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(),updated_at=NOW() WHERE facilitator_account_id=$1 AND revoked_at IS NULL`,[id]); await audit(pool,"facilitator_credential_reset",{actor_user_id:actor.user_id,metadata:{facilitator_account_id:id}}); return {ok:true,one_time_setup_credential:setup,start_here:"/the-leader-within/facilitator/setup"}; }
 
-module.exports = { canAdministerLeaderWithin, requireLeaderWithinPlatformAdmin, canonicalLeaderWithinActor, resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, clearFacilitatorSessionCookie, buildFacilitatorSessionCookie, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, bootstrapGarveyAdminFacilitator, reconcileLinkedGarveyAdminFacilitator, issueFacilitatorSession, youthSessionCookieOptions };
+module.exports = { TLW_COOKIE_VERSION, FACILITATOR_COOKIE_LEGACY_PATHS, getLeaderWithinFacilitatorCookieOptions, setLeaderWithinFacilitatorCookie, clearAllLeaderWithinFacilitatorCookies, parseCookiePairs, cookieValues, canAdministerLeaderWithin, requireLeaderWithinPlatformAdmin, canonicalLeaderWithinActor, resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, clearFacilitatorSessionCookie, buildFacilitatorSessionCookie, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, bootstrapGarveyAdminFacilitator, reconcileLinkedGarveyAdminFacilitator, issueFacilitatorSession, youthSessionCookieOptions };

@@ -353,3 +353,75 @@ test('route source resolves facilitator session before csrf and bootstrap author
   assert.ok(routes.indexOf('r.use(requireCsrf)') < routes.indexOf("r.get('/admin/the-leader-within/bootstrap'"));
   assert.ok(routes.indexOf('svc.requireLeaderWithinPlatformAdmin(actor)') < routes.indexOf('bootstrapCohortForm'));
 });
+
+test('facilitator sign-in cleanup expires all legacy paths then sets one canonical root cookie', () => {
+  const cookies = svc.setLeaderWithinFacilitatorCookie({ headers: { 'x-forwarded-proto': 'https' } }, 'new-token');
+  const clearCookies = cookies.filter((c) => c.includes('Max-Age=0'));
+  const setCookies = cookies.filter((c) => c.includes('Max-Age=28800'));
+  assert.equal(clearCookies.length, svc.FACILITATOR_COOKIE_LEGACY_PATHS.length);
+  assert.equal(setCookies.length, 1);
+  for (const path of svc.FACILITATOR_COOKIE_LEGACY_PATHS) {
+    assert.ok(clearCookies.some((c) => c.includes(`Path=${path};`)), `missing clear for ${path}`);
+  }
+  assert.match(setCookies[0], /^tlw_facilitator_session=new-token; Path=\/; HttpOnly; SameSite=None; Secure; Max-Age=28800$/);
+});
+
+test('duplicate same-name facilitator cookies resolve the valid candidate without exposing raw values', async () => {
+  const validHash = require('crypto').createHash('sha256').update('valid-new').digest('hex');
+  const calls = [];
+  const pool = { async query(sql, params) {
+    calls.push({ sql, params });
+    if (sql.includes('FROM leader_within_facilitator_sessions')) {
+      if (params[0] !== validHash) return { rows: [] };
+      return { rows: [{
+        session_id: 700, facilitator_account_id: 501, tenant_id: 1, session_credential_version: 1, expires_at: new Date(Date.now() + 60_000).toISOString(), revoked_at: null,
+        email: 'admin@example.com', facilitator_id: 'TLW-F-ADMIN', first_name: 'Admin', last_name: 'User', preferred_name: 'Admin User', role: 'super_admin', account_status: 'active', current_credential_version: 1, linked_garvey_user_id: null, tenant_slug: 'tenant-a'
+      }] };
+    }
+    if (sql.includes('UPDATE leader_within_facilitator_sessions SET last_seen_at')) return { rows: [] };
+    return { rows: [] };
+  }};
+  const req = { headers: { cookie: 'tlw_facilitator_session=invalid-old; other=1; tlw_facilitator_session=valid-new' } };
+  const actor = await svc.resolveFacilitatorSession(pool, req);
+  assert.equal(actor.authenticated, true);
+  assert.equal(actor.session_cookie_source_index, 1);
+  assert.equal(req.tlwCookieDiagnostics.tlw_cookie_count, 2);
+  assert.equal(req.tlwCookieDiagnostics.valid_session_found, true);
+  assert.equal(JSON.stringify(req.tlwCookieDiagnostics).includes('valid-new'), false);
+  assert.ok(calls.some((c) => c.params?.[0] === validHash));
+});
+
+test('sign-out routes clear every historical TLW facilitator cookie path', async () => {
+  const csrf = 'csrf-token';
+  const headers = { cookie: `tlw_facilitator_csrf=${csrf}; tlw_facilitator_session=test-token`, 'x-csrf-token': csrf, 'x-leader-within-csrf-test-token': csrf, origin: 'https://garveyfrontend.onrender.com', host: 'garveyfrontend.onrender.com', 'x-forwarded-proto': 'https' };
+  const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'POST', '/api/the-leader-within/facilitator/sign-out', { headers });
+  assert.equal(res.statusCode, 200);
+  const setCookie = res.headers['set-cookie'];
+  assert.equal(setCookie.length, svc.FACILITATOR_COOKIE_LEGACY_PATHS.length);
+  for (const path of svc.FACILITATOR_COOKIE_LEGACY_PATHS) assert.ok(setCookie.some((c) => c.includes(`Path=${path};`) && c.includes('Max-Age=0')));
+});
+
+test('deployment version marker returns safe commit and TLW cookie schema data', async () => {
+  const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/api/deployment-version');
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.body.tlw_cookie_version, 'v2-root-path');
+  assert.ok('commit' in res.body);
+  assert.ok('build_time' in res.body);
+  assert.equal(res.headers['x-tlw-cookie-version'], 'v2-root-path');
+});
+
+test('bootstrap route emits safe cookie diagnostic headers for duplicate cookies', async () => {
+  const original = facilitatorActor.role;
+  facilitatorActor.role = 'super_admin';
+  try {
+    const res = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/admin/the-leader-within/bootstrap', { headers: { cookie: 'tlw_facilitator_session=bad; tlw_facilitator_session=test-token' } });
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.headers['x-tlw-handler-version'], 'bootstrap-v3-cookie-diagnostics');
+    assert.equal(res.headers['x-tlw-cookie-count'], '2');
+    assert.equal(res.headers['x-tlw-session-resolved'], 'true');
+    assert.equal(res.headers['x-tlw-admin-authorized'], 'true');
+    assert.equal(JSON.stringify(res.headers).includes('test-token'), false);
+  } finally {
+    facilitatorActor.role = original;
+  }
+});
