@@ -30,7 +30,7 @@ const actor={authActor:{userId:9,email:'fac@example.com',role:'facilitator',tena
 
 test('facilitator creates participant with Leader ID, hashed one-time temporary PIN, enrollment, session, and safe audit', async()=>{
  const pool=makePool(); const out=await svc.addParticipant(pool,{...actor,params:{cohortId:10},body:{first_name:'Ari',last_name:'Stone',preferred_name:'Ari',consent_status:'approved',start_date:'2026-07-10'}});
- assert.match(out.credential_setup_card.leader_id,/^TLW-[2-9A-HJ-NP-Z]{5}$/);
+ assert.match(out.credential_setup_card.leader_id,/^LW-[2-9A-HJ-NP-Z]{6}$/);
  assert.match(out.credential_setup_card.temporary_pin,/^\d{6}$/);
  assert.notEqual(pool.state.credentials[0].secret_hash,out.credential_setup_card.temporary_pin);
  assert.match(pool.state.credentials[0].secret_hash,/^scrypt\$/);
