@@ -193,3 +193,29 @@ test('Garvey admin bootstrap uses linked facilitator account id and blocks brows
   assert.ok(calls.some(c => /facilitator_account_id/.test(c.sql) && /leader_within_cohort_facilitators/.test(c.sql)));
   await assert.rejects(() => svc.bootstrapCohort(pool, { leaderWithinFacilitatorActor: { ...actor, is_superadmin: false }, body: { tenant_slug: 'other-tenant', cohort_name: 'Bad', location_id: 'Bad' } }), /Cross-tenant cohort creation is not allowed/);
 });
+
+test('facilitator dashboard exposes explicit Leader Within and complete sign-out actions', async () => {
+  const original = facilitatorActor.role;
+  facilitatorActor.role = 'super_admin';
+  try {
+    const res = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/the-leader-within/facilitator/dashboard', facilitatorCookie);
+    assert.equal(res.statusCode, 200);
+    assert.match(res.body, /Sign Out of Leader Within/);
+    assert.match(res.body, /Sign Out Completely/);
+    assert.match(res.body, /\/api\/the-leader-within\/facilitator\/sign-out/);
+    assert.match(res.body, /\/api\/the-leader-within\/facilitator\/sign-out-completely/);
+    assert.doesNotMatch(res.body, />Sign Out</);
+  } finally {
+    facilitatorActor.role = original;
+  }
+});
+
+test('signed-out state preserves Garvey admin session and requires explicit continue', async () => {
+  const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/the-leader-within/facilitator/signed-out', { authActor: { userId: 1, email: 'admin@example.com', role: 'business_owner', tenantSlug: 'tenant-a', tenantId: 1, isAdmin: true } });
+  assert.equal(res.statusCode, 200);
+  assert.match(res.body, /You have signed out of The Leader Within/);
+  assert.match(res.body, /You are still signed into Garvey as an administrator/);
+  assert.match(res.body, /Continue with Garvey Admin/);
+  assert.match(res.body, /\/api\/the-leader-within\/facilitator\/continue-garvey-admin/);
+  assert.doesNotMatch(res.body, /Leader Within Facilitator Dashboard/);
+});
