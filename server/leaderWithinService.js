@@ -148,7 +148,7 @@ async function firstLogin(pool, req){ const leaderId=normalizeLeaderId(req.body?
 function normalizeIdentity(value){ return norm(value); }
 function buildCookie(req, name, token, maxAgeSeconds, path="/"){ const forwardedProto=String(req.headers["x-forwarded-proto"]||"").trim().toLowerCase(); const isSecure=req.secure||forwardedProto==="https"||process.env.NODE_ENV==="production"; const sameSite=isSecure?"None":"Lax"; return `${name}=${encodeURIComponent(token)}; Path=${path}; HttpOnly; SameSite=${sameSite}${isSecure?"; Secure":""}; Max-Age=${Math.max(0,Number(maxAgeSeconds)||0)}`; }
 function buildTrustedSessionCookie(req, token, maxAgeSeconds){ return buildCookie(req,"garvey_owner_session",token,maxAgeSeconds,"/"); }
-function buildFacilitatorSessionCookie(req, token, maxAgeSeconds){ return buildCookie(req,FACILITATOR_COOKIE,token,maxAgeSeconds,"/the-leader-within"); }
+function buildFacilitatorSessionCookie(req, token, maxAgeSeconds){ return buildCookie(req,FACILITATOR_COOKIE,token,maxAgeSeconds,"/"); }
 function clearFacilitatorSessionCookie(req){ return buildFacilitatorSessionCookie(req,"",0); }
 function normalizeFacilitatorIdentity(value){ return String(value||"").trim().toLowerCase(); }
 async function resolveFacilitatorSession(pool, req){
@@ -310,6 +310,7 @@ async function submitFacilitatorAccessRequest(pool, req){
   return {ok:true,message:"Your facilitator-access request has been received. A Leader Within administrator must approve the request before you can sign in."};
 }
 async function leaderWithinAdminDiagnostic(pool, req){
+  const cookies = parseCookieHeader(req.headers?.cookie || "");
   const garveyActor = req.authActor || null;
   const facilitatorActor = req.leaderWithinFacilitatorActor || null;
   const youthActor = req.leaderWithinYouthActor || null;
@@ -319,29 +320,40 @@ async function leaderWithinAdminDiagnostic(pool, req){
   let linked = null;
   let assignedCount = 0;
   if (facilitatorEmail) {
-    const linkedResult = await pool.query(`SELECT id,status FROM leader_within_facilitator_accounts WHERE normalized_email=$1 ORDER BY id DESC LIMIT 1`, [facilitatorEmail]);
+    const linkedResult = await pool.query(`SELECT id,status,role,linked_garvey_user_id FROM leader_within_facilitator_accounts WHERE normalized_email=$1 OR id=$2 ORDER BY id DESC LIMIT 1`, [facilitatorEmail, facilitatorActor?.facilitator_account_id || 0]);
     linked = linkedResult.rows[0] || null;
     if (linked) {
       const assignedResult = await pool.query(`SELECT COUNT(*)::int AS count FROM leader_within_cohort_facilitators WHERE facilitator_account_id=$1 AND status='active' AND removed_at IS NULL`, [linked.id]);
       assignedCount = Number(assignedResult.rows[0]?.count || 0);
     }
   }
+  const platformAdmin = canAdministerLeaderWithin(actor);
   return {
+    facilitator_cookie_present: !!cookies[FACILITATOR_COOKIE],
+    garvey_cookie_present: !!cookies.garvey_owner_session,
+    facilitator_session_resolved: facilitatorActor?.authenticated === true,
+    facilitator_account_present: !!(facilitatorActor?.facilitator_account_id || linked?.id),
+    facilitator_status: facilitatorActor?.account_status || linked?.status || null,
+    facilitator_role: facilitatorActor?.facilitator_role || facilitatorActor?.role || linked?.role || null,
+    linked_garvey_user_present: !!(facilitatorActor?.linked_garvey_user_id || linked?.linked_garvey_user_id),
+    canonical_garvey_admin: facilitatorActor?.canonical_garvey_admin === true || garveyActor?.isAdmin === true,
+    platform_admin_authorized: platformAdmin,
+    cohort_count: assignedCount,
+    bootstrap_handler_reached: req.path === "/api/admin/the-leader-within/diagnostic" || req.path === "/api/admin/the-leader-within/bootstrap/diagnostic",
+    bootstrap_redirect_reason: platformAdmin ? null : (!cookies[FACILITATOR_COOKIE] ? "facilitator_cookie_missing" : !facilitatorActor?.authenticated ? "facilitator_actor_missing" : "platform_admin_false"),
     authenticated: !!actor?.authenticated,
     garvey_admin_recognized: garveyActor?.isAdmin === true,
     trusted_user_id_present: !!(actor?.user_id || garveyActor?.userId),
     tenant_resolved: !!(actor?.active_tenant_id || actor?.active_tenant_slug || garveyActor?.tenantId || garveyActor?.tenantSlug),
-    leader_within_admin_access: canAdministerLeaderWithin(actor),
-    leader_within_platform_admin: canAdministerLeaderWithin(actor),
+    leader_within_admin_access: platformAdmin,
+    leader_within_platform_admin: platformAdmin,
     dedicated_facilitator_account_linked: !!linked,
     dedicated_facilitator_account_status: linked?.status || null,
-    dedicated_facilitator_account_email_has_domain: linked?.email ? String(linked.email).includes("@") : null,
+    dedicated_facilitator_account_email_has_domain: null,
     canonical_email_source: garveyActor?.email ? "garvey_auth_actor" : (facilitatorActor?.canonical_email ? "linked_garvey_user" : null),
     assigned_cohorts_count: assignedCount,
-    cohort_count: assignedCount,
-    bootstrap_authorized: canAdministerLeaderWithin(actor),
-    handler_version: "tlw-first-cohort-bootstrap-v3",
-    facilitator_session_active: facilitatorActor?.authenticated === true,
+    bootstrap_authorized: platformAdmin,
+    handler_version: "tlw-first-cohort-bootstrap-v4",
     youth_session_active: youthActor?.authenticated === true
   };
 }
