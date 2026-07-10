@@ -20,6 +20,7 @@ async function applyLeaderWithinMigrations(pool) {
       program_id INTEGER REFERENCES leader_within_programs(id),
       current_week INTEGER NOT NULL DEFAULT 1,
       current_session TEXT NOT NULL DEFAULT 'A',
+      status TEXT NOT NULL DEFAULT 'active',
       assigned_facilitator_email TEXT,
       assigned_facilitator_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
       organization_id TEXT,
@@ -294,6 +295,11 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS organization_id TEXT;
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS start_date DATE;
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS capacity INTEGER;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'active';
+    DO $$ BEGIN
+      ALTER TABLE leader_within_cohorts ADD CONSTRAINT leader_within_cohorts_status_check CHECK (status IN ('active','ready','archived','completed')) NOT VALID;
+    EXCEPTION WHEN duplicate_object THEN NULL;
+    END $$;
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_session_progress ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;

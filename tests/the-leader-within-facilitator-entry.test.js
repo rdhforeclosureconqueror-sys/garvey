@@ -542,3 +542,22 @@ test('bootstrap schema diagnostic is admin-only and returns safe readiness boole
   assert.equal(out.bootstrap_post_handler_version, 'cohort-bootstrap-post-v4');
   assert.doesNotMatch(JSON.stringify(out), /password|cookie|token|sql/i);
 });
+
+test('leader within cohort migration defines status column used by bootstrap insert', () => {
+  const db = fs.readFileSync(path.join(__dirname, '..', 'server', 'leaderWithinDb.js'), 'utf8');
+  const svcSrc = fs.readFileSync(path.join(__dirname, '..', 'server', 'leaderWithinService.js'), 'utf8');
+  assert.match(db, /CREATE TABLE IF NOT EXISTS leader_within_cohorts[\s\S]*status TEXT NOT NULL DEFAULT 'active'/);
+  assert.match(db, /ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'active'/);
+  assert.match(db, /leader_within_cohorts_status_check CHECK \(status IN \('active','ready','archived','completed'\)\) NOT VALID/);
+  assert.match(svcSrc, /INSERT INTO leader_within_cohorts \(tenant_id,name,program_id,location_id,organization_id,start_date,capacity,current_week,current_session,status,assigned_facilitator_user_id,assigned_facilitator_email,created_by_user_id\)/);
+});
+
+test('bootstrap SQLSTATE mapping returns safe cohort insert codes without raw SQL', () => {
+  assert.equal(svc.classifyBootstrapFailure('cohort_insert_started', { code: '42703', column: 'status' }).code, 'schema_migration_required');
+  assert.equal(svc.classifyBootstrapFailure('cohort_insert_started', { code: '23503', constraint: 'leader_within_cohorts_program_id_fkey' }).code, 'invalid_cohort_reference');
+  assert.equal(svc.classifyBootstrapFailure('cohort_insert_started', { code: '23514', constraint: 'leader_within_cohorts_status_check' }).code, 'invalid_cohort_value');
+  assert.equal(svc.classifyBootstrapFailure('cohort_insert_started', { code: '23505', constraint: 'idx_lw_cohorts_unique' }).code, 'duplicate_cohort');
+  const mapped = svc.classifyBootstrapFailure('cohort_insert_started', { code: '42703', message: 'column "status" does not exist', query: 'INSERT INTO secret' });
+  assert.equal(mapped.message, 'The cohort could not be saved.');
+  assert.doesNotMatch(JSON.stringify(mapped), /INSERT INTO secret|does not exist/);
+});
