@@ -155,6 +155,7 @@ async function applyLeaderWithinMigrations(pool) {
       status TEXT NOT NULL DEFAULT 'active',
       assigned_at TIMESTAMP DEFAULT NOW(),
       assigned_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      assigned_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
       removed_at TIMESTAMP,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW(),
@@ -310,8 +311,24 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS suspended_at TIMESTAMP;
     ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS disabled_at TIMESTAMP;
     ALTER TABLE leader_within_cohort_facilitators ADD COLUMN IF NOT EXISTS facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE CASCADE;
+    ALTER TABLE leader_within_cohort_facilitators ADD COLUMN IF NOT EXISTS assigned_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_cohort_facilitators ALTER COLUMN facilitator_user_id DROP NOT NULL;
     ALTER TABLE leader_within_cohort_facilitators ALTER COLUMN assigned_by_user_id DROP NOT NULL;
+    DO $$
+    BEGIN
+      ALTER TABLE leader_within_cohort_facilitators ADD CONSTRAINT leader_within_cohort_facilitators_account_unique UNIQUE (cohort_id, facilitator_account_id);
+    EXCEPTION WHEN duplicate_object THEN NULL;
+    END $$;
+    DO $$
+    BEGIN
+      ALTER TABLE leader_within_cohort_facilitators ADD CONSTRAINT leader_within_cohort_facilitators_assignment_role_check CHECK (assignment_role IN ('primary','facilitator','lead_facilitator','admin','program_admin','observer')) NOT VALID;
+    EXCEPTION WHEN duplicate_object THEN NULL;
+    END $$;
+    DO $$
+    BEGIN
+      ALTER TABLE leader_within_cohort_facilitators ADD CONSTRAINT leader_within_cohort_facilitators_status_check CHECK (status IN ('active','inactive','removed')) NOT VALID;
+    EXCEPTION WHEN duplicate_object THEN NULL;
+    END $$;
     CREATE UNIQUE INDEX IF NOT EXISTS idx_lw_facilitator_requests_pending_email ON leader_within_facilitator_requests (normalized_email) WHERE status IN ('pending','more_information_requested');
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_requests_status ON leader_within_facilitator_requests (status, submitted_at);
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_email ON leader_within_facilitator_accounts (tenant_id, normalized_email);
