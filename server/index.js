@@ -118,23 +118,7 @@ app.set("trust proxy", 1);
 const PORT = Number(process.env.PORT || 3000);
 const TAP_CRM_MODE = getTapCrmMode();
 const TAP_CRM_ROUTES_MOUNTED = TAP_CRM_MODE !== "off";
-const OWNER_SESSION_COOKIE = "garvey_owner_session";
-const OWNER_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
-
-function parseAdminEmails(raw) {
-  const base = String(raw || "")
-    .split(",")
-    .map((x) => String(x || "").trim().toLowerCase())
-    .filter(Boolean);
-  if (!base.includes("rdhforeclosureconqueror@gmail.com")) {
-    base.push("rdhforeclosureconqueror@gmail.com");
-  }
-  return new Set(base);
-}
-
-const ADMIN_EMAIL_ALLOWLIST = parseAdminEmails(
-  process.env.ADMIN_EMAILS || "rdhforeclosureconqueror@gmail.com"
-);
+const { OWNER_SESSION_COOKIE, OWNER_SESSION_TTL_MS, isAdminEmail, createPasswordHash, verifyPasswordHash, sha256, createSessionToken, buildOwnerSessionCookie, authenticateOwnerCredentials, normalizeEmail } = require("./authService");
 const allowedOrigins = new Set(
   [
     "https://garveyfrontend.onrender.com",
@@ -142,11 +126,6 @@ const allowedOrigins = new Set(
   ].filter(Boolean)
 );
 
-function isAdminEmail(email) {
-  const normalized = String(email || "").trim().toLowerCase();
-  if (!normalized) return false;
-  return ADMIN_EMAIL_ALLOWLIST.has(normalized);
-}
 
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: false, limit: "64kb" }));
@@ -514,10 +493,6 @@ function buildDailyLimitReachedPayload({ tenant, actionType, points = 0, cid = n
     cid: normalizeSlug(cid) || null,
     crid: String(resultId ?? "").trim() || null,
   };
-}
-
-function normalizeEmail(email) {
-  return String(email || "").trim().toLowerCase();
 }
 
 function normalizeConsentVersion(value) {
@@ -1014,27 +989,6 @@ function parseCookieHeader(rawCookie = "") {
     }, {});
 }
 
-function createPasswordHash(password) {
-  const salt = crypto.randomBytes(16).toString("hex");
-  const derived = crypto.scryptSync(String(password), salt, 64).toString("hex");
-  return `scrypt$${salt}$${derived}`;
-}
-
-function verifyPasswordHash(password, encodedHash) {
-  const raw = String(encodedHash || "");
-  const [scheme, salt, stored] = raw.split("$");
-  if (scheme !== "scrypt" || !salt || !stored) return false;
-  const derived = crypto.scryptSync(String(password), salt, 64).toString("hex");
-  const a = Buffer.from(stored, "hex");
-  const b = Buffer.from(derived, "hex");
-  if (a.length !== b.length) return false;
-  return crypto.timingSafeEqual(a, b);
-}
-
-function createSessionToken() {
-  return crypto.randomBytes(32).toString("hex");
-}
-
 
 function safeInternalReturnPath(value, fallback = "") {
   const raw = String(value || "").trim();
@@ -1049,18 +1003,6 @@ function safeInternalReturnPath(value, fallback = "") {
   }
 }
 
-function buildOwnerSessionCookie(req, token, maxAgeSeconds) {
-  const forwardedProto = String(req.headers["x-forwarded-proto"] || "").trim().toLowerCase();
-  const isSecure = req.secure || forwardedProto === "https" || process.env.NODE_ENV === "production";
-  const sameSite = isSecure ? "None" : "Lax";
-  const secureAttr = isSecure ? "; Secure" : "";
-  const safeMaxAge = Math.max(0, Number(maxAgeSeconds) || 0);
-  return `${OWNER_SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=${sameSite}${secureAttr}; Max-Age=${safeMaxAge}`;
-}
-
-function sha256(value) {
-  return crypto.createHash("sha256").update(String(value || "")).digest("hex");
-}
 
 function normalizeSlug(value) {
   return String(value || "")
@@ -1955,19 +1897,7 @@ app.post("/api/owner/signin", async (req, res) => {
     const password = String(req.body?.password || "");
     if (!email || !password) return res.status(400).json({ error: "email and password are required" });
 
-    const found = await pool.query(
-      `SELECT u.id AS user_id, u.email, u.password_hash, t.id AS tenant_id, t.slug AS tenant_slug, m.role, m.onboarding_complete
-       FROM users u
-       JOIN tenant_memberships m ON m.user_id = u.id
-       JOIN tenants t ON t.id = m.tenant_id
-       WHERE LOWER(COALESCE(u.email, '')) = $1
-         AND m.role = $2
-       ORDER BY u.created_at DESC`,
-      [email, ROLES.BUSINESS_OWNER]
-    );
-    const account = found.rows.find(
-      (row) => row.password_hash && verifyPasswordHash(password, row.password_hash)
-    );
+    const account = await authenticateOwnerCredentials(pool, email, password);
     if (!account) {
       return res.status(401).json({ error: "invalid credentials" });
     }

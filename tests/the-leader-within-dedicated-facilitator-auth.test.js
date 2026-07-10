@@ -9,7 +9,8 @@ test('dedicated facilitator auth uses tlw_facilitator_session and not garvey own
   assert.match(svc, /leader_within_facilitator_sessions/);
   assert.match(svc, /function buildFacilitatorSessionCookie/);
   assert.match(svc, /token_hash/);
-  assert.doesNotMatch(svc.match(/async function signInFacilitator[\s\S]*?async function revokeFacilitatorSession/)?.[0] || '', /auth_sessions|garvey_owner_session|authenticateGarveyUser/);
+  assert.doesNotMatch(svc.match(/async function signInFacilitator[\s\S]*?async function revokeFacilitatorSession/)?.[0] || '', /auth_sessions|garvey_owner_session/);
+  assert.match(svc.match(/async function signInFacilitator[\s\S]*?async function revokeFacilitatorSession/)?.[0] || '', /issueFacilitatorSession\(pool,req,account,"dedicated"\)/);
 });
 
 test('facilitator sign-in page has dedicated product language and fields', () => {

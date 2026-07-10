@@ -1,5 +1,6 @@
 "use strict";
 const crypto = require("crypto");
+const { authenticateGarveyUser, resolveGarveyAuthActor } = require("./authService");
 
 const curriculum = require("../public/the-leader-within/programs/leader-within-program-data.js");
 const SESSION_ORDER = ["A", "B", "C"];
@@ -127,14 +128,6 @@ function normalizeIdentity(value){ return norm(value); }
 function buildCookie(req, name, token, maxAgeSeconds, path="/"){ const forwardedProto=String(req.headers["x-forwarded-proto"]||"").trim().toLowerCase(); const isSecure=req.secure||forwardedProto==="https"||process.env.NODE_ENV==="production"; const sameSite=isSecure?"None":"Lax"; return `${name}=${encodeURIComponent(token)}; Path=${path}; HttpOnly; SameSite=${sameSite}${isSecure?"; Secure":""}; Max-Age=${Math.max(0,Number(maxAgeSeconds)||0)}`; }
 function buildTrustedSessionCookie(req, token, maxAgeSeconds){ return buildCookie(req,"garvey_owner_session",token,maxAgeSeconds,"/"); }
 function buildFacilitatorSessionCookie(req, token, maxAgeSeconds){ return buildCookie(req,FACILITATOR_COOKIE,token,maxAgeSeconds,"/the-leader-within"); }
-async function authenticateGarveyUser(pool, identity, password){
-  const normalized=normalizeIdentity(identity); const secret=String(password||"");
-  if(!normalized||!secret) fail(400,"Email, username, or existing Garvey account identity and password are required.");
-  const found=await pool.query(`SELECT u.id AS user_id,u.email,u.password_hash,u.tenant_id,t.slug AS tenant_slug FROM users u LEFT JOIN tenants t ON t.id=u.tenant_id WHERE LOWER(COALESCE(u.email,''))=$1 ORDER BY u.created_at DESC`,[normalized]);
-  const account=found.rows.find(row=>row.password_hash&&verifyPasswordHash(secret,row.password_hash));
-  if(!account) fail(401,"We could not sign you in with those details.");
-  return account;
-}
 function normalizeFacilitatorIdentity(value){ return String(value||"").trim().toLowerCase(); }
 async function resolveFacilitatorSession(pool, req){
   const token=String(parseCookieHeader(req.headers?.cookie||"")[FACILITATOR_COOKIE]||"").trim();
@@ -145,20 +138,63 @@ async function resolveFacilitatorSession(pool, req){
   await pool.query(`UPDATE leader_within_facilitator_sessions SET last_seen_at=NOW(), updated_at=NOW() WHERE id=$1`,[row.session_id]).catch(()=>{});
   return { authenticated:true, actor_type:"leader_within_facilitator", facilitator_account_id:Number(row.facilitator_account_id), user_id:Number(row.linked_garvey_user_id||0) || Number(row.facilitator_account_id), email:norm(row.email), facilitator_id:row.facilitator_id, display_name:row.preferred_name||[row.first_name,row.last_name].filter(Boolean).join(" ")||row.email, tenant_id:Number(row.tenant_id), active_tenant_id:Number(row.tenant_id), active_tenant_slug:norm(row.tenant_slug), tenant_memberships:[{tenant_id:Number(row.tenant_id),tenant_slug:norm(row.tenant_slug),role:row.role}], role:row.role, is_admin:["super_admin","program_admin","administrator","program_director"].includes(row.role), is_superadmin:row.role==="super_admin", csrf_token:csrfTokenForSessionHash(tokenHash) };
 }
+function facilitatorDashboardRoute(account){ return ["super_admin","program_admin","program_director"].includes(norm(account?.role)) ? "/admin/the-leader-within" : "/the-leader-within/facilitator/dashboard"; }
+async function issueFacilitatorSession(pool, req, account, eventPrefix="facilitator"){
+  await pool.query(`UPDATE leader_within_facilitator_accounts SET failed_attempts=0,last_login_at=NOW(),updated_at=NOW() WHERE id=$1`,[account.id]);
+  const token=crypto.randomBytes(32).toString("hex");
+  await pool.query(`INSERT INTO leader_within_facilitator_sessions (facilitator_account_id,tenant_id,token_hash,credential_version,expires_at,user_agent_hash,ip_hash) VALUES ($1,$2,$3,$4,NOW()+($5 || ' milliseconds')::interval,$6,$7)`,[account.id,account.tenant_id,hashToken(token),account.credential_version,String(FACILITATOR_SESSION_TTL_MS),hashToken(req.headers["user-agent"]||""),hashToken(req.ip||"")]);
+  await audit(pool,"facilitator_session_created",{tenant_id:account.tenant_id,actor_user_id:account.linked_garvey_user_id,metadata:{facilitator_account_id:account.id,source:eventPrefix}});
+  return {ok:true,set_cookie:buildFacilitatorSessionCookie(req,token,Math.floor(FACILITATOR_SESSION_TTL_MS/1000)),role:account.role,must_change_password:!!account.must_change_password,next_route:facilitatorDashboardRoute(account)};
+}
+async function findFacilitatorAccount(pool, identity){
+  return (await pool.query(`SELECT a.*,t.slug tenant_slug FROM leader_within_facilitator_accounts a JOIN tenants t ON t.id=a.tenant_id WHERE lower(a.normalized_email)=$1 OR lower(a.facilitator_id)=$1 ORDER BY a.id DESC LIMIT 1`,[identity])).rows[0];
+}
+async function bootstrapGarveyAdminFacilitator(pool, garveyAccount){
+  const actor=resolveGarveyAuthActor(garveyAccount);
+  const email=norm(actor?.email);
+  if(!actor?.isAdmin){ await audit(pool,"garvey_admin_fallback_rejected",{actor_user_id:garveyAccount?.user_id||null,metadata:{reason:"not_admin"}}); fail(401,"We could not sign you in with those details."); }
+  const client=await pool.connect();
+  try{
+    await client.query("BEGIN");
+    await client.query(`LOCK TABLE leader_within_facilitator_accounts IN SHARE ROW EXCLUSIVE MODE`);
+    const matches=(await client.query(`SELECT * FROM leader_within_facilitator_accounts WHERE normalized_email=$1 OR linked_garvey_user_id=$2 ORDER BY id FOR UPDATE`,[email,actor.userId])).rows;
+    const conflicting=matches.filter(a=>a.normalized_email!==email || (a.linked_garvey_user_id && Number(a.linked_garvey_user_id)!==Number(actor.userId)));
+    if(conflicting.length){ await audit(client,"garvey_admin_facilitator_link_ambiguous_rejected",{actor_user_id:actor.userId,metadata:{match_count:matches.length}}); await client.query("ROLLBACK"); fail(401,"We could not sign you in with those details."); }
+    let account=matches[0];
+    if(account && ["suspended","disabled","archived"].includes(norm(account.status))){ await audit(client,"garvey_admin_linked_facilitator_blocked",{tenant_id:account.tenant_id,actor_user_id:actor.userId,metadata:{facilitator_account_id:account.id,status:account.status}}); await client.query("ROLLBACK"); fail(401,"We could not sign you in with those details."); }
+    if(account){
+      account=(await client.query(`UPDATE leader_within_facilitator_accounts SET linked_garvey_user_id=COALESCE(linked_garvey_user_id,$1), status=CASE WHEN status IN ('invited','setup_pending') THEN 'active' ELSE status END, role=CASE WHEN role IN ('super_admin','program_admin') THEN role ELSE 'super_admin' END, must_change_password=FALSE, setup_token_hash=NULL, setup_token_expires_at=NULL, approved_by_user_id=COALESCE(approved_by_user_id,$1), approved_at=COALESCE(approved_at,NOW()), updated_at=NOW() WHERE id=$2 RETURNING *`,[actor.userId,account.id])).rows[0];
+      await audit(client,"garvey_admin_facilitator_account_linked",{tenant_id:account.tenant_id,actor_user_id:actor.userId,metadata:{facilitator_account_id:account.id}});
+    } else {
+      const tenantId=actor.tenantId || (await defaultLeaderWithinTenant(client)).id;
+      const fid=`TLW-F-${crypto.randomBytes(5).toString("hex").toUpperCase()}`;
+      const name=String(garveyAccount.name||"").trim(); const parts=name.split(/\s+/).filter(Boolean);
+      account=(await client.query(`INSERT INTO leader_within_facilitator_accounts (tenant_id,linked_garvey_user_id,facilitator_id,email,normalized_email,password_hash,first_name,last_name,preferred_name,status,role,must_change_password,created_by_user_id,approved_by_user_id,approved_at) VALUES ($1,$2,$3,$4,$4,$5,$6,$7,$8,'active','super_admin',FALSE,$2,$2,NOW()) ON CONFLICT (tenant_id, normalized_email) DO UPDATE SET linked_garvey_user_id=COALESCE(leader_within_facilitator_accounts.linked_garvey_user_id,EXCLUDED.linked_garvey_user_id), role=CASE WHEN leader_within_facilitator_accounts.role IN ('super_admin','program_admin') THEN leader_within_facilitator_accounts.role ELSE 'super_admin' END, status=CASE WHEN leader_within_facilitator_accounts.status IN ('invited','setup_pending') THEN 'active' ELSE leader_within_facilitator_accounts.status END, must_change_password=FALSE, approved_by_user_id=COALESCE(leader_within_facilitator_accounts.approved_by_user_id,EXCLUDED.approved_by_user_id), approved_at=COALESCE(leader_within_facilitator_accounts.approved_at,NOW()), updated_at=NOW() RETURNING *`,[tenantId,actor.userId,fid,email,createPasswordHash(crypto.randomBytes(24).toString("hex")),parts[0]||null,parts.slice(1).join(" ")||null,parts[0]||null])).rows[0];
+      await audit(client,"garvey_admin_facilitator_account_auto_created",{tenant_id:account.tenant_id,actor_user_id:actor.userId,metadata:{facilitator_account_id:account.id,linked_garvey_user_id:actor.userId,role:account.role}});
+    }
+    await audit(client,"garvey_admin_authenticated_through_leader_within_sign_in",{tenant_id:account.tenant_id,actor_user_id:actor.userId,metadata:{facilitator_account_id:account.id}});
+    await client.query("COMMIT");
+    return account;
+  } catch(e){ try{ await client.query("ROLLBACK"); }catch(_){} throw e; }
+  finally{ client.release(); }
+}
 async function signInFacilitator(pool, req){
   const generic="We could not sign you in with those details.";
   const identity=normalizeFacilitatorIdentity(req.body?.identity||req.body?.email||req.body?.facilitator_id);
   const password=String(req.body?.password||"");
   if(!identity||!password) fail(401,generic);
-  const account=(await pool.query(`SELECT a.*,t.slug tenant_slug FROM leader_within_facilitator_accounts a JOIN tenants t ON t.id=a.tenant_id WHERE lower(a.normalized_email)=$1 OR lower(a.facilitator_id)=$1 ORDER BY a.id DESC LIMIT 1`,[identity])).rows[0];
-  if(!account || account.status!=="active") fail(401,generic);
-  if(account.locked_until && new Date(account.locked_until)>new Date()) fail(423,generic);
-  if(!verifyPasswordHash(password,account.password_hash)){ const attempts=Number(account.failed_attempts||0)+1; await pool.query(`UPDATE leader_within_facilitator_accounts SET failed_attempts=$1, locked_until=CASE WHEN $1>=5 THEN NOW()+INTERVAL '15 minutes' ELSE locked_until END, updated_at=NOW() WHERE id=$2`,[attempts,account.id]); if(attempts>=5) await audit(pool,"facilitator_account_locked",{tenant_id:account.tenant_id,metadata:{facilitator_account_id:account.id}}); fail(401,generic); }
-  await pool.query(`UPDATE leader_within_facilitator_accounts SET failed_attempts=0,last_login_at=NOW(),updated_at=NOW() WHERE id=$1`,[account.id]);
-  const token=crypto.randomBytes(32).toString("hex");
-  await pool.query(`INSERT INTO leader_within_facilitator_sessions (facilitator_account_id,tenant_id,token_hash,credential_version,expires_at,user_agent_hash,ip_hash) VALUES ($1,$2,$3,$4,NOW()+($5 || ' milliseconds')::interval,$6,$7)`,[account.id,account.tenant_id,hashToken(token),account.credential_version,String(FACILITATOR_SESSION_TTL_MS),hashToken(req.headers["user-agent"]||""),hashToken(req.ip||"")]);
-  await audit(pool,"facilitator_session_created",{tenant_id:account.tenant_id,actor_user_id:account.linked_garvey_user_id,metadata:{facilitator_account_id:account.id}});
-  return {ok:true,set_cookie:buildFacilitatorSessionCookie(req,token,Math.floor(FACILITATOR_SESSION_TTL_MS/1000)),role:account.role,must_change_password:!!account.must_change_password};
+  const account=await findFacilitatorAccount(pool,identity);
+  if(account){
+    if(account.locked_until && new Date(account.locked_until)>new Date()) fail(423,generic);
+    if(["suspended","disabled","archived"].includes(norm(account.status))){ await audit(pool,"facilitator_sign_in_blocked_inactive",{tenant_id:account.tenant_id,actor_user_id:account.linked_garvey_user_id,metadata:{facilitator_account_id:account.id,status:account.status}}); fail(401,generic); }
+    if(account.status==="active" && account.password_hash && verifyPasswordHash(password,account.password_hash)) return issueFacilitatorSession(pool,req,account,"dedicated");
+    if(account.status==="active" && account.password_hash){ const attempts=Number(account.failed_attempts||0)+1; await pool.query(`UPDATE leader_within_facilitator_accounts SET failed_attempts=$1, locked_until=CASE WHEN $1>=5 THEN NOW()+INTERVAL '15 minutes' ELSE locked_until END, updated_at=NOW() WHERE id=$2`,[attempts,account.id]); if(attempts>=5) await audit(pool,"facilitator_account_locked",{tenant_id:account.tenant_id,metadata:{facilitator_account_id:account.id}}); }
+    if(!account.linked_garvey_user_id && !["invited","setup_pending"].includes(norm(account.status))) fail(401,generic);
+  }
+  const garveyAccount=await authenticateGarveyUser(pool,identity,password);
+  if(!garveyAccount) fail(401,generic);
+  const linked=await bootstrapGarveyAdminFacilitator(pool,garveyAccount);
+  return issueFacilitatorSession(pool,req,linked,"garvey_admin_fallback");
 }
 async function revokeFacilitatorSession(pool, req){ const token=String(parseCookieHeader(req.headers?.cookie||"")[FACILITATOR_COOKIE]||"").trim(); if(!token) return false; await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(), updated_at=NOW() WHERE token_hash=$1 AND revoked_at IS NULL`,[hashToken(token)]); return true; }
 async function createFacilitatorAccount(pool, req){
@@ -251,4 +287,4 @@ async function reviewFacilitatorRequest(pool, req){
 async function completeFacilitatorSetup(pool, req){ const email=normalizeFacilitatorIdentity(req.body.email||req.body.identity), setup=String(req.body.setup_credential||""), password=String(req.body.password||""); if(!email||!setup||password.length<12) fail(400,"Email, setup credential, and a private password of at least 12 characters are required."); const acct=(await pool.query(`SELECT * FROM leader_within_facilitator_accounts WHERE normalized_email=$1 AND status IN ('invited','setup_pending') LIMIT 1`,[email])).rows[0]; if(!acct||!acct.setup_token_hash||acct.setup_token_expires_at&&new Date(acct.setup_token_expires_at)<=new Date()||hashToken(setup)!==acct.setup_token_hash) fail(401,"We could not complete setup with those details."); await pool.query(`UPDATE leader_within_facilitator_accounts SET password_hash=$1,setup_token_hash=NULL,setup_token_expires_at=NULL,status='active',must_change_password=FALSE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[createPasswordHash(password),acct.id]); await audit(pool,"facilitator_setup_completed",{tenant_id:acct.tenant_id,metadata:{facilitator_account_id:acct.id}}); return {ok:true,next_route:"/the-leader-within/facilitator/sign-in"}; }
 async function resetFacilitatorCredential(pool, req){ const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const id=Number(req.params.facilitatorId); const setup=generateOneTimeSetupCredential(); await pool.query(`UPDATE leader_within_facilitator_accounts SET status='setup_pending',setup_token_hash=$1,setup_token_expires_at=NOW()+INTERVAL '14 days',must_change_password=TRUE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[hashToken(setup),id]); await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(),updated_at=NOW() WHERE facilitator_account_id=$1 AND revoked_at IS NULL`,[id]); await audit(pool,"facilitator_credential_reset",{actor_user_id:actor.user_id,metadata:{facilitator_account_id:id}}); return {ok:true,one_time_setup_credential:setup,start_here:"/the-leader-within/facilitator/setup"}; }
 
-module.exports = { resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, authenticateGarveyUser, youthSessionCookieOptions };
+module.exports = { resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, youthSessionCookieOptions };
