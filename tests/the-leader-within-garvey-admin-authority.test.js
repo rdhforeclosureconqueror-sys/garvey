@@ -55,6 +55,10 @@ test('Leader Within admin diagnostic returns safe booleans only', async () => {
   assert.equal(res.jsonBody.dedicated_facilitator_account_linked, true);
   const serialized = JSON.stringify(res.jsonBody);
   assert.doesNotMatch(serialized, /ADMIN_EMAILS|LEADER_WITHIN_SUPERADMIN_EMAILS|secret|token|rdhforeclosureconqueror@gmail.com/);
+
+  const denied = await invoke(createLeaderWithinRouter(pool), 'GET', '/api/admin/the-leader-within/diagnostic', { authActor: { userId: 2, email: 'owner@example.com', role: 'business_owner', tenantSlug: 'tenant-a', tenantId: 1, isAdmin: false } });
+  assert.equal(denied.statusCode, 403);
+  assert.doesNotMatch(denied.body || '', /owner@example.com|ADMIN_EMAILS|LEADER_WITHIN_SUPERADMIN_EMAILS/);
 });
 
 test('ordinary Garvey owner, browser headers, youth, and facilitator sessions do not become Garvey admins', () => {

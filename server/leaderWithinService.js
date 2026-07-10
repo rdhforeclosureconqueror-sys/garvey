@@ -208,8 +208,8 @@ async function leaderWithinAdminDiagnostic(pool, req){
   const garveyActor = req.authActor || null;
   const facilitatorActor = req.leaderWithinFacilitatorActor || null;
   const youthActor = req.leaderWithinYouthActor || null;
-  let actor = null;
-  try { actor = trustedActorFromRequest(req); } catch (_) { actor = null; }
+  const actor = trustedActorFromRequest(req);
+  if (!actor.is_admin) fail(403, "Leader Within administrator access required.");
   const facilitatorEmail = norm(garveyActor?.email || facilitatorActor?.email || "");
   let linked = null;
   let assignedCount = 0;
