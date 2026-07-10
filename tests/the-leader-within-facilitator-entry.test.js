@@ -296,3 +296,60 @@ test('ordinary facilitator and observer with zero cohorts still get Access Neede
   assert.equal(observer.statusCode, 403);
   assert.match(observer.body, /Leader Within Access Needed/);
 });
+
+test('facilitator session cookie path covers dashboard admin bootstrap and admin API cohort routes', () => {
+  const setCookie = svc.buildFacilitatorSessionCookie({ headers: { 'x-forwarded-proto': 'https' } }, 'secret-token', 28800);
+  assert.match(setCookie, /^tlw_facilitator_session=secret-token; Path=\/; HttpOnly; SameSite=None; Secure; Max-Age=28800$/);
+  assert.equal(new URL('/the-leader-within/facilitator/dashboard', 'https://example.test').pathname.startsWith('/'), true);
+  assert.equal(new URL('/admin/the-leader-within/bootstrap', 'https://example.test').pathname.startsWith('/'), true);
+  assert.equal(new URL('/api/admin/the-leader-within/bootstrap/cohort', 'https://example.test').pathname.startsWith('/'), true);
+});
+
+test('facilitator sign-out clears the exact shared cookie path used for sign-in', () => {
+  const clearCookie = svc.clearFacilitatorSessionCookie({ headers: { 'x-forwarded-proto': 'https' } });
+  assert.match(clearCookie, /^tlw_facilitator_session=; Path=\/; HttpOnly; SameSite=None; Secure; Max-Age=0$/);
+});
+
+test('bootstrap 302 loop evidence reproduces missing-cookie path and authenticated sign-in redirect without raw tokens', async () => {
+  const bootstrap = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/admin/the-leader-within/bootstrap');
+  assert.equal(bootstrap.statusCode, 302);
+  assert.equal(bootstrap.headers.location, '/the-leader-within/facilitator/sign-in');
+  const signIn = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/the-leader-within/facilitator/sign-in', facilitatorCookie);
+  assert.equal(signIn.statusCode, 302);
+  assert.equal(signIn.headers.location, '/the-leader-within/facilitator/dashboard');
+});
+
+test('protected bootstrap diagnostic returns safe booleans and redirect reason only', async () => {
+  const original = { role: facilitatorActor.role, is_admin: facilitatorActor.is_admin };
+  facilitatorActor.role = 'super_admin';
+  facilitatorActor.is_admin = false;
+  try {
+    const res = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/api/admin/the-leader-within/diagnostic', facilitatorCookie);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.facilitator_cookie_present, true);
+    assert.equal(res.body.garvey_cookie_present, false);
+    assert.equal(res.body.facilitator_session_resolved, true);
+    assert.equal(res.body.facilitator_account_present, true);
+    assert.equal(res.body.facilitator_status, 'active');
+    assert.equal(res.body.facilitator_role, 'super_admin');
+    assert.equal(res.body.platform_admin_authorized, true);
+    assert.equal(res.body.bootstrap_redirect_reason, null);
+    assert.equal(JSON.stringify(res.body).includes('test-token'), false);
+  } finally {
+    facilitatorActor.role = original.role;
+    facilitatorActor.is_admin = original.is_admin;
+  }
+});
+
+test('route source resolves facilitator session before csrf and bootstrap authorization', () => {
+  const routes = fs.readFileSync('server/leaderWithinRoutes.js', 'utf8');
+  const chainStart = routes.indexOf('function createLeaderWithinRouter');
+  const setHeaders = routes.indexOf('r.use(setSensitiveHeaders)', chainStart);
+  const loadYouth = routes.indexOf('loadYouth(pool', chainStart);
+  const loadFacilitator = routes.indexOf('loadFacilitator(pool', chainStart);
+  assert.ok(setHeaders < loadYouth);
+  assert.ok(loadYouth < loadFacilitator);
+  assert.ok(loadFacilitator < routes.indexOf('r.use(requireTrustedOrigin)', chainStart));
+  assert.ok(routes.indexOf('r.use(requireCsrf)') < routes.indexOf("r.get('/admin/the-leader-within/bootstrap'"));
+  assert.ok(routes.indexOf('svc.requireLeaderWithinPlatformAdmin(actor)') < routes.indexOf('bootstrapCohortForm'));
+});
