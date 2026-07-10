@@ -14,18 +14,19 @@ function invoke(router, method, path, extra = {}) {
 
 test('Leader Within does not define or require a separate super-admin env var', () => {
   const service = fs.readFileSync('server/leaderWithinService.js', 'utf8');
-  const index = fs.readFileSync('server/index.js', 'utf8');
+  const auth = fs.readFileSync('server/authService.js', 'utf8');
   assert.doesNotMatch(service, /LEADER_WITHIN_SUPERADMIN_EMAILS/);
-  assert.doesNotMatch(index, /LEADER_WITHIN_SUPERADMIN_EMAILS|bootstrapLeaderWithinSuperAdmins/);
-  assert.match(index, /process\.env\.ADMIN_EMAILS/);
+  assert.doesNotMatch(auth, /LEADER_WITHIN_SUPERADMIN_EMAILS|bootstrapLeaderWithinSuperAdmins/);
+  assert.match(auth, /process\.env\.ADMIN_EMAILS/);
 });
 
 test('Garvey canonical admin resolver normalizes the expected platform owner', () => {
+  const auth = fs.readFileSync('server/authService.js', 'utf8');
   const index = fs.readFileSync('server/index.js', 'utf8');
-  assert.match(index, /function parseAdminEmails/);
-  assert.match(index, /trim\(\)\.toLowerCase\(\)/);
-  assert.match(index, /rdhforeclosureconqueror@gmail\.com/);
-  assert.match(index, /function isAdminEmail/);
+  assert.match(auth, /function parseAdminEmails/);
+  assert.match(auth, /trim\(\)\.toLowerCase\(\)/);
+  assert.match(auth, /rdhforeclosureconqueror@gmail\.com/);
+  assert.match(auth, /function isAdminEmail/);
   assert.match(index, /req\.authActor = \{/);
   assert.match(index, /isAdmin: isAdminEmail\(session\.email\)/);
 });

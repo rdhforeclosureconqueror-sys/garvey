@@ -301,6 +301,7 @@ async function applyLeaderWithinMigrations(pool) {
     CREATE UNIQUE INDEX IF NOT EXISTS idx_lw_facilitator_requests_pending_email ON leader_within_facilitator_requests (normalized_email) WHERE status IN ('pending','more_information_requested');
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_requests_status ON leader_within_facilitator_requests (status, submitted_at);
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_email ON leader_within_facilitator_accounts (tenant_id, normalized_email);
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_linked_user ON leader_within_facilitator_accounts (linked_garvey_user_id) WHERE linked_garvey_user_id IS NOT NULL;
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_code ON leader_within_facilitator_accounts (lower(facilitator_id));
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_sessions_token_hash ON leader_within_facilitator_sessions (token_hash);
     CREATE INDEX IF NOT EXISTS idx_lw_cohort_facilitator_accounts_active ON leader_within_cohort_facilitators (cohort_id, facilitator_account_id, tenant_id, status);
