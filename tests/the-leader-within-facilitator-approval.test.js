@@ -2,14 +2,13 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 
-test('super-admin bootstrap uses trusted server-side allowlist and setup-pending account', () => {
+test('Leader Within admin reuses Garvey admin actor instead of a separate super-admin env', () => {
   const svc = fs.readFileSync('server/leaderWithinService.js','utf8');
-  assert.match(svc, /LEADER_WITHIN_SUPERADMIN_EMAILS/);
-  assert.match(svc, /rdhforeclosureconqueror@gmail\.com/);
-  assert.match(svc, /function configuredSuperAdminEmails/);
-  assert.match(svc, /async function bootstrapLeaderWithinSuperAdmins/);
-  assert.match(svc, /status='setup_pending','super_admin'|setup_pending','super_admin/);
-  assert.match(svc, /setup_token_hash/);
+  assert.doesNotMatch(svc, /LEADER_WITHIN_SUPERADMIN_EMAILS/);
+  assert.doesNotMatch(svc, /function configuredSuperAdminEmails|async function bootstrapLeaderWithinSuperAdmins/);
+  assert.match(svc, /req\.authActor\?\.email && req\.authActor\?\.userId/);
+  assert.match(svc, /is_admin: req\.authActor\.isAdmin === true/);
+  assert.match(svc, /is_superadmin: req\.authActor\.isAdmin === true/);
   assert.doesNotMatch(svc.match(/async function signInFacilitator[\s\S]*?async function revokeFacilitatorSession/)?.[0] || '', /super_admin/);
 });
 
