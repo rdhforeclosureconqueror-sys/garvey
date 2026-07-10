@@ -22,6 +22,9 @@ async function applyLeaderWithinMigrations(pool) {
       current_session TEXT NOT NULL DEFAULT 'A',
       assigned_facilitator_email TEXT,
       assigned_facilitator_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      organization_id TEXT,
+      start_date DATE,
+      capacity INTEGER,
       alternate_story_title TEXT,
       is_demo BOOLEAN NOT NULL DEFAULT FALSE,
       created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
@@ -288,6 +291,9 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS assigned_facilitator_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS organization_id TEXT;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS start_date DATE;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS capacity INTEGER;
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_session_progress ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
@@ -315,7 +321,9 @@ async function applyLeaderWithinMigrations(pool) {
       ON CONFLICT (cohort_id, facilitator_user_id) DO UPDATE SET status='active', updated_at=NOW();
   `);
   await pool.query(`INSERT INTO leader_within_programs (slug,title,duration_weeks,version,status)
-    VALUES ('the-leader-within-12-week','The Leader Within — 12-Week Program',12,'2026.07','active')
-    ON CONFLICT (slug) DO UPDATE SET title=EXCLUDED.title, duration_weeks=EXCLUDED.duration_weeks, updated_at=NOW()`);
+    VALUES ('the-leader-within-12-week','The Leader Within — 12-Week Program',12,'2026.07','active'),
+           ('the-leader-within-8-week','The Leader Within — 8-Week Program',8,'2026.07','active'),
+           ('the-leader-within-32-week','The Leader Within — 32-Week Program',32,'2026.07','active')
+    ON CONFLICT (slug) DO UPDATE SET title=EXCLUDED.title, duration_weeks=EXCLUDED.duration_weeks, status=EXCLUDED.status, updated_at=NOW()`);
 }
 module.exports = { applyLeaderWithinMigrations };
