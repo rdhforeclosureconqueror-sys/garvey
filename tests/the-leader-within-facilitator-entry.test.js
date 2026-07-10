@@ -219,3 +219,55 @@ test('signed-out state preserves Garvey admin session and requires explicit cont
   assert.match(res.body, /\/api\/the-leader-within\/facilitator\/continue-garvey-admin/);
   assert.doesNotMatch(res.body, /Leader Within Facilitator Dashboard/);
 });
+
+test('linked Garvey admin facilitator reconciliation repairs local-part-only email by linked user id', async () => {
+  const calls = [];
+  const pool = { async query(sql, params) {
+    calls.push({ sql, params });
+    if (sql.includes('FROM leader_within_facilitator_accounts')) return { rows: [{ id: 501, tenant_id: 1, linked_garvey_user_id: 1, email: 'rdhforeclosureconqueror', normalized_email: 'rdhforeclosureconqueror', status: 'active', role: 'facilitator' }] };
+    if (sql.includes('UPDATE leader_within_facilitator_accounts')) return { rows: [{ id: 501, tenant_id: 1, linked_garvey_user_id: 1, email: 'rdhforeclosureconqueror@gmail.com', normalized_email: 'rdhforeclosureconqueror@gmail.com', status: 'active', role: 'super_admin' }] };
+    return { rows: [] };
+  }};
+  const account = await svc.reconcileLinkedGarveyAdminFacilitator(pool, { user_id: 1, email: 'rdhforeclosureconqueror@gmail.com' });
+  assert.equal(account.id, 501);
+  assert.equal(account.email, 'rdhforeclosureconqueror@gmail.com');
+  assert.equal(account.normalized_email, 'rdhforeclosureconqueror@gmail.com');
+  assert.equal(account.linked_garvey_user_id, 1);
+  assert.ok(calls.some(c => /UPDATE leader_within_facilitator_accounts/.test(c.sql) && c.params[1] === 'rdhforeclosureconqueror@gmail.com'));
+});
+
+test('facilitator session reloads canonical Garvey email and does not pass local-part to admin resolver', async () => {
+  const calls = [];
+  const pool = facilitatorPool();
+  pool.query = async (sql, params) => {
+    calls.push({ sql, params });
+    if (sql.includes('FROM leader_within_facilitator_sessions')) return { rows: [{
+      session_id: 700, facilitator_account_id: 501, tenant_id: 1, session_credential_version: 1, expires_at: new Date(Date.now() + 60_000).toISOString(), revoked_at: null,
+      email: 'rdhforeclosureconqueror', facilitator_id: 'TLW-F-ADMIN', first_name: null, last_name: null, preferred_name: 'Rashad Harbor', role: 'facilitator', account_status: 'active', current_credential_version: 1, linked_garvey_user_id: 1, tenant_slug: 'tenant-a'
+    }] };
+    if (sql.includes('UPDATE leader_within_facilitator_sessions SET last_seen_at')) return { rows: [] };
+    if (sql.includes('SELECT id,email FROM users')) return { rows: [{ id: 1, email: 'rdhforeclosureconqueror@gmail.com' }] };
+    if (sql.includes('FROM leader_within_facilitator_accounts')) return { rows: [{ id: 501, tenant_id: 1, linked_garvey_user_id: 1, email: 'rdhforeclosureconqueror', normalized_email: 'rdhforeclosureconqueror', status: 'active', role: 'facilitator' }] };
+    if (sql.includes('UPDATE leader_within_facilitator_accounts')) return { rows: [{ id: 501, tenant_id: 1, linked_garvey_user_id: 1, email: 'rdhforeclosureconqueror@gmail.com', normalized_email: 'rdhforeclosureconqueror@gmail.com', status: 'active', role: 'super_admin' }] };
+    return { rows: [] };
+  };
+  const actor = await svc.resolveFacilitatorSession(pool, facilitatorCookie);
+  assert.equal(actor.canonical_email, 'rdhforeclosureconqueror@gmail.com');
+  assert.equal(actor.email, 'rdhforeclosureconqueror@gmail.com');
+  assert.equal(actor.linked_garvey_user_id, 1);
+  assert.equal(actor.is_admin, true);
+  assert.equal(actor.is_superadmin, true);
+  assert.equal(actor.display_name, 'Rashad Harbor');
+  assert.ok(calls.some(c => /SELECT id,email FROM users/.test(c.sql) && c.params[0] === 1));
+});
+
+test('ambiguous linked admin reconciliation rejects instead of appending arbitrary domain', async () => {
+  const pool = { async query(sql) {
+    if (sql.includes('FROM leader_within_facilitator_accounts')) return { rows: [
+      { id: 501, linked_garvey_user_id: 1, normalized_email: 'rdhforeclosureconqueror', email: 'rdhforeclosureconqueror', status: 'active' },
+      { id: 502, linked_garvey_user_id: 2, normalized_email: 'rdhforeclosureconqueror@gmail.com', email: 'rdhforeclosureconqueror@gmail.com', status: 'active' },
+    ] };
+    return { rows: [] };
+  }};
+  await assert.rejects(() => svc.reconcileLinkedGarveyAdminFacilitator(pool, { user_id: 1, email: 'rdhforeclosureconqueror@gmail.com' }), /We could not sign you in/);
+});

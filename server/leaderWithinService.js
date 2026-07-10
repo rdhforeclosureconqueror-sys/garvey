@@ -68,7 +68,14 @@ async function loadYouthEnrollment(pool, actor) {
   return result.rows[0] || null;
 }
 function youthEmptyState() { return { empty_state: { title: "The Leader Within", message: "You are not currently enrolled in a Leader Within program.", actions: ["Return to Youth Development", "View The Leader Within", "Contact your program facilitator"] } }; }
-function facilitatorEmptyState(actor) { return { empty_state: { message: "No Leader Within cohorts are currently assigned to you.", can_create_cohort: !!actor?.is_admin }, facilitator: { user_id: actor?.user_id || null, email: actor?.email || null, display_name: actor?.email ? actor.email.split("@")[0] : "Facilitator", tenant_slug: actor?.active_tenant_slug || null } }; }
+function facilitatorEmptyState(actor) {
+  const canonicalEmail = norm(actor?.canonical_email || actor?.email || "");
+  const displayName = String(actor?.display_name || "").trim() || canonicalEmail || "Facilitator";
+  return {
+    empty_state: { message: "No Leader Within cohorts are currently assigned to you.", can_create_cohort: !!actor?.is_admin },
+    facilitator: { user_id: actor?.user_id || null, email: canonicalEmail || null, canonical_email: canonicalEmail || null, display_name: displayName, tenant_slug: actor?.active_tenant_slug || null }
+  };
+}
 async function getYouthDashboard(pool, req) {
   const actor = trustedActorFromRequest(req); const row = await loadYouthEnrollment(pool, actor); if (!row) return youthEmptyState(); assertYouthOwns(actor, row.participant_id, row.tenant_slug);
   const practice = (await pool.query(`SELECT practice_id, participant_reason, status FROM leader_within_practice_selections WHERE enrollment_id=$1 AND week_number=$2`, [row.id, row.current_week])).rows[0] || null;
@@ -137,13 +144,34 @@ async function resolveFacilitatorSession(pool, req){
   const row=(await pool.query(`SELECT s.id session_id,s.facilitator_account_id,s.tenant_id,s.credential_version session_credential_version,s.expires_at,s.revoked_at,a.email,a.facilitator_id,a.first_name,a.last_name,a.preferred_name,a.role,a.status account_status,a.credential_version current_credential_version,a.linked_garvey_user_id,t.slug tenant_slug FROM leader_within_facilitator_sessions s JOIN leader_within_facilitator_accounts a ON a.id=s.facilitator_account_id JOIN tenants t ON t.id=s.tenant_id WHERE s.token_hash=$1 LIMIT 1`,[tokenHash])).rows[0];
   if(!row || row.revoked_at || new Date(row.expires_at)<=new Date() || row.account_status!=="active" || Number(row.session_credential_version)!==Number(row.current_credential_version)) return null;
   await pool.query(`UPDATE leader_within_facilitator_sessions SET last_seen_at=NOW(), updated_at=NOW() WHERE id=$1`,[row.session_id]).catch(()=>{});
+  let canonicalEmail = norm(row.email);
   let garveyAdmin = false;
   if(row.linked_garvey_user_id){
     const linked=(await pool.query(`SELECT id,email FROM users WHERE id=$1 LIMIT 1`,[row.linked_garvey_user_id])).rows[0]||null;
-    garveyAdmin = !!linked && isAdminEmail(linked.email) && norm(linked.email) === norm(row.email);
+    canonicalEmail = norm(linked?.email || row.email);
+    garveyAdmin = !!linked && isAdminEmail(canonicalEmail);
+    if(linked && canonicalEmail && canonicalEmail !== norm(row.email) && !["suspended","disabled","archived"].includes(norm(row.account_status))){
+      await reconcileLinkedGarveyAdminFacilitator(pool,{ user_id: linked.id, email: canonicalEmail });
+    }
   }
   const roleAdmin=["super_admin","program_admin","administrator","program_director"].includes(row.role);
-  return { authenticated:true, actor_type:"leader_within_facilitator", facilitator_account_id:Number(row.facilitator_account_id), linked_garvey_user_id:row.linked_garvey_user_id ? Number(row.linked_garvey_user_id) : null, user_id:Number(row.linked_garvey_user_id||0) || Number(row.facilitator_account_id), email:norm(row.email), facilitator_id:row.facilitator_id, display_name:row.preferred_name||[row.first_name,row.last_name].filter(Boolean).join(" ")||row.email, tenant_id:Number(row.tenant_id), active_tenant_id:Number(row.tenant_id), active_tenant_slug:norm(row.tenant_slug), tenant_memberships:[{tenant_id:Number(row.tenant_id),tenant_slug:norm(row.tenant_slug),role:row.role}], role:row.role, is_admin:roleAdmin || garveyAdmin, is_superadmin:row.role==="super_admin" || garveyAdmin, canonical_garvey_admin:garveyAdmin, csrf_token:csrfTokenForSessionHash(tokenHash) };
+  const displayName=row.preferred_name||[row.first_name,row.last_name].filter(Boolean).join(" ")||canonicalEmail||row.facilitator_id;
+  return { authenticated:true, actor_type:"leader_within_facilitator", facilitator_account_id:Number(row.facilitator_account_id), linked_garvey_user_id:row.linked_garvey_user_id ? Number(row.linked_garvey_user_id) : null, user_id:Number(row.linked_garvey_user_id||0) || Number(row.facilitator_account_id), email:canonicalEmail, canonical_email:canonicalEmail, facilitator_id:row.facilitator_id, display_name:displayName, account_status:row.account_status, facilitator_role:row.role, tenant_id:Number(row.tenant_id), active_tenant_id:Number(row.tenant_id), active_tenant_slug:norm(row.tenant_slug), tenant_memberships:[{tenant_id:Number(row.tenant_id),tenant_slug:norm(row.tenant_slug),role:row.role}], role:row.role, is_admin:roleAdmin || garveyAdmin, is_superadmin:row.role==="super_admin" || garveyAdmin, canonical_garvey_admin:garveyAdmin, csrf_token:csrfTokenForSessionHash(tokenHash) };
+}
+async function reconcileLinkedGarveyAdminFacilitator(pool, garveyAccount){
+  const actor=resolveGarveyAuthActor(garveyAccount);
+  const email=norm(actor?.email);
+  if(!actor?.userId || !email || !email.includes("@") || !actor.isAdmin) fail(401,"We could not sign you in with those details.");
+  const matches=(await pool.query(`SELECT * FROM leader_within_facilitator_accounts WHERE linked_garvey_user_id=$1 OR normalized_email=$2 ORDER BY id FOR UPDATE`,[actor.userId,email])).rows;
+  const byLinked=matches.filter(a=>Number(a.linked_garvey_user_id)===Number(actor.userId));
+  const ambiguous=matches.filter(a=>Number(a.linked_garvey_user_id||0)!==Number(actor.userId) && norm(a.normalized_email)===email);
+  if(byLinked.length>1 || ambiguous.length){ await audit(pool,"garvey_admin_facilitator_link_ambiguous_rejected",{actor_user_id:actor.userId,metadata:{match_count:matches.length}}); fail(401,"We could not sign you in with those details."); }
+  const account=byLinked[0] || matches.find(a=>norm(a.normalized_email)===email) || null;
+  if(!account) return null;
+  if(["suspended","disabled","archived"].includes(norm(account.status))) return account;
+  const repaired=await pool.query(`UPDATE leader_within_facilitator_accounts SET linked_garvey_user_id=$1, email=$2, normalized_email=$2, status=CASE WHEN status IN ('invited','setup_pending') THEN 'active' ELSE status END, role=CASE WHEN role IN ('super_admin','program_admin') THEN role ELSE 'super_admin' END, must_change_password=FALSE, setup_token_hash=NULL, setup_token_expires_at=NULL, approved_by_user_id=COALESCE(approved_by_user_id,$1), approved_at=COALESCE(approved_at,NOW()), updated_at=NOW() WHERE id=$3 RETURNING *`,[actor.userId,email,account.id]);
+  await audit(pool,"garvey_admin_facilitator_identity_reconciled",{tenant_id:repaired.rows[0]?.tenant_id,actor_user_id:actor.userId,metadata:{facilitator_account_id:account.id, repaired_email:norm(account.email)!==email || norm(account.normalized_email)!==email}});
+  return repaired.rows[0];
 }
 function facilitatorDashboardRoute(account){ return ["super_admin","program_admin","program_director"].includes(norm(account?.role)) ? "/admin/the-leader-within" : "/the-leader-within/facilitator/dashboard"; }
 async function issueFacilitatorSession(pool, req, account, eventPrefix="facilitator"){
@@ -165,12 +193,13 @@ async function bootstrapGarveyAdminFacilitator(pool, garveyAccount){
     await client.query("BEGIN");
     await client.query(`LOCK TABLE leader_within_facilitator_accounts IN SHARE ROW EXCLUSIVE MODE`);
     const matches=(await client.query(`SELECT * FROM leader_within_facilitator_accounts WHERE normalized_email=$1 OR linked_garvey_user_id=$2 ORDER BY id FOR UPDATE`,[email,actor.userId])).rows;
-    const conflicting=matches.filter(a=>a.normalized_email!==email || (a.linked_garvey_user_id && Number(a.linked_garvey_user_id)!==Number(actor.userId)));
-    if(conflicting.length){ await audit(client,"garvey_admin_facilitator_link_ambiguous_rejected",{actor_user_id:actor.userId,metadata:{match_count:matches.length}}); await client.query("ROLLBACK"); fail(401,"We could not sign you in with those details."); }
-    let account=matches[0];
+    const linkedMatches=matches.filter(a=>Number(a.linked_garvey_user_id)===Number(actor.userId));
+    const conflicting=matches.filter(a=>Number(a.linked_garvey_user_id||0)!==Number(actor.userId) && norm(a.normalized_email)===email);
+    if(linkedMatches.length>1 || conflicting.length){ await audit(client,"garvey_admin_facilitator_link_ambiguous_rejected",{actor_user_id:actor.userId,metadata:{match_count:matches.length}}); await client.query("ROLLBACK"); fail(401,"We could not sign you in with those details."); }
+    let account=linkedMatches[0] || matches.find(a=>norm(a.normalized_email)===email);
     if(account && ["suspended","disabled","archived"].includes(norm(account.status))){ await audit(client,"garvey_admin_linked_facilitator_blocked",{tenant_id:account.tenant_id,actor_user_id:actor.userId,metadata:{facilitator_account_id:account.id,status:account.status}}); await client.query("ROLLBACK"); fail(401,"We could not sign you in with those details."); }
     if(account){
-      account=(await client.query(`UPDATE leader_within_facilitator_accounts SET linked_garvey_user_id=COALESCE(linked_garvey_user_id,$1), status=CASE WHEN status IN ('invited','setup_pending') THEN 'active' ELSE status END, role=CASE WHEN role IN ('super_admin','program_admin') THEN role ELSE 'super_admin' END, must_change_password=FALSE, setup_token_hash=NULL, setup_token_expires_at=NULL, approved_by_user_id=COALESCE(approved_by_user_id,$1), approved_at=COALESCE(approved_at,NOW()), updated_at=NOW() WHERE id=$2 RETURNING *`,[actor.userId,account.id])).rows[0];
+      account=(await client.query(`UPDATE leader_within_facilitator_accounts SET linked_garvey_user_id=$1, email=$2, normalized_email=$2, status=CASE WHEN status IN ('invited','setup_pending') THEN 'active' ELSE status END, role=CASE WHEN role IN ('super_admin','program_admin') THEN role ELSE 'super_admin' END, must_change_password=FALSE, setup_token_hash=NULL, setup_token_expires_at=NULL, approved_by_user_id=COALESCE(approved_by_user_id,$1), approved_at=COALESCE(approved_at,NOW()), updated_at=NOW() WHERE id=$3 RETURNING *`,[actor.userId,email,account.id])).rows[0];
       await audit(client,"garvey_admin_facilitator_account_linked",{tenant_id:account.tenant_id,actor_user_id:actor.userId,metadata:{facilitator_account_id:account.id}});
     } else {
       const tenantId=actor.tenantId || (await defaultLeaderWithinTenant(client)).id;
@@ -291,6 +320,8 @@ async function leaderWithinAdminDiagnostic(pool, req){
     leader_within_admin_access: !!actor?.is_admin,
     dedicated_facilitator_account_linked: !!linked,
     dedicated_facilitator_account_status: linked?.status || null,
+    dedicated_facilitator_account_email_has_domain: linked?.email ? String(linked.email).includes("@") : null,
+    canonical_email_source: garveyActor?.email ? "garvey_auth_actor" : (facilitatorActor?.canonical_email ? "linked_garvey_user" : null),
     assigned_cohorts_count: assignedCount,
     facilitator_session_active: facilitatorActor?.authenticated === true,
     youth_session_active: youthActor?.authenticated === true
@@ -313,4 +344,4 @@ async function reviewFacilitatorRequest(pool, req){
 async function completeFacilitatorSetup(pool, req){ const email=normalizeFacilitatorIdentity(req.body.email||req.body.identity), setup=String(req.body.setup_credential||""), password=String(req.body.password||""); if(!email||!setup||password.length<12) fail(400,"Email, setup credential, and a private password of at least 12 characters are required."); const acct=(await pool.query(`SELECT * FROM leader_within_facilitator_accounts WHERE normalized_email=$1 AND status IN ('invited','setup_pending') LIMIT 1`,[email])).rows[0]; if(!acct||!acct.setup_token_hash||acct.setup_token_expires_at&&new Date(acct.setup_token_expires_at)<=new Date()||hashToken(setup)!==acct.setup_token_hash) fail(401,"We could not complete setup with those details."); await pool.query(`UPDATE leader_within_facilitator_accounts SET password_hash=$1,setup_token_hash=NULL,setup_token_expires_at=NULL,status='active',must_change_password=FALSE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[createPasswordHash(password),acct.id]); await audit(pool,"facilitator_setup_completed",{tenant_id:acct.tenant_id,metadata:{facilitator_account_id:acct.id}}); return {ok:true,next_route:"/the-leader-within/facilitator/sign-in"}; }
 async function resetFacilitatorCredential(pool, req){ const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const id=Number(req.params.facilitatorId); const setup=generateOneTimeSetupCredential(); await pool.query(`UPDATE leader_within_facilitator_accounts SET status='setup_pending',setup_token_hash=$1,setup_token_expires_at=NOW()+INTERVAL '14 days',must_change_password=TRUE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[hashToken(setup),id]); await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(),updated_at=NOW() WHERE facilitator_account_id=$1 AND revoked_at IS NULL`,[id]); await audit(pool,"facilitator_credential_reset",{actor_user_id:actor.user_id,metadata:{facilitator_account_id:id}}); return {ok:true,one_time_setup_credential:setup,start_here:"/the-leader-within/facilitator/setup"}; }
 
-module.exports = { resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, clearFacilitatorSessionCookie, buildFacilitatorSessionCookie, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, bootstrapGarveyAdminFacilitator, issueFacilitatorSession, youthSessionCookieOptions };
+module.exports = { resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, clearFacilitatorSessionCookie, buildFacilitatorSessionCookie, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, bootstrapGarveyAdminFacilitator, reconcileLinkedGarveyAdminFacilitator, issueFacilitatorSession, youthSessionCookieOptions };
