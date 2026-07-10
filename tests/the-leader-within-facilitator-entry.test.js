@@ -158,3 +158,38 @@ test('admin-only bootstrap requires admin and stable facilitator user id in tena
   assert.equal(out.assignment.facilitator_user_id, 9);
   assert.ok(calls.some(c => /leader_within_cohort_facilitators/.test(c.sql)));
 });
+
+test('Garvey admin facilitator with zero cohorts can open first-cohort form without Access Needed', async () => {
+  const pool = facilitatorPool();
+  const original = facilitatorActor.role;
+  facilitatorActor.role = 'super_admin';
+  try {
+    const res = await invoke(createLeaderWithinRouter(pool), 'GET', '/admin/the-leader-within/bootstrap', facilitatorCookie);
+    assert.equal(res.statusCode, 200);
+    assert.match(res.body, /Create Your First Leader Within Cohort/);
+    assert.match(res.body, /bootstrapCohortForm/);
+    assert.doesNotMatch(res.body, /Leader Within Access Needed/);
+  } finally {
+    facilitatorActor.role = original;
+  }
+});
+
+test('Garvey admin bootstrap uses linked facilitator account id and blocks browser tenant escalation', async () => {
+  const calls = [];
+  const pool = { query: async (sql, params) => {
+    calls.push({ sql, params });
+    if (sql === 'BEGIN' || sql === 'COMMIT' || sql === 'ROLLBACK') return { rows: [] };
+    if (sql.includes('FROM tenants')) return { rows: [{ id: 1, slug: 'tenant-a' }] };
+    if (sql.includes('FROM leader_within_facilitator_accounts')) return { rows: [{ id: 501, linked_garvey_user_id: 1, tenant_id: 1, status: 'active', role: 'super_admin' }] };
+    if (sql.includes('FROM leader_within_programs')) return { rows: [{ id: 5 }] };
+    if (sql.includes('FROM leader_within_cohorts')) return { rows: [] };
+    if (sql.includes('INSERT INTO leader_within_cohorts')) return { rows: [{ id: 10, tenant_id: 1, assigned_facilitator_user_id: 1 }] };
+    return { rows: [] };
+  } };
+  const actor = { authenticated: true, actor_type: 'leader_within_facilitator', facilitator_account_id: 501, user_id: 1, email: 'admin@example.com', role: 'super_admin', active_tenant_slug: 'tenant-a', is_admin: true, is_superadmin: true };
+  const out = await svc.bootstrapCohort(pool, { leaderWithinFacilitatorActor: actor, body: { tenant_slug: 'tenant-a', cohort_name: 'Leader Within Pilot Cohort', location_id: 'Dallas Pilot' } });
+  assert.equal(out.ok, true);
+  assert.equal(out.assignment.facilitator_account_id, 501);
+  assert.ok(calls.some(c => /facilitator_account_id/.test(c.sql) && /leader_within_cohort_facilitators/.test(c.sql)));
+  await assert.rejects(() => svc.bootstrapCohort(pool, { leaderWithinFacilitatorActor: { ...actor, is_superadmin: false }, body: { tenant_slug: 'other-tenant', cohort_name: 'Bad', location_id: 'Bad' } }), /Cross-tenant cohort creation is not allowed/);
+});

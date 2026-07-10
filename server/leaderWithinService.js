@@ -206,22 +206,41 @@ async function bootstrapCohort(pool, req){
   if(!actor.is_admin) fail(403,"Administrator access required.");
   const b=req.body||{};
   const tenantSlug=norm(b.tenant_slug||actor.active_tenant_slug);
-  const facilitatorUserId=Number(b.facilitator_user_id||0);
-  const name=String(b.cohort_name||b.name||"Staging Cohort A").trim().slice(0,160);
-  const location=String(b.location_id||b.location||"Staging").trim().slice(0,120);
+  const name=String(b.cohort_name||b.name||"Leader Within Pilot Cohort").trim().slice(0,160);
+  const location=String(b.location_id||b.location||"Dallas Pilot").trim().slice(0,120);
   const status=norm(b.status||"active");
-  if(!tenantSlug||!facilitatorUserId||!["active","ready"].includes(status)) fail(400,"tenant_slug, facilitator_user_id, and active/ready status are required.");
+  const currentWeek=Math.max(1,Math.min(32,Number(b.current_week||1)||1));
+  const currentSession=["A","B","C"].includes(String(b.current_session||"A").toUpperCase()) ? String(b.current_session||"A").toUpperCase() : "A";
+  const facilitatorUserId=Number(b.facilitator_user_id||actor.user_id||0);
+  const facilitatorAccountId=Number(b.facilitator_account_id||actor.facilitator_account_id||0);
+  if(!tenantSlug||!name||!location||!["active","ready"].includes(status)) fail(400,"tenant, cohort_name, location_id, and active/ready status are required.");
   if(actor.active_tenant_slug && !actor.is_superadmin && tenantSlug!==actor.active_tenant_slug) fail(403,"Cross-tenant cohort creation is not allowed.");
-  const tenant=(await pool.query(`SELECT id,slug FROM tenants WHERE lower(slug)=lower($1) LIMIT 1`,[tenantSlug])).rows[0];
-  if(!tenant) fail(404,"Tenant not found.");
-  const membership=(await pool.query(`SELECT user_id FROM tenant_memberships WHERE tenant_id=$1 AND user_id=$2 LIMIT 1`,[tenant.id,facilitatorUserId])).rows[0];
-  if(!membership) fail(403,"Facilitator must belong to the selected tenant.");
-  const program=(await pool.query(`SELECT id FROM leader_within_programs WHERE slug=$1`,[PROGRAM_SLUG])).rows[0];
-  if(!program) fail(500,"Leader Within program is not configured.");
-  const cohort=(await pool.query(`INSERT INTO leader_within_cohorts (tenant_id,name,program_id,location_id,start_date,current_week,current_session,status,assigned_facilitator_user_id,created_by_user_id) VALUES ($1,$2,$3,$4,$5,1,'A',$6,$7,$8) RETURNING *`,[tenant.id,name,program.id,location,b.start_date||null,status,facilitatorUserId,actor.user_id])).rows[0];
-  await pool.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,'primary','active',$4) ON CONFLICT DO NOTHING`,[cohort.id,facilitatorUserId,tenant.id,actor.user_id]);
-  await audit(pool,"cohort_bootstrap_created",{tenant_id:tenant.id,actor_user_id:actor.user_id,cohort_id:cohort.id,metadata:{facilitator_user_id:facilitatorUserId,program:"The Leader Within — 12-Week Program"}});
-  return {ok:true,cohort,assignment:{facilitator_user_id:facilitatorUserId,status:"active"}};
+  if(b.facilitator_account_id && Number(b.facilitator_account_id)!==facilitatorAccountId && !actor.is_superadmin) fail(403,"Browser-supplied facilitator escalation is not allowed.");
+  const client=pool.connect ? await pool.connect() : pool;
+  try{
+    if(pool.connect) await client.query("BEGIN");
+    const tenant=(await client.query(`SELECT id,slug FROM tenants WHERE lower(slug)=lower($1) LIMIT 1`,[tenantSlug])).rows[0];
+    if(!tenant) fail(404,"Tenant not found.");
+    let account=null;
+    if(facilitatorAccountId){
+      account=(await client.query(`SELECT id,linked_garvey_user_id,tenant_id,status,role FROM leader_within_facilitator_accounts WHERE id=$1 AND tenant_id=$2 LIMIT 1`,[facilitatorAccountId,tenant.id])).rows[0]||null;
+      if(!account||account.status!=="active") fail(403,"Active linked Leader Within facilitator account required.");
+    }
+    if(!facilitatorAccountId){
+      const membership=(await client.query(`SELECT user_id FROM tenant_memberships WHERE tenant_id=$1 AND user_id=$2 LIMIT 1`,[tenant.id,facilitatorUserId])).rows[0];
+      if(!membership) fail(403,"Facilitator must belong to the selected tenant.");
+    }
+    const program=(await client.query(`SELECT id FROM leader_within_programs WHERE slug=$1`,[PROGRAM_SLUG])).rows[0];
+    if(!program) fail(500,"Leader Within program is not configured.");
+    const existing=(await client.query(`SELECT * FROM leader_within_cohorts WHERE tenant_id=$1 AND lower(name)=lower($2) LIMIT 1`,[tenant.id,name])).rows[0];
+    const cohort=existing || (await client.query(`INSERT INTO leader_within_cohorts (tenant_id,name,program_id,location_id,start_date,current_week,current_session,status,assigned_facilitator_user_id,assigned_facilitator_email,created_by_user_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,[tenant.id,name,program.id,location,b.start_date||null,currentWeek,currentSession,status,facilitatorUserId||null,actor.email||null,actor.user_id])).rows[0];
+    if(facilitatorAccountId) await client.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_account_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,$4,'primary','active',$5) ON CONFLICT (cohort_id, facilitator_account_id) DO UPDATE SET status='active', assignment_role='primary', removed_at=NULL, updated_at=NOW()`,[cohort.id,facilitatorAccountId,facilitatorUserId||null,tenant.id,actor.user_id]);
+    else await client.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,'primary','active',$4) ON CONFLICT DO NOTHING`,[cohort.id,facilitatorUserId,tenant.id,actor.user_id]);
+    await audit(client,existing?"cohort_bootstrap_reused":"cohort_bootstrap_created",{tenant_id:tenant.id,actor_user_id:actor.user_id,cohort_id:cohort.id,metadata:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,program:"The Leader Within — 12-Week Program"}});
+    if(pool.connect) await client.query("COMMIT");
+    return {ok:true,cohort,redirect:"/the-leader-within/facilitator/dashboard",assignment:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,status:"active",assignment_role:"primary"},idempotent:!!existing};
+  } catch(e){ if(pool.connect) { try{await client.query("ROLLBACK");}catch(_){} } throw e; }
+  finally{ if(pool.connect) client.release(); }
 }
 
 async function resetCredential(pool, req){ const actor=trustedActorFromRequest(req); const pid=Number(req.params.participantId); const row=(await pool.query(`SELECT p.*,c.id cohort_id,c.tenant_id,c.assigned_facilitator_email,c.assigned_facilitator_user_id,t.slug tenant_slug FROM leader_within_participants p JOIN leader_within_program_enrollments e ON e.leader_within_participant_id=p.id JOIN leader_within_cohorts c ON c.id=e.cohort_id JOIN tenants t ON t.id=c.tenant_id WHERE p.id=$1 LIMIT 1`,[pid])).rows[0]; if(!row) fail(404,"Not found"); await assertFacilitatorForCohortAsync(pool,actor,row); const pin=generateTemporaryPin(); const cred=(await pool.query(`UPDATE leader_within_participant_credentials SET secret_hash=$1, temporary=TRUE, must_change=TRUE, failed_attempts=0, locked_until=NULL, credential_version=credential_version+1, updated_at=NOW() WHERE participant_id=$2 RETURNING leader_id`,[createPasswordHash(pin),pid])).rows[0]; await pool.query(`UPDATE leader_within_participant_sessions SET revoked_at=NOW(), updated_at=NOW() WHERE participant_id=$1 AND revoked_at IS NULL`,[pid]); await audit(pool,"credential_reset",{tenant_id:row.tenant_id,actor_user_id:actor.user_id,participant_id:pid,cohort_id:row.cohort_id,metadata:{leader_id:cred.leader_id}}); return {ok:true, credential_setup_card:{program:"THE LEADER WITHIN",preferred_name:row.preferred_name,leader_id:cred.leader_id,temporary_pin:pin,start_here:"/the-leader-within/sign-in"}}; }
