@@ -68,3 +68,14 @@ test('ordinary Garvey owner, browser headers, youth, and facilitator sessions do
   assert.equal(svc.trustedActorFromRequest({ leaderWithinFacilitatorActor: { authenticated: true, actor_type: 'leader_within_facilitator', user_id: 3, role: 'facilitator', email: 'fac@example.com', is_admin: false } }).is_admin, false);
   assert.equal(svc.trustedActorFromRequest({ leaderWithinYouthActor: { authenticated: true, user_id: 4, participant_id: 4, email: 'youth@example.com', is_admin: false } }).is_admin, false);
 });
+
+test('Leader Within platform admin helper normalizes role and snake/camel admin fields', () => {
+  assert.equal(svc.canAdministerLeaderWithin({ authenticated: true, facilitator_role: 'super_admin', is_admin: false }), true);
+  assert.equal(svc.canAdministerLeaderWithin({ authenticated: true, role: 'super_admin', is_admin: false }), true);
+  assert.equal(svc.canAdministerLeaderWithin({ authenticated: true, is_admin: true, role: 'facilitator' }), true);
+  assert.equal(svc.canAdministerLeaderWithin({ authenticated: true, is_superadmin: true, role: 'facilitator' }), true);
+  assert.equal(svc.canAdministerLeaderWithin({ authenticated: true, isAdmin: true, role: 'facilitator' }), true);
+  assert.equal(svc.canAdministerLeaderWithin({ authenticated: true, isSuperadmin: true, role: 'facilitator' }), true);
+  assert.equal(svc.canAdministerLeaderWithin({ authenticated: true, role: 'observer' }), false);
+  assert.equal(svc.canAdministerLeaderWithin({ authenticated: false, role: 'super_admin' }), false);
+});

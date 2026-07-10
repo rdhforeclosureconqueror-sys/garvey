@@ -150,7 +150,7 @@ test('query role and untrusted browser headers do not grant facilitator access',
 });
 
 test('admin-only bootstrap requires admin and stable facilitator user id in tenant', async () => {
-  await assert.rejects(() => svc.bootstrapCohort({ query: async () => ({ rows: [] }) }, { authActor: { userId: 9, email: 'fac@example.com', role: 'facilitator', tenantSlug: 'tenant-a' }, body: {} }), /Administrator access required/);
+  await assert.rejects(() => svc.bootstrapCohort({ query: async () => ({ rows: [] }) }, { authActor: { userId: 9, email: 'fac@example.com', role: 'facilitator', tenantSlug: 'tenant-a' }, body: {} }), /Leader Within administrator access required|Administrator access required/);
   const calls = [];
   const pool = { query: async (sql, params) => { calls.push({ sql, params }); if (sql.includes('FROM tenants')) return { rows: [{ id: 1, slug: 'tenant-a' }] }; if (sql.includes('FROM tenant_memberships')) return { rows: [{ user_id: 9 }] }; if (sql.includes('FROM leader_within_programs')) return { rows: [{ id: 5 }] }; if (sql.includes('INSERT INTO leader_within_cohorts')) return { rows: [{ id: 10, tenant_id: 1, assigned_facilitator_user_id: 9 }] }; return { rows: [] }; } };
   const out = await svc.bootstrapCohort(pool, { authActor: { userId: 1, email: 'admin@example.com', role: 'admin', tenantSlug: 'tenant-a', isAdmin: true }, body: { tenant_slug: 'tenant-a', facilitator_user_id: 9, cohort_name: 'Staging Cohort A', location_id: 'Staging' } });
@@ -191,7 +191,7 @@ test('Garvey admin bootstrap uses linked facilitator account id and blocks brows
   assert.equal(out.ok, true);
   assert.equal(out.assignment.facilitator_account_id, 501);
   assert.ok(calls.some(c => /facilitator_account_id/.test(c.sql) && /leader_within_cohort_facilitators/.test(c.sql)));
-  await assert.rejects(() => svc.bootstrapCohort(pool, { leaderWithinFacilitatorActor: { ...actor, is_superadmin: false }, body: { tenant_slug: 'other-tenant', cohort_name: 'Bad', location_id: 'Bad' } }), /Cross-tenant cohort creation is not allowed/);
+  await assert.rejects(() => svc.bootstrapCohort(pool, { leaderWithinFacilitatorActor: { ...actor, role: 'facilitator', facilitator_role: 'facilitator', is_superadmin: false }, body: { tenant_slug: 'other-tenant', cohort_name: 'Bad', location_id: 'Bad' } }), /Cross-tenant cohort creation is not allowed/);
 });
 
 test('facilitator dashboard exposes explicit Leader Within and complete sign-out actions', async () => {
@@ -270,4 +270,29 @@ test('ambiguous linked admin reconciliation rejects instead of appending arbitra
     return { rows: [] };
   }};
   await assert.rejects(() => svc.reconcileLinkedGarveyAdminFacilitator(pool, { user_id: 1, email: 'rdhforeclosureconqueror@gmail.com' }), /We could not sign you in/);
+});
+
+test('facilitator_role super_admin with zero cohorts opens bootstrap without cohort assignment', async () => {
+  const original = { role: facilitatorActor.role, is_admin: facilitatorActor.is_admin };
+  facilitatorActor.role = 'super_admin';
+  facilitatorActor.is_admin = false;
+  const res = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/admin/the-leader-within/bootstrap', facilitatorCookie);
+  facilitatorActor.role = original.role;
+  facilitatorActor.is_admin = original.is_admin;
+  assert.equal(res.statusCode, 200);
+  assert.match(res.body, /data-route-marker="tlw-first-cohort-bootstrap-v3"/);
+  assert.match(res.body, /bootstrapCohortForm/);
+  assert.doesNotMatch(res.body, /Leader Within Access Needed/);
+});
+
+test('ordinary facilitator and observer with zero cohorts still get Access Needed for bootstrap', async () => {
+  facilitatorActor.role = 'facilitator'; facilitatorActor.is_admin = false;
+  const ordinary = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/admin/the-leader-within/bootstrap', facilitatorCookie);
+  assert.equal(ordinary.statusCode, 403);
+  assert.match(ordinary.body, /Leader Within Access Needed/);
+  facilitatorActor.role = 'observer';
+  const observer = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/admin/the-leader-within/bootstrap', facilitatorCookie);
+  facilitatorActor.role = 'facilitator';
+  assert.equal(observer.statusCode, 403);
+  assert.match(observer.body, /Leader Within Access Needed/);
 });

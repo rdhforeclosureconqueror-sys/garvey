@@ -41,8 +41,21 @@ function trustedActorFromRequest(req) {
   }
   fail(401, "Authentication required.");
 }
-function isFacilitator(actor) { return actor.is_admin || actor.actor_type === "leader_within_facilitator" || ["super_admin","program_admin","facilitator", "lead_facilitator", "program_director", "administrator", "coach", "staff", "admin"].includes(actor.role); }
-function isSuperAdminActor(actor) { return !!actor?.is_superadmin || actor?.role === "super_admin"; }
+function actorFlag(actor, snake, camel) { return actor?.[snake] === true || actor?.[camel] === true; }
+function actorRole(actor) { return norm(actor?.facilitator_role || actor?.facilitatorRole || actor?.role); }
+function canonicalLeaderWithinActor(actor) {
+  if (!actor) return actor;
+  const role = actorRole(actor);
+  return { ...actor, role, facilitator_role: role, is_admin: actorFlag(actor, "is_admin", "isAdmin") || role === "super_admin", is_superadmin: actorFlag(actor, "is_superadmin", "isSuperadmin") || role === "super_admin" };
+}
+function canAdministerLeaderWithin(actor) {
+  const a = canonicalLeaderWithinActor(actor);
+  const role = actorRole(a);
+  return !!(a?.authenticated && (a.is_admin === true || a.is_superadmin === true || ["super_admin", "program_admin", "program_director", "administrator", "admin"].includes(role)));
+}
+function requireLeaderWithinPlatformAdmin(actor) { if (!canAdministerLeaderWithin(actor)) fail(403, "Leader Within administrator access required."); }
+function isFacilitator(actor) { const a = canonicalLeaderWithinActor(actor); return canAdministerLeaderWithin(a) || a?.actor_type === "leader_within_facilitator" || ["facilitator", "lead_facilitator", "coach", "staff"].includes(actorRole(a)); }
+function isSuperAdminActor(actor) { const a = canonicalLeaderWithinActor(actor); return !!a?.is_superadmin || actorRole(a) === "super_admin"; }
 function requireSuperAdmin(actor) { if (!isSuperAdminActor(actor)) fail(403, "Leader Within super-admin access required."); }
 function assertYouthOwns(actor, participantId, tenantSlug) { if (actor.is_admin) return; if (Number(actor.participant_id) !== Number(participantId)) fail(403, "Youth participants can only access their own program state."); if (tenantSlug && norm(tenantSlug) !== actor.active_tenant_slug) fail(403, "Tenant isolation enforced."); }
 function assertFacilitatorForCohort(actor, cohort) { if (!isFacilitator(actor)) fail(403, "Facilitator role required."); if (actor.is_admin) return; if (norm(cohort.tenant_slug) !== actor.active_tenant_slug) fail(403, "Tenant isolation enforced."); if (cohort.assigned_facilitator_user_id && Number(cohort.assigned_facilitator_user_id) === Number(actor.user_id)) return; if (!cohort.assigned_facilitator_user_id && cohort.assigned_facilitator_email && norm(cohort.assigned_facilitator_email) === actor.email) return; fail(403, "Facilitator is not assigned to this cohort."); }
@@ -71,8 +84,9 @@ function youthEmptyState() { return { empty_state: { title: "The Leader Within",
 function facilitatorEmptyState(actor) {
   const canonicalEmail = norm(actor?.canonical_email || actor?.email || "");
   const displayName = String(actor?.display_name || "").trim() || canonicalEmail || "Facilitator";
+  const platformAdmin = canAdministerLeaderWithin(actor);
   return {
-    empty_state: { message: "No Leader Within cohorts are currently assigned to you.", can_create_cohort: !!actor?.is_admin },
+    empty_state: { message: "No Leader Within cohorts are currently assigned to you.", can_create_cohort: platformAdmin },
     facilitator: { user_id: actor?.user_id || null, email: canonicalEmail || null, canonical_email: canonicalEmail || null, display_name: displayName, tenant_slug: actor?.active_tenant_slug || null }
   };
 }
@@ -238,8 +252,8 @@ async function createFacilitatorAccount(pool, req){
 }
 
 async function bootstrapCohort(pool, req){
-  const actor=trustedActorFromRequest(req);
-  if(!actor.is_admin) fail(403,"Administrator access required.");
+  const actor=canonicalLeaderWithinActor(trustedActorFromRequest(req));
+  requireLeaderWithinPlatformAdmin(actor);
   const b=req.body||{};
   const tenantSlug=norm(b.tenant_slug||actor.active_tenant_slug);
   const name=String(b.cohort_name||b.name||"Leader Within Pilot Cohort").trim().slice(0,160);
@@ -300,7 +314,7 @@ async function leaderWithinAdminDiagnostic(pool, req){
   const facilitatorActor = req.leaderWithinFacilitatorActor || null;
   const youthActor = req.leaderWithinYouthActor || null;
   const actor = trustedActorFromRequest(req);
-  if (!actor.is_admin) fail(403, "Leader Within administrator access required.");
+  requireLeaderWithinPlatformAdmin(actor);
   const facilitatorEmail = norm(garveyActor?.email || facilitatorActor?.email || "");
   let linked = null;
   let assignedCount = 0;
@@ -317,12 +331,16 @@ async function leaderWithinAdminDiagnostic(pool, req){
     garvey_admin_recognized: garveyActor?.isAdmin === true,
     trusted_user_id_present: !!(actor?.user_id || garveyActor?.userId),
     tenant_resolved: !!(actor?.active_tenant_id || actor?.active_tenant_slug || garveyActor?.tenantId || garveyActor?.tenantSlug),
-    leader_within_admin_access: !!actor?.is_admin,
+    leader_within_admin_access: canAdministerLeaderWithin(actor),
+    leader_within_platform_admin: canAdministerLeaderWithin(actor),
     dedicated_facilitator_account_linked: !!linked,
     dedicated_facilitator_account_status: linked?.status || null,
     dedicated_facilitator_account_email_has_domain: linked?.email ? String(linked.email).includes("@") : null,
     canonical_email_source: garveyActor?.email ? "garvey_auth_actor" : (facilitatorActor?.canonical_email ? "linked_garvey_user" : null),
     assigned_cohorts_count: assignedCount,
+    cohort_count: assignedCount,
+    bootstrap_authorized: canAdministerLeaderWithin(actor),
+    handler_version: "tlw-first-cohort-bootstrap-v3",
     facilitator_session_active: facilitatorActor?.authenticated === true,
     youth_session_active: youthActor?.authenticated === true
   };
@@ -344,4 +362,4 @@ async function reviewFacilitatorRequest(pool, req){
 async function completeFacilitatorSetup(pool, req){ const email=normalizeFacilitatorIdentity(req.body.email||req.body.identity), setup=String(req.body.setup_credential||""), password=String(req.body.password||""); if(!email||!setup||password.length<12) fail(400,"Email, setup credential, and a private password of at least 12 characters are required."); const acct=(await pool.query(`SELECT * FROM leader_within_facilitator_accounts WHERE normalized_email=$1 AND status IN ('invited','setup_pending') LIMIT 1`,[email])).rows[0]; if(!acct||!acct.setup_token_hash||acct.setup_token_expires_at&&new Date(acct.setup_token_expires_at)<=new Date()||hashToken(setup)!==acct.setup_token_hash) fail(401,"We could not complete setup with those details."); await pool.query(`UPDATE leader_within_facilitator_accounts SET password_hash=$1,setup_token_hash=NULL,setup_token_expires_at=NULL,status='active',must_change_password=FALSE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[createPasswordHash(password),acct.id]); await audit(pool,"facilitator_setup_completed",{tenant_id:acct.tenant_id,metadata:{facilitator_account_id:acct.id}}); return {ok:true,next_route:"/the-leader-within/facilitator/sign-in"}; }
 async function resetFacilitatorCredential(pool, req){ const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const id=Number(req.params.facilitatorId); const setup=generateOneTimeSetupCredential(); await pool.query(`UPDATE leader_within_facilitator_accounts SET status='setup_pending',setup_token_hash=$1,setup_token_expires_at=NOW()+INTERVAL '14 days',must_change_password=TRUE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[hashToken(setup),id]); await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(),updated_at=NOW() WHERE facilitator_account_id=$1 AND revoked_at IS NULL`,[id]); await audit(pool,"facilitator_credential_reset",{actor_user_id:actor.user_id,metadata:{facilitator_account_id:id}}); return {ok:true,one_time_setup_credential:setup,start_here:"/the-leader-within/facilitator/setup"}; }
 
-module.exports = { resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, clearFacilitatorSessionCookie, buildFacilitatorSessionCookie, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, bootstrapGarveyAdminFacilitator, reconcileLinkedGarveyAdminFacilitator, issueFacilitatorSession, youthSessionCookieOptions };
+module.exports = { canAdministerLeaderWithin, requireLeaderWithinPlatformAdmin, canonicalLeaderWithinActor, resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, clearFacilitatorSessionCookie, buildFacilitatorSessionCookie, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, bootstrapGarveyAdminFacilitator, reconcileLinkedGarveyAdminFacilitator, issueFacilitatorSession, youthSessionCookieOptions };
