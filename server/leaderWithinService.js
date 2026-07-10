@@ -27,7 +27,8 @@ const FACILITATOR_REQUEST_STATUSES = new Set(["pending","more_information_reques
 
 function fail(status, message) { const e = new Error(message); e.status = status; throw e; }
 
-function safePublicError(status, code, message) { const e = new Error(message); e.status = status; e.code = code; throw e; }
+function safePublicError(status, code, message, stage) { const e = new Error(message); e.status = status; e.code = code; if(stage) e.stage = stage; throw e; }
+function leaderWithinRequestId(){ return `lwc_${Date.now().toString(36)}${crypto.randomBytes(4).toString("hex")}`; }
 
 function pgSafeDetails(e){ return { sqlstate: e?.code && /^\d{5}$/.test(String(e.code)) ? String(e.code) : undefined, constraint: e?.constraint ? String(e.constraint).slice(0,120) : undefined }; }
 function classifyBootstrapFailure(stage,e){
@@ -36,7 +37,7 @@ function classifyBootstrapFailure(stage,e){
   if(d.sqlstate === "23503") return { status:500, code:"schema_migration_required", message:"The cohort could not be saved.", ...d };
   if(d.sqlstate === "23502") return { status:500, code:"schema_migration_required", message:"The cohort could not be saved.", ...d };
   if(d.sqlstate === "23514") return { status:400, code: stage.includes("assignment") ? "facilitator_assignment_failed" : "cohort_insert_failed", message:"The cohort could not be saved.", ...d };
-  if(stage.includes("pathway")) return { status:400, code:"program_pathway_unavailable", message:"The selected program pathway is not available.", ...d };
+  if(stage.includes("pathway")) return { status:400, code:"pathway_not_found", message:"The selected program pathway is not available.", ...d };
   if(stage.includes("organization")) return { status:500, code:"organization_resolution_failed", message:"The organization could not be prepared.", ...d };
   if(stage.includes("location")) return { status:500, code:"location_resolution_failed", message:"The cohort location could not be prepared.", ...d };
   if(stage.includes("cohort_insert")) return { status:500, code:"cohort_insert_failed", message:"The cohort could not be saved.", ...d };
@@ -44,8 +45,8 @@ function classifyBootstrapFailure(stage,e){
   if(stage.includes("audit")) return { status:500, code:"audit_insert_failed", message:"The cohort could not be saved.", ...d };
   return { status:500, code:"persistence_failed", message:"The cohort could not be saved.", ...d };
 }
-function logBootstrapFailure(stage, failure){
-  console.error(JSON.stringify({ event:"leader_within_first_cohort_create_failed", stage, safe_code:failure.code, sqlstate:failure.sqlstate, constraint:failure.constraint, handler_version:"tlw-first-cohort-bootstrap-v4", commit:process.env.RENDER_GIT_COMMIT||process.env.GIT_COMMIT||process.env.COMMIT_SHA||"unknown" }));
+function logBootstrapFailure(requestId, stage, failure){
+  console.error(JSON.stringify({ event:"leader_within_cohort_bootstrap_failed", request_id:requestId, stage, safe_code:failure.code, sqlstate:failure.sqlstate, constraint:failure.constraint, handler_version:"cohort-bootstrap-post-v4", commit:process.env.RENDER_GIT_COMMIT||process.env.GIT_COMMIT||process.env.COMMIT_SHA||"unknown", rolled_back:true }));
 }
 function normalizePathway(v) { const x = norm(v || PROGRAM_SLUG).replace(/\s+/g, "-"); const aliases = { "12-week-program": "the-leader-within-12-week", "12-week": "the-leader-within-12-week", "12_week": "the-leader-within-12-week", "twelve_week": "the-leader-within-12-week", "8-week-program": "the-leader-within-8-week", "8-week": "the-leader-within-8-week", "32-week-program": "the-leader-within-32-week", "32-week": "the-leader-within-32-week" }; return aliases[x] || x; }
 function normalizeIsoDate(v) { const raw=String(v||"").trim(); if(!raw) return null; if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) safePublicError(400,"invalid_start_date","Enter a valid start date."); const d=new Date(`${raw}T00:00:00Z`); if(Number.isNaN(d.getTime()) || d.toISOString().slice(0,10)!==raw) safePublicError(400,"invalid_start_date","Enter a valid start date."); return raw; }
@@ -300,6 +301,7 @@ async function createFacilitatorAccount(pool, req){
 }
 
 async function bootstrapCohort(pool, req){
+  const requestId=leaderWithinRequestId();
   const actor=canonicalLeaderWithinActor(trustedActorFromRequest(req));
   requireLeaderWithinPlatformAdmin(actor);
   const b=req.body||{};
@@ -316,7 +318,7 @@ async function bootstrapCohort(pool, req){
   const facilitatorAccountId=Number(actor.facilitator_account_id||0);
   const facilitatorUserId=facilitatorAccountId ? Number(actor.linked_garvey_user_id||actor.user_id||0) : Number(b.facilitator_user_id||actor.user_id||0);
   const assignedByUserId=Number(actor.linked_garvey_user_id||actor.user_id||facilitatorUserId||0) || null;
-  const diagnostics={ handler_reached:true, csrf_passed:true, origin_passed:true, session_resolved:true, super_admin_authorized:true, schema_version:"leader_within_bootstrap_v4", handler_version:"tlw-first-cohort-bootstrap-v4", transaction_result:"not_started" };
+  const diagnostics={ handler_reached:true, csrf_passed:true, origin_passed:true, session_resolved:true, super_admin_authorized:true, schema_version:"leader_within_bootstrap_v4", handler_version:"cohort-bootstrap-post-v4", request_id:requestId, transaction_result:"not_started" };
   let stage="request_validated";
   if(!tenantSlug) safePublicError(400,"tenant_required","The cohort could not be saved.");
   if(!name) safePublicError(400,"missing_cohort_name","Enter a cohort name.");
@@ -343,7 +345,7 @@ async function bootstrapCohort(pool, req){
     }
     stage="pathway_resolved";
     const program=(await client.query(`SELECT id,slug FROM leader_within_programs WHERE slug=$1 AND status='active'`,[pathwaySlug])).rows[0];
-    if(!program) safePublicError(400,"program_pathway_unavailable","The selected program pathway is not available.");
+    if(!program) safePublicError(400,"pathway_not_found","The selected program pathway is not available.");
     diagnostics.pathway_resolved=true;
     stage="organization_resolved"; diagnostics.organization_resolution_result=organization ? "text_recorded_on_cohort" : "not_supplied";
     stage="location_resolved"; diagnostics.location_resolution_result="text_recorded_on_cohort";
@@ -359,12 +361,12 @@ async function bootstrapCohort(pool, req){
     stage="audit_insert_completed"; diagnostics.audit_result="completed";
     if(pool.connect) await client.query("COMMIT");
     stage="transaction_committed"; diagnostics.transaction_result="committed";
-    return {ok:true,code:existing?"cohort_already_exists":"cohort_created",cohort_id:cohort.id,redirect_to:"/the-leader-within/facilitator/dashboard",cohort,assignment:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,status:"active",assignment_role:"primary"},idempotent:!!existing,diagnostic:diagnostics};
+    return {ok:true,cohort_id:cohort.id,redirect_to:"/the-leader-within/facilitator/dashboard",request_id:requestId,cohort,assignment:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,status:"active",assignment_role:"primary"},idempotent:!!existing,diagnostic:diagnostics};
   } catch(e){
     if(pool.connect) { try{await client.query("ROLLBACK"); diagnostics.transaction_result="rolled_back";}catch(_){} }
     const failure=classifyBootstrapFailure(stage,e);
-    logBootstrapFailure(stage,failure);
-    const err=new Error(failure.message); err.status=failure.status; err.code=failure.code; err.stage=stage; err.sqlstate=failure.sqlstate; err.constraint=failure.constraint; err.diagnostic={...diagnostics, safe_error_code:failure.code, transaction_stage:stage, transaction_result:diagnostics.transaction_result}; throw err;
+    logBootstrapFailure(requestId,stage,failure);
+    const err=new Error(failure.message); err.status=failure.status; err.code=failure.code; err.stage=stage; err.request_id=requestId; err.rolled_back=diagnostics.transaction_result==="rolled_back"; err.sqlstate=failure.sqlstate; err.constraint=failure.constraint; err.diagnostic={...diagnostics, safe_error_code:failure.code, transaction_stage:stage, transaction_result:diagnostics.transaction_result}; throw err;
   }
   finally{ if(pool.connect) client.release(); }
 }
@@ -437,6 +439,19 @@ async function leaderWithinAdminDiagnostic(pool, req){
   };
 }
 
+async function leaderWithinBootstrapSchemaDiagnostic(pool, req){
+  const actor=trustedActorFromRequest(req); requireLeaderWithinPlatformAdmin(actor);
+  async function one(sql, params=[]){ try { return !!(await pool.query(sql,params)).rows[0]; } catch { return false; } }
+  const cohorts=await one(`SELECT 1 FROM information_schema.tables WHERE table_name='leader_within_cohorts'`);
+  const cf=await one(`SELECT 1 FROM information_schema.tables WHERE table_name='leader_within_cohort_facilitators'`);
+  const facCol=await one(`SELECT 1 FROM information_schema.columns WHERE table_name='leader_within_cohort_facilitators' AND column_name='facilitator_account_id'`);
+  const programs=await one(`SELECT 1 FROM information_schema.tables WHERE table_name='leader_within_programs'`);
+  const twelve=await one(`SELECT 1 FROM leader_within_programs WHERE slug='the-leader-within-12-week' AND status='active'`);
+  const auditReady=await one(`SELECT 1 FROM information_schema.tables WHERE table_name='leader_within_audit_events'`);
+  const ready=cohorts&&cf&&facCol&&programs&&twelve&&auditReady;
+  return { ok:true, cohorts_table_ready:cohorts, cohort_facilitators_table_ready:cf, facilitator_account_id_column_present:facCol, pathway_table_ready:programs, twelve_week_pathway_present:twelve, organization_support_ready:cohorts, location_support_ready:cohorts, audit_table_ready:auditReady, required_migrations_applied:ready, schema_version:"leader_within_bootstrap_v4", latest_required_migration:"leader_within_bootstrap_v4", bootstrap_post_handler_version:"cohort-bootstrap-post-v4" };
+}
+
 async function facilitatorManagementDashboard(pool, req){ const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const requests=(await pool.query(`SELECT id,normalized_email,first_name,last_name,preferred_name,organization_name,requested_location,organization_role,status,submitted_at,reviewed_at,converted_facilitator_account_id FROM leader_within_facilitator_requests ORDER BY submitted_at DESC LIMIT 100`)).rows; const facilitators=(await pool.query(`SELECT id,facilitator_id,email,first_name,last_name,preferred_name,status,role,organization_id,location_id,last_login_at,approved_at FROM leader_within_facilitator_accounts ORDER BY updated_at DESC LIMIT 100`)).rows; return {ok:true,requests,facilitators,roles:[...LEADER_WITHIN_ROLES],statuses:[...FACILITATOR_ACCOUNT_STATUSES]}; }
 async function reviewFacilitatorRequest(pool, req){
   const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const id=Number(req.params.requestId||req.body.request_id); const action=norm(req.body.action||"approve");
@@ -453,4 +468,4 @@ async function reviewFacilitatorRequest(pool, req){
 async function completeFacilitatorSetup(pool, req){ const email=normalizeFacilitatorIdentity(req.body.email||req.body.identity), setup=String(req.body.setup_credential||""), password=String(req.body.password||""); if(!email||!setup||password.length<12) fail(400,"Email, setup credential, and a private password of at least 12 characters are required."); const acct=(await pool.query(`SELECT * FROM leader_within_facilitator_accounts WHERE normalized_email=$1 AND status IN ('invited','setup_pending') LIMIT 1`,[email])).rows[0]; if(!acct||!acct.setup_token_hash||acct.setup_token_expires_at&&new Date(acct.setup_token_expires_at)<=new Date()||hashToken(setup)!==acct.setup_token_hash) fail(401,"We could not complete setup with those details."); await pool.query(`UPDATE leader_within_facilitator_accounts SET password_hash=$1,setup_token_hash=NULL,setup_token_expires_at=NULL,status='active',must_change_password=FALSE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[createPasswordHash(password),acct.id]); await audit(pool,"facilitator_setup_completed",{tenant_id:acct.tenant_id,metadata:{facilitator_account_id:acct.id}}); return {ok:true,next_route:"/the-leader-within/facilitator/sign-in"}; }
 async function resetFacilitatorCredential(pool, req){ const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const id=Number(req.params.facilitatorId); const setup=generateOneTimeSetupCredential(); await pool.query(`UPDATE leader_within_facilitator_accounts SET status='setup_pending',setup_token_hash=$1,setup_token_expires_at=NOW()+INTERVAL '14 days',must_change_password=TRUE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[hashToken(setup),id]); await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(),updated_at=NOW() WHERE facilitator_account_id=$1 AND revoked_at IS NULL`,[id]); await audit(pool,"facilitator_credential_reset",{actor_user_id:actor.user_id,metadata:{facilitator_account_id:id}}); return {ok:true,one_time_setup_credential:setup,start_here:"/the-leader-within/facilitator/setup"}; }
 
-module.exports = { TLW_COOKIE_VERSION, FACILITATOR_COOKIE_LEGACY_PATHS, getLeaderWithinFacilitatorCookieOptions, setLeaderWithinFacilitatorCookie, clearAllLeaderWithinFacilitatorCookies, parseCookiePairs, cookieValues, canAdministerLeaderWithin, requireLeaderWithinPlatformAdmin, canonicalLeaderWithinActor, resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, clearFacilitatorSessionCookie, buildFacilitatorSessionCookie, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, bootstrapGarveyAdminFacilitator, reconcileLinkedGarveyAdminFacilitator, issueFacilitatorSession, youthSessionCookieOptions };
+module.exports = { TLW_COOKIE_VERSION, FACILITATOR_COOKIE_LEGACY_PATHS, getLeaderWithinFacilitatorCookieOptions, setLeaderWithinFacilitatorCookie, clearAllLeaderWithinFacilitatorCookies, parseCookiePairs, cookieValues, canAdministerLeaderWithin, requireLeaderWithinPlatformAdmin, canonicalLeaderWithinActor, resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, clearFacilitatorSessionCookie, buildFacilitatorSessionCookie, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, leaderWithinBootstrapSchemaDiagnostic, signInFacilitator, bootstrapGarveyAdminFacilitator, reconcileLinkedGarveyAdminFacilitator, issueFacilitatorSession, youthSessionCookieOptions };
