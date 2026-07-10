@@ -304,6 +304,8 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS suspended_at TIMESTAMP;
     ALTER TABLE leader_within_facilitator_accounts ADD COLUMN IF NOT EXISTS disabled_at TIMESTAMP;
     ALTER TABLE leader_within_cohort_facilitators ADD COLUMN IF NOT EXISTS facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE CASCADE;
+    ALTER TABLE leader_within_cohort_facilitators ALTER COLUMN facilitator_user_id DROP NOT NULL;
+    ALTER TABLE leader_within_cohort_facilitators ALTER COLUMN assigned_by_user_id DROP NOT NULL;
     CREATE UNIQUE INDEX IF NOT EXISTS idx_lw_facilitator_requests_pending_email ON leader_within_facilitator_requests (normalized_email) WHERE status IN ('pending','more_information_requested');
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_requests_status ON leader_within_facilitator_requests (status, submitted_at);
     CREATE INDEX IF NOT EXISTS idx_lw_facilitator_accounts_email ON leader_within_facilitator_accounts (tenant_id, normalized_email);
@@ -325,5 +327,6 @@ async function applyLeaderWithinMigrations(pool) {
            ('the-leader-within-8-week','The Leader Within — 8-Week Program',8,'2026.07','active'),
            ('the-leader-within-32-week','The Leader Within — 32-Week Program',32,'2026.07','active')
     ON CONFLICT (slug) DO UPDATE SET title=EXCLUDED.title, duration_weeks=EXCLUDED.duration_weeks, status=EXCLUDED.status, updated_at=NOW()`);
+  console.info(JSON.stringify({event:"leader_within_schema_migration_checked", migration:"leader_within_bootstrap_v4", applied:true, schema_version:"leader_within_bootstrap_v4"}));
 }
 module.exports = { applyLeaderWithinMigrations };

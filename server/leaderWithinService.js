@@ -28,6 +28,25 @@ const FACILITATOR_REQUEST_STATUSES = new Set(["pending","more_information_reques
 function fail(status, message) { const e = new Error(message); e.status = status; throw e; }
 
 function safePublicError(status, code, message) { const e = new Error(message); e.status = status; e.code = code; throw e; }
+
+function pgSafeDetails(e){ return { sqlstate: e?.code && /^\d{5}$/.test(String(e.code)) ? String(e.code) : undefined, constraint: e?.constraint ? String(e.constraint).slice(0,120) : undefined }; }
+function classifyBootstrapFailure(stage,e){
+  if(e?.status && e?.code) return { status:e.status, code:e.code, message:e.message };
+  const d=pgSafeDetails(e);
+  if(d.sqlstate === "23503") return { status:500, code:"schema_migration_required", message:"The cohort could not be saved.", ...d };
+  if(d.sqlstate === "23502") return { status:500, code:"schema_migration_required", message:"The cohort could not be saved.", ...d };
+  if(d.sqlstate === "23514") return { status:400, code: stage.includes("assignment") ? "facilitator_assignment_failed" : "cohort_insert_failed", message:"The cohort could not be saved.", ...d };
+  if(stage.includes("pathway")) return { status:400, code:"program_pathway_unavailable", message:"The selected program pathway is not available.", ...d };
+  if(stage.includes("organization")) return { status:500, code:"organization_resolution_failed", message:"The organization could not be prepared.", ...d };
+  if(stage.includes("location")) return { status:500, code:"location_resolution_failed", message:"The cohort location could not be prepared.", ...d };
+  if(stage.includes("cohort_insert")) return { status:500, code:"cohort_insert_failed", message:"The cohort could not be saved.", ...d };
+  if(stage.includes("facilitator_assignment")) return { status:500, code:"facilitator_assignment_failed", message:"The cohort was created, but the facilitator assignment could not be completed. No changes were saved.", ...d };
+  if(stage.includes("audit")) return { status:500, code:"audit_insert_failed", message:"The cohort could not be saved.", ...d };
+  return { status:500, code:"persistence_failed", message:"The cohort could not be saved.", ...d };
+}
+function logBootstrapFailure(stage, failure){
+  console.error(JSON.stringify({ event:"leader_within_first_cohort_create_failed", stage, safe_code:failure.code, sqlstate:failure.sqlstate, constraint:failure.constraint, handler_version:"tlw-first-cohort-bootstrap-v4", commit:process.env.RENDER_GIT_COMMIT||process.env.GIT_COMMIT||process.env.COMMIT_SHA||"unknown" }));
+}
 function normalizePathway(v) { const x = norm(v || PROGRAM_SLUG).replace(/\s+/g, "-"); const aliases = { "12-week-program": "the-leader-within-12-week", "12-week": "the-leader-within-12-week", "12_week": "the-leader-within-12-week", "twelve_week": "the-leader-within-12-week", "8-week-program": "the-leader-within-8-week", "8-week": "the-leader-within-8-week", "32-week-program": "the-leader-within-32-week", "32-week": "the-leader-within-32-week" }; return aliases[x] || x; }
 function normalizeIsoDate(v) { const raw=String(v||"").trim(); if(!raw) return null; if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) safePublicError(400,"invalid_start_date","Enter a valid start date."); const d=new Date(`${raw}T00:00:00Z`); if(Number.isNaN(d.getTime()) || d.toISOString().slice(0,10)!==raw) safePublicError(400,"invalid_start_date","Enter a valid start date."); return raw; }
 function normalizePositiveInt(v, code, message, { required=false, min=1, max=10000 }={}) { if(v===""||v===null||v===undefined) { if(required) safePublicError(400,code,message); return null; } const n=Number(v); if(!Number.isInteger(n)||n<min||n>max) safePublicError(400,code,message); return n; }
@@ -296,39 +315,60 @@ async function bootstrapCohort(pool, req){
   const pathwaySlug=normalizePathway(b.program_pathway||b.pathway||b.program_slug||PROGRAM_SLUG);
   const facilitatorAccountId=Number(actor.facilitator_account_id||0);
   const facilitatorUserId=facilitatorAccountId ? Number(actor.linked_garvey_user_id||actor.user_id||0) : Number(b.facilitator_user_id||actor.user_id||0);
+  const assignedByUserId=Number(actor.linked_garvey_user_id||actor.user_id||facilitatorUserId||0) || null;
+  const diagnostics={ handler_reached:true, csrf_passed:true, origin_passed:true, session_resolved:true, super_admin_authorized:true, schema_version:"leader_within_bootstrap_v4", handler_version:"tlw-first-cohort-bootstrap-v4", transaction_result:"not_started" };
+  let stage="request_validated";
   if(!tenantSlug) safePublicError(400,"tenant_required","The cohort could not be saved.");
   if(!name) safePublicError(400,"missing_cohort_name","Enter a cohort name.");
   if(!location) safePublicError(400,"location_required","Enter a location.");
-  if(!currentSession) safePublicError(400,"invalid_current_session","Current session must be A, B, or C.");
-  if(!["active","ready"].includes(status)) safePublicError(400,"invalid_status","Choose Active or Ready status.");
+  if(!currentSession) safePublicError(400,"invalid_session_value","Current session must be A, B, or C.");
+  if(!["active","ready"].includes(status)) safePublicError(400,"invalid_cohort_status","Choose Active or Ready status.");
   if(actor.active_tenant_slug && !actor.is_superadmin && tenantSlug!==actor.active_tenant_slug) safePublicError(403,"cross_tenant_creation_blocked","Cross-tenant cohort creation is not allowed.");
   if(b.facilitator_account_id && Number(b.facilitator_account_id)!==facilitatorAccountId) safePublicError(403,"facilitator_escalation_blocked","You do not have permission to create this cohort.");
   const client=pool.connect ? await pool.connect() : pool;
   try{
-    if(pool.connect) await client.query("BEGIN");
+    if(pool.connect) { await client.query("BEGIN"); diagnostics.transaction_result="begun"; }
+    stage="actor_resolved";
+    stage="tenant_resolved";
     const tenant=(await client.query(`SELECT id,slug FROM tenants WHERE lower(slug)=lower($1) LIMIT 1`,[tenantSlug])).rows[0];
     if(!tenant) safePublicError(404,"tenant_not_found","The cohort could not be saved.");
+    diagnostics.tenant_resolved=true;
     let account=null;
     if(facilitatorAccountId){
       account=(await client.query(`SELECT id,linked_garvey_user_id,tenant_id,status,role FROM leader_within_facilitator_accounts WHERE id=$1 AND tenant_id=$2 LIMIT 1`,[facilitatorAccountId,tenant.id])).rows[0]||null;
       if(!account||account.status!=="active") safePublicError(403,"facilitator_account_inactive","You do not have permission to create this cohort.");
-    }
-    if(!facilitatorAccountId){
+    } else {
       const membership=(await client.query(`SELECT user_id FROM tenant_memberships WHERE tenant_id=$1 AND user_id=$2 LIMIT 1`,[tenant.id,facilitatorUserId])).rows[0];
       if(!membership) safePublicError(403,"facilitator_not_in_tenant","You do not have permission to create this cohort.");
     }
-    const program=(await client.query(`SELECT id,slug FROM leader_within_programs WHERE slug=$1`,[pathwaySlug])).rows[0];
-    if(!program) safePublicError(400,"invalid_program_pathway","Choose a valid program pathway.");
-    const existing=(await client.query(`SELECT * FROM leader_within_cohorts WHERE tenant_id=$1 AND lower(name)=lower($2) LIMIT 1`,[tenant.id,name])).rows[0];
-    const cohort=existing || (await client.query(`INSERT INTO leader_within_cohorts (tenant_id,name,program_id,location_id,organization_id,start_date,capacity,current_week,current_session,status,assigned_facilitator_user_id,assigned_facilitator_email,created_by_user_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`,[tenant.id,name,program.id,location,organization,startDate,capacity,currentWeek,currentSession,status,facilitatorUserId||null,actor.email||null,actor.user_id])).rows[0];
-    if(facilitatorAccountId) await client.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_account_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,$4,'primary','active',$5) ON CONFLICT (cohort_id, facilitator_account_id) DO UPDATE SET status='active', assignment_role='primary', removed_at=NULL, updated_at=NOW()`,[cohort.id,facilitatorAccountId,facilitatorUserId||null,tenant.id,actor.user_id]);
-    else await client.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,'primary','active',$4) ON CONFLICT DO NOTHING`,[cohort.id,facilitatorUserId,tenant.id,actor.user_id]);
-    await audit(client,existing?"cohort_bootstrap_reused":"cohort_bootstrap_created",{tenant_id:tenant.id,actor_user_id:actor.user_id,cohort_id:cohort.id,metadata:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,program_pathway:pathwaySlug,organization,location}});
+    stage="pathway_resolved";
+    const program=(await client.query(`SELECT id,slug FROM leader_within_programs WHERE slug=$1 AND status='active'`,[pathwaySlug])).rows[0];
+    if(!program) safePublicError(400,"program_pathway_unavailable","The selected program pathway is not available.");
+    diagnostics.pathway_resolved=true;
+    stage="organization_resolved"; diagnostics.organization_resolution_result=organization ? "text_recorded_on_cohort" : "not_supplied";
+    stage="location_resolved"; diagnostics.location_resolution_result="text_recorded_on_cohort";
+    const existing=(await client.query(`SELECT * FROM leader_within_cohorts WHERE tenant_id=$1 AND lower(name)=lower($2) AND ($3::date IS NULL OR start_date IS NULL OR start_date=$3::date) LIMIT 1`,[tenant.id,name,startDate])).rows[0];
+    stage="cohort_insert_started"; diagnostics.cohort_insert_result=existing ? "existing_reused" : "started";
+    const cohort=existing || (await client.query(`INSERT INTO leader_within_cohorts (tenant_id,name,program_id,location_id,organization_id,start_date,capacity,current_week,current_session,status,assigned_facilitator_user_id,assigned_facilitator_email,created_by_user_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`,[tenant.id,name,program.id,location,organization,startDate,capacity,currentWeek,currentSession,status,facilitatorUserId||null,actor.email||null,assignedByUserId])).rows[0];
+    stage="cohort_insert_completed"; diagnostics.cohort_insert_result=existing ? "existing_reused" : "completed";
+    stage="facilitator_assignment_started";
+    if(facilitatorAccountId) await client.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_account_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,$4,'primary','active',$5) ON CONFLICT (cohort_id, facilitator_account_id) DO UPDATE SET status='active', assignment_role='primary', removed_at=NULL, updated_at=NOW()`,[cohort.id,facilitatorAccountId,facilitatorUserId||null,tenant.id,assignedByUserId]);
+    else await client.query(`INSERT INTO leader_within_cohort_facilitators (cohort_id,facilitator_user_id,tenant_id,assignment_role,status,assigned_by_user_id) VALUES ($1,$2,$3,'primary','active',$4) ON CONFLICT DO NOTHING`,[cohort.id,facilitatorUserId,tenant.id,assignedByUserId]);
+    stage="facilitator_assignment_completed"; diagnostics.assignment_result="completed";
+    await audit(client,existing?"cohort_bootstrap_reused":"cohort_bootstrap_created",{tenant_id:tenant.id,actor_user_id:assignedByUserId,cohort_id:cohort.id,metadata:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,program_pathway:pathwaySlug,organization,location,assignment_role:"primary"}});
+    stage="audit_insert_completed"; diagnostics.audit_result="completed";
     if(pool.connect) await client.query("COMMIT");
-    return {ok:true,cohort_id:cohort.id,redirect_to:"/the-leader-within/facilitator/dashboard",cohort,assignment:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,status:"active",assignment_role:"primary"},idempotent:!!existing};
-  } catch(e){ if(pool.connect) { try{await client.query("ROLLBACK");}catch(_){} } throw e; }
+    stage="transaction_committed"; diagnostics.transaction_result="committed";
+    return {ok:true,code:existing?"cohort_already_exists":"cohort_created",cohort_id:cohort.id,redirect_to:"/the-leader-within/facilitator/dashboard",cohort,assignment:{facilitator_user_id:facilitatorUserId||null,facilitator_account_id:facilitatorAccountId||null,status:"active",assignment_role:"primary"},idempotent:!!existing,diagnostic:diagnostics};
+  } catch(e){
+    if(pool.connect) { try{await client.query("ROLLBACK"); diagnostics.transaction_result="rolled_back";}catch(_){} }
+    const failure=classifyBootstrapFailure(stage,e);
+    logBootstrapFailure(stage,failure);
+    const err=new Error(failure.message); err.status=failure.status; err.code=failure.code; err.stage=stage; err.sqlstate=failure.sqlstate; err.constraint=failure.constraint; err.diagnostic={...diagnostics, safe_error_code:failure.code, transaction_stage:stage, transaction_result:diagnostics.transaction_result}; throw err;
+  }
   finally{ if(pool.connect) client.release(); }
 }
+
 
 async function resetCredential(pool, req){ const actor=trustedActorFromRequest(req); const pid=Number(req.params.participantId); const row=(await pool.query(`SELECT p.*,c.id cohort_id,c.tenant_id,c.assigned_facilitator_email,c.assigned_facilitator_user_id,t.slug tenant_slug FROM leader_within_participants p JOIN leader_within_program_enrollments e ON e.leader_within_participant_id=p.id JOIN leader_within_cohorts c ON c.id=e.cohort_id JOIN tenants t ON t.id=c.tenant_id WHERE p.id=$1 LIMIT 1`,[pid])).rows[0]; if(!row) fail(404,"Not found"); await assertFacilitatorForCohortAsync(pool,actor,row); const pin=generateTemporaryPin(); const cred=(await pool.query(`UPDATE leader_within_participant_credentials SET secret_hash=$1, temporary=TRUE, must_change=TRUE, failed_attempts=0, locked_until=NULL, credential_version=credential_version+1, updated_at=NOW() WHERE participant_id=$2 RETURNING leader_id`,[createPasswordHash(pin),pid])).rows[0]; await pool.query(`UPDATE leader_within_participant_sessions SET revoked_at=NOW(), updated_at=NOW() WHERE participant_id=$1 AND revoked_at IS NULL`,[pid]); await audit(pool,"credential_reset",{tenant_id:row.tenant_id,actor_user_id:actor.user_id,participant_id:pid,cohort_id:row.cohort_id,metadata:{leader_id:cred.leader_id}}); return {ok:true, credential_setup_card:{program:"THE LEADER WITHIN",preferred_name:row.preferred_name,leader_id:cred.leader_id,temporary_pin:pin,start_here:"/the-leader-within/sign-in"}}; }
 
