@@ -1,6 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const path = require('node:path');
 const { createLeaderWithinRouter } = require('../server/leaderWithinRoutes');
 const svc = require('../server/leaderWithinService');
 
@@ -280,7 +281,7 @@ test('facilitator_role super_admin with zero cohorts opens bootstrap without coh
   facilitatorActor.role = original.role;
   facilitatorActor.is_admin = original.is_admin;
   assert.equal(res.statusCode, 200);
-  assert.match(res.body, /data-route-marker="tlw-first-cohort-bootstrap-v3"/);
+  assert.match(res.body, /data-route-marker="tlw-first-cohort-bootstrap-v4"/);
   assert.match(res.body, /bootstrapCohortForm/);
   assert.doesNotMatch(res.body, /Leader Within Access Needed/);
 });
@@ -416,7 +417,7 @@ test('bootstrap route emits safe cookie diagnostic headers for duplicate cookies
   try {
     const res = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/admin/the-leader-within/bootstrap', { headers: { cookie: 'tlw_facilitator_session=bad; tlw_facilitator_session=test-token' } });
     assert.equal(res.statusCode, 200);
-    assert.equal(res.headers['x-tlw-handler-version'], 'bootstrap-v3-cookie-diagnostics');
+    assert.equal(res.headers['x-tlw-handler-version'], 'cohort-bootstrap-get-v4');
     assert.equal(res.headers['x-tlw-cookie-count'], '2');
     assert.equal(res.headers['x-tlw-session-resolved'], 'true');
     assert.equal(res.headers['x-tlw-admin-authorized'], 'true');
@@ -437,7 +438,7 @@ test('bootstrap first-cohort form posts JSON with credentials CSRF and actionabl
   assert.match(res.body, /name="program_pathway"/);
   assert.match(res.body, /name="organization"/);
   assert.match(res.body, /name="location"/);
-  assert.match(res.body, /name="start_date" type="date" value="2026-07-10"/);
+  assert.match(res.body, /name="start_date" type="date" value="2026-07-16"/);
   assert.match(res.body, /name="capacity" type="number" min="1" value="10"/);
   assert.match(res.body, /The cohort could not be saved\./);
 });
@@ -446,10 +447,10 @@ test('bootstrap POST accepts trusted Render backend origin and rejects invalid o
   const actor = { ...facilitatorActor, role: 'super_admin', is_admin: true, is_superadmin: true, csrf_token: 'csrf-ok', authenticated: true };
   const bad = await invoke(createLeaderWithinRouter(facilitatorPool()), 'POST', '/api/admin/the-leader-within/bootstrap/cohort', { headers: { origin: 'https://evil.example', 'x-csrf-token': 'csrf-ok' }, leaderWithinFacilitatorActor: actor, body: {} });
   assert.equal(bad.statusCode, 403);
-  assert.equal(bad.body.error, 'trusted_origin_required');
+  assert.equal(bad.body.error, 'origin_rejected');
   const missingCsrf = await invoke(createLeaderWithinRouter(facilitatorPool()), 'POST', '/api/admin/the-leader-within/bootstrap/cohort', { headers: { origin: 'https://garveybackend.onrender.com' }, leaderWithinFacilitatorActor: actor, body: {} });
   assert.equal(missingCsrf.statusCode, 403);
-  assert.equal(missingCsrf.body.error, 'csrf_required');
+  assert.equal(missingCsrf.body.error, 'csrf_failed');
 });
 
 test('bootstrapCohort validates body, normalizes pathway date status capacity, and assigns facilitator account id', async () => {
@@ -493,4 +494,51 @@ test('bootstrapCohort rejects localized dates invalid capacity missing name and 
   assert.equal(out.idempotent, true);
   assert.equal(out.cohort_id, 55);
   assert.equal(calls.some(sql => sql.includes('INSERT INTO leader_within_cohorts')), false);
+});
+
+
+test('bootstrap frontend visibly renders structured non-2xx JSON safe diagnostics', () => {
+  const routes = fs.readFileSync(path.join(__dirname, '..', 'server', 'leaderWithinRoutes.js'), 'utf8');
+  assert.match(routes, /const d=await r\.json\(\)\.catch/);
+  assert.match(routes, /if\(!r\.ok\|\|d\.ok===false\)/);
+  assert.match(routes, /data-error-code/);
+  assert.match(routes, /data-error-stage/);
+  assert.match(routes, /data-error-request-id/);
+  assert.match(routes, /data-error-rolled-back/);
+  assert.match(routes, /setPanel\(d,r\.status\)/);
+  assert.doesNotMatch(routes, /throw new Error\(d\.message\|\|"The cohort could not be saved\."\)/);
+  assert.doesNotMatch(routes, /sqlstate/i);
+  assert.doesNotMatch(routes, /stack trace/i);
+  assert.doesNotMatch(routes, /cookie.*textContent/i);
+});
+
+test('bootstrap POST handled failures return safe JSON with request id and matching server log event', async () => {
+  const calls = [];
+  const pool = { connect: async () => ({ query: async (sql, params) => { calls.push({ sql, params }); if (sql === 'BEGIN' || sql === 'ROLLBACK') return { rows: [] }; if (sql.includes('FROM tenants')) return { rows: [{ id: 1, slug: 'tenant-a' }] }; if (sql.includes('leader_within_facilitator_accounts')) return { rows: [{ id: 7, linked_garvey_user_id: 9, tenant_id: 1, status: 'active', role: 'super_admin' }] }; if (sql.includes('leader_within_programs')) return { rows: [] }; return { rows: [] }; }, release() {} }) };
+  const logs = [];
+  const orig = console.error;
+  console.error = (line) => logs.push(String(line));
+  try {
+    await assert.rejects(() => svc.bootstrapCohort(pool, { leaderWithinFacilitatorActor: { authenticated: true, user_id: 9, linked_garvey_user_id: 9, facilitator_account_id: 7, role: 'super_admin', is_admin: true, is_superadmin: true, active_tenant_slug: 'tenant-a', email: 'admin@example.com' }, body: { cohort_name: 'Leader Within Pilot Cohort', program_pathway: 'the-leader-within-12-week', organization: 'Leader Within', location: 'Dallas Pilot', start_date: '2026-07-16', current_week: 1, current_session: 'A', status: 'active', capacity: 10 } }), (e) => {
+      assert.equal(e.code, 'pathway_not_found');
+      assert.equal(e.stage, 'pathway_resolved');
+      assert.match(e.request_id, /^lwc_/);
+      assert.equal(e.rolled_back, true);
+      return true;
+    });
+  } finally { console.error = orig; }
+  const event = JSON.parse(logs[0]);
+  assert.equal(event.event, 'leader_within_cohort_bootstrap_failed');
+  assert.match(event.request_id, /^lwc_/);
+  assert.equal(event.request_id.length > 4, true);
+});
+
+test('bootstrap schema diagnostic is admin-only and returns safe readiness booleans', async () => {
+  await assert.rejects(() => svc.leaderWithinBootstrapSchemaDiagnostic({ query: async () => ({ rows: [] }) }, { leaderWithinFacilitatorActor: { authenticated: true, role: 'facilitator' } }), /administrator access required/i);
+  const pool = { query: async (sql) => ({ rows: sql.includes('leader_within_programs WHERE') ? [{ ok: 1 }] : [{ ok: 1 }] }) };
+  const out = await svc.leaderWithinBootstrapSchemaDiagnostic(pool, { leaderWithinFacilitatorActor: { authenticated: true, role: 'super_admin', is_superadmin: true } });
+  assert.equal(out.ok, true);
+  for (const key of ['cohorts_table_ready','cohort_facilitators_table_ready','facilitator_account_id_column_present','pathway_table_ready','twelve_week_pathway_present','organization_support_ready','location_support_ready','audit_table_ready','required_migrations_applied']) assert.equal(typeof out[key], 'boolean');
+  assert.equal(out.bootstrap_post_handler_version, 'cohort-bootstrap-post-v4');
+  assert.doesNotMatch(JSON.stringify(out), /password|cookie|token|sql/i);
 });
