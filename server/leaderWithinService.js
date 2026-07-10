@@ -25,8 +25,6 @@ function fail(status, message) { const e = new Error(message); e.status = status
 function norm(v) { return String(v || "").trim().toLowerCase(); }
 function enabled(name) { return ["1", "true", "yes", "on"].includes(norm(process.env[name])); }
 function nonProduction() { return process.env.NODE_ENV === "test" || process.env.NODE_ENV === "development"; }
-function configuredSuperAdminEmails() { return String(process.env.LEADER_WITHIN_SUPERADMIN_EMAILS || "rdhforeclosureconqueror@gmail.com").split(",").map(norm).filter(Boolean); }
-function isConfiguredLeaderWithinSuperAdminEmail(email) { return configuredSuperAdminEmails().includes(norm(email)); }
 function trustedActorFromRequest(req) {
   if (req.leaderWithinYouthActor?.authenticated) return req.leaderWithinYouthActor;
   if (req.leaderWithinFacilitatorActor?.authenticated) return req.leaderWithinFacilitatorActor;
@@ -137,10 +135,6 @@ async function authenticateGarveyUser(pool, identity, password){
   if(!account) fail(401,"We could not sign you in with those details.");
   return account;
 }
-async function resolveLeaderWithinSessionRole(pool,user){
-  if(norm(user.email) && String(process.env.ADMIN_EMAILS||"rdhforeclosureconqueror@gmail.com").toLowerCase().split(',').map(x=>x.trim()).includes(norm(user.email))) return {role:"admin",tenant_id:user.tenant_id,tenant_slug:user.tenant_slug,is_admin:true};
-  return {role:"authenticated",tenant_id:user.tenant_id,tenant_slug:user.tenant_slug,is_admin:false};
-}
 function normalizeFacilitatorIdentity(value){ return String(value||"").trim().toLowerCase(); }
 async function resolveFacilitatorSession(pool, req){
   const token=String(parseCookieHeader(req.headers?.cookie||"")[FACILITATOR_COOKIE]||"").trim();
@@ -199,18 +193,6 @@ async function resetCredential(pool, req){ const actor=trustedActorFromRequest(r
 function cleanText(v, max){ return String(v||"").trim().replace(/\s+/g," ").slice(0,max); }
 function generateOneTimeSetupCredential(){ return `${generateTemporaryPin()}-${crypto.randomBytes(6).toString("hex")}`; }
 async function defaultLeaderWithinTenant(pool){ return (await pool.query(`INSERT INTO tenants (slug,name) VALUES ('leader-within','The Leader Within') ON CONFLICT (slug) DO UPDATE SET name=COALESCE(tenants.name,EXCLUDED.name) RETURNING id,slug`)).rows[0]; }
-async function bootstrapLeaderWithinSuperAdmins(pool){
-  const emails=configuredSuperAdminEmails(); if(!emails.length) return {ok:true,configured:false,created:0};
-  const tenant=await defaultLeaderWithinTenant(pool); let created=0;
-  for(const email of emails){
-    const existing=(await pool.query(`SELECT id FROM leader_within_facilitator_accounts WHERE lower(normalized_email)=$1 LIMIT 1`,[email])).rows[0];
-    if(existing) continue;
-    const setup=generateOneTimeSetupCredential(), fid=`TLW-SA-${crypto.randomBytes(5).toString("hex").toUpperCase()}`;
-    const acct=(await pool.query(`INSERT INTO leader_within_facilitator_accounts (tenant_id,facilitator_id,email,normalized_email,password_hash,setup_token_hash,setup_token_expires_at,first_name,last_name,preferred_name,status,role,must_change_password,approved_at) VALUES ($1,$2,$3,$3,$4,$5,NOW()+INTERVAL '14 days','Leader','Within','Super Admin','setup_pending','super_admin',TRUE,NOW()) RETURNING id`,[tenant.id,fid,email,createPasswordHash(crypto.randomBytes(18).toString("hex")),hashToken(setup)])).rows[0];
-    await audit(pool,"leader_within_super_admin_bootstrapped",{tenant_id:tenant.id,metadata:{facilitator_account_id:acct.id,normalized_email:email}}); created++;
-  }
-  return {ok:true,configured:true,created};
-}
 async function submitFacilitatorAccessRequest(pool, req){
   const b=req.body||{}, email=normalizeFacilitatorIdentity(b.email); if(!email) fail(400,"A valid email address is required.");
   const required=["first_name","last_name","preferred_name","organization_name","requested_location","request_reason"];
@@ -222,6 +204,37 @@ async function submitFacilitatorAccessRequest(pool, req){
   }
   return {ok:true,message:"Your facilitator-access request has been received. A Leader Within administrator must approve the request before you can sign in."};
 }
+async function leaderWithinAdminDiagnostic(pool, req){
+  const garveyActor = req.authActor || null;
+  const facilitatorActor = req.leaderWithinFacilitatorActor || null;
+  const youthActor = req.leaderWithinYouthActor || null;
+  const actor = trustedActorFromRequest(req);
+  if (!actor.is_admin) fail(403, "Leader Within administrator access required.");
+  const facilitatorEmail = norm(garveyActor?.email || facilitatorActor?.email || "");
+  let linked = null;
+  let assignedCount = 0;
+  if (facilitatorEmail) {
+    const linkedResult = await pool.query(`SELECT id,status FROM leader_within_facilitator_accounts WHERE normalized_email=$1 ORDER BY id DESC LIMIT 1`, [facilitatorEmail]);
+    linked = linkedResult.rows[0] || null;
+    if (linked) {
+      const assignedResult = await pool.query(`SELECT COUNT(*)::int AS count FROM leader_within_cohort_facilitators WHERE facilitator_account_id=$1 AND status='active' AND removed_at IS NULL`, [linked.id]);
+      assignedCount = Number(assignedResult.rows[0]?.count || 0);
+    }
+  }
+  return {
+    authenticated: !!actor?.authenticated,
+    garvey_admin_recognized: garveyActor?.isAdmin === true,
+    trusted_user_id_present: !!(actor?.user_id || garveyActor?.userId),
+    tenant_resolved: !!(actor?.active_tenant_id || actor?.active_tenant_slug || garveyActor?.tenantId || garveyActor?.tenantSlug),
+    leader_within_admin_access: !!actor?.is_admin,
+    dedicated_facilitator_account_linked: !!linked,
+    dedicated_facilitator_account_status: linked?.status || null,
+    assigned_cohorts_count: assignedCount,
+    facilitator_session_active: facilitatorActor?.authenticated === true,
+    youth_session_active: youthActor?.authenticated === true
+  };
+}
+
 async function facilitatorManagementDashboard(pool, req){ const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const requests=(await pool.query(`SELECT id,normalized_email,first_name,last_name,preferred_name,organization_name,requested_location,organization_role,status,submitted_at,reviewed_at,converted_facilitator_account_id FROM leader_within_facilitator_requests ORDER BY submitted_at DESC LIMIT 100`)).rows; const facilitators=(await pool.query(`SELECT id,facilitator_id,email,first_name,last_name,preferred_name,status,role,organization_id,location_id,last_login_at,approved_at FROM leader_within_facilitator_accounts ORDER BY updated_at DESC LIMIT 100`)).rows; return {ok:true,requests,facilitators,roles:[...LEADER_WITHIN_ROLES],statuses:[...FACILITATOR_ACCOUNT_STATUSES]}; }
 async function reviewFacilitatorRequest(pool, req){
   const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const id=Number(req.params.requestId||req.body.request_id); const action=norm(req.body.action||"approve");
@@ -238,4 +251,4 @@ async function reviewFacilitatorRequest(pool, req){
 async function completeFacilitatorSetup(pool, req){ const email=normalizeFacilitatorIdentity(req.body.email||req.body.identity), setup=String(req.body.setup_credential||""), password=String(req.body.password||""); if(!email||!setup||password.length<12) fail(400,"Email, setup credential, and a private password of at least 12 characters are required."); const acct=(await pool.query(`SELECT * FROM leader_within_facilitator_accounts WHERE normalized_email=$1 AND status IN ('invited','setup_pending') LIMIT 1`,[email])).rows[0]; if(!acct||!acct.setup_token_hash||acct.setup_token_expires_at&&new Date(acct.setup_token_expires_at)<=new Date()||hashToken(setup)!==acct.setup_token_hash) fail(401,"We could not complete setup with those details."); await pool.query(`UPDATE leader_within_facilitator_accounts SET password_hash=$1,setup_token_hash=NULL,setup_token_expires_at=NULL,status='active',must_change_password=FALSE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[createPasswordHash(password),acct.id]); await audit(pool,"facilitator_setup_completed",{tenant_id:acct.tenant_id,metadata:{facilitator_account_id:acct.id}}); return {ok:true,next_route:"/the-leader-within/facilitator/sign-in"}; }
 async function resetFacilitatorCredential(pool, req){ const actor=trustedActorFromRequest(req); requireSuperAdmin(actor); const id=Number(req.params.facilitatorId); const setup=generateOneTimeSetupCredential(); await pool.query(`UPDATE leader_within_facilitator_accounts SET status='setup_pending',setup_token_hash=$1,setup_token_expires_at=NOW()+INTERVAL '14 days',must_change_password=TRUE,credential_version=credential_version+1,updated_at=NOW() WHERE id=$2`,[hashToken(setup),id]); await pool.query(`UPDATE leader_within_facilitator_sessions SET revoked_at=NOW(),updated_at=NOW() WHERE facilitator_account_id=$1 AND revoked_at IS NULL`,[id]); await audit(pool,"facilitator_credential_reset",{actor_user_id:actor.user_id,metadata:{facilitator_account_id:id}}); return {ok:true,one_time_setup_credential:setup,start_here:"/the-leader-within/facilitator/setup"}; }
 
-module.exports = { resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, bootstrapLeaderWithinSuperAdmins, configuredSuperAdminEmails, isConfiguredLeaderWithinSuperAdminEmail, signInFacilitator, authenticateGarveyUser, youthSessionCookieOptions };
+module.exports = { resolveYouthSession, revokeYouthSession, resolveFacilitatorSession, revokeFacilitatorSession, csrfTokenForRequest, YOUTH_COOKIE, FACILITATOR_COOKIE, YOUTH_SESSION_TTL_MS, FACILITATOR_SESSION_TTL_MS,  getYouthDashboard, selectPractice, submitReflection, submitSharedPerspective, facilitatorDashboard, participantProfile, facilitatorControl, addNote, ensureDemoState, trustedActorFromRequest, STORY_MAP, OPTIONAL_STORIES, createPasswordHash, verifyPasswordHash, generateLeaderId, generateTemporaryPin, normalizeLeaderId, addParticipant, signInYouth, firstLogin, resetCredential, bootstrapCohort, createFacilitatorAccount, submitFacilitatorAccessRequest, facilitatorManagementDashboard, reviewFacilitatorRequest, completeFacilitatorSetup, resetFacilitatorCredential, leaderWithinAdminDiagnostic, signInFacilitator, authenticateGarveyUser, youthSessionCookieOptions };
