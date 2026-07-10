@@ -561,3 +561,60 @@ test('bootstrap SQLSTATE mapping returns safe cohort insert codes without raw SQ
   assert.equal(mapped.message, 'The cohort could not be saved.');
   assert.doesNotMatch(JSON.stringify(mapped), /INSERT INTO secret|does not exist/);
 });
+
+test('add participant dashboard button opens canonical real form with handler marker and no API placeholder', async () => {
+  const cohort = { id: 3, name: 'Leader Within Pilot Cohort', current_week: 1, current_session: 'A', participant_count: 0, tenant_id: 1, tenant_slug: 'tenant-a', assigned_facilitator_email: facilitatorActor.email };
+  const router = createLeaderWithinRouter(facilitatorPool({ cohorts: [cohort] }));
+  const dashboard = await invoke(router, 'GET', '/the-leader-within/facilitator/dashboard', facilitatorCookie);
+  assert.equal(dashboard.statusCode, 200);
+  assert.match(dashboard.body, /href="\/admin\/the-leader-within\/cohorts\/3\/add-participant"/);
+  const form = await invoke(router, 'GET', '/admin/the-leader-within/cohorts/3/add-participant', facilitatorCookie);
+  assert.equal(form.statusCode, 200);
+  assert.equal(form.headers['x-tlw-handler-version'], 'add-participant-form-v2');
+  assert.match(form.body, /<form id="addParticipantForm"/);
+  assert.match(form.body, /name="first_name"/);
+  assert.match(form.body, /name="last_name"/);
+  assert.match(form.body, /name="preferred_name"/);
+  assert.match(form.body, /name="cohort_name" value="Leader Within Pilot Cohort" readonly/);
+  assert.match(form.body, /id="addParticipantButton"[^>]*>Preparing secure form…|Create Participant/);
+  assert.match(form.body, /fetch\("\/api\/admin\/the-leader-within\/cohorts\/3\/participants",\{method:"POST",headers:\{"Content-Type":"application\/json","x-csrf-token":csrf\},credentials:"include"/);
+  assert.match(form.body, /\/api\/the-leader-within\/facilitator\/csrf/);
+  assert.match(form.body, /tlw-form-grid/);
+  assert.match(form.body, /Handler version:<br><strong>add-participant-form-v2<\/strong>/);
+  assert.doesNotMatch(form.body, /Use the secure API route/);
+  assert.doesNotMatch(form.body, /to create the participant and show the temporary credential once/);
+});
+
+test('legacy add participant compatibility route redirects to canonical route', async () => {
+  const res = await invoke(createLeaderWithinRouter(facilitatorPool()), 'GET', '/the-leader-within/cohorts/3/add-participant', facilitatorCookie);
+  assert.equal(res.statusCode, 302);
+  assert.equal(res.headers.location, '/admin/the-leader-within/cohorts/3/add-participant');
+});
+
+test('add participant canonical route enforces facilitator authorization states', async () => {
+  const cohort = { id: 3, name: 'Leader Within Pilot Cohort', current_week: 1, current_session: 'A', participant_count: 0, tenant_id: 1, tenant_slug: 'tenant-a', assigned_facilitator_email: facilitatorActor.email };
+  const ok = await invoke(createLeaderWithinRouter(facilitatorPool({ cohorts: [cohort] })), 'GET', '/admin/the-leader-within/cohorts/3/add-participant', facilitatorCookie);
+  assert.equal(ok.statusCode, 200);
+  const unassigned = await invoke(createLeaderWithinRouter(facilitatorPool({ cohorts: [] })), 'GET', '/admin/the-leader-within/cohorts/3/add-participant', facilitatorCookie);
+  assert.equal(unassigned.statusCode, 404);
+  const unauth = await invoke(createLeaderWithinRouter(facilitatorPool({ cohorts: [cohort] })), 'GET', '/admin/the-leader-within/cohorts/3/add-participant');
+  assert.equal(unauth.statusCode, 302);
+  assert.equal(unauth.headers.location, '/the-leader-within/facilitator/sign-in');
+  const observerPool = facilitatorPool({ cohorts: [cohort] });
+  const original = observerPool.query;
+  observerPool.query = async (sql, params) => {
+    const out = await original(sql, params);
+    if (sql.includes('FROM leader_within_facilitator_sessions')) out.rows[0].role = 'observer';
+    return out;
+  };
+  const observer = await invoke(createLeaderWithinRouter(observerPool), 'GET', '/admin/the-leader-within/cohorts/3/add-participant', facilitatorCookie);
+  assert.equal(observer.statusCode, 403);
+});
+
+test('deployment version reports add participant and participant post handler versions', async () => {
+  const res = await invoke(createLeaderWithinRouter({ query: async () => ({ rows: [] }) }), 'GET', '/api/deployment-version');
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.body.leader_within_add_participant_get_version, 'add-participant-form-v2');
+  assert.equal(res.body.leader_within_participant_post_version, 'participant-create-v2');
+});
+
