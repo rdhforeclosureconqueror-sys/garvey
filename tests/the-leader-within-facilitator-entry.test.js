@@ -576,13 +576,36 @@ test('add participant dashboard button opens canonical real form with handler ma
   assert.match(form.body, /name="last_name"/);
   assert.match(form.body, /name="preferred_name"/);
   assert.match(form.body, /name="cohort_name" value="Leader Within Pilot Cohort" readonly/);
-  assert.match(form.body, /id="addParticipantButton"[^>]*>Preparing secure form…|Create Participant/);
-  assert.match(form.body, /fetch\("\/api\/admin\/the-leader-within\/cohorts\/3\/participants",\{method:"POST",headers:\{"Content-Type":"application\/json","x-csrf-token":csrf\},credentials:"include"/);
-  assert.match(form.body, /\/api\/the-leader-within\/facilitator\/csrf/);
+  assert.match(form.body, /id="addParticipantButton"[^>]*>Preparing secure form…/);
+  assert.match(form.body, /id="addParticipantStatus" role="status">Secure form setup is starting…/);
+  assert.match(form.body, /id="addParticipantInitErrorPanel"/);
+  assert.match(form.body, /data-canonical-post="\/api\/admin\/the-leader-within\/cohorts\/3\/participants"/);
+  assert.match(form.body, /<script src="\/the-leader-within\/add-participant-form.js" defer><\/script>/);
   assert.match(form.body, /tlw-form-grid/);
-  assert.match(form.body, /Handler version:<br><strong>add-participant-form-v2<\/strong>/);
+  assert.match(form.body, /Handler version:<br><strong id="addParticipantHandlerVersion">add-participant-form-v2<\/strong>/);
   assert.doesNotMatch(form.body, /Use the secure API route/);
   assert.doesNotMatch(form.body, /to create the participant and show the temporary credential once/);
+});
+
+
+test('add participant client script initializes csrf state machine and canonical POST contract', () => {
+  const script = fs.readFileSync('public/the-leader-within/add-participant-form.js', 'utf8');
+  assert.match(script, /DOMContentLoaded/);
+  assert.match(script, /CSRF_URL = "\/api\/the-leader-within\/facilitator\/csrf"/);
+  assert.match(script, /data\.csrf_token/);
+  assert.match(script, /credentials: "include"/);
+  assert.match(script, /form\.addEventListener\("submit", submitParticipant\)/);
+  assert.match(script, /setButton\("Add Participant", false\)/);
+  assert.match(script, /setButton\("Adding Participant…", true\)/);
+  assert.match(script, /headers: \{ "Content-Type": "application\/json", "x-csrf-token": state\.csrf \}/);
+  assert.match(script, /body: JSON\.stringify\(body\)/);
+  assert.match(script, /showInitError\("form_element_missing"/);
+  assert.match(script, /showInitError\("submit_button_missing"/);
+  assert.match(script, /csrf_response_invalid/);
+  assert.match(script, /csrf_fetch_failed/);
+  assert.match(script, /non_json_response/);
+  assert.match(script, /state\.submitting/);
+  assert.doesNotMatch(script, /console\.log|csrf_token.*console|state\.csrf.*console/);
 });
 
 test('legacy add participant compatibility route redirects to canonical route', async () => {
