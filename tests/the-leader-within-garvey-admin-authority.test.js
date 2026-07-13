@@ -79,3 +79,29 @@ test('Leader Within platform admin helper normalizes role and snake/camel admin 
   assert.equal(svc.canAdministerLeaderWithin({ authenticated: true, role: 'observer' }), false);
   assert.equal(svc.canAdministerLeaderWithin({ authenticated: false, role: 'super_admin' }), false);
 });
+
+test('Leader Within router does not intercept canonical Garvey owner sign-in POST', async () => {
+  let reachedCanonicalOwnerRoute = false;
+  const pool = { query: async () => { throw new Error('Leader Within session lookup should not run for Garvey owner signin'); } };
+  const router = createLeaderWithinRouter(pool);
+  const res = await invoke(router, 'POST', '/api/owner/signin', {
+    headers: { origin: 'https://garveyfrontend.onrender.com', 'content-type': 'application/json' },
+    body: { email: 'admin@example.com', password: 'not-logged' },
+  });
+  reachedCanonicalOwnerRoute = !res.body && res.statusCode === 200;
+  assert.equal(reachedCanonicalOwnerRoute, true);
+});
+
+
+test('canonical Garvey owner sign-in has safe structured response and credentialed CORS contract', () => {
+  const index = fs.readFileSync('server/index.js', 'utf8');
+  const frontend = fs.readFileSync('public/index.html', 'utf8');
+  assert.match(index, /app\.post\("\/api\/owner\/signin"/);
+  assert.match(index, /ok: false, error: "invalid_credentials"/);
+  assert.match(index, /request_id: requestId/);
+  assert.match(index, /Access-Control-Allow-Credentials", "true"/);
+  assert.doesNotMatch(index, /Access-Control-Allow-Origin", "\*"/);
+  assert.match(frontend, /ownerApiUrl\("\/api\/owner\/signin"\)/);
+  assert.match(frontend, /credentials: "include"/);
+  assert.match(frontend, /email, password, next: safeNext/);
+});

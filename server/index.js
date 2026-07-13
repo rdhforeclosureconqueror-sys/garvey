@@ -130,6 +130,7 @@ const allowedOrigins = new Set(
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: false, limit: "64kb" }));
 
+function authRequestId() { return `auth_${Date.now().toString(36)}${crypto.randomBytes(4).toString("hex")}`; }
 function applyCorsHeaders(req, res) {
   const origin = String(req.headers.origin || "").trim();
   const requestHost = String(req.headers.host || "").trim().toLowerCase();
@@ -153,7 +154,7 @@ function applyCorsHeaders(req, res) {
     || pathName === "/voc-intake"
     || pathName === "/api/questions";
   if (!origin) return { allowed: true };
-  if (!allowedOrigins.has(origin) && !sameOrigin && !isCustomerFlowRoute) return { allowed: false };
+  if (!allowedOrigins.has(origin) && !sameOrigin && !isCustomerFlowRoute) return { allowed: false, reason: "origin_rejected" };
 
   res.header("Access-Control-Allow-Origin", origin);
   res.header("Vary", "Origin");
@@ -165,12 +166,12 @@ function applyCorsHeaders(req, res) {
 
 app.use((req, res, next) => {
   const cors = applyCorsHeaders(req, res);
-  if (!cors.allowed) return res.status(403).json({ error: "Not allowed by CORS" });
+  if (!cors.allowed) return res.status(403).json({ ok: false, error: "origin_rejected", message: "This sign-in request could not be accepted.", request_id: authRequestId() });
   return next();
 });
 app.options("*", (req, res) => {
   const cors = applyCorsHeaders(req, res);
-  if (!cors.allowed) return res.status(403).json({ error: "Not allowed by CORS" });
+  if (!cors.allowed) return res.status(403).json({ ok: false, error: "origin_rejected", message: "This sign-in request could not be accepted.", request_id: authRequestId() });
   return res.sendStatus(204);
 });
 app.use((req, res, next) => {
@@ -1895,11 +1896,12 @@ app.post("/api/owner/signin", async (req, res) => {
   try {
     const email = normalizeEmail(req.body?.email);
     const password = String(req.body?.password || "");
-    if (!email || !password) return res.status(400).json({ error: "email and password are required" });
+    const requestId = authRequestId();
+    if (!email || !password) return res.status(400).json({ ok: false, error: "missing_credentials", message: "Email and password are required.", request_id: requestId });
 
     const account = await authenticateOwnerCredentials(pool, email, password);
     if (!account) {
-      return res.status(401).json({ error: "invalid credentials" });
+      return res.status(401).json({ ok: false, error: "invalid_credentials", message: "The email or password is incorrect.", request_id: requestId });
     }
 
     const token = createSessionToken();
@@ -1915,7 +1917,9 @@ app.post("/api/owner/signin", async (req, res) => {
       ? `/dashboard.html?tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`
       : `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`);
     return res.json({
+      ok: true,
       success: true,
+      request_id: requestId,
       tenant: account.tenant_slug,
       role: account.role,
       onboarding_complete: !!account.onboarding_complete,
@@ -1923,7 +1927,7 @@ app.post("/api/owner/signin", async (req, res) => {
     });
   } catch (err) {
     console.error("owner_signin_failed", err);
-    return res.status(500).json({ error: "owner signin failed" });
+    return res.status(500).json({ ok: false, error: "owner_signin_failed", message: "Owner sign-in could not be completed.", request_id: authRequestId() });
   }
 });
 
