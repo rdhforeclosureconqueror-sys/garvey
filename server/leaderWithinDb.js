@@ -344,7 +344,7 @@ async function applyLeaderWithinMigrations(pool) {
         JOIN pg_index index_catalog
           ON index_catalog.indexrelid = constraint_catalog.conindid
         JOIN LATERAL (
-          SELECT array_agg(attribute_catalog.attname ORDER BY key_catalog.ordinality) AS column_names
+          SELECT array_agg(attribute_catalog.attname::text ORDER BY key_catalog.ordinality) AS column_names
           FROM unnest(index_catalog.indkey) WITH ORDINALITY AS key_catalog(attribute_number, ordinality)
           JOIN pg_attribute attribute_catalog
             ON attribute_catalog.attrelid = table_catalog.oid
@@ -353,7 +353,7 @@ async function applyLeaderWithinMigrations(pool) {
         WHERE constraint_catalog.conname = 'leader_within_cohort_facilitators_account_unique'
           AND constraint_catalog.contype = 'u'
           AND table_catalog.relname = 'leader_within_cohort_facilitators'
-          AND indexed_columns.column_names = ARRAY['cohort_id', 'facilitator_account_id']
+          AND indexed_columns.column_names = ARRAY['cohort_id', 'facilitator_account_id']::text[]
       ) INTO named_constraint_is_correct;
 
       SELECT EXISTS (
@@ -364,7 +364,7 @@ async function applyLeaderWithinMigrations(pool) {
         JOIN pg_class table_catalog
           ON table_catalog.oid = index_metadata.indrelid
         JOIN LATERAL (
-          SELECT array_agg(attribute_catalog.attname ORDER BY key_catalog.ordinality) AS column_names
+          SELECT array_agg(attribute_catalog.attname::text ORDER BY key_catalog.ordinality) AS column_names
           FROM unnest(index_metadata.indkey) WITH ORDINALITY AS key_catalog(attribute_number, ordinality)
           JOIN pg_attribute attribute_catalog
             ON attribute_catalog.attrelid = table_catalog.oid
@@ -373,7 +373,7 @@ async function applyLeaderWithinMigrations(pool) {
         WHERE index_catalog.relname = 'leader_within_cohort_facilitators_account_unique'
           AND table_catalog.relname = 'leader_within_cohort_facilitators'
           AND index_metadata.indisunique = TRUE
-          AND indexed_columns.column_names = ARRAY['cohort_id', 'facilitator_account_id']
+          AND indexed_columns.column_names = ARRAY['cohort_id', 'facilitator_account_id']::text[]
       ) INTO named_unique_index_is_correct;
 
       IF named_constraint_exists OR named_relation_exists THEN

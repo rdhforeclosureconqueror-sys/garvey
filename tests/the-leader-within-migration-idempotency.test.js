@@ -39,14 +39,39 @@ test('Leader Within account assignment migration checks pg_constraint and pg_cla
 test('Leader Within account assignment migration audits semantic equivalence before no-oping existing objects', () => {
   assert.match(migrationSql, /named_constraint_is_correct/);
   assert.match(migrationSql, /named_unique_index_is_correct/);
-  assert.match(migrationSql, /indexed_columns\.column_names = ARRAY\['cohort_id', 'facilitator_account_id'\]/);
+  assert.match(migrationSql, /array_agg\(attribute_catalog\.attname::text ORDER BY key_catalog\.ordinality\) AS column_names/);
+  assert.match(migrationSql, /indexed_columns\.column_names = ARRAY\['cohort_id', 'facilitator_account_id'\]::text\[\]/);
   assert.match(migrationSql, /does not exactly enforce UNIQUE \(cohort_id, facilitator_account_id\)/);
+});
+
+test('Leader Within account assignment migration detects existing correct unique constraints and indexes', () => {
+  assert.match(migrationSql, /constraint_catalog\.contype = 'u'/);
+  assert.match(migrationSql, /index_metadata\.indisunique = TRUE/);
+  assert.match(migrationSql, /IF named_constraint_is_correct OR named_unique_index_is_correct THEN/);
+  assert.match(migrationSql, /skipping constraint creation/);
+});
+
+test('Leader Within account assignment migration can add the constraint when no named object exists', () => {
+  assert.match(migrationSql, /IF named_constraint_exists OR named_relation_exists THEN[\s\S]*ELSE[\s\S]*ALTER TABLE leader_within_cohort_facilitators ADD CONSTRAINT leader_within_cohort_facilitators_account_unique UNIQUE \(cohort_id, facilitator_account_id\)/);
 });
 
 test('Leader Within account assignment migration checks duplicate data before adding the unique constraint', () => {
   assert.match(migrationSql, /WHERE cohort_id IS NOT NULL\s+AND facilitator_account_id IS NOT NULL/);
   assert.match(migrationSql, /GROUP BY cohort_id, facilitator_account_id\s+HAVING COUNT\(\*\) > 1/);
   assert.match(migrationSql, /duplicate \(cohort_id, facilitator_account_id\) rows exist/);
+});
+
+test('Leader Within catalog column comparison uses compatible text arrays', () => {
+  assert.doesNotMatch(migrationSql, /array_agg\(attribute_catalog\.attname ORDER BY key_catalog\.ordinality\)/);
+  assert.doesNotMatch(migrationSql, /indexed_columns\.column_names = ARRAY\['cohort_id', 'facilitator_account_id'\](?!::text\[\])/);
+  assert.match(migrationSql, /array_agg\(attribute_catalog\.attname::text ORDER BY key_catalog\.ordinality\) AS column_names/);
+  assert.match(migrationSql, /ARRAY\['cohort_id', 'facilitator_account_id'\]::text\[\]/);
+});
+
+test('Leader Within migration completes without surfacing PostgreSQL 42883 array operator errors', async () => {
+  const pool = createMigrationPool();
+  await assert.doesNotReject(() => applyLeaderWithinMigrations(pool), /42883/);
+  assert.equal(pool.calls.some((sql) => sql.includes("ARRAY['cohort_id', 'facilitator_account_id']::text[]")), true);
 });
 
 test('Leader Within migration does not rethrow 42P07 when the named relation already exists', async () => {
