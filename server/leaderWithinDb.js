@@ -315,9 +315,91 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_cohort_facilitators ALTER COLUMN facilitator_user_id DROP NOT NULL;
     ALTER TABLE leader_within_cohort_facilitators ALTER COLUMN assigned_by_user_id DROP NOT NULL;
     DO $$
+    DECLARE
+      duplicate_assignment_count INTEGER := 0;
+      named_constraint_exists BOOLEAN := FALSE;
+      named_relation_exists BOOLEAN := FALSE;
+      named_constraint_is_correct BOOLEAN := FALSE;
+      named_unique_index_is_correct BOOLEAN := FALSE;
     BEGIN
-      ALTER TABLE leader_within_cohort_facilitators ADD CONSTRAINT leader_within_cohort_facilitators_account_unique UNIQUE (cohort_id, facilitator_account_id);
-    EXCEPTION WHEN duplicate_object THEN NULL;
+      SELECT EXISTS (
+        SELECT 1
+        FROM pg_constraint
+        WHERE conname = 'leader_within_cohort_facilitators_account_unique'
+      ) INTO named_constraint_exists;
+
+      SELECT EXISTS (
+        SELECT 1
+        FROM pg_class
+        WHERE relname = 'leader_within_cohort_facilitators_account_unique'
+      ) INTO named_relation_exists;
+
+      SELECT EXISTS (
+        SELECT 1
+        FROM pg_constraint constraint_catalog
+        JOIN pg_class table_catalog
+          ON table_catalog.oid = constraint_catalog.conrelid
+        JOIN pg_namespace namespace_catalog
+          ON namespace_catalog.oid = table_catalog.relnamespace
+        JOIN pg_index index_catalog
+          ON index_catalog.indexrelid = constraint_catalog.conindid
+        JOIN LATERAL (
+          SELECT array_agg(attribute_catalog.attname ORDER BY key_catalog.ordinality) AS column_names
+          FROM unnest(index_catalog.indkey) WITH ORDINALITY AS key_catalog(attribute_number, ordinality)
+          JOIN pg_attribute attribute_catalog
+            ON attribute_catalog.attrelid = table_catalog.oid
+           AND attribute_catalog.attnum = key_catalog.attribute_number
+        ) indexed_columns ON TRUE
+        WHERE constraint_catalog.conname = 'leader_within_cohort_facilitators_account_unique'
+          AND constraint_catalog.contype = 'u'
+          AND table_catalog.relname = 'leader_within_cohort_facilitators'
+          AND indexed_columns.column_names = ARRAY['cohort_id', 'facilitator_account_id']
+      ) INTO named_constraint_is_correct;
+
+      SELECT EXISTS (
+        SELECT 1
+        FROM pg_class index_catalog
+        JOIN pg_index index_metadata
+          ON index_metadata.indexrelid = index_catalog.oid
+        JOIN pg_class table_catalog
+          ON table_catalog.oid = index_metadata.indrelid
+        JOIN LATERAL (
+          SELECT array_agg(attribute_catalog.attname ORDER BY key_catalog.ordinality) AS column_names
+          FROM unnest(index_metadata.indkey) WITH ORDINALITY AS key_catalog(attribute_number, ordinality)
+          JOIN pg_attribute attribute_catalog
+            ON attribute_catalog.attrelid = table_catalog.oid
+           AND attribute_catalog.attnum = key_catalog.attribute_number
+        ) indexed_columns ON TRUE
+        WHERE index_catalog.relname = 'leader_within_cohort_facilitators_account_unique'
+          AND table_catalog.relname = 'leader_within_cohort_facilitators'
+          AND index_metadata.indisunique = TRUE
+          AND indexed_columns.column_names = ARRAY['cohort_id', 'facilitator_account_id']
+      ) INTO named_unique_index_is_correct;
+
+      IF named_constraint_exists OR named_relation_exists THEN
+        IF named_constraint_is_correct OR named_unique_index_is_correct THEN
+          RAISE NOTICE 'Leader Within cohort facilitator account uniqueness already enforced; skipping constraint creation';
+        ELSE
+          RAISE WARNING 'Leader Within migration found leader_within_cohort_facilitators_account_unique, but it does not exactly enforce UNIQUE (cohort_id, facilitator_account_id). Manual schema remediation is required.';
+        END IF;
+      ELSE
+        SELECT COUNT(*)
+        FROM (
+          SELECT cohort_id, facilitator_account_id
+          FROM leader_within_cohort_facilitators
+          WHERE cohort_id IS NOT NULL
+            AND facilitator_account_id IS NOT NULL
+          GROUP BY cohort_id, facilitator_account_id
+          HAVING COUNT(*) > 1
+        ) duplicate_assignments
+        INTO duplicate_assignment_count;
+
+        IF duplicate_assignment_count > 0 THEN
+          RAISE WARNING 'Leader Within migration skipped leader_within_cohort_facilitators_account_unique because duplicate (cohort_id, facilitator_account_id) rows exist. Remove or merge duplicates before adding the constraint.';
+        ELSE
+          ALTER TABLE leader_within_cohort_facilitators ADD CONSTRAINT leader_within_cohort_facilitators_account_unique UNIQUE (cohort_id, facilitator_account_id);
+        END IF;
+      END IF;
     END $$;
     DO $$
     BEGIN
