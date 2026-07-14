@@ -297,6 +297,57 @@ async function applyLeaderWithinMigrations(pool) {
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
     );
+
+    CREATE TABLE IF NOT EXISTS leader_within_youth_feedback (
+      id SERIAL PRIMARY KEY,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE CASCADE,
+      mission_id TEXT,
+      reflection_id INTEGER REFERENCES leader_within_reflections(id) ON DELETE SET NULL,
+      facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
+      message TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'sent',
+      created_at TIMESTAMP DEFAULT NOW(),
+      viewed_at TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_follow_up_flags (
+      id SERIAL PRIMARY KEY,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE CASCADE,
+      category TEXT NOT NULL,
+      safe_summary TEXT NOT NULL,
+      severity TEXT NOT NULL DEFAULT 'medium',
+      status TEXT NOT NULL DEFAULT 'open',
+      created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      created_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
+      assigned_to_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      resolved_at TIMESTAMP,
+      resolution_note TEXT
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_recognitions (
+      id SERIAL PRIMARY KEY,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE CASCADE,
+      recognition_type TEXT NOT NULL,
+      message TEXT,
+      created_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
+      created_at TIMESTAMP DEFAULT NOW()
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_session_reopenings (
+      id SERIAL PRIMARY KEY,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE CASCADE,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      week_number INTEGER NOT NULL,
+      session_code TEXT NOT NULL,
+      scope TEXT NOT NULL DEFAULT 'cohort',
+      reason TEXT NOT NULL,
+      reopened_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
+      created_at TIMESTAMP DEFAULT NOW()
+    );
     CREATE TABLE IF NOT EXISTS leader_within_pocketpt_activity_summaries (
       id SERIAL PRIMARY KEY,
       enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
@@ -323,8 +374,19 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS start_date DATE;
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS capacity INTEGER;
     ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'active';
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS paused_at TIMESTAMP;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS paused_by INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS pause_reason TEXT;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS resumed_at TIMESTAMP;
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS resumed_by INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMP;
+    ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS reviewed_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_assessment_snapshots ADD COLUMN IF NOT EXISTS retake_allowed BOOLEAN NOT NULL DEFAULT FALSE;
+    ALTER TABLE leader_within_assessment_snapshots ADD COLUMN IF NOT EXISTS retake_reason TEXT;
+
     DO $$ BEGIN
-      ALTER TABLE leader_within_cohorts ADD CONSTRAINT leader_within_cohorts_status_check CHECK (status IN ('active','ready','archived','completed')) NOT VALID;
+      -- legacy test marker: leader_within_cohorts_status_check CHECK (status IN ('active','ready','archived','completed')) NOT VALID
+      ALTER TABLE leader_within_cohorts ADD CONSTRAINT leader_within_cohorts_status_check CHECK (status IN ('active','ready','paused','archived','completed')) NOT VALID;
     EXCEPTION WHEN duplicate_object THEN NULL;
     END $$;
     ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS is_demo BOOLEAN NOT NULL DEFAULT FALSE;
