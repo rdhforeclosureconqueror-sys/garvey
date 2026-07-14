@@ -8,6 +8,7 @@ async function applyLeaderWithinMigrations(pool) {
       title TEXT NOT NULL,
       duration_weeks INTEGER NOT NULL,
       version TEXT NOT NULL DEFAULT '2026.07',
+      curriculum_key TEXT NOT NULL DEFAULT 'leader-within',
       status TEXT NOT NULL DEFAULT 'active',
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
@@ -27,6 +28,7 @@ async function applyLeaderWithinMigrations(pool) {
       start_date DATE,
       capacity INTEGER,
       alternate_story_title TEXT,
+      curriculum_version TEXT NOT NULL DEFAULT '2026.07',
       is_demo BOOLEAN NOT NULL DEFAULT FALSE,
       created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
       created_at TIMESTAMP DEFAULT NOW(),
@@ -184,6 +186,7 @@ async function applyLeaderWithinMigrations(pool) {
       status TEXT NOT NULL DEFAULT 'active',
       current_week INTEGER NOT NULL DEFAULT 1,
       current_session TEXT NOT NULL DEFAULT 'A',
+      curriculum_version TEXT NOT NULL DEFAULT '2026.07',
       completed_at TIMESTAMP,
       is_demo BOOLEAN NOT NULL DEFAULT FALSE,
       created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
@@ -212,6 +215,10 @@ async function applyLeaderWithinMigrations(pool) {
       enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
       week_number INTEGER NOT NULL,
       practice_id TEXT NOT NULL,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE SET NULL,
+      session_code TEXT NOT NULL DEFAULT 'A',
+      completed_at TIMESTAMP,
       selected_at TIMESTAMP DEFAULT NOW(),
       participant_reason TEXT,
       attempted_at TIMESTAMP,
@@ -228,6 +235,10 @@ async function applyLeaderWithinMigrations(pool) {
       session_code TEXT NOT NULL,
       reflection_type TEXT NOT NULL,
       prompt_id TEXT,
+      mission_id TEXT,
+      story_id TEXT,
+      selected_practice_id TEXT,
+      facilitator_review_status TEXT NOT NULL DEFAULT 'pending_review',
       response_text TEXT NOT NULL,
       response_format TEXT NOT NULL DEFAULT 'text',
       visibility TEXT NOT NULL DEFAULT 'participant_and_facilitator',
@@ -243,6 +254,21 @@ async function applyLeaderWithinMigrations(pool) {
       group_difference TEXT,
       submitted_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS leader_within_story_completions (
+      id SERIAL PRIMARY KEY,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE SET NULL,
+      week_number INTEGER NOT NULL,
+      session_code TEXT NOT NULL,
+      story_id TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'completed',
+      completed_at TIMESTAMP DEFAULT NOW(),
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (enrollment_id, story_id)
     );
     CREATE TABLE IF NOT EXISTS leader_within_assessment_snapshots (
       id SERIAL PRIMARY KEY,
@@ -427,6 +453,20 @@ async function applyLeaderWithinMigrations(pool) {
       WHERE assigned_facilitator_user_id IS NOT NULL
       ON CONFLICT (cohort_id, facilitator_user_id) DO UPDATE SET status='active', updated_at=NOW();
   `);
+  await pool.query(`
+    ALTER TABLE leader_within_programs ADD COLUMN IF NOT EXISTS curriculum_key TEXT NOT NULL DEFAULT 'leader-within';
+    ALTER TABLE leader_within_cohorts ADD COLUMN IF NOT EXISTS curriculum_version TEXT NOT NULL DEFAULT '2026.07';
+    ALTER TABLE leader_within_program_enrollments ADD COLUMN IF NOT EXISTS curriculum_version TEXT NOT NULL DEFAULT '2026.07';
+    ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE;
+    ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS session_code TEXT NOT NULL DEFAULT 'A';
+    ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP;
+    ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS mission_id TEXT;
+    ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS story_id TEXT;
+    ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS selected_practice_id TEXT;
+    ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS facilitator_review_status TEXT NOT NULL DEFAULT 'pending_review';
+  `);
+
   await pool.query(`INSERT INTO leader_within_programs (slug,title,duration_weeks,version,status)
     VALUES ('the-leader-within-12-week','The Leader Within — 12-Week Program',12,'2026.07','active'),
            ('the-leader-within-8-week','The Leader Within — 8-Week Program',8,'2026.07','active'),
