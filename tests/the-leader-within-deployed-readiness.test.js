@@ -26,6 +26,7 @@ test('my-program compares session participant id to canonical leader_within part
   if(sql.includes('FROM leader_within_practice_selections')) return {rows:[]};
   if(sql.includes('FROM leader_within_session_progress')) return {rows:[{session_code:'A',status:'available'}]};
   if(sql.includes('FROM leader_within_assessment_snapshots')) return {rows:[]};
+  if(sql.includes('FROM leader_within_reflections')) return {rows:[]};
   throw new Error('unexpected SQL '+sql);
  }};
  const out=await svc.getYouthDashboard(pool,{headers:{cookie:'tlw_youth_session=x; tlw_facilitator_session=y; garvey_owner_session=z; gates_parent_session=p'},leaderWithinYouthActor:actor,leaderWithinFacilitatorActor:{authenticated:true,participant_id:999,is_admin:true},authActor:{userId:888,isAdmin:true}});

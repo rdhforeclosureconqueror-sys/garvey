@@ -65,3 +65,18 @@ test('practice, reflection, shared perspective, controls, and PocketPT boundary 
   assert.match(service, /Your PocketPT fitness session will match your current ability, safety needs, and personal training plan/);
   assert.doesNotMatch(service + routes, /PocketPT secret|POCKETPT_SECRET|universal workout prescribed/i);
 });
+
+
+test('youth operating system surfaces curriculum-connected daily workflow', () => {
+  assert.match(service, /function curriculumWeek\(n\)/);
+  assert.match(service, /weekly_story_library/);
+  assert.match(service, /Today's Movement Mission/);
+  assert.match(service, /Discover Your Leadership Style/);
+  assert.match(service, /Choose today's leadership practice/);
+  assert.match(service, /submissions_visible_to_facilitator: true/);
+  assert.match(routes, /View This Week's Stories/);
+  assert.match(routes, /Choose Today's Leadership Practice/);
+  assert.match(routes, /Weekly Progress/);
+  assert.match(routes, /My Growth/);
+  assert.match(routes, /\/the-leader-within\/archetypes/);
+});
