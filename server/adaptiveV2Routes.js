@@ -56,6 +56,17 @@ async function resolveRequiredOwnedChild(req, childId, pool) {
   return identity;
 }
 
+function logRejectedProgressWrite({ route, childId, reason, status }) {
+  console.info(JSON.stringify({
+    ts: new Date().toISOString(),
+    event: "adaptive_progress_write_rejected",
+    route,
+    submitted_child_id: String(childId || ""),
+    rejection_reason: String(reason || "unknown"),
+    status: Number(status || 400)
+  }));
+}
+
 function createAdaptiveV2Router({ pool }) {
   const router = express.Router();
 
@@ -66,9 +77,15 @@ function createAdaptiveV2Router({ pool }) {
     }
     const childId = String(b.child_id || "").trim();
     const skillId = String(b.skill_id || "").trim();
-    if (!childId || !skillId) return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
+    if (!childId || !skillId) {
+      logRejectedProgressWrite({ route: "adaptive_v2_checkpoint_attempt", childId, reason: "child_id_and_skill_id_required", status: 400 });
+      return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
+    }
     let identity;
-    try { identity = await resolveRequiredOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    try { identity = await resolveRequiredOwnedChild(req, childId, pool); } catch (err) {
+      logRejectedProgressWrite({ route: "adaptive_v2_checkpoint_attempt", childId, reason: err.error || "forbidden", status: err.status || 403 });
+      return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" });
+    }
 
     const checkpointAttempts = Number(b.checkpoint_attempts || 0);
     const correctCount = Number(b.correct_count || 0);
@@ -131,9 +148,15 @@ function createAdaptiveV2Router({ pool }) {
     const b = req.body || {};
     const childId = String(b.child_id || "").trim();
     const skillId = String(b.skill_id || "").trim().toUpperCase();
-    if (!childId || !skillId) return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
+    if (!childId || !skillId) {
+      logRejectedProgressWrite({ route: "skill_world_progress", childId, reason: "child_id_and_skill_id_required", status: 400 });
+      return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
+    }
     let identity;
-    try { identity = await resolveRequiredOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    try { identity = await resolveRequiredOwnedChild(req, childId, pool); } catch (err) {
+      logRejectedProgressWrite({ route: "skill_world_progress", childId, reason: err.error || "forbidden", status: err.status || 403 });
+      return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" });
+    }
     const mode = String(b.mode || "mission").trim() || "mission";
     const status = String(b.status || "in_progress").trim() || "in_progress";
     await pool.query(`INSERT INTO skill_world_progress
