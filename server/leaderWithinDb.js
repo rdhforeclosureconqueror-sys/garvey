@@ -285,6 +285,30 @@ async function applyLeaderWithinMigrations(pool) {
       checkpoint_type TEXT NOT NULL DEFAULT 'baseline',
       created_at TIMESTAMP DEFAULT NOW()
     );
+    CREATE TABLE IF NOT EXISTS leader_within_assessment_attempts (
+      id SERIAL PRIMARY KEY,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE SET NULL,
+      bank_id TEXT NOT NULL DEFAULT 'AUTHORED_BANK_1',
+      answers JSONB NOT NULL DEFAULT '{}'::jsonb,
+      status TEXT NOT NULL DEFAULT 'in_progress',
+      started_at TIMESTAMP DEFAULT NOW(),
+      completed_at TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (enrollment_id)
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_assessment_retake_approvals (
+      id SERIAL PRIMARY KEY,
+      participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      enrollment_id INTEGER REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
+      cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE SET NULL,
+      reason TEXT NOT NULL,
+      approved_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      approved_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL,
+      approved_at TIMESTAMP DEFAULT NOW(),
+      used_at TIMESTAMP
+    );
     CREATE TABLE IF NOT EXISTS leader_within_facilitator_notes (
       id SERIAL PRIMARY KEY,
       participant_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
