@@ -1,6 +1,7 @@
 "use strict";
 const express = require("express");
 const { mapAdaptiveV2Grade1ToGatesSignals } = require("./adaptiveV2Grade1GatesSignalMapper");
+const { resolveGatesParentSession, resolveOwnedGatesChild } = require("./gatesAuth");
 
 const ALLOWED_MASTERY_BANDS = new Set(["emerging", "developing", "consistent"]);
 
@@ -25,6 +26,19 @@ function toBand(v) {
   return ALLOWED_MASTERY_BANDS.has(n) ? n : "emerging";
 }
 
+async function resolveOptionalOwnedChild(req, childId, pool) {
+  const session = await resolveGatesParentSession(req, { pool });
+  if (!session.authenticated) return { session, ownedChild: null };
+  const ownedChild = await resolveOwnedGatesChild({ pool, parentProfileId: session.parentProfile.id, childId });
+  if (!ownedChild.ok) {
+    const err = new Error(ownedChild.error);
+    err.status = ownedChild.status;
+    err.error = ownedChild.error;
+    throw err;
+  }
+  return { session, ownedChild };
+}
+
 function createAdaptiveV2Router({ pool }) {
   const router = express.Router();
 
@@ -36,6 +50,8 @@ function createAdaptiveV2Router({ pool }) {
     const childId = String(b.child_id || "").trim();
     const skillId = String(b.skill_id || "").trim();
     if (!childId || !skillId) return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
+    let identity;
+    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
 
     const checkpointAttempts = Number(b.checkpoint_attempts || 0);
     const correctCount = Number(b.correct_count || 0);
@@ -46,20 +62,20 @@ function createAdaptiveV2Router({ pool }) {
 
     await pool.query(
       `INSERT INTO adaptive_v2_skill_progress
-      (child_id, grade, runtime_version, selected_skill_id, checkpoint_attempts, correct_count, total_count, hint_usage_count, mastery_band, next_recommended_skill_id, parent_summary_snapshot)
-      VALUES ($1,'1','adaptive_v2',$2,$3,$4,$5,$6,$7,$8,$9::jsonb)
+      (child_id, grade, runtime_version, selected_skill_id, checkpoint_attempts, correct_count, total_count, hint_usage_count, mastery_band, next_recommended_skill_id, parent_summary_snapshot, parent_profile_id, auth_user_id, learner_display_name)
+      VALUES ($1,'1','adaptive_v2',$2,$3,$4,$5,$6,$7,$8,$9::jsonb,$10,$11,$12)
       ON CONFLICT (child_id, grade, runtime_version)
       DO UPDATE SET selected_skill_id=EXCLUDED.selected_skill_id, checkpoint_attempts=EXCLUDED.checkpoint_attempts, correct_count=EXCLUDED.correct_count,
         total_count=EXCLUDED.total_count, hint_usage_count=EXCLUDED.hint_usage_count, mastery_band=EXCLUDED.mastery_band,
-        next_recommended_skill_id=EXCLUDED.next_recommended_skill_id, parent_summary_snapshot=EXCLUDED.parent_summary_snapshot, updated_at=NOW()`,
-      [childId, skillId, checkpointAttempts, correctCount, totalCount, hintUsage, masteryBand, nextRecommendedSkillId, JSON.stringify(b.parent_summary_snapshot || {})]
+        next_recommended_skill_id=EXCLUDED.next_recommended_skill_id, parent_summary_snapshot=EXCLUDED.parent_summary_snapshot, parent_profile_id=EXCLUDED.parent_profile_id, auth_user_id=EXCLUDED.auth_user_id, learner_display_name=EXCLUDED.learner_display_name, updated_at=NOW()`,
+      [childId, skillId, checkpointAttempts, correctCount, totalCount, hintUsage, masteryBand, nextRecommendedSkillId, JSON.stringify(b.parent_summary_snapshot || {}), identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, identity.ownedChild?.childProfile?.child_name || null]
     );
 
     await pool.query(
       `INSERT INTO adaptive_v2_checkpoint_attempts
-      (child_id, grade, runtime_version, skill_id, checkpoint_id, is_correct, mastery_band_after, next_recommended_skill_id)
-      VALUES ($1,'1','adaptive_v2',$2,$3,$4,$5,$6)`,
-      [childId, skillId, String(b.checkpoint_id || "checkpoint").trim(), !!b.is_correct, masteryBand, nextRecommendedSkillId]
+      (child_id, grade, runtime_version, skill_id, checkpoint_id, is_correct, mastery_band_after, next_recommended_skill_id, parent_profile_id, auth_user_id)
+      VALUES ($1,'1','adaptive_v2',$2,$3,$4,$5,$6,$7,$8)`,
+      [childId, skillId, String(b.checkpoint_id || "checkpoint").trim(), !!b.is_correct, masteryBand, nextRecommendedSkillId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null]
     );
 
     return res.json({ ok: true });
@@ -94,6 +110,43 @@ function createAdaptiveV2Router({ pool }) {
     return res.json({ ok: true, empty_state: false, progress, parent_summary: parentSummary, summary_contract_version: 'pr_f_v1' });
   });
 
+  router.post("/api/skill-world/progress", async (req, res) => {
+    const b = req.body || {};
+    const childId = String(b.child_id || "").trim();
+    const skillId = String(b.skill_id || "").trim().toUpperCase();
+    if (!childId || !skillId) return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
+    let identity;
+    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    const mode = String(b.mode || "mission").trim() || "mission";
+    const status = String(b.status || "in_progress").trim() || "in_progress";
+    await pool.query(`INSERT INTO skill_world_progress
+      (child_id,parent_profile_id,auth_user_id,learner_display_name,skill_id,mode,status,progress_percent,attempts,correct,score_percent,hints_used,last_step,profile,state_snapshot)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb)
+      ON CONFLICT (child_id, skill_id, mode) DO UPDATE SET status=EXCLUDED.status, progress_percent=EXCLUDED.progress_percent, attempts=EXCLUDED.attempts, correct=EXCLUDED.correct, score_percent=EXCLUDED.score_percent, hints_used=EXCLUDED.hints_used, last_step=EXCLUDED.last_step, profile=EXCLUDED.profile, state_snapshot=EXCLUDED.state_snapshot, parent_profile_id=EXCLUDED.parent_profile_id, auth_user_id=EXCLUDED.auth_user_id, learner_display_name=EXCLUDED.learner_display_name, updated_at=NOW()`,
+      [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, identity.ownedChild?.childProfile?.child_name || null, skillId, mode, status, Number(b.progress_percent||0), Number(b.attempts||0), Number(b.correct||0), Number(b.score_percent||0), Number(b.hints_used||0), String(b.last_step||''), JSON.stringify(b.profile||{}), JSON.stringify(b.state_snapshot||{})]);
+    return res.json({ ok: true });
+  });
+
+  router.get("/api/skill-world/progress/:childId/:skillId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    const skillId = String(req.params.skillId || "").trim().toUpperCase();
+    let identity;
+    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    const r = await pool.query("SELECT * FROM skill_world_progress WHERE child_id=$1 AND skill_id=$2 ORDER BY updated_at DESC LIMIT 1", [childId, skillId]);
+    return res.json({ ok: true, empty_state: !r.rows.length, progress: r.rows[0] || null, authenticated: identity.session.authenticated });
+  });
+
+  router.get("/api/adaptive-v2/parent-dashboard/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    let identity;
+    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    const child = identity.ownedChild?.childProfile || null;
+    const assessments = await pool.query(`SELECT session_id, assessment_role, grade, subject, status, current_question_position, selection_config, created_at, updated_at, completed_at FROM assessment_sessions WHERE learner_id=$1 ORDER BY created_at DESC`, [childId]);
+    const skills = await pool.query(`SELECT skill_id, mode, status, progress_percent, attempts, correct, score_percent, hints_used, last_step, updated_at, created_at FROM skill_world_progress WHERE child_id=$1 ORDER BY updated_at DESC`, [childId]);
+    const adaptive = await pool.query(`SELECT selected_skill_id, checkpoint_attempts, correct_count, total_count, hint_usage_count, mastery_band, next_recommended_skill_id, updated_at FROM adaptive_v2_skill_progress WHERE child_id=$1`, [childId]);
+    const next = skills.rows.find(r => r.status !== 'completed')?.skill_id || adaptive.rows[0]?.next_recommended_skill_id || 'Start the next recommended Skill World or complete an in-progress assessment.';
+    return res.json({ ok: true, child, assessments: assessments.rows, skill_worlds: skills.rows, adaptive_progress: adaptive.rows, next_recommendation: next });
+  });
 
   router.post("/api/adaptive-v2/voice/sections", async (req, res) => {
     const b = req.body || {};
