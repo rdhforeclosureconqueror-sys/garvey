@@ -39,6 +39,23 @@ async function resolveOptionalOwnedChild(req, childId, pool) {
   return { session, ownedChild };
 }
 
+async function resolveRequiredOwnedChild(req, childId, pool) {
+  const identity = await resolveOptionalOwnedChild(req, childId, pool);
+  if (!identity.session.authenticated) {
+    const err = new Error("unauthenticated");
+    err.status = 401;
+    err.error = "unauthenticated";
+    throw err;
+  }
+  if (!identity.ownedChild) {
+    const err = new Error("child_context_required");
+    err.status = 400;
+    err.error = "child_context_required";
+    throw err;
+  }
+  return identity;
+}
+
 function createAdaptiveV2Router({ pool }) {
   const router = express.Router();
 
@@ -51,7 +68,7 @@ function createAdaptiveV2Router({ pool }) {
     const skillId = String(b.skill_id || "").trim();
     if (!childId || !skillId) return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
     let identity;
-    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    try { identity = await resolveRequiredOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
 
     const checkpointAttempts = Number(b.checkpoint_attempts || 0);
     const correctCount = Number(b.correct_count || 0);
@@ -116,7 +133,7 @@ function createAdaptiveV2Router({ pool }) {
     const skillId = String(b.skill_id || "").trim().toUpperCase();
     if (!childId || !skillId) return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
     let identity;
-    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    try { identity = await resolveRequiredOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
     const mode = String(b.mode || "mission").trim() || "mission";
     const status = String(b.status || "in_progress").trim() || "in_progress";
     await pool.query(`INSERT INTO skill_world_progress

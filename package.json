@@ -13,7 +13,8 @@
     "love:promotion-review": "node archetype-engines/generator/love/runPromotionReviewWorkflow.js BANK_A",
     "validate:curriculum-index": "node scripts/validate-curriculum-index.mjs",
     "convert:grade1-phase7ab": "node scripts/adaptive-v2/convert-grade1-phase7ab.mjs",
-    "validate:grade1-phase7ab": "node scripts/adaptive-v2/validate-grade1-phase7ab-conversion.mjs"
+    "validate:grade1-phase7ab": "node scripts/adaptive-v2/validate-grade1-phase7ab-conversion.mjs",
+    "production:migrate-princess-nia-progress": "node scripts/production/migrate-princess-nia-progress.mjs"
   },
   "dependencies": {
     "express": "^4.18.2",
