@@ -2955,6 +2955,7 @@ const youthVoiceService = createVoiceService({
 });
 
 app.use(createYouthDevelopmentRouter({
+  pool,
   persistYouthAssessment: persistYouthAssessmentForAccount,
   loadLatestYouthAssessment: loadLatestYouthAssessmentForAccount,
   listYouthChildProfiles: listYouthChildProfilesForAccount,

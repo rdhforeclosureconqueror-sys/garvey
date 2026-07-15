@@ -2,6 +2,7 @@
 const express = require("express");
 const { mapAdaptiveV2Grade1ToGatesSignals } = require("./adaptiveV2Grade1GatesSignalMapper");
 const { resolveGatesParentSession, resolveOwnedGatesChild } = require("./gatesAuth");
+const { buildAdaptiveParentDashboardSummary } = require("./adaptiveParentDashboardSummary");
 
 const ALLOWED_MASTERY_BANDS = new Set(["emerging", "developing", "consistent"]);
 
@@ -181,11 +182,17 @@ function createAdaptiveV2Router({ pool }) {
     let identity;
     try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
     const child = identity.ownedChild?.childProfile || null;
-    const assessments = await pool.query(`SELECT session_id, assessment_role, grade, subject, status, current_question_position, selection_config, created_at, updated_at, completed_at FROM assessment_sessions WHERE learner_id=$1 ORDER BY created_at DESC`, [childId]);
-    const skills = await pool.query(`SELECT skill_id, mode, status, progress_percent, attempts, correct, score_percent, hints_used, last_step, updated_at, created_at FROM skill_world_progress WHERE child_id=$1 ORDER BY updated_at DESC`, [childId]);
-    const adaptive = await pool.query(`SELECT selected_skill_id, checkpoint_attempts, correct_count, total_count, hint_usage_count, mastery_band, next_recommended_skill_id, updated_at FROM adaptive_v2_skill_progress WHERE child_id=$1`, [childId]);
-    const next = skills.rows.find(r => r.status !== 'completed')?.skill_id || adaptive.rows[0]?.next_recommended_skill_id || 'Start the next recommended Skill World or complete an in-progress assessment.';
-    return res.json({ ok: true, child, assessments: assessments.rows, skill_worlds: skills.rows, adaptive_progress: adaptive.rows, next_recommendation: next });
+    const summary = await buildAdaptiveParentDashboardSummary(pool, {
+      childId,
+      parentProfileId: identity.session.authenticated ? identity.session.parentProfile.id : null,
+      childName: child?.child_name || "",
+    });
+    return res.json({
+      ...summary,
+      child,
+      next_recommendation: summary.next_recommended_learning_activity,
+      diagnostics: { route: "/api/adaptive-v2/parent-dashboard/:childId", authenticated: identity.session.authenticated },
+    });
   });
 
   router.post("/api/adaptive-v2/voice/sections", async (req, res) => {

@@ -5,6 +5,7 @@ const { buildYouthDevelopmentResult } = require("../youth-development/measuremen
 const { buildYouthDevelopmentDashboard } = require("../youth-development/measurement/dashboardBuilder");
 const { buildParentDashboardPageModel } = require("../youth-development/presentation/parentDashboardPageModel");
 const { renderYouthDevelopmentParentDashboardPage } = require("./youthDevelopmentRenderer");
+const { buildAdaptiveParentDashboardSummary, isFakeLearnerName } = require("./adaptiveParentDashboardSummary");
 const {
   YOUTH_QUESTION_BANK,
   YOUTH_PARENT_INSTRUCTIONS,
@@ -1501,6 +1502,14 @@ function renderLiveYouthParentDashboardPage() {
       }
       .pill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
       .cards { grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); }
+      .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+      .metric-card { border: 1px solid var(--line); border-radius: 12px; background: rgba(2, 6, 23, 0.52); padding: 10px; }
+      .metric-card strong { display: block; font-size: 20px; color: #f8fafc; }
+      .adaptive-table-wrap { overflow-x: auto; }
+      .adaptive-table { width: 100%; border-collapse: collapse; min-width: 680px; }
+      .adaptive-table th, .adaptive-table td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px; vertical-align: top; }
+      .adaptive-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+      .activity-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
       .snapshot-card {
         border: 1px solid var(--line);
         border-radius: 14px;
@@ -1569,11 +1578,14 @@ function renderLiveYouthParentDashboardPage() {
         <p class="tiny" id="completionDateLabel">Previous completion date: Not available yet.</p>
       </section>
 
-      <section class="panel">
+      <section class="panel" id="adaptiveLearningPanel">
         <h2>Adaptive Learning</h2>
-        <p>Grade 1–6 school-skill lessons, practice, and growth snapshots.</p>
+        <p id="adaptiveLearningStatus">Grade 1–6 school-skill lessons, practice, and growth snapshots.</p>
         <div class="actions">
           <a class="btn btn-secondary" id="openAdaptiveV2HubBtn" href="/gamehub/adaptive-v2-hub.html">Open Adaptive V2 Lesson Hub</a>
+        </div>
+        <div id="adaptiveLearningSummary" class="adaptive-summary" aria-live="polite">
+          <p class="muted">Select a child profile to load saved adaptive learning progress.</p>
         </div>
       </section>
 
@@ -2514,6 +2526,66 @@ function renderLiveYouthParentDashboardPage() {
           document.getElementById("weeklySupport").innerHTML = '<li class="muted">No saved parent assessment context is currently available. Run intake to populate support suggestions.</li>';
         }
 
+
+        function formatAdaptiveStatus(value) {
+          const status = String(value || "not_started").replace(/_/g, " ");
+          return status.charAt(0).toUpperCase() + status.slice(1);
+        }
+
+        function renderAdaptiveSummary(summary, scopedChild) {
+          const host = document.getElementById("adaptiveLearningSummary");
+          const status = document.getElementById("adaptiveLearningStatus");
+          if (!host) return;
+          if (!summary || summary.ok !== true) {
+            host.innerHTML = '<p class="muted">Adaptive learning progress is not available yet.</p>';
+            return;
+          }
+          const childName = String(scopedChild?.child_name || summary.child_name || "Selected child");
+          if (status) status.textContent = String(summary.overall_status_label || "Adaptive learning progress") + " for " + childName + ".";
+          if (summary.empty_state) {
+            host.innerHTML = '<p class="muted">No saved adaptive learning progress yet for ' + esc(childName) + '. Start in the Adaptive V2 Lesson Hub; progress will appear here after the first saved activity.</p>';
+            return;
+          }
+          const metric = (label, value) => '<div class="metric-card"><span class="tiny">' + esc(label) + '</span><strong>' + esc(value) + '</strong></div>';
+          const skillRows = (summary.skill_worlds || []).map(function (item) {
+            return '<tr><td>' + esc(item.skill_id || 'Skill World') + '</td><td><span class="status-badge">' + esc(formatAdaptiveStatus(item.status)) + '</span></td><td>' + esc(item.current_lesson_or_step || 'Not started') + '</td><td>' + esc(item.progress_percent || 0) + '%</td><td>' + esc(item.score_percent || 0) + '%</td><td>' + esc(item.attempts || 0) + '</td><td>' + esc(formatDate(item.last_activity_at)) + '</td></tr>';
+          }).join('');
+          const activityRows = (summary.recent_activity || []).map(function (item) {
+            return '<li><strong>' + esc(String(item.event_type || '').replace(/_/g, ' ')) + ':</strong> ' + esc(item.label || 'Adaptive activity') + ' <span class="tiny">' + esc(formatDate(item.occurred_at)) + ' · profile ' + esc(item.child_id || summary.child_id || '') + '</span></li>';
+          }).join('');
+          host.innerHTML = [
+            '<p><strong>Active learner:</strong> ' + esc(childName) + ' <span class="tiny">Profile ID ' + esc(summary.child_id || '') + '</span></p>',
+            '<div class="metric-grid">',
+            metric('Assessments completed', summary.assessments_completed || 0),
+            metric('Latest assessment score', summary.latest_assessment_score == null ? 'Not available' : String(summary.latest_assessment_score) + '%'),
+            metric('Latest assessment date', formatDate(summary.latest_assessment_completed_at)),
+            metric('Lessons completed', String(summary.lessons_completed || 0) + '/' + String(summary.lessons_total || 0)),
+            metric('Checkpoints completed', summary.checkpoints_completed || 0),
+            metric('Skill Worlds completed', String(summary.skill_worlds_completed || 0) + '/' + String(summary.skill_worlds_total || 0)),
+            metric('Current Skill World', summary.current_skill_world || 'Not started'),
+            metric('Current lesson / step', summary.current_lesson_or_step || 'Not started'),
+            metric('Progress', String(summary.progress_percent || 0) + '%'),
+            metric('Score', summary.score_percent == null ? 'Not available' : String(summary.score_percent) + '%'),
+            metric('Attempts', summary.attempts || 0),
+            metric('Last activity', formatDate(summary.last_activity_at)),
+            '</div>',
+            '<p><strong>Next recommended learning activity:</strong> ' + esc(summary.next_recommended_learning_activity || 'Continue the next recommended Adaptive Learning activity.') + '</p>',
+            '<div class="adaptive-table-wrap"><table class="adaptive-table"><thead><tr><th>Skill World</th><th>Status</th><th>Current lesson / step</th><th>Progress</th><th>Score</th><th>Attempts</th><th>Last activity</th></tr></thead><tbody>' + (skillRows || '<tr><td colspan="7">No Skill World activity saved yet.</td></tr>') + '</tbody></table></div>',
+            '<h3>Recent adaptive activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No recent adaptive activity saved yet.</li>') + '</ul>'
+          ].join('');
+        }
+
+        async function hydrateAdaptiveLearning(scopedChild) {
+          if (!scopedChild || !scopedChild.child_id || !accountCtx.tenant || !accountCtx.email) return;
+          const endpoint = new URL('/api/youth-development/parent-dashboard/adaptive-summary', window.location.origin);
+          endpoint.searchParams.set('tenant', accountCtx.tenant);
+          endpoint.searchParams.set('email', accountCtx.email);
+          endpoint.searchParams.set('child_id', String(scopedChild.child_id));
+          const response = await fetch(endpoint.pathname + endpoint.search).catch(() => null);
+          const summary = response && response.ok ? await response.json().catch(() => null) : null;
+          renderAdaptiveSummary(summary, scopedChild);
+        }
+
         async function hydrateFromAccount() {
           if (!accountCtx.tenant || !accountCtx.email) return false;
           const requestedChildId = String(accountCtx.child_id || query.get('child_id') || query.get('childId') || '').trim();
@@ -2532,9 +2604,11 @@ function renderLiveYouthParentDashboardPage() {
             response_ok: Boolean(childrenResponse && childrenResponse.ok),
             children_count: childProfiles.length,
           });
+          const preferredChild = childProfiles.find((entry) => String(entry.child_name || '').trim().toLowerCase() === 'princess nia')
+            || childProfiles.find((entry) => !['guest','nsi','mar'].some((name) => String(entry.child_name || '').trim().toLowerCase().startsWith(name)));
           const scopedChild = requestedChildId
             ? childProfiles.find((entry) => String(entry.child_id || '') === requestedChildId)
-            : (childProfiles.length === 1 ? childProfiles[0] : null);
+            : (childProfiles.length === 1 ? childProfiles[0] : (preferredChild || null));
           if (scopedChild && scopedChild.child_id) {
             applyScopedChildContext(scopedChild.child_id, "children_scope_resolution");
             logDashboardContinuity("child_scope_adopted", {
@@ -2543,7 +2617,7 @@ function renderLiveYouthParentDashboardPage() {
             });
           }
           if (!scopedChild && childProfiles.length > 1) {
-            const fallbackChild = childProfiles[0] || null;
+            const fallbackChild = preferredChild || null;
             if (fallbackChild && fallbackChild.child_id) {
               applyScopedChildContext(fallbackChild.child_id, "multi_child_latest_fallback");
               logDashboardContinuity("child_scope_adopted", {
@@ -2591,6 +2665,7 @@ function renderLiveYouthParentDashboardPage() {
               renderNoSavedAssessmentState(data && data.reason, scopedChild);
             }
             await hydrateProgramBridge(scopedChild || null, false);
+            await hydrateAdaptiveLearning(scopedChild || null);
             logDashboardContinuity("render_skipped", {
               reason: data?.reason || "latest_not_available",
               requested_child_id: latestRequestChildId || null,
@@ -2621,6 +2696,7 @@ function renderLiveYouthParentDashboardPage() {
               }
             : (scopedChild || null);
           await hydrateProgramBridge(resolvedScopedChild, applied === true);
+          await hydrateAdaptiveLearning(resolvedScopedChild);
           return applied;
         }
 
@@ -2647,6 +2723,7 @@ function renderLiveYouthParentDashboardPage() {
               child_name: String(payload?.ownership?.child_profile?.child_name || "").trim() || null,
             };
             hydrateProgramBridge(sessionScopedChild, true).catch(() => null);
+            hydrateAdaptiveLearning(sessionScopedChild).catch(() => null);
           }
           updateVoiceStatusCopy();
           return;
@@ -4763,6 +4840,7 @@ function createYouthDevelopmentRouter(options = {}) {
   const getVoiceSectionsForChild = typeof options.getVoiceSectionsForChild === "function" ? options.getVoiceSectionsForChild : null;
   const resolveVoiceAssetByRef = typeof options.resolveVoiceAssetByRef === "function" ? options.resolveVoiceAssetByRef : null;
   const getVoiceSynthesisForSection = typeof options.getVoiceSynthesisForSection === "function" ? options.getVoiceSynthesisForSection : null;
+  const adaptiveSummaryPool = options.pool && typeof options.pool.query === "function" ? options.pool : null;
 
   router.get("/youth-development/intake", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthAssessmentPage())
@@ -5475,6 +5553,37 @@ function createYouthDevelopmentRouter(options = {}) {
       console.error("youth_program_session_complete_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_session_complete_failed" });
     }
+  });
+
+
+  router.get("/api/youth-development/parent-dashboard/adaptive-summary", async (req, res) => {
+    if (!adaptiveSummaryPool) return res.status(200).json({ ok: true, empty_state: true, reason: "adaptive_summary_pool_not_configured" });
+    const accountCtx = resolveRequestAccountContext(req, req.query || {});
+    const childId = safeTrim(req.query?.child_id || req.query?.childId);
+    if (!accountCtx.tenant || !accountCtx.email || !childId) return res.status(400).json({ ok: false, error: "tenant_email_child_id_required" });
+    if (!listYouthChildProfiles) return res.status(200).json({ ok: true, empty_state: true, child_id: childId, reason: "child_profile_lookup_not_configured" });
+    const childProfiles = await listYouthChildProfiles({ accountCtx, request: req });
+    const child = childProfiles.find((entry) => String(entry?.child_id || "") === String(childId));
+    if (!child) return res.status(404).json({ ok: false, error: "requested_child_scope_not_found" });
+    if (isFakeLearnerName(child.child_name)) return res.status(409).json({ ok: false, error: "test_or_guest_child_scope_not_allowed", child_id: childId });
+    let adaptiveParentProfileId = child.parent_profile_id || child.parent_id || null;
+    if (!adaptiveParentProfileId) {
+      const ownerLookup = await adaptiveSummaryPool.query("SELECT parent_id::text AS parent_profile_id FROM gates_child_profiles WHERE id::text=$1 LIMIT 1", [childId]).catch(() => ({ rows: [] }));
+      adaptiveParentProfileId = ownerLookup.rows?.[0]?.parent_profile_id || null;
+    }
+    const summary = await buildAdaptiveParentDashboardSummary(adaptiveSummaryPool, {
+      childId,
+      parentProfileId: adaptiveParentProfileId,
+      childName: child.child_name || "",
+    });
+    return res.status(200).json({
+      ...summary,
+      diagnostics: {
+        route: "/api/youth-development/parent-dashboard/adaptive-summary",
+        scope: { tenant: accountCtx.tenant, email: accountCtx.email, child_id: childId },
+        source_tables: ["assessment_sessions", "adaptive_v2_skill_progress", "adaptive_v2_checkpoint_attempts", "skill_world_progress"],
+      },
+    });
   });
 
   router.get("/api/youth-development/parent-dashboard/preview", (req, res) => {

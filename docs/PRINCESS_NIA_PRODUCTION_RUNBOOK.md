@@ -166,18 +166,29 @@ NODE
 #    H. Log out.
 #    I. Log back in as the same parent.
 #    J. Select Princess Nia again and confirm progress remains visible.
-#    K. Confirm the parent dashboard for Princess Nia shows:
-#       - completed items
-#       - in-progress items
-#       - not-started items or empty-state where appropriate
+#    K. Open the existing Youth Development Parent Dashboard, not the standalone
+#       adaptive diagnostic page:
+#       https://garveyfrontend.onrender.com/youth-development/parent-dashboard
+#       Include tenant, email, and child_id query parameters if production routing
+#       requires scoped account continuity.
+#    L. Confirm Princess Nia is the selected/active child profile and NSI, Mar,
+#       guest, or orphaned profiles are not displayed as the active learner.
+#    M. Confirm the existing Parent Dashboard Adaptive Learning section shows:
+#       - assessment completion
+#       - partial Skill World progress
+#       - completed/in-progress/not-started Skill World status
 #       - scores
 #       - attempts
 #       - next recommended activity
-#    L. Verify the Skill World database record uses Princess Nia's canonical ID:
+#       - completed, in-progress, and remaining work accurately
+#    N. Refresh the browser and confirm the same progress remains visible.
+#    O. Log out and log back in as the same parent, select Princess Nia again,
+#       and confirm the same dashboard progress remains visible.
+#    P. Verify the Skill World database record uses Princess Nia's canonical ID:
 #       psql "$DATABASE_URL" -c "SELECT child_id, parent_profile_id, skill_id, mode, status, progress_percent, attempts, correct, score_percent, updated_at FROM skill_world_progress WHERE child_id='<PRINCESS_NIA_CANONICAL_ID>' ORDER BY updated_at DESC LIMIT 10;"
-#    M. Verify adaptive checkpoint summary uses Princess Nia's canonical ID:
+#    Q. Verify adaptive checkpoint summary uses Princess Nia's canonical ID:
 #       psql "$DATABASE_URL" -c "SELECT child_id, parent_profile_id, selected_skill_id, checkpoint_attempts, correct_count, total_count, mastery_band, next_recommended_skill_id, updated_at FROM adaptive_v2_skill_progress WHERE child_id='<PRINCESS_NIA_CANONICAL_ID>' ORDER BY updated_at DESC LIMIT 10;"
-#    N. Watch server logs during this browser test. Rejected progress writes should appear
+#    R. Watch server logs during this browser test. Rejected progress writes should appear
 #       as JSON with event="adaptive_progress_write_rejected", submitted_child_id, route,
 #       rejection_reason, and status. Credentials must not appear in these logs.
 ###############################################################################
