@@ -220,6 +220,29 @@ async function initializeDatabase() {
       meta JSONB DEFAULT '{}'::jsonb,
       created_at TIMESTAMP DEFAULT NOW()
     );
+    ALTER TABLE adaptive_v2_checkpoint_attempts ADD COLUMN IF NOT EXISTS parent_profile_id BIGINT;
+    ALTER TABLE adaptive_v2_checkpoint_attempts ADD COLUMN IF NOT EXISTS auth_user_id INTEGER;
+    CREATE TABLE IF NOT EXISTS skill_world_progress (
+      id SERIAL PRIMARY KEY,
+      child_id TEXT NOT NULL,
+      parent_profile_id BIGINT,
+      auth_user_id INTEGER,
+      learner_display_name TEXT,
+      skill_id TEXT NOT NULL,
+      mode TEXT NOT NULL DEFAULT 'mission',
+      status TEXT NOT NULL DEFAULT 'in_progress',
+      progress_percent INTEGER NOT NULL DEFAULT 0,
+      attempts INTEGER NOT NULL DEFAULT 0,
+      correct INTEGER NOT NULL DEFAULT 0,
+      score_percent INTEGER NOT NULL DEFAULT 0,
+      hints_used INTEGER NOT NULL DEFAULT 0,
+      last_step TEXT,
+      profile JSONB NOT NULL DEFAULT '{}'::jsonb,
+      state_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (child_id, skill_id, mode)
+    );
   `);
 
   await pool.query(`
@@ -301,6 +324,9 @@ async function initializeDatabase() {
       updated_at TIMESTAMP DEFAULT NOW(),
       UNIQUE (child_id, grade, runtime_version)
     );
+    ALTER TABLE adaptive_v2_skill_progress ADD COLUMN IF NOT EXISTS parent_profile_id BIGINT;
+    ALTER TABLE adaptive_v2_skill_progress ADD COLUMN IF NOT EXISTS auth_user_id INTEGER;
+    ALTER TABLE adaptive_v2_skill_progress ADD COLUMN IF NOT EXISTS learner_display_name TEXT;
     CREATE TABLE IF NOT EXISTS adaptive_v2_checkpoint_attempts (
       id SERIAL PRIMARY KEY,
       child_id TEXT NOT NULL,
@@ -312,6 +338,29 @@ async function initializeDatabase() {
       mastery_band_after TEXT,
       next_recommended_skill_id TEXT,
       created_at TIMESTAMP DEFAULT NOW()
+    );
+    ALTER TABLE adaptive_v2_checkpoint_attempts ADD COLUMN IF NOT EXISTS parent_profile_id BIGINT;
+    ALTER TABLE adaptive_v2_checkpoint_attempts ADD COLUMN IF NOT EXISTS auth_user_id INTEGER;
+    CREATE TABLE IF NOT EXISTS skill_world_progress (
+      id SERIAL PRIMARY KEY,
+      child_id TEXT NOT NULL,
+      parent_profile_id BIGINT,
+      auth_user_id INTEGER,
+      learner_display_name TEXT,
+      skill_id TEXT NOT NULL,
+      mode TEXT NOT NULL DEFAULT 'mission',
+      status TEXT NOT NULL DEFAULT 'in_progress',
+      progress_percent INTEGER NOT NULL DEFAULT 0,
+      attempts INTEGER NOT NULL DEFAULT 0,
+      correct INTEGER NOT NULL DEFAULT 0,
+      score_percent INTEGER NOT NULL DEFAULT 0,
+      hints_used INTEGER NOT NULL DEFAULT 0,
+      last_step TEXT,
+      profile JSONB NOT NULL DEFAULT '{}'::jsonb,
+      state_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (child_id, skill_id, mode)
     );
   `);
 
@@ -478,6 +527,29 @@ async function initializeDatabase() {
       campaign_slug TEXT,
       item TEXT,
       created_at TIMESTAMP DEFAULT NOW()
+    );
+    ALTER TABLE adaptive_v2_checkpoint_attempts ADD COLUMN IF NOT EXISTS parent_profile_id BIGINT;
+    ALTER TABLE adaptive_v2_checkpoint_attempts ADD COLUMN IF NOT EXISTS auth_user_id INTEGER;
+    CREATE TABLE IF NOT EXISTS skill_world_progress (
+      id SERIAL PRIMARY KEY,
+      child_id TEXT NOT NULL,
+      parent_profile_id BIGINT,
+      auth_user_id INTEGER,
+      learner_display_name TEXT,
+      skill_id TEXT NOT NULL,
+      mode TEXT NOT NULL DEFAULT 'mission',
+      status TEXT NOT NULL DEFAULT 'in_progress',
+      progress_percent INTEGER NOT NULL DEFAULT 0,
+      attempts INTEGER NOT NULL DEFAULT 0,
+      correct INTEGER NOT NULL DEFAULT 0,
+      score_percent INTEGER NOT NULL DEFAULT 0,
+      hints_used INTEGER NOT NULL DEFAULT 0,
+      last_step TEXT,
+      profile JSONB NOT NULL DEFAULT '{}'::jsonb,
+      state_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (child_id, skill_id, mode)
     );
   `);
 
