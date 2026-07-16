@@ -28,7 +28,11 @@ function toBand(v) {
   return ALLOWED_MASTERY_BANDS.has(n) ? n : "emerging";
 }
 
-async function resolveOptionalOwnedChild(req, childId, pool) {
+async function resolveOptionalOwnedChild(req, childId, pool, listYouthChildProfiles = null) {
+  if (listYouthChildProfiles && isYouthDevelopmentRequest(req, req.body || {})) {
+    const youthIdentity = await resolveYouthDevelopmentOwnedChild(req, childId, listYouthChildProfiles);
+    if (youthIdentity) return youthIdentity;
+  }
   const identity = await resolveCanonicalLearnerForRequest(req, { pool, childId });
   if (!identity.ok && identity.status === 401) return { session: identity.session || { authenticated: false }, ownedChild: null };
   if (!identity.ok) {
@@ -49,7 +53,11 @@ async function resolveOptionalOwnedChild(req, childId, pool) {
   };
 }
 
-async function resolveRequiredOwnedChild(req, childId, pool) {
+async function resolveRequiredOwnedChild(req, childId, pool, listYouthChildProfiles = null) {
+  if (listYouthChildProfiles && isYouthDevelopmentRequest(req, req.body || {})) {
+    const youthIdentity = await resolveYouthDevelopmentOwnedChild(req, childId, listYouthChildProfiles);
+    if (youthIdentity) return youthIdentity;
+  }
   const identity = await resolveCanonicalLearnerForRequest(req, { pool, childId });
   if (!identity.ok) {
     const err = new Error(identity.error);
@@ -80,7 +88,72 @@ function logRejectedProgressWrite({ route, childId, reason, status }) {
   }));
 }
 
-function createAdaptiveV2Router({ pool }) {
+function normalizeYouthAccountContext(req, input = {}) {
+  const body = input || {};
+  const query = req.query || {};
+  return {
+    tenant: String(body.tenant || body.tenant_slug || query.tenant || query.tenant_slug || req.authActor?.tenantSlug || req.headers["x-tenant-slug"] || "").trim().toLowerCase(),
+    email: String(body.email || query.email || req.authActor?.email || req.headers["x-user-email"] || "").trim().toLowerCase(),
+  };
+}
+
+function isYouthDevelopmentRequest(req, input = {}) {
+  const programContext = String(input.program_context || req.query?.program_context || "").trim().toLowerCase();
+  const sourceRegistry = String(input.source_registry || req.query?.source_registry || "").trim().toLowerCase();
+  return programContext === "youth_development" || sourceRegistry === "youth_development";
+}
+
+function youthOwnedChildPayload({ child, accountCtx, authUserId = null }) {
+  return {
+    session: {
+      authenticated: true,
+      authUserId: authUserId == null ? null : Number(authUserId),
+      parentProfile: { id: child.parent_profile_id || child.parent_id || null, email: accountCtx.email },
+      programContext: "youth_development",
+      sourceRegistry: "youth_development",
+    },
+    ownedChild: {
+      ok: true,
+      childId: Number(child.child_id),
+      learnerId: String(child.child_id),
+      childProfile: { ...child, ownership_verified: true },
+      canonicalResolver: {
+        child_id: String(child.child_id),
+        child_display_name: child.child_name || "Learner",
+        parent_profile_id: child.parent_profile_id || child.parent_id || null,
+        auth_user_id: authUserId || null,
+        program_context: "youth_development",
+        source_registry: "youth_development",
+        ownership_verified: true,
+      },
+    },
+  };
+}
+
+async function resolveYouthDevelopmentOwnedChild(req, childId, listYouthChildProfiles) {
+  const accountCtx = normalizeYouthAccountContext(req, req.body || {});
+  if (!accountCtx.tenant || !accountCtx.email) return null;
+  const children = await listYouthChildProfiles({ accountCtx, request: req });
+  const selected = (Array.isArray(children) ? children : []).find((child) => String(child?.child_id || "") === String(childId));
+  console.info(JSON.stringify({
+    ts: new Date().toISOString(),
+    event: "youth_development_learner_ownership_resolved",
+    authenticated_user_id: req.authActor?.userId || null,
+    parent_profile_id: selected?.parent_profile_id || selected?.parent_id || null,
+    program_context: "youth_development",
+    source_registry: "youth_development",
+    normalized_child_id: String(childId || ""),
+    ownership_query: "listYouthChildProfiles(accountCtx) -> assessment_submissions by tenant/email, then match child_id",
+    table_queried: "assessment_submissions",
+    where_clause: "tenant_id = resolved tenant AND assessment_type = 'youth' AND LOWER(COALESCE(customer_email, users.email, '')) = account email; child_id matched in application",
+    rows_returned: children.length,
+    ownership_result: selected ? "verified" : "not_found",
+  }));
+  if (!selected) return null;
+  return youthOwnedChildPayload({ child: selected, accountCtx, authUserId: req.authActor?.userId || null });
+}
+
+function createAdaptiveV2Router({ pool, listYouthChildProfiles = null }) {
   const router = express.Router();
 
   router.post("/api/adaptive-v2/progress/checkpoint-attempt", async (req, res) => {
@@ -95,7 +168,7 @@ function createAdaptiveV2Router({ pool }) {
       return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
     }
     let identity;
-    try { identity = await resolveRequiredOwnedChild(req, childId, pool); } catch (err) {
+    try { identity = await resolveRequiredOwnedChild(req, childId, pool, listYouthChildProfiles); } catch (err) {
       logRejectedProgressWrite({ route: "adaptive_v2_checkpoint_attempt", childId, reason: err.error || "forbidden", status: err.status || 403 });
       return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" });
     }
@@ -166,7 +239,7 @@ function createAdaptiveV2Router({ pool }) {
       return res.status(400).json({ ok: false, error: "child_id_and_skill_id_required" });
     }
     let identity;
-    try { identity = await resolveRequiredOwnedChild(req, childId, pool); } catch (err) {
+    try { identity = await resolveRequiredOwnedChild(req, childId, pool, listYouthChildProfiles); } catch (err) {
       logRejectedProgressWrite({ route: "skill_world_progress", childId, reason: err.error || "forbidden", status: err.status || 403 });
       return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" });
     }
@@ -184,7 +257,7 @@ function createAdaptiveV2Router({ pool }) {
     const childId = String(req.params.childId || "").trim();
     const skillId = String(req.params.skillId || "").trim().toUpperCase();
     let identity;
-    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    try { identity = await resolveOptionalOwnedChild(req, childId, pool, listYouthChildProfiles); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
     const r = await pool.query("SELECT * FROM skill_world_progress WHERE child_id=$1 AND skill_id=$2 ORDER BY updated_at DESC LIMIT 1", [childId, skillId]);
     return res.json({ ok: true, empty_state: !r.rows.length, progress: r.rows[0] || null, authenticated: identity.session.authenticated });
   });
@@ -194,7 +267,7 @@ function createAdaptiveV2Router({ pool }) {
     const childId = String(req.params.childId || "").trim();
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     let identity;
-    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    try { identity = await resolveOptionalOwnedChild(req, childId, pool, listYouthChildProfiles); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
     const child = identity.ownedChild?.childProfile || null;
     const journey = await buildLearningJourney(pool, {
       childId,
@@ -207,7 +280,7 @@ function createAdaptiveV2Router({ pool }) {
   router.get("/api/adaptive-v2/parent-dashboard/:childId", async (req, res) => {
     const childId = String(req.params.childId || "").trim();
     let identity;
-    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    try { identity = await resolveOptionalOwnedChild(req, childId, pool, listYouthChildProfiles); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
     const child = identity.ownedChild?.childProfile || null;
     const summary = await buildAdaptiveParentDashboardSummary(pool, {
       childId,

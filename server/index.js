@@ -299,7 +299,7 @@ app.use(createLeaderWithinRouter(pool));
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());
-app.use(createAdaptiveV2Router({ pool }));
+app.use(createAdaptiveV2Router({ pool, listYouthChildProfiles: listYouthChildProfilesForAccount }));
 app.use("/api/assessment-mvp", createAssessmentMvpRouter());
 app.use(createSimbaWajumaRouter({ pool }));
 console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_router_mounted" }));
@@ -2379,6 +2379,8 @@ async function listYouthChildProfilesForAccount({ accountCtx }) {
       profile_status: fallbackName ? "ready" : "identity_incomplete",
       latest_assessment_at: row.created_at || null,
       source: persisted.child_id ? "explicit_profile" : "legacy_assessment_fallback",
+      parent_profile_id: persisted.parent_profile_id || raw.ownership?.parent_profile_id || null,
+      auth_user_id: raw.ownership?.user_id || null,
     });
   }
   return [...seen.values()];
