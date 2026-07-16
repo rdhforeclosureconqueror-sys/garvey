@@ -30,6 +30,16 @@ const {
   isParentCommitmentSetupComplete,
 } = require("../youth-development/tde/parentCommitmentSetupContract");
 
+
+function deployedCommitSha() {
+  return String(process.env.RENDER_GIT_COMMIT || process.env.COMMIT_SHA || process.env.GIT_COMMIT || "unknown");
+}
+
+function positiveIntegerText(value) {
+  const raw = safeTrim(value);
+  return /^[1-9]\d*$/.test(raw) ? raw : "";
+}
+
 const PREVIEW_AGGREGATED_ROWS = Object.freeze([
   Object.freeze({
     trait_code: "SR",
@@ -4869,6 +4879,83 @@ function createYouthDevelopmentRouter(options = {}) {
   router.get("/youth-development/adaptive-learning", (req, res) => (
     res.status(200).sendFile(require("path").join(__dirname, "..", "public", "gamehub", "adaptive-v2-hub.html"))
   ));
+
+  router.get("/api/youth-development/adaptive-learning/diagnostics", async (req, res) => {
+    const programContext = safeTrim(req.query?.program_context) || "youth_development";
+    const sourceRegistry = safeTrim(req.query?.source_registry) || "youth_development";
+    const returnUrl = safeTrim(req.query?.return_url) || "/youth-development/parent-dashboard";
+    const normalizedChildId = positiveIntegerText(req.query?.child_id || req.query?.childId);
+    const payload = {
+      ok: true,
+      deployed_commit_sha: deployedCommitSha(),
+      route_name: "/youth-development/adaptive-learning",
+      program_context: programContext,
+      source_registry: sourceRegistry,
+      normalized_child_id: normalizedChildId || null,
+      return_url: returnUrl,
+      ownership_verified: false,
+      assessment_session_id: null,
+      assessment_session_status: null,
+      saved_item_count: null,
+      adaptive_summary_readable: null,
+      parent_dashboard_latest_readable: null,
+      http_status: 200,
+    };
+
+    if (normalizedChildId && adaptiveSummaryPool) {
+      const owner = await adaptiveSummaryPool.query(
+        "SELECT c.id::text AS child_id, c.parent_id::text AS parent_profile_id, c.first_name FROM gates_child_profiles c WHERE c.id::text=$1 LIMIT 1",
+        [normalizedChildId]
+      ).catch(() => ({ rows: [] }));
+      payload.ownership_verified = Boolean(owner.rows?.[0]);
+      const session = await adaptiveSummaryPool.query(
+        `SELECT s.session_id, s.status, COUNT(r.id)::int AS saved_item_count
+           FROM assessment_sessions s
+           LEFT JOIN assessment_responses r ON r.session_id = s.id
+          WHERE s.learner_id::text=$1
+          GROUP BY s.id, s.session_id, s.status, s.updated_at, s.created_at
+          ORDER BY COALESCE(s.updated_at, s.created_at) DESC
+          LIMIT 1`,
+        [normalizedChildId]
+      ).catch(() => ({ rows: [] }));
+      if (session.rows?.[0]) {
+        payload.assessment_session_id = session.rows[0].session_id;
+        payload.assessment_session_status = session.rows[0].status;
+        payload.saved_item_count = Number(session.rows[0].saved_item_count || 0);
+      }
+      if (owner.rows?.[0]) {
+        const summary = await buildAdaptiveParentDashboardSummary(adaptiveSummaryPool, {
+          childId: normalizedChildId,
+          parentProfileId: owner.rows[0].parent_profile_id,
+          childName: owner.rows[0].first_name || "",
+        }).catch(() => null);
+        payload.adaptive_summary_readable = Boolean(summary && summary.ok !== false);
+      }
+    }
+
+    if (listYouthChildProfiles) {
+      const accountCtx = resolveRequestAccountContext(req, req.query || {});
+      if (accountCtx.tenant && accountCtx.email && normalizedChildId) {
+        const childProfiles = await listYouthChildProfiles({ accountCtx, request: req }).catch(() => []);
+        payload.parent_dashboard_latest_readable = childProfiles.some((entry) => String(entry?.child_id || "") === normalizedChildId);
+      }
+    }
+
+    console.info(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: "youth_adaptive_learning_diagnostics",
+      deployed_commit_sha: payload.deployed_commit_sha,
+      route_name: payload.route_name,
+      program_context: payload.program_context,
+      source_registry: payload.source_registry,
+      normalized_child_id: payload.normalized_child_id,
+      ownership_verified: payload.ownership_verified,
+      assessment_session_id: payload.assessment_session_id,
+      http_status: 200,
+    }));
+    return res.status(200).json(payload);
+  });
+
   router.get("/youth-development/program", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthProgramPage())
   ));

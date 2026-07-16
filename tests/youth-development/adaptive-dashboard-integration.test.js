@@ -44,3 +44,40 @@ test('youth adaptive summary API excludes guest fallback and returns Princess Ni
     assert.equal(guest.status, 409);
   } finally { server.close(); }
 });
+
+test('adaptive learning diagnostics reports only safe deployment and child-scope fields', async () => {
+  const originalCommit = process.env.RENDER_GIT_COMMIT;
+  process.env.RENDER_GIT_COMMIT = 'abc123childnorm';
+  const pool = { async query(sql) {
+    if (sql.includes('FROM gates_child_profiles')) return { rows: [{ child_id: '101', parent_profile_id: '55', first_name: 'Princess Nia' }] };
+    if (sql.includes('FROM assessment_sessions')) return { rows: [{ session_id: 'amvp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', status: 'in_progress', saved_item_count: 1 }] };
+    if (sql.includes('FROM skill_world_progress')) return { rows: [] };
+    if (sql.includes('FROM adaptive_v2_checkpoint_attempts')) return { rows: [] };
+    return { rows: [] };
+  } };
+  const { server, baseUrl } = await startApp({
+    pool,
+    listYouthChildProfiles: async () => [{ child_id: '101', child_name: 'Princess Nia', parent_profile_id: '55' }]
+  });
+  try {
+    const res = await fetch(`${baseUrl}/api/youth-development/adaptive-learning/diagnostics?tenant=demo&email=parent@example.com&child_id=101&program_context=youth_development&source_registry=youth_development&return_url=/youth-development/parent-dashboard`);
+    const json = await res.json();
+    assert.equal(res.status, 200);
+    assert.equal(json.deployed_commit_sha, 'abc123childnorm');
+    assert.equal(json.route_name, '/youth-development/adaptive-learning');
+    assert.equal(json.program_context, 'youth_development');
+    assert.equal(json.source_registry, 'youth_development');
+    assert.equal(json.normalized_child_id, '101');
+    assert.equal(json.return_url, '/youth-development/parent-dashboard');
+    assert.equal(json.ownership_verified, true);
+    assert.equal(json.assessment_session_id, 'amvp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    assert.equal(json.saved_item_count, 1);
+    assert.equal(json.adaptive_summary_readable, true);
+    assert.equal(json.parent_dashboard_latest_readable, true);
+    assert.equal(JSON.stringify(json).includes('parent@example.com'), false);
+  } finally {
+    if (originalCommit === undefined) delete process.env.RENDER_GIT_COMMIT;
+    else process.env.RENDER_GIT_COMMIT = originalCommit;
+    server.close();
+  }
+});
