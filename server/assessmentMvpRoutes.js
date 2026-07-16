@@ -133,8 +133,14 @@ function responseHasOwnershipInternals(value) {
   });
 }
 
-function ownershipError(res, status, error) {
-  return res.status(status).json({ ok: false, error });
+function ownershipError(res, status, error, details = {}) {
+  const parentMessage = error === "malformed_child_id"
+    ? "We could not verify Princess Nia’s learning profile. Please return to the Parent Dashboard and try again."
+    : details.parent_message;
+  if (error === "malformed_child_id") {
+    console.warn(JSON.stringify({ ts: new Date().toISOString(), event: "assessment_mvp_child_id_rejected", reason: error, received_child_id: String(details.received_child_id || ""), expected_format: "positive integer gates_child_profiles.id" }));
+  }
+  return res.status(status).json({ ok: false, error, ...(parentMessage ? { parent_message: parentMessage } : {}) });
 }
 
 function getEntryOwnership(entry) {
@@ -224,7 +230,7 @@ function createAssessmentMvpRouter(options = {}) {
       if (requireAuthentication) {
         if (body.child_id == null || String(body.child_id).trim() === "") return validationError(res, "missing_child_id");
         ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: body.child_id });
-        if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error);
+        if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error, { received_child_id: body.child_id });
       }
       const grade = body.grade;
       const subject = body.subject;
@@ -318,7 +324,7 @@ function createAssessmentMvpRouter(options = {}) {
       const actor = await authenticate(req, res);
       if (!actor) return ownershipError(res, 401, "unauthenticated");
       const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId });
-      if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error);
+      if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error, { received_child_id: req.params.childId });
 
       const subject = req.query.subject == null || String(req.query.subject).trim() === "" ? null : String(req.query.subject).trim();
       if (subject != null) {
@@ -400,7 +406,7 @@ function createAssessmentMvpRouter(options = {}) {
       const actor = await authenticate(req, res);
       if (!actor) return ownershipError(res, 401, "unauthenticated");
       const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId });
-      if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error);
+      if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error, { received_child_id: req.params.childId });
 
       const subject = req.query.subject == null || String(req.query.subject).trim() === "" ? null : String(req.query.subject).trim();
       if (subject != null) {

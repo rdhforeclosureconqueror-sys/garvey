@@ -17,7 +17,7 @@ test('Youth Development dashboard opens a Youth Development-scoped adaptive rout
 
 test('Youth Development adaptive hub preserves selected learner and hides Gates adventures', () => {
   assert.match(hub, /program_context:'youth_development'/);
-  assert.match(hub, /source_registry:'youth_development_assessment_submissions'/);
+  assert.match(hub, /source_registry:'youth_development'/);
   assert.match(hub, /ownership_verified:true/);
   assert.match(hub, /routeContext\.program_context==='youth_development'\?'':`<section class="panel rite-adventures"/);
   assert.match(hub, /withRouteContext\(`\/assessment-mvp\?grade=/);

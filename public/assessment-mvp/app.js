@@ -60,6 +60,7 @@
     programContext: '',
     returnUrl: '',
     routeChild: null,
+    sourceRegistry: '',
   };
 
   const state = { ...initialState, historyFilters: { ...initialState.historyFilters } };
@@ -89,6 +90,15 @@
     return SUBJECTS.includes(text(value));
   }
 
+  function normalizeAdaptiveLearnerContext(input) {
+    const displayName = text(input && (input.display_name || input.child_display_name || input.child_name)) || 'Learner';
+    const rawChildId = text(input && (input.child_id || input.childId || input.profile_id || input.learner_id)).trim();
+    if (!/^[1-9]\d*$/.test(rawChildId)) {
+      return { ok: false, error: 'malformed_child_id', raw_child_id: rawChildId, message: 'We could not verify ' + displayName + '’s learning profile. Please return to the Parent Dashboard and try again.' };
+    }
+    return { ok: true, learner: { child_id: rawChildId, program_context: 'youth_development', source_registry: text(input && input.source_registry).trim() || 'youth_development', display_name: displayName, child_name: displayName, child_grade_band: text(input && input.child_grade_band), ownership_verified: Boolean(input && input.ownership_verified) } };
+  }
+
   function parseQuery() {
     if (typeof window === 'undefined' || !window.location) return;
     const params = new URLSearchParams(window.location.search || '');
@@ -96,10 +106,13 @@
     const subject = params.get('subject');
     const programContext = text(params.get('program_context')).trim();
     const routeChildId = text(params.get('child_id')).trim();
-    if (programContext === 'youth_development' && routeChildId) {
+    if (programContext === 'youth_development') {
       state.programContext = 'youth_development';
+      state.sourceRegistry = text(params.get('source_registry')).trim() || 'youth_development';
       state.returnUrl = text(params.get('return_url')).trim() || '/youth-development/parent-dashboard';
-      state.routeChild = publicChildOnly({ child_id: routeChildId, child_name: params.get('child_display_name') || params.get('child_name') || 'Princess Nia', child_grade_band: params.get('child_grade_band') || '' });
+      const normalized = normalizeAdaptiveLearnerContext({ child_id: routeChildId, child_display_name: params.get('child_display_name') || params.get('child_name') || 'Princess Nia', child_grade_band: params.get('child_grade_band') || '', source_registry: state.sourceRegistry, ownership_verified: true });
+      if (normalized.ok) state.routeChild = publicChildOnly({ child_id: normalized.learner.child_id, child_name: normalized.learner.display_name, child_grade_band: normalized.learner.child_grade_band });
+      else { state.routeChild = null; state.childRequiredMessage = normalized.message; }
     }
     if (isValidGrade(grade)) {
       state.grade = text(grade);
@@ -367,7 +380,8 @@
     const response = await fetch(url, options);
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      const error = new Error(data.message || data.error || 'The assessment service needs a moment. Please try again.');
+      const friendly = data.parent_message || (data.error === 'malformed_child_id' ? 'We could not verify Princess Nia’s learning profile. Please return to the Parent Dashboard and try again.' : '');
+      const error = new Error(friendly || data.message || data.error || 'The assessment service needs a moment. Please try again.');
       error.status = response.status;
       error.body = data;
       throw error;
@@ -397,6 +411,13 @@
 
   async function initializeAuthenticatedFlow() {
     parseQuery();
+    if (state.programContext === 'youth_development' && state.childRequiredMessage) {
+      state.authChecked = true;
+      state.authenticated = true;
+      state.authOptional = false;
+      setError(state.childRequiredMessage);
+      return;
+    }
     if (state.programContext === 'youth_development' && state.routeChild && state.routeChild.child_id) {
       state.authChecked = true;
       state.authenticated = true;
@@ -562,7 +583,14 @@
     setView('loading', 'Starting your assessment.');
     try {
       const body = { grade: Number(state.grade), subject: state.subject, itemsPerPackage: ITEMS_PER_PACKAGE };
-      if (!state.authOptional && state.authChecked) body.child_id = child.child_id;
+      if (!state.authOptional && state.authChecked) {
+        body.child_id = child.child_id;
+        if (state.programContext === 'youth_development') {
+          body.program_context = 'youth_development';
+          body.source_registry = state.sourceRegistry || 'youth_development';
+          body.display_name = child.child_name || 'Princess Nia';
+        }
+      }
       const data = await postJson(API_ROOT + '/sessions', body);
       state.session = publicSessionOnly(data);
       state.currentSession = state.session.status === 'in_progress' ? state.session : null;
