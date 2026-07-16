@@ -239,10 +239,32 @@ async function initializeDatabase() {
       last_step TEXT,
       profile JSONB NOT NULL DEFAULT '{}'::jsonb,
       state_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      curriculum TEXT DEFAULT 'Skill World',
+      subject TEXT DEFAULT 'Skill World',
+      unit_id TEXT DEFAULT 'skill-world',
+      unit_title TEXT,
+      lesson_id TEXT,
+      lesson_title TEXT,
+      checkpoint_id TEXT DEFAULT 'skill-world-checkpoint',
+      completed_at TIMESTAMP,
+      mastery_level TEXT DEFAULT 'emerging',
+      next_recommended_lesson_id TEXT,
+      next_recommended_lesson_title TEXT,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW(),
       UNIQUE (child_id, skill_id, mode)
     );
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS curriculum TEXT DEFAULT 'Skill World';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS subject TEXT DEFAULT 'Skill World';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS unit_id TEXT DEFAULT 'skill-world';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS unit_title TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS lesson_id TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS lesson_title TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS checkpoint_id TEXT DEFAULT 'skill-world-checkpoint';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS mastery_level TEXT DEFAULT 'emerging';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS next_recommended_lesson_id TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS next_recommended_lesson_title TEXT;
   `);
 
   await pool.query(`
@@ -341,6 +363,33 @@ async function initializeDatabase() {
     );
     ALTER TABLE adaptive_v2_checkpoint_attempts ADD COLUMN IF NOT EXISTS parent_profile_id BIGINT;
     ALTER TABLE adaptive_v2_checkpoint_attempts ADD COLUMN IF NOT EXISTS auth_user_id INTEGER;
+    CREATE TABLE IF NOT EXISTS adaptive_v2_lesson_progress (
+      id SERIAL PRIMARY KEY,
+      child_id TEXT NOT NULL,
+      parent_profile_id BIGINT,
+      auth_user_id INTEGER,
+      learner_display_name TEXT,
+      curriculum TEXT NOT NULL DEFAULT 'Adaptive V2',
+      subject TEXT NOT NULL DEFAULT 'General',
+      unit_id TEXT NOT NULL DEFAULT 'unit',
+      unit_title TEXT,
+      lesson_id TEXT NOT NULL,
+      lesson_title TEXT,
+      checkpoint_id TEXT NOT NULL DEFAULT 'checkpoint',
+      skill_world_id TEXT,
+      completion_state TEXT NOT NULL DEFAULT 'in_progress',
+      completed_at TIMESTAMP,
+      score_percent INTEGER NOT NULL DEFAULT 0,
+      attempts INTEGER NOT NULL DEFAULT 0,
+      mastery_level TEXT NOT NULL DEFAULT 'emerging',
+      next_recommended_lesson_id TEXT,
+      next_recommended_lesson_title TEXT,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (child_id, curriculum, subject, unit_id, lesson_id, checkpoint_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_adaptive_v2_lesson_progress_child_updated ON adaptive_v2_lesson_progress(child_id, updated_at DESC);
     CREATE TABLE IF NOT EXISTS skill_world_progress (
       id SERIAL PRIMARY KEY,
       child_id TEXT NOT NULL,
@@ -358,10 +407,32 @@ async function initializeDatabase() {
       last_step TEXT,
       profile JSONB NOT NULL DEFAULT '{}'::jsonb,
       state_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      curriculum TEXT DEFAULT 'Skill World',
+      subject TEXT DEFAULT 'Skill World',
+      unit_id TEXT DEFAULT 'skill-world',
+      unit_title TEXT,
+      lesson_id TEXT,
+      lesson_title TEXT,
+      checkpoint_id TEXT DEFAULT 'skill-world-checkpoint',
+      completed_at TIMESTAMP,
+      mastery_level TEXT DEFAULT 'emerging',
+      next_recommended_lesson_id TEXT,
+      next_recommended_lesson_title TEXT,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW(),
       UNIQUE (child_id, skill_id, mode)
     );
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS curriculum TEXT DEFAULT 'Skill World';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS subject TEXT DEFAULT 'Skill World';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS unit_id TEXT DEFAULT 'skill-world';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS unit_title TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS lesson_id TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS lesson_title TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS checkpoint_id TEXT DEFAULT 'skill-world-checkpoint';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS mastery_level TEXT DEFAULT 'emerging';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS next_recommended_lesson_id TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS next_recommended_lesson_title TEXT;
   `);
 
   // ==================================================
@@ -547,10 +618,32 @@ async function initializeDatabase() {
       last_step TEXT,
       profile JSONB NOT NULL DEFAULT '{}'::jsonb,
       state_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      curriculum TEXT DEFAULT 'Skill World',
+      subject TEXT DEFAULT 'Skill World',
+      unit_id TEXT DEFAULT 'skill-world',
+      unit_title TEXT,
+      lesson_id TEXT,
+      lesson_title TEXT,
+      checkpoint_id TEXT DEFAULT 'skill-world-checkpoint',
+      completed_at TIMESTAMP,
+      mastery_level TEXT DEFAULT 'emerging',
+      next_recommended_lesson_id TEXT,
+      next_recommended_lesson_title TEXT,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW(),
       UNIQUE (child_id, skill_id, mode)
     );
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS curriculum TEXT DEFAULT 'Skill World';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS subject TEXT DEFAULT 'Skill World';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS unit_id TEXT DEFAULT 'skill-world';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS unit_title TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS lesson_id TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS lesson_title TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS checkpoint_id TEXT DEFAULT 'skill-world-checkpoint';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS mastery_level TEXT DEFAULT 'emerging';
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS next_recommended_lesson_id TEXT;
+    ALTER TABLE skill_world_progress ADD COLUMN IF NOT EXISTS next_recommended_lesson_title TEXT;
   `);
 
   await pool.query(`

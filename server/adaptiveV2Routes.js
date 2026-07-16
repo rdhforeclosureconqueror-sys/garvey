@@ -57,6 +57,17 @@ async function resolveRequiredOwnedChild(req, childId, pool) {
   return identity;
 }
 
+function normalizeCompletionState(value, score = 0, isCorrect = false) {
+  const status = String(value || "").trim().toLowerCase().replace(/\s+/g, "_");
+  if (status === "completed" || status === "complete" || Number(score) >= 100 || isCorrect === true) return "completed";
+  if (status === "not_started" || status === "not-started") return "not_started";
+  return "in_progress";
+}
+
+function cleanProgressText(value, fallback = "") {
+  return String(value || fallback || "").trim();
+}
+
 function logRejectedProgressWrite({ route, childId, reason, status }) {
   console.info(JSON.stringify({
     ts: new Date().toISOString(),
@@ -106,11 +117,24 @@ function createAdaptiveV2Router({ pool }) {
       [childId, skillId, checkpointAttempts, correctCount, totalCount, hintUsage, masteryBand, nextRecommendedSkillId, JSON.stringify(b.parent_summary_snapshot || {}), identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, identity.ownedChild?.childProfile?.child_name || null]
     );
 
+    const checkpointId = String(b.checkpoint_id || "checkpoint").trim();
     await pool.query(
       `INSERT INTO adaptive_v2_checkpoint_attempts
       (child_id, grade, runtime_version, skill_id, checkpoint_id, is_correct, mastery_band_after, next_recommended_skill_id, parent_profile_id, auth_user_id)
       VALUES ($1,'1','adaptive_v2',$2,$3,$4,$5,$6,$7,$8)`,
-      [childId, skillId, String(b.checkpoint_id || "checkpoint").trim(), !!b.is_correct, masteryBand, nextRecommendedSkillId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null]
+      [childId, skillId, checkpointId, !!b.is_correct, masteryBand, nextRecommendedSkillId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null]
+    );
+
+    const scorePercent = totalCount > 0 ? Math.round((correctCount / Math.max(1, totalCount)) * 100) : (b.score_percent == null ? 0 : Number(b.score_percent || 0));
+    const completionState = normalizeCompletionState(b.completion_state, scorePercent, !!b.is_correct);
+    const completedAt = completionState === "completed" ? (b.completed_at || new Date().toISOString()) : null;
+    await pool.query(
+      `INSERT INTO adaptive_v2_lesson_progress
+        (child_id,parent_profile_id,auth_user_id,learner_display_name,curriculum,subject,unit_id,unit_title,lesson_id,lesson_title,checkpoint_id,skill_world_id,completion_state,completed_at,score_percent,attempts,mastery_level,next_recommended_lesson_id,next_recommended_lesson_title,metadata)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20::jsonb)
+       ON CONFLICT (child_id, curriculum, subject, unit_id, lesson_id, checkpoint_id) DO UPDATE SET
+        parent_profile_id=EXCLUDED.parent_profile_id, auth_user_id=EXCLUDED.auth_user_id, learner_display_name=EXCLUDED.learner_display_name, unit_title=EXCLUDED.unit_title, lesson_title=EXCLUDED.lesson_title, skill_world_id=EXCLUDED.skill_world_id, completion_state=EXCLUDED.completion_state, completed_at=COALESCE(EXCLUDED.completed_at, adaptive_v2_lesson_progress.completed_at), score_percent=EXCLUDED.score_percent, attempts=EXCLUDED.attempts, mastery_level=EXCLUDED.mastery_level, next_recommended_lesson_id=EXCLUDED.next_recommended_lesson_id, next_recommended_lesson_title=EXCLUDED.next_recommended_lesson_title, metadata=EXCLUDED.metadata, updated_at=NOW()`,
+      [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, identity.ownedChild?.childProfile?.child_name || null, cleanProgressText(b.curriculum || b.curriculum_id, "Adaptive V2"), cleanProgressText(b.subject, "Grade 1"), cleanProgressText(b.unit_id, "unit"), cleanProgressText(b.unit_title), cleanProgressText(b.lesson_id, skillId), cleanProgressText(b.lesson_title, skillId), checkpointId, cleanProgressText(b.skill_world_id || b.skill_world), completionState, completedAt, Math.max(0, Math.min(100, scorePercent)), checkpointAttempts, masteryBand, cleanProgressText(b.next_recommended_lesson_id, nextRecommendedSkillId), cleanProgressText(b.next_recommended_lesson_title), JSON.stringify(b.curriculum_progress_metadata || {})]
     );
 
     return res.json({ ok: true });
@@ -159,12 +183,15 @@ function createAdaptiveV2Router({ pool }) {
       return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" });
     }
     const mode = String(b.mode || "mission").trim() || "mission";
-    const status = String(b.status || "in_progress").trim() || "in_progress";
+    const progressPercent = Number(b.progress_percent || 0);
+    const scorePercent = Number(b.score_percent || 0);
+    const status = normalizeCompletionState(b.status, progressPercent, false);
+    const completedAt = status === "completed" ? (b.completed_at || new Date().toISOString()) : null;
     await pool.query(`INSERT INTO skill_world_progress
-      (child_id,parent_profile_id,auth_user_id,learner_display_name,skill_id,mode,status,progress_percent,attempts,correct,score_percent,hints_used,last_step,profile,state_snapshot)
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb)
-      ON CONFLICT (child_id, skill_id, mode) DO UPDATE SET status=EXCLUDED.status, progress_percent=EXCLUDED.progress_percent, attempts=EXCLUDED.attempts, correct=EXCLUDED.correct, score_percent=EXCLUDED.score_percent, hints_used=EXCLUDED.hints_used, last_step=EXCLUDED.last_step, profile=EXCLUDED.profile, state_snapshot=EXCLUDED.state_snapshot, parent_profile_id=EXCLUDED.parent_profile_id, auth_user_id=EXCLUDED.auth_user_id, learner_display_name=EXCLUDED.learner_display_name, updated_at=NOW()`,
-      [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, identity.ownedChild?.childProfile?.child_name || null, skillId, mode, status, Number(b.progress_percent||0), Number(b.attempts||0), Number(b.correct||0), Number(b.score_percent||0), Number(b.hints_used||0), String(b.last_step||''), JSON.stringify(b.profile||{}), JSON.stringify(b.state_snapshot||{})]);
+      (child_id,parent_profile_id,auth_user_id,learner_display_name,skill_id,mode,status,progress_percent,attempts,correct,score_percent,hints_used,last_step,profile,state_snapshot,curriculum,subject,unit_id,unit_title,lesson_id,lesson_title,checkpoint_id,completed_at,mastery_level,next_recommended_lesson_id,next_recommended_lesson_title)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26)
+      ON CONFLICT (child_id, skill_id, mode) DO UPDATE SET status=EXCLUDED.status, progress_percent=EXCLUDED.progress_percent, attempts=EXCLUDED.attempts, correct=EXCLUDED.correct, score_percent=EXCLUDED.score_percent, hints_used=EXCLUDED.hints_used, last_step=EXCLUDED.last_step, profile=EXCLUDED.profile, state_snapshot=EXCLUDED.state_snapshot, curriculum=EXCLUDED.curriculum, subject=EXCLUDED.subject, unit_id=EXCLUDED.unit_id, unit_title=EXCLUDED.unit_title, lesson_id=EXCLUDED.lesson_id, lesson_title=EXCLUDED.lesson_title, checkpoint_id=EXCLUDED.checkpoint_id, completed_at=COALESCE(EXCLUDED.completed_at, skill_world_progress.completed_at), mastery_level=EXCLUDED.mastery_level, next_recommended_lesson_id=EXCLUDED.next_recommended_lesson_id, next_recommended_lesson_title=EXCLUDED.next_recommended_lesson_title, parent_profile_id=EXCLUDED.parent_profile_id, auth_user_id=EXCLUDED.auth_user_id, learner_display_name=EXCLUDED.learner_display_name, updated_at=NOW()`,
+      [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, identity.ownedChild?.childProfile?.child_name || null, skillId, mode, status, progressPercent, Number(b.attempts||0), Number(b.correct||0), scorePercent, Number(b.hints_used||0), String(b.last_step||''), JSON.stringify(b.profile||{}), JSON.stringify(b.state_snapshot||{}), cleanProgressText(b.curriculum, "Skill World"), cleanProgressText(b.subject, "Skill World"), cleanProgressText(b.unit_id, skillId), cleanProgressText(b.unit_title), cleanProgressText(b.lesson_id, b.last_step || skillId), cleanProgressText(b.lesson_title, b.last_step || skillId), cleanProgressText(b.checkpoint_id, "skill-world-checkpoint"), completedAt, toBand(b.mastery_level || b.mastery_band), cleanProgressText(b.next_recommended_lesson_id), cleanProgressText(b.next_recommended_lesson_title)]);
     return res.json({ ok: true });
   });
 

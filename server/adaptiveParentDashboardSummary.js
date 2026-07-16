@@ -59,23 +59,27 @@ async function buildAdaptiveParentDashboardSummary(pool, { childId, parentProfil
   const parentFilter = parentProfileId ? " AND parent_profile_id::text=$2" : "";
   const params = parentProfileId ? [cid, String(parentProfileId)] : [cid];
   const assessments = await queryOptional(pool, `SELECT session_id, learner_id::text AS child_id, parent_profile_id::text, assessment_role, grade, subject, status, current_question_position, created_at, updated_at, completed_at FROM assessment_sessions WHERE learner_id::text=$1${parentFilter} ORDER BY COALESCE(completed_at, updated_at, created_at) DESC`, params);
-  const skillWorldsRaw = await queryOptional(pool, `SELECT child_id::text, parent_profile_id::text, learner_display_name, skill_id, mode, status, progress_percent, attempts, correct, score_percent, hints_used, last_step, created_at, updated_at FROM skill_world_progress WHERE child_id::text=$1${parentFilter} ORDER BY updated_at DESC`, params);
+  const skillWorldsRaw = await queryOptional(pool, `SELECT child_id::text, parent_profile_id::text, learner_display_name, skill_id, mode, status, progress_percent, attempts, correct, score_percent, hints_used, last_step, curriculum, subject, unit_id, unit_title, lesson_id, lesson_title, checkpoint_id, completed_at, mastery_level, next_recommended_lesson_id, next_recommended_lesson_title, created_at, updated_at FROM skill_world_progress WHERE child_id::text=$1${parentFilter} ORDER BY updated_at DESC`, params);
   const adaptiveRows = await queryOptional(pool, `SELECT child_id::text, parent_profile_id::text, learner_display_name, selected_skill_id, checkpoint_attempts, correct_count, total_count, hint_usage_count, mastery_band, next_recommended_skill_id, created_at, updated_at FROM adaptive_v2_skill_progress WHERE child_id::text=$1${parentFilter} ORDER BY updated_at DESC`, params);
   const checkpointRows = await queryOptional(pool, `SELECT child_id::text, parent_profile_id::text, skill_id, checkpoint_id, is_correct, mastery_band_after, next_recommended_skill_id, created_at FROM adaptive_v2_checkpoint_attempts WHERE child_id::text=$1${parentFilter} ORDER BY created_at DESC LIMIT 25`, params);
+  const lessonRows = await queryOptional(pool, `SELECT child_id::text, parent_profile_id::text, learner_display_name, curriculum, subject, unit_id, unit_title, lesson_id, lesson_title, checkpoint_id, skill_world_id, completion_state, completed_at, score_percent, attempts, mastery_level, next_recommended_lesson_id, next_recommended_lesson_title, created_at, updated_at FROM adaptive_v2_lesson_progress WHERE child_id::text=$1${parentFilter} ORDER BY updated_at DESC`, params);
   const skillWorlds = skillWorldsRaw.map((row) => ({
-    skill_id: toText(row.skill_id), mode: toText(row.mode || "mission"), status: normalizeStatus(row.status, toNumber(row.progress_percent)), current_lesson_or_step: toText(row.last_step) || "Not started", progress_percent: Math.max(0, Math.min(100, toNumber(row.progress_percent))), score_percent: toNumber(row.score_percent), attempts: toNumber(row.attempts), correct: toNumber(row.correct), last_activity_at: toIso(row.updated_at || row.created_at), child_id: cid,
+    skill_id: toText(row.skill_id), mode: toText(row.mode || "mission"), status: normalizeStatus(row.status, toNumber(row.progress_percent)), current_lesson_or_step: toText(row.last_step || row.lesson_title || row.lesson_id) || "Not started", progress_percent: Math.max(0, Math.min(100, toNumber(row.progress_percent))), score_percent: toNumber(row.score_percent), attempts: toNumber(row.attempts), correct: toNumber(row.correct), completion_timestamp: toIso(row.completed_at), mastery_level: toText(row.mastery_level) || "emerging", next_recommended_lesson: toText(row.next_recommended_lesson_title || row.next_recommended_lesson_id), curriculum: toText(row.curriculum) || "Skill World", subject: toText(row.subject) || "Skill World", unit: toText(row.unit_title || row.unit_id), lesson: toText(row.lesson_title || row.lesson_id || row.last_step), checkpoint: toText(row.checkpoint_id), last_activity_at: toIso(row.updated_at || row.created_at), child_id: cid,
+  }));
+  const curriculumProgress = lessonRows.map((row) => ({
+    curriculum: toText(row.curriculum), subject: toText(row.subject), unit: toText(row.unit_title || row.unit_id), unit_id: toText(row.unit_id), lesson: toText(row.lesson_title || row.lesson_id), lesson_id: toText(row.lesson_id), checkpoint: toText(row.checkpoint_id), skill_world: toText(row.skill_world_id), completion_state: normalizeStatus(row.completion_state, toNumber(row.score_percent)), completion_timestamp: toIso(row.completed_at), score: toNumber(row.score_percent), attempts: toNumber(row.attempts), mastery_level: toText(row.mastery_level) || "emerging", next_recommended_lesson: toText(row.next_recommended_lesson_title || row.next_recommended_lesson_id), last_activity_at: toIso(row.updated_at || row.created_at), child_id: cid,
   }));
   const completedAssessments = assessments.filter((r) => normalizeStatus(r.status) === "completed");
   const latestAssessment = assessments[0] || null;
   const latestProgress = adaptiveRows[0] || null;
   const completedSkillWorlds = skillWorlds.filter((r) => r.status === "completed").length;
   const inProgressSkill = skillWorlds.find((r) => r.status === "in_progress") || skillWorlds.find((r) => r.status !== "completed") || null;
-  const lessonsCompleted = adaptiveRows.filter((r) => toNumber(r.total_count) > 0 && toNumber(r.correct_count) >= toNumber(r.total_count)).length;
-  const totalLessons = Math.max(adaptiveRows.length, lessonsCompleted);
+  const lessonsCompleted = curriculumProgress.filter((r) => r.completion_state === "completed").length || adaptiveRows.filter((r) => toNumber(r.total_count) > 0 && toNumber(r.correct_count) >= toNumber(r.total_count)).length;
+  const totalLessons = Math.max(curriculumProgress.length, adaptiveRows.length, lessonsCompleted);
   const checkpointsCompleted = checkpointRows.length;
   const latestScore = latestAssessment?.score_percent ?? (latestProgress && toNumber(latestProgress.total_count) ? Math.round((toNumber(latestProgress.correct_count) / Math.max(1, toNumber(latestProgress.total_count))) * 100) : null);
-  const nextRecommendation = toText(latestProgress?.next_recommended_skill_id) || (inProgressSkill ? `Continue ${inProgressSkill.skill_id}` : "Open the Adaptive V2 Lesson Hub and start the next recommended activity.");
-  const hasProgress = assessments.length > 0 || skillWorlds.length > 0 || adaptiveRows.length > 0 || checkpointRows.length > 0;
+  const nextRecommendation = toText(curriculumProgress.find((r) => r.next_recommended_lesson)?.next_recommended_lesson) || toText(latestProgress?.next_recommended_skill_id) || (inProgressSkill ? `Continue ${inProgressSkill.skill_id}` : "Open the Adaptive V2 Lesson Hub and start the next recommended activity.");
+  const hasProgress = assessments.length > 0 || skillWorlds.length > 0 || adaptiveRows.length > 0 || checkpointRows.length > 0 || curriculumProgress.length > 0;
   return {
     ok: true,
     child_id: cid,
@@ -97,10 +101,13 @@ async function buildAdaptiveParentDashboardSummary(pool, { childId, parentProfil
     progress_percent: inProgressSkill?.progress_percent ?? (latestProgress ? Math.round((toNumber(latestProgress.correct_count) / Math.max(1, toNumber(latestProgress.total_count) || 1)) * 100) : 0),
     score_percent: inProgressSkill?.score_percent ?? latestScore,
     attempts: inProgressSkill?.attempts ?? toNumber(latestProgress?.checkpoint_attempts),
-    last_activity_at: latestDate([...assessments, ...skillWorldsRaw, ...adaptiveRows, ...checkpointRows], ["completed_at", "updated_at", "created_at"]),
+    last_activity_at: latestDate([...assessments, ...skillWorldsRaw, ...adaptiveRows, ...checkpointRows, ...lessonRows], ["completed_at", "updated_at", "created_at"]),
     next_recommended_learning_activity: nextRecommendation,
     assessments,
     skill_worlds: skillWorlds,
+    curriculum_progress: curriculumProgress,
+    lesson_level_progress: curriculumProgress,
+    tracking_gaps: curriculumProgress.length ? [] : ["No adaptive_v2_lesson_progress rows found; legacy aggregate rows may not include curriculum, unit, lesson, checkpoint, completion timestamp, mastery, and next-lesson detail."],
     adaptive_progress: adaptiveRows,
     recent_activity: buildRecentActivity({ assessments, skillWorlds, adaptiveRows, checkpointRows, childId: cid }),
   };

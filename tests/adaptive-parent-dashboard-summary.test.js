@@ -11,6 +11,7 @@ function poolWithRows(rowsByTable) {
       if (sql.includes('FROM skill_world_progress')) return { rows: rowsByTable.skill_world_progress || [] };
       if (sql.includes('FROM adaptive_v2_skill_progress')) return { rows: rowsByTable.adaptive_v2_skill_progress || [] };
       if (sql.includes('FROM adaptive_v2_checkpoint_attempts')) return { rows: rowsByTable.adaptive_v2_checkpoint_attempts || [] };
+      if (sql.includes('FROM adaptive_v2_lesson_progress')) return { rows: rowsByTable.adaptive_v2_lesson_progress || [] };
       return { rows: [] };
     }
   };
@@ -62,4 +63,20 @@ test('empty progress displays a safe empty state', async () => {
   assert.equal(out.ok, true);
   assert.equal(out.empty_state, true);
   assert.equal(out.overall_status_label, 'No adaptive learning progress yet');
+});
+
+test('parent dashboard summary exposes lesson-level curriculum tracking and next lesson', async () => {
+  const pool = poolWithRows({
+    adaptive_v2_lesson_progress: [{
+      child_id: '101', parent_profile_id: '55', curriculum: 'Grade 1 Math', subject: 'Math', unit_id: 'u1', unit_title: 'Numbers', lesson_id: 'l2', lesson_title: 'Count to 20', checkpoint_id: 'cp1', skill_world_id: 'WORLD-A', completion_state: 'in_progress', score_percent: 67, attempts: 3, mastery_level: 'developing', next_recommended_lesson_id: 'l3', next_recommended_lesson_title: 'Compare numbers', updated_at: '2026-07-15T12:00:00Z'
+    }]
+  });
+  const out = await buildAdaptiveParentDashboardSummary(pool, { childId: '101', parentProfileId: '55', childName: 'Princess Nia' });
+  assert.equal(out.empty_state, false);
+  assert.equal(out.curriculum_progress.length, 1);
+  assert.deepEqual(out.curriculum_progress[0], {
+    curriculum: 'Grade 1 Math', subject: 'Math', unit: 'Numbers', unit_id: 'u1', lesson: 'Count to 20', lesson_id: 'l2', checkpoint: 'cp1', skill_world: 'WORLD-A', completion_state: 'in_progress', completion_timestamp: null, score: 67, attempts: 3, mastery_level: 'developing', next_recommended_lesson: 'Compare numbers', last_activity_at: '2026-07-15T12:00:00.000Z', child_id: '101'
+  });
+  assert.equal(out.next_recommended_learning_activity, 'Compare numbers');
+  assert.deepEqual(out.tracking_gaps, []);
 });
