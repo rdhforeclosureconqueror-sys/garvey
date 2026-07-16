@@ -2553,6 +2553,10 @@ function renderLiveYouthParentDashboardPage() {
           const activityRows = (summary.recent_activity || []).map(function (item) {
             return '<li><strong>' + esc(String(item.event_type || '').replace(/_/g, ' ')) + ':</strong> ' + esc(item.label || 'Adaptive activity') + ' <span class="tiny">' + esc(formatDate(item.occurred_at)) + ' · profile ' + esc(item.child_id || summary.child_id || '') + '</span></li>';
           }).join('');
+          const curriculumRows = (summary.curriculum_progress || []).map(function (item) {
+            return '<tr><td>' + esc(item.curriculum || item.subject || 'Curriculum') + '</td><td>' + esc(item.unit || item.unit_id || 'Unit') + '</td><td>' + esc(item.lesson || item.lesson_id || 'Lesson') + '</td><td>' + esc(item.checkpoint || 'Checkpoint') + '</td><td>' + esc(item.skill_world || '—') + '</td><td><span class="status-badge">' + esc(formatAdaptiveStatus(item.completion_state)) + '</span></td><td>' + esc(formatDate(item.completion_timestamp || item.last_activity_at)) + '</td><td>' + esc(item.score == null ? '—' : String(item.score) + '%') + '</td><td>' + esc(item.attempts || 0) + '</td><td>' + esc(item.mastery_level || 'emerging') + '</td><td>' + esc(item.next_recommended_lesson || 'Continue next recommended activity') + '</td></tr>';
+          }).join('');
+          const gapRows = (summary.tracking_gaps || []).map(function (gap) { return '<li>' + esc(gap) + '</li>'; }).join('');
           host.innerHTML = [
             '<p><strong>Active learner:</strong> ' + esc(childName) + ' <span class="tiny">Profile ID ' + esc(summary.child_id || '') + '</span></p>',
             '<div class="metric-grid">',
@@ -2570,7 +2574,10 @@ function renderLiveYouthParentDashboardPage() {
             metric('Last activity', formatDate(summary.last_activity_at)),
             '</div>',
             '<p><strong>Next recommended learning activity:</strong> ' + esc(summary.next_recommended_learning_activity || 'Continue the next recommended Adaptive Learning activity.') + '</p>',
-            '<div class="adaptive-table-wrap"><table class="adaptive-table"><thead><tr><th>Skill World</th><th>Status</th><th>Current lesson / step</th><th>Progress</th><th>Score</th><th>Attempts</th><th>Last activity</th></tr></thead><tbody>' + (skillRows || '<tr><td colspan="7">No Skill World activity saved yet.</td></tr>') + '</tbody></table></div>',
+            '<h3>Curriculum-level progress</h3>',
+            '<div class="adaptive-table-wrap"><table class="adaptive-table"><thead><tr><th>Curriculum / subject</th><th>Unit</th><th>Lesson</th><th>Checkpoint</th><th>Skill World</th><th>Completion state</th><th>Completion timestamp</th><th>Score</th><th>Attempts</th><th>Mastery level</th><th>Next recommended lesson</th></tr></thead><tbody>' + (curriculumRows || '<tr><td colspan="11">No lesson-level curriculum progress saved yet.</td></tr>') + '</tbody></table></div>',
+            gapRows ? '<h3>Remaining tracking gaps</h3><ul class="activity-list">' + gapRows + '</ul>' : '',
+            '<h3>Skill World progress</h3><div class="adaptive-table-wrap"><table class="adaptive-table"><thead><tr><th>Skill World</th><th>Status</th><th>Current lesson / step</th><th>Progress</th><th>Score</th><th>Attempts</th><th>Last activity</th></tr></thead><tbody>' + (skillRows || '<tr><td colspan="7">No Skill World activity saved yet.</td></tr>') + '</tbody></table></div>',
             '<h3>Recent adaptive activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No recent adaptive activity saved yet.</li>') + '</ul>'
           ].join('');
         }
