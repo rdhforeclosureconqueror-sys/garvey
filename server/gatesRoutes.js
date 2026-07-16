@@ -27,6 +27,7 @@ const {
   GATES_TENANT_SLUG,
   buildGatesSessionCookie,
   formatChildProfileRow,
+  listOwnedCanonicalGatesChildren,
   normalizeEmail,
   parseCookieHeader,
   resolveGatesParentSession,
@@ -302,6 +303,20 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     return res.json({
       ok: true,
       children,
+    });
+  });
+
+  router.get("/api/gates/canonical-learners", async (req, res) => {
+    const sessionState = await resolveGatesSession({ req, pool });
+    if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+    const children = await listOwnedCanonicalGatesChildren({ pool, parentProfileId: sessionState.parentProfile.id });
+    return res.json({
+      ok: true,
+      parent_profile_id: sessionState.parentProfile.id,
+      auth_user_id: sessionState.authUserId,
+      children,
+      selected_child_id: children.length === 1 ? children[0].child_id : null,
+      error: children.length ? null : "no_owned_canonical_children",
     });
   });
 

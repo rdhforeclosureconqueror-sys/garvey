@@ -105,6 +105,55 @@ async function resolveGatesParentSession(req, options = {}) {
   return { authenticated: true, authUserId: Number(session.user_id), parentProfile };
 }
 
+function isExcludedAdaptiveLearner(childProfile) {
+  const name = String(childProfile?.child_name || "").trim().toLowerCase();
+  const id = String(childProfile?.child_id || "").trim().toLowerCase();
+  if (!name && !id) return true;
+  const fake = new Set(["guest", "nsi", "nis", "mar", "test", "demo", "local-learner"]);
+  if (fake.has(name) || fake.has(id)) return true;
+  if (/^(guest|test|demo|orphan)(\b|[-_ ]|$)/i.test(name)) return true;
+  return false;
+}
+
+async function listOwnedCanonicalGatesChildren({ pool = defaultPool, parentProfileId }) {
+  const result = await pool.query(
+    "SELECT id, parent_id, first_name FROM gates_child_profiles WHERE parent_id = $1 ORDER BY id ASC",
+    [parentProfileId]
+  );
+  return result.rows
+    .map(formatChildProfileRow)
+    .filter((child) => !isExcludedAdaptiveLearner(child))
+    .map((child) => ({
+      ...child,
+      parent_profile_id: Number(parentProfileId),
+      ownership_verified: true,
+    }));
+}
+
+async function resolveCanonicalLearnerForRequest(req, { pool = defaultPool, childId = null } = {}) {
+  const session = await resolveGatesParentSession(req, { pool });
+  if (!session.authenticated) return { ok: false, status: 401, error: "unauthenticated", session };
+  const children = await listOwnedCanonicalGatesChildren({ pool, parentProfileId: session.parentProfile.id });
+  const selected = childId
+    ? children.find((child) => String(child.child_id) === String(childId))
+    : (children.length === 1 ? children[0] : null);
+  if (childId && !selected) return { ok: false, status: 403, error: "canonical_child_not_owned", session, children };
+  if (!selected) return { ok: false, status: 400, error: children.length ? "child_context_required" : "no_owned_canonical_children", session, children };
+  return {
+    ok: true,
+    session,
+    children,
+    child: selected,
+    resolver: {
+      child_id: selected.child_id,
+      child_display_name: selected.child_name,
+      parent_profile_id: session.parentProfile.id,
+      auth_user_id: session.authUserId,
+      ownership_verified: true,
+    },
+  };
+}
+
 function requireGatesParentSession(options = {}) {
   return async function gatesParentSessionMiddleware(req, res, next) {
     try {
@@ -166,7 +215,10 @@ module.exports = {
   formatChildProfileRow,
   normalizeEmail,
   parseCookieHeader,
+  isExcludedAdaptiveLearner,
+  listOwnedCanonicalGatesChildren,
   parsePositiveIntegerId,
+  resolveCanonicalLearnerForRequest,
   requireGatesParentSession,
   requireOwnedGatesChild,
   resolveGatesParentSession,

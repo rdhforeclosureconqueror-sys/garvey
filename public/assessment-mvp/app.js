@@ -3,7 +3,7 @@
 
   const API_ROOT = '/api/assessment-mvp';
   const GATES_SESSION_URL = '/api/gates/auth/session';
-  const GATES_CHILDREN_URL = '/api/gates/children';
+  const GATES_CHILDREN_URL = '/api/gates/canonical-learners';
   const GATES_SIGNIN_URL = '/gates/signup';
   const ITEMS_PER_PACKAGE = 3;
   const GRADES = ['1', '2', '3', '4', '5', '6'];

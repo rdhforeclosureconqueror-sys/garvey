@@ -53,6 +53,9 @@ function makePool() {
         const row = state.childProfiles.get(String(params[0]));
         return { rows: row ? [row] : [] };
       }
+      if (q.includes('SELECT id, parent_id, first_name FROM gates_child_profiles WHERE parent_id = $1')) {
+        return { rows: [...state.childProfiles.values()].filter((row) => Number(row.parent_id) === Number(params[0])) };
+      }
       if (q.includes('INSERT INTO adaptive_v2_skill_progress')) {
         state.progress.set(String(params[0]), {
           child_id: String(params[0]),
@@ -112,7 +115,7 @@ test('adaptive v2 grade1 progress write/read and guardrails require owned Prince
     assert.equal(unauth.status, 401);
 
     const fakeChild = await fetch(`${baseUrl}/api/adaptive-v2/progress/checkpoint-attempt`, { method:'POST', headers:{'content-type':'application/json', cookie: makeAuthenticatedCookie()}, body: JSON.stringify(checkpointPayload({ child_id: 'guest-1' })) });
-    assert.equal(fakeChild.status, 400);
+    assert.equal(fakeChild.status, 403);
 
     const ok = await fetch(`${baseUrl}/api/adaptive-v2/progress/checkpoint-attempt`, { method:'POST', headers:{'content-type':'application/json', cookie: makeAuthenticatedCookie()}, body: JSON.stringify(checkpointPayload({ next_recommended_skill_id:'G1-MATH-06' })) });
     assert.equal(ok.status, 200);

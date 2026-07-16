@@ -1,7 +1,7 @@
 "use strict";
 const express = require("express");
 const { mapAdaptiveV2Grade1ToGatesSignals } = require("./adaptiveV2Grade1GatesSignalMapper");
-const { resolveGatesParentSession, resolveOwnedGatesChild } = require("./gatesAuth");
+const { resolveCanonicalLearnerForRequest } = require("./gatesAuth");
 const { buildAdaptiveParentDashboardSummary } = require("./adaptiveParentDashboardSummary");
 const { buildLearningJourney } = require("./learningJourneyService");
 
@@ -29,33 +29,44 @@ function toBand(v) {
 }
 
 async function resolveOptionalOwnedChild(req, childId, pool) {
-  const session = await resolveGatesParentSession(req, { pool });
-  if (!session.authenticated) return { session, ownedChild: null };
-  const ownedChild = await resolveOwnedGatesChild({ pool, parentProfileId: session.parentProfile.id, childId });
-  if (!ownedChild.ok) {
-    const err = new Error(ownedChild.error);
-    err.status = ownedChild.status;
-    err.error = ownedChild.error;
+  const identity = await resolveCanonicalLearnerForRequest(req, { pool, childId });
+  if (!identity.ok && identity.status === 401) return { session: identity.session || { authenticated: false }, ownedChild: null };
+  if (!identity.ok) {
+    const err = new Error(identity.error);
+    err.status = identity.status;
+    err.error = identity.error;
     throw err;
   }
-  return { session, ownedChild };
+  return {
+    session: identity.session,
+    ownedChild: {
+      ok: true,
+      childId: Number(identity.child.child_id),
+      learnerId: String(identity.child.child_id),
+      childProfile: identity.child,
+      canonicalResolver: identity.resolver,
+    },
+  };
 }
 
 async function resolveRequiredOwnedChild(req, childId, pool) {
-  const identity = await resolveOptionalOwnedChild(req, childId, pool);
-  if (!identity.session.authenticated) {
-    const err = new Error("unauthenticated");
-    err.status = 401;
-    err.error = "unauthenticated";
+  const identity = await resolveCanonicalLearnerForRequest(req, { pool, childId });
+  if (!identity.ok) {
+    const err = new Error(identity.error);
+    err.status = identity.status;
+    err.error = identity.error;
     throw err;
   }
-  if (!identity.ownedChild) {
-    const err = new Error("child_context_required");
-    err.status = 400;
-    err.error = "child_context_required";
-    throw err;
-  }
-  return identity;
+  return {
+    session: identity.session,
+    ownedChild: {
+      ok: true,
+      childId: Number(identity.child.child_id),
+      learnerId: String(identity.child.child_id),
+      childProfile: identity.child,
+      canonicalResolver: identity.resolver,
+    },
+  };
 }
 
 function logRejectedProgressWrite({ route, childId, reason, status }) {
