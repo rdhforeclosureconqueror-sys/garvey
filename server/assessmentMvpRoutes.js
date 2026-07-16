@@ -209,7 +209,7 @@ function createAssessmentMvpRouter(options = {}) {
     if (!requireAuthentication) return true;
     const rawChildId = req.body?.child_id ?? req.query?.child_id;
     if (rawChildId == null || String(rawChildId).trim() === "") return true;
-    const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: rawChildId });
+    const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: rawChildId, input: { ...(req.query || {}), ...(req.body || {}) } });
     if (!ownedChild.ok) {
       ownershipError(res, ownedChild.status, ownedChild.error);
       return false;
@@ -229,7 +229,7 @@ function createAssessmentMvpRouter(options = {}) {
       let ownedChild = null;
       if (requireAuthentication) {
         if (body.child_id == null || String(body.child_id).trim() === "") return validationError(res, "missing_child_id");
-        ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: body.child_id });
+        ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: body.child_id, input: body });
         if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error, { received_child_id: body.child_id });
       }
       const grade = body.grade;
@@ -291,7 +291,7 @@ function createAssessmentMvpRouter(options = {}) {
       if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
       if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
       if (entry.restartRequired) return res.status(409).json({ ok: false, ...entry.restartRequired });
-      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
+      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id, input: { ...(req.query || {}), ...(req.body || {}) } });
       if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
       if (entry.session.status === "completed") {
         const completed = await persistentStore.getCompletedAssessmentResult({ sessionId, childProfile: ownedChild.childProfile });
@@ -323,7 +323,7 @@ function createAssessmentMvpRouter(options = {}) {
     try {
       const actor = await authenticate(req, res);
       if (!actor) return ownershipError(res, 401, "unauthenticated");
-      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId });
+      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId, input: { ...(req.query || {}), ...(req.body || {}) } });
       if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error, { received_child_id: req.params.childId });
 
       const subject = req.query.subject == null || String(req.query.subject).trim() === "" ? null : String(req.query.subject).trim();
@@ -405,7 +405,7 @@ function createAssessmentMvpRouter(options = {}) {
     try {
       const actor = await authenticate(req, res);
       if (!actor) return ownershipError(res, 401, "unauthenticated");
-      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId });
+      const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId, input: { ...(req.query || {}), ...(req.body || {}) } });
       if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error, { received_child_id: req.params.childId });
 
       const subject = req.query.subject == null || String(req.query.subject).trim() === "" ? null : String(req.query.subject).trim();
@@ -478,7 +478,7 @@ function createAssessmentMvpRouter(options = {}) {
         if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
         if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
         if (entry.restartRequired) return res.status(409).json({ ok: false, ...entry.restartRequired });
-        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
+        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id, input: { ...(req.query || {}), ...(req.body || {}) } });
         if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
         const updated = await persistentStore.updateAssessmentSessionPosition({
           sessionId,
@@ -521,7 +521,7 @@ function createAssessmentMvpRouter(options = {}) {
         if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
         if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
         if (entry.restartRequired) return res.status(409).json({ ok: false, ...entry.restartRequired });
-        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
+        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id, input: { ...(req.query || {}), ...(req.body || {}) } });
         if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
         let responseMap;
         try {
@@ -591,7 +591,7 @@ function createAssessmentMvpRouter(options = {}) {
         if (!entry) return res.status(404).json({ ok: false, error: "session_not_found" });
         if (Number(entry.ownership.parent_profile_id) !== Number(actor.parentProfile.id)) return ownershipError(res, 403, "forbidden");
         if (entry.restartRequired) return res.status(409).json({ ok: false, ...entry.restartRequired });
-        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id });
+        const ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: entry.ownership.learner_id, input: { ...(req.query || {}), ...(req.body || {}) } });
         if (!ownedChild.ok) return ownershipError(res, ownedChild.status === 404 ? 403 : ownedChild.status, ownedChild.error === "child_not_found" ? "forbidden" : ownedChild.error);
 
         const body = req.body || {};

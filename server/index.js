@@ -96,6 +96,7 @@ const { buildTapHubViewModel, renderTapHubPage, renderTapHubErrorPage } = requir
 const { createGatesRouter } = require("./gatesRoutes");
 const { createAdaptiveV2Router } = require("./adaptiveV2Routes");
 const { createAssessmentMvpRouter } = require("./assessmentMvpRoutes");
+const youthProfileRegistry = require("./youthDevelopmentProfiles");
 const { createSimbaWajumaRouter, buildAssessmentCompletionPayload, verifyTransferToken } = require("./simbawajumaBridge");
 const { queueExternalEvent, retryQueuedExternalEvents } = require("./simbawajumaEvents");
 const { createLeaderWithinRouter } = require("./leaderWithinRoutes");
@@ -300,7 +301,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());
 app.use(createAdaptiveV2Router({ pool, listYouthChildProfiles: listYouthChildProfilesForAccount }));
-app.use("/api/assessment-mvp", createAssessmentMvpRouter());
+app.use("/api/assessment-mvp", createAssessmentMvpRouter({ pool, resolveOwnedChild: resolveYouthDevelopmentOrGatesOwnedChild }));
 app.use(createSimbaWajumaRouter({ pool }));
 console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_router_mounted" }));
 
@@ -2347,43 +2348,14 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx, childId = "" })
 }
 
 async function listYouthChildProfilesForAccount({ accountCtx }) {
-  const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
-  const email = normalizeEmail(accountCtx?.email || "");
-  if (!tenantSlug || !email) return [];
-  const tenant = await getTenantBySlug(tenantSlug);
-  if (!tenant) return [];
-  const rows = await pool.query(
-    `SELECT a.id, a.created_at, a.customer_name, a.raw_answers
-     FROM assessment_submissions a
-     LEFT JOIN users u ON u.id = a.user_id
-     WHERE a.tenant_id = $1
-       AND a.assessment_type = 'youth'
-       AND LOWER(COALESCE(a.customer_email, u.email, '')) = $2
-     ORDER BY a.created_at DESC, a.id DESC
-     LIMIT 100`,
-    [tenant.id, email]
-  );
-
-  const seen = new Map();
-  for (const row of rows.rows) {
-    const raw = row.raw_answers && typeof row.raw_answers === "object" ? row.raw_answers : {};
-    const persisted = raw.ownership?.child_profile || {};
-    const fallbackName = normalizeChildDisplayName(persisted.child_name || row.customer_name || "Child profile needed");
-    const derivedId = normalizeChildScopeId(persisted.child_id) || deriveChildScopeId({ tenantSlug, email, childName: fallbackName || `child-${row.id}` });
-    if (seen.has(derivedId)) continue;
-    seen.set(derivedId, {
-      child_id: derivedId,
-      child_name: fallbackName || "Child profile needed",
-      child_age_band: persisted.child_age_band || null,
-      child_grade_band: persisted.child_grade_band || null,
-      profile_status: fallbackName ? "ready" : "identity_incomplete",
-      latest_assessment_at: row.created_at || null,
-      source: persisted.child_id ? "explicit_profile" : "legacy_assessment_fallback",
-      parent_profile_id: persisted.parent_profile_id || raw.ownership?.parent_profile_id || null,
-      auth_user_id: raw.ownership?.user_id || null,
-    });
-  }
-  return [...seen.values()];
+  return youthProfileRegistry.listYouthChildProfilesForAccount({
+    pool,
+    accountCtx,
+    getTenantBySlug,
+    normalizeEmail,
+    deriveChildScopeId,
+    logger: console,
+  });
 }
 
 async function resolveChildProfileForAccount({ accountCtx, childId = "" }) {
@@ -2392,6 +2364,44 @@ async function resolveChildProfileForAccount({ accountCtx, childId = "" }) {
   const scopedChildId = normalizeChildScopeId(childId);
   if (!scopedChildId) return profiles.length === 1 ? profiles[0] : null;
   return profiles.find((entry) => String(entry.child_id || "") === scopedChildId) || null;
+}
+
+async function resolveYouthDevelopmentOrGatesOwnedChild({ pool: suppliedPool = pool, parentProfileId, childId, input = {} }) {
+  const programContext = String(input?.program_context || input?.programContext || "").trim().toLowerCase();
+  const sourceRegistry = String(input?.source_registry || input?.sourceRegistry || "").trim().toLowerCase();
+  const isYouth = programContext === "youth_development" || sourceRegistry === "youth_development";
+  if (!isYouth) {
+    const { resolveOwnedGatesChild } = require("./gatesAuth");
+    return resolveOwnedGatesChild({ pool: suppliedPool, parentProfileId, childId });
+  }
+  const accountCtx = {
+    tenant: String(input?.tenant || input?.tenant_slug || "").trim().toLowerCase(),
+    email: normalizeEmail(input?.email || input?.parent_email || ""),
+  };
+  if (!accountCtx.tenant || !accountCtx.email) return { ok: false, status: 400, error: "youth_development_account_scope_required" };
+  const children = await listYouthChildProfilesForAccount({ accountCtx });
+  const selected = children.find((child) => String(child?.child_id || "") === String(childId));
+  console.info(JSON.stringify({
+    ts: new Date().toISOString(),
+    event: "youth_development_assessment_mvp_ownership_resolved",
+    parent_profile_id: selected?.parent_profile_id || parentProfileId || null,
+    program_context: "youth_development",
+    source_registry: "youth_development",
+    normalized_child_id: String(childId || ""),
+    ownership_query: "tde_child_profiles latest profile per child, merged with legacy assessment_submissions by tenant/email",
+    primary_table_queried: "tde_child_profiles",
+    legacy_table_queried: "assessment_submissions",
+    rows_returned: children.length,
+    ownership_result: selected ? "verified" : "not_found",
+  }));
+  if (!selected) return { ok: false, status: 404, error: "youth_development_child_profile_not_found" };
+  return {
+    ok: true,
+    status: 200,
+    childId: /^\d+$/.test(String(selected.child_id)) ? Number(selected.child_id) : selected.child_id,
+    learnerId: String(selected.child_id),
+    childProfile: selected,
+  };
 }
 
 async function loadLatestProgramEnrollmentByChildId(childId) {
