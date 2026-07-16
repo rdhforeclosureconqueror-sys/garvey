@@ -57,6 +57,9 @@
     message: '',
     selectedRecheck: {},
     error: '',
+    programContext: '',
+    returnUrl: '',
+    routeChild: null,
   };
 
   const state = { ...initialState, historyFilters: { ...initialState.historyFilters } };
@@ -91,6 +94,13 @@
     const params = new URLSearchParams(window.location.search || '');
     const grade = params.get('grade');
     const subject = params.get('subject');
+    const programContext = text(params.get('program_context')).trim();
+    const routeChildId = text(params.get('child_id')).trim();
+    if (programContext === 'youth_development' && routeChildId) {
+      state.programContext = 'youth_development';
+      state.returnUrl = text(params.get('return_url')).trim() || '/youth-development/parent-dashboard';
+      state.routeChild = publicChildOnly({ child_id: routeChildId, child_name: params.get('child_display_name') || params.get('child_name') || 'Princess Nia', child_grade_band: params.get('child_grade_band') || '' });
+    }
     if (isValidGrade(grade)) {
       state.grade = text(grade);
       state.queryGrade = text(grade);
@@ -386,6 +396,16 @@
   }
 
   async function initializeAuthenticatedFlow() {
+    parseQuery();
+    if (state.programContext === 'youth_development' && state.routeChild && state.routeChild.child_id) {
+      state.authChecked = true;
+      state.authenticated = true;
+      state.authOptional = false;
+      state.children = [state.routeChild];
+      selectChild(state.routeChild.child_id, { renderAfter: false });
+      setView('setup', 'Youth Development learner is selected.');
+      return;
+    }
     parseQuery();
     setView('auth loading', 'Checking parent sign-in.');
     try {
@@ -766,7 +786,7 @@
     const current = selectedCurrentSessionMatches() ? state.currentSession : null;
     return '<section class="panel" aria-labelledby="setup-title">' +
       '<h2 id="setup-title">Assessment setup</h2>' +
-      '<p class="helper">Choose an existing learner, then choose the grade and subject. Nothing starts until you press Start or Resume.</p>' +
+      '<p class="helper">' + (state.programContext === 'youth_development' ? 'Youth Development learner is already selected. Choose grade and subject. Nothing starts until you press Start or Resume.' : 'Choose an existing learner, then choose the grade and subject. Nothing starts until you press Start or Resume.') + '</p>' +
       (state.queryGrade || state.querySubject ? '<div class="notice"><strong>Browsing choice applied</strong><p>Valid page choices were preselected, but the assessment will not auto-start.</p></div>' : '') +
       renderSelectorGrid() +
       gradeMismatchNote() +
@@ -778,9 +798,11 @@
   }
 
   function renderSelectorGrid() {
-    const childSelect = state.authOptional
-      ? '<div class="notice"><strong>Development mode</strong><p>Authentication was not available in this harness.</p></div>'
-      : '<div class="field"><label for="child-select">Learner</label><select id="child-select"><option value="">Choose a learner</option>' + state.children.map((child) => '<option value="' + escapeHtml(child.child_id) + '"' + (state.selectedChildId === child.child_id ? ' selected' : '') + '>' + escapeHtml(child.child_name) + (child.child_grade_band ? ' — ' + escapeHtml(child.child_grade_band) : '') + '</option>').join('') + '</select></div>';
+    const childSelect = state.programContext === 'youth_development'
+      ? '<div class="field"><label>Learner</label><div class="notice"><strong>' + escapeHtml((selectedChild() || {}).child_name || 'Learner') + '</strong><p>Youth Development learner selected automatically.</p></div></div>'
+      : (state.authOptional
+        ? '<div class="notice"><strong>Development mode</strong><p>Authentication was not available in this harness.</p></div>'
+        : '<div class="field"><label for="child-select">Learner</label><select id="child-select"><option value="">Choose a learner</option>' + state.children.map((child) => '<option value="' + escapeHtml(child.child_id) + '"' + (state.selectedChildId === child.child_id ? ' selected' : '') + '>' + escapeHtml(child.child_name) + (child.child_grade_band ? ' — ' + escapeHtml(child.child_grade_band) : '') + '</option>').join('') + '</select></div>');
     return '<div class="form-grid">' + childSelect +
       '<div class="field"><label for="grade-select">Assessment grade</label><select id="grade-select">' + GRADES.map((grade) => '<option value="' + grade + '"' + (state.grade === grade ? ' selected' : '') + '>Grade ' + grade + '</option>').join('') + '</select></div>' +
       '<div class="field"><label for="subject-select">Subject</label><select id="subject-select">' + SUBJECTS.map((subject) => '<option value="' + subject + '"' + (state.subject === subject ? ' selected' : '') + '>' + subject + '</option>').join('') + '</select></div>' +

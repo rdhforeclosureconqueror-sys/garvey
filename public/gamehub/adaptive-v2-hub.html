@@ -38,7 +38,7 @@
   <main>
     <section class="panel intro" aria-labelledby="adaptiveTitle">
       <h1 id="adaptiveTitle">Adaptive Learning</h1>
-      <p>Choose your learner’s grade, then choose a subject to see Adaptive V2 assessment and lesson options.</p>
+      <p>Choose your learner’s grade, then choose a subject to see Adaptive V2 assessment and lesson options.</p><p id="learnerContextNotice" class="muted"></p>
     </section>
 
     <section class="panel" aria-labelledby="gradeSelectTitle">
@@ -53,6 +53,9 @@
     const grades=[1,2,3,4,5,6];
     const subjects=['Math','English'];
     const skillWorldManifestUrl='/gamehub/skill-world/content/manifest.json';
+    const launchParams=new URLSearchParams(window.location.search);
+    const routeContext={program_context:(launchParams.get('program_context')||'').trim(),tenant:(launchParams.get('tenant')||'').trim(),email:(launchParams.get('email')||'').trim(),child_id:(launchParams.get('child_id')||'').trim(),child_display_name:(launchParams.get('child_name')||launchParams.get('child_display_name')||'Princess Nia').trim(),return_url:(launchParams.get('return_url')||'/youth-development/parent-dashboard').trim()};
+    if(routeContext.program_context==='youth_development'&&routeContext.child_id){window.__GAME_RUNTIME_CONTEXT__={program_context:'youth_development',source_registry:'youth_development_assessment_submissions',child_id:routeContext.child_id,profile_id:routeContext.child_id,child_display_name:routeContext.child_display_name,tenant:routeContext.tenant,parent_email:routeContext.email,return_url:routeContext.return_url,ownership_verified:true};}
     const state={grade:null,subject:null,packages:[],loaded:false};
     const gradeGrid=document.getElementById('gradeGrid');
     const hubMount=document.getElementById('hubMount');
@@ -60,9 +63,10 @@
     function escapeHtml(value){
       return String(value ?? '').replace(/[&<>"']/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     }
-    function skillWorldHref(packageId){ return `/skill-world/${encodeURIComponent(packageId)}`; }
-    function skillWorldDrillHref(packageId){ return `/skill-world/${encodeURIComponent(packageId)}/drill`; }
-    function assessmentHref(grade,subject){ return `/assessment-mvp?grade=${encodeURIComponent(String(grade))}&subject=${encodeURIComponent(subject)}`; }
+    function withRouteContext(path){const url=new URL(path,window.location.origin);['program_context','tenant','email','child_id','return_url'].forEach(k=>{if(routeContext[k])url.searchParams.set(k,routeContext[k]);});if(routeContext.child_display_name)url.searchParams.set('child_display_name',routeContext.child_display_name);return url.pathname+url.search;}
+    function skillWorldHref(packageId){ return withRouteContext(`/skill-world/${encodeURIComponent(packageId)}`); }
+    function skillWorldDrillHref(packageId){ return withRouteContext(`/skill-world/${encodeURIComponent(packageId)}/drill`); }
+    function assessmentHref(grade,subject){ return withRouteContext(`/assessment-mvp?grade=${encodeURIComponent(String(grade))}&subject=${encodeURIComponent(subject)}`); }
     function getLaunchContext(){
       const params=new URLSearchParams(window.location.search);
       return {
@@ -133,7 +137,8 @@
       const lessonsContent=state.loaded
         ? (rows||'<p class="muted">No manifest-listed packages are available for this grade and subject yet.</p>')
         : '<p class="muted">Loading filtered curriculum packages…</p>';
-      return `<section class="panel" id="learningPanel"><section aria-labelledby="assessmentTitle"><p class="section-label">Adaptive Assessment</p><h2 id="assessmentTitle">Adaptive Assessment</h2><p class="muted">Start only when your learner is ready. The assessment will not auto-start.</p><a class="btn primary assessment" href="${escapeHtml(assessmentUrl)}">Start Grade ${escapeHtml(state.grade)} ${escapeHtml(state.subject)} Adaptive Assessment</a></section><section aria-labelledby="lessonsTitle"><p class="section-label">Lessons</p><h2 id="lessonsTitle">Lessons</h2><ul class="lesson-list">${lessonsContent}</ul></section></section><section class="panel rite-adventures" id="otherAdventures" aria-labelledby="otherAdventuresTitle"><h2 id="otherAdventuresTitle">Other Learning Adventures</h2><div class="lesson-card"><h3>The Signal Path</h3><p class="lesson-meta">Rite of Passage Adventure · Gate 1 — Attention · Grades 1–3</p><p>Help Orin deliver a parcel, avoid distractions, catch Scatterbugs, and follow the glowing path.</p><button id="launchSignalPath" class="btn primary">Start Adventure</button></div></section>`;
+      const riteMarkup=routeContext.program_context==='youth_development'?'':`<section class="panel rite-adventures" id="otherAdventures" aria-labelledby="otherAdventuresTitle"><h2 id="otherAdventuresTitle">Other Learning Adventures</h2><div class="lesson-card"><h3>The Signal Path</h3><p class="lesson-meta">Rite of Passage Adventure · Gate 1 — Attention · Grades 1–3</p><p>Help Orin deliver a parcel, avoid distractions, catch Scatterbugs, and follow the glowing path.</p><button id="launchSignalPath" class="btn primary">Start Adventure</button></div></section>`;
+      return `<section class="panel" id="learningPanel"><section aria-labelledby="assessmentTitle"><p class="section-label">Adaptive Assessment</p><h2 id="assessmentTitle">Adaptive Assessment</h2><p class="muted">Start only when your learner is ready. The assessment will not auto-start.</p><a class="btn primary assessment" href="${escapeHtml(assessmentUrl)}">Start Grade ${escapeHtml(state.grade)} ${escapeHtml(state.subject)} Adaptive Assessment</a></section><section aria-labelledby="lessonsTitle"><p class="section-label">Lessons</p><h2 id="lessonsTitle">Lessons</h2><ul class="lesson-list">${lessonsContent}</ul></section></section>${riteMarkup}`;
     }
     function renderLearningPanel(){
       if(state.grade) renderSubjectPanel();
@@ -146,6 +151,7 @@
     }
     gradeGrid.innerHTML=grades.map((grade)=>`<button class="btn" data-grade="${grade}" aria-pressed="false">Grade ${grade}</button>`).join('');
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>selectGrade(Number(btn.dataset.grade))));
+    const notice=document.getElementById("learnerContextNotice"); if(notice&&routeContext.program_context==="youth_development") notice.textContent=`Youth Development learner selected: ${routeContext.child_display_name||"Learner"}. Return path: ${routeContext.return_url}.`;
     loadSkillWorldPackages();
   </script>
 </body>

@@ -1582,7 +1582,7 @@ function renderLiveYouthParentDashboardPage() {
         <h2>Adaptive Learning</h2>
         <p id="adaptiveLearningStatus">Grade 1–6 school-skill lessons, practice, and growth snapshots.</p>
         <div class="actions">
-          <a class="btn btn-secondary" id="openAdaptiveV2HubBtn" href="/gamehub/adaptive-v2-hub.html">Open Adaptive V2 Lesson Hub</a>
+          <a class="btn btn-secondary" id="openAdaptiveV2HubBtn" href="/youth-development/adaptive-learning">Open Adaptive V2 Lesson Hub</a>
         </div>
         <div id="adaptiveLearningSummary" class="adaptive-summary" aria-live="polite">
           <p class="muted">Select a child profile to load saved adaptive learning progress.</p>
@@ -1713,6 +1713,7 @@ function renderLiveYouthParentDashboardPage() {
         const viewSavedDashboardBtn = document.getElementById("viewSavedDashboardBtn");
         const retakeAssessmentBtn = document.getElementById("retakeAssessmentBtn");
         const openIntakeBtn = document.getElementById("openIntakeBtn");
+        const openAdaptiveV2HubBtn = document.getElementById("openAdaptiveV2HubBtn");
 
         function withAccountScope(pathname) {
           const url = new URL(pathname, window.location.origin);
@@ -1738,6 +1739,15 @@ function renderLiveYouthParentDashboardPage() {
           retakeAssessmentBtn.href = withAccountScope("/youth-development/intake");
           openIntakeBtn.href = withAccountScope("/youth-development/intake");
           programLaunchBtn.href = withAccountScope("/youth-development/program");
+          if (openAdaptiveV2HubBtn) {
+            const adaptiveUrl = new URL("/youth-development/adaptive-learning", window.location.origin);
+            if (accountCtx.tenant) adaptiveUrl.searchParams.set("tenant", accountCtx.tenant);
+            if (accountCtx.email) adaptiveUrl.searchParams.set("email", accountCtx.email);
+            adaptiveUrl.searchParams.set("child_id", accountCtx.child_id);
+            adaptiveUrl.searchParams.set("program_context", "youth_development");
+            adaptiveUrl.searchParams.set("return_url", "/youth-development/parent-dashboard");
+            openAdaptiveV2HubBtn.href = adaptiveUrl.pathname + adaptiveUrl.search;
+          }
           persistScopedChildOnUrl();
           console.info("youth_dashboard_client_child_scope_adopted", {
             source: String(sourceLabel || "unknown"),
@@ -4854,6 +4864,9 @@ function createYouthDevelopmentRouter(options = {}) {
 
   router.get("/youth-development/parent-dashboard", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthParentDashboardPage())
+  ));
+  router.get("/youth-development/adaptive-learning", (req, res) => (
+    res.status(200).sendFile(require("path").join(__dirname, "..", "public", "gamehub", "adaptive-v2-hub.html"))
   ));
   router.get("/youth-development/program", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthProgramPage())
