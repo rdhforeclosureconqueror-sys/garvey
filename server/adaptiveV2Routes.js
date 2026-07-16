@@ -3,6 +3,7 @@ const express = require("express");
 const { mapAdaptiveV2Grade1ToGatesSignals } = require("./adaptiveV2Grade1GatesSignalMapper");
 const { resolveGatesParentSession, resolveOwnedGatesChild } = require("./gatesAuth");
 const { buildAdaptiveParentDashboardSummary } = require("./adaptiveParentDashboardSummary");
+const { buildLearningJourney } = require("./learningJourneyService");
 
 const ALLOWED_MASTERY_BANDS = new Set(["emerging", "developing", "consistent"]);
 
@@ -175,6 +176,21 @@ function createAdaptiveV2Router({ pool }) {
     try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
     const r = await pool.query("SELECT * FROM skill_world_progress WHERE child_id=$1 AND skill_id=$2 ORDER BY updated_at DESC LIMIT 1", [childId, skillId]);
     return res.json({ ok: true, empty_state: !r.rows.length, progress: r.rows[0] || null, authenticated: identity.session.authenticated });
+  });
+
+
+  router.get("/api/learning-journey/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    let identity;
+    try { identity = await resolveOptionalOwnedChild(req, childId, pool); } catch (err) { return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" }); }
+    const child = identity.ownedChild?.childProfile || null;
+    const journey = await buildLearningJourney(pool, {
+      childId,
+      parentProfileId: identity.session.authenticated ? identity.session.parentProfile.id : null,
+      childName: child?.child_name || "",
+    });
+    return res.json({ ...journey, child, diagnostics: { route: "/api/learning-journey/:childId", authenticated: identity.session.authenticated } });
   });
 
   router.get("/api/adaptive-v2/parent-dashboard/:childId", async (req, res) => {
