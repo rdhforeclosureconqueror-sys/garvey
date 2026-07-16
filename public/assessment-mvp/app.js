@@ -61,6 +61,8 @@
     returnUrl: '',
     routeChild: null,
     sourceRegistry: '',
+    tenant: '',
+    email: '',
   };
 
   const state = { ...initialState, historyFilters: { ...initialState.historyFilters } };
@@ -110,6 +112,8 @@
       state.programContext = 'youth_development';
       state.sourceRegistry = text(params.get('source_registry')).trim() || 'youth_development';
       state.returnUrl = text(params.get('return_url')).trim() || '/youth-development/parent-dashboard';
+      state.tenant = text(params.get('tenant')).trim();
+      state.email = text(params.get('email')).trim();
       const normalized = normalizeAdaptiveLearnerContext({ child_id: routeChildId, child_display_name: params.get('child_display_name') || params.get('child_name') || 'Princess Nia', child_grade_band: params.get('child_grade_band') || '', source_registry: state.sourceRegistry, ownership_verified: true });
       if (normalized.ok) state.routeChild = publicChildOnly({ child_id: normalized.learner.child_id, child_name: normalized.learner.display_name, child_grade_band: normalized.learner.child_grade_band });
       else { state.routeChild = null; state.childRequiredMessage = normalized.message; }
@@ -495,6 +499,32 @@
       && state.currentSession.subject === state.subject;
   }
 
+  function youthContextParams(params) {
+    if (state.programContext === 'youth_development') {
+      params.set('program_context', 'youth_development');
+      params.set('source_registry', state.sourceRegistry || 'youth_development');
+      if (state.tenant) params.set('tenant', state.tenant);
+      if (state.email) params.set('email', state.email);
+    }
+    return params;
+  }
+
+  function youthContextBody(body) {
+    if (state.programContext === 'youth_development') {
+      body.program_context = 'youth_development';
+      body.source_registry = state.sourceRegistry || 'youth_development';
+      if (state.tenant) body.tenant = state.tenant;
+      if (state.email) body.email = state.email;
+    }
+    return body;
+  }
+
+  function sessionUrl(sessionId, suffix) {
+    const params = youthContextParams(new URLSearchParams());
+    const query = params.toString();
+    return API_ROOT + '/sessions/' + encodeURIComponent(sessionId) + (suffix || '') + (query ? '?' + query : '');
+  }
+
   function currentSessionUrl(extra) {
     const params = new URLSearchParams();
     const grade = extra && extra.grade ? String(extra.grade) : state.grade;
@@ -502,6 +532,7 @@
     if (isValidGrade(grade)) params.set('grade', grade);
     if (isValidSubject(subject)) params.set('subject', subject);
     if (extra && extra.assessment_role) params.set('assessment_role', extra.assessment_role);
+    youthContextParams(params);
     const query = params.toString();
     return API_ROOT + '/children/' + encodeURIComponent(state.selectedChildId) + '/current-session' + (query ? '?' + query : '');
   }
@@ -537,6 +568,7 @@
     if (isValidSubject(filters.subject)) params.set('subject', filters.subject);
     if (ROLES.includes(filters.assessment_role)) params.set('assessment_role', filters.assessment_role);
     if (STATUSES.includes(filters.status)) params.set('status', filters.status);
+    youthContextParams(params);
     return params.toString();
   }
 
@@ -588,6 +620,8 @@
         if (state.programContext === 'youth_development') {
           body.program_context = 'youth_development';
           body.source_registry = state.sourceRegistry || 'youth_development';
+          if (state.tenant) body.tenant = state.tenant;
+          if (state.email) body.email = state.email;
           body.display_name = child.child_name || 'Princess Nia';
         }
       }
@@ -627,7 +661,7 @@
     state.busy = true;
     setView('loading', 'Opening saved assessment.');
     try {
-      const data = await requestJson(API_ROOT + '/sessions/' + encodeURIComponent(sessionId));
+      const data = await requestJson(sessionUrl(sessionId));
       if (data && data.status === 'completed') {
         state.result = publicResultOnly(data);
         state.session = null;
@@ -654,7 +688,7 @@
     try {
       const responseMap = {};
       for (const item of state.session.public_items) responseMap[item.item_identity] = state.responses[item.item_identity] || (!hasRenderableStimulus(item) ? INVALID_DELIVERY_RESPONSE : '');
-      const data = await postJson(API_ROOT + '/sessions/' + encodeURIComponent(state.session.session_id) + '/responses', { responses: responseMap });
+      const data = await postJson(sessionUrl(state.session.session_id, '/responses'), youthContextBody({ responses: responseMap }));
       state.result = publicResultOnly(data);
       state.currentSession = null;
       state.busy = false;
@@ -692,10 +726,10 @@
         }
       }
       setStatus('Getting new questions for your reassessment.');
-      const data = await postJson(API_ROOT + '/sessions/' + encodeURIComponent(state.result.session_id) + '/reassessment', {
+      const data = await postJson(sessionUrl(state.result.session_id, '/reassessment'), youthContextBody({
         package_ids: packageIds,
         itemsPerPackage: ITEMS_PER_PACKAGE,
-      });
+      }));
       state.session = publicSessionOnly(data);
       state.result = null;
       state.index = boundedPosition(state.session.current_question_position, state.session.public_items.length);
@@ -757,7 +791,7 @@
     if (!state.session || state.authOptional) return;
     const total = state.session.public_items.length;
     if (position < 0 || position >= total) return;
-    await patchJson(API_ROOT + '/sessions/' + encodeURIComponent(state.session.session_id) + '/progress', { current_question_position: position });
+    await patchJson(sessionUrl(state.session.session_id, '/progress'), youthContextBody({ current_question_position: position }));
   }
 
   function move(delta) {

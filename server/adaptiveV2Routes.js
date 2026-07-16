@@ -32,6 +32,10 @@ async function resolveOptionalOwnedChild(req, childId, pool, listYouthChildProfi
   if (listYouthChildProfiles && isYouthDevelopmentRequest(req, req.body || {})) {
     const youthIdentity = await resolveYouthDevelopmentOwnedChild(req, childId, listYouthChildProfiles);
     if (youthIdentity) return youthIdentity;
+    const err = new Error("youth_development_child_profile_not_found");
+    err.status = 404;
+    err.error = "youth_development_child_profile_not_found";
+    throw err;
   }
   const identity = await resolveCanonicalLearnerForRequest(req, { pool, childId });
   if (!identity.ok && identity.status === 401) return { session: identity.session || { authenticated: false }, ownedChild: null };
@@ -57,6 +61,10 @@ async function resolveRequiredOwnedChild(req, childId, pool, listYouthChildProfi
   if (listYouthChildProfiles && isYouthDevelopmentRequest(req, req.body || {})) {
     const youthIdentity = await resolveYouthDevelopmentOwnedChild(req, childId, listYouthChildProfiles);
     if (youthIdentity) return youthIdentity;
+    const err = new Error("youth_development_child_profile_not_found");
+    err.status = 404;
+    err.error = "youth_development_child_profile_not_found";
+    throw err;
   }
   const identity = await resolveCanonicalLearnerForRequest(req, { pool, childId });
   if (!identity.ok) {
@@ -114,7 +122,7 @@ function youthOwnedChildPayload({ child, accountCtx, authUserId = null }) {
     },
     ownedChild: {
       ok: true,
-      childId: Number(child.child_id),
+      childId: /^\d+$/.test(String(child.child_id)) ? Number(child.child_id) : String(child.child_id),
       learnerId: String(child.child_id),
       childProfile: { ...child, ownership_verified: true },
       canonicalResolver: {
@@ -143,9 +151,10 @@ async function resolveYouthDevelopmentOwnedChild(req, childId, listYouthChildPro
     program_context: "youth_development",
     source_registry: "youth_development",
     normalized_child_id: String(childId || ""),
-    ownership_query: "listYouthChildProfiles(accountCtx) -> assessment_submissions by tenant/email, then match child_id",
-    table_queried: "assessment_submissions",
-    where_clause: "tenant_id = resolved tenant AND assessment_type = 'youth' AND LOWER(COALESCE(customer_email, users.email, '')) = account email; child_id matched in application",
+    ownership_query: "listYouthChildProfiles(accountCtx) -> tde_child_profiles latest profile per child, then legacy assessment_submissions, then match child_id",
+    primary_table_queried: "tde_child_profiles",
+    legacy_table_queried: "assessment_submissions",
+    where_clause: "tde_child_profiles payload tenant/email match account; legacy assessment_submissions by tenant/email only for missing child_ids",
     rows_returned: children.length,
     ownership_result: selected ? "verified" : "not_found",
   }));
