@@ -1745,6 +1745,7 @@ function renderLiveYouthParentDashboardPage() {
             if (accountCtx.email) adaptiveUrl.searchParams.set("email", accountCtx.email);
             adaptiveUrl.searchParams.set("child_id", accountCtx.child_id);
             adaptiveUrl.searchParams.set("program_context", "youth_development");
+            adaptiveUrl.searchParams.set("source_registry", "youth_development");
             adaptiveUrl.searchParams.set("return_url", "/youth-development/parent-dashboard");
             openAdaptiveV2HubBtn.href = adaptiveUrl.pathname + adaptiveUrl.search;
           }

@@ -54,8 +54,8 @@
     const subjects=['Math','English'];
     const skillWorldManifestUrl='/gamehub/skill-world/content/manifest.json';
     const launchParams=new URLSearchParams(window.location.search);
-    const routeContext={program_context:(launchParams.get('program_context')||'').trim(),tenant:(launchParams.get('tenant')||'').trim(),email:(launchParams.get('email')||'').trim(),child_id:(launchParams.get('child_id')||'').trim(),child_display_name:(launchParams.get('child_name')||launchParams.get('child_display_name')||'Princess Nia').trim(),return_url:(launchParams.get('return_url')||'/youth-development/parent-dashboard').trim()};
-    if(routeContext.program_context==='youth_development'&&routeContext.child_id){window.__GAME_RUNTIME_CONTEXT__={program_context:'youth_development',source_registry:'youth_development_assessment_submissions',child_id:routeContext.child_id,profile_id:routeContext.child_id,child_display_name:routeContext.child_display_name,tenant:routeContext.tenant,parent_email:routeContext.email,return_url:routeContext.return_url,ownership_verified:true};}
+    const routeContext={program_context:(launchParams.get('program_context')||'').trim(),source_registry:(launchParams.get('source_registry')||'youth_development').trim(),tenant:(launchParams.get('tenant')||'').trim(),email:(launchParams.get('email')||'').trim(),child_id:(launchParams.get('child_id')||'').trim(),child_display_name:(launchParams.get('child_name')||launchParams.get('child_display_name')||'Princess Nia').trim(),return_url:(launchParams.get('return_url')||'/youth-development/parent-dashboard').trim()};
+    if(routeContext.program_context==='youth_development'&&routeContext.child_id){window.__GAME_RUNTIME_CONTEXT__={program_context:'youth_development',source_registry:'youth_development',child_id:routeContext.child_id,profile_id:routeContext.child_id,child_display_name:routeContext.child_display_name,tenant:routeContext.tenant,parent_email:routeContext.email,return_url:routeContext.return_url,ownership_verified:true};}
     const state={grade:null,subject:null,packages:[],loaded:false};
     const gradeGrid=document.getElementById('gradeGrid');
     const hubMount=document.getElementById('hubMount');
@@ -63,7 +63,7 @@
     function escapeHtml(value){
       return String(value ?? '').replace(/[&<>"']/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     }
-    function withRouteContext(path){const url=new URL(path,window.location.origin);['program_context','tenant','email','child_id','return_url'].forEach(k=>{if(routeContext[k])url.searchParams.set(k,routeContext[k]);});if(routeContext.child_display_name)url.searchParams.set('child_display_name',routeContext.child_display_name);return url.pathname+url.search;}
+    function withRouteContext(path){const url=new URL(path,window.location.origin);['program_context','source_registry','tenant','email','child_id','return_url'].forEach(k=>{if(routeContext[k])url.searchParams.set(k,routeContext[k]);});if(routeContext.child_display_name)url.searchParams.set('child_display_name',routeContext.child_display_name);return url.pathname+url.search;}
     function skillWorldHref(packageId){ return withRouteContext(`/skill-world/${encodeURIComponent(packageId)}`); }
     function skillWorldDrillHref(packageId){ return withRouteContext(`/skill-world/${encodeURIComponent(packageId)}/drill`); }
     function assessmentHref(grade,subject){ return withRouteContext(`/assessment-mvp?grade=${encodeURIComponent(String(grade))}&subject=${encodeURIComponent(subject)}`); }
