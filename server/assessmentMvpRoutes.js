@@ -133,6 +133,21 @@ function responseHasOwnershipInternals(value) {
   });
 }
 
+function assessmentDiag(event, details = {}) {
+  console.info(JSON.stringify({
+    ts: new Date().toISOString(),
+    event,
+    deployed_commit_sha: String(process.env.RENDER_GIT_COMMIT || process.env.COMMIT_SHA || process.env.GIT_COMMIT || "unknown"),
+    route_name: details.route_name || "assessment_mvp",
+    program_context: details.program_context || null,
+    source_registry: details.source_registry || null,
+    normalized_child_id: details.normalized_child_id == null ? null : String(details.normalized_child_id),
+    ownership_verified: Boolean(details.ownership_verified),
+    assessment_session_id: details.assessment_session_id || null,
+    http_status: details.http_status || null,
+  }));
+}
+
 function ownershipError(res, status, error, details = {}) {
   const parentMessage = error === "malformed_child_id"
     ? "We could not verify Princess Nia’s learning profile. Please return to the Parent Dashboard and try again."
@@ -230,6 +245,14 @@ function createAssessmentMvpRouter(options = {}) {
       if (requireAuthentication) {
         if (body.child_id == null || String(body.child_id).trim() === "") return validationError(res, "missing_child_id");
         ownedChild = await resolveOwnedChild({ pool, parentProfileId: actor.parentProfile.id, childId: body.child_id });
+        assessmentDiag(ownedChild.ok ? "assessment_mvp_child_ownership_verified" : "assessment_mvp_child_ownership_failed", {
+          route_name: "POST /api/assessment-mvp/sessions",
+          program_context: body.program_context,
+          source_registry: body.source_registry,
+          normalized_child_id: ownedChild.ok ? ownedChild.learnerId : body.child_id,
+          ownership_verified: ownedChild.ok,
+          http_status: ownedChild.ok ? null : ownedChild.status,
+        });
         if (!ownedChild.ok) return ownershipError(res, ownedChild.status, ownedChild.error, { received_child_id: body.child_id });
       }
       const grade = body.grade;
@@ -251,6 +274,15 @@ function createAssessmentMvpRouter(options = {}) {
           itemsPerPackage,
         });
         await persistentStore.markAssessmentItemDelivered?.({ sessionId: session.session_id, displayOrder: session.current_question_position || 0 });
+        assessmentDiag("assessment_mvp_session_ready", {
+          route_name: "POST /api/assessment-mvp/sessions",
+          program_context: body.program_context,
+          source_registry: body.source_registry,
+          normalized_child_id: ownedChild.learnerId,
+          ownership_verified: true,
+          assessment_session_id: session.session_id,
+          http_status: session.resumed ? 200 : 201,
+        });
         const payload = publicSessionPayload(session);
         if (responseHasOwnershipInternals(payload)) throw new Error("ownership internals leaked");
         return res.status(session.resumed ? 200 : 201).json(payload);
@@ -530,6 +562,13 @@ function createAssessmentMvpRouter(options = {}) {
           return validationError(res, "malformed_responses", { message: err.message });
         }
         const submitted = await persistentStore.submitPersistentAssessmentResponses({ sessionId, actor, ownedChild, responses: responseMap });
+        assessmentDiag("assessment_mvp_response_saved", {
+          route_name: "POST /api/assessment-mvp/sessions/:sessionId/responses",
+          normalized_child_id: ownedChild.learnerId,
+          ownership_verified: true,
+          assessment_session_id: sessionId,
+          http_status: submitted.status,
+        });
         if (submitted.status !== 200) {
           const body = { ok: false, error: submitted.error };
           if (submitted.foreign_item_ids) {
