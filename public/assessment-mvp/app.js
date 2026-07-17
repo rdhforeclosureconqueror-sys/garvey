@@ -212,7 +212,7 @@
         return { type: 'analog_clock', content: { hour, minute }, accessibility_text: text(stimulus.accessibility_text) || ('Analog clock showing ' + hour + ':' + String(minute).padStart(2, '0')), presentation: stimulus.presentation || {} };
       }
     }
-    if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
+    if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt', 'ela_text_stimulus'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
       const presentation = stimulus.presentation && typeof stimulus.presentation === 'object' ? {
         renderer: text(stimulus.presentation.renderer),
         label: text(stimulus.presentation.label),
@@ -242,6 +242,7 @@
         const contentText = text(stimulus.content.text);
         if (contentText) {
           const content = { text: contentText };
+          if (stimulus.type === 'reading_passage') content.title = text(stimulus.content.title);
           if (stimulus.type === 'letter_card') {
             const pairedForm = text(stimulus.content.paired_form);
             const label = text(stimulus.content.label);
@@ -761,7 +762,7 @@
 
   function hasRenderableStimulus(item) {
     const stimulus = item && item.payload && item.payload.stimulus;
-    if (!stimulus) return !/\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|split|shaded|grid|counters|longer|taller|heavier|shorter|compare|model)\b/i.test(text(item && item.payload && item.payload.prompt));
+    if (!stimulus) return !/\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|split|shaded|grid|counters|longer|taller|heavier|shorter|compare|model|passage|story|paragraph|poem|article|text)\b/i.test(text(item && item.payload && item.payload.prompt));
     if (stimulus.type === 'shape') return ['circle', 'square', 'triangle', 'rectangle', 'hexagon'].includes(text(stimulus.content && stimulus.content.shape));
     if (stimulus.type === 'number_sequence') return Array.isArray(stimulus.content && stimulus.content.terms) && stimulus.content.terms.length >= 2 && stimulus.content.terms.includes('__');
     if (stimulus.type === 'colored_shape_collection') return Array.isArray(stimulus.content && stimulus.content.items) && stimulus.content.items.length >= 2;
@@ -896,8 +897,8 @@
       '<p class="helper break-note">You can pause and resume later. Submitted progress is saved; this does not have to be finished in one sitting.</p>' +
       '<p class="helper">' + escapeHtml(roleLabel(state.session.assessment_role)) + ' · Grade ' + escapeHtml(state.session.grade) + ' · ' + escapeHtml(state.session.subject) + ' · Submitted progress is saved.</p>' +
       '<h2 id="question-title">Your question</h2>' +
-      '<p class="prompt">' + escapeHtml(item.payload.prompt) + '</p>' +
       renderStimulus(item) +
+      '<p class="prompt">' + escapeHtml(item.payload.prompt) + '</p>' +
       renderAnswerControl(item, type, saved) +
       '<div class="actions">' +
       '<button class="secondary" data-action="back"' + (state.index === 0 ? ' disabled' : '') + '>Back</button>' +
@@ -1015,8 +1016,16 @@
     }
     if (stimulus.type === 'reading_passage') {
       const passage = text(stimulus.content && stimulus.content.text);
+      const title = text(stimulus.content && stimulus.content.title);
       const label = text(stimulus.presentation && stimulus.presentation.label) || 'Read the passage, then answer the question.';
-      return '<div class="assessment-stimulus literacy-stimulus reading-passage-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Reading passage: ' + passage)) + '"><article class="literacy-card passage-card">' + escapeHtml(passage) + '</article><p class="stimulus-help">' + escapeHtml(label) + '</p></div>';
+      const titleHtml = title ? '<h3 class="passage-title">' + escapeHtml(title) + '</h3>' : '';
+      const paragraphs = passage.split(/\n{2,}/).map(function(part) { return '<p>' + escapeHtml(part).replace(/\n/g, '<br>') + '</p>'; }).join('');
+      return '<div class="assessment-stimulus literacy-stimulus reading-passage-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Reading passage: ' + passage)) + '"><article class="literacy-card passage-card">' + titleHtml + paragraphs + '</article><p class="stimulus-help">' + escapeHtml(label) + '</p></div>';
+    }
+    if (stimulus.type === 'ela_text_stimulus') {
+      const value = text(stimulus.content && stimulus.content.text);
+      const label = text(stimulus.presentation && stimulus.presentation.label) || 'Use this information to answer.';
+      return '<div class="assessment-stimulus literacy-stimulus ela-text-stimulus" aria-label="' + escapeHtml(stimulus.accessibility_text || value) + '"><p class="literacy-card sentence-card">' + escapeHtml(value) + '</p><p class="stimulus-help">' + escapeHtml(label) + '</p></div>';
     }
     if (stimulus.type === 'sequencing') {
       const events = Array.isArray(stimulus.content && stimulus.content.events) ? stimulus.content.events.map(text).filter(Boolean) : [];
