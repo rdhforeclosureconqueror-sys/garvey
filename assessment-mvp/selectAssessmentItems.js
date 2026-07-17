@@ -466,7 +466,72 @@ function visualBehaviorFor(question, packageId) {
   return VISUAL_BEHAVIOR.REQUIRED_VISUAL_NOT_SUPPORTED;
 }
 
+
+const GRADE_2_ENGLISH_PACKAGE_RE = /^G2E_/;
+const GRADE_2_ENGLISH_PASSAGE_MODELS = new Set(['short_passage', 'story_map', 'main_idea_web']);
+const GRADE_2_ENGLISH_WORD_MODELS = new Set(['word_card', 'word_parts', 'vocabulary_match', 'phonics_tiles', 'sound_boxes']);
+const GRADE_2_ENGLISH_TEXT_MODELS = new Set(['opinion_reason_chart', 'topic_detail_chart', 'story_sequence']);
+
+function publicGrade2EnglishStimulusFor(question, packageId) {
+  if (!GRADE_2_ENGLISH_PACKAGE_RE.test(String(packageId || ''))) return null;
+  const model = compactTextValue(question.visual_model || question.support_type);
+  const passage = String(question.passage || question.story || question.text || '').trim();
+  if (passage && (GRADE_2_ENGLISH_PASSAGE_MODELS.has(model) || /\b(passage|story|text|article|paragraph|poem)\b/i.test(String(question.prompt || '')))) {
+    const title = compactTextValue(question.title || question.passage_title || question.story_title);
+    return {
+      type: 'reading_passage',
+      content: { text: passage, title: title || '' },
+      accessibility_text: `${title ? `${title}. ` : ''}${passage}`,
+      presentation: { renderer: model || 'passage', label: 'Read this first. Then answer the question.' },
+    };
+  }
+
+  if (GRADE_2_ENGLISH_WORD_MODELS.has(model)) {
+    const word = compactTextValue(question.word || question.target_word || question.speakable_text || inferTargetTextFromPrompt(question.prompt));
+    if (word) {
+      return {
+        type: 'word',
+        content: { text: word },
+        accessibility_text: `Word card: ${word}`,
+        presentation: { renderer: model, label: 'Use the word card to answer.' },
+      };
+    }
+  }
+
+  if (GRADE_2_ENGLISH_TEXT_MODELS.has(model)) {
+    const textValue = compactTextValue(question.sentence || question.topic || inferTargetTextFromPrompt(question.prompt));
+    if (textValue) {
+      return {
+        type: 'ela_text_stimulus',
+        content: { text: textValue },
+        accessibility_text: textValue,
+        presentation: { renderer: model, label: 'Use this information to answer.' },
+      };
+    }
+  }
+
+  return null;
+}
+
+function inferTargetTextFromPrompt(prompt) {
+  const value = compactTextValue(prompt);
+  if (!value) return null;
+  const patterns = [
+    /\bfor\s+([^?.!]+)[?.!]?$/i,
+    /\bin\s+([^?.!]+)[?.!]?$/i,
+    /\babout\s+([^?.!]+)[?.!]?$/i,
+    /\btopic\s+([^?.!]+)[?.!]?$/i,
+  ];
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+    if (match) return compactTextValue(match[1]);
+  }
+  return null;
+}
+
 function publicStimulusFor(question, packageId) {
+  const grade2EnglishStimulus = publicGrade2EnglishStimulusFor(question, packageId);
+  if (grade2EnglishStimulus) return grade2EnglishStimulus;
   const model = compactTextValue(question.visual_model || question.support_type);
   if (model === 'shape_identification') {
     const shape = normalizeChoiceDisplay(question.shape);
@@ -611,8 +676,8 @@ const VISUAL_METADATA_KEYS = [
   'shape', 'shapes', 'number_line', 'clock', 'coins', 'data', 'table', 'graph', 'array',
   'object_count', 'objects', 'comparison', 'measurement', 'picture', 'validation_checks', 'a', 'b', 'left', 'right', 'whole', 'part', 'parts', 'min', 'max', 'items', 'hour', 'minute',
 ];
-const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|split|shaded|grid|counters|longer|taller|heavier|shorter|compare|model)\b/i;
-const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'number_sequence', 'colored_shape_collection', 'analog_clock', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt']);
+const VISUAL_PROMPT_RE = /\b(shown|picture|clock|objects?|a\s+or\s+b|graph|table|diagram|image|split|shaded|grid|counters|longer|taller|heavier|shorter|compare|model|passage|story|paragraph|poem|article|text)\b/i;
+const RENDERABLE_STIMULUS_TYPES = new Set(['shape', 'number_sequence', 'colored_shape_collection', 'analog_clock', 'sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt', 'ela_text_stimulus']);
 
 function hasVisualMetadata(question) {
   return VISUAL_METADATA_KEYS.some((key) => Object.prototype.hasOwnProperty.call(question, key));

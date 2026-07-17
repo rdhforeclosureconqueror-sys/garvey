@@ -41,6 +41,19 @@ function priorExposureItems(itemIds = [], duplicateKeys = []) {
   }));
 }
 
+function validatePoolSufficiency(packages, publicItems, itemsPerPackage, selection) {
+  const selectedByPackage = new Map();
+  for (const item of publicItems) selectedByPackage.set(item.source_package_id, (selectedByPackage.get(item.source_package_id) || 0) + 1);
+  const insufficient = packages.map((pkg) => ({ package_id: packageIdOf(pkg), selected_count: selectedByPackage.get(packageIdOf(pkg)) || 0, requested_count: itemsPerPackage }))
+    .filter((entry) => entry.selected_count < entry.requested_count);
+  if (!insufficient.length) return;
+  const error = new Error('internal_assessment_configuration_error');
+  error.code = 'ASSESSMENT_POOL_TOO_SMALL';
+  error.invalid_question_ids = (selection.exclusions || []).map((entry) => entry.question_id).filter(Boolean);
+  error.insufficient_evidence = insufficient;
+  throw error;
+}
+
 function applyItemsPerPackage(selection, itemsPerPackage) {
   const countByPackage = new Map();
   const selectedIdentitySet = new Set();
@@ -102,6 +115,7 @@ function createAssessmentSession(options = {}) {
   const priorItems = priorExposureItems(options.previously_exposed_item_ids, options.previously_exposed_duplicate_keys);
   const selection = selectAssessmentItems(packages, { baselineItems: priorItems });
   const { publicItems, internalScoringRecords } = applyItemsPerPackage(selection, itemsPerPackage);
+  validatePoolSufficiency(packages, publicItems, itemsPerPackage, selection);
   const packageIds = toStableUnique(publicItems.map((item) => item.source_package_id));
   const exposedItemIds = toStableUnique([
     ...(options.previously_exposed_item_ids || []),
@@ -138,6 +152,7 @@ module.exports = {
   SESSION_VERSION,
   boundedItemsPerPackage,
   createAssessmentSession,
+  validatePoolSufficiency,
   deterministicSessionId,
   publicAssessmentSessionView,
   requireSingle,
