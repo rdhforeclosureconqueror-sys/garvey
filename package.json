@@ -14,7 +14,8 @@
     "validate:curriculum-index": "node scripts/validate-curriculum-index.mjs",
     "convert:grade1-phase7ab": "node scripts/adaptive-v2/convert-grade1-phase7ab.mjs",
     "validate:grade1-phase7ab": "node scripts/adaptive-v2/validate-grade1-phase7ab-conversion.mjs",
-    "production:migrate-princess-nia-progress": "node scripts/production/migrate-princess-nia-progress.mjs"
+    "production:migrate-princess-nia-progress": "node scripts/production/migrate-princess-nia-progress.mjs",
+    "sync:adaptive-runtime": "node scripts/gamehub/sync-adaptive-learning-runtime.mjs"
   },
   "dependencies": {
     "express": "^4.18.2",
