@@ -312,8 +312,6 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     const children = await listOwnedCanonicalGatesChildren({ pool, parentProfileId: sessionState.parentProfile.id });
     return res.json({
       ok: true,
-      parent_profile_id: sessionState.parentProfile.id,
-      auth_user_id: sessionState.authUserId,
       children,
       selected_child_id: children.length === 1 ? children[0].child_id : null,
       error: children.length ? null : "no_owned_canonical_children",
