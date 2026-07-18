@@ -127,15 +127,15 @@ test('Adaptive Grade 1 hub loads package manifest and renders active Grade 1 Ski
   assert.match(hub, /skillWorldManifestUrl='\/gamehub\/skill-world\/content\/manifest\.json'/);
   assert.match(hub, /async function loadSkillWorldPackages\(\)/);
   assert.match(hub, /fetch\(`\/gamehub\/skill-world\/content\/\$\{file\}`\)/);
-  assert.match(hub, /skill_id:pkg\.skill_id/);
-  assert.match(hub, /grade:pkg\.grade/);
+  assert.match(hub, /packageId:pkg\.skill_id/);
+  assert.match(hub, /grade:Number\(pkg\.grade\)/);
   assert.match(hub, /subject:pkg\.subject/);
   assert.match(hub, /domain:pkg\.domain/);
   assert.match(hub, /title:pkg\.skill/);
-  assert.match(hub, /route:skillWorldHref\(pkg\.skill_id\)/);
-  assert.match(hub, /packages\.filter\(\(pkg\)=>pkg\.skill_id&&pkg\.status==='active'\)/);
-  assert.match(hub, /Start Skill World/);
-  assert.match(hub, /has_drill:Array\.isArray\(pkg\.level_banks\)&&pkg\.level_banks\.length>0/);
+  assert.match(hub, /skillWorldHref\(pkg\.packageId\)/);
+  assert.match(hub, /packages\.filter\(\(pkg\)=>pkg\.packageId&&Number\.isInteger\(pkg\.grade\)&&subjects\.includes\(pkg\.subject\)\)/);
+  assert.match(hub, /Start Lesson/);
+  assert.match(hub, /hasDrill:Array\.isArray\(pkg\.level_banks\)&&pkg\.level_banks\.length>0/);
   assert.match(hub, /Practice This Skill/);
   assert.doesNotMatch(hub, /const grade1PlannedLessons=/);
   assert.doesNotMatch(hub, /function renderPlannedLesson/);
@@ -154,7 +154,7 @@ test('All Grade 1 English Skill World packages appear from manifest for the hub'
     assert.equal(`/skill-world/${encodeURIComponent(english.skill_id)}/drill`, `/skill-world/${english.skill_id}/drill`);
   }
   assert.match(hub, /title:pkg\.skill/);
-  assert.match(hub, /Grade \${escapeHtml\(pkg\.grade\)} · \${escapeHtml\(pkg\.subject\)} · \${escapeHtml\(pkg\.domain\)} · \${escapeHtml\(pkg\.skill_id\)}/);
+  assert.match(hub, /const description=\[`Grade \${pkg\.grade}`/, 'lesson cards describe grade, subject, and domain');
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -205,12 +205,12 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_MD_002').skill, 'Time and Money');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_MD_003').skill, 'Data, Graphs, and Line Plots');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_GM_001').skill, 'Shapes, Arrays, and Partitioning');
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
   assert.doesNotMatch(hub, /if\(g!==1\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
-  assert.match(hub, /Grade \${escapeHtml\(pkg\.grade\)} · \${escapeHtml\(pkg\.subject\)} · \${escapeHtml\(pkg\.domain\)} · \${escapeHtml\(pkg\.skill_id\)}/);
+  assert.match(hub, /const description=\[`Grade \${pkg\.grade}`/, 'lesson cards describe grade, subject, and domain');
 });
 
 
@@ -232,7 +232,7 @@ test('Grade 5 English Batch 1 packages display from manifest in the hub', () => 
   assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_RC_002').skill, 'Theme, Character, and Story Structure');
   assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_RC_003').skill, 'Main Idea, Text Structure, and Integrating Information');
   assert.equal(grade5Batch.find((pkg) => pkg.skill_id === 'G5E_WR_001').skill, 'Opinion Writing With Reasons and Evidence');
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -264,7 +264,7 @@ test('Final Grade 5 English writing and language packages display from manifest 
     assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
     assert.equal(pkg.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${pkg.skill_id} practice questions have Read Question narration`);
   }
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -276,9 +276,10 @@ test('Adaptive Grade 1 production hub hides legacy Math and English placeholder 
 });
 
 test('Adaptive Grade 1 hub routes generated missions to /skill-world/:skillId', () => {
-  assert.match(hub, /function skillWorldHref\(skillId\)\{ return `\/skill-world\/\$\{encodeURIComponent\(skillId\)\}`; \}/);
-  assert.match(hub, /function skillWorldDrillHref\(skillId\)\{ return `\/skill-world\/\$\{encodeURIComponent\(skillId\)\}\/drill`; \}/);
-  assert.match(hub, /href="\$\{escapeHtml\(pkg\.route\)\}"/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /function skillWorldDrillHref\(packageId\)/);
+  assert.match(hub, /href="\$\{escapeHtml\(skillWorldHref\(pkg\.packageId\)\)\}"/);
+  assert.match(hub, /href="\$\{escapeHtml\(skillWorldDrillHref\(pkg\.packageId\)\)\}"/);
   assert.doesNotMatch(hub, /G1M_NS_002[^\n]*Start Skill World/);
   assert.doesNotMatch(hub, /G1M_PV_001[^\n]*Start Skill World/);
   assert.doesNotMatch(hub, /G1M_OP_003[^\n]*Start Skill World/);
@@ -317,8 +318,8 @@ test('Grade 3 English Skill World package appears from manifest for the hub', ()
     assert.equal(g3e.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
     assert.equal(`/skill-world/${encodeURIComponent(g3e.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
   }
-  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /const description=\[`Grade \${pkg\.grade}`/, 'lesson cards describe grade, subject, and domain');
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -349,9 +350,10 @@ test('Final Grade 4 English writing and language packages appear from manifest f
     assert.equal(pkg.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
     assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -385,10 +387,10 @@ test('Grade 3 Skill World packages appear from manifest for the hub', () => {
     assert.equal(g3.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
     assert.equal(`/skill-world/${encodeURIComponent(g3.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /const description=\[`Grade \${pkg\.grade}`/, 'lesson cards describe grade, subject, and domain');
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -406,11 +408,11 @@ test('Grade 4 Math Place Value Skill World package appears from manifest for the
   assert.equal(g4.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
   assert.equal(g4.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
   assert.equal(`/skill-world/${encodeURIComponent(g4.skill_id)}/drill`, '/skill-world/G4M_NBT_001/drill');
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
   assert.match(hub, /title:pkg\.skill/);
-  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /const description=\[`Grade \${pkg\.grade}`/, 'lesson cards describe grade, subject, and domain');
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -428,11 +430,11 @@ test('Grade 5 Math decimal place value Skill World package appears from manifest
   assert.equal(g5.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
   assert.equal(g5.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
   assert.equal(`/skill-world/${encodeURIComponent(g5.skill_id)}/drill`, '/skill-world/G5M_NBT_001/drill');
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
   assert.match(hub, /title:pkg\.skill/);
-  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /const description=\[`Grade \${pkg\.grade}`/, 'lesson cards describe grade, subject, and domain');
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -459,9 +461,10 @@ test('Grade 4 operations and base-ten Skill World packages appear from manifest 
     assert.equal(g4.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
     assert.equal(`/skill-world/${encodeURIComponent(g4.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -492,9 +495,10 @@ test('Grade 4 division and fractions Skill World packages appear from manifest f
     assert.equal(`/skill-world/${encodeURIComponent(g4.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
     assert.equal(g4.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -522,9 +526,10 @@ test('Grade 5 operations and decimal Skill World packages appear from manifest f
     assert.equal(`/skill-world/${encodeURIComponent(g5.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
     assert.equal(g5.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -552,9 +557,10 @@ test('Grade 5 fraction Skill World packages appear from manifest for the hub', (
     assert.equal(`/skill-world/${encodeURIComponent(g5.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
     assert.equal(g5.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -581,7 +587,7 @@ test('Final Grade 5 measurement/data and geometry Skill World packages appear fr
     assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
     assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
   }
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -594,10 +600,10 @@ test('Grade 6 Math ratios and unit rates package appears from manifest for the h
   assert.equal(pkg.domain, 'Ratios and Proportional Relationships');
   assert.equal(Array.isArray(pkg.level_banks), true);
   assert.equal(pkg.level_banks.length >= 5, true);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
-  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
+  assert.match(hub, /const description=\[`Grade \${pkg\.grade}`/, 'lesson cards describe grade, subject, and domain');
   assert.equal(`/skill-world/${encodeURIComponent('G6M_RP_001')}/drill`, '/skill-world/G6M_RP_001/drill');
 });
 
@@ -618,8 +624,8 @@ test('Grade 6 Number System Skill World packages appear from manifest for the hu
     assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
   }
   assert.deepEqual(packages.map((pkg) => pkg.skill), ['Dividing Fractions', 'Multi-Digit Decimal Operations', 'Integers and the Number Line']);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -644,8 +650,8 @@ test('Grade 6 Expressions and Equations Skill World packages appear from manifes
     assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
     assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
   }
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -670,8 +676,8 @@ test('Final Grade 6 Geometry and Statistics Skill World packages appear from man
     assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
     assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
   }
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -703,11 +709,12 @@ test('Grade 5 English proof Skill World packages appear from manifest for the hu
     assert.equal(`/skill-world/${encodeURIComponent(g5e.skill_id)}/drill`, `/skill-world/${skillId}/drill`);
     assert.equal(g5e.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
-  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
+  assert.match(hub, /const description=\[`Grade \${pkg\.grade}`/, 'lesson cards describe grade, subject, and domain');
 });
 
 test('Grade 4 English advanced word analysis Skill World package appears from manifest for the hub', () => {
@@ -726,9 +733,10 @@ test('Grade 4 English advanced word analysis Skill World package appears from ma
   assert.equal(g4e.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
   assert.equal(`/skill-world/${encodeURIComponent(g4e.skill_id)}/drill`, '/skill-world/G4E_RF_001/drill');
   assert.equal(g4e.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${skillId} practice questions have Read Question narration`);
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -756,9 +764,10 @@ test('Grade 4 English fluency vocabulary comprehension packages appear from mani
     assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
     assert.equal(pkg.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${pkg.skill_id} practice questions have Read Question narration`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });
 
@@ -796,8 +805,9 @@ test('Grade 6 English production Skill World packages appear from manifest for t
     assert.equal(`/skill-world/${encodeURIComponent(pkg.skill_id)}/drill`, `/skill-world/${pkg.skill_id}/drill`);
     assert.equal(pkg.level_banks.flatMap((level) => level.questions).every((question) => question.question_audio?.label === 'Read Question'), true, `${pkg.skill_id} practice questions have Read Question narration`);
   }
-  assert.match(hub, /function buildGradeLessons\(grade\)/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /function selectedPackages\(\)/);
+  assert.match(hub, /pkg\.grade===state\.grade&&pkg\.subject===state\.subject/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
 });

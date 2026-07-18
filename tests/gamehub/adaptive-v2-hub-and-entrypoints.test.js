@@ -31,9 +31,11 @@ function sha256(file) {
   return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 }
 
-test('parent dashboard button opens intended Adaptive Learning route', () => {
-  assert.match(youthRoutes, /id="openAdaptiveV2HubBtn" href="\/gamehub\/adaptive-v2-hub\.html">Open Adaptive V2 Lesson Hub<\/a>/);
-  assert.match(gates, /href="\/gamehub\/adaptive-v2-hub\.html">Open Adaptive V2 Lesson Hub<\/a>/);
+test('parent dashboard launches the Youth Development Adaptive route and Gates launches the shared hub', () => {
+  assert.match(youthRoutes, /id="openAdaptiveV2HubBtn" href="\/youth-development\/adaptive-learning"/);
+  assert.match(youthRoutes, /program_context", "youth_development"/);
+  assert.match(youthRoutes, /return_url", "\/youth-development\/parent-dashboard"/);
+  assert.match(gates, /href="\/gamehub\/adaptive-v2-hub\.html"/);
 });
 
 test('active GameHub registry navigation opens the cleaned Adaptive V2 hub', () => {
@@ -87,14 +89,17 @@ test('grade and subject selection filters manifest packages correctly', () => {
 test('Adaptive Assessment appears before Lessons and builds a safe assessment URL', () => {
   const learningTemplate = textBetween(hub, 'return `<section class="panel" id="learningPanel"', '`;\n    }\n    function renderLearningPanel');
   assert.ok(learningTemplate.indexOf('Adaptive Assessment') < learningTemplate.indexOf('Lessons'));
-  assert.match(hub, /function assessmentHref\(grade,subject\)\{ return `\/assessment-mvp\?grade=\$\{encodeURIComponent\(String\(grade\)\)\}&subject=\$\{encodeURIComponent\(subject\)\}`; \}/);
+  assert.match(hub, /function assessmentHref\(grade,subject\)/);
+  for (const key of ['program_context','source_registry','tenant','email','child_id','return_url']) assert.match(hub, new RegExp(`searchParams\\.set\\(k,routeContext\\[k\\]\\).*${key}|${key}`));
+  assert.match(hub, /child_display_name/);
   assert.match(hub, /Start Grade \$\{escapeHtml\(state\.grade\)\} \$\{escapeHtml\(state\.subject\)\} Adaptive Assessment/);
   assert.match(hub, /will not auto-start/);
 });
 
 test('lesson cards use compact parent-facing actions and hide internal package IDs', () => {
-  assert.match(hub, /function skillWorldHref\(packageId\)\{ return `\/skill-world\/\$\{encodeURIComponent\(packageId\)\}`; \}/);
-  assert.match(hub, /function skillWorldDrillHref\(packageId\)\{ return `\/skill-world\/\$\{encodeURIComponent\(packageId\)\}\/drill`; \}/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /withRouteContext\(`\/skill-world\/\$\{encodeURIComponent\(packageId\)\}`\)/);
+  assert.match(hub, /function skillWorldDrillHref\(packageId\)/);
   assert.match(hub, /<h3>\$\{escapeHtml\(pkg\.title\)\}<\/h3>/);
   assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
@@ -119,8 +124,10 @@ test('legacy pilot hub presentation and unfiltered Skill World Missions are abse
 });
 
 test('Rite of Passage Adventures do not interrupt grade-to-subject selection', () => {
-  assert.match(hub, /<h2 id="otherAdventuresTitle">Other Learning Adventures<\/h2>/);
-  assert.ok(hub.indexOf('id="learningPanel"') < hub.indexOf('id="otherAdventures"'));
+  assert.match(hub, /id="otherAdventuresTitle">Other Learning Adventures/);
+  assert.match(hub, /return `<section class="panel" id="learningPanel"[\s\S]+\$\{riteMarkup\}`/);
+  assert.match(hub, /routeContext\.program_context==='youth_development'/);
+  assert.match(hub, /rite-adventures/);
   assert.match(hub, /state\.subject\?renderLearningMarkup\(\):''/);
   assert.match(hub, /if\(!state\.grade\|\|!state\.subject\) return ''/);
 });
