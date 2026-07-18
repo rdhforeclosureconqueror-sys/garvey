@@ -72,7 +72,7 @@ test('authenticated assessment UI requires sign-in and loads only owned children
   global.fetch = async (url) => {
     if (url === '/api/gates/auth/session' && mode === 'unauth') return { ok: false, status: 401, json: async () => ({ error: 'unauthenticated' }) };
     if (url === '/api/gates/auth/session') return { ok: true, json: async () => ({ authenticated: true }) };
-    if (url === '/api/gates/children') return { ok: true, json: async () => ({ children: [childA, childB] }) };
+    if (url === '/api/gates/canonical-learners') return { ok: true, json: async () => ({ children: [childA, childB] }) };
     if (String(url).includes('/current-session')) return { ok: false, status: 404, json: async () => ({ error: 'current_session_not_found' }) };
     if (String(url).includes('/history')) return { ok: true, json: async () => ({ sessions: [] }) };
     throw new Error(`unexpected ${url}`);
@@ -208,7 +208,7 @@ test('query parameters preselect valid grade and subject, ignore invalid values,
   let posted = false;
   global.fetch = async (url) => {
     if (url === '/api/gates/auth/session') return { ok: true, json: async () => ({ authenticated: true }) };
-    if (url === '/api/gates/children') return { ok: true, json: async () => ({ children: [childA] }) };
+    if (url === '/api/gates/canonical-learners') return { ok: true, json: async () => ({ children: [childA] }) };
     if (String(url).includes('/current-session')) return { ok: false, status: 404, json: async () => ({}) };
     if (String(url).includes('/history')) return { ok: true, json: async () => ({ sessions: [] }) };
     posted = true; return { ok: true, json: async () => session };
@@ -223,7 +223,7 @@ test('query parameters preselect valid grade and subject, ignore invalid values,
   const app2 = freshApp();
   global.fetch = async (url) => {
     if (url === '/api/gates/auth/session') return { ok: true, json: async () => ({ authenticated: true }) };
-    if (url === '/api/gates/children') return { ok: true, json: async () => ({ children: [childA] }) };
+    if (url === '/api/gates/canonical-learners') return { ok: true, json: async () => ({ children: [childA] }) };
     if (String(url).includes('/current-session')) return { ok: false, status: 404, json: async () => ({}) };
     if (String(url).includes('/history')) return { ok: true, json: async () => ({ sessions: [] }) };
     throw new Error(`unexpected ${url}`);

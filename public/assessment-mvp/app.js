@@ -94,7 +94,7 @@
 
   function normalizeAdaptiveLearnerContext(input) {
     const displayName = text(input && (input.display_name || input.child_display_name || input.child_name)) || 'Learner';
-    const rawChildId = text(input && (input.child_id || input.childId || input.profile_id || input.learner_id)).trim();
+    const rawChildId = text(input && (input.child_id || input.childId || input.profile_id)).trim();
     if (!/^[1-9]\d*$/.test(rawChildId)) {
       return { ok: false, error: 'malformed_child_id', raw_child_id: rawChildId, message: 'We could not verify ' + displayName + '’s learning profile. Please return to the Parent Dashboard and try again.' };
     }
