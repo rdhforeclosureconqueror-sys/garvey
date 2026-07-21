@@ -1,8 +1,8 @@
 {
   "metadata": {
     "schema_version": "skill-package.v1",
-    "generated_at": "2026-05-30",
-    "source": "Grade 2 English reading comprehension batch"
+    "generated_at": "2026-07-21",
+    "source": "Grade 2 English curriculum review: G2E_RC_001"
   },
   "skill_id": "G2E_RC_001",
   "grade": 2,
@@ -553,36 +553,36 @@
       "questions": [
         {
           "question_id": "G2E_RC_001_LVL1_Q01",
-          "prompt": "Who carried or found something in the passage?",
+          "prompt": "Who spotted the frog on the log?",
           "question_type": "multiple_choice",
           "visual_model": "short_passage",
           "support_type": "short_passage",
-          "correct_answer": "Nina",
+          "correct_answer": "Lena",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "Nina is supported by the text.",
-          "feedback": "Yes — Nina fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "story": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "scene": "Nina and the Seedlings",
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The passage says that Lena spotted the green frog.",
+          "feedback": "Yes — The passage says that Lena spotted the green frog.",
+          "passage": "Lena and her uncle visited the pond. Lena spotted a green frog on a log. Her uncle took a picture of it.",
+          "story": "Lena and her uncle visited the pond. Lena spotted a green frog on a log. Her uncle took a picture of it.",
+          "scene": "Who spotted the frog on the log",
           "choices": [
-            "Nina",
-            "Friday morning",
-            "because the spot was sunny",
-            "not in the story"
+            "Lena",
+            "her uncle",
+            "the frog",
+            "a neighbor"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: Who carried or found something in the passage?",
+            "text": "Listen to the passage. Lena and her uncle visited the pond. Lena spotted a green frog on a log. Her uncle took a picture of it. Now answer: Who spotted the frog on the log?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "Lena and her uncle visited the pond. Lena spotted a green frog on a log. Her uncle took a picture of it.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -590,36 +590,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q02",
-          "prompt": "What happened in the passage?",
+          "prompt": "What fruit did Jay pack for lunch?",
           "question_type": "multiple_choice",
           "visual_model": "question_card",
-          "support_type": "question_card",
-          "correct_answer": "He found a red scarf.",
+          "support_type": "short_passage",
+          "correct_answer": "an apple",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "He found a red scarf. is supported by the text.",
-          "feedback": "Yes — He found a red scarf. fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "story": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "scene": "The Lost Scarf",
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The first sentence states that Jay packed an apple.",
+          "feedback": "Yes — The first sentence states that Jay packed an apple.",
+          "passage": "Jay packed an apple in his lunch bag. At noon, he ate it beside his sandwich. He saved his crackers for later.",
+          "story": "Jay packed an apple in his lunch bag. At noon, he ate it beside his sandwich. He saved his crackers for later.",
+          "scene": "What fruit did Jay pack for lunch",
           "choices": [
-            "He found a red scarf.",
-            "after lunch",
-            "because it had a name tag",
-            "not in the story"
+            "an apple",
+            "a pear",
+            "a banana",
+            "an orange"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: What happened in the passage?",
+            "text": "Listen to the passage. Jay packed an apple in his lunch bag. At noon, he ate it beside his sandwich. He saved his crackers for later. Now answer: What fruit did Jay pack for lunch?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "Jay packed an apple in his lunch bag. At noon, he ate it beside his sandwich. He saved his crackers for later.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -627,36 +627,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q03",
-          "prompt": "Where did the event happen?",
+          "prompt": "Where does the class keep its art paper?",
           "question_type": "multiple_choice",
-          "visual_model": "picture_story",
-          "support_type": "picture_story",
-          "correct_answer": "Room 2",
+          "visual_model": "evidence_highlight",
+          "support_type": "short_passage",
+          "correct_answer": "in a blue cabinet",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "Room 2 is supported by the text.",
-          "feedback": "Yes — Room 2 fits.",
-          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
-          "story": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
-          "scene": "Rainy Recess",
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The passage directly says the art paper is in a blue cabinet.",
+          "feedback": "Yes — The passage directly says the art paper is in a blue cabinet.",
+          "passage": "Our class keeps art paper in a blue cabinet. Tia opened the cabinet and chose yellow paper. She used it to make a sun.",
+          "story": "Our class keeps art paper in a blue cabinet. Tia opened the cabinet and chose yellow paper. She used it to make a sun.",
+          "scene": "Where does the class keep its art paper",
           "choices": [
-            "Room 2",
-            "during recess",
-            "because rain tapped on the windows",
-            "not in the story"
+            "in a blue cabinet",
+            "on a low shelf",
+            "inside a desk",
+            "beside the window"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider. Now answer: Where did the event happen?",
+            "text": "Listen to the passage. Our class keeps art paper in a blue cabinet. Tia opened the cabinet and chose yellow paper. She used it to make a sun. Now answer: Where does the class keep its art paper?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+            "text": "Our class keeps art paper in a blue cabinet. Tia opened the cabinet and chose yellow paper. She used it to make a sun.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -664,36 +664,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q04",
-          "prompt": "Who carried or found something in the passage?",
+          "prompt": "Who read the tag on the puppy's collar?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "picture_story",
           "support_type": "short_passage",
-          "correct_answer": "Dad",
+          "correct_answer": "Mr. Chen",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "Dad is supported by the text.",
-          "feedback": "Yes — Dad fits.",
-          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
-          "story": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
-          "scene": "The New Puppy",
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "The second sentence names Mr. Chen as the person who read the tag.",
+          "feedback": "Yes — The second sentence names Mr. Chen as the person who read the tag.",
+          "passage": "A puppy wandered near the park gate. Mr. Chen read the tag on its collar. He called the puppy's family.",
+          "story": "A puppy wandered near the park gate. Mr. Chen read the tag on its collar. He called the puppy's family.",
+          "scene": "Who read the tag on the puppy's collar",
           "choices": [
-            "Dad",
-            "Saturday",
-            "because he had black spots",
-            "not in the story"
+            "Mr. Chen",
+            "the puppy's family",
+            "a park worker",
+            "a child"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug. Now answer: Who carried or found something in the passage?",
+            "text": "Listen to the passage. A puppy wandered near the park gate. Mr. Chen read the tag on its collar. He called the puppy's family. Now answer: Who read the tag on the puppy's collar?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+            "text": "A puppy wandered near the park gate. Mr. Chen read the tag on its collar. He called the puppy's family.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -701,73 +701,77 @@
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q05",
-          "prompt": "What happened in the passage?",
-          "question_type": "multiple_choice",
-          "visual_model": "question_card",
-          "support_type": "question_card",
-          "correct_answer": "They made a thank-you card.",
+          "prompt": "What did Rosa pour into the bowl?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "clean water",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "unsupported_answer",
-          "explanation": "They made a thank-you card. is supported by the text.",
-          "feedback": "Yes — They made a thank-you card. fits.",
-          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
-          "story": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
-          "scene": "A Class Card",
+          "explanation": "The text states that Rosa filled the bowl with clean water.",
+          "feedback": "Yes — The text states that Rosa filled the bowl with clean water.",
+          "passage": "Rosa set a bowl on the porch. She filled it with clean water. A thirsty bird stopped to drink.",
+          "story": "Rosa set a bowl on the porch. She filled it with clean water. A thirsty bird stopped to drink.",
+          "scene": "What did Rosa pour into the bowl",
           "choices": [
-            "They made a thank-you card.",
-            "during art class",
-            "to thank her for helping everyone feel better",
-            "not in the story"
+            "birdseed",
+            "clean water",
+            "warm soup",
+            "dry sand"
           ],
           "question_audio": {
-            "text": "Listen to the passage. The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better. Now answer: What happened in the passage?",
+            "text": "Listen to the passage. Rosa set a bowl on the porch. She filled it with clean water. A thirsty bird stopped to drink. Now answer: What did Rosa pour into the bowl?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+            "text": "Rosa set a bowl on the porch. She filled it with clean water. A thirsty bird stopped to drink.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "water",
+            "some clean water"
+          ]
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q06",
-          "prompt": "Where did the event happen?",
+          "prompt": "Where did the school bus stop?",
           "question_type": "multiple_choice",
-          "visual_model": "picture_story",
-          "support_type": "picture_story",
-          "correct_answer": "the school garden",
+          "visual_model": "question_card",
+          "support_type": "short_passage",
+          "correct_answer": "in front of the museum",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "question_word_confusion",
-          "explanation": "the school garden is supported by the text.",
-          "feedback": "Yes — the school garden fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "story": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "scene": "Nina and the Seedlings",
+          "explanation": "The opening sentence places the bus in front of the museum.",
+          "feedback": "Yes — The opening sentence places the bus in front of the museum.",
+          "passage": "The school bus stopped in front of the museum. The students climbed out with their teacher. A guide met them by the doors.",
+          "story": "The school bus stopped in front of the museum. The students climbed out with their teacher. A guide met them by the doors.",
+          "scene": "Where did the school bus stop",
           "choices": [
-            "the school garden",
-            "Friday morning",
-            "because the spot was sunny",
-            "not in the story"
+            "in front of the museum",
+            "behind the school",
+            "next to a farm",
+            "across from the library"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: Where did the event happen?",
+            "text": "Listen to the passage. The school bus stopped in front of the museum. The students climbed out with their teacher. A guide met them by the doors. Now answer: Where did the school bus stop?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "The school bus stopped in front of the museum. The students climbed out with their teacher. A guide met them by the doors.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -775,36 +779,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q07",
-          "prompt": "Who carried or found something in the passage?",
+          "prompt": "Who brought a board game to Noah's home?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "Omar",
+          "correct_answer": "his cousin Ava",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "Omar is supported by the text.",
-          "feedback": "Yes — Omar fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "story": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "scene": "The Lost Scarf",
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The text says that Noah's cousin Ava stood outside with a board game.",
+          "feedback": "Yes — The text says that Noah's cousin Ava stood outside with a board game.",
+          "passage": "Noah heard a knock at the door. His cousin Ava stood outside with a board game. Noah invited her in.",
+          "story": "Noah heard a knock at the door. His cousin Ava stood outside with a board game. Noah invited her in.",
+          "scene": "Who brought a board game to Noah's home",
           "choices": [
-            "Omar",
-            "after lunch",
-            "because it had a name tag",
-            "not in the story"
+            "his cousin Ava",
+            "Noah",
+            "a mail carrier",
+            "his teacher"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: Who carried or found something in the passage?",
+            "text": "Listen to the passage. Noah heard a knock at the door. His cousin Ava stood outside with a board game. Noah invited her in. Now answer: Who brought a board game to Noah's home?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "Noah heard a knock at the door. His cousin Ava stood outside with a board game. Noah invited her in.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -812,36 +816,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q08",
-          "prompt": "What happened in the passage?",
+          "prompt": "What did the bees gather from the flowers?",
           "question_type": "multiple_choice",
-          "visual_model": "question_card",
-          "support_type": "question_card",
-          "correct_answer": "They built a tall block tower.",
+          "visual_model": "picture_story",
+          "support_type": "short_passage",
+          "correct_answer": "nectar",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "They built a tall block tower. is supported by the text.",
-          "feedback": "Yes — They built a tall block tower. fits.",
-          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
-          "story": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
-          "scene": "Rainy Recess",
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "The passage names nectar as the sweet liquid the bees gathered.",
+          "feedback": "Yes — The passage names nectar as the sweet liquid the bees gathered.",
+          "passage": "Bees flew among the garden flowers. They gathered sweet liquid called nectar. Then they carried it back to their hive.",
+          "story": "Bees flew among the garden flowers. They gathered sweet liquid called nectar. Then they carried it back to their hive.",
+          "scene": "What did the bees gather from the flowers",
           "choices": [
-            "They built a tall block tower.",
-            "during recess",
-            "because rain tapped on the windows",
-            "not in the story"
+            "nectar",
+            "leaves",
+            "pebbles",
+            "rainwater"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider. Now answer: What happened in the passage?",
+            "text": "Listen to the passage. Bees flew among the garden flowers. They gathered sweet liquid called nectar. Then they carried it back to their hive. Now answer: What did the bees gather from the flowers?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+            "text": "Bees flew among the garden flowers. They gathered sweet liquid called nectar. Then they carried it back to their hive.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -849,36 +853,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q09",
-          "prompt": "Where did the event happen?",
+          "prompt": "Where was Milo's missing mitten?",
           "question_type": "multiple_choice",
-          "visual_model": "picture_story",
-          "support_type": "picture_story",
-          "correct_answer": "home/on the rug",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "beside his boot",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "home/on the rug is supported by the text.",
-          "feedback": "Yes — home/on the rug fits.",
-          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
-          "story": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
-          "scene": "The New Puppy",
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The second sentence says the mitten was beside Milo's boot.",
+          "feedback": "Yes — The second sentence says the mitten was beside Milo's boot.",
+          "passage": "Milo could not find his mitten. He looked under the bench and saw it beside his boot. He put both items in his backpack.",
+          "story": "Milo could not find his mitten. He looked under the bench and saw it beside his boot. He put both items in his backpack.",
+          "scene": "Where was Milo's missing mitten",
           "choices": [
-            "home/on the rug",
-            "Saturday",
-            "because he had black spots",
-            "not in the story"
+            "beside his boot",
+            "inside his backpack",
+            "under his hat",
+            "near the door"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug. Now answer: Where did the event happen?",
+            "text": "Listen to the passage. Milo could not find his mitten. He looked under the bench and saw it beside his boot. He put both items in his backpack. Now answer: Where was Milo's missing mitten?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+            "text": "Milo could not find his mitten. He looked under the bench and saw it beside his boot. He put both items in his backpack.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -886,36 +890,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL1_Q10",
-          "prompt": "Who carried or found something in the passage?",
+          "prompt": "Who caught the slipping book?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "question_card",
           "support_type": "short_passage",
-          "correct_answer": "The students",
+          "correct_answer": "Luis",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "question_word_confusion",
-          "explanation": "The students is supported by the text.",
-          "feedback": "Yes — The students fits.",
-          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
-          "story": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
-          "scene": "A Class Card",
+          "explanation": "The final sentence says that Priya's friend Luis caught the book.",
+          "feedback": "Yes — The final sentence says that Priya's friend Luis caught the book.",
+          "passage": "Priya carried a stack of books toward the shelf. One book began to slip. Her friend Luis caught it before it fell.",
+          "story": "Priya carried a stack of books toward the shelf. One book began to slip. Her friend Luis caught it before it fell.",
+          "scene": "Who caught the slipping book",
           "choices": [
-            "The students",
-            "during art class",
-            "to thank her for helping everyone feel better",
-            "not in the story"
+            "Luis",
+            "Priya",
+            "the librarian",
+            "Priya's brother"
           ],
           "question_audio": {
-            "text": "Listen to the passage. The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better. Now answer: Who carried or found something in the passage?",
+            "text": "Listen to the passage. Priya carried a stack of books toward the shelf. One book began to slip. Her friend Luis caught it before it fell. Now answer: Who caught the slipping book?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+            "text": "Priya carried a stack of books toward the shelf. One book began to slip. Her friend Luis caught it before it fell.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -933,39 +937,36 @@
       "questions": [
         {
           "question_id": "G2E_RC_001_LVL2_Q01",
-          "prompt": "When did it happen?",
-          "question_type": "short_response",
-          "visual_model": "short_passage",
+          "prompt": "When did Kim's class plant the bean seeds?",
+          "question_type": "multiple_choice",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "Friday morning",
+          "correct_answer": "on Tuesday morning",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "Friday morning is supported by the text.",
-          "feedback": "Yes — Friday morning fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The first sentence gives the planting time as Tuesday morning.",
+          "feedback": "Yes — The first sentence gives the planting time as Tuesday morning.",
+          "passage": "On Tuesday morning, Kim's class planted bean seeds. They watered the soil before returning inside. Tiny sprouts appeared the next week.",
+          "story": "On Tuesday morning, Kim's class planted bean seeds. They watered the soil before returning inside. Tiny sprouts appeared the next week.",
+          "scene": "When did Kim's class plant the bean seeds",
           "choices": [
-            "Friday morning",
-            "Nina",
-            "the school garden",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "Friday morning",
-            "Friday morning",
-            "Friday morning."
+            "on Tuesday morning",
+            "on Monday afternoon",
+            "the next week",
+            "before lunch"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: When did it happen?",
+            "text": "Listen to the passage. On Tuesday morning, Kim's class planted bean seeds. They watered the soil before returning inside. Tiny sprouts appeared the next week. Now answer: When did Kim's class plant the bean seeds?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "On Tuesday morning, Kim's class planted bean seeds. They watered the soil before returning inside. Tiny sprouts appeared the next week.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -973,39 +974,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q02",
-          "prompt": "Why did it happen?",
+          "prompt": "Why did the teacher move recess into the gym?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "picture_story",
           "support_type": "short_passage",
-          "correct_answer": "because it had a name tag",
+          "correct_answer": "She heard thunder nearby.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "detail_inference_confusion",
-          "explanation": "because it had a name tag is supported by the text.",
-          "feedback": "Yes — because it had a name tag fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "explanation": "The teacher heard thunder, so going inside kept the class safe.",
+          "feedback": "Yes — The teacher heard thunder, so going inside kept the class safe.",
+          "passage": "Dark clouds covered the playground. The teacher heard thunder nearby. She moved recess into the gym to keep everyone safe.",
+          "story": "Dark clouds covered the playground. The teacher heard thunder nearby. She moved recess into the gym to keep everyone safe.",
+          "scene": "Why did the teacher move recess into the gym",
           "choices": [
-            "because it had a name tag",
-            "Omar",
-            "under the library table",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "because it had a name tag",
-            "it had a name tag",
-            "because it had a name tag."
+            "She heard thunder nearby.",
+            "The gym had new balls.",
+            "The class wanted music.",
+            "The playground was crowded."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: Why did it happen?",
+            "text": "Listen to the passage. Dark clouds covered the playground. The teacher heard thunder nearby. She moved recess into the gym to keep everyone safe. Now answer: Why did the teacher move recess into the gym?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "Dark clouds covered the playground. The teacher heard thunder nearby. She moved recess into the gym to keep everyone safe.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1013,39 +1011,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q03",
-          "prompt": "How did the character solve or do it?",
+          "prompt": "How did Evan help his paper boat float?",
           "question_type": "multiple_choice",
           "visual_model": "short_passage",
           "support_type": "short_passage",
-          "correct_answer": "They made the base wider.",
+          "correct_answer": "He made a flat bottom.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "unsupported_answer",
-          "explanation": "They made the base wider. is supported by the text.",
-          "feedback": "Yes — They made the base wider. fits.",
-          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "explanation": "The boat floated after Evan folded it to make a flat bottom.",
+          "feedback": "Yes — The boat floated after Evan folded it to make a flat bottom.",
+          "passage": "Evan's paper boat kept tipping over. He folded the sides up and made a flat bottom. Then the boat floated across the tub.",
+          "story": "Evan's paper boat kept tipping over. He folded the sides up and made a flat bottom. Then the boat floated across the tub.",
+          "scene": "How did Evan help his paper boat float",
           "choices": [
-            "They made the base wider.",
-            "Maya and Ben",
-            "Room 2",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "They made the base wider.",
-            "They made the base wider.",
-            "They made the base wider.."
+            "He made a flat bottom.",
+            "He painted the boat blue.",
+            "He filled it with water.",
+            "He tore off the sides."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider. Now answer: How did the character solve or do it?",
+            "text": "Listen to the passage. Evan's paper boat kept tipping over. He folded the sides up and made a flat bottom. Then the boat floated across the tub. Now answer: How did Evan help his paper boat float?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+            "text": "Evan's paper boat kept tipping over. He folded the sides up and made a flat bottom. Then the boat floated across the tub.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1053,39 +1048,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q04",
-          "prompt": "When did it happen?",
+          "prompt": "Why did Nia visit the library right after school?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "question_card",
           "support_type": "short_passage",
-          "correct_answer": "Saturday",
+          "correct_answer": "It closes early on Fridays.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "question_word_confusion",
-          "explanation": "Saturday is supported by the text.",
-          "feedback": "Yes — Saturday fits.",
-          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "explanation": "Nia went promptly because the passage says the library closes early on Fridays.",
+          "feedback": "Yes — Nia went promptly because the passage says the library closes early on Fridays.",
+          "passage": "The library closes early on Fridays. Nia needed a book for her weekend report. She went there right after school.",
+          "story": "The library closes early on Fridays. Nia needed a book for her weekend report. She went there right after school.",
+          "scene": "Why did Nia visit the library right after school",
           "choices": [
-            "Saturday",
-            "Dad",
-            "home/on the rug",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "Saturday",
-            "Saturday",
-            "Saturday."
+            "She works at the library.",
+            "It closes early on Fridays.",
+            "Her report was already done.",
+            "She wanted to play outside."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug. Now answer: When did it happen?",
+            "text": "Listen to the passage. The library closes early on Fridays. Nia needed a book for her weekend report. She went there right after school. Now answer: Why did Nia visit the library right after school?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+            "text": "The library closes early on Fridays. Nia needed a book for her weekend report. She went there right after school.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1093,79 +1085,78 @@
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q05",
-          "prompt": "Why did it happen?",
+          "prompt": "How can a snail move over rough ground?",
           "question_type": "short_response",
-          "visual_model": "short_passage",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "to thank her for helping everyone feel better",
+          "correct_answer": "Its slime helps it glide.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "detail_inference_confusion",
-          "explanation": "to thank her for helping everyone feel better is supported by the text.",
-          "feedback": "Yes — to thank her for helping everyone feel better fits.",
-          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The passage explains that slippery slime helps the snail glide.",
+          "feedback": "Yes — The passage explains that slippery slime helps the snail glide.",
+          "passage": "A snail moves with one broad, soft foot. Its body makes slippery slime. The slime helps the snail glide over rough ground.",
+          "story": "A snail moves with one broad, soft foot. Its body makes slippery slime. The slime helps the snail glide over rough ground.",
+          "scene": "How can a snail move over rough ground",
           "choices": [
-            "to thank her for helping everyone feel better",
-            "The students",
-            "art class",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "to thank her for helping everyone feel better",
-            "to thank her for helping everyone feel better",
-            "to thank her for helping everyone feel better."
+            "Its shell rolls like a wheel.",
+            "Its wings lift it up.",
+            "Its slime helps it glide.",
+            "Its tail pushes the ground."
           ],
           "question_audio": {
-            "text": "Listen to the passage. The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better. Now answer: Why did it happen?",
+            "text": "Listen to the passage. A snail moves with one broad, soft foot. Its body makes slippery slime. The slime helps the snail glide over rough ground. Now answer: How can a snail move over rough ground?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+            "text": "A snail moves with one broad, soft foot. Its body makes slippery slime. The slime helps the snail glide over rough ground.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "slime helps it glide",
+            "with slippery slime",
+            "by using its slime"
+          ]
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q06",
-          "prompt": "How did the character solve or do it?",
+          "prompt": "When were the muffins ready?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "picture_story",
           "support_type": "short_passage",
-          "correct_answer": "She watered each plant.",
+          "correct_answer": "when the timer rang",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "She watered each plant. is supported by the text.",
-          "feedback": "Yes — She watered each plant. fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "The passage states that the muffins were ready when the timer rang.",
+          "feedback": "Yes — The passage states that the muffins were ready when the timer rang.",
+          "passage": "Dad set the timer at 6:30. When it rang, the muffins were ready. We let them cool before breakfast.",
+          "story": "Dad set the timer at 6:30. When it rang, the muffins were ready. We let them cool before breakfast.",
+          "scene": "When were the muffins ready",
           "choices": [
-            "She watered each plant.",
-            "Nina",
-            "the school garden",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "She watered each plant.",
-            "She watered each plant.",
-            "She watered each plant.."
+            "before the timer was set",
+            "when the timer rang",
+            "after breakfast ended",
+            "while the batter was mixed"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: How did the character solve or do it?",
+            "text": "Listen to the passage. Dad set the timer at 6:30. When it rang, the muffins were ready. We let them cool before breakfast. Now answer: When were the muffins ready?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "Dad set the timer at 6:30. When it rang, the muffins were ready. We let them cool before breakfast.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1173,39 +1164,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q07",
-          "prompt": "When did it happen?",
+          "prompt": "How did Sofia help the plant grow straighter?",
           "question_type": "multiple_choice",
           "visual_model": "short_passage",
           "support_type": "short_passage",
-          "correct_answer": "after lunch",
+          "correct_answer": "She turned the pot toward the light.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "after lunch is supported by the text.",
-          "feedback": "Yes — after lunch fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "misconception_tag": "unsupported_answer",
+          "explanation": "Sofia turned the pot, allowing the other side to face the light.",
+          "feedback": "Yes — Sofia turned the pot, allowing the other side to face the light.",
+          "passage": "Sofia noticed that the class plant leaned toward the window. She turned the pot so its other side faced the light. A few days later, the stem stood straighter.",
+          "story": "Sofia noticed that the class plant leaned toward the window. She turned the pot so its other side faced the light. A few days later, the stem stood straighter.",
+          "scene": "How did Sofia help the plant grow straighter",
           "choices": [
-            "after lunch",
-            "Omar",
-            "under the library table",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "after lunch",
-            "after lunch",
-            "after lunch."
+            "She moved it into a closet.",
+            "She turned the pot toward the light.",
+            "She cut off the stem.",
+            "She covered the window."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: When did it happen?",
+            "text": "Listen to the passage. Sofia noticed that the class plant leaned toward the window. She turned the pot so its other side faced the light. A few days later, the stem stood straighter. Now answer: How did Sofia help the plant grow straighter?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "Sofia noticed that the class plant leaned toward the window. She turned the pot so its other side faced the light. A few days later, the stem stood straighter.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1213,39 +1201,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q08",
-          "prompt": "Why did it happen?",
+          "prompt": "Why did Caleb choose to wear boots?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "question_card",
           "support_type": "short_passage",
-          "correct_answer": "because rain tapped on the windows",
+          "correct_answer": "Snow covered the sidewalk.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "detail_inference_confusion",
-          "explanation": "because rain tapped on the windows is supported by the text.",
-          "feedback": "Yes — because rain tapped on the windows fits.",
-          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The first sentence connects Caleb's boots to snow on the sidewalk.",
+          "feedback": "Yes — The first sentence connects Caleb's boots to snow on the sidewalk.",
+          "passage": "Caleb wore boots because snow covered the sidewalk. He stepped carefully around icy spots. He reached school with dry socks.",
+          "story": "Caleb wore boots because snow covered the sidewalk. He stepped carefully around icy spots. He reached school with dry socks.",
+          "scene": "Why did Caleb choose to wear boots",
           "choices": [
-            "because rain tapped on the windows",
-            "Maya and Ben",
-            "Room 2",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "because rain tapped on the windows",
-            "rain tapped on the windows",
-            "because rain tapped on the windows."
+            "His shoes were at school.",
+            "Snow covered the sidewalk.",
+            "He planned to swim.",
+            "The day was hot."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider. Now answer: Why did it happen?",
+            "text": "Listen to the passage. Caleb wore boots because snow covered the sidewalk. He stepped carefully around icy spots. He reached school with dry socks. Now answer: Why did Caleb choose to wear boots?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+            "text": "Caleb wore boots because snow covered the sidewalk. He stepped carefully around icy spots. He reached school with dry socks.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1253,39 +1238,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q09",
-          "prompt": "How did the character solve or do it?",
-          "question_type": "short_response",
-          "visual_model": "short_passage",
+          "prompt": "At what time did Amari arrive at the garden?",
+          "question_type": "multiple_choice",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "Pepper wagged his tail and curled up.",
+          "correct_answer": "at eight o'clock",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "Pepper wagged his tail and curled up. is supported by the text.",
-          "feedback": "Yes — Pepper wagged his tail and curled up. fits.",
-          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Amari arrived when the gate opened, and the text says it opens at eight.",
+          "feedback": "Yes — Amari arrived when the gate opened, and the text says it opens at eight.",
+          "passage": "The community garden opens at eight o'clock. Amari arrived as the gate opened. He spent the morning pulling weeds with his neighbor.",
+          "story": "The community garden opens at eight o'clock. Amari arrived as the gate opened. He spent the morning pulling weeds with his neighbor.",
+          "scene": "At what time did Amari arrive at the garden",
           "choices": [
-            "Pepper wagged his tail and curled up.",
-            "Dad",
-            "home/on the rug",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "Pepper wagged his tail and curled up.",
-            "Pepper wagged his tail and curled up.",
-            "Pepper wagged his tail and curled up.."
+            "at seven o'clock",
+            "at eight o'clock",
+            "at noon",
+            "in the evening"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug. Now answer: How did the character solve or do it?",
+            "text": "Listen to the passage. The community garden opens at eight o'clock. Amari arrived as the gate opened. He spent the morning pulling weeds with his neighbor. Now answer: At what time did Amari arrive at the garden?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+            "text": "The community garden opens at eight o'clock. Amari arrived as the gate opened. He spent the morning pulling weeds with his neighbor.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1293,39 +1275,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL2_Q10",
-          "prompt": "When did it happen?",
+          "prompt": "How did Mei and her mother free the kite?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "picture_story",
           "support_type": "short_passage",
-          "correct_answer": "during art class",
+          "correct_answer": "They used a long broom.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "during art class is supported by the text.",
-          "feedback": "Yes — during art class fits.",
-          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "The passage describes them using a long broom to guide the kite loose.",
+          "feedback": "Yes — The passage describes them using a long broom to guide the kite loose.",
+          "passage": "Mei's kite was stuck in a low branch. Her mother held a long broom under the string. Mei guided the broom until the kite came loose.",
+          "story": "Mei's kite was stuck in a low branch. Her mother held a long broom under the string. Mei guided the broom until the kite came loose.",
+          "scene": "How did Mei and her mother free the kite",
           "choices": [
-            "during art class",
-            "The students",
-            "art class",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "during art class",
-            "during art class",
-            "during art class."
+            "They climbed to the roof.",
+            "They used a long broom.",
+            "They waited for rain.",
+            "They cut down the tree."
           ],
           "question_audio": {
-            "text": "Listen to the passage. The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better. Now answer: When did it happen?",
+            "text": "Listen to the passage. Mei's kite was stuck in a low branch. Her mother held a long broom under the string. Mei guided the broom until the kite came loose. Now answer: How did Mei and her mother free the kite?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+            "text": "Mei's kite was stuck in a low branch. Her mother held a long broom under the string. Mei guided the broom until the kite came loose.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1343,43 +1322,36 @@
       "questions": [
         {
           "question_id": "G2E_RC_001_LVL3_Q01",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which sentence best shows that Ravi was prepared for school?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Her class planted them beside the fence because the spot was sunny.",
+          "support_type": "short_passage",
+          "correct_answer": "Today it held two pencils, his notebook, and a library book.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "Her class planted them beside the fence because the spot was sunny. is supported by the text.",
-          "feedback": "Yes — Her class planted them beside the fence because the spot was sunny. fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "evidence_span": "Her class planted them beside the fence because the spot was sunny.",
-          "evidence_spans": [
-            "Her class planted them beside the fence because the spot was sunny."
-          ],
+          "explanation": "The list of school supplies directly shows that Ravi had what he needed.",
+          "feedback": "Yes — The list of school supplies directly shows that Ravi had what he needed.",
+          "passage": "Ravi always checks his backpack before school. Today it held two pencils, his notebook, and a library book. He smiled because nothing was missing.",
+          "story": "Ravi always checks his backpack before school. Today it held two pencils, his notebook, and a library book. He smiled because nothing was missing.",
+          "scene": "Which sentence best shows that Ravi was prepared for school",
           "choices": [
-            "Her class planted them beside the fence because the spot was sunny.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "Her class planted them beside the fence because the spot was sunny.",
-            "her class planted them beside the fence because the spot was sunny.",
-            "Her class planted them beside the fence because the spot was sunny.."
+            "Ravi always checks his backpack before school.",
+            "Today it held two pencils, his notebook, and a library book.",
+            "He smiled because nothing was missing.",
+            "Today was the first day of spring."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. Ravi always checks his backpack before school. Today it held two pencils, his notebook, and a library book. He smiled because nothing was missing. Now answer: Which sentence best shows that Ravi was prepared for school?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "Ravi always checks his backpack before school. Today it held two pencils, his notebook, and a library book. He smiled because nothing was missing.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1387,43 +1359,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q02",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which detail gives the strongest evidence that the kitten was hungry?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "support_type": "short_passage",
+          "correct_answer": "It meowed and tapped the empty bowl with one paw.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "Bees also move pollen from flower to flower, which helps many plants grow. is supported by the text.",
-          "feedback": "Yes — Bees also move pollen from flower to flower, which helps many plants grow. fits.",
-          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
-          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
-          "evidence_spans": [
-            "Bees also move pollen from flower to flower, which helps many plants grow."
-          ],
+          "explanation": "Tapping an empty food bowl while meowing most directly shows hunger.",
+          "feedback": "Yes — Tapping an empty food bowl while meowing most directly shows hunger.",
+          "passage": "The kitten waited beside the food dish. It meowed and tapped the empty bowl with one paw. Ana filled the bowl with food.",
+          "story": "The kitten waited beside the food dish. It meowed and tapped the empty bowl with one paw. Ana filled the bowl with food.",
+          "scene": "Which detail gives the strongest evidence that the kitten was hungry",
           "choices": [
-            "Bees also move pollen from flower to flower, which helps many plants grow.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "Bees also move pollen from flower to flower, which helps many plants grow.",
-            "bees also move pollen from flower to flower, which helps many plants grow.",
-            "Bees also move pollen from flower to flower, which helps many plants grow.."
+            "The kitten waited beside the food dish.",
+            "It meowed and tapped the empty bowl with one paw.",
+            "Ana filled the bowl with food.",
+            "The bowl sat on a small mat."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. The kitten waited beside the food dish. It meowed and tapped the empty bowl with one paw. Ana filled the bowl with food. Now answer: Which detail gives the strongest evidence that the kitten was hungry?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+            "text": "The kitten waited beside the food dish. It meowed and tapped the empty bowl with one paw. Ana filled the bowl with food.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1431,43 +1396,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q03",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "What evidence shows that rain was starting?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "He gave it to Ms. Lee because it had a name tag.",
+          "support_type": "short_passage",
+          "correct_answer": "Drops began to spot the sidewalk.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "He gave it to Ms. Lee because it had a name tag. is supported by the text.",
-          "feedback": "Yes — He gave it to Ms. Lee because it had a name tag. fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "evidence_span": "He gave it to Ms. Lee because it had a name tag.",
-          "evidence_spans": [
-            "He gave it to Ms. Lee because it had a name tag."
-          ],
+          "explanation": "Drops appearing on the sidewalk directly show that rain had begun.",
+          "feedback": "Yes — Drops appearing on the sidewalk directly show that rain had begun.",
+          "passage": "Wind pushed gray clouds across the sky. Drops began to spot the sidewalk. Jo opened her umbrella before walking home.",
+          "story": "Wind pushed gray clouds across the sky. Drops began to spot the sidewalk. Jo opened her umbrella before walking home.",
+          "scene": "What evidence shows that rain was starting",
           "choices": [
-            "He gave it to Ms. Lee because it had a name tag.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "He gave it to Ms. Lee because it had a name tag.",
-            "he gave it to ms. lee because it had a name tag.",
-            "He gave it to Ms. Lee because it had a name tag.."
+            "Wind pushed gray clouds across the sky.",
+            "Drops began to spot the sidewalk.",
+            "Jo opened her umbrella before walking home.",
+            "The sidewalk led toward Jo's home."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. Wind pushed gray clouds across the sky. Drops began to spot the sidewalk. Jo opened her umbrella before walking home. Now answer: What evidence shows that rain was starting?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "Wind pushed gray clouds across the sky. Drops began to spot the sidewalk. Jo opened her umbrella before walking home.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1475,43 +1433,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q04",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which line supports the answer that Marcus sang well at the concert?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Firefighters train to keep people safe.",
+          "support_type": "short_passage",
+          "correct_answer": "At the concert, he remembered every word and sang in a clear voice.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "Firefighters train to keep people safe. is supported by the text.",
-          "feedback": "Yes — Firefighters train to keep people safe. fits.",
-          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
-          "evidence_span": "Firefighters train to keep people safe.",
-          "evidence_spans": [
-            "Firefighters train to keep people safe."
-          ],
+          "explanation": "Remembering every word and using a clear voice directly supports that Marcus sang well.",
+          "feedback": "Yes — Remembering every word and using a clear voice directly supports that Marcus sang well.",
+          "passage": "Marcus practiced his song each afternoon. At the concert, he remembered every word and sang in a clear voice. His family clapped loudly.",
+          "story": "Marcus practiced his song each afternoon. At the concert, he remembered every word and sang in a clear voice. His family clapped loudly.",
+          "scene": "Which line supports the answer that Marcus sang well at the concert",
           "choices": [
-            "Firefighters train to keep people safe.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "Firefighters train to keep people safe.",
-            "firefighters train to keep people safe.",
-            "Firefighters train to keep people safe.."
+            "Marcus practiced his song each afternoon.",
+            "At the concert, he remembered every word and sang in a clear voice.",
+            "His family clapped loudly.",
+            "The concert was held at school."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. Marcus practiced his song each afternoon. At the concert, he remembered every word and sang in a clear voice. His family clapped loudly. Now answer: Which line supports the answer that Marcus sang well at the concert?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+            "text": "Marcus practiced his song each afternoon. At the concert, he remembered every word and sang in a clear voice. His family clapped loudly.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1519,43 +1470,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q05",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which detail answers how the beaver cuts small trees?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "The tower fell once, so they made the base wider.",
+          "support_type": "short_passage",
+          "correct_answer": "A beaver uses sharp front teeth to cut small trees.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "The tower fell once, so they made the base wider. is supported by the text.",
-          "feedback": "Yes — The tower fell once, so they made the base wider. fits.",
-          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
-          "evidence_span": "The tower fell once, so they made the base wider.",
-          "evidence_spans": [
-            "The tower fell once, so they made the base wider."
-          ],
+          "explanation": "The first sentence directly explains that the beaver cuts with its sharp front teeth.",
+          "feedback": "Yes — The first sentence directly explains that the beaver cuts with its sharp front teeth.",
+          "passage": "A beaver uses sharp front teeth to cut small trees. It drags branches to the water. The branches help form a dam across the stream.",
+          "story": "A beaver uses sharp front teeth to cut small trees. It drags branches to the water. The branches help form a dam across the stream.",
+          "scene": "Which detail answers how the beaver cuts small trees",
           "choices": [
-            "The tower fell once, so they made the base wider.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "The tower fell once, so they made the base wider.",
-            "the tower fell once, so they made the base wider.",
-            "The tower fell once, so they made the base wider.."
+            "It drags branches to the water.",
+            "A beaver uses sharp front teeth to cut small trees.",
+            "The branches help form a dam across the stream.",
+            "The stream moves around smooth rocks."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. A beaver uses sharp front teeth to cut small trees. It drags branches to the water. The branches help form a dam across the stream. Now answer: Which detail answers how the beaver cuts small trees?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+            "text": "A beaver uses sharp front teeth to cut small trees. It drags branches to the water. The branches help form a dam across the stream.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1563,43 +1507,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q06",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which sentence most clearly explains why Zoe was quiet?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "A thick layer of feathers helps penguins stay warm.",
+          "support_type": "short_passage",
+          "correct_answer": "Their baby sister was sleeping.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "A thick layer of feathers helps penguins stay warm. is supported by the text.",
-          "feedback": "Yes — A thick layer of feathers helps penguins stay warm. fits.",
-          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
-          "evidence_span": "A thick layer of feathers helps penguins stay warm.",
-          "evidence_spans": [
-            "A thick layer of feathers helps penguins stay warm."
-          ],
+          "explanation": "The sleeping baby gives the reason Zoe tiptoed and whispered.",
+          "feedback": "Yes — The sleeping baby gives the reason Zoe tiptoed and whispered.",
+          "passage": "Zoe entered the quiet room on tiptoe. She whispered to her brother and gently closed the door. Their baby sister was sleeping.",
+          "story": "Zoe entered the quiet room on tiptoe. She whispered to her brother and gently closed the door. Their baby sister was sleeping.",
+          "scene": "Which sentence most clearly explains why Zoe was quiet",
           "choices": [
-            "A thick layer of feathers helps penguins stay warm.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "A thick layer of feathers helps penguins stay warm.",
-            "a thick layer of feathers helps penguins stay warm.",
-            "A thick layer of feathers helps penguins stay warm.."
+            "Zoe entered the quiet room on tiptoe.",
+            "Their baby sister was sleeping.",
+            "She whispered to her brother and gently closed the door.",
+            "A lamp stood near the door."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. Zoe entered the quiet room on tiptoe. She whispered to her brother and gently closed the door. Their baby sister was sleeping. Now answer: Which sentence most clearly explains why Zoe was quiet?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+            "text": "Zoe entered the quiet room on tiptoe. She whispered to her brother and gently closed the door. Their baby sister was sleeping.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1607,43 +1544,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q07",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which passage detail proves the floor was wet?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Lila named the puppy Pepper because he had black spots.",
+          "support_type": "short_passage",
+          "correct_answer": "A puddle shone on the tile.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "Lila named the puppy Pepper because he had black spots. is supported by the text.",
-          "feedback": "Yes — Lila named the puppy Pepper because he had black spots. fits.",
-          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
-          "evidence_span": "Lila named the puppy Pepper because he had black spots.",
-          "evidence_spans": [
-            "Lila named the puppy Pepper because he had black spots."
-          ],
+          "explanation": "A visible puddle directly proves that water was on the floor.",
+          "feedback": "Yes — A visible puddle directly proves that water was on the floor.",
+          "passage": "Our custodian placed a wet-floor sign by the fountain. A puddle shone on the tile. Students walked around the sign.",
+          "story": "Our custodian placed a wet-floor sign by the fountain. A puddle shone on the tile. Students walked around the sign.",
+          "scene": "Which passage detail proves the floor was wet",
           "choices": [
-            "Lila named the puppy Pepper because he had black spots.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "Lila named the puppy Pepper because he had black spots.",
-            "lila named the puppy pepper because he had black spots.",
-            "Lila named the puppy Pepper because he had black spots.."
+            "Our custodian placed a wet-floor sign by the fountain.",
+            "Students walked around the sign.",
+            "A puddle shone on the tile.",
+            "The fountain was near the hallway."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. Our custodian placed a wet-floor sign by the fountain. A puddle shone on the tile. Students walked around the sign. Now answer: Which passage detail proves the floor was wet?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+            "text": "Our custodian placed a wet-floor sign by the fountain. A puddle shone on the tile. Students walked around the sign.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1651,43 +1581,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q08",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which evidence best supports that the map was useful?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Libraries are places where people read, learn, and borrow books.",
+          "support_type": "short_passage",
+          "correct_answer": "The group reached the picnic area without taking a wrong turn.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "Libraries are places where people read, learn, and borrow books. is supported by the text.",
-          "feedback": "Yes — Libraries are places where people read, learn, and borrow books. fits.",
-          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
-          "evidence_span": "Libraries are places where people read, learn, and borrow books.",
-          "evidence_spans": [
-            "Libraries are places where people read, learn, and borrow books."
-          ],
+          "explanation": "Reaching the destination without a wrong turn shows that using the map helped.",
+          "feedback": "Yes — Reaching the destination without a wrong turn shows that using the map helped.",
+          "passage": "Tomas brought a map on the forest walk. He checked it at each trail sign. The group reached the picnic area without taking a wrong turn.",
+          "story": "Tomas brought a map on the forest walk. He checked it at each trail sign. The group reached the picnic area without taking a wrong turn.",
+          "scene": "Which evidence best supports that the map was useful",
           "choices": [
-            "Libraries are places where people read, learn, and borrow books.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "Libraries are places where people read, learn, and borrow books.",
-            "libraries are places where people read, learn, and borrow books.",
-            "Libraries are places where people read, learn, and borrow books.."
+            "Tomas brought a map on the forest walk.",
+            "He checked it at each trail sign.",
+            "The group reached the picnic area without taking a wrong turn.",
+            "The picnic area had wooden tables."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. Tomas brought a map on the forest walk. He checked it at each trail sign. The group reached the picnic area without taking a wrong turn. Now answer: Which evidence best supports that the map was useful?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+            "text": "Tomas brought a map on the forest walk. He checked it at each trail sign. The group reached the picnic area without taking a wrong turn.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1695,43 +1618,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q09",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which sentence explains how people can see the moon?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "They wanted to thank her for helping everyone feel better.",
+          "support_type": "short_passage",
+          "correct_answer": "That reflected light lets us see the moon from Earth.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "They wanted to thank her for helping everyone feel better. is supported by the text.",
-          "feedback": "Yes — They wanted to thank her for helping everyone feel better. fits.",
-          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
-          "evidence_span": "They wanted to thank her for helping everyone feel better.",
-          "evidence_spans": [
-            "They wanted to thank her for helping everyone feel better."
-          ],
+          "explanation": "The final sentence directly explains that reflected light makes the moon visible.",
+          "feedback": "Yes — The final sentence directly explains that reflected light makes the moon visible.",
+          "passage": "The moon does not make its own light. Sunlight shines on the moon. That reflected light lets us see the moon from Earth.",
+          "story": "The moon does not make its own light. Sunlight shines on the moon. That reflected light lets us see the moon from Earth.",
+          "scene": "Which sentence explains how people can see the moon",
           "choices": [
-            "They wanted to thank her for helping everyone feel better.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "They wanted to thank her for helping everyone feel better.",
-            "they wanted to thank her for helping everyone feel better.",
-            "They wanted to thank her for helping everyone feel better.."
+            "The moon does not make its own light.",
+            "Sunlight shines on the moon.",
+            "That reflected light lets us see the moon from Earth.",
+            "Earth has land and oceans."
           ],
           "question_audio": {
-            "text": "Listen to the passage. The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. The moon does not make its own light. Sunlight shines on the moon. That reflected light lets us see the moon from Earth. Now answer: Which sentence explains how people can see the moon?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+            "text": "The moon does not make its own light. Sunlight shines on the moon. That reflected light lets us see the moon from Earth.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1739,43 +1655,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL3_Q10",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "What detail best shows that Inez expected one guest?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Seeds can travel to new places in several ways.",
+          "support_type": "short_passage",
+          "correct_answer": "She added two cups and folded two napkins.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "Seeds can travel to new places in several ways. is supported by the text.",
-          "feedback": "Yes — Seeds can travel to new places in several ways. fits.",
-          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
-          "evidence_span": "Seeds can travel to new places in several ways.",
-          "evidence_spans": [
-            "Seeds can travel to new places in several ways."
-          ],
+          "explanation": "Two cups and two napkins show places for Inez and one other person.",
+          "feedback": "Yes — Two cups and two napkins show places for Inez and one other person.",
+          "passage": "Inez set two plates on the table. She added two cups and folded two napkins. Then she called her grandfather to dinner.",
+          "story": "Inez set two plates on the table. She added two cups and folded two napkins. Then she called her grandfather to dinner.",
+          "scene": "What detail best shows that Inez expected one guest",
           "choices": [
-            "Seeds can travel to new places in several ways.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "Seeds can travel to new places in several ways.",
-            "seeds can travel to new places in several ways.",
-            "Seeds can travel to new places in several ways.."
+            "Inez set two plates on the table.",
+            "Then she called her grandfather to dinner.",
+            "She added two cups and folded two napkins.",
+            "The table was near the kitchen."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. Inez set two plates on the table. She added two cups and folded two napkins. Then she called her grandfather to dinner. Now answer: What detail best shows that Inez expected one guest?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+            "text": "Inez set two plates on the table. She added two cups and folded two napkins. Then she called her grandfather to dinner.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1793,43 +1702,36 @@
       "questions": [
         {
           "question_id": "G2E_RC_001_LVL4_Q01",
-          "prompt": "Who or what is the passage about?",
-          "question_type": "short_response",
-          "visual_model": "short_passage",
+          "prompt": "Why could families use the path again, and which detail proves it?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "Nina",
+          "correct_answer": "Neighbors brought gloves and rakes to the park.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "Nina is supported by the text.",
-          "feedback": "Yes — Nina fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "evidence_span": "Her class planted them beside the fence because the spot was sunny.",
-          "evidence_spans": [
-            "Her class planted them beside the fence because the spot was sunny."
-          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The tools show that neighbors cleaned away the branches, making the path usable.",
+          "feedback": "Yes — The tools show that neighbors cleaned away the branches, making the path usable.",
+          "passage": "After a storm, branches covered the walking path. Neighbors brought gloves and rakes to the park. By noon, families could use the clear path again.",
+          "story": "After a storm, branches covered the walking path. Neighbors brought gloves and rakes to the park. By noon, families could use the clear path again.",
+          "scene": "Why could families use the path again, and which detail proves it",
           "choices": [
-            "Nina",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "Nina",
-            "Nina.",
-            "nina"
+            "A storm had passed during the night.",
+            "The park had a long walking path.",
+            "Neighbors brought gloves and rakes to the park.",
+            "Families arrived around noon."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: Who or what is the passage about?",
+            "text": "Listen to the passage. After a storm, branches covered the walking path. Neighbors brought gloves and rakes to the park. By noon, families could use the clear path again. Now answer: Why could families use the path again, and which detail proves it?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "After a storm, branches covered the walking path. Neighbors brought gloves and rakes to the park. By noon, families could use the clear path again.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1837,43 +1739,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q02",
-          "prompt": "What is one important detail?",
-          "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "prompt": "How do you know sunlight warmed the ice faster?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "firefighters",
+          "correct_answer": "The sunny cube became a puddle first.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "firefighters is supported by the text.",
-          "feedback": "Yes — firefighters fits.",
-          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
-          "evidence_span": "Firefighters train to keep people safe.",
-          "evidence_spans": [
-            "Firefighters train to keep people safe."
-          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Melting first is direct evidence that the cube in sunlight warmed faster.",
+          "feedback": "Yes — Melting first is direct evidence that the cube in sunlight warmed faster.",
+          "passage": "At the science table, Deja put one ice cube in sunlight and one in shade. The sunny cube became a puddle first. The cube in shade stayed solid longer.",
+          "story": "At the science table, Deja put one ice cube in sunlight and one in shade. The sunny cube became a puddle first. The cube in shade stayed solid longer.",
+          "scene": "How do you know sunlight warmed the ice faster",
           "choices": [
-            "firefighters",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "firefighters",
-            "firefighters.",
-            "firefighters"
+            "Deja used two ice cubes.",
+            "One cube was placed in shade.",
+            "The sunny cube became a puddle first.",
+            "The science table was indoors."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home. Now answer: What is one important detail?",
+            "text": "Listen to the passage. At the science table, Deja put one ice cube in sunlight and one in shade. The sunny cube became a puddle first. The cube in shade stayed solid longer. Now answer: How do you know sunlight warmed the ice faster?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+            "text": "At the science table, Deja put one ice cube in sunlight and one in shade. The sunny cube became a puddle first. The cube in shade stayed solid longer.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1881,43 +1776,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q03",
-          "prompt": "Where or when does the passage give a setting or time?",
-          "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "prompt": "What did Owen do before he left, and what sentence supports your answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "Maya and Ben",
+          "correct_answer": "He sprinkled food into the tank and watched the fish eat.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "Maya and Ben is supported by the text.",
-          "feedback": "Yes — Maya and Ben fits.",
-          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
-          "evidence_span": "The tower fell once, so they made the base wider.",
-          "evidence_spans": [
-            "The tower fell once, so they made the base wider."
-          ],
+          "explanation": "The selected sentence states the action Owen completed: feeding the fish.",
+          "feedback": "Yes — The selected sentence states the action Owen completed: feeding the fish.",
+          "passage": "Owen promised to feed the fish before leaving. He sprinkled food into the tank and watched the fish eat. Then he put the food jar away.",
+          "story": "Owen promised to feed the fish before leaving. He sprinkled food into the tank and watched the fish eat. Then he put the food jar away.",
+          "scene": "What did Owen do before he left, and what sentence supports your answer",
           "choices": [
-            "Maya and Ben",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "Maya and Ben",
-            "Maya and Ben.",
-            "maya and ben"
+            "Owen promised to feed the fish before leaving.",
+            "Then he put the food jar away.",
+            "He sprinkled food into the tank and watched the fish eat.",
+            "The tank had bright stones."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider. Now answer: Where or when does the passage give a setting or time?",
+            "text": "Listen to the passage. Owen promised to feed the fish before leaving. He sprinkled food into the tank and watched the fish eat. Then he put the food jar away. Now answer: What did Owen do before he left, and what sentence supports your answer?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+            "text": "Owen promised to feed the fish before leaving. He sprinkled food into the tank and watched the fish eat. Then he put the food jar away.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -1925,87 +1813,77 @@
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q04",
-          "prompt": "Why or how does something happen?",
-          "question_type": "text_evidence",
-          "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Libraries are places where people read, learn, and borrow books.",
+          "prompt": "Why did Leah hold her brother's hand?",
+          "question_type": "short_response",
+          "visual_model": "question_card",
+          "support_type": "short_passage",
+          "correct_answer": "because the market was busy",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "detail_inference_confusion",
-          "explanation": "Libraries are places where people read, learn, and borrow books. is supported by the text.",
-          "feedback": "Yes — Libraries are places where people read, learn, and borrow books. fits.",
-          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
-          "evidence_span": "Libraries are places where people read, learn, and borrow books.",
-          "evidence_spans": [
-            "Libraries are places where people read, learn, and borrow books."
-          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The opening sentence says Leah held his hand because the market was busy.",
+          "feedback": "Yes — The opening sentence says Leah held his hand because the market was busy.",
+          "passage": "The farmers market was busy, so Leah held her little brother's hand. They stopped at a stand with peaches. Their father bought four ripe peaches.",
+          "story": "The farmers market was busy, so Leah held her little brother's hand. They stopped at a stand with peaches. Their father bought four ripe peaches.",
+          "scene": "Why did Leah hold her brother's hand",
           "choices": [
-            "Libraries are places where people read, learn, and borrow books.",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "libraries",
-            "libraries.",
-            "libraries"
+            "because he carried the peaches",
+            "because the stand was closed",
+            "because their father was lost",
+            "because the market was busy"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children. Now answer: Why or how does something happen?",
+            "text": "Listen to the passage. The farmers market was busy, so Leah held her little brother's hand. They stopped at a stand with peaches. Their father bought four ripe peaches. Now answer: Why did Leah hold her brother's hand?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+            "text": "The farmers market was busy, so Leah held her little brother's hand. They stopped at a stand with peaches. Their father bought four ripe peaches.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "the market was busy",
+            "because it was busy"
+          ]
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q05",
-          "prompt": "Who or what is the passage about?",
+          "prompt": "How do newly hatched sea turtles find the ocean?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "The students",
+          "correct_answer": "They follow moonlight on the water.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "The students is supported by the text.",
-          "feedback": "Yes — The students fits.",
-          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
-          "evidence_span": "They wanted to thank her for helping everyone feel better.",
-          "evidence_spans": [
-            "They wanted to thank her for helping everyone feel better."
-          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The final sentence explains that moonlight on the water guides the turtles.",
+          "feedback": "Yes — The final sentence explains that moonlight on the water guides the turtles.",
+          "passage": "Sea turtles lay eggs in nests on sandy beaches. After hatching, the tiny turtles crawl toward the ocean. They use moonlight shining on the water to guide them.",
+          "story": "Sea turtles lay eggs in nests on sandy beaches. After hatching, the tiny turtles crawl toward the ocean. They use moonlight shining on the water to guide them.",
+          "scene": "How do newly hatched sea turtles find the ocean",
           "choices": [
-            "The students",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "The students",
-            "The students.",
-            "the students"
+            "They follow their mother.",
+            "They listen for boats.",
+            "They follow moonlight on the water.",
+            "They climb the tallest dune."
           ],
           "question_audio": {
-            "text": "Listen to the passage. The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better. Now answer: Who or what is the passage about?",
+            "text": "Listen to the passage. Sea turtles lay eggs in nests on sandy beaches. After hatching, the tiny turtles crawl toward the ocean. They use moonlight shining on the water to guide them. Now answer: How do newly hatched sea turtles find the ocean?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+            "text": "Sea turtles lay eggs in nests on sandy beaches. After hatching, the tiny turtles crawl toward the ocean. They use moonlight shining on the water to guide them.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2013,43 +1891,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q06",
-          "prompt": "What is one important detail?",
-          "question_type": "short_response",
-          "visual_model": "short_passage",
+          "prompt": "Where did the bus driver stop, and why?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_story",
           "support_type": "short_passage",
-          "correct_answer": "honeybees",
+          "correct_answer": "at the next corner because a truck blocked the usual stop",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "honeybees is supported by the text.",
-          "feedback": "Yes — honeybees fits.",
-          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
-          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
-          "evidence_spans": [
-            "Bees also move pollen from flower to flower, which helps many plants grow."
-          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "Two details connect the blocked usual stop with the driver's choice of the next corner.",
+          "feedback": "Yes — Two details connect the blocked usual stop with the driver's choice of the next corner.",
+          "passage": "A delivery truck blocked the usual bus stop. The driver stopped at the next corner instead. Mr. Bell walked the children safely back to their street.",
+          "story": "A delivery truck blocked the usual bus stop. The driver stopped at the next corner instead. Mr. Bell walked the children safely back to their street.",
+          "scene": "Where did the bus driver stop, and why",
           "choices": [
-            "honeybees",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "honeybees",
-            "honeybees.",
-            "honeybees"
+            "at school because class had ended",
+            "beside a store because it was raining",
+            "at the next corner because a truck blocked the usual stop",
+            "on their street because the road was empty"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow. Now answer: What is one important detail?",
+            "text": "Listen to the passage. A delivery truck blocked the usual bus stop. The driver stopped at the next corner instead. Mr. Bell walked the children safely back to their street. Now answer: Where did the bus driver stop, and why?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+            "text": "A delivery truck blocked the usual bus stop. The driver stopped at the next corner instead. Mr. Bell walked the children safely back to their street.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2057,43 +1928,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q07",
-          "prompt": "Where or when does the passage give a setting or time?",
+          "prompt": "Which detail best supports that Nora acted responsibly?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "He gave it to Ms. Lee because it had a name tag.",
+          "support_type": "short_passage",
+          "correct_answer": "She carried it to Coach Ramos, who found the owner's name.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "He gave it to Ms. Lee because it had a name tag. is supported by the text.",
-          "feedback": "Yes — He gave it to Ms. Lee because it had a name tag. fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "evidence_span": "He gave it to Ms. Lee because it had a name tag.",
-          "evidence_spans": [
-            "He gave it to Ms. Lee because it had a name tag."
-          ],
+          "explanation": "Taking the wallet to a trusted adult directly shows responsible action.",
+          "feedback": "Yes — Taking the wallet to a trusted adult directly shows responsible action.",
+          "passage": "Nora found a wallet near the soccer field. She did not open it. She carried it to Coach Ramos, who found the owner's name.",
+          "story": "Nora found a wallet near the soccer field. She did not open it. She carried it to Coach Ramos, who found the owner's name.",
+          "scene": "Which detail best supports that Nora acted responsibly",
           "choices": [
-            "He gave it to Ms. Lee because it had a name tag.",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "Omar",
-            "Omar.",
-            "omar"
+            "Nora found a wallet near the soccer field.",
+            "She did not open it.",
+            "She carried it to Coach Ramos, who found the owner's name.",
+            "The soccer field had two goals."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: Where or when does the passage give a setting or time?",
+            "text": "Listen to the passage. Nora found a wallet near the soccer field. She did not open it. She carried it to Coach Ramos, who found the owner's name. Now answer: Which detail best supports that Nora acted responsibly?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "Nora found a wallet near the soccer field. She did not open it. She carried it to Coach Ramos, who found the owner's name.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2101,43 +1965,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q08",
-          "prompt": "Why or how does something happen?",
+          "prompt": "What happened before Arlo refilled his bottle?",
           "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "visual_model": "question_card",
           "support_type": "short_passage",
-          "correct_answer": "penguins",
+          "correct_answer": "He gave his dog the last sip.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "detail_inference_confusion",
-          "explanation": "penguins is supported by the text.",
-          "feedback": "Yes — penguins fits.",
-          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
-          "evidence_span": "A thick layer of feathers helps penguins stay warm.",
-          "evidence_spans": [
-            "A thick layer of feathers helps penguins stay warm."
-          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The passage says Arlo poured out the last sip before filling the bottle again.",
+          "feedback": "Yes — The passage says Arlo poured out the last sip before filling the bottle again.",
+          "passage": "During the hike, Arlo's water bottle felt almost empty. He poured the last sip into his dog's bowl. At the next rest area, he filled the bottle again.",
+          "story": "During the hike, Arlo's water bottle felt almost empty. He poured the last sip into his dog's bowl. At the next rest area, he filled the bottle again.",
+          "scene": "What happened before Arlo refilled his bottle",
           "choices": [
-            "penguins",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "penguins",
-            "penguins.",
-            "penguins"
+            "He bought a new bowl.",
+            "He ended the hike.",
+            "He gave his dog the last sip.",
+            "He washed the bottle."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm. Now answer: Why or how does something happen?",
+            "text": "Listen to the passage. During the hike, Arlo's water bottle felt almost empty. He poured the last sip into his dog's bowl. At the next rest area, he filled the bottle again. Now answer: What happened before Arlo refilled his bottle?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+            "text": "During the hike, Arlo's water bottle felt almost empty. He poured the last sip into his dog's bowl. At the next rest area, he filled the bottle again.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2145,43 +2002,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q09",
-          "prompt": "Who or what is the passage about?",
-          "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "prompt": "Which sentence shows how the robin made the nest sturdy?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "Dad",
+          "correct_answer": "Next, it pressed soft mud around the grass.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "Dad is supported by the text.",
-          "feedback": "Yes — Dad fits.",
-          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
-          "evidence_span": "Lila named the puppy Pepper because he had black spots.",
-          "evidence_spans": [
-            "Lila named the puppy Pepper because he had black spots."
-          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Pressing mud around the grass explains how the nest became firm.",
+          "feedback": "Yes — Pressing mud around the grass explains how the nest became firm.",
+          "passage": "A robin tucked dry grass between two branches. Next, it pressed soft mud around the grass. Soon, a round nest rested firmly in the tree.",
+          "story": "A robin tucked dry grass between two branches. Next, it pressed soft mud around the grass. Soon, a round nest rested firmly in the tree.",
+          "scene": "Which sentence shows how the robin made the nest sturdy",
           "choices": [
-            "Dad",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "Dad",
-            "Dad.",
-            "dad"
+            "A robin tucked dry grass between two branches.",
+            "Soon, a round nest rested firmly in the tree.",
+            "The tree grew beside a fence.",
+            "Next, it pressed soft mud around the grass."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug. Now answer: Who or what is the passage about?",
+            "text": "Listen to the passage. A robin tucked dry grass between two branches. Next, it pressed soft mud around the grass. Soon, a round nest rested firmly in the tree. Now answer: Which sentence shows how the robin made the nest sturdy?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+            "text": "A robin tucked dry grass between two branches. Next, it pressed soft mud around the grass. Soon, a round nest rested firmly in the tree.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2189,43 +2039,36 @@
         },
         {
           "question_id": "G2E_RC_001_LVL4_Q10",
-          "prompt": "What is one important detail?",
-          "question_type": "text_evidence",
-          "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Seeds can travel to new places in several ways.",
+          "prompt": "How did Jada stay safe while making the salad?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_story",
+          "support_type": "short_passage",
+          "correct_answer": "Her aunt used a knife to cut the fruit.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "Seeds can travel to new places in several ways. is supported by the text.",
-          "feedback": "Yes — Seeds can travel to new places in several ways. fits.",
-          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
-          "evidence_span": "Seeds can travel to new places in several ways.",
-          "evidence_spans": [
-            "Seeds can travel to new places in several ways."
-          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "The text shows that an adult, rather than Jada, handled the knife.",
+          "feedback": "Yes — The text shows that an adult, rather than Jada, handled the knife.",
+          "passage": "Jada read the recipe before making fruit salad. She washed the fruit, and her aunt used a knife to cut it. Jada mixed the pieces in a large bowl.",
+          "story": "Jada read the recipe before making fruit salad. She washed the fruit, and her aunt used a knife to cut it. Jada mixed the pieces in a large bowl.",
+          "scene": "How did Jada stay safe while making the salad",
           "choices": [
-            "Seeds can travel to new places in several ways.",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "seeds traveling",
-            "seeds traveling.",
-            "seeds traveling"
+            "Jada read the recipe first.",
+            "She washed the fruit.",
+            "Jada used a large bowl.",
+            "Her aunt used a knife to cut the fruit."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot. Now answer: What is one important detail?",
+            "text": "Listen to the passage. Jada read the recipe before making fruit salad. She washed the fruit, and her aunt used a knife to cut it. Jada mixed the pieces in a large bowl. Now answer: How did Jada stay safe while making the salad?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+            "text": "Jada read the recipe before making fruit salad. She washed the fruit, and her aunt used a knife to cut it. Jada mixed the pieces in a large bowl.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2243,36 +2086,36 @@
       "questions": [
         {
           "question_id": "G2E_RC_001_MIXED_Q01",
-          "prompt": "Who carried or found something in the passage?",
+          "prompt": "When did Ms. Patel open the bakery?",
           "question_type": "multiple_choice",
           "visual_model": "short_passage",
           "support_type": "short_passage",
-          "correct_answer": "Nina",
+          "correct_answer": "at sunrise",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "Nina is supported by the text.",
-          "feedback": "Yes — Nina fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "story": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "scene": "Nina and the Seedlings",
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The first sentence directly states that the bakery opened at sunrise.",
+          "feedback": "Yes — The first sentence directly states that the bakery opened at sunrise.",
+          "passage": "At sunrise, Ms. Patel opened the bakery. She slid warm rolls onto a tray before the first customer arrived. The shop smelled like cinnamon.",
+          "story": "At sunrise, Ms. Patel opened the bakery. She slid warm rolls onto a tray before the first customer arrived. The shop smelled like cinnamon.",
+          "scene": "When did Ms. Patel open the bakery",
           "choices": [
-            "Nina",
-            "Friday morning",
-            "because the spot was sunny",
-            "not in the story"
+            "at lunchtime",
+            "after sunset",
+            "at midnight",
+            "at sunrise"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: Who carried or found something in the passage?",
+            "text": "Listen to the passage. At sunrise, Ms. Patel opened the bakery. She slid warm rolls onto a tray before the first customer arrived. The shop smelled like cinnamon. Now answer: When did Ms. Patel open the bakery?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "At sunrise, Ms. Patel opened the bakery. She slid warm rolls onto a tray before the first customer arrived. The shop smelled like cinnamon.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2280,36 +2123,36 @@
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q02",
-          "prompt": "What happened in the passage?",
+          "prompt": "What did Wes put into the bird feeder?",
           "question_type": "multiple_choice",
           "visual_model": "question_card",
-          "support_type": "question_card",
-          "correct_answer": "He found a red scarf.",
+          "support_type": "short_passage",
+          "correct_answer": "seeds",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "He found a red scarf. is supported by the text.",
-          "feedback": "Yes — He found a red scarf. fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "story": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "scene": "The Lost Scarf",
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The passage says Wes poured seeds into the feeder.",
+          "feedback": "Yes — The passage says Wes poured seeds into the feeder.",
+          "passage": "Wes saw that the bird feeder was empty. He poured seeds into it and hung it back on the hook. Soon, two sparrows landed for breakfast.",
+          "story": "Wes saw that the bird feeder was empty. He poured seeds into it and hung it back on the hook. Soon, two sparrows landed for breakfast.",
+          "scene": "What did Wes put into the bird feeder",
           "choices": [
-            "He found a red scarf.",
-            "after lunch",
-            "because it had a name tag",
-            "not in the story"
+            "bread",
+            "water",
+            "berries",
+            "seeds"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: What happened in the passage?",
+            "text": "Listen to the passage. Wes saw that the bird feeder was empty. He poured seeds into it and hung it back on the hook. Soon, two sparrows landed for breakfast. Now answer: What did Wes put into the bird feeder?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "Wes saw that the bird feeder was empty. He poured seeds into it and hung it back on the hook. Soon, two sparrows landed for breakfast.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2317,39 +2160,36 @@
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q03",
-          "prompt": "When did it happen?",
-          "question_type": "short_response",
-          "visual_model": "short_passage",
+          "prompt": "Which evidence most strongly shows that the footbridge was unsafe to use?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "Friday morning",
+          "correct_answer": "A ranger placed a closed sign at the footbridge.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "Friday morning is supported by the text.",
-          "feedback": "Yes — Friday morning fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The closed sign at the bridge directly tells hikers not to use it.",
+          "feedback": "Yes — The closed sign at the bridge directly tells hikers not to use it.",
+          "passage": "The creek rose after hours of rain. A ranger placed a closed sign at the footbridge. Hikers used the dry path on the hill.",
+          "story": "The creek rose after hours of rain. A ranger placed a closed sign at the footbridge. Hikers used the dry path on the hill.",
+          "scene": "Which evidence most strongly shows that the footbridge was unsafe to use",
           "choices": [
-            "Friday morning",
-            "Nina",
-            "the school garden",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "Friday morning",
-            "Friday morning",
-            "Friday morning."
+            "The creek rose after hours of rain.",
+            "Hikers used the dry path on the hill.",
+            "The hill had tall grass.",
+            "A ranger placed a closed sign at the footbridge."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: When did it happen?",
+            "text": "Listen to the passage. The creek rose after hours of rain. A ranger placed a closed sign at the footbridge. Hikers used the dry path on the hill. Now answer: Which evidence most strongly shows that the footbridge was unsafe to use?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "The creek rose after hours of rain. A ranger placed a closed sign at the footbridge. Hikers used the dry path on the hill.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2357,83 +2197,77 @@
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q04",
-          "prompt": "Why did it happen?",
-          "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "prompt": "Why did Farah wrap the soup jar in a towel?",
+          "question_type": "short_response",
+          "visual_model": "picture_story",
           "support_type": "short_passage",
-          "correct_answer": "because it had a name tag",
+          "correct_answer": "to keep the soup warm",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "detail_inference_confusion",
-          "explanation": "because it had a name tag is supported by the text.",
-          "feedback": "Yes — because it had a name tag fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "explanation": "The text directly says the towel would keep the soup warm.",
+          "feedback": "Yes — The text directly says the towel would keep the soup warm.",
+          "passage": "Farah carried soup to her sick neighbor. She wrapped the jar in a towel so it would stay warm. Her neighbor thanked her at the door.",
+          "story": "Farah carried soup to her sick neighbor. She wrapped the jar in a towel so it would stay warm. Her neighbor thanked her at the door.",
+          "scene": "Why did Farah wrap the soup jar in a towel",
           "choices": [
-            "because it had a name tag",
-            "Omar",
-            "under the library table",
-            "not enough evidence"
-          ],
-          "acceptable_answers": [
-            "because it had a name tag",
-            "it had a name tag",
-            "because it had a name tag."
+            "to keep the soup warm",
+            "to make the jar heavier",
+            "to hide the soup",
+            "to clean the doorstep"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: Why did it happen?",
+            "text": "Listen to the passage. Farah carried soup to her sick neighbor. She wrapped the jar in a towel so it would stay warm. Her neighbor thanked her at the door. Now answer: Why did Farah wrap the soup jar in a towel?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "Farah carried soup to her sick neighbor. She wrapped the jar in a towel so it would stay warm. Her neighbor thanked her at the door.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "so it would stay warm",
+            "to keep it warm"
+          ]
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q05",
-          "prompt": "Which sentence from the text best proves the answer?",
-          "question_type": "text_evidence",
-          "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Her class planted them beside the fence because the spot was sunny.",
+          "prompt": "Where did the gardener plant the mint?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "beside the porch steps",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "misses_text_evidence",
-          "explanation": "Her class planted them beside the fence because the spot was sunny. is supported by the text.",
-          "feedback": "Yes — Her class planted them beside the fence because the spot was sunny. fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "evidence_span": "Her class planted them beside the fence because the spot was sunny.",
-          "evidence_spans": [
-            "Her class planted them beside the fence because the spot was sunny."
-          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The first sentence locates the mint beside the porch steps.",
+          "feedback": "Yes — The first sentence locates the mint beside the porch steps.",
+          "passage": "A gardener planted mint beside the porch steps. Its fresh smell grew stronger when someone brushed the leaves. Visitors enjoyed the scent as they entered.",
+          "story": "A gardener planted mint beside the porch steps. Its fresh smell grew stronger when someone brushed the leaves. Visitors enjoyed the scent as they entered.",
+          "scene": "Where did the gardener plant the mint",
           "choices": [
-            "Her class planted them beside the fence because the spot was sunny.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "Her class planted them beside the fence because the spot was sunny.",
-            "her class planted them beside the fence because the spot was sunny.",
-            "Her class planted them beside the fence because the spot was sunny.."
+            "behind the garage",
+            "inside the kitchen",
+            "near the pond",
+            "beside the porch steps"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. A gardener planted mint beside the porch steps. Its fresh smell grew stronger when someone brushed the leaves. Visitors enjoyed the scent as they entered. Now answer: Where did the gardener plant the mint?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "A gardener planted mint beside the porch steps. Its fresh smell grew stronger when someone brushed the leaves. Visitors enjoyed the scent as they entered.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2441,43 +2275,36 @@
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q06",
-          "prompt": "Which sentence from the text best proves the answer?",
-          "question_type": "text_evidence",
-          "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "prompt": "How did Kai help the team tie the game?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "short_passage",
+          "correct_answer": "He passed the ball to Remy.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "misses_text_evidence",
-          "explanation": "Bees also move pollen from flower to flower, which helps many plants grow. is supported by the text.",
-          "feedback": "Yes — Bees also move pollen from flower to flower, which helps many plants grow. fits.",
-          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
-          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
-          "evidence_spans": [
-            "Bees also move pollen from flower to flower, which helps many plants grow."
-          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Kai's pass let Remy take the shot that earned the needed point.",
+          "feedback": "Yes — Kai's pass let Remy take the shot that earned the needed point.",
+          "passage": "Kai's team needed one more point to tie the game. Kai passed the ball to Remy, who stood near the basket. Remy made the shot just before time ended.",
+          "story": "Kai's team needed one more point to tie the game. Kai passed the ball to Remy, who stood near the basket. Remy made the shot just before time ended.",
+          "scene": "How did Kai help the team tie the game",
           "choices": [
-            "Bees also move pollen from flower to flower, which helps many plants grow.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "Bees also move pollen from flower to flower, which helps many plants grow.",
-            "bees also move pollen from flower to flower, which helps many plants grow.",
-            "Bees also move pollen from flower to flower, which helps many plants grow.."
+            "He called time out.",
+            "He moved the basket.",
+            "He ended the game early.",
+            "He passed the ball to Remy."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. Kai's team needed one more point to tie the game. Kai passed the ball to Remy, who stood near the basket. Remy made the shot just before time ended. Now answer: How did Kai help the team tie the game?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+            "text": "Kai's team needed one more point to tie the game. Kai passed the ball to Remy, who stood near the basket. Remy made the shot just before time ended.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2485,43 +2312,36 @@
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q07",
-          "prompt": "Which sentence from the text best proves the answer?",
+          "prompt": "Which detail shows what helped the oak grow straight?",
           "question_type": "text_evidence",
           "visual_model": "evidence_highlight",
-          "support_type": "evidence_highlight",
-          "correct_answer": "He gave it to Ms. Lee because it had a name tag.",
+          "support_type": "short_passage",
+          "correct_answer": "The park workers tied it loosely to a strong stake.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "He gave it to Ms. Lee because it had a name tag. is supported by the text.",
-          "feedback": "Yes — He gave it to Ms. Lee because it had a name tag. fits.",
-          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
-          "evidence_span": "He gave it to Ms. Lee because it had a name tag.",
-          "evidence_spans": [
-            "He gave it to Ms. Lee because it had a name tag."
-          ],
+          "explanation": "The stake supported the bent tree while it grew straighter.",
+          "feedback": "Yes — The stake supported the bent tree while it grew straighter.",
+          "passage": "A young oak had a bent trunk. The park workers tied it loosely to a strong stake. Months later, the tree stood straight on its own.",
+          "story": "A young oak had a bent trunk. The park workers tied it loosely to a strong stake. Months later, the tree stood straight on its own.",
+          "scene": "Which detail shows what helped the oak grow straight",
           "choices": [
-            "He gave it to Ms. Lee because it had a name tag.",
-            "This choice is not in the passage.",
-            "The picture gives a clue.",
-            "A reader might guess this."
-          ],
-          "acceptable_answers": [
-            "He gave it to Ms. Lee because it had a name tag.",
-            "he gave it to ms. lee because it had a name tag.",
-            "He gave it to Ms. Lee because it had a name tag.."
+            "A young oak had a bent trunk.",
+            "Months later, the tree stood straight on its own.",
+            "The park also had pine trees.",
+            "The park workers tied it loosely to a strong stake."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box. Now answer: Which sentence from the text best proves the answer?",
+            "text": "Listen to the passage. A young oak had a bent trunk. The park workers tied it loosely to a strong stake. Months later, the tree stood straight on its own. Now answer: Which detail shows what helped the oak grow straight?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+            "text": "A young oak had a bent trunk. The park workers tied it loosely to a strong stake. Months later, the tree stood straight on its own.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2529,43 +2349,36 @@
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q08",
-          "prompt": "Who or what is the passage about?",
-          "question_type": "short_response",
-          "visual_model": "short_passage",
+          "prompt": "Who was making the scratching sound in the shed?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_story",
           "support_type": "short_passage",
-          "correct_answer": "Nina",
+          "correct_answer": "her cat Pogo",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "unsupported_answer",
-          "explanation": "Nina is supported by the text.",
-          "feedback": "Yes — Nina fits.",
-          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
-          "evidence_span": "Her class planted them beside the fence because the spot was sunny.",
-          "evidence_spans": [
-            "Her class planted them beside the fence because the spot was sunny."
-          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "Pogo came from behind the bucket after Ellie heard the scratching, supporting that the cat made it.",
+          "feedback": "Yes — Pogo came from behind the bucket after Ellie heard the scratching, supporting that the cat made it.",
+          "passage": "Ellie heard scratching inside the shed. Her cat Pogo stepped out from behind a bucket. Ellie laughed and carried Pogo home.",
+          "story": "Ellie heard scratching inside the shed. Her cat Pogo stepped out from behind a bucket. Ellie laughed and carried Pogo home.",
+          "scene": "Who was making the scratching sound in the shed",
           "choices": [
-            "Nina",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "Nina",
-            "Nina.",
-            "nina"
+            "Ellie",
+            "a mouse",
+            "a neighbor",
+            "her cat Pogo"
           ],
           "question_audio": {
-            "text": "Listen to the passage. Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out. Now answer: Who or what is the passage about?",
+            "text": "Listen to the passage. Ellie heard scratching inside the shed. Her cat Pogo stepped out from behind a bucket. Ellie laughed and carried Pogo home. Now answer: Who was making the scratching sound in the shed?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+            "text": "Ellie heard scratching inside the shed. Her cat Pogo stepped out from behind a bucket. Ellie laughed and carried Pogo home.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2573,43 +2386,36 @@
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q09",
-          "prompt": "What is one important detail?",
+          "prompt": "How did the shadows change by noon?",
           "question_type": "multiple_choice",
           "visual_model": "short_passage",
           "support_type": "short_passage",
-          "correct_answer": "firefighters",
+          "correct_answer": "They became shorter.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
-          "misconception_tag": "question_word_confusion",
-          "explanation": "firefighters is supported by the text.",
-          "feedback": "Yes — firefighters fits.",
-          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
-          "evidence_span": "Firefighters train to keep people safe.",
-          "evidence_spans": [
-            "Firefighters train to keep people safe."
-          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The passage explicitly says every shadow was shorter at noon.",
+          "feedback": "Yes — The passage explicitly says every shadow was shorter at noon.",
+          "passage": "The class measured shadows at nine o'clock and again at noon. At noon, every shadow was shorter. Their teacher explained that the sun was higher then.",
+          "story": "The class measured shadows at nine o'clock and again at noon. At noon, every shadow was shorter. Their teacher explained that the sun was higher then.",
+          "scene": "How did the shadows change by noon",
           "choices": [
-            "firefighters",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "firefighters",
-            "firefighters.",
-            "firefighters"
+            "They became darker.",
+            "They disappeared forever.",
+            "They moved indoors.",
+            "They became shorter."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home. Now answer: What is one important detail?",
+            "text": "Listen to the passage. The class measured shadows at nine o'clock and again at noon. At noon, every shadow was shorter. Their teacher explained that the sun was higher then. Now answer: How did the shadows change by noon?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+            "text": "The class measured shadows at nine o'clock and again at noon. At noon, every shadow was shorter. Their teacher explained that the sun was higher then.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
@@ -2617,43 +2423,36 @@
         },
         {
           "question_id": "G2E_RC_001_MIXED_Q10",
-          "prompt": "Where or when does the passage give a setting or time?",
-          "question_type": "multiple_choice",
-          "visual_model": "short_passage",
+          "prompt": "What evidence shows that Mina solved the litter problem with help?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
           "support_type": "short_passage",
-          "correct_answer": "Maya and Ben",
+          "correct_answer": "She asked her cousins to help sort them into recycling bins.",
           "hints": [
-            "Read the question word first.",
-            "Go back to the passage and find the sentence that answers it.",
-            "Use words from the text as evidence."
+            "Read the question word carefully.",
+            "Reread the passage and find the detail that answers it.",
+            "Check that the text supports your answer."
           ],
           "misconception_tag": "misses_text_evidence",
-          "explanation": "Maya and Ben is supported by the text.",
-          "feedback": "Yes — Maya and Ben fits.",
-          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
-          "evidence_span": "The tower fell once, so they made the base wider.",
-          "evidence_spans": [
-            "The tower fell once, so they made the base wider."
-          ],
+          "explanation": "The sentence names both the helpers and the action they took to remove the litter.",
+          "feedback": "Yes — The sentence names both the helpers and the action they took to remove the litter.",
+          "passage": "Mina noticed cans and paper beside the picnic tables. She asked her cousins to help sort them into recycling bins. When they finished, the park looked clean.",
+          "story": "Mina noticed cans and paper beside the picnic tables. She asked her cousins to help sort them into recycling bins. When they finished, the park looked clean.",
+          "scene": "What evidence shows that Mina solved the litter problem with help",
           "choices": [
-            "Maya and Ben",
-            "not stated",
-            "a different passage detail",
-            "a guess"
-          ],
-          "acceptable_answers": [
-            "Maya and Ben",
-            "Maya and Ben.",
-            "maya and ben"
+            "Mina noticed cans and paper beside the picnic tables.",
+            "When they finished, the park looked clean.",
+            "The picnic tables were green.",
+            "She asked her cousins to help sort them into recycling bins."
           ],
           "question_audio": {
-            "text": "Listen to the passage. Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider. Now answer: Where or when does the passage give a setting or time?",
+            "text": "Listen to the passage. Mina noticed cans and paper beside the picnic tables. She asked her cousins to help sort them into recycling bins. When they finished, the park looked clean. Now answer: What evidence shows that Mina solved the litter problem with help?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+            "text": "Mina noticed cans and paper beside the picnic tables. She asked her cousins to help sort them into recycling bins. When they finished, the park looked clean.",
             "label": "Hear the passage",
             "type": "sentence",
             "playback_preference": "cached_audio_first"
