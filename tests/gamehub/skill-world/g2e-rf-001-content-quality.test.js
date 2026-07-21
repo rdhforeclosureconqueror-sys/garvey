@@ -33,11 +33,23 @@ test('every question has required instructional content and the package passes s
     ['prompt', 'explanation', 'feedback', 'word'].forEach((field) => {
       assert.ok(normalize(question[field]), `${question.question_id} ${field}`);
     });
-    assert.ok(Array.isArray(question.hints) && question.hints.length >= 3, `${question.question_id} hints`);
+    assert.ok(Array.isArray(question.hints) && question.hints.length === 3, `${question.question_id} hints`);
+    question.hints.forEach((hint) => assert.ok(normalize(hint), `${question.question_id} empty hint`));
     assert.doesNotMatch(JSON.stringify(question), /\b(?:todo|tbd|placeholder|lorem ipsum)\b|\{\{[^}]+\}\}|\$\{[^}]+\}/i);
   });
   const validation = Schema.validateSkillPackage(pkg, { allowPlannedLevelBanks: false });
   assert.equal(validation.valid, true, validation.errors.join('; '));
+});
+
+test('hint ladders are concept-specific and unique across canonical questions', () => {
+  const ladders = questions.map((question) => question.hints.map(normalize));
+  assert.equal(new Set(ladders.map(JSON.stringify)).size, questions.length);
+  questions.forEach((question) => {
+    const hints = question.hints.map(normalize);
+    assert.ok(hints.some((hint) => hint.includes(normalize(question.word))), `${question.question_id} target-word hint`);
+    assert.ok(hints.some((hint) => /blend|digraph|silent e|vowel|syllable|spoken beat/.test(hint)),
+      `${question.question_id} concept cue`);
+  });
 });
 
 test('choices are normalized-unique and display exactly one correct answer', () => {
