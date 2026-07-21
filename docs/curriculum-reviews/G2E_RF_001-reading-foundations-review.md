@@ -2,7 +2,7 @@
 
 ## Executive summary
 
-All 52 canonical Skill Practice questions in G2E_RF_001 were reviewed and rewritten. The revised sequence moves from consonant blends and digraphs to silent-e patterns, common vowel teams, two-syllable decoding, and transfer in Mixed review. Each item now has a clear task, four unique choices, a word-specific explanation, useful hints, and one displayed correct answer. The four existing interaction types already render correctly, so no shared runtime code changed.
+All 52 canonical Skill Practice questions in G2E_RF_001 were reviewed and rewritten. The revised sequence moves from consonant blends and digraphs to silent-e patterns, common vowel teams, two-syllable decoding, and transfer in Mixed review. Each item now has a clear task, four unique choices, a word-specific explanation, a concept-specific three-step hint ladder, and one displayed correct answer. The four existing interaction types already render correctly, so no shared runtime code changed.
 
 ## Original curriculum defects
 
@@ -16,7 +16,7 @@ Several representations were also inaccurate or unhelpful. For example, the soun
 - Made the requested response match the key: letter pattern, whole word, syllable, number of syllables, or word chunks.
 - Replaced all 156 distractor slots with plausible contrasts, including competing blends, digraphs, vowel teams, short-vowel words, and reasonable but incorrect syllable divisions.
 - Added explanations that identify the relevant grapheme, sound, silent-e effect, syllable division, or compound-word structure.
-- Added a three-step hint progression for every item: pronounce, inspect, then blend and check.
+- Added a distinct, concept-specific three-step hint progression for every item: pronounce or tap the target, apply the relevant phonics principle, then blend and verify.
 - Kept vocabulary concrete and age-appropriate while varying words, sentence frames, and response demands.
 
 ## Reading foundations review
@@ -116,7 +116,7 @@ Scores use a five-point scale, where 5 indicates publication-ready quality.
 
 ## Validation coverage
 
-The focused suite verifies package existence, expected bank IDs and counts, 52 unique IDs, required prompts and explanations, three-step hints, schema validity, supported interaction types, normalized-unique choices, exactly one displayed correct answer, exact answer balance, unique prompts, unique answer sets, no focused-to-Mixed target reuse or signature copying, and no unresolved placeholders. It also exercises renderer output and answer evaluation for every authored interaction type.
+The focused suite verifies package existence, expected bank IDs and counts, 52 unique IDs, required prompts and explanations, three-step hints, 52 unique hint ladders with explicit concept cues, schema validity, supported interaction types, normalized-unique choices, exactly one displayed correct answer, exact answer balance, unique prompts, unique answer sets, no focused-to-Mixed target reuse or signature copying, and no unresolved placeholders. It also exercises renderer output and answer evaluation for every authored interaction type.
 
 ## Deferred items
 
