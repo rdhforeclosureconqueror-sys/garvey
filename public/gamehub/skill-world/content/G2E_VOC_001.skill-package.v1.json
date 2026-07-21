@@ -27,12 +27,12 @@
       "multiple meaning",
       "category"
     ],
-    "concept_explanation": "Words can be understood by reading nearby clues, comparing meanings, noticing opposites, and grouping words that share attributes.",
+    "concept_explanation": "Nearby words can explain an unfamiliar word by giving a definition, synonym, example, contrast, or action. Readers also use sentence context to choose among a word's meanings and group related words.",
     "visual_model": "context_sentence",
     "common_misconception": "Readers may choose a known meaning without checking context or may confuse synonyms with antonyms.",
     "real_world_connection": "Vocabulary clues help readers understand stories, informational texts, signs, and conversations.",
     "lesson_summary": "Read the context, compare word meanings, choose the meaning that fits, and sort words by shared attributes.",
-    "mini_lesson": "First read the sentence or word set. Then ask what clue, relationship, or category fits best. Last, check that the answer makes sense."
+    "mini_lesson": "Read the whole passage. Find words or actions that tell more about the target word. Choose a meaning, check it in the passage, and explain which clue supports it."
   },
   "worked_examples": [
     {
@@ -76,322 +76,425 @@
   "guided_practice": [
     {
       "question_id": "G2E_VOC_001_LVL1_Q01",
-      "prompt": "Choose the synonym for quick.",
+      "prompt": "Read the passage. Which word means nearly the same as rapid?",
       "question_type": "short_response",
       "visual_model": "word_card",
       "support_type": "word_card",
-      "correct_answer": "fast",
+      "correct_answer": "quick",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "fast is correct because the context and word relationship fit.",
-      "feedback": "Yes — fast fits.",
+      "explanation": "The word dash shows that Nora moved quickly, so quick is a synonym for rapid.",
+      "feedback": "Yes — quick fits the passage.",
       "choices": [
-        "fast",
         "quick",
-        "slow"
+        "quiet",
+        "late",
+        "careful"
       ],
-      "word": "quick",
+      "word": "rapid",
       "pairs": [
         {
-          "left": "quick",
-          "right": "fast",
+          "left": "rapid",
+          "right": "quick",
           "relation": "synonym"
         }
       ],
       "acceptable_answers": [
-        "fast",
-        "fast",
-        "fast"
+        "quick"
       ],
       "question_audio": {
-        "text": "Choose the synonym for quick.",
+        "text": "Read the passage. Which word means nearly the same as rapid?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "quick",
+        "text": "rapid",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Nora made a rapid dash to catch the rolling ball.",
+      "sentence": "Nora made a rapid dash to catch the rolling ball."
     },
     {
       "question_id": "G2E_VOC_001_LVL1_Q02",
-      "prompt": "Choose the antonym for big.",
+      "prompt": "Read the passage. Which word is an antonym, or opposite, of huge?",
       "question_type": "vocabulary_match",
       "visual_model": "vocabulary_match",
       "support_type": "vocabulary_match",
-      "correct_answer": "small",
+      "correct_answer": "tiny",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "small is correct because the context and word relationship fit.",
-      "feedback": "Yes — small fits.",
+      "explanation": "Tiny means very small, which is the opposite of huge.",
+      "feedback": "Yes — tiny fits the passage.",
       "choices": [
-        "small",
-        "big",
-        "bright"
+        "heavy",
+        "tiny",
+        "round",
+        "large"
       ],
-      "word": "big",
+      "word": "huge",
       "pairs": [
         {
-          "left": "big",
-          "right": "small",
+          "left": "huge",
+          "right": "tiny",
           "relation": "antonym"
         }
       ],
       "question_audio": {
-        "text": "Choose the antonym for big.",
+        "text": "Read the passage. Which word is an antonym, or opposite, of huge?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "big",
+        "text": "huge",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "The huge pumpkin took two children to lift it.",
+      "sentence": "The huge pumpkin took two children to lift it."
     },
     {
       "question_id": "G2E_VOC_001_LVL1_Q03",
-      "prompt": "Choose the synonym for happy.",
+      "prompt": "Read the passage. Which word means nearly the same as cheerful?",
       "question_type": "multiple_choice",
       "visual_model": "vocabulary_match",
       "support_type": "vocabulary_match",
-      "correct_answer": "glad",
+      "correct_answer": "happy",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "glad is correct because the context and word relationship fit.",
-      "feedback": "Yes — glad fits.",
+      "explanation": "Smiling and singing show that the guide is happy, a synonym for cheerful.",
+      "feedback": "Yes — happy fits the passage.",
       "choices": [
-        "glad",
+        "sleepy",
+        "worried",
         "happy",
-        "slow"
+        "silent"
       ],
-      "word": "happy",
+      "word": "cheerful",
       "pairs": [
         {
-          "left": "happy",
-          "right": "glad",
+          "left": "cheerful",
+          "right": "happy",
           "relation": "synonym"
         }
       ],
       "question_audio": {
-        "text": "Choose the synonym for happy.",
+        "text": "Read the passage. Which word means nearly the same as cheerful?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "happy",
+        "text": "cheerful",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Our cheerful guide smiled and sang as we walked.",
+      "sentence": "Our cheerful guide smiled and sang as we walked."
     },
     {
       "question_id": "G2E_VOC_001_LVL1_Q04",
-      "prompt": "Choose the antonym for hot.",
+      "prompt": "Read the passage. Which word is an antonym of noisy?",
       "question_type": "multiple_choice",
       "visual_model": "vocabulary_match",
       "support_type": "vocabulary_match",
-      "correct_answer": "cold",
+      "correct_answer": "quiet",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "cold is correct because the context and word relationship fit.",
-      "feedback": "Yes — cold fits.",
+      "explanation": "The contrast with calm and still shows that quiet is the opposite of noisy.",
+      "feedback": "Yes — quiet fits the passage.",
       "choices": [
-        "cold",
-        "hot",
-        "bright"
+        "busy",
+        "crowded",
+        "bright",
+        "quiet"
       ],
-      "word": "hot",
+      "word": "noisy",
       "pairs": [
         {
-          "left": "hot",
-          "right": "cold",
+          "left": "noisy",
+          "right": "quiet",
           "relation": "antonym"
         }
       ],
       "question_audio": {
-        "text": "Choose the antonym for hot.",
+        "text": "Read the passage. Which word is an antonym of noisy?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "hot",
+        "text": "noisy",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "The hallway was noisy, but the library was calm and still.",
+      "sentence": "The hallway was noisy, but the library was calm and still."
     },
     {
       "question_id": "G2E_VOC_001_LVL1_Q05",
-      "prompt": "Choose the synonym for begin.",
+      "prompt": "Read the passage. Which word means nearly the same as select?",
       "question_type": "multiple_choice",
       "visual_model": "vocabulary_match",
       "support_type": "vocabulary_match",
-      "correct_answer": "start",
+      "correct_answer": "choose",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "start is correct because the context and word relationship fit.",
-      "feedback": "Yes — start fits.",
+      "explanation": "To select one crayon means to choose one crayon.",
+      "feedback": "Yes — choose fits the passage.",
       "choices": [
-        "start",
-        "begin",
-        "slow"
+        "choose",
+        "color",
+        "share",
+        "return"
       ],
-      "word": "begin",
+      "word": "select",
       "pairs": [
         {
-          "left": "begin",
-          "right": "start",
+          "left": "select",
+          "right": "choose",
           "relation": "synonym"
         }
       ],
       "question_audio": {
-        "text": "Choose the synonym for begin.",
+        "text": "Read the passage. Which word means nearly the same as select?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "begin",
+        "text": "select",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Please select one crayon from the box for your drawing.",
+      "sentence": "Please select one crayon from the box for your drawing."
     },
     {
       "question_id": "G2E_VOC_001_LVL1_Q06",
-      "prompt": "Choose the antonym for quiet.",
-      "question_type": "short_response",
+      "prompt": "Read the passage. Which word is an antonym of shallow?",
+      "question_type": "multiple_choice",
       "visual_model": "vocabulary_match",
       "support_type": "vocabulary_match",
-      "correct_answer": "loud",
+      "correct_answer": "deep",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "loud is correct because the context and word relationship fit.",
-      "feedback": "Yes — loud fits.",
+      "explanation": "The word but signals a contrast: deep is the opposite of shallow.",
+      "feedback": "Yes — deep fits the passage.",
       "choices": [
-        "loud",
-        "quiet",
-        "bright"
+        "clear",
+        "deep",
+        "still",
+        "wide"
       ],
-      "word": "quiet",
+      "word": "shallow",
       "pairs": [
         {
-          "left": "quiet",
-          "right": "loud",
+          "left": "shallow",
+          "right": "deep",
           "relation": "antonym"
         }
       ],
-      "acceptable_answers": [
-        "loud",
-        "loud",
-        "loud"
-      ],
       "question_audio": {
-        "text": "Choose the antonym for quiet.",
+        "text": "Read the passage. Which word is an antonym of shallow?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "quiet",
+        "text": "shallow",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "The pond is shallow near the shore, but it is deep by the dock.",
+      "sentence": "The pond is shallow near the shore, but it is deep by the dock."
     }
   ],
   "adaptive_question_bank": [
     {
       "question_id": "G2E_VOC_001_LVL1_Q07",
-      "prompt": "Choose the synonym for under.",
+      "prompt": "Read the passage. Which word means nearly the same as eager?",
       "question_type": "multiple_choice",
       "visual_model": "vocabulary_match",
       "support_type": "vocabulary_match",
-      "correct_answer": "below",
+      "correct_answer": "excited",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "below is correct because the context and word relationship fit.",
-      "feedback": "Yes — below fits.",
+      "explanation": "Could hardly wait shows that Jamal was excited, which is close in meaning to eager.",
+      "feedback": "Yes — excited fits the passage.",
       "choices": [
-        "below",
-        "under",
-        "slow"
+        "tired",
+        "confused",
+        "excited",
+        "patient"
       ],
-      "word": "under",
+      "word": "eager",
       "pairs": [
         {
-          "left": "under",
-          "right": "below",
+          "left": "eager",
+          "right": "excited",
           "relation": "synonym"
         }
       ],
       "question_audio": {
-        "text": "Choose the synonym for under.",
+        "text": "Read the passage. Which word means nearly the same as eager?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "under",
+        "text": "eager",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Jamal was eager to open the package and could hardly wait.",
+      "sentence": "Jamal was eager to open the package and could hardly wait."
     },
     {
       "question_id": "G2E_VOC_001_LVL1_Q08",
-      "prompt": "Choose the antonym for empty.",
+      "prompt": "Read the passage. Which word is an antonym of rough?",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "smooth",
+      "hints": [
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "Smooth describes a surface without bumps, so it is the opposite of rough.",
+      "feedback": "Yes — smooth fits the passage.",
+      "choices": [
+        "hard",
+        "thick",
+        "brown",
+        "smooth"
+      ],
+      "word": "rough",
+      "pairs": [
+        {
+          "left": "rough",
+          "right": "smooth",
+          "relation": "antonym"
+        }
+      ],
+      "question_audio": {
+        "text": "Read the passage. Which word is an antonym of rough?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "rough",
+        "label": "Hear the word",
+        "type": "word",
+        "playback_preference": "cached_audio_first"
+      },
+      "passage": "The rough tree bark felt bumpy under my hand.",
+      "sentence": "The rough tree bark felt bumpy under my hand."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q09",
+      "prompt": "Read the passage. Which word means nearly the same as repair?",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "fix",
+      "hints": [
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "Making the torn kite usable again means to fix, or repair, it.",
+      "feedback": "Yes — fix fits the passage.",
+      "choices": [
+        "fix",
+        "fold",
+        "paint",
+        "carry"
+      ],
+      "word": "repair",
+      "pairs": [
+        {
+          "left": "repair",
+          "right": "fix",
+          "relation": "synonym"
+        }
+      ],
+      "question_audio": {
+        "text": "Read the passage. Which word means nearly the same as repair?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "repair",
+        "label": "Hear the word",
+        "type": "word",
+        "playback_preference": "cached_audio_first"
+      },
+      "passage": "We will repair the torn kite so it can fly again.",
+      "sentence": "We will repair the torn kite so it can fly again."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q10",
+      "prompt": "Read the passage. Which word is an antonym of empty?",
       "question_type": "multiple_choice",
       "visual_model": "vocabulary_match",
       "support_type": "vocabulary_match",
       "correct_answer": "full",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "full is correct because the context and word relationship fit.",
-      "feedback": "Yes — full fits.",
+      "explanation": "Packed with children means full, which is the opposite of empty.",
+      "feedback": "Yes — full fits the passage.",
       "choices": [
+        "early",
         "full",
-        "empty",
-        "bright"
+        "open",
+        "silent"
       ],
       "word": "empty",
       "pairs": [
@@ -402,7 +505,7 @@
         }
       ],
       "question_audio": {
-        "text": "Choose the antonym for empty.",
+        "text": "Read the passage. Which word is an antonym of empty?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -412,601 +515,535 @@
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "question_id": "G2E_VOC_001_LVL1_Q09",
-      "prompt": "Choose the synonym for close.",
-      "question_type": "multiple_choice",
-      "visual_model": "vocabulary_match",
-      "support_type": "vocabulary_match",
-      "correct_answer": "near",
-      "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
-      ],
-      "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "near is correct because the context and word relationship fit.",
-      "feedback": "Yes — near fits.",
-      "choices": [
-        "near",
-        "close",
-        "slow"
-      ],
-      "word": "close",
-      "pairs": [
-        {
-          "left": "close",
-          "right": "near",
-          "relation": "synonym"
-        }
-      ],
-      "question_audio": {
-        "text": "Choose the synonym for close.",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
       },
-      "audio": {
-        "text": "close",
-        "label": "Hear the word",
-        "type": "word",
-        "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "question_id": "G2E_VOC_001_LVL1_Q10",
-      "prompt": "Choose the antonym for early.",
-      "question_type": "multiple_choice",
-      "visual_model": "vocabulary_match",
-      "support_type": "vocabulary_match",
-      "correct_answer": "late",
-      "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
-      ],
-      "misconception_tag": "synonym_antonym_confusion",
-      "explanation": "late is correct because the context and word relationship fit.",
-      "feedback": "Yes — late fits.",
-      "choices": [
-        "late",
-        "early",
-        "bright"
-      ],
-      "word": "early",
-      "pairs": [
-        {
-          "left": "early",
-          "right": "late",
-          "relation": "antonym"
-        }
-      ],
-      "question_audio": {
-        "text": "Choose the antonym for early.",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      },
-      "audio": {
-        "text": "early",
-        "label": "Hear the word",
-        "type": "word",
-        "playback_preference": "cached_audio_first"
-      }
+      "passage": "At sunrise the playground was empty; later, it was packed with children.",
+      "sentence": "At sunrise the playground was empty; later, it was packed with children."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q01",
-      "prompt": "Use context clues: The kitten was tiny, so it fit in my hand. What does tiny mean?",
+      "prompt": "Read the passage. What does timid mean in this passage?",
       "question_type": "short_response",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "very small",
+      "correct_answer": "shy",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "very small is correct because the context and word relationship fit.",
-      "feedback": "Yes — very small fits.",
+      "explanation": "Hiding instead of coming near is a clue that timid means shy.",
+      "feedback": "Yes — shy fits the passage.",
       "choices": [
-        "very small",
-        "very loud",
-        "hard to find"
+        "hungry",
+        "playful",
+        "shy",
+        "wild"
       ],
-      "word": "tiny",
-      "sentence": "The kitten was tiny, so it fit in my hand.",
+      "word": "timid",
+      "sentence": "The rabbit was timid. It hid behind the log instead of coming near us.",
       "acceptable_answers": [
-        "very small",
-        "very small",
-        "very small"
+        "shy"
       ],
       "question_audio": {
-        "text": "Use context clues: The kitten was tiny, so it fit in my hand. What does tiny mean?",
+        "text": "Read the passage. What does timid mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "tiny",
+        "text": "timid",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "The rabbit was timid. It hid behind the log instead of coming near us."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q02",
-      "prompt": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+      "prompt": "Read the passage. What does scarce mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "very tired",
+      "correct_answer": "hard to find",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "very tired is correct because the context and word relationship fit.",
-      "feedback": "Yes — very tired fits.",
+      "explanation": "Only a few drops remained is a definition-like clue that the water was hard to find.",
+      "feedback": "Yes — hard to find fits the passage.",
       "choices": [
-        "very tired",
-        "very loud",
+        "fresh and clean",
+        "deep enough to swim in",
+        "moving very fast",
         "hard to find"
       ],
-      "word": "exhausted",
-      "sentence": "Dad was exhausted after the long hike.",
+      "word": "scarce",
+      "sentence": "After the rain, water was scarce. Only a few drops remained in the barrel.",
       "question_audio": {
-        "text": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+        "text": "Read the passage. What does scarce mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "exhausted",
+        "text": "scarce",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "After the rain, water was scarce. Only a few drops remained in the barrel."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q03",
-      "prompt": "Use context clues: The soup was steaming, so I waited. What does steaming mean?",
+      "prompt": "Read the passage. What does protected mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "very hot",
+      "correct_answer": "kept safe",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "very hot is correct because the context and word relationship fit.",
-      "feedback": "Yes — very hot fits.",
+      "explanation": "Covering the plant from the cold kept it safe, so protected means kept safe.",
+      "feedback": "Yes — kept safe fits the passage.",
       "choices": [
-        "very hot",
-        "very loud",
-        "hard to find"
+        "kept safe",
+        "pulled apart",
+        "looked for",
+        "helped grow taller"
       ],
-      "word": "steaming",
-      "sentence": "The soup was steaming, so I waited.",
+      "word": "protected",
+      "sentence": "Priya protected the seedling from the cold. She covered the little plant with a cloth.",
       "question_audio": {
-        "text": "Use context clues: The soup was steaming, so I waited. What does steaming mean?",
+        "text": "Read the passage. What does protected mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "steaming",
+        "text": "protected",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Priya protected the seedling from the cold. She covered the little plant with a cloth."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q04",
-      "prompt": "Use context clues: Mia whispered because the baby was asleep. What does whispered mean?",
+      "prompt": "Read the passage. What does drowsy mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "spoke quietly",
+      "correct_answer": "sleepy",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "spoke quietly is correct because the context and word relationship fit.",
-      "feedback": "Yes — spoke quietly fits.",
+      "explanation": "Yawning and closing its eyes are examples that show the puppy was sleepy.",
+      "feedback": "Yes — sleepy fits the passage.",
       "choices": [
-        "spoke quietly",
-        "very loud",
-        "hard to find"
+        "lonely",
+        "sleepy",
+        "thirsty",
+        "frightened"
       ],
-      "word": "whispered",
-      "sentence": "Mia whispered because the baby was asleep.",
+      "word": "drowsy",
+      "sentence": "The puppy was drowsy. It yawned, curled up, and closed its eyes.",
       "question_audio": {
-        "text": "Use context clues: Mia whispered because the baby was asleep. What does whispered mean?",
+        "text": "Read the passage. What does drowsy mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "whispered",
+        "text": "drowsy",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "The puppy was drowsy. It yawned, curled up, and closed its eyes."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q05",
-      "prompt": "Use context clues: The lost puppy looked afraid and shook. What does afraid mean?",
-      "question_type": "short_response",
+      "prompt": "Read the passage. What does vivid mean in this passage?",
+      "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "scared",
+      "correct_answer": "bright and colorful",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "scared is correct because the context and word relationship fit.",
-      "feedback": "Yes — scared fits.",
+      "explanation": "Unlike and bright contrast the shell with dull stones, showing that vivid means bright and colorful.",
+      "feedback": "Yes — bright and colorful fits the passage.",
       "choices": [
-        "scared",
-        "very loud",
-        "hard to find"
+        "plain and gray",
+        "small and smooth",
+        "bright and colorful",
+        "old and cracked"
       ],
-      "word": "afraid",
-      "sentence": "The lost puppy looked afraid and shook.",
-      "acceptable_answers": [
-        "scared",
-        "scared",
-        "scared"
-      ],
+      "word": "vivid",
+      "sentence": "Unlike the dull gray stones, the polished shell was vivid and bright.",
       "question_audio": {
-        "text": "Use context clues: The lost puppy looked afraid and shook. What does afraid mean?",
+        "text": "Read the passage. What does vivid mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "afraid",
+        "text": "vivid",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Unlike the dull gray stones, the polished shell was vivid and bright."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q06",
-      "prompt": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+      "prompt": "Read the passage. What does glanced mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "moved quickly",
+      "correct_answer": "looked quickly",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "moved quickly is correct because the context and word relationship fit.",
-      "feedback": "Yes — moved quickly fits.",
+      "explanation": "The words one quick look explain that glanced means looked quickly.",
+      "feedback": "Yes — looked quickly fits the passage.",
       "choices": [
-        "moved quickly",
-        "very loud",
-        "hard to find"
+        "stared for a long time",
+        "covered from view",
+        "pointed with a finger",
+        "looked quickly"
       ],
-      "word": "hurried",
-      "sentence": "We hurried so we would not be late.",
+      "word": "glanced",
+      "sentence": "Mateo glanced at the clock, taking one quick look before he ran outside.",
       "question_audio": {
-        "text": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+        "text": "Read the passage. What does glanced mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "hurried",
+        "text": "glanced",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Mateo glanced at the clock, taking one quick look before he ran outside."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q07",
-      "prompt": "Use context clues: The glass was fragile, so we carried it carefully. What does fragile mean?",
+      "prompt": "Read the passage. What does delighted mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "easy to break",
+      "correct_answer": "very pleased",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "easy to break is correct because the context and word relationship fit.",
-      "feedback": "Yes — easy to break fits.",
+      "explanation": "Clapping and cheering show that the crowd was very pleased.",
+      "feedback": "Yes — very pleased fits the passage.",
       "choices": [
-        "easy to break",
-        "very loud",
-        "hard to find"
+        "very pleased",
+        "ready to leave",
+        "unable to hear",
+        "surprised by noise"
       ],
-      "word": "fragile",
-      "sentence": "The glass was fragile, so we carried it carefully.",
+      "word": "delighted",
+      "sentence": "The crowd was delighted when the band played one more song. People clapped and cheered.",
       "question_audio": {
-        "text": "Use context clues: The glass was fragile, so we carried it carefully. What does fragile mean?",
+        "text": "Read the passage. What does delighted mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "fragile",
+        "text": "delighted",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "The crowd was delighted when the band played one more song. People clapped and cheered."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q08",
-      "prompt": "Use context clues: The path was narrow, and only one bike fit. What does narrow mean?",
+      "prompt": "Read the passage. What does brief mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "not wide",
+      "correct_answer": "short",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "not wide is correct because the context and word relationship fit.",
-      "feedback": "Yes — not wide fits.",
+      "explanation": "Just two minutes tells how brief the rest was, so brief means short.",
+      "feedback": "Yes — short fits the passage.",
       "choices": [
-        "not wide",
-        "very loud",
-        "hard to find"
+        "peaceful",
+        "short",
+        "needed",
+        "late"
       ],
-      "word": "narrow",
-      "sentence": "The path was narrow, and only one bike fit.",
+      "word": "brief",
+      "sentence": "We took a brief rest—just two minutes—before walking again.",
       "question_audio": {
-        "text": "Use context clues: The path was narrow, and only one bike fit. What does narrow mean?",
+        "text": "Read the passage. What does brief mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "narrow",
+        "text": "brief",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "We took a brief rest—just two minutes—before walking again."
     }
   ],
   "checkpoint": [
     {
       "question_id": "G2E_VOC_001_LVL2_Q09",
-      "prompt": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
-      "question_type": "short_response",
+      "prompt": "Read the passage. What does sturdy mean in this passage?",
+      "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "funny",
+      "correct_answer": "strong",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "funny is correct because the context and word relationship fit.",
-      "feedback": "Yes — funny fits.",
+      "explanation": "Holding heavy trucks without bending or breaking shows that sturdy means strong.",
+      "feedback": "Yes — strong fits the passage.",
       "choices": [
-        "funny",
-        "very loud",
-        "hard to find"
+        "narrow",
+        "new",
+        "strong",
+        "noisy"
       ],
-      "word": "amusing",
-      "sentence": "The joke was amusing, and we laughed.",
-      "acceptable_answers": [
-        "funny",
-        "funny",
-        "funny"
-      ],
+      "word": "sturdy",
+      "sentence": "A sturdy bridge can hold heavy trucks without bending or breaking.",
       "question_audio": {
-        "text": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
+        "text": "Read the passage. What does sturdy mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "amusing",
+        "text": "sturdy",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "A sturdy bridge can hold heavy trucks without bending or breaking."
     },
     {
       "question_id": "G2E_VOC_001_LVL2_Q10",
-      "prompt": "Use context clues: The room was silent; no one made a sound. What does silent mean?",
+      "prompt": "Read the passage. What does supplies mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "quiet",
+      "correct_answer": "things needed for a task",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "context_clue_ignored",
-      "explanation": "quiet is correct because the context and word relationship fit.",
-      "feedback": "Yes — quiet fits.",
+      "explanation": "Paper, tape, and scissors are examples of things needed for the project.",
+      "feedback": "Yes — things needed for a task fits the passage.",
       "choices": [
-        "quiet",
-        "very loud",
-        "hard to find"
+        "rules for a game",
+        "pictures on paper",
+        "people who give help",
+        "things needed for a task"
       ],
-      "word": "silent",
-      "sentence": "The room was silent; no one made a sound.",
+      "word": "supplies",
+      "sentence": "Lena gathered supplies such as paper, tape, and scissors for the project.",
       "question_audio": {
-        "text": "Use context clues: The room was silent; no one made a sound. What does silent mean?",
+        "text": "Read the passage. What does supplies mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "silent",
+        "text": "supplies",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Lena gathered supplies such as paper, tape, and scissors for the project."
     },
     {
       "question_id": "G2E_VOC_001_LVL3_Q01",
-      "prompt": "Choose the meaning of bat in this sentence: The bat flew out of the cave.",
+      "prompt": "Read the passage. What does cricket mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "animal",
+      "correct_answer": "a small jumping insect",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "multiple_meaning_confusion",
-      "explanation": "animal is correct because the context and word relationship fit.",
-      "feedback": "Yes — animal fits.",
+      "explanation": "The cricket landed beside the pond, so here cricket names a small jumping insect.",
+      "feedback": "Yes — a small jumping insect fits the passage.",
       "choices": [
-        "animal",
-        "animal",
-        "not real"
+        "a small jumping insect",
+        "a team game with a bat",
+        "a loud bird",
+        "a smooth stone"
       ],
-      "word": "bat",
-      "sentence": "The bat flew out of the cave.",
+      "word": "cricket",
+      "sentence": "A cricket landed on the cool rock beside the pond.",
       "question_audio": {
-        "text": "Choose the meaning of bat in this sentence: The bat flew out of the cave.",
+        "text": "Read the passage. What does cricket mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "bat",
+        "text": "cricket",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "A cricket landed on the cool rock beside the pond."
     },
     {
       "question_id": "G2E_VOC_001_LVL3_Q02",
-      "prompt": "Choose the meaning of bat in this sentence: She swung the bat at the ball.",
+      "prompt": "Read the passage. What does bolt mean in this passage?",
       "question_type": "short_response",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "sports stick",
+      "correct_answer": "to fasten securely",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "multiple_meaning_confusion",
-      "explanation": "sports stick is correct because the context and word relationship fit.",
-      "feedback": "Yes — sports stick fits.",
+      "explanation": "Keeping the gate from opening shows that bolt means to fasten it securely.",
+      "feedback": "Yes — to fasten securely fits the passage.",
       "choices": [
-        "sports stick",
-        "place to play",
-        "not real"
+        "to run away quickly",
+        "to fasten securely",
+        "a flash in a storm",
+        "a piece of cloth"
       ],
-      "word": "bat",
-      "sentence": "She swung the bat at the ball.",
+      "word": "bolt",
+      "sentence": "Dad will bolt the garden gate so the goats cannot push it open.",
       "acceptable_answers": [
-        "sports stick",
-        "sports stick",
-        "sports stick"
+        "to fasten securely"
       ],
       "question_audio": {
-        "text": "Choose the meaning of bat in this sentence: She swung the bat at the ball.",
+        "text": "Read the passage. What does bolt mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "bat",
+        "text": "bolt",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Dad will bolt the garden gate so the goats cannot push it open."
     },
     {
       "question_id": "G2E_VOC_001_LVL3_Q03",
-      "prompt": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+      "prompt": "Read the passage. What does play mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "put a vehicle in a place",
+      "correct_answer": "a story acted onstage",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "multiple_meaning_confusion",
-      "explanation": "put a vehicle in a place is correct because the context and word relationship fit.",
-      "feedback": "Yes — put a vehicle in a place fits.",
+      "explanation": "The class watched a story about a dragon, so play means a story acted onstage.",
+      "feedback": "Yes — a story acted onstage fits the passage.",
       "choices": [
-        "put a vehicle in a place",
-        "animal",
-        "not real"
+        "to have fun with a toy",
+        "to make music",
+        "a story acted onstage",
+        "a grassy field"
       ],
-      "word": "park",
-      "sentence": "I can park my bike by the gate.",
+      "word": "play",
+      "sentence": "Our class watched a play about a dragon who learns to share.",
       "question_audio": {
-        "text": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+        "text": "Read the passage. What does play mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "park",
+        "text": "play",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Our class watched a play about a dragon who learns to share."
     },
     {
       "question_id": "G2E_VOC_001_LVL3_Q04",
-      "prompt": "Choose the meaning of park in this sentence: We played at the park after school.",
+      "prompt": "Read the passage. What does watch mean in this passage?",
       "question_type": "multiple_choice",
       "visual_model": "context_sentence",
       "support_type": "context_sentence",
-      "correct_answer": "place to play",
+      "correct_answer": "to keep an eye on",
       "hints": [
-        "Read the whole sentence before choosing a word meaning.",
-        "Decide whether the words mean the same, opposite, or belong in a group.",
-        "For multiple-meaning words, choose the meaning that fits the sentence."
+        "Read the whole passage and notice the words near the target.",
+        "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+        "Try each answer in the passage and choose the one that makes the best sense."
       ],
       "misconception_tag": "multiple_meaning_confusion",
-      "explanation": "place to play is correct because the context and word relationship fit.",
-      "feedback": "Yes — place to play fits.",
+      "explanation": "The speaker asks someone to keep an eye on the soup, not read a clock.",
+      "feedback": "Yes — to keep an eye on fits the passage.",
       "choices": [
-        "place to play",
-        "place to play",
-        "not real"
+        "a clock worn on the wrist",
+        "to join a race",
+        "to stir with a spoon",
+        "to keep an eye on"
       ],
-      "word": "park",
-      "sentence": "We played at the park after school.",
+      "word": "watch",
+      "sentence": "Please watch the soup while I answer the door.",
       "question_audio": {
-        "text": "Choose the meaning of park in this sentence: We played at the park after school.",
+        "text": "Read the passage. What does watch mean in this passage?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "park",
+        "text": "watch",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "passage": "Please watch the soup while I answer the door."
     }
   ],
   "misconception_bank": {
@@ -1035,320 +1072,423 @@
       "questions": [
         {
           "question_id": "G2E_VOC_001_LVL1_Q01",
-          "prompt": "Choose the synonym for quick.",
+          "prompt": "Read the passage. Which word means nearly the same as rapid?",
           "question_type": "short_response",
           "visual_model": "word_card",
           "support_type": "word_card",
-          "correct_answer": "fast",
+          "correct_answer": "quick",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "fast is correct because the context and word relationship fit.",
-          "feedback": "Yes — fast fits.",
+          "explanation": "The word dash shows that Nora moved quickly, so quick is a synonym for rapid.",
+          "feedback": "Yes — quick fits the passage.",
           "choices": [
-            "fast",
             "quick",
-            "slow"
+            "quiet",
+            "late",
+            "careful"
           ],
-          "word": "quick",
+          "word": "rapid",
           "pairs": [
             {
-              "left": "quick",
-              "right": "fast",
+              "left": "rapid",
+              "right": "quick",
               "relation": "synonym"
             }
           ],
           "acceptable_answers": [
-            "fast",
-            "fast",
-            "fast"
+            "quick"
           ],
           "question_audio": {
-            "text": "Choose the synonym for quick.",
+            "text": "Read the passage. Which word means nearly the same as rapid?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "quick",
+            "text": "rapid",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Nora made a rapid dash to catch the rolling ball.",
+          "sentence": "Nora made a rapid dash to catch the rolling ball."
         },
         {
           "question_id": "G2E_VOC_001_LVL1_Q02",
-          "prompt": "Choose the antonym for big.",
+          "prompt": "Read the passage. Which word is an antonym, or opposite, of huge?",
           "question_type": "vocabulary_match",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "small",
+          "correct_answer": "tiny",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "small is correct because the context and word relationship fit.",
-          "feedback": "Yes — small fits.",
+          "explanation": "Tiny means very small, which is the opposite of huge.",
+          "feedback": "Yes — tiny fits the passage.",
           "choices": [
-            "small",
-            "big",
-            "bright"
+            "heavy",
+            "tiny",
+            "round",
+            "large"
           ],
-          "word": "big",
+          "word": "huge",
           "pairs": [
             {
-              "left": "big",
-              "right": "small",
+              "left": "huge",
+              "right": "tiny",
               "relation": "antonym"
             }
           ],
           "question_audio": {
-            "text": "Choose the antonym for big.",
+            "text": "Read the passage. Which word is an antonym, or opposite, of huge?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "big",
+            "text": "huge",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The huge pumpkin took two children to lift it.",
+          "sentence": "The huge pumpkin took two children to lift it."
         },
         {
           "question_id": "G2E_VOC_001_LVL1_Q03",
-          "prompt": "Choose the synonym for happy.",
+          "prompt": "Read the passage. Which word means nearly the same as cheerful?",
           "question_type": "multiple_choice",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "glad",
+          "correct_answer": "happy",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "glad is correct because the context and word relationship fit.",
-          "feedback": "Yes — glad fits.",
+          "explanation": "Smiling and singing show that the guide is happy, a synonym for cheerful.",
+          "feedback": "Yes — happy fits the passage.",
           "choices": [
-            "glad",
+            "sleepy",
+            "worried",
             "happy",
-            "slow"
+            "silent"
           ],
-          "word": "happy",
+          "word": "cheerful",
           "pairs": [
             {
-              "left": "happy",
-              "right": "glad",
+              "left": "cheerful",
+              "right": "happy",
               "relation": "synonym"
             }
           ],
           "question_audio": {
-            "text": "Choose the synonym for happy.",
+            "text": "Read the passage. Which word means nearly the same as cheerful?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "happy",
+            "text": "cheerful",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Our cheerful guide smiled and sang as we walked.",
+          "sentence": "Our cheerful guide smiled and sang as we walked."
         },
         {
           "question_id": "G2E_VOC_001_LVL1_Q04",
-          "prompt": "Choose the antonym for hot.",
+          "prompt": "Read the passage. Which word is an antonym of noisy?",
           "question_type": "multiple_choice",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "cold",
+          "correct_answer": "quiet",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "cold is correct because the context and word relationship fit.",
-          "feedback": "Yes — cold fits.",
+          "explanation": "The contrast with calm and still shows that quiet is the opposite of noisy.",
+          "feedback": "Yes — quiet fits the passage.",
           "choices": [
-            "cold",
-            "hot",
-            "bright"
+            "busy",
+            "crowded",
+            "bright",
+            "quiet"
           ],
-          "word": "hot",
+          "word": "noisy",
           "pairs": [
             {
-              "left": "hot",
-              "right": "cold",
+              "left": "noisy",
+              "right": "quiet",
               "relation": "antonym"
             }
           ],
           "question_audio": {
-            "text": "Choose the antonym for hot.",
+            "text": "Read the passage. Which word is an antonym of noisy?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "hot",
+            "text": "noisy",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The hallway was noisy, but the library was calm and still.",
+          "sentence": "The hallway was noisy, but the library was calm and still."
         },
         {
           "question_id": "G2E_VOC_001_LVL1_Q05",
-          "prompt": "Choose the synonym for begin.",
+          "prompt": "Read the passage. Which word means nearly the same as select?",
           "question_type": "multiple_choice",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "start",
+          "correct_answer": "choose",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "start is correct because the context and word relationship fit.",
-          "feedback": "Yes — start fits.",
+          "explanation": "To select one crayon means to choose one crayon.",
+          "feedback": "Yes — choose fits the passage.",
           "choices": [
-            "start",
-            "begin",
-            "slow"
+            "choose",
+            "color",
+            "share",
+            "return"
           ],
-          "word": "begin",
+          "word": "select",
           "pairs": [
             {
-              "left": "begin",
-              "right": "start",
+              "left": "select",
+              "right": "choose",
               "relation": "synonym"
             }
           ],
           "question_audio": {
-            "text": "Choose the synonym for begin.",
+            "text": "Read the passage. Which word means nearly the same as select?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "begin",
+            "text": "select",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Please select one crayon from the box for your drawing.",
+          "sentence": "Please select one crayon from the box for your drawing."
         },
         {
           "question_id": "G2E_VOC_001_LVL1_Q06",
-          "prompt": "Choose the antonym for quiet.",
-          "question_type": "short_response",
+          "prompt": "Read the passage. Which word is an antonym of shallow?",
+          "question_type": "multiple_choice",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "loud",
+          "correct_answer": "deep",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "loud is correct because the context and word relationship fit.",
-          "feedback": "Yes — loud fits.",
+          "explanation": "The word but signals a contrast: deep is the opposite of shallow.",
+          "feedback": "Yes — deep fits the passage.",
           "choices": [
-            "loud",
-            "quiet",
-            "bright"
+            "clear",
+            "deep",
+            "still",
+            "wide"
           ],
-          "word": "quiet",
+          "word": "shallow",
           "pairs": [
             {
-              "left": "quiet",
-              "right": "loud",
+              "left": "shallow",
+              "right": "deep",
               "relation": "antonym"
             }
           ],
-          "acceptable_answers": [
-            "loud",
-            "loud",
-            "loud"
-          ],
           "question_audio": {
-            "text": "Choose the antonym for quiet.",
+            "text": "Read the passage. Which word is an antonym of shallow?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "quiet",
+            "text": "shallow",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The pond is shallow near the shore, but it is deep by the dock.",
+          "sentence": "The pond is shallow near the shore, but it is deep by the dock."
         },
         {
           "question_id": "G2E_VOC_001_LVL1_Q07",
-          "prompt": "Choose the synonym for under.",
+          "prompt": "Read the passage. Which word means nearly the same as eager?",
           "question_type": "multiple_choice",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "below",
+          "correct_answer": "excited",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "below is correct because the context and word relationship fit.",
-          "feedback": "Yes — below fits.",
+          "explanation": "Could hardly wait shows that Jamal was excited, which is close in meaning to eager.",
+          "feedback": "Yes — excited fits the passage.",
           "choices": [
-            "below",
-            "under",
-            "slow"
+            "tired",
+            "confused",
+            "excited",
+            "patient"
           ],
-          "word": "under",
+          "word": "eager",
           "pairs": [
             {
-              "left": "under",
-              "right": "below",
+              "left": "eager",
+              "right": "excited",
               "relation": "synonym"
             }
           ],
           "question_audio": {
-            "text": "Choose the synonym for under.",
+            "text": "Read the passage. Which word means nearly the same as eager?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "under",
+            "text": "eager",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Jamal was eager to open the package and could hardly wait.",
+          "sentence": "Jamal was eager to open the package and could hardly wait."
         },
         {
           "question_id": "G2E_VOC_001_LVL1_Q08",
-          "prompt": "Choose the antonym for empty.",
+          "prompt": "Read the passage. Which word is an antonym of rough?",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "smooth",
+          "hints": [
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "Smooth describes a surface without bumps, so it is the opposite of rough.",
+          "feedback": "Yes — smooth fits the passage.",
+          "choices": [
+            "hard",
+            "thick",
+            "brown",
+            "smooth"
+          ],
+          "word": "rough",
+          "pairs": [
+            {
+              "left": "rough",
+              "right": "smooth",
+              "relation": "antonym"
+            }
+          ],
+          "question_audio": {
+            "text": "Read the passage. Which word is an antonym of rough?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "rough",
+            "label": "Hear the word",
+            "type": "word",
+            "playback_preference": "cached_audio_first"
+          },
+          "passage": "The rough tree bark felt bumpy under my hand.",
+          "sentence": "The rough tree bark felt bumpy under my hand."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q09",
+          "prompt": "Read the passage. Which word means nearly the same as repair?",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "fix",
+          "hints": [
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "Making the torn kite usable again means to fix, or repair, it.",
+          "feedback": "Yes — fix fits the passage.",
+          "choices": [
+            "fix",
+            "fold",
+            "paint",
+            "carry"
+          ],
+          "word": "repair",
+          "pairs": [
+            {
+              "left": "repair",
+              "right": "fix",
+              "relation": "synonym"
+            }
+          ],
+          "question_audio": {
+            "text": "Read the passage. Which word means nearly the same as repair?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "repair",
+            "label": "Hear the word",
+            "type": "word",
+            "playback_preference": "cached_audio_first"
+          },
+          "passage": "We will repair the torn kite so it can fly again.",
+          "sentence": "We will repair the torn kite so it can fly again."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q10",
+          "prompt": "Read the passage. Which word is an antonym of empty?",
           "question_type": "multiple_choice",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
           "correct_answer": "full",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "full is correct because the context and word relationship fit.",
-          "feedback": "Yes — full fits.",
+          "explanation": "Packed with children means full, which is the opposite of empty.",
+          "feedback": "Yes — full fits the passage.",
           "choices": [
+            "early",
             "full",
-            "empty",
-            "bright"
+            "open",
+            "silent"
           ],
           "word": "empty",
           "pairs": [
@@ -1359,7 +1499,7 @@
             }
           ],
           "question_audio": {
-            "text": "Choose the antonym for empty.",
+            "text": "Read the passage. Which word is an antonym of empty?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1369,89 +1509,9 @@
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "question_id": "G2E_VOC_001_LVL1_Q09",
-          "prompt": "Choose the synonym for close.",
-          "question_type": "multiple_choice",
-          "visual_model": "vocabulary_match",
-          "support_type": "vocabulary_match",
-          "correct_answer": "near",
-          "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
-          ],
-          "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "near is correct because the context and word relationship fit.",
-          "feedback": "Yes — near fits.",
-          "choices": [
-            "near",
-            "close",
-            "slow"
-          ],
-          "word": "close",
-          "pairs": [
-            {
-              "left": "close",
-              "right": "near",
-              "relation": "synonym"
-            }
-          ],
-          "question_audio": {
-            "text": "Choose the synonym for close.",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
           },
-          "audio": {
-            "text": "close",
-            "label": "Hear the word",
-            "type": "word",
-            "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "question_id": "G2E_VOC_001_LVL1_Q10",
-          "prompt": "Choose the antonym for early.",
-          "question_type": "multiple_choice",
-          "visual_model": "vocabulary_match",
-          "support_type": "vocabulary_match",
-          "correct_answer": "late",
-          "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
-          ],
-          "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "late is correct because the context and word relationship fit.",
-          "feedback": "Yes — late fits.",
-          "choices": [
-            "late",
-            "early",
-            "bright"
-          ],
-          "word": "early",
-          "pairs": [
-            {
-              "left": "early",
-              "right": "late",
-              "relation": "antonym"
-            }
-          ],
-          "question_audio": {
-            "text": "Choose the antonym for early.",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
-          },
-          "audio": {
-            "text": "early",
-            "label": "Hear the word",
-            "type": "word",
-            "playback_preference": "cached_audio_first"
-          }
+          "passage": "At sunrise the playground was empty; later, it was packed with children.",
+          "sentence": "At sunrise the playground was empty; later, it was packed with children."
         }
       ]
     },
@@ -1465,368 +1525,376 @@
       "questions": [
         {
           "question_id": "G2E_VOC_001_LVL2_Q01",
-          "prompt": "Use context clues: The kitten was tiny, so it fit in my hand. What does tiny mean?",
+          "prompt": "Read the passage. What does timid mean in this passage?",
           "question_type": "short_response",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "very small",
+          "correct_answer": "shy",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "very small is correct because the context and word relationship fit.",
-          "feedback": "Yes — very small fits.",
+          "explanation": "Hiding instead of coming near is a clue that timid means shy.",
+          "feedback": "Yes — shy fits the passage.",
           "choices": [
-            "very small",
-            "very loud",
-            "hard to find"
+            "hungry",
+            "playful",
+            "shy",
+            "wild"
           ],
-          "word": "tiny",
-          "sentence": "The kitten was tiny, so it fit in my hand.",
+          "word": "timid",
+          "sentence": "The rabbit was timid. It hid behind the log instead of coming near us.",
           "acceptable_answers": [
-            "very small",
-            "very small",
-            "very small"
+            "shy"
           ],
           "question_audio": {
-            "text": "Use context clues: The kitten was tiny, so it fit in my hand. What does tiny mean?",
+            "text": "Read the passage. What does timid mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "tiny",
+            "text": "timid",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The rabbit was timid. It hid behind the log instead of coming near us."
         },
         {
           "question_id": "G2E_VOC_001_LVL2_Q02",
-          "prompt": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+          "prompt": "Read the passage. What does scarce mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "very tired",
+          "correct_answer": "hard to find",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "very tired is correct because the context and word relationship fit.",
-          "feedback": "Yes — very tired fits.",
+          "explanation": "Only a few drops remained is a definition-like clue that the water was hard to find.",
+          "feedback": "Yes — hard to find fits the passage.",
           "choices": [
-            "very tired",
-            "very loud",
+            "fresh and clean",
+            "deep enough to swim in",
+            "moving very fast",
             "hard to find"
           ],
-          "word": "exhausted",
-          "sentence": "Dad was exhausted after the long hike.",
+          "word": "scarce",
+          "sentence": "After the rain, water was scarce. Only a few drops remained in the barrel.",
           "question_audio": {
-            "text": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+            "text": "Read the passage. What does scarce mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "exhausted",
+            "text": "scarce",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "After the rain, water was scarce. Only a few drops remained in the barrel."
         },
         {
           "question_id": "G2E_VOC_001_LVL2_Q03",
-          "prompt": "Use context clues: The soup was steaming, so I waited. What does steaming mean?",
+          "prompt": "Read the passage. What does protected mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "very hot",
+          "correct_answer": "kept safe",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "very hot is correct because the context and word relationship fit.",
-          "feedback": "Yes — very hot fits.",
+          "explanation": "Covering the plant from the cold kept it safe, so protected means kept safe.",
+          "feedback": "Yes — kept safe fits the passage.",
           "choices": [
-            "very hot",
-            "very loud",
-            "hard to find"
+            "kept safe",
+            "pulled apart",
+            "looked for",
+            "helped grow taller"
           ],
-          "word": "steaming",
-          "sentence": "The soup was steaming, so I waited.",
+          "word": "protected",
+          "sentence": "Priya protected the seedling from the cold. She covered the little plant with a cloth.",
           "question_audio": {
-            "text": "Use context clues: The soup was steaming, so I waited. What does steaming mean?",
+            "text": "Read the passage. What does protected mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "steaming",
+            "text": "protected",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Priya protected the seedling from the cold. She covered the little plant with a cloth."
         },
         {
           "question_id": "G2E_VOC_001_LVL2_Q04",
-          "prompt": "Use context clues: Mia whispered because the baby was asleep. What does whispered mean?",
+          "prompt": "Read the passage. What does drowsy mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "spoke quietly",
+          "correct_answer": "sleepy",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "spoke quietly is correct because the context and word relationship fit.",
-          "feedback": "Yes — spoke quietly fits.",
+          "explanation": "Yawning and closing its eyes are examples that show the puppy was sleepy.",
+          "feedback": "Yes — sleepy fits the passage.",
           "choices": [
-            "spoke quietly",
-            "very loud",
-            "hard to find"
+            "lonely",
+            "sleepy",
+            "thirsty",
+            "frightened"
           ],
-          "word": "whispered",
-          "sentence": "Mia whispered because the baby was asleep.",
+          "word": "drowsy",
+          "sentence": "The puppy was drowsy. It yawned, curled up, and closed its eyes.",
           "question_audio": {
-            "text": "Use context clues: Mia whispered because the baby was asleep. What does whispered mean?",
+            "text": "Read the passage. What does drowsy mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "whispered",
+            "text": "drowsy",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The puppy was drowsy. It yawned, curled up, and closed its eyes."
         },
         {
           "question_id": "G2E_VOC_001_LVL2_Q05",
-          "prompt": "Use context clues: The lost puppy looked afraid and shook. What does afraid mean?",
-          "question_type": "short_response",
+          "prompt": "Read the passage. What does vivid mean in this passage?",
+          "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "scared",
+          "correct_answer": "bright and colorful",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "scared is correct because the context and word relationship fit.",
-          "feedback": "Yes — scared fits.",
+          "explanation": "Unlike and bright contrast the shell with dull stones, showing that vivid means bright and colorful.",
+          "feedback": "Yes — bright and colorful fits the passage.",
           "choices": [
-            "scared",
-            "very loud",
-            "hard to find"
+            "plain and gray",
+            "small and smooth",
+            "bright and colorful",
+            "old and cracked"
           ],
-          "word": "afraid",
-          "sentence": "The lost puppy looked afraid and shook.",
-          "acceptable_answers": [
-            "scared",
-            "scared",
-            "scared"
-          ],
+          "word": "vivid",
+          "sentence": "Unlike the dull gray stones, the polished shell was vivid and bright.",
           "question_audio": {
-            "text": "Use context clues: The lost puppy looked afraid and shook. What does afraid mean?",
+            "text": "Read the passage. What does vivid mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "afraid",
+            "text": "vivid",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Unlike the dull gray stones, the polished shell was vivid and bright."
         },
         {
           "question_id": "G2E_VOC_001_LVL2_Q06",
-          "prompt": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+          "prompt": "Read the passage. What does glanced mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "moved quickly",
+          "correct_answer": "looked quickly",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "moved quickly is correct because the context and word relationship fit.",
-          "feedback": "Yes — moved quickly fits.",
+          "explanation": "The words one quick look explain that glanced means looked quickly.",
+          "feedback": "Yes — looked quickly fits the passage.",
           "choices": [
-            "moved quickly",
-            "very loud",
-            "hard to find"
+            "stared for a long time",
+            "covered from view",
+            "pointed with a finger",
+            "looked quickly"
           ],
-          "word": "hurried",
-          "sentence": "We hurried so we would not be late.",
+          "word": "glanced",
+          "sentence": "Mateo glanced at the clock, taking one quick look before he ran outside.",
           "question_audio": {
-            "text": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+            "text": "Read the passage. What does glanced mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "hurried",
+            "text": "glanced",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Mateo glanced at the clock, taking one quick look before he ran outside."
         },
         {
           "question_id": "G2E_VOC_001_LVL2_Q07",
-          "prompt": "Use context clues: The glass was fragile, so we carried it carefully. What does fragile mean?",
+          "prompt": "Read the passage. What does delighted mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "easy to break",
+          "correct_answer": "very pleased",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "easy to break is correct because the context and word relationship fit.",
-          "feedback": "Yes — easy to break fits.",
+          "explanation": "Clapping and cheering show that the crowd was very pleased.",
+          "feedback": "Yes — very pleased fits the passage.",
           "choices": [
-            "easy to break",
-            "very loud",
-            "hard to find"
+            "very pleased",
+            "ready to leave",
+            "unable to hear",
+            "surprised by noise"
           ],
-          "word": "fragile",
-          "sentence": "The glass was fragile, so we carried it carefully.",
+          "word": "delighted",
+          "sentence": "The crowd was delighted when the band played one more song. People clapped and cheered.",
           "question_audio": {
-            "text": "Use context clues: The glass was fragile, so we carried it carefully. What does fragile mean?",
+            "text": "Read the passage. What does delighted mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "fragile",
+            "text": "delighted",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The crowd was delighted when the band played one more song. People clapped and cheered."
         },
         {
           "question_id": "G2E_VOC_001_LVL2_Q08",
-          "prompt": "Use context clues: The path was narrow, and only one bike fit. What does narrow mean?",
+          "prompt": "Read the passage. What does brief mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "not wide",
+          "correct_answer": "short",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "not wide is correct because the context and word relationship fit.",
-          "feedback": "Yes — not wide fits.",
+          "explanation": "Just two minutes tells how brief the rest was, so brief means short.",
+          "feedback": "Yes — short fits the passage.",
           "choices": [
-            "not wide",
-            "very loud",
-            "hard to find"
+            "peaceful",
+            "short",
+            "needed",
+            "late"
           ],
-          "word": "narrow",
-          "sentence": "The path was narrow, and only one bike fit.",
+          "word": "brief",
+          "sentence": "We took a brief rest—just two minutes—before walking again.",
           "question_audio": {
-            "text": "Use context clues: The path was narrow, and only one bike fit. What does narrow mean?",
+            "text": "Read the passage. What does brief mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "narrow",
+            "text": "brief",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "We took a brief rest—just two minutes—before walking again."
         },
         {
           "question_id": "G2E_VOC_001_LVL2_Q09",
-          "prompt": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
-          "question_type": "short_response",
-          "visual_model": "context_sentence",
-          "support_type": "context_sentence",
-          "correct_answer": "funny",
-          "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
-          ],
-          "misconception_tag": "context_clue_ignored",
-          "explanation": "funny is correct because the context and word relationship fit.",
-          "feedback": "Yes — funny fits.",
-          "choices": [
-            "funny",
-            "very loud",
-            "hard to find"
-          ],
-          "word": "amusing",
-          "sentence": "The joke was amusing, and we laughed.",
-          "acceptable_answers": [
-            "funny",
-            "funny",
-            "funny"
-          ],
-          "question_audio": {
-            "text": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
-          },
-          "audio": {
-            "text": "amusing",
-            "label": "Hear the word",
-            "type": "word",
-            "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "question_id": "G2E_VOC_001_LVL2_Q10",
-          "prompt": "Use context clues: The room was silent; no one made a sound. What does silent mean?",
+          "prompt": "Read the passage. What does sturdy mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "quiet",
+          "correct_answer": "strong",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "quiet is correct because the context and word relationship fit.",
-          "feedback": "Yes — quiet fits.",
+          "explanation": "Holding heavy trucks without bending or breaking shows that sturdy means strong.",
+          "feedback": "Yes — strong fits the passage.",
           "choices": [
-            "quiet",
-            "very loud",
-            "hard to find"
+            "narrow",
+            "new",
+            "strong",
+            "noisy"
           ],
-          "word": "silent",
-          "sentence": "The room was silent; no one made a sound.",
+          "word": "sturdy",
+          "sentence": "A sturdy bridge can hold heavy trucks without bending or breaking.",
           "question_audio": {
-            "text": "Use context clues: The room was silent; no one made a sound. What does silent mean?",
+            "text": "Read the passage. What does sturdy mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "silent",
+            "text": "sturdy",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "A sturdy bridge can hold heavy trucks without bending or breaking."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q10",
+          "prompt": "Read the passage. What does supplies mean in this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "things needed for a task",
+          "hints": [
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "Paper, tape, and scissors are examples of things needed for the project.",
+          "feedback": "Yes — things needed for a task fits the passage.",
+          "choices": [
+            "rules for a game",
+            "pictures on paper",
+            "people who give help",
+            "things needed for a task"
+          ],
+          "word": "supplies",
+          "sentence": "Lena gathered supplies such as paper, tape, and scissors for the project.",
+          "question_audio": {
+            "text": "Read the passage. What does supplies mean in this passage?",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "supplies",
+            "label": "Hear the word",
+            "type": "word",
+            "playback_preference": "cached_audio_first"
+          },
+          "passage": "Lena gathered supplies such as paper, tape, and scissors for the project."
         }
       ]
     },
@@ -1840,363 +1908,376 @@
       "questions": [
         {
           "question_id": "G2E_VOC_001_LVL3_Q01",
-          "prompt": "Choose the meaning of bat in this sentence: The bat flew out of the cave.",
+          "prompt": "Read the passage. What does cricket mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "animal",
+          "correct_answer": "a small jumping insect",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "animal is correct because the context and word relationship fit.",
-          "feedback": "Yes — animal fits.",
+          "explanation": "The cricket landed beside the pond, so here cricket names a small jumping insect.",
+          "feedback": "Yes — a small jumping insect fits the passage.",
           "choices": [
-            "animal",
-            "animal",
-            "not real"
+            "a small jumping insect",
+            "a team game with a bat",
+            "a loud bird",
+            "a smooth stone"
           ],
-          "word": "bat",
-          "sentence": "The bat flew out of the cave.",
+          "word": "cricket",
+          "sentence": "A cricket landed on the cool rock beside the pond.",
           "question_audio": {
-            "text": "Choose the meaning of bat in this sentence: The bat flew out of the cave.",
+            "text": "Read the passage. What does cricket mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "bat",
+            "text": "cricket",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "A cricket landed on the cool rock beside the pond."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q02",
-          "prompt": "Choose the meaning of bat in this sentence: She swung the bat at the ball.",
+          "prompt": "Read the passage. What does bolt mean in this passage?",
           "question_type": "short_response",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "sports stick",
+          "correct_answer": "to fasten securely",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "sports stick is correct because the context and word relationship fit.",
-          "feedback": "Yes — sports stick fits.",
+          "explanation": "Keeping the gate from opening shows that bolt means to fasten it securely.",
+          "feedback": "Yes — to fasten securely fits the passage.",
           "choices": [
-            "sports stick",
-            "place to play",
-            "not real"
+            "to run away quickly",
+            "to fasten securely",
+            "a flash in a storm",
+            "a piece of cloth"
           ],
-          "word": "bat",
-          "sentence": "She swung the bat at the ball.",
+          "word": "bolt",
+          "sentence": "Dad will bolt the garden gate so the goats cannot push it open.",
           "acceptable_answers": [
-            "sports stick",
-            "sports stick",
-            "sports stick"
+            "to fasten securely"
           ],
           "question_audio": {
-            "text": "Choose the meaning of bat in this sentence: She swung the bat at the ball.",
+            "text": "Read the passage. What does bolt mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "bat",
+            "text": "bolt",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Dad will bolt the garden gate so the goats cannot push it open."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q03",
-          "prompt": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+          "prompt": "Read the passage. What does play mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "put a vehicle in a place",
+          "correct_answer": "a story acted onstage",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "put a vehicle in a place is correct because the context and word relationship fit.",
-          "feedback": "Yes — put a vehicle in a place fits.",
+          "explanation": "The class watched a story about a dragon, so play means a story acted onstage.",
+          "feedback": "Yes — a story acted onstage fits the passage.",
           "choices": [
-            "put a vehicle in a place",
-            "animal",
-            "not real"
+            "to have fun with a toy",
+            "to make music",
+            "a story acted onstage",
+            "a grassy field"
           ],
-          "word": "park",
-          "sentence": "I can park my bike by the gate.",
+          "word": "play",
+          "sentence": "Our class watched a play about a dragon who learns to share.",
           "question_audio": {
-            "text": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+            "text": "Read the passage. What does play mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "park",
+            "text": "play",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Our class watched a play about a dragon who learns to share."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q04",
-          "prompt": "Choose the meaning of park in this sentence: We played at the park after school.",
+          "prompt": "Read the passage. What does watch mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "place to play",
+          "correct_answer": "to keep an eye on",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "place to play is correct because the context and word relationship fit.",
-          "feedback": "Yes — place to play fits.",
+          "explanation": "The speaker asks someone to keep an eye on the soup, not read a clock.",
+          "feedback": "Yes — to keep an eye on fits the passage.",
           "choices": [
-            "place to play",
-            "place to play",
-            "not real"
+            "a clock worn on the wrist",
+            "to join a race",
+            "to stir with a spoon",
+            "to keep an eye on"
           ],
-          "word": "park",
-          "sentence": "We played at the park after school.",
+          "word": "watch",
+          "sentence": "Please watch the soup while I answer the door.",
           "question_audio": {
-            "text": "Choose the meaning of park in this sentence: We played at the park after school.",
+            "text": "Read the passage. What does watch mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "park",
+            "text": "watch",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Please watch the soup while I answer the door."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q05",
-          "prompt": "Choose the meaning of wave in this sentence: The duck will wave its wing.",
+          "prompt": "Read the passage. What does pitcher mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "move back and forth",
+          "correct_answer": "a container for pouring drinks",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "move back and forth is correct because the context and word relationship fit.",
-          "feedback": "Yes — move back and forth fits.",
+          "explanation": "Filling cups with lemonade shows that pitcher means a container used for pouring.",
+          "feedback": "Yes — a container for pouring drinks fits the passage.",
           "choices": [
-            "move back and forth",
-            "animal",
-            "not real"
+            "a container for pouring drinks",
+            "a player who throws a ball",
+            "a painted picture",
+            "a deep bowl for soup"
           ],
-          "word": "wave",
-          "sentence": "The duck will wave its wing.",
+          "word": "pitcher",
+          "sentence": "The pitcher filled each cup with cold lemonade.",
           "question_audio": {
-            "text": "Choose the meaning of wave in this sentence: The duck will wave its wing.",
+            "text": "Read the passage. What does pitcher mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "wave",
+            "text": "pitcher",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The pitcher filled each cup with cold lemonade."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q06",
-          "prompt": "Choose the meaning of wave in this sentence: A big wave splashed the sand.",
+          "prompt": "Read the passage. What does ruler mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "moving water",
+          "correct_answer": "a tool used to measure",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "moving water is correct because the context and word relationship fit.",
-          "feedback": "Yes — moving water fits.",
+          "explanation": "Placing it along the paper's edge shows that ruler means a measuring tool.",
+          "feedback": "Yes — a tool used to measure fits the passage.",
           "choices": [
-            "moving water",
-            "place to play",
-            "not real"
+            "a leader of a country",
+            "a tool used to measure",
+            "a book of rules",
+            "a strip of ribbon"
           ],
-          "word": "wave",
-          "sentence": "A big wave splashed the sand.",
+          "word": "ruler",
+          "sentence": "Kai placed his ruler flat along the edge of the paper.",
           "question_audio": {
-            "text": "Choose the meaning of wave in this sentence: A big wave splashed the sand.",
+            "text": "Read the passage. What does ruler mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "wave",
+            "text": "ruler",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Kai placed his ruler flat along the edge of the paper."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q07",
-          "prompt": "Choose the meaning of light in this sentence: Please light the candle.",
-          "question_type": "short_response",
+          "prompt": "Read the passage. What does spring mean in this passage?",
+          "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "make it burn",
+          "correct_answer": "water flowing from the ground",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "make it burn is correct because the context and word relationship fit.",
-          "feedback": "Yes — make it burn fits.",
+          "explanation": "The water bubbles from the ground, so spring names a natural source of water.",
+          "feedback": "Yes — water flowing from the ground fits the passage.",
           "choices": [
-            "make it burn",
-            "animal",
-            "not real"
+            "the season after winter",
+            "to jump into the air",
+            "water flowing from the ground",
+            "a coil of metal"
           ],
-          "word": "light",
-          "sentence": "Please light the candle.",
-          "acceptable_answers": [
-            "make it burn",
-            "make it burn",
-            "make it burn"
-          ],
+          "word": "spring",
+          "sentence": "A spring bubbled from the ground and formed a clear stream.",
           "question_audio": {
-            "text": "Choose the meaning of light in this sentence: Please light the candle.",
+            "text": "Read the passage. What does spring mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "light",
+            "text": "spring",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "A spring bubbled from the ground and formed a clear stream."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q08",
-          "prompt": "Choose the meaning of light in this sentence: The box is light enough to carry.",
+          "prompt": "Read the passage. What does bark mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "not heavy",
+          "correct_answer": "the sound a dog makes",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "not heavy is correct because the context and word relationship fit.",
-          "feedback": "Yes — not heavy fits.",
+          "explanation": "The dog and the word heard show that bark means a dog's sound.",
+          "feedback": "Yes — the sound a dog makes fits the passage.",
           "choices": [
-            "not heavy",
-            "place to play",
-            "not real"
+            "the outer covering of a tree",
+            "a small wooden boat",
+            "to scratch a surface",
+            "the sound a dog makes"
           ],
-          "word": "light",
-          "sentence": "The box is light enough to carry.",
+          "word": "bark",
+          "sentence": "We heard the sharp bark of a dog outside the window.",
           "question_audio": {
-            "text": "Choose the meaning of light in this sentence: The box is light enough to carry.",
+            "text": "Read the passage. What does bark mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "light",
+            "text": "bark",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "We heard the sharp bark of a dog outside the window."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q09",
-          "prompt": "Choose the meaning of seal in this sentence: The seal clapped at the show.",
+          "prompt": "Read the passage. What does note mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "sea animal",
+          "correct_answer": "a short written message",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "sea animal is correct because the context and word relationship fit.",
-          "feedback": "Yes — sea animal fits.",
+          "explanation": "Leaving it on a table as a reminder shows that note means a short written message.",
+          "feedback": "Yes — a short written message fits the passage.",
           "choices": [
-            "sea animal",
-            "animal",
-            "not real"
+            "a short written message",
+            "a musical sound",
+            "to notice something",
+            "a coin for payment"
           ],
-          "word": "seal",
-          "sentence": "The seal clapped at the show.",
+          "word": "note",
+          "sentence": "Tia left a note on the table to remind me about practice.",
           "question_audio": {
-            "text": "Choose the meaning of seal in this sentence: The seal clapped at the show.",
+            "text": "Read the passage. What does note mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "seal",
+            "text": "note",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Tia left a note on the table to remind me about practice."
         },
         {
           "question_id": "G2E_VOC_001_LVL3_Q10",
-          "prompt": "Choose the meaning of seal in this sentence: Seal the envelope before mailing it.",
+          "prompt": "Read the passage. What does crane mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "close tightly",
+          "correct_answer": "a machine that lifts heavy things",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "close tightly is correct because the context and word relationship fit.",
-          "feedback": "Yes — close tightly fits.",
+          "explanation": "Lifting a steel beam at a building site shows that crane means a lifting machine.",
+          "feedback": "Yes — a machine that lifts heavy things fits the passage.",
           "choices": [
-            "close tightly",
-            "place to play",
-            "not real"
+            "a long-legged bird",
+            "a machine that lifts heavy things",
+            "to stretch your neck",
+            "a truck that mixes cement"
           ],
-          "word": "seal",
-          "sentence": "Seal the envelope before mailing it.",
+          "word": "crane",
+          "sentence": "The crane lifted a steel beam high above the building site.",
           "question_audio": {
-            "text": "Choose the meaning of seal in this sentence: Seal the envelope before mailing it.",
+            "text": "Read the passage. What does crane mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "seal",
+            "text": "crane",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The crane lifted a steel beam high above the building site."
         }
       ]
     },
@@ -2210,423 +2291,421 @@
       "questions": [
         {
           "question_id": "G2E_VOC_001_LVL4_Q01",
-          "prompt": "Sort these words into a category: apple, banana, peach.",
+          "prompt": "Read the passage. Which category names the three foods Ava packed?",
           "question_type": "category_sort",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "fruit",
+          "correct_answer": "fruits",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "fruit is correct because the context and word relationship fit.",
-          "feedback": "Yes — fruit fits.",
+          "explanation": "Apples, grapes, and pears are all fruits.",
+          "feedback": "Yes — fruits fits the passage.",
           "choices": [
-            "fruit",
-            "feelings",
-            "weather"
+            "vegetables",
+            "breads",
+            "fruits",
+            "drinks"
           ],
           "categories": [
-            "fruit",
-            "other"
+            "vegetables",
+            "breads",
+            "fruits",
+            "drinks"
           ],
           "items": [
-            "apple",
-            "banana",
-            "peach"
+            "apples",
+            "grapes",
+            "",
+            "pears"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: apple, banana, peach.",
+            "text": "Read the passage. Which category names the three foods Ava packed?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "fruit",
+            "text": "apples, grapes, and pears",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "For the picnic, Ava packed apples, grapes, and pears.",
+          "sentence": "For the picnic, Ava packed apples, grapes, and pears.",
+          "word": "apples, grapes, and pears"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q02",
-          "prompt": "Sort these words into a category: carrot, corn, peas.",
+          "prompt": "Read the passage. Which category names the animals we spotted?",
           "question_type": "multiple_choice",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "vegetables",
+          "correct_answer": "pond animals",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "vegetables is correct because the context and word relationship fit.",
-          "feedback": "Yes — vegetables fits.",
+          "explanation": "Frogs, turtles, and fish can all live in or near a pond.",
+          "feedback": "Yes — pond animals fits the passage.",
           "choices": [
-            "vegetables",
-            "feelings",
-            "weather"
-          ],
-          "categories": [
-            "vegetables",
-            "other"
-          ],
-          "items": [
-            "carrot",
-            "corn",
-            "peas"
+            "farm animals",
+            "desert animals",
+            "forest birds",
+            "pond animals"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: carrot, corn, peas.",
+            "text": "Read the passage. Which category names the animals we spotted?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "vegetables",
+            "text": "frogs, turtles, and fish",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "At the pond, we spotted frogs, turtles, and fish.",
+          "sentence": "At the pond, we spotted frogs, turtles, and fish.",
+          "word": "frogs, turtles, and fish"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q03",
-          "prompt": "Sort these words into a category: robin, eagle, duck.",
+          "prompt": "Read the passage. Which category names the hammer, screwdriver, and wrench?",
           "question_type": "multiple_choice",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "birds",
+          "correct_answer": "tools",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "birds is correct because the context and word relationship fit.",
-          "feedback": "Yes — birds fits.",
+          "explanation": "A hammer, screwdriver, and wrench are tools used to build or repair things.",
+          "feedback": "Yes — tools fits the passage.",
           "choices": [
-            "birds",
-            "feelings",
-            "weather"
-          ],
-          "categories": [
-            "birds",
-            "other"
-          ],
-          "items": [
-            "robin",
-            "eagle",
-            "duck"
+            "tools",
+            "toys",
+            "kitchen dishes",
+            "school supplies"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: robin, eagle, duck.",
+            "text": "Read the passage. Which category names the hammer, screwdriver, and wrench?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "birds",
+            "text": "hammer, screwdriver, and wrench",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Noah put a hammer, screwdriver, and wrench in the toolbox.",
+          "sentence": "Noah put a hammer, screwdriver, and wrench in the toolbox.",
+          "word": "hammer, screwdriver, and wrench"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q04",
-          "prompt": "Sort these words into a category: shirt, pants, coat.",
+          "prompt": "Read the passage. Which category names the boots, sandals, and sneakers?",
           "question_type": "category_sort",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "clothing",
+          "correct_answer": "footwear",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "clothing is correct because the context and word relationship fit.",
-          "feedback": "Yes — clothing fits.",
+          "explanation": "Boots, sandals, and sneakers are all kinds of footwear.",
+          "feedback": "Yes — footwear fits the passage.",
           "choices": [
-            "clothing",
-            "feelings",
-            "weather"
+            "headwear",
+            "footwear",
+            "sleepwear",
+            "outerwear"
           ],
           "categories": [
-            "clothing",
-            "other"
+            "headwear",
+            "footwear",
+            "sleepwear",
+            "outerwear"
           ],
           "items": [
-            "shirt",
-            "pants",
-            "coat"
+            "boots",
+            "sandals",
+            "",
+            "sneakers"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: shirt, pants, coat.",
+            "text": "Read the passage. Which category names the boots, sandals, and sneakers?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "clothing",
+            "text": "boots, sandals, and sneakers",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The closet held boots, sandals, and sneakers.",
+          "sentence": "The closet held boots, sandals, and sneakers.",
+          "word": "boots, sandals, and sneakers"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q05",
-          "prompt": "Sort these words into a category: bus, train, bike.",
+          "prompt": "Read the passage. Which category names the violin, trumpet, and drum?",
           "question_type": "multiple_choice",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "transportation",
+          "correct_answer": "musical instruments",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "transportation is correct because the context and word relationship fit.",
-          "feedback": "Yes — transportation fits.",
+          "explanation": "A violin, trumpet, and drum are musical instruments.",
+          "feedback": "Yes — musical instruments fits the passage.",
           "choices": [
-            "transportation",
-            "feelings",
-            "weather"
-          ],
-          "categories": [
-            "transportation",
-            "other"
-          ],
-          "items": [
-            "bus",
-            "train",
-            "bike"
+            "sports equipment",
+            "art materials",
+            "musical instruments",
+            "board games"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: bus, train, bike.",
+            "text": "Read the passage. Which category names the violin, trumpet, and drum?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "transportation",
+            "text": "violin, trumpet, and drum",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "We heard a violin, trumpet, and drum in the parade.",
+          "sentence": "We heard a violin, trumpet, and drum in the parade.",
+          "word": "violin, trumpet, and drum"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q06",
-          "prompt": "Sort these words into a category: red, blue, green.",
+          "prompt": "Read the passage. Which category names cup, pint, and quart?",
           "question_type": "multiple_choice",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "colors",
+          "correct_answer": "units of measure",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "colors is correct because the context and word relationship fit.",
-          "feedback": "Yes — colors fits.",
+          "explanation": "Cup, pint, and quart are units used to measure amounts.",
+          "feedback": "Yes — units of measure fits the passage.",
           "choices": [
-            "colors",
-            "feelings",
-            "weather"
-          ],
-          "categories": [
-            "colors",
-            "other"
-          ],
-          "items": [
-            "red",
-            "blue",
-            "green"
+            "shapes",
+            "days of the week",
+            "parts of a plant",
+            "units of measure"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: red, blue, green.",
+            "text": "Read the passage. Which category names cup, pint, and quart?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "colors",
+            "text": "cup, pint, and quart",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The recipe calls for a cup, pint, and quart of different liquids.",
+          "sentence": "The recipe calls for a cup, pint, and quart of different liquids.",
+          "word": "cup, pint, and quart"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q07",
-          "prompt": "Sort these words into a category: oak, pine, maple.",
+          "prompt": "Read the passage. Which category names the sun, moon, and stars?",
           "question_type": "category_sort",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "trees",
+          "correct_answer": "objects in the sky",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "trees is correct because the context and word relationship fit.",
-          "feedback": "Yes — trees fits.",
+          "explanation": "The sun, moon, and stars are objects we see in the sky.",
+          "feedback": "Yes — objects in the sky fits the passage.",
           "choices": [
-            "trees",
-            "feelings",
-            "weather"
+            "objects in the sky",
+            "forms of weather",
+            "kinds of land",
+            "sources of sound"
           ],
           "categories": [
-            "trees",
-            "other"
+            "objects in the sky",
+            "forms of weather",
+            "kinds of land",
+            "sources of sound"
           ],
           "items": [
-            "oak",
-            "pine",
-            "maple"
+            "sun",
+            "moon",
+            "",
+            "stars"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: oak, pine, maple.",
+            "text": "Read the passage. Which category names the sun, moon, and stars?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "trees",
+            "text": "sun, moon, and stars",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "In the sky chart, we labeled the sun, moon, and stars.",
+          "sentence": "In the sky chart, we labeled the sun, moon, and stars.",
+          "word": "sun, moon, and stars"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q08",
-          "prompt": "Sort these words into a category: drum, flute, piano.",
+          "prompt": "Read the passage. Which category names the helmet, glove, and shin guards?",
           "question_type": "multiple_choice",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "instruments",
+          "correct_answer": "protective gear",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "instruments is correct because the context and word relationship fit.",
-          "feedback": "Yes — instruments fits.",
+          "explanation": "A helmet, glove, and shin guards are gear that protects a player.",
+          "feedback": "Yes — protective gear fits the passage.",
           "choices": [
-            "instruments",
-            "feelings",
-            "weather"
-          ],
-          "categories": [
-            "instruments",
-            "other"
-          ],
-          "items": [
-            "drum",
-            "flute",
-            "piano"
+            "musical instruments",
+            "protective gear",
+            "cleaning tools",
+            "winter weather"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: drum, flute, piano.",
+            "text": "Read the passage. Which category names the helmet, glove, and shin guards?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "instruments",
+            "text": "helmet, glove, and shin guards",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The coach brought a helmet, glove, and shin guards.",
+          "sentence": "The coach brought a helmet, glove, and shin guards.",
+          "word": "helmet, glove, and shin guards"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q09",
-          "prompt": "Sort these words into a category: circle, square, triangle.",
+          "prompt": "Read the passage. Which category names these plants?",
           "question_type": "multiple_choice",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "shapes",
+          "correct_answer": "flowers",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "shapes is correct because the context and word relationship fit.",
-          "feedback": "Yes — shapes fits.",
+          "explanation": "Roses, tulips, and daisies are all flowers.",
+          "feedback": "Yes — flowers fits the passage.",
           "choices": [
-            "shapes",
-            "feelings",
-            "weather"
-          ],
-          "categories": [
-            "shapes",
-            "other"
-          ],
-          "items": [
-            "circle",
-            "square",
-            "triangle"
+            "trees",
+            "grasses",
+            "flowers",
+            "vegetables"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: circle, square, triangle.",
+            "text": "Read the passage. Which category names these plants?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "shapes",
+            "text": "roses, tulips, and daisies",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The garden grew roses, tulips, and daisies.",
+          "sentence": "The garden grew roses, tulips, and daisies.",
+          "word": "roses, tulips, and daisies"
         },
         {
           "question_id": "G2E_VOC_001_LVL4_Q10",
-          "prompt": "Sort these words into a category: soccer, tennis, baseball.",
+          "prompt": "Read the passage. Which category names these events?",
           "question_type": "category_sort",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "sports",
+          "correct_answer": "weather",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "sports is correct because the context and word relationship fit.",
-          "feedback": "Yes — sports fits.",
+          "explanation": "Rain, lightning, and hail are kinds of weather.",
+          "feedback": "Yes — weather fits the passage.",
           "choices": [
-            "sports",
-            "feelings",
+            "seasons",
+            "landforms",
+            "directions",
             "weather"
           ],
           "categories": [
-            "sports",
-            "other"
+            "seasons",
+            "landforms",
+            "directions",
+            "weather"
           ],
           "items": [
-            "soccer",
-            "tennis",
-            "baseball"
+            "rain",
+            "lightning",
+            "",
+            "hail"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: soccer, tennis, baseball.",
+            "text": "Read the passage. Which category names these events?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "sports",
+            "text": "rain, lightning, and hail",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "During the storm we saw rain, lightning, and hail.",
+          "sentence": "During the storm we saw rain, lightning, and hail.",
+          "word": "rain, lightning, and hail"
         }
       ]
     },
@@ -2640,401 +2719,400 @@
       "questions": [
         {
           "question_id": "G2E_VOC_001_MIXED_Q01",
-          "prompt": "Choose the synonym for quick.",
+          "prompt": "Read the passage. Which word means nearly the same as swift?",
           "question_type": "short_response",
           "visual_model": "word_card",
           "support_type": "word_card",
           "correct_answer": "fast",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "fast is correct because the context and word relationship fit.",
-          "feedback": "Yes — fast fits.",
+          "explanation": "Reaching the hole before the cat came close shows that swift means fast.",
+          "feedback": "Yes — fast fits the passage.",
           "choices": [
             "fast",
-            "quick",
-            "slow"
+            "small",
+            "safe",
+            "hungry"
           ],
-          "word": "quick",
-          "pairs": [
-            {
-              "left": "quick",
-              "right": "fast",
-              "relation": "synonym"
-            }
-          ],
+          "word": "swift",
           "acceptable_answers": [
-            "fast",
-            "fast",
             "fast"
           ],
           "question_audio": {
-            "text": "Choose the synonym for quick.",
+            "text": "Read the passage. Which word means nearly the same as swift?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "quick",
+            "text": "swift",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The swift mouse reached its hole before the cat came close.",
+          "sentence": "The swift mouse reached its hole before the cat came close."
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q02",
-          "prompt": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+          "prompt": "Read the passage. Which word is an antonym of level?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "very tired",
+          "correct_answer": "steep",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "very tired is correct because the context and word relationship fit.",
-          "feedback": "Yes — very tired fits.",
+          "explanation": "But signals a contrast between level ground and a steep section.",
+          "feedback": "Yes — steep fits the passage.",
           "choices": [
-            "very tired",
-            "very loud",
-            "hard to find"
+            "rocky",
+            "steep",
+            "long",
+            "hidden"
           ],
-          "word": "exhausted",
-          "sentence": "Dad was exhausted after the long hike.",
+          "word": "level",
+          "sentence": "The trail looked level, but one section was steep and hard to climb.",
           "question_audio": {
-            "text": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+            "text": "Read the passage. Which word is an antonym of level?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "exhausted",
+            "text": "level",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The trail looked level, but one section was steep and hard to climb."
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q03",
-          "prompt": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+          "prompt": "Read the passage. What does playful mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "put a vehicle in a place",
+          "correct_answer": "ready to have fun",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "put a vehicle in a place is correct because the context and word relationship fit.",
-          "feedback": "Yes — put a vehicle in a place fits.",
+          "explanation": "Rolling, splashing, and chasing are clues that the otter was ready to have fun.",
+          "feedback": "Yes — ready to have fun fits the passage.",
           "choices": [
-            "put a vehicle in a place",
-            "animal",
-            "not real"
+            "looking for food",
+            "trying to rest",
+            "ready to have fun",
+            "afraid of water"
           ],
-          "word": "park",
-          "sentence": "I can park my bike by the gate.",
+          "word": "playful",
+          "sentence": "The otter was playful; it rolled, splashed, and chased a leaf.",
           "question_audio": {
-            "text": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+            "text": "Read the passage. What does playful mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "park",
+            "text": "playful",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The otter was playful; it rolled, splashed, and chased a leaf."
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q04",
-          "prompt": "Sort these words into a category: shirt, pants, coat.",
+          "prompt": "Read the passage. What does pause mean in this passage?",
           "question_type": "category_sort",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "clothing",
+          "correct_answer": "stop for a short time",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "clothing is correct because the context and word relationship fit.",
-          "feedback": "Yes — clothing fits.",
+          "explanation": "The words or stop briefly directly define pause.",
+          "feedback": "Yes — stop for a short time fits the passage.",
           "choices": [
-            "clothing",
-            "feelings",
-            "weather"
+            "walk in a group",
+            "look both ways",
+            "move more quickly",
+            "stop for a short time"
           ],
           "categories": [
-            "clothing",
-            "other"
+            "walk in a group",
+            "look both ways",
+            "move more quickly",
+            "stop for a short time"
           ],
           "items": [
-            "shirt",
-            "pants",
-            "coat"
+            "pause"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: shirt, pants, coat.",
+            "text": "Read the passage. What does pause mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "clothing",
+            "text": "pause",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The crossing guard signaled for us to pause, or stop briefly, at the corner.",
+          "sentence": "The crossing guard signaled for us to pause, or stop briefly, at the corner.",
+          "word": "pause"
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q05",
-          "prompt": "Choose the synonym for begin.",
+          "prompt": "Read the passage. What does address mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "start",
+          "correct_answer": "to write delivery information on",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "synonym_antonym_confusion",
-          "explanation": "start is correct because the context and word relationship fit.",
-          "feedback": "Yes — start fits.",
+          "explanation": "Before mailing the card, Mina writes its delivery information on the envelope.",
+          "feedback": "Yes — to write delivery information on fits the passage.",
           "choices": [
-            "start",
-            "begin",
-            "slow"
+            "to write delivery information on",
+            "a place where someone lives",
+            "to speak to a group",
+            "to open carefully"
           ],
-          "word": "begin",
-          "pairs": [
-            {
-              "left": "begin",
-              "right": "start",
-              "relation": "synonym"
-            }
-          ],
+          "word": "address",
           "question_audio": {
-            "text": "Choose the synonym for begin.",
+            "text": "Read the passage. What does address mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "begin",
+            "text": "address",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Mina will address the envelope before she mails the card.",
+          "sentence": "Mina will address the envelope before she mails the card."
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q06",
-          "prompt": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+          "prompt": "Read the passage. What does current mean in this passage?",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "moved quickly",
+          "correct_answer": "a steady flow",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "moved quickly is correct because the context and word relationship fit.",
-          "feedback": "Yes — moved quickly fits.",
+          "explanation": "Air moving across the room shows that current means a steady flow.",
+          "feedback": "Yes — a steady flow fits the passage.",
           "choices": [
-            "moved quickly",
-            "very loud",
-            "hard to find"
+            "happening now",
+            "a steady flow",
+            "a coin used for buying",
+            "a sudden loud sound"
           ],
-          "word": "hurried",
-          "sentence": "We hurried so we would not be late.",
+          "word": "current",
+          "sentence": "The fan blew a current of cool air across the warm room.",
           "question_audio": {
-            "text": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+            "text": "Read the passage. What does current mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "hurried",
+            "text": "current",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The fan blew a current of cool air across the warm room."
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q07",
-          "prompt": "Choose the meaning of light in this sentence: Please light the candle.",
+          "prompt": "Read the passage. Which category names Ben's items?",
           "question_type": "short_response",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "make it burn",
+          "correct_answer": "art materials",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "multiple_meaning_confusion",
-          "explanation": "make it burn is correct because the context and word relationship fit.",
-          "feedback": "Yes — make it burn fits.",
+          "explanation": "Clay, paint, and chalk are materials people use to make art.",
+          "feedback": "Yes — art materials fits the passage.",
           "choices": [
-            "make it burn",
-            "animal",
-            "not real"
+            "building tools",
+            "science equipment",
+            "art materials",
+            "sports gear"
           ],
-          "word": "light",
-          "sentence": "Please light the candle.",
+          "word": "clay, paint, and chalk",
+          "sentence": "For art, Ben gathered clay, paint, and chalk.",
           "acceptable_answers": [
-            "make it burn",
-            "make it burn",
-            "make it burn"
+            "art materials"
           ],
           "question_audio": {
-            "text": "Choose the meaning of light in this sentence: Please light the candle.",
+            "text": "Read the passage. Which category names Ben's items?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "light",
+            "text": "clay, paint, and chalk",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "For art, Ben gathered clay, paint, and chalk."
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q08",
-          "prompt": "Sort these words into a category: drum, flute, piano.",
+          "prompt": "Read the passage. Which category names these foods?",
           "question_type": "multiple_choice",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "instruments",
+          "correct_answer": "grains",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "instruments is correct because the context and word relationship fit.",
-          "feedback": "Yes — instruments fits.",
+          "explanation": "Oats, rice, and wheat are all grains.",
+          "feedback": "Yes — grains fits the passage.",
           "choices": [
-            "instruments",
-            "feelings",
-            "weather"
-          ],
-          "categories": [
-            "instruments",
-            "other"
-          ],
-          "items": [
-            "drum",
-            "flute",
-            "piano"
+            "dairy foods",
+            "fruits",
+            "spices",
+            "grains"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: drum, flute, piano.",
+            "text": "Read the passage. Which category names these foods?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "instruments",
+            "text": "oats, rice, and wheat",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The market sold oats, rice, and wheat in large bags.",
+          "sentence": "The market sold oats, rice, and wheat in large bags.",
+          "word": "oats, rice, and wheat"
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q09",
-          "prompt": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
+          "prompt": "Read the passage. What does vacant mean in this passage?",
           "question_type": "short_response",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
-          "correct_answer": "funny",
+          "correct_answer": "empty",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "funny is correct because the context and word relationship fit.",
-          "feedback": "Yes — funny fits.",
+          "explanation": "Not one bird remained directly shows that vacant means empty.",
+          "feedback": "Yes — empty fits the passage.",
           "choices": [
-            "funny",
-            "very loud",
-            "hard to find"
+            "empty",
+            "broken",
+            "hidden",
+            "tiny"
           ],
-          "word": "amusing",
-          "sentence": "The joke was amusing, and we laughed.",
+          "word": "vacant",
+          "sentence": "The abandoned nest was vacant; not one bird remained inside.",
           "acceptable_answers": [
-            "funny",
-            "funny",
-            "funny"
+            "empty"
           ],
           "question_audio": {
-            "text": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
+            "text": "Read the passage. What does vacant mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "amusing",
+            "text": "vacant",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "The abandoned nest was vacant; not one bird remained inside."
         },
         {
           "question_id": "G2E_VOC_001_MIXED_Q10",
-          "prompt": "Sort these words into a category: soccer, tennis, baseball.",
+          "prompt": "Read the passage. What does orderly mean in this passage?",
           "question_type": "category_sort",
           "visual_model": "category_sort",
           "support_type": "category_sort",
-          "correct_answer": "sports",
+          "correct_answer": "well arranged",
           "hints": [
-            "Read the whole sentence before choosing a word meaning.",
-            "Decide whether the words mean the same, opposite, or belong in a group.",
-            "For multiple-meaning words, choose the meaning that fits the sentence."
+            "Read the whole passage and notice the words near the target.",
+            "Look for a definition, example, synonym, opposite, or action that gives a clue.",
+            "Try each answer in the passage and choose the one that makes the best sense."
           ],
           "misconception_tag": "category_attribute_error",
-          "explanation": "sports is correct because the context and word relationship fit.",
-          "feedback": "Yes — sports fits.",
+          "explanation": "Unlike messy and the word neat show that orderly means well arranged.",
+          "feedback": "Yes — well arranged fits the passage.",
           "choices": [
-            "sports",
-            "feelings",
-            "weather"
+            "brightly colored",
+            "well arranged",
+            "quickly finished",
+            "covered in words"
           ],
           "categories": [
-            "sports",
-            "other"
+            "brightly colored",
+            "well arranged",
+            "quickly finished",
+            "covered in words"
           ],
           "items": [
-            "soccer",
-            "tennis",
-            "baseball"
+            "orderly"
           ],
           "question_audio": {
-            "text": "Sort these words into a category: soccer, tennis, baseball.",
+            "text": "Read the passage. What does orderly mean in this passage?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "sports",
+            "text": "orderly",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "passage": "Unlike the messy first draft, Jo's final poster was neat and orderly.",
+          "sentence": "Unlike the messy first draft, Jo's final poster was neat and orderly.",
+          "word": "orderly"
         }
       ]
     }
