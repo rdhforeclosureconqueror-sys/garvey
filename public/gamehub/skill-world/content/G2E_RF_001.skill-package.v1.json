@@ -18,7 +18,7 @@
   ],
   "lesson": {
     "story_mission": "Join the Word Detectives to unlock a library gate by reading bigger Grade 2 words.",
-    "objective": "I can decode long vowels, vowel teams, digraphs, blends, and two-syllable words.",
+    "objective": "I can decode words with blends, digraphs, silent e, vowel teams, and two syllables.",
     "key_vocabulary": [
       "blend",
       "digraph",
@@ -26,12 +26,12 @@
       "silent e",
       "syllable"
     ],
-    "concept_explanation": "Readers look for letter teams before they blend. A blend keeps two sounds, a digraph or vowel team makes one grouped sound, silent e can make a vowel long, and syllables help break longer words into readable chunks.",
+    "concept_explanation": "Strong readers look for familiar spelling patterns before blending a word. In a consonant blend, each consonant sound can be heard. In a digraph, two letters spell one consonant sound. Vowel teams and silent e can signal a long vowel. Longer words can be divided into spoken syllables or meaningful compound-word parts.",
     "visual_model": "phonics_tiles",
-    "common_misconception": "Readers may split a digraph or vowel team apart, forget that silent e changes the vowel, or clap a two-syllable word in the wrong place.",
+    "common_misconception": "A reader may reverse letters in a blend, split a digraph or vowel team, pronounce the final e, or divide a two-syllable word where the spoken beats do not break.",
     "real_world_connection": "These word-analysis moves help readers solve new words in stories, directions, science books, and classroom signs.",
     "lesson_summary": "Spot the pattern, mark the sound chunks, blend the word, and check the meaning.",
-    "mini_lesson": "First scan for blends, digraphs, vowel teams, or silent e. Then read each sound box or syllable chunk. Last, blend the chunks into a whole word."
+    "mini_lesson": "First scan the whole word for a blend, digraph, vowel team, or silent e. For a longer word, find its spoken syllables or compound-word parts. Read each chunk, blend the chunks, and check that the word makes sense."
   },
   "worked_examples": [
     {
@@ -77,23 +77,24 @@
   "guided_practice": [
     {
       "question_id": "G2E_RF_001_LVL1_Q01",
-      "prompt": "Read flag. Which blend starts or helps the word?",
+      "prompt": "Listen to flag. Which two letters form the beginning blend?",
       "question_type": "sound_match",
       "visual_model": "sound_boxes",
       "support_type": "sound_boxes",
       "correct_answer": "fl",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say flag slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "blend_digraph_confusion",
-      "explanation": "The answer is fl because the word parts match the sound pattern.",
-      "feedback": "Yes — fl fits the pattern.",
+      "explanation": "In flag, f and l keep their own sounds. Blending /f/ and /l/ smoothly makes fl.",
+      "feedback": "Correct — In flag, f and l keep their own sounds. Blending /f/ and /l/ smoothly makes fl.",
       "choices": [
         "fl",
-        "lf",
-        "sh"
+        "fr",
+        "gl",
+        "sl"
       ],
       "word": "flag",
       "tiles": [
@@ -102,26 +103,12 @@
         "g"
       ],
       "sounds": [
-        "f",
-        "l",
+        "fl",
         "a",
         "g"
       ],
-      "target_sound": "fl",
-      "sound": "fl",
-      "tile_types": [
-        "blend",
-        "letter",
-        "letter"
-      ],
-      "sound_types": [
-        "letter",
-        "letter",
-        "letter",
-        "letter"
-      ],
       "question_audio": {
-        "text": "Read flag. Which blend starts or helps the word?",
+        "text": "Listen to flag. Which two letters form the beginning blend?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -135,23 +122,24 @@
     },
     {
       "question_id": "G2E_RF_001_LVL1_Q02",
-      "prompt": "Read ship. Which digraph starts or helps the word?",
+      "prompt": "The word ship begins with one sound spelled by two letters. Which letters spell that sound?",
       "question_type": "word_building",
       "visual_model": "word_builder",
       "support_type": "word_builder",
-      "correct_answer": "ship",
+      "correct_answer": "sh",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say ship slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "blend_digraph_confusion",
-      "explanation": "The answer is ship because the word parts match the sound pattern.",
-      "feedback": "Yes — ship fits the pattern.",
+      "explanation": "The letters sh work together to spell /sh/ at the beginning of ship.",
+      "feedback": "Correct — The letters sh work together to spell /sh/ at the beginning of ship.",
       "choices": [
-        "ship",
-        "hs",
-        "st"
+        "ch",
+        "sh",
+        "th",
+        "wh"
       ],
       "word": "ship",
       "tiles": [
@@ -164,22 +152,10 @@
         "i",
         "p"
       ],
-      "target_sound": "sh",
-      "sound": "sh",
-      "tile_types": [
-        "digraph",
-        "letter",
-        "letter"
-      ],
-      "sound_types": [
-        "digraph",
-        "letter",
-        "letter"
-      ],
       "missing_tile": "sh",
       "show_target": true,
       "question_audio": {
-        "text": "Read ship. Which digraph starts or helps the word?",
+        "text": "The word ship begins with one sound spelled by two letters. Which letters spell that sound?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -193,27 +169,27 @@
     },
     {
       "question_id": "G2E_RF_001_LVL1_Q03",
-      "prompt": "Write the blend you hear in truck.",
+      "prompt": "Which beginning blend completes __uck to make truck?",
       "question_type": "short_response",
       "visual_model": "phonics_tiles",
       "support_type": "phonics_tiles",
       "correct_answer": "tr",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say truck slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "blend_digraph_confusion",
-      "explanation": "The answer is tr because the word parts match the sound pattern.",
-      "feedback": "Yes — tr fits the pattern.",
+      "explanation": "Adding tr to uck makes truck. You can hear both /t/ and /r/ in the blend tr.",
+      "feedback": "Correct — Adding tr to uck makes truck. You can hear both /t/ and /r/ in the blend tr.",
       "acceptable_answers": [
-        "tr",
         "tr"
       ],
       "choices": [
+        "cr",
+        "dr",
         "tr",
-        "rt",
-        "sh"
+        "gr"
       ],
       "word": "truck",
       "tiles": [
@@ -222,26 +198,12 @@
         "ck"
       ],
       "sounds": [
-        "t",
-        "r",
+        "tr",
         "u",
         "ck"
       ],
-      "target_sound": "tr",
-      "sound": "tr",
-      "tile_types": [
-        "blend",
-        "letter",
-        "letter"
-      ],
-      "sound_types": [
-        "letter",
-        "letter",
-        "letter",
-        "letter"
-      ],
       "question_audio": {
-        "text": "Write the blend you hear in truck.",
+        "text": "Which beginning blend completes __uck to make truck?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -255,63 +217,49 @@
     },
     {
       "question_id": "G2E_RF_001_LVL2_Q01",
-      "prompt": "Write the silent-e word shown: cake.",
+      "prompt": "Which word has a silent e that changes cap into a word with long a?",
       "question_type": "short_response",
       "visual_model": "sound_boxes",
       "support_type": "sound_boxes",
-      "correct_answer": "cake",
+      "correct_answer": "cape",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say cape slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "silent_e_confusion",
-      "explanation": "The answer is cake because the word parts match the sound pattern.",
-      "feedback": "Yes — cake fits the pattern.",
+      "explanation": "Cape ends with silent e. That e helps a say its long sound, /ā/.",
+      "feedback": "Correct — Cape ends with silent e. That e helps a say its long sound, /ā/.",
       "acceptable_answers": [
-        "cake",
-        "cake"
+        "cape"
       ],
       "choices": [
-        "cake",
-        "cak",
-        "caka"
+        "cap",
+        "camp",
+        "cape",
+        "cup"
       ],
-      "word": "cake",
+      "word": "cape",
       "tiles": [
         "c",
         "a",
-        "k",
+        "p",
         "e"
       ],
       "sounds": [
         "c",
-        "ā",
-        "k",
+        "a",
+        "p",
         "e"
       ],
-      "silent_e": true,
-      "silent_e_index": 3,
-      "tile_types": [
-        "letter",
-        "letter",
-        "letter",
-        "silent-e"
-      ],
-      "sound_types": [
-        "letter",
-        "letter",
-        "letter",
-        "silent-e"
-      ],
       "question_audio": {
-        "text": "Write the silent-e word shown: cake.",
+        "text": "Which word has a silent e that changes cap into a word with long a?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "cake",
+        "text": "cape",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
@@ -319,23 +267,24 @@
     },
     {
       "question_id": "G2E_RF_001_LVL2_Q02",
-      "prompt": "Read the silent-e word bike. What word do the tiles make?",
+      "prompt": "Use the tiles b–i–k–e. What word do they spell?",
       "question_type": "word_building",
       "visual_model": "word_builder",
       "support_type": "word_builder",
       "correct_answer": "bike",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say bike slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "silent_e_confusion",
-      "explanation": "The answer is bike because the word parts match the sound pattern.",
-      "feedback": "Yes — bike fits the pattern.",
+      "explanation": "The final e is silent and makes i long, so b–i–k–e spells bike.",
+      "feedback": "Correct — The final e is silent and makes i long, so b–i–k–e spells bike.",
       "choices": [
-        "bike",
-        "bik",
-        "bika"
+        "bit",
+        "back",
+        "book",
+        "bike"
       ],
       "word": "bike",
       "tiles": [
@@ -346,29 +295,15 @@
       ],
       "sounds": [
         "b",
-        "ī",
+        "i",
         "k",
         "e"
-      ],
-      "silent_e": true,
-      "silent_e_index": 3,
-      "tile_types": [
-        "letter",
-        "letter",
-        "letter",
-        "silent-e"
-      ],
-      "sound_types": [
-        "letter",
-        "letter",
-        "letter",
-        "silent-e"
       ],
       "missing_tile": "e",
       "show_target": false,
       "target_pattern": "bik_",
       "question_audio": {
-        "text": "Read the silent-e word bike. What word do the tiles make?",
+        "text": "Use the tiles b–i–k–e. What word do they spell?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -384,23 +319,24 @@
   "checkpoint": [
     {
       "question_id": "G2E_RF_001_LVL3_Q01",
-      "prompt": "Which vowel team is in rain?",
+      "prompt": "In rain, which vowel team spells the long-a sound?",
       "question_type": "multiple_choice",
       "visual_model": "sound_boxes",
       "support_type": "sound_boxes",
       "correct_answer": "ai",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say rain slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "vowel_team_confusion",
-      "explanation": "The answer is ai because the word parts match the sound pattern.",
-      "feedback": "Yes — ai fits the pattern.",
+      "explanation": "The middle letters ai work as a team to spell long a in rain.",
+      "feedback": "Correct — The middle letters ai work as a team to spell long a in rain.",
       "choices": [
         "ai",
-        "a",
-        "sh"
+        "ay",
+        "ea",
+        "oa"
       ],
       "word": "rain",
       "tiles": [
@@ -413,20 +349,8 @@
         "ai",
         "n"
       ],
-      "tile_types": [
-        "letter",
-        "vowel-team",
-        "letter"
-      ],
-      "sound_types": [
-        "letter",
-        "vowel-team",
-        "letter"
-      ],
-      "sound": "ai",
-      "target_sound": "ai",
       "question_audio": {
-        "text": "Which vowel team is in rain?",
+        "text": "In rain, which vowel team spells the long-a sound?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -440,36 +364,29 @@
     },
     {
       "question_id": "G2E_RF_001_LVL4_Q01",
-      "prompt": "Break sunset into syllables.",
+      "prompt": "Which break shows the two smaller words in sunset?",
       "question_type": "short_response",
       "visual_model": "syllable_break",
       "support_type": "syllable_break",
-      "correct_answer": "sun-set",
+      "correct_answer": "sun | set",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say sunset slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "syllable_break_error",
-      "explanation": "The answer is sun-set because the word parts match the sound pattern.",
-      "feedback": "Yes — sun-set fits the pattern.",
+      "explanation": "Sunset is a compound word made from sun and set, so the useful break is sun | set.",
+      "feedback": "Correct — Sunset is a compound word made from sun and set, so the useful break is sun | set.",
       "acceptable_answers": [
-        "sun-set",
-        "sun set",
-        "sun|set"
+        "sun | set"
       ],
       "choices": [
-        "sun-set",
-        "sunset",
-        "sun-set"
+        "suns | et",
+        "su | nset",
+        "sun | set",
+        "sunse | t"
       ],
       "word": "sunset",
-      "syllables": [
-        "sun",
-        "set"
-      ],
-      "syllable_count": 2,
-      "clap_prompt": "Clap sunset: sun | set.",
       "tiles": [
         "sun",
         "set"
@@ -479,7 +396,7 @@
         "set"
       ],
       "question_audio": {
-        "text": "Break sunset into syllables.",
+        "text": "Which break shows the two smaller words in sunset?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -493,52 +410,47 @@
     },
     {
       "question_id": "G2E_RF_001_MIXED_Q01",
-      "prompt": "Mixed review: find the blend answer for plant.",
+      "prompt": "The frog sprang from a rock. Which beginning blend is in sprang?",
       "question_type": "short_response",
       "visual_model": "phonics_tiles",
       "support_type": "phonics_tiles",
-      "correct_answer": "pl",
+      "correct_answer": "spr",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say sprang slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "blend_digraph_confusion",
-      "explanation": "The answer is pl because the word parts match the sound pattern.",
-      "feedback": "Yes — pl fits the pattern.",
+      "explanation": "Sprang begins with the three-letter blend spr. You can hear /s/, /p/, and /r/.",
+      "feedback": "Correct — Sprang begins with the three-letter blend spr. You can hear /s/, /p/, and /r/.",
       "acceptable_answers": [
-        "pl",
-        "pl"
+        "spr"
       ],
       "choices": [
-        "pl",
-        "plant",
-        "sh"
+        "spr",
+        "str",
+        "scr",
+        "spl"
       ],
-      "word": "plant",
+      "word": "sprang",
       "tiles": [
-        "pl",
+        "spr",
         "a",
-        "n",
-        "t"
+        "ng"
       ],
       "sounds": [
-        "p",
-        "l",
+        "spr",
         "a",
-        "n",
-        "t"
+        "ng"
       ],
-      "sound": "pl",
-      "target_sound": "pl",
       "question_audio": {
-        "text": "Mixed review: find the blend answer for plant.",
+        "text": "The frog sprang from a rock. Which beginning blend is in sprang?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "plant",
+        "text": "sprang",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
@@ -548,52 +460,47 @@
   "adaptive_question_bank": [
     {
       "question_id": "G2E_RF_001_MIXED_Q01",
-      "prompt": "Mixed review: find the blend answer for plant.",
+      "prompt": "The frog sprang from a rock. Which beginning blend is in sprang?",
       "question_type": "short_response",
       "visual_model": "phonics_tiles",
       "support_type": "phonics_tiles",
-      "correct_answer": "pl",
+      "correct_answer": "spr",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say sprang slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "blend_digraph_confusion",
-      "explanation": "The answer is pl because the word parts match the sound pattern.",
-      "feedback": "Yes — pl fits the pattern.",
+      "explanation": "Sprang begins with the three-letter blend spr. You can hear /s/, /p/, and /r/.",
+      "feedback": "Correct — Sprang begins with the three-letter blend spr. You can hear /s/, /p/, and /r/.",
       "acceptable_answers": [
-        "pl",
-        "pl"
+        "spr"
       ],
       "choices": [
-        "pl",
-        "plant",
-        "sh"
+        "spr",
+        "str",
+        "scr",
+        "spl"
       ],
-      "word": "plant",
+      "word": "sprang",
       "tiles": [
-        "pl",
+        "spr",
         "a",
-        "n",
-        "t"
+        "ng"
       ],
       "sounds": [
-        "p",
-        "l",
+        "spr",
         "a",
-        "n",
-        "t"
+        "ng"
       ],
-      "sound": "pl",
-      "target_sound": "pl",
       "question_audio": {
-        "text": "Mixed review: find the blend answer for plant.",
+        "text": "The frog sprang from a rock. Which beginning blend is in sprang?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "plant",
+        "text": "sprang",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
@@ -601,45 +508,44 @@
     },
     {
       "question_id": "G2E_RF_001_MIXED_Q02",
-      "prompt": "Mixed review: find the digraph answer for cheese.",
+      "prompt": "Which word begins with the same digraph as cheese?",
       "question_type": "sound_match",
       "visual_model": "sound_boxes",
       "support_type": "sound_boxes",
-      "correct_answer": "ch",
+      "correct_answer": "chase",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say chase slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "blend_digraph_confusion",
-      "explanation": "The answer is ch because the word parts match the sound pattern.",
-      "feedback": "Yes — ch fits the pattern.",
+      "explanation": "Cheese and chase both begin with the digraph ch.",
+      "feedback": "Correct — Cheese and chase both begin with the digraph ch.",
       "choices": [
-        "ch",
-        "cheese",
-        "sh"
+        "these",
+        "chase",
+        "sheep",
+        "wheel"
       ],
-      "word": "cheese",
+      "word": "chase",
       "tiles": [
         "ch",
-        "ee",
-        "se"
+        "a_e",
+        "s"
       ],
       "sounds": [
         "ch",
-        "ee",
+        "a_e",
         "s"
       ],
-      "sound": "ch",
-      "target_sound": "ch",
       "question_audio": {
-        "text": "Mixed review: find the digraph answer for cheese.",
+        "text": "Which word begins with the same digraph as cheese?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
       },
       "audio": {
-        "text": "cheese",
+        "text": "chase",
         "label": "Hear the word",
         "type": "word",
         "playback_preference": "cached_audio_first"
@@ -647,23 +553,24 @@
     },
     {
       "question_id": "G2E_RF_001_MIXED_Q03",
-      "prompt": "Mixed review: find the silent e answer for brave.",
+      "prompt": "Choose the silent-e word that completes the sentence: The knight was __.",
       "question_type": "word_building",
       "visual_model": "phonics_tiles",
       "support_type": "phonics_tiles",
       "correct_answer": "brave",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say brave slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "silent_e_confusion",
-      "explanation": "The answer is brave because the word parts match the sound pattern.",
-      "feedback": "Yes — brave fits the pattern.",
+      "explanation": "Brave fits the sentence and uses the a-consonant-silent-e pattern for long a.",
+      "feedback": "Correct — Brave fits the sentence and uses the a-consonant-silent-e pattern for long a.",
       "choices": [
+        "brief",
+        "brown",
         "brave",
-        "brave",
-        "sh"
+        "bright"
       ],
       "word": "brave",
       "tiles": [
@@ -673,20 +580,15 @@
         "e"
       ],
       "sounds": [
-        "b",
-        "r",
-        "ā",
+        "br",
+        "a",
         "v",
         "e"
       ],
-      "sound": "brave",
-      "target_sound": "brave",
-      "silent_e": true,
-      "silent_e_index": 3,
       "show_target": true,
       "missing_tile": "",
       "question_audio": {
-        "text": "Mixed review: find the silent e answer for brave.",
+        "text": "Choose the silent-e word that completes the sentence: The knight was __.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -700,23 +602,24 @@
     },
     {
       "question_id": "G2E_RF_001_MIXED_Q04",
-      "prompt": "Mixed review: find the vowel team answer for dream.",
+      "prompt": "A good night's sleep can help you __. Which vowel-team word completes the sentence?",
       "question_type": "multiple_choice",
       "visual_model": "sound_boxes",
       "support_type": "sound_boxes",
-      "correct_answer": "ea",
+      "correct_answer": "dream",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say dream slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "vowel_team_confusion",
-      "explanation": "The answer is ea because the word parts match the sound pattern.",
-      "feedback": "Yes — ea fits the pattern.",
+      "explanation": "Dream fits the sentence. Its ea vowel team spells the long-e sound.",
+      "feedback": "Correct — Dream fits the sentence. Its ea vowel team spells the long-e sound.",
       "choices": [
-        "ea",
-        "dream",
-        "sh"
+        "drum",
+        "drip",
+        "drop",
+        "dream"
       ],
       "word": "dream",
       "tiles": [
@@ -725,15 +628,12 @@
         "m"
       ],
       "sounds": [
-        "d",
-        "r",
+        "dr",
         "ea",
         "m"
       ],
-      "sound": "ea",
-      "target_sound": "ea",
       "question_audio": {
-        "text": "Mixed review: find the vowel team answer for dream.",
+        "text": "A good night's sleep can help you __. Which vowel-team word completes the sentence?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -747,28 +647,27 @@
     },
     {
       "question_id": "G2E_RF_001_MIXED_Q05",
-      "prompt": "Mixed review: find the syllables answer for helmet.",
+      "prompt": "Which chunks combine to make helmet?",
       "question_type": "short_response",
       "visual_model": "syllable_break",
       "support_type": "syllable_break",
-      "correct_answer": "hel-met",
+      "correct_answer": "hel + met",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say helmet slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "syllable_break_error",
-      "explanation": "The answer is hel-met because the word parts match the sound pattern.",
-      "feedback": "Yes — hel-met fits the pattern.",
+      "explanation": "Helmet has two syllables, hel | met. Blending those chunks makes the whole word.",
+      "feedback": "Correct — Helmet has two syllables, hel | met. Blending those chunks makes the whole word.",
       "acceptable_answers": [
-        "hel-met",
-        "hel met",
-        "hel|met"
+        "hel + met"
       ],
       "choices": [
-        "hel-met",
-        "helmet",
-        "sh"
+        "hel + met",
+        "he + lmet",
+        "helm + et",
+        "h + elmet"
       ],
       "word": "helmet",
       "tiles": [
@@ -779,14 +678,8 @@
         "hel",
         "met"
       ],
-      "syllables": [
-        "hel",
-        "met"
-      ],
-      "sound": "hel-met",
-      "target_sound": "hel-met",
       "question_audio": {
-        "text": "Mixed review: find the syllables answer for helmet.",
+        "text": "Which chunks combine to make helmet?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -800,23 +693,24 @@
     },
     {
       "question_id": "G2E_RF_001_MIXED_Q06",
-      "prompt": "Mixed review: find the vowel team answer for toast.",
+      "prompt": "Read toast. Which vowel team spells the long-o sound?",
       "question_type": "sound_match",
       "visual_model": "word_builder",
       "support_type": "word_builder",
       "correct_answer": "oa",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say toast slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "vowel_team_confusion",
-      "explanation": "The answer is oa because the word parts match the sound pattern.",
-      "feedback": "Yes — oa fits the pattern.",
+      "explanation": "The letters oa work together to spell long o in toast.",
+      "feedback": "Correct — The letters oa work together to spell long o in toast.",
       "choices": [
+        "oe",
         "oa",
-        "toast",
-        "sh"
+        "au",
+        "aw"
       ],
       "word": "toast",
       "tiles": [
@@ -827,13 +721,10 @@
       "sounds": [
         "t",
         "oa",
-        "s",
-        "t"
+        "st"
       ],
-      "sound": "oa",
-      "target_sound": "oa",
       "question_audio": {
-        "text": "Mixed review: find the vowel team answer for toast.",
+        "text": "Read toast. Which vowel team spells the long-o sound?",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
@@ -855,75 +746,72 @@
   "review_bank": [
     {
       "question_id": "G2E_RF_001_LVL1_Q05",
-      "prompt": "Read slide. Which blend starts or helps the word?",
+      "prompt": "Say slide slowly. Which blend do you hear before the long i sound?",
       "question_type": "sound_match",
       "visual_model": "sound_boxes",
       "support_type": "sound_boxes",
       "correct_answer": "sl",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say slide slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "blend_digraph_confusion",
-      "explanation": "The answer is sl because the word parts match the sound pattern.",
-      "feedback": "Yes — sl fits the pattern.",
+      "explanation": "Slide begins /s/–/l/. Those two sounds blend together as sl before the long i.",
+      "feedback": "Correct — Slide begins /s/–/l/. Those two sounds blend together as sl before the long i.",
       "choices": [
         "sl",
-        "ls",
-        "sh"
+        "sk",
+        "sn",
+        "sp"
       ],
       "word": "slide",
       "tiles": [
         "sl",
-        "i",
-        "de"
+        "i_e",
+        "d"
       ],
       "sounds": [
-        "s",
-        "l",
-        "i",
-        "d",
-        "e"
+        "sl",
+        "i_e",
+        "d"
       ],
-      "target_sound": "sl",
-      "sound": "sl",
-      "tile_types": [
-        "blend",
-        "letter",
-        "letter"
-      ],
-      "sound_types": [
-        "letter",
-        "letter",
-        "letter",
-        "letter",
-        "letter"
-      ]
+      "question_audio": {
+        "text": "Say slide slowly. Which blend do you hear before the long i sound?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "slide",
+        "label": "Hear the word",
+        "type": "word",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "question_id": "G2E_RF_001_LVL2_Q05",
-      "prompt": "Write the silent-e word shown: plane.",
+      "prompt": "What happens to the vowel sound when silent e changes plan to plane?",
       "question_type": "short_response",
       "visual_model": "sound_boxes",
       "support_type": "sound_boxes",
-      "correct_answer": "plane",
+      "correct_answer": "long a",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say plane slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "silent_e_confusion",
-      "explanation": "The answer is plane because the word parts match the sound pattern.",
-      "feedback": "Yes — plane fits the pattern.",
+      "explanation": "In plane, silent e helps a say its name, the long-a sound.",
+      "feedback": "Correct — In plane, silent e helps a say its name, the long-a sound.",
       "acceptable_answers": [
-        "plane",
-        "plane"
+        "long a"
       ],
       "choices": [
-        "plane",
-        "plan",
-        "plana"
+        "short a",
+        "long e",
+        "long a",
+        "short i"
       ],
       "word": "plane",
       "tiles": [
@@ -933,47 +821,44 @@
         "e"
       ],
       "sounds": [
-        "p",
-        "l",
-        "ā",
+        "pl",
+        "a",
         "n",
         "e"
       ],
-      "silent_e": true,
-      "silent_e_index": 3,
-      "tile_types": [
-        "blend",
-        "letter",
-        "letter",
-        "silent-e"
-      ],
-      "sound_types": [
-        "letter",
-        "letter",
-        "letter",
-        "letter",
-        "silent-e"
-      ]
+      "question_audio": {
+        "text": "What happens to the vowel sound when silent e changes plan to plane?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "plane",
+        "label": "Hear the word",
+        "type": "word",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "question_id": "G2E_RF_001_LVL3_Q05",
-      "prompt": "Which vowel team is in leaf?",
+      "prompt": "Which vowel team completes l__f to make leaf?",
       "question_type": "multiple_choice",
       "visual_model": "sound_boxes",
       "support_type": "sound_boxes",
       "correct_answer": "ea",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say leaf slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "vowel_team_confusion",
-      "explanation": "The answer is ea because the word parts match the sound pattern.",
-      "feedback": "Yes — ea fits the pattern.",
+      "explanation": "The vowel team ea completes l–ea–f and spells the long-e sound in leaf.",
+      "feedback": "Correct — The vowel team ea completes l–ea–f and spells the long-e sound in leaf.",
       "choices": [
         "ea",
-        "e",
-        "sh"
+        "ee",
+        "ai",
+        "ie"
       ],
       "word": "leaf",
       "tiles": [
@@ -986,51 +871,44 @@
         "ea",
         "f"
       ],
-      "tile_types": [
-        "letter",
-        "vowel-team",
-        "letter"
-      ],
-      "sound_types": [
-        "letter",
-        "vowel-team",
-        "letter"
-      ],
-      "sound": "ea",
-      "target_sound": "ea"
+      "question_audio": {
+        "text": "Which vowel team completes l__f to make leaf?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "leaf",
+        "label": "Hear the word",
+        "type": "word",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "question_id": "G2E_RF_001_LVL4_Q05",
-      "prompt": "Break robot into syllables.",
+      "prompt": "Say robot slowly. Which first syllable do you hear?",
       "question_type": "short_response",
       "visual_model": "syllable_break",
       "support_type": "syllable_break",
-      "correct_answer": "ro-bot",
+      "correct_answer": "ro",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say robot slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "syllable_break_error",
-      "explanation": "The answer is ro-bot because the word parts match the sound pattern.",
-      "feedback": "Yes — ro-bot fits the pattern.",
+      "explanation": "Robot is read ro | bot. The first open syllable ro ends in a vowel sound.",
+      "feedback": "Correct — Robot is read ro | bot. The first open syllable ro ends in a vowel sound.",
       "acceptable_answers": [
-        "ro-bot",
-        "ro bot",
-        "ro|bot"
+        "ro"
       ],
       "choices": [
-        "ro-bot",
-        "robot",
-        "ro-bot"
+        "rob",
+        "rot",
+        "ro",
+        "r"
       ],
       "word": "robot",
-      "syllables": [
-        "ro",
-        "bot"
-      ],
-      "syllable_count": 2,
-      "clap_prompt": "Clap robot: ro | bot.",
       "tiles": [
         "ro",
         "bot"
@@ -1038,32 +916,43 @@
       "sounds": [
         "ro",
         "bot"
-      ]
+      ],
+      "question_audio": {
+        "text": "Say robot slowly. Which first syllable do you hear?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "robot",
+        "label": "Hear the word",
+        "type": "word",
+        "playback_preference": "cached_audio_first"
+      }
     },
     {
       "question_id": "G2E_RF_001_MIXED_Q05",
-      "prompt": "Mixed review: find the syllables answer for helmet.",
+      "prompt": "Which chunks combine to make helmet?",
       "question_type": "short_response",
       "visual_model": "syllable_break",
       "support_type": "syllable_break",
-      "correct_answer": "hel-met",
+      "correct_answer": "hel + met",
       "hints": [
-        "Say each part slowly before you blend.",
-        "Look for letters that work together as one sound.",
-        "Check whether the vowel is short, long, teamed, or helped by silent e."
+        "Say helmet slowly and listen to each sound or syllable.",
+        "Look at the letter pattern or word chunks.",
+        "Blend the parts, then check that your answer matches the question."
       ],
       "misconception_tag": "syllable_break_error",
-      "explanation": "The answer is hel-met because the word parts match the sound pattern.",
-      "feedback": "Yes — hel-met fits the pattern.",
+      "explanation": "Helmet has two syllables, hel | met. Blending those chunks makes the whole word.",
+      "feedback": "Correct — Helmet has two syllables, hel | met. Blending those chunks makes the whole word.",
       "acceptable_answers": [
-        "hel-met",
-        "hel met",
-        "hel|met"
+        "hel + met"
       ],
       "choices": [
-        "hel-met",
-        "helmet",
-        "sh"
+        "hel + met",
+        "he + lmet",
+        "helm + et",
+        "h + elmet"
       ],
       "word": "helmet",
       "tiles": [
@@ -1074,12 +963,18 @@
         "hel",
         "met"
       ],
-      "syllables": [
-        "hel",
-        "met"
-      ],
-      "sound": "hel-met",
-      "target_sound": "hel-met"
+      "question_audio": {
+        "text": "Which chunks combine to make helmet?",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "helmet",
+        "label": "Hear the word",
+        "type": "word",
+        "playback_preference": "cached_audio_first"
+      }
     }
   ],
   "game_theme": {
@@ -1102,23 +997,24 @@
       "questions": [
         {
           "question_id": "G2E_RF_001_LVL1_Q01",
-          "prompt": "Read flag. Which blend starts or helps the word?",
+          "prompt": "Listen to flag. Which two letters form the beginning blend?",
           "question_type": "sound_match",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
           "correct_answer": "fl",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say flag slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is fl because the word parts match the sound pattern.",
-          "feedback": "Yes — fl fits the pattern.",
+          "explanation": "In flag, f and l keep their own sounds. Blending /f/ and /l/ smoothly makes fl.",
+          "feedback": "Correct — In flag, f and l keep their own sounds. Blending /f/ and /l/ smoothly makes fl.",
           "choices": [
             "fl",
-            "lf",
-            "sh"
+            "fr",
+            "gl",
+            "sl"
           ],
           "word": "flag",
           "tiles": [
@@ -1127,26 +1023,12 @@
             "g"
           ],
           "sounds": [
-            "f",
-            "l",
+            "fl",
             "a",
             "g"
           ],
-          "target_sound": "fl",
-          "sound": "fl",
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter"
-          ],
           "question_audio": {
-            "text": "Read flag. Which blend starts or helps the word?",
+            "text": "Listen to flag. Which two letters form the beginning blend?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1160,23 +1042,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q02",
-          "prompt": "Read ship. Which digraph starts or helps the word?",
+          "prompt": "The word ship begins with one sound spelled by two letters. Which letters spell that sound?",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
-          "correct_answer": "ship",
+          "correct_answer": "sh",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say ship slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is ship because the word parts match the sound pattern.",
-          "feedback": "Yes — ship fits the pattern.",
+          "explanation": "The letters sh work together to spell /sh/ at the beginning of ship.",
+          "feedback": "Correct — The letters sh work together to spell /sh/ at the beginning of ship.",
           "choices": [
-            "ship",
-            "hs",
-            "st"
+            "ch",
+            "sh",
+            "th",
+            "wh"
           ],
           "word": "ship",
           "tiles": [
@@ -1189,22 +1072,10 @@
             "i",
             "p"
           ],
-          "target_sound": "sh",
-          "sound": "sh",
-          "tile_types": [
-            "digraph",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "digraph",
-            "letter",
-            "letter"
-          ],
           "missing_tile": "sh",
           "show_target": true,
           "question_audio": {
-            "text": "Read ship. Which digraph starts or helps the word?",
+            "text": "The word ship begins with one sound spelled by two letters. Which letters spell that sound?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1218,27 +1089,27 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q03",
-          "prompt": "Write the blend you hear in truck.",
+          "prompt": "Which beginning blend completes __uck to make truck?",
           "question_type": "short_response",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "tr",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say truck slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is tr because the word parts match the sound pattern.",
-          "feedback": "Yes — tr fits the pattern.",
+          "explanation": "Adding tr to uck makes truck. You can hear both /t/ and /r/ in the blend tr.",
+          "feedback": "Correct — Adding tr to uck makes truck. You can hear both /t/ and /r/ in the blend tr.",
           "acceptable_answers": [
-            "tr",
             "tr"
           ],
           "choices": [
+            "cr",
+            "dr",
             "tr",
-            "rt",
-            "sh"
+            "gr"
           ],
           "word": "truck",
           "tiles": [
@@ -1247,26 +1118,12 @@
             "ck"
           ],
           "sounds": [
-            "t",
-            "r",
+            "tr",
             "u",
             "ck"
           ],
-          "target_sound": "tr",
-          "sound": "tr",
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter"
-          ],
           "question_audio": {
-            "text": "Write the blend you hear in truck.",
+            "text": "Which beginning blend completes __uck to make truck?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1280,23 +1137,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q04",
-          "prompt": "Read chop. Which digraph starts or helps the word?",
+          "prompt": "Choose the digraph that completes __op to spell chop.",
           "question_type": "multiple_choice",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "ch",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say chop slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is ch because the word parts match the sound pattern.",
-          "feedback": "Yes — ch fits the pattern.",
+          "explanation": "The digraph ch spells the first sound in chop, so ch plus op makes chop.",
+          "feedback": "Correct — The digraph ch spells the first sound in chop, so ch plus op makes chop.",
           "choices": [
-            "ch",
-            "hc",
-            "sh"
+            "ck",
+            "ph",
+            "ng",
+            "ch"
           ],
           "word": "chop",
           "tiles": [
@@ -1309,20 +1167,8 @@
             "o",
             "p"
           ],
-          "target_sound": "ch",
-          "sound": "ch",
-          "tile_types": [
-            "digraph",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "digraph",
-            "letter",
-            "letter"
-          ],
           "question_audio": {
-            "text": "Read chop. Which digraph starts or helps the word?",
+            "text": "Choose the digraph that completes __op to spell chop.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1336,53 +1182,38 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q05",
-          "prompt": "Read slide. Which blend starts or helps the word?",
+          "prompt": "Say slide slowly. Which blend do you hear before the long i sound?",
           "question_type": "sound_match",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
           "correct_answer": "sl",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say slide slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is sl because the word parts match the sound pattern.",
-          "feedback": "Yes — sl fits the pattern.",
+          "explanation": "Slide begins /s/–/l/. Those two sounds blend together as sl before the long i.",
+          "feedback": "Correct — Slide begins /s/–/l/. Those two sounds blend together as sl before the long i.",
           "choices": [
             "sl",
-            "ls",
-            "sh"
+            "sk",
+            "sn",
+            "sp"
           ],
           "word": "slide",
           "tiles": [
             "sl",
-            "i",
-            "de"
+            "i_e",
+            "d"
           ],
           "sounds": [
-            "s",
-            "l",
-            "i",
-            "d",
-            "e"
-          ],
-          "target_sound": "sl",
-          "sound": "sl",
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter",
-            "letter"
+            "sl",
+            "i_e",
+            "d"
           ],
           "question_audio": {
-            "text": "Read slide. Which blend starts or helps the word?",
+            "text": "Say slide slowly. Which blend do you hear before the long i sound?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1396,23 +1227,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q06",
-          "prompt": "Read thin. Which digraph starts or helps the word?",
+          "prompt": "Which word begins with the digraph that spells /th/?",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
           "correct_answer": "thin",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say thin slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is thin because the word parts match the sound pattern.",
-          "feedback": "Yes — thin fits the pattern.",
+          "explanation": "Thin begins with th, the two-letter spelling for /th/. The other words begin with /f/, /sh/, or /ch/.",
+          "feedback": "Correct — Thin begins with th, the two-letter spelling for /th/. The other words begin with /f/, /sh/, or /ch/.",
           "choices": [
+            "fin",
             "thin",
-            "ht",
-            "sh"
+            "shin",
+            "chin"
           ],
           "word": "thin",
           "tiles": [
@@ -1425,22 +1257,10 @@
             "i",
             "n"
           ],
-          "target_sound": "th",
-          "sound": "th",
-          "tile_types": [
-            "digraph",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "digraph",
-            "letter",
-            "letter"
-          ],
           "missing_tile": "th",
           "show_target": true,
           "question_audio": {
-            "text": "Read thin. Which digraph starts or helps the word?",
+            "text": "Which word begins with the digraph that spells /th/?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1454,27 +1274,27 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q07",
-          "prompt": "Write the blend you hear in brush.",
+          "prompt": "Brush starts with /b/ and /r/ blended together. Which letters show that blend?",
           "question_type": "short_response",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "br",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say brush slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is br because the word parts match the sound pattern.",
-          "feedback": "Yes — br fits the pattern.",
+          "explanation": "The beginning sounds in brush are /b/ and /r/, so the blend is br.",
+          "feedback": "Correct — The beginning sounds in brush are /b/ and /r/, so the blend is br.",
           "acceptable_answers": [
-            "br",
             "br"
           ],
           "choices": [
+            "bl",
+            "dr",
             "br",
-            "rb",
-            "sh"
+            "pr"
           ],
           "word": "brush",
           "tiles": [
@@ -1483,26 +1303,12 @@
             "sh"
           ],
           "sounds": [
-            "b",
-            "r",
+            "br",
             "u",
             "sh"
           ],
-          "target_sound": "br",
-          "sound": "br",
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter"
-          ],
           "question_audio": {
-            "text": "Write the blend you hear in brush.",
+            "text": "Brush starts with /b/ and /r/ blended together. Which letters show that blend?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1516,57 +1322,46 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q08",
-          "prompt": "Read sting. Which blend starts or helps the word?",
+          "prompt": "Which beginning blend turns ring into string?",
           "question_type": "multiple_choice",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "st",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say string slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is st because the word parts match the sound pattern.",
-          "feedback": "Yes — st fits the pattern.",
+          "explanation": "Adding st before ring makes string. Both sounds in st can be heard.",
+          "feedback": "Correct — Adding st before ring makes string. Both sounds in st can be heard.",
           "choices": [
-            "st",
-            "ts",
-            "sh"
+            "sp",
+            "sk",
+            "sw",
+            "st"
           ],
-          "word": "sting",
+          "word": "string",
           "tiles": [
             "st",
+            "r",
             "i",
             "ng"
           ],
           "sounds": [
-            "s",
-            "t",
+            "st",
+            "r",
             "i",
             "ng"
           ],
-          "target_sound": "st",
-          "sound": "st",
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter"
-          ],
           "question_audio": {
-            "text": "Read sting. Which blend starts or helps the word?",
+            "text": "Which beginning blend turns ring into string?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "sting",
+            "text": "string",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
@@ -1574,51 +1369,38 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q09",
-          "prompt": "Read whale. Which digraph starts or helps the word?",
+          "prompt": "Read whale. Which digraph spells the sound at the beginning?",
           "question_type": "sound_match",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
           "correct_answer": "wh",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say whale slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is wh because the word parts match the sound pattern.",
-          "feedback": "Yes — wh fits the pattern.",
+          "explanation": "Wh is the beginning digraph in whale. The letters work together at the start of the word.",
+          "feedback": "Correct — Wh is the beginning digraph in whale. The letters work together at the start of the word.",
           "choices": [
             "wh",
-            "hw",
+            "ch",
+            "ph",
             "sh"
           ],
           "word": "whale",
           "tiles": [
             "wh",
-            "a",
-            "le"
+            "a_e",
+            "l"
           ],
           "sounds": [
             "wh",
-            "a",
-            "l",
-            "e"
-          ],
-          "target_sound": "wh",
-          "sound": "wh",
-          "tile_types": [
-            "digraph",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "digraph",
-            "letter",
-            "letter",
-            "letter"
+            "a_e",
+            "l"
           ],
           "question_audio": {
-            "text": "Read whale. Which digraph starts or helps the word?",
+            "text": "Read whale. Which digraph spells the sound at the beginning?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1632,23 +1414,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL1_Q10",
-          "prompt": "Read clip. Which blend starts or helps the word?",
+          "prompt": "Blend /k/ and /l/, then add ip. Which word do you make?",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
           "correct_answer": "clip",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say clip slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is clip because the word parts match the sound pattern.",
-          "feedback": "Yes — clip fits the pattern.",
+          "explanation": "Blending /k/ and /l/ gives cl; cl plus ip makes clip.",
+          "feedback": "Correct — Blending /k/ and /l/ gives cl; cl plus ip makes clip.",
           "choices": [
+            "clap",
             "clip",
-            "lc",
-            "sh"
+            "flip",
+            "slip"
           ],
           "word": "clip",
           "tiles": [
@@ -1657,28 +1440,14 @@
             "p"
           ],
           "sounds": [
-            "c",
-            "l",
+            "cl",
             "i",
             "p"
-          ],
-          "target_sound": "cl",
-          "sound": "cl",
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter"
           ],
           "missing_tile": "cl",
           "show_target": true,
           "question_audio": {
-            "text": "Read clip. Which blend starts or helps the word?",
+            "text": "Blend /k/ and /l/, then add ip. Which word do you make?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1702,63 +1471,49 @@
       "questions": [
         {
           "question_id": "G2E_RF_001_LVL2_Q01",
-          "prompt": "Write the silent-e word shown: cake.",
+          "prompt": "Which word has a silent e that changes cap into a word with long a?",
           "question_type": "short_response",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
-          "correct_answer": "cake",
+          "correct_answer": "cape",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say cape slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is cake because the word parts match the sound pattern.",
-          "feedback": "Yes — cake fits the pattern.",
+          "explanation": "Cape ends with silent e. That e helps a say its long sound, /ā/.",
+          "feedback": "Correct — Cape ends with silent e. That e helps a say its long sound, /ā/.",
           "acceptable_answers": [
-            "cake",
-            "cake"
+            "cape"
           ],
           "choices": [
-            "cake",
-            "cak",
-            "caka"
+            "cap",
+            "camp",
+            "cape",
+            "cup"
           ],
-          "word": "cake",
+          "word": "cape",
           "tiles": [
             "c",
             "a",
-            "k",
+            "p",
             "e"
           ],
           "sounds": [
             "c",
-            "ā",
-            "k",
+            "a",
+            "p",
             "e"
           ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
           "question_audio": {
-            "text": "Write the silent-e word shown: cake.",
+            "text": "Which word has a silent e that changes cap into a word with long a?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "cake",
+            "text": "cape",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
@@ -1766,23 +1521,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q02",
-          "prompt": "Read the silent-e word bike. What word do the tiles make?",
+          "prompt": "Use the tiles b–i–k–e. What word do they spell?",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
           "correct_answer": "bike",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say bike slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is bike because the word parts match the sound pattern.",
-          "feedback": "Yes — bike fits the pattern.",
+          "explanation": "The final e is silent and makes i long, so b–i–k–e spells bike.",
+          "feedback": "Correct — The final e is silent and makes i long, so b–i–k–e spells bike.",
           "choices": [
-            "bike",
-            "bik",
-            "bika"
+            "bit",
+            "back",
+            "book",
+            "bike"
           ],
           "word": "bike",
           "tiles": [
@@ -1793,29 +1549,15 @@
           ],
           "sounds": [
             "b",
-            "ī",
+            "i",
             "k",
             "e"
-          ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
           ],
           "missing_tile": "e",
           "show_target": false,
           "target_pattern": "bik_",
           "question_audio": {
-            "text": "Read the silent-e word bike. What word do the tiles make?",
+            "text": "Use the tiles b–i–k–e. What word do they spell?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1829,23 +1571,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q03",
-          "prompt": "Read the silent-e word rope. What word do the tiles make?",
+          "prompt": "Which word completes the sentence: We pulled the wagon with a __?",
           "question_type": "sound_match",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "rope",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say rope slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is rope because the word parts match the sound pattern.",
-          "feedback": "Yes — rope fits the pattern.",
+          "explanation": "Rope fits the sentence and follows the o-consonant-silent-e pattern for long o.",
+          "feedback": "Correct — Rope fits the sentence and follows the o-consonant-silent-e pattern for long o.",
           "choices": [
             "rope",
-            "rop",
-            "ropa"
+            "rob",
+            "rip",
+            "row"
           ],
           "word": "rope",
           "tiles": [
@@ -1856,29 +1599,13 @@
           ],
           "sounds": [
             "r",
-            "ō",
+            "o",
             "p",
             "e"
           ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound": "silent e",
-          "target_sound": "long vowel + silent e",
           "letter": "e",
           "question_audio": {
-            "text": "Read the silent-e word rope. What word do the tiles make?",
+            "text": "Which word completes the sentence: We pulled the wagon with a __?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1892,23 +1619,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q04",
-          "prompt": "Read the silent-e word cube. What word do the tiles make?",
+          "prompt": "Cub means a young bear. Which word uses silent e to name a solid shape?",
           "question_type": "multiple_choice",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "cube",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say cube slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is cube because the word parts match the sound pattern.",
-          "feedback": "Yes — cube fits the pattern.",
+          "explanation": "Adding silent e to cub makes cube. The u changes from short /ŭ/ to long /ū/.",
+          "feedback": "Correct — Adding silent e to cub makes cube. The u changes from short /ŭ/ to long /ū/.",
           "choices": [
-            "cube",
             "cub",
-            "cuba"
+            "cube",
+            "cab",
+            "club"
           ],
           "word": "cube",
           "tiles": [
@@ -1919,26 +1647,12 @@
           ],
           "sounds": [
             "c",
-            "ū",
+            "u",
             "b",
             "e"
           ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
           "question_audio": {
-            "text": "Read the silent-e word cube. What word do the tiles make?",
+            "text": "Cub means a young bear. Which word uses silent e to name a solid shape?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -1952,27 +1666,27 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q05",
-          "prompt": "Write the silent-e word shown: plane.",
+          "prompt": "What happens to the vowel sound when silent e changes plan to plane?",
           "question_type": "short_response",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
-          "correct_answer": "plane",
+          "correct_answer": "long a",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say plane slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is plane because the word parts match the sound pattern.",
-          "feedback": "Yes — plane fits the pattern.",
+          "explanation": "In plane, silent e helps a say its name, the long-a sound.",
+          "feedback": "Correct — In plane, silent e helps a say its name, the long-a sound.",
           "acceptable_answers": [
-            "plane",
-            "plane"
+            "long a"
           ],
           "choices": [
-            "plane",
-            "plan",
-            "plana"
+            "short a",
+            "long e",
+            "long a",
+            "short i"
           ],
           "word": "plane",
           "tiles": [
@@ -1982,29 +1696,13 @@
             "e"
           ],
           "sounds": [
-            "p",
-            "l",
-            "ā",
+            "pl",
+            "a",
             "n",
             "e"
           ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
           "question_audio": {
-            "text": "Write the silent-e word shown: plane.",
+            "text": "What happens to the vowel sound when silent e changes plan to plane?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2018,23 +1716,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q06",
-          "prompt": "Read the silent-e word smile. What word do the tiles make?",
+          "prompt": "Choose the word with a long i made by silent e.",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
           "correct_answer": "smile",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say smile slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is smile because the word parts match the sound pattern.",
-          "feedback": "Yes — smile fits the pattern.",
+          "explanation": "Smile has the i-consonant-e pattern, so i has its long sound.",
+          "feedback": "Correct — Smile has the i-consonant-e pattern, so i has its long sound.",
           "choices": [
-            "smile",
-            "smil",
-            "smila"
+            "spill",
+            "shell",
+            "smock",
+            "smile"
           ],
           "word": "smile",
           "tiles": [
@@ -2044,32 +1743,16 @@
             "e"
           ],
           "sounds": [
-            "s",
-            "m",
-            "ī",
+            "sm",
+            "i",
             "l",
             "e"
-          ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
           ],
           "missing_tile": "e",
           "show_target": false,
           "target_pattern": "smil_",
           "question_audio": {
-            "text": "Read the silent-e word smile. What word do the tiles make?",
+            "text": "Choose the word with a long i made by silent e.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2083,23 +1766,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q07",
-          "prompt": "Read the silent-e word grape. What word do the tiles make?",
+          "prompt": "Complete this sentence with the silent-e word: I ate one purple __.",
           "question_type": "sound_match",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "grape",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say grape slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is grape because the word parts match the sound pattern.",
-          "feedback": "Yes — grape fits the pattern.",
+          "explanation": "Grape names the fruit and uses silent e to make the a long.",
+          "feedback": "Correct — Grape names the fruit and uses silent e to make the a long.",
           "choices": [
             "grape",
-            "grap",
-            "grapa"
+            "grip",
+            "graph",
+            "grab"
           ],
           "word": "grape",
           "tiles": [
@@ -2109,32 +1793,14 @@
             "e"
           ],
           "sounds": [
-            "g",
-            "r",
-            "ā",
+            "gr",
+            "a",
             "p",
             "e"
           ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound": "silent e",
-          "target_sound": "long vowel + silent e",
           "letter": "e",
           "question_audio": {
-            "text": "Read the silent-e word grape. What word do the tiles make?",
+            "text": "Complete this sentence with the silent-e word: I ate one purple __.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2148,23 +1814,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q08",
-          "prompt": "Read the silent-e word stone. What word do the tiles make?",
+          "prompt": "Which word changes from short o to long o when e is added to the end?",
           "question_type": "multiple_choice",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "stone",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say stone slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is stone because the word parts match the sound pattern.",
-          "feedback": "Yes — stone fits the pattern.",
+          "explanation": "Stone has silent e after the consonant n. The e makes o say /ō/.",
+          "feedback": "Correct — Stone has silent e after the consonant n. The e makes o say /ō/.",
           "choices": [
+            "stop",
             "stone",
-            "ston",
-            "stona"
+            "spin",
+            "stem"
           ],
           "word": "stone",
           "tiles": [
@@ -2174,29 +1841,13 @@
             "e"
           ],
           "sounds": [
-            "s",
-            "t",
-            "ō",
+            "st",
+            "o",
             "n",
             "e"
           ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
           "question_audio": {
-            "text": "Read the silent-e word stone. What word do the tiles make?",
+            "text": "Which word changes from short o to long o when e is added to the end?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2210,27 +1861,27 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q09",
-          "prompt": "Write the silent-e word shown: shine.",
+          "prompt": "The sun can __ through the window. Which silent-e word belongs in the sentence?",
           "question_type": "short_response",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
           "correct_answer": "shine",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say shine slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is shine because the word parts match the sound pattern.",
-          "feedback": "Yes — shine fits the pattern.",
+          "explanation": "Shine makes sense in the sentence, and its silent e makes i long.",
+          "feedback": "Correct — Shine makes sense in the sentence, and its silent e makes i long.",
           "acceptable_answers": [
-            "shine",
             "shine"
           ],
           "choices": [
-            "shine",
             "shin",
-            "shina"
+            "shade",
+            "shine",
+            "shown"
           ],
           "word": "shine",
           "tiles": [
@@ -2241,26 +1892,12 @@
           ],
           "sounds": [
             "sh",
-            "ī",
+            "i",
             "n",
             "e"
           ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "digraph",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
           "question_audio": {
-            "text": "Write the silent-e word shown: shine.",
+            "text": "The sun can __ through the window. Which silent-e word belongs in the sentence?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2274,23 +1911,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL2_Q10",
-          "prompt": "Read the silent-e word flute. What word do the tiles make?",
+          "prompt": "Which tiles spell the long-u word flute?",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
-          "correct_answer": "flute",
+          "correct_answer": "f–l–u–t–e",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say flute slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is flute because the word parts match the sound pattern.",
-          "feedback": "Yes — flute fits the pattern.",
+          "explanation": "The tiles f–l–u–t–e spell flute. Silent e helps u make its long sound.",
+          "feedback": "Correct — The tiles f–l–u–t–e spell flute. Silent e helps u make its long sound.",
           "choices": [
-            "flute",
-            "flut",
-            "fluta"
+            "f–l–u–t",
+            "f–l–a–t",
+            "f–l–i–t",
+            "f–l–u–t–e"
           ],
           "word": "flute",
           "tiles": [
@@ -2300,32 +1938,16 @@
             "e"
           ],
           "sounds": [
-            "f",
-            "l",
-            "ū",
+            "fl",
+            "u",
             "t",
             "e"
-          ],
-          "silent_e": true,
-          "silent_e_index": 3,
-          "tile_types": [
-            "blend",
-            "letter",
-            "letter",
-            "silent-e"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "letter",
-            "letter",
-            "silent-e"
           ],
           "missing_tile": "e",
           "show_target": false,
           "target_pattern": "flut_",
           "question_audio": {
-            "text": "Read the silent-e word flute. What word do the tiles make?",
+            "text": "Which tiles spell the long-u word flute?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2349,23 +1971,24 @@
       "questions": [
         {
           "question_id": "G2E_RF_001_LVL3_Q01",
-          "prompt": "Which vowel team is in rain?",
+          "prompt": "In rain, which vowel team spells the long-a sound?",
           "question_type": "multiple_choice",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
           "correct_answer": "ai",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say rain slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ai because the word parts match the sound pattern.",
-          "feedback": "Yes — ai fits the pattern.",
+          "explanation": "The middle letters ai work as a team to spell long a in rain.",
+          "feedback": "Correct — The middle letters ai work as a team to spell long a in rain.",
           "choices": [
             "ai",
-            "a",
-            "sh"
+            "ay",
+            "ea",
+            "oa"
           ],
           "word": "rain",
           "tiles": [
@@ -2378,20 +2001,8 @@
             "ai",
             "n"
           ],
-          "tile_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound": "ai",
-          "target_sound": "ai",
           "question_audio": {
-            "text": "Which vowel team is in rain?",
+            "text": "In rain, which vowel team spells the long-a sound?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2405,23 +2016,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q02",
-          "prompt": "Which vowel team is in feet?",
+          "prompt": "Choose the vowel team in feet.",
           "question_type": "sound_match",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "ee",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say feet slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ee because the word parts match the sound pattern.",
-          "feedback": "Yes — ee fits the pattern.",
+          "explanation": "The two e's in feet form the vowel team ee and spell the long-e sound.",
+          "feedback": "Correct — The two e's in feet form the vowel team ee and spell the long-e sound.",
           "choices": [
+            "ea",
             "ee",
-            "e",
-            "sh"
+            "ai",
+            "oa"
           ],
           "word": "feet",
           "tiles": [
@@ -2434,20 +2046,8 @@
             "ee",
             "t"
           ],
-          "tile_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound": "ee",
-          "target_sound": "ee",
           "question_audio": {
-            "text": "Which vowel team is in feet?",
+            "text": "Choose the vowel team in feet.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2461,23 +2061,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q03",
-          "prompt": "Build the vowel-team word boat.",
+          "prompt": "Join b + oa + t. Which word do the chunks make?",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
           "correct_answer": "boat",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say boat slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is boat because the word parts match the sound pattern.",
-          "feedback": "Yes — boat fits the pattern.",
+          "explanation": "The vowel team oa spells long o. Joining b, oa, and t makes boat.",
+          "feedback": "Correct — The vowel team oa spells long o. Joining b, oa, and t makes boat.",
           "choices": [
+            "boot",
+            "bait",
             "boat",
-            "o",
-            "sh"
+            "beat"
           ],
           "word": "boat",
           "tiles": [
@@ -2490,22 +2091,10 @@
             "oa",
             "t"
           ],
-          "tile_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound": "oa",
-          "target_sound": "oa",
           "missing_tile": "oa",
           "show_target": true,
           "question_audio": {
-            "text": "Build the vowel-team word boat.",
+            "text": "Join b + oa + t. Which word do the chunks make?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2519,27 +2108,27 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q04",
-          "prompt": "Which vowel team is in play?",
+          "prompt": "The word play ends with long a. Which letters spell that sound?",
           "question_type": "short_response",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "ay",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say play slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ay because the word parts match the sound pattern.",
-          "feedback": "Yes — ay fits the pattern.",
+          "explanation": "At the end of play, the vowel team ay spells the long-a sound.",
+          "feedback": "Correct — At the end of play, the vowel team ay spells the long-a sound.",
           "acceptable_answers": [
-            "ay",
             "ay"
           ],
           "choices": [
-            "ay",
-            "a",
-            "sh"
+            "ai",
+            "ey",
+            "oy",
+            "ay"
           ],
           "word": "play",
           "tiles": [
@@ -2547,23 +2136,11 @@
             "ay"
           ],
           "sounds": [
-            "p",
-            "l",
+            "pl",
             "ay"
           ],
-          "tile_types": [
-            "blend",
-            "vowel-team"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "vowel-team"
-          ],
-          "sound": "ay",
-          "target_sound": "ay",
           "question_audio": {
-            "text": "Which vowel team is in play?",
+            "text": "The word play ends with long a. Which letters spell that sound?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2577,23 +2154,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q05",
-          "prompt": "Which vowel team is in leaf?",
+          "prompt": "Which vowel team completes l__f to make leaf?",
           "question_type": "multiple_choice",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
           "correct_answer": "ea",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say leaf slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ea because the word parts match the sound pattern.",
-          "feedback": "Yes — ea fits the pattern.",
+          "explanation": "The vowel team ea completes l–ea–f and spells the long-e sound in leaf.",
+          "feedback": "Correct — The vowel team ea completes l–ea–f and spells the long-e sound in leaf.",
           "choices": [
             "ea",
-            "e",
-            "sh"
+            "ee",
+            "ai",
+            "ie"
           ],
           "word": "leaf",
           "tiles": [
@@ -2606,20 +2184,8 @@
             "ea",
             "f"
           ],
-          "tile_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound": "ea",
-          "target_sound": "ea",
           "question_audio": {
-            "text": "Which vowel team is in leaf?",
+            "text": "Which vowel team completes l__f to make leaf?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2633,23 +2199,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q06",
-          "prompt": "Which vowel team is in snow?",
+          "prompt": "Read snow. Which two letters work together to spell long o?",
           "question_type": "sound_match",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "ow",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say snow slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ow because the word parts match the sound pattern.",
-          "feedback": "Yes — ow fits the pattern.",
+          "explanation": "At the end of snow, ow is a vowel team that spells the long-o sound.",
+          "feedback": "Correct — At the end of snow, ow is a vowel team that spells the long-o sound.",
           "choices": [
+            "oa",
             "ow",
-            "o",
-            "sh"
+            "ou",
+            "oo"
           ],
           "word": "snow",
           "tiles": [
@@ -2657,23 +2224,11 @@
             "ow"
           ],
           "sounds": [
-            "s",
-            "n",
+            "sn",
             "ow"
           ],
-          "tile_types": [
-            "blend",
-            "vowel-team"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "vowel-team"
-          ],
-          "sound": "ow",
-          "target_sound": "ow",
           "question_audio": {
-            "text": "Which vowel team is in snow?",
+            "text": "Read snow. Which two letters work together to spell long o?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2687,23 +2242,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q07",
-          "prompt": "Build the vowel-team word pie.",
+          "prompt": "Which word can be built with p + ie?",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
           "correct_answer": "pie",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say pie slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is pie because the word parts match the sound pattern.",
-          "feedback": "Yes — pie fits the pattern.",
+          "explanation": "Joining p and ie makes pie. In this word, ie spells the long-i sound.",
+          "feedback": "Correct — Joining p and ie makes pie. In this word, ie spells the long-i sound.",
           "choices": [
+            "pea",
+            "pay",
             "pie",
-            "i",
-            "sh"
+            "pin"
           ],
           "word": "pie",
           "tiles": [
@@ -2714,20 +2270,10 @@
             "p",
             "ie"
           ],
-          "tile_types": [
-            "letter",
-            "vowel-team"
-          ],
-          "sound_types": [
-            "letter",
-            "vowel-team"
-          ],
-          "sound": "ie",
-          "target_sound": "ie",
           "missing_tile": "ie",
           "show_target": true,
           "question_audio": {
-            "text": "Build the vowel-team word pie.",
+            "text": "Which word can be built with p + ie?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2741,27 +2287,27 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q08",
-          "prompt": "Which vowel team is in blue?",
+          "prompt": "Choose the vowel team that completes bl__ to spell blue.",
           "question_type": "short_response",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "ue",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say blue slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ue because the word parts match the sound pattern.",
-          "feedback": "Yes — ue fits the pattern.",
+          "explanation": "The letters ue complete blue and work together to spell the long-u sound.",
+          "feedback": "Correct — The letters ue complete blue and work together to spell the long-u sound.",
           "acceptable_answers": [
-            "ue",
             "ue"
           ],
           "choices": [
-            "ue",
-            "u",
-            "sh"
+            "ui",
+            "oo",
+            "ew",
+            "ue"
           ],
           "word": "blue",
           "tiles": [
@@ -2769,23 +2315,11 @@
             "ue"
           ],
           "sounds": [
-            "b",
-            "l",
+            "bl",
             "ue"
           ],
-          "tile_types": [
-            "blend",
-            "vowel-team"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "vowel-team"
-          ],
-          "sound": "ue",
-          "target_sound": "ue",
           "question_audio": {
-            "text": "Which vowel team is in blue?",
+            "text": "Choose the vowel team that completes bl__ to spell blue.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2799,23 +2333,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q09",
-          "prompt": "Which vowel team is in goat?",
+          "prompt": "Which word has the same vowel team as boat?",
           "question_type": "multiple_choice",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
-          "correct_answer": "oa",
+          "correct_answer": "goat",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say goat slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is oa because the word parts match the sound pattern.",
-          "feedback": "Yes — oa fits the pattern.",
+          "explanation": "Goat and boat both contain oa. In each word, oa spells long o.",
+          "feedback": "Correct — Goat and boat both contain oa. In each word, oa spells long o.",
           "choices": [
-            "oa",
-            "o",
-            "sh"
+            "goat",
+            "got",
+            "boot",
+            "gate"
           ],
           "word": "goat",
           "tiles": [
@@ -2828,20 +2363,8 @@
             "oa",
             "t"
           ],
-          "tile_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound": "oa",
-          "target_sound": "oa",
           "question_audio": {
-            "text": "Which vowel team is in goat?",
+            "text": "Which word has the same vowel team as boat?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2855,23 +2378,24 @@
         },
         {
           "question_id": "G2E_RF_001_LVL3_Q10",
-          "prompt": "Which vowel team is in train?",
+          "prompt": "Look at train. Which letters should stay together when you sound out the word?",
           "question_type": "sound_match",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "ai",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say train slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ai because the word parts match the sound pattern.",
-          "feedback": "Yes — ai fits the pattern.",
+          "explanation": "The vowel team ai stays together because it spells one long-a vowel sound in train.",
+          "feedback": "Correct — The vowel team ai stays together because it spells one long-a vowel sound in train.",
           "choices": [
+            "tr",
             "ai",
-            "a",
-            "sh"
+            "in",
+            "ra"
           ],
           "word": "train",
           "tiles": [
@@ -2880,26 +2404,12 @@
             "n"
           ],
           "sounds": [
-            "t",
-            "r",
+            "tr",
             "ai",
             "n"
           ],
-          "tile_types": [
-            "blend",
-            "vowel-team",
-            "letter"
-          ],
-          "sound_types": [
-            "letter",
-            "letter",
-            "vowel-team",
-            "letter"
-          ],
-          "sound": "ai",
-          "target_sound": "ai",
           "question_audio": {
-            "text": "Which vowel team is in train?",
+            "text": "Look at train. Which letters should stay together when you sound out the word?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2923,36 +2433,29 @@
       "questions": [
         {
           "question_id": "G2E_RF_001_LVL4_Q01",
-          "prompt": "Break sunset into syllables.",
+          "prompt": "Which break shows the two smaller words in sunset?",
           "question_type": "short_response",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
-          "correct_answer": "sun-set",
+          "correct_answer": "sun | set",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say sunset slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is sun-set because the word parts match the sound pattern.",
-          "feedback": "Yes — sun-set fits the pattern.",
+          "explanation": "Sunset is a compound word made from sun and set, so the useful break is sun | set.",
+          "feedback": "Correct — Sunset is a compound word made from sun and set, so the useful break is sun | set.",
           "acceptable_answers": [
-            "sun-set",
-            "sun set",
-            "sun|set"
+            "sun | set"
           ],
           "choices": [
-            "sun-set",
-            "sunset",
-            "sun-set"
+            "suns | et",
+            "su | nset",
+            "sun | set",
+            "sunse | t"
           ],
           "word": "sunset",
-          "syllables": [
-            "sun",
-            "set"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap sunset: sun | set.",
           "tiles": [
             "sun",
             "set"
@@ -2962,7 +2465,7 @@
             "set"
           ],
           "question_audio": {
-            "text": "Break sunset into syllables.",
+            "text": "Which break shows the two smaller words in sunset?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -2976,36 +2479,26 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q02",
-          "prompt": "Break basket into syllables.",
+          "prompt": "Read basket in two beats. Which syllable division helps you decode it?",
           "question_type": "word_building",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
-          "correct_answer": "bas-ket",
+          "correct_answer": "bas | ket",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say basket slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is bas-ket because the word parts match the sound pattern.",
-          "feedback": "Yes — bas-ket fits the pattern.",
+          "explanation": "Basket has two vowel sounds and two syllables: bas | ket.",
+          "feedback": "Correct — Basket has two vowel sounds and two syllables: bas | ket.",
           "choices": [
-            "bas-ket",
-            "basket",
-            "bas-ket"
-          ],
-          "acceptable_answers": [
-            "bas-ket",
-            "bas ket",
-            "bas|ket"
+            "ba | sket",
+            "bask | et",
+            "basket |",
+            "bas | ket"
           ],
           "word": "basket",
-          "syllables": [
-            "bas",
-            "ket"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap basket: bas | ket.",
           "tiles": [
             "bas",
             "ket"
@@ -3016,7 +2509,7 @@
           ],
           "show_target": true,
           "question_audio": {
-            "text": "Break basket into syllables.",
+            "text": "Read basket in two beats. Which syllable division helps you decode it?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3030,36 +2523,26 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q03",
-          "prompt": "How many syllables are in rabbit?",
+          "prompt": "Clap rabbit as you say it. How many syllables do you hear?",
           "question_type": "sound_match",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
           "correct_answer": "2",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say rabbit slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is 2 because the word parts match the sound pattern.",
-          "feedback": "Yes — 2 fits the pattern.",
+          "explanation": "Rabbit has two spoken beats, rab and bit, so it has 2 syllables.",
+          "feedback": "Correct — Rabbit has two spoken beats, rab and bit, so it has 2 syllables.",
           "choices": [
             "2",
-            "rabbit",
-            "rab-bit"
-          ],
-          "acceptable_answers": [
-            "2",
-            "rab bit",
-            "rab|bit"
+            "1",
+            "3",
+            "4"
           ],
           "word": "rabbit",
-          "syllables": [
-            "rab",
-            "bit"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap rabbit: rab | bit.",
           "tiles": [
             "rab",
             "bit"
@@ -3069,7 +2552,7 @@
             "bit"
           ],
           "question_audio": {
-            "text": "How many syllables are in rabbit?",
+            "text": "Clap rabbit as you say it. How many syllables do you hear?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3083,36 +2566,26 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q04",
-          "prompt": "Break picnic into syllables.",
+          "prompt": "Which division shows both syllables in picnic?",
           "question_type": "multiple_choice",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
-          "correct_answer": "pic-nic",
+          "correct_answer": "pic | nic",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say picnic slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is pic-nic because the word parts match the sound pattern.",
-          "feedback": "Yes — pic-nic fits the pattern.",
+          "explanation": "Picnic breaks into the spoken parts pic | nic. Each part contains one vowel sound.",
+          "feedback": "Correct — Picnic breaks into the spoken parts pic | nic. Each part contains one vowel sound.",
           "choices": [
-            "pic-nic",
-            "picnic",
-            "pic-nic"
-          ],
-          "acceptable_answers": [
-            "pic-nic",
-            "pic nic",
-            "pic|nic"
+            "pi | cnic",
+            "pic | nic",
+            "picn | ic",
+            "p | icnic"
           ],
           "word": "picnic",
-          "syllables": [
-            "pic",
-            "nic"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap picnic: pic | nic.",
           "tiles": [
             "pic",
             "nic"
@@ -3122,7 +2595,7 @@
             "nic"
           ],
           "question_audio": {
-            "text": "Break picnic into syllables.",
+            "text": "Which division shows both syllables in picnic?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3136,36 +2609,29 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q05",
-          "prompt": "Break robot into syllables.",
+          "prompt": "Say robot slowly. Which first syllable do you hear?",
           "question_type": "short_response",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
-          "correct_answer": "ro-bot",
+          "correct_answer": "ro",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say robot slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is ro-bot because the word parts match the sound pattern.",
-          "feedback": "Yes — ro-bot fits the pattern.",
+          "explanation": "Robot is read ro | bot. The first open syllable ro ends in a vowel sound.",
+          "feedback": "Correct — Robot is read ro | bot. The first open syllable ro ends in a vowel sound.",
           "acceptable_answers": [
-            "ro-bot",
-            "ro bot",
-            "ro|bot"
+            "ro"
           ],
           "choices": [
-            "ro-bot",
-            "robot",
-            "ro-bot"
+            "rob",
+            "rot",
+            "ro",
+            "r"
           ],
           "word": "robot",
-          "syllables": [
-            "ro",
-            "bot"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap robot: ro | bot.",
           "tiles": [
             "ro",
             "bot"
@@ -3175,7 +2641,7 @@
             "bot"
           ],
           "question_audio": {
-            "text": "Break robot into syllables.",
+            "text": "Say robot slowly. Which first syllable do you hear?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3189,36 +2655,26 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q06",
-          "prompt": "Break tiger into syllables.",
+          "prompt": "Which pair of chunks blends to make tiger?",
           "question_type": "word_building",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
-          "correct_answer": "ti-ger",
+          "correct_answer": "ti + ger",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say tiger slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is ti-ger because the word parts match the sound pattern.",
-          "feedback": "Yes — ti-ger fits the pattern.",
+          "explanation": "The chunks ti and ger blend to make the two-syllable word tiger.",
+          "feedback": "Correct — The chunks ti and ger blend to make the two-syllable word tiger.",
           "choices": [
-            "ti-ger",
-            "tiger",
-            "ti-ger"
-          ],
-          "acceptable_answers": [
-            "ti-ger",
-            "ti ger",
-            "ti|ger"
+            "tig + er",
+            "t + iger",
+            "tie + gr",
+            "ti + ger"
           ],
           "word": "tiger",
-          "syllables": [
-            "ti",
-            "ger"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap tiger: ti | ger.",
           "tiles": [
             "ti",
             "ger"
@@ -3229,7 +2685,7 @@
           ],
           "show_target": true,
           "question_audio": {
-            "text": "Break tiger into syllables.",
+            "text": "Which pair of chunks blends to make tiger?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3243,36 +2699,26 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q07",
-          "prompt": "How many syllables are in paper?",
+          "prompt": "How many vowel sounds—and therefore syllables—are in paper?",
           "question_type": "sound_match",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
           "correct_answer": "2",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say paper slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is 2 because the word parts match the sound pattern.",
-          "feedback": "Yes — 2 fits the pattern.",
+          "explanation": "Paper has two vowel sounds in the spoken parts pa | per, so it has 2 syllables.",
+          "feedback": "Correct — Paper has two vowel sounds in the spoken parts pa | per, so it has 2 syllables.",
           "choices": [
             "2",
-            "paper",
-            "pa-per"
-          ],
-          "acceptable_answers": [
-            "2",
-            "pa per",
-            "pa|per"
+            "1",
+            "3",
+            "5"
           ],
           "word": "paper",
-          "syllables": [
-            "pa",
-            "per"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap paper: pa | per.",
           "tiles": [
             "pa",
             "per"
@@ -3282,7 +2728,7 @@
             "per"
           ],
           "question_audio": {
-            "text": "How many syllables are in paper?",
+            "text": "How many vowel sounds—and therefore syllables—are in paper?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3296,36 +2742,26 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q08",
-          "prompt": "Break music into syllables.",
+          "prompt": "Choose the syllable break that helps a reader decode music.",
           "question_type": "multiple_choice",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
-          "correct_answer": "mu-sic",
+          "correct_answer": "mu | sic",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say music slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is mu-sic because the word parts match the sound pattern.",
-          "feedback": "Yes — mu-sic fits the pattern.",
+          "explanation": "Music has two spoken syllables, mu | sic. Reading each chunk helps you blend the whole word.",
+          "feedback": "Correct — Music has two spoken syllables, mu | sic. Reading each chunk helps you blend the whole word.",
           "choices": [
-            "mu-sic",
-            "music",
-            "mu-sic"
-          ],
-          "acceptable_answers": [
-            "mu-sic",
-            "mu sic",
-            "mu|sic"
+            "mus | ic",
+            "mu | sic",
+            "m | usic",
+            "musi | c"
           ],
           "word": "music",
-          "syllables": [
-            "mu",
-            "sic"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap music: mu | sic.",
           "tiles": [
             "mu",
             "sic"
@@ -3335,7 +2771,7 @@
             "sic"
           ],
           "question_audio": {
-            "text": "Break music into syllables.",
+            "text": "Choose the syllable break that helps a reader decode music.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3349,36 +2785,29 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q09",
-          "prompt": "Break pencil into syllables.",
+          "prompt": "What is the second syllable in pencil?",
           "question_type": "short_response",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
-          "correct_answer": "pen-cil",
+          "correct_answer": "cil",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say pencil slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is pen-cil because the word parts match the sound pattern.",
-          "feedback": "Yes — pen-cil fits the pattern.",
+          "explanation": "Pencil breaks into pen | cil, so cil is the second syllable.",
+          "feedback": "Correct — Pencil breaks into pen | cil, so cil is the second syllable.",
           "acceptable_answers": [
-            "pen-cil",
-            "pen cil",
-            "pen|cil"
-          ],
-          "choices": [
-            "pen-cil",
-            "pencil",
-            "pen-cil"
-          ],
-          "word": "pencil",
-          "syllables": [
-            "pen",
             "cil"
           ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap pencil: pen | cil.",
+          "choices": [
+            "pen",
+            "penc",
+            "cil",
+            "il"
+          ],
+          "word": "pencil",
           "tiles": [
             "pen",
             "cil"
@@ -3388,7 +2817,7 @@
             "cil"
           ],
           "question_audio": {
-            "text": "Break pencil into syllables.",
+            "text": "What is the second syllable in pencil?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3402,36 +2831,26 @@
         },
         {
           "question_id": "G2E_RF_001_LVL4_Q10",
-          "prompt": "Break button into syllables.",
+          "prompt": "Blend the syllables but + ton. Which word do you read?",
           "question_type": "word_building",
           "visual_model": "word_builder",
           "support_type": "word_builder",
-          "correct_answer": "but-ton",
+          "correct_answer": "button",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say button slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is but-ton because the word parts match the sound pattern.",
-          "feedback": "Yes — but-ton fits the pattern.",
+          "explanation": "The syllables but and ton blend to make button.",
+          "feedback": "Correct — The syllables but and ton blend to make button.",
           "choices": [
-            "but-ton",
-            "button",
-            "but-ton"
-          ],
-          "acceptable_answers": [
-            "but-ton",
-            "but ton",
-            "but|ton"
+            "baton",
+            "bottom",
+            "bitten",
+            "button"
           ],
           "word": "button",
-          "syllables": [
-            "but",
-            "ton"
-          ],
-          "syllable_count": 2,
-          "clap_prompt": "Clap button: but | ton.",
           "tiles": [
             "but",
             "ton"
@@ -3442,7 +2861,7 @@
           ],
           "show_target": true,
           "question_audio": {
-            "text": "Break button into syllables.",
+            "text": "Blend the syllables but + ton. Which word do you read?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3466,52 +2885,47 @@
       "questions": [
         {
           "question_id": "G2E_RF_001_MIXED_Q01",
-          "prompt": "Mixed review: find the blend answer for plant.",
+          "prompt": "The frog sprang from a rock. Which beginning blend is in sprang?",
           "question_type": "short_response",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
-          "correct_answer": "pl",
+          "correct_answer": "spr",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say sprang slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is pl because the word parts match the sound pattern.",
-          "feedback": "Yes — pl fits the pattern.",
+          "explanation": "Sprang begins with the three-letter blend spr. You can hear /s/, /p/, and /r/.",
+          "feedback": "Correct — Sprang begins with the three-letter blend spr. You can hear /s/, /p/, and /r/.",
           "acceptable_answers": [
-            "pl",
-            "pl"
+            "spr"
           ],
           "choices": [
-            "pl",
-            "plant",
-            "sh"
+            "spr",
+            "str",
+            "scr",
+            "spl"
           ],
-          "word": "plant",
+          "word": "sprang",
           "tiles": [
-            "pl",
+            "spr",
             "a",
-            "n",
-            "t"
+            "ng"
           ],
           "sounds": [
-            "p",
-            "l",
+            "spr",
             "a",
-            "n",
-            "t"
+            "ng"
           ],
-          "sound": "pl",
-          "target_sound": "pl",
           "question_audio": {
-            "text": "Mixed review: find the blend answer for plant.",
+            "text": "The frog sprang from a rock. Which beginning blend is in sprang?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "plant",
+            "text": "sprang",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
@@ -3519,45 +2933,44 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q02",
-          "prompt": "Mixed review: find the digraph answer for cheese.",
+          "prompt": "Which word begins with the same digraph as cheese?",
           "question_type": "sound_match",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
-          "correct_answer": "ch",
+          "correct_answer": "chase",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say chase slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is ch because the word parts match the sound pattern.",
-          "feedback": "Yes — ch fits the pattern.",
+          "explanation": "Cheese and chase both begin with the digraph ch.",
+          "feedback": "Correct — Cheese and chase both begin with the digraph ch.",
           "choices": [
-            "ch",
-            "cheese",
-            "sh"
+            "these",
+            "chase",
+            "sheep",
+            "wheel"
           ],
-          "word": "cheese",
+          "word": "chase",
           "tiles": [
             "ch",
-            "ee",
-            "se"
+            "a_e",
+            "s"
           ],
           "sounds": [
             "ch",
-            "ee",
+            "a_e",
             "s"
           ],
-          "sound": "ch",
-          "target_sound": "ch",
           "question_audio": {
-            "text": "Mixed review: find the digraph answer for cheese.",
+            "text": "Which word begins with the same digraph as cheese?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "cheese",
+            "text": "chase",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
@@ -3565,23 +2978,24 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q03",
-          "prompt": "Mixed review: find the silent e answer for brave.",
+          "prompt": "Choose the silent-e word that completes the sentence: The knight was __.",
           "question_type": "word_building",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "brave",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say brave slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is brave because the word parts match the sound pattern.",
-          "feedback": "Yes — brave fits the pattern.",
+          "explanation": "Brave fits the sentence and uses the a-consonant-silent-e pattern for long a.",
+          "feedback": "Correct — Brave fits the sentence and uses the a-consonant-silent-e pattern for long a.",
           "choices": [
+            "brief",
+            "brown",
             "brave",
-            "brave",
-            "sh"
+            "bright"
           ],
           "word": "brave",
           "tiles": [
@@ -3591,20 +3005,15 @@
             "e"
           ],
           "sounds": [
-            "b",
-            "r",
-            "ā",
+            "br",
+            "a",
             "v",
             "e"
           ],
-          "sound": "brave",
-          "target_sound": "brave",
-          "silent_e": true,
-          "silent_e_index": 3,
           "show_target": true,
           "missing_tile": "",
           "question_audio": {
-            "text": "Mixed review: find the silent e answer for brave.",
+            "text": "Choose the silent-e word that completes the sentence: The knight was __.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3618,23 +3027,24 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q04",
-          "prompt": "Mixed review: find the vowel team answer for dream.",
+          "prompt": "A good night's sleep can help you __. Which vowel-team word completes the sentence?",
           "question_type": "multiple_choice",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
-          "correct_answer": "ea",
+          "correct_answer": "dream",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say dream slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ea because the word parts match the sound pattern.",
-          "feedback": "Yes — ea fits the pattern.",
+          "explanation": "Dream fits the sentence. Its ea vowel team spells the long-e sound.",
+          "feedback": "Correct — Dream fits the sentence. Its ea vowel team spells the long-e sound.",
           "choices": [
-            "ea",
-            "dream",
-            "sh"
+            "drum",
+            "drip",
+            "drop",
+            "dream"
           ],
           "word": "dream",
           "tiles": [
@@ -3643,15 +3053,12 @@
             "m"
           ],
           "sounds": [
-            "d",
-            "r",
+            "dr",
             "ea",
             "m"
           ],
-          "sound": "ea",
-          "target_sound": "ea",
           "question_audio": {
-            "text": "Mixed review: find the vowel team answer for dream.",
+            "text": "A good night's sleep can help you __. Which vowel-team word completes the sentence?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3665,28 +3072,27 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q05",
-          "prompt": "Mixed review: find the syllables answer for helmet.",
+          "prompt": "Which chunks combine to make helmet?",
           "question_type": "short_response",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
-          "correct_answer": "hel-met",
+          "correct_answer": "hel + met",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say helmet slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is hel-met because the word parts match the sound pattern.",
-          "feedback": "Yes — hel-met fits the pattern.",
+          "explanation": "Helmet has two syllables, hel | met. Blending those chunks makes the whole word.",
+          "feedback": "Correct — Helmet has two syllables, hel | met. Blending those chunks makes the whole word.",
           "acceptable_answers": [
-            "hel-met",
-            "hel met",
-            "hel|met"
+            "hel + met"
           ],
           "choices": [
-            "hel-met",
-            "helmet",
-            "sh"
+            "hel + met",
+            "he + lmet",
+            "helm + et",
+            "h + elmet"
           ],
           "word": "helmet",
           "tiles": [
@@ -3697,14 +3103,8 @@
             "hel",
             "met"
           ],
-          "syllables": [
-            "hel",
-            "met"
-          ],
-          "sound": "hel-met",
-          "target_sound": "hel-met",
           "question_audio": {
-            "text": "Mixed review: find the syllables answer for helmet.",
+            "text": "Which chunks combine to make helmet?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3718,23 +3118,24 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q06",
-          "prompt": "Mixed review: find the vowel team answer for toast.",
+          "prompt": "Read toast. Which vowel team spells the long-o sound?",
           "question_type": "sound_match",
           "visual_model": "word_builder",
           "support_type": "word_builder",
           "correct_answer": "oa",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say toast slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is oa because the word parts match the sound pattern.",
-          "feedback": "Yes — oa fits the pattern.",
+          "explanation": "The letters oa work together to spell long o in toast.",
+          "feedback": "Correct — The letters oa work together to spell long o in toast.",
           "choices": [
+            "oe",
             "oa",
-            "toast",
-            "sh"
+            "au",
+            "aw"
           ],
           "word": "toast",
           "tiles": [
@@ -3745,13 +3146,10 @@
           "sounds": [
             "t",
             "oa",
-            "s",
-            "t"
+            "st"
           ],
-          "sound": "oa",
-          "target_sound": "oa",
           "question_audio": {
-            "text": "Mixed review: find the vowel team answer for toast.",
+            "text": "Read toast. Which vowel team spells the long-o sound?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3765,23 +3163,24 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q07",
-          "prompt": "Mixed review: find the silent e answer for stripe.",
+          "prompt": "Which silent-e word names a long, narrow line?",
           "question_type": "word_building",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
           "correct_answer": "stripe",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say stripe slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "silent_e_confusion",
-          "explanation": "The answer is stripe because the word parts match the sound pattern.",
-          "feedback": "Yes — stripe fits the pattern.",
+          "explanation": "Stripe names a long, narrow line. Silent e changes the vowel in strip from short i to long i.",
+          "feedback": "Correct — Stripe names a long, narrow line. Silent e changes the vowel in strip from short i to long i.",
           "choices": [
+            "strip",
+            "strap",
             "stripe",
-            "stripe",
-            "sh"
+            "step"
           ],
           "word": "stripe",
           "tiles": [
@@ -3791,21 +3190,15 @@
             "e"
           ],
           "sounds": [
-            "s",
-            "t",
-            "r",
-            "ī",
+            "str",
+            "i",
             "p",
             "e"
           ],
-          "sound": "stripe",
-          "target_sound": "stripe",
-          "silent_e": true,
-          "silent_e_index": 3,
           "show_target": true,
           "missing_tile": "",
           "question_audio": {
-            "text": "Mixed review: find the silent e answer for stripe.",
+            "text": "Which silent-e word names a long, narrow line?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3819,23 +3212,24 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q08",
-          "prompt": "Mixed review: find the digraph answer for thumb.",
+          "prompt": "Listen for the first sound in thumb. Which digraph spells it?",
           "question_type": "multiple_choice",
           "visual_model": "sound_boxes",
           "support_type": "sound_boxes",
           "correct_answer": "th",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say thumb slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is th because the word parts match the sound pattern.",
-          "feedback": "Yes — th fits the pattern.",
+          "explanation": "Thumb begins with the digraph th, which spells its first sound.",
+          "feedback": "Correct — Thumb begins with the digraph th, which spells its first sound.",
           "choices": [
-            "th",
-            "thumb",
-            "sh"
+            "ch",
+            "sh",
+            "ph",
+            "th"
           ],
           "word": "thumb",
           "tiles": [
@@ -3846,12 +3240,10 @@
           "sounds": [
             "th",
             "u",
-            "m"
+            "mb"
           ],
-          "sound": "th",
-          "target_sound": "th",
           "question_audio": {
-            "text": "Mixed review: find the digraph answer for thumb.",
+            "text": "Listen for the first sound in thumb. Which digraph spells it?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3865,28 +3257,27 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q09",
-          "prompt": "Mixed review: find the syllables answer for cactus.",
+          "prompt": "Cactus has two syllables. Which is the second syllable?",
           "question_type": "short_response",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
-          "correct_answer": "cac-tus",
+          "correct_answer": "tus",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say cactus slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is cac-tus because the word parts match the sound pattern.",
-          "feedback": "Yes — cac-tus fits the pattern.",
+          "explanation": "Cactus breaks into cac | tus, so tus is the second syllable.",
+          "feedback": "Correct — Cactus breaks into cac | tus, so tus is the second syllable.",
           "acceptable_answers": [
-            "cac-tus",
-            "cac tus",
-            "cac|tus"
+            "tus"
           ],
           "choices": [
-            "cac-tus",
-            "cactus",
-            "sh"
+            "tus",
+            "cac",
+            "act",
+            "us"
           ],
           "word": "cactus",
           "tiles": [
@@ -3897,14 +3288,8 @@
             "cac",
             "tus"
           ],
-          "syllables": [
-            "cac",
-            "tus"
-          ],
-          "sound": "cac-tus",
-          "target_sound": "cac-tus",
           "question_audio": {
-            "text": "Mixed review: find the syllables answer for cactus.",
+            "text": "Cactus has two syllables. Which is the second syllable?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -3918,46 +3303,44 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q10",
-          "prompt": "Mixed review: find the blend answer for frog.",
+          "prompt": "Which word begins with the same blend as frost?",
           "question_type": "sound_match",
           "visual_model": "word_builder",
           "support_type": "word_builder",
-          "correct_answer": "fr",
+          "correct_answer": "frame",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say frame slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "blend_digraph_confusion",
-          "explanation": "The answer is fr because the word parts match the sound pattern.",
-          "feedback": "Yes — fr fits the pattern.",
+          "explanation": "Frost and frame both begin with the blend fr.",
+          "feedback": "Correct — Frost and frame both begin with the blend fr.",
           "choices": [
-            "fr",
-            "frog",
-            "sh"
+            "float",
+            "frame",
+            "grass",
+            "prize"
           ],
-          "word": "frog",
+          "word": "frame",
           "tiles": [
             "fr",
-            "o",
-            "g"
+            "a_e",
+            "m"
           ],
           "sounds": [
-            "f",
-            "r",
-            "o",
-            "g"
+            "fr",
+            "a_e",
+            "m"
           ],
-          "sound": "fr",
-          "target_sound": "fr",
           "question_audio": {
-            "text": "Mixed review: find the blend answer for frog.",
+            "text": "Which word begins with the same blend as frost?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
           },
           "audio": {
-            "text": "frog",
+            "text": "frame",
             "label": "Hear the word",
             "type": "word",
             "playback_preference": "cached_audio_first"
@@ -3965,23 +3348,24 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q11",
-          "prompt": "Mixed review: find the vowel team answer for green.",
+          "prompt": "The grass is __ after the rain. Which vowel-team word completes the sentence?",
           "question_type": "word_building",
           "visual_model": "phonics_tiles",
           "support_type": "phonics_tiles",
-          "correct_answer": "ee",
+          "correct_answer": "green",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say green slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "vowel_team_confusion",
-          "explanation": "The answer is ee because the word parts match the sound pattern.",
-          "feedback": "Yes — ee fits the pattern.",
+          "explanation": "Green makes sense in the sentence. Its ee vowel team spells long e.",
+          "feedback": "Correct — Green makes sense in the sentence. Its ee vowel team spells long e.",
           "choices": [
-            "ee",
+            "grown",
+            "grain",
             "green",
-            "sh"
+            "gray"
           ],
           "word": "green",
           "tiles": [
@@ -3990,17 +3374,14 @@
             "n"
           ],
           "sounds": [
-            "g",
-            "r",
+            "gr",
             "ee",
             "n"
           ],
-          "sound": "ee",
-          "target_sound": "ee",
           "show_target": true,
           "missing_tile": "ee",
           "question_audio": {
-            "text": "Mixed review: find the vowel team answer for green.",
+            "text": "The grass is __ after the rain. Which vowel-team word completes the sentence?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
@@ -4014,23 +3395,24 @@
         },
         {
           "question_id": "G2E_RF_001_MIXED_Q12",
-          "prompt": "Mixed review: find the syllables answer for sunrise.",
+          "prompt": "Which two word parts join to make sunrise?",
           "question_type": "multiple_choice",
           "visual_model": "syllable_break",
           "support_type": "syllable_break",
-          "correct_answer": "sun-rise",
+          "correct_answer": "sun + rise",
           "hints": [
-            "Say each part slowly before you blend.",
-            "Look for letters that work together as one sound.",
-            "Check whether the vowel is short, long, teamed, or helped by silent e."
+            "Say sunrise slowly and listen to each sound or syllable.",
+            "Look at the letter pattern or word chunks.",
+            "Blend the parts, then check that your answer matches the question."
           ],
           "misconception_tag": "syllable_break_error",
-          "explanation": "The answer is sun-rise because the word parts match the sound pattern.",
-          "feedback": "Yes — sun-rise fits the pattern.",
+          "explanation": "Sunrise is a compound word made by joining sun and rise.",
+          "feedback": "Correct — Sunrise is a compound word made by joining sun and rise.",
           "choices": [
-            "sun-rise",
-            "sunrise",
-            "sh"
+            "su + nrise",
+            "sunr + ise",
+            "suns + rise",
+            "sun + rise"
           ],
           "word": "sunrise",
           "tiles": [
@@ -4041,19 +3423,8 @@
             "sun",
             "rise"
           ],
-          "syllables": [
-            "sun",
-            "rise"
-          ],
-          "sound": "sun-rise",
-          "target_sound": "sun-rise",
-          "acceptable_answers": [
-            "sun-rise",
-            "sun rise",
-            "sun|rise"
-          ],
           "question_audio": {
-            "text": "Mixed review: find the syllables answer for sunrise.",
+            "text": "Which two word parts join to make sunrise?",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
