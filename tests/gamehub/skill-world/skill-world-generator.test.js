@@ -377,13 +377,13 @@ assert.match(VisualRegistry.render(g2AskAnswerQuestions.find((q)=>q.visual_model
 assertGrade2EnglishPackage(g2StoryStructure,{
   id:'G2E_RC_002',domain:'Reading Comprehension',skill:'Story Structure and Retelling',
   levelLabels:['Level 1: Characters and Setting','Level 2: Problem and Solution','Level 3: Beginning, Middle, End','Level 4: Retell the Story','Mixed'],
-  visuals:['story_map','story_sequence','event_cards','picture_order'],types:['multiple_choice','short_response','sequencing'],
+  visuals:['story_map','story_sequence','event_cards'],types:['multiple_choice','sequence_order'],
   tags:['character_setting_confusion','problem_solution_confusion','sequence_order_error','retell_detail_gap']
 });
 const g2StoryStructureQuestions=g2StoryStructure.level_banks.flatMap((level)=>level.questions);
 assert.ok(g2StoryStructureQuestions.some((q)=>/characters|setting/i.test(q.prompt)),'G2E_RC_002 includes character and setting identification');
 assert.ok(g2StoryStructureQuestions.some((q)=>/problem|solution/i.test(q.prompt)),'G2E_RC_002 includes problem/solution questions');
-assert.ok(g2StoryStructureQuestions.some((q)=>q.question_type==='sequencing'),'G2E_RC_002 includes beginning/middle/end sequencing');
+assert.ok(g2StoryStructureQuestions.some((q)=>q.question_type==='sequence_order'),'G2E_RC_002 includes beginning/middle/end sequence ordering');
 assert.ok(g2StoryStructureQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2E_RC_002 short responses include acceptable_answers');
 assert.match(VisualRegistry.render(g2StoryStructureQuestions.find((q)=>q.visual_model==='story_map')),/data-renderer="story_map"/,'story_map renderer output exists');
 

@@ -16,7 +16,10 @@
  function updateQuestionNext(section){const next=section.querySelector('#next'); if(next)next.disabled=!SkillWorldRenderer.canAdvance(state,p);}
  function activeDrillLevel(){return SkillWorldRenderer.activeLevel(p,state);}
  function activeDrillQuestion(){return SkillWorldRenderer.activeLevelQuestion(p,state);}
- function drillFeedback(section,result){const fb=section.querySelector('.drill-feedback'); if(!fb)return; fb.className=`feedback-card feedback-area drill-feedback ${result.correct?'correct':'wrong'}`; fb.textContent=result.correct?'Correct! You are building mastery.':`Not yet. Correct answer: ${result.correctAnswer}.`; const next=section.querySelector('#drill-next'); if(next)next.disabled=false;}
+	 function drillFeedback(section,result){const fb=section.querySelector('.drill-feedback'); if(!fb)return; fb.className=`feedback-card feedback-area drill-feedback ${result.correct?'correct':'wrong'}`; fb.textContent=result.correct?'Correct! You are building mastery.':`Not yet. Correct answer: ${result.correctAnswer}.`; const next=section.querySelector('#drill-next'); if(next)next.disabled=false;}
+	 function sequenceValues(control){return [...control.querySelectorAll('[data-sequence-item]')].map((item)=>item.dataset.value);}
+	 function refreshSequence(control,focusIndex){const items=[...control.querySelectorAll('[data-sequence-item]')]; items.forEach((item,index)=>{item.querySelector('.sequence-position').textContent=index+1; item.querySelector('.sequence-move-up').disabled=index===0; item.querySelector('.sequence-move-down').disabled=index===items.length-1; item.setAttribute('aria-label',`Position ${index+1} of ${items.length}: ${item.dataset.value}`);}); if(Number.isInteger(focusIndex))items[focusIndex]?.querySelector(focusIndex===0?'.sequence-move-down':'.sequence-move-up')?.focus();}
+	 function moveSequence(button,direction){const item=button.closest('[data-sequence-item]'); const list=item.parentElement; const items=[...list.children]; const index=items.indexOf(item); const next=index+direction; if(next<0||next>=items.length)return; if(direction<0)list.insertBefore(item,items[next]); else list.insertBefore(items[next],item); refreshSequence(button.closest('[data-sequence-order]'),next);}
 
  function audioFallback(button){return button.closest('.audio-support')?.querySelector('[data-audio-fallback],.audio-unavailable-message');}
  function hideAudioUnavailable(button){const msg=audioFallback(button); if(msg){msg.classList.add('is-hidden'); msg.setAttribute('hidden','');}}
@@ -37,7 +40,7 @@
  function progressPercent(){const total=8; if(state.mode==='drill'){const d=state.drill||{}; return Math.max(0,Math.min(99,Number(d.completedLevels?.length||0)*25));} return Math.max(0,Math.min(100,Math.round(((Number(state.stepIndex||0)+1)/total)*100)));}
  function savePersistedSkillWorld(status){if(!learnerCtx.child_id)return;const attempts=Number(state.attempts||0);const correct=Number(state.correct||0);const score=attempts?Math.round((correct/attempts)*100):0;fetch('/api/skill-world/progress',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({program_context:learnerCtx.program_context||'',source_registry:learnerCtx.source_registry||'',tenant:learnerCtx.tenant||'',email:learnerCtx.parent_email||learnerCtx.email||'',return_url:learnerCtx.return_url||'',child_id:learnerCtx.child_id,skill_id:id,mode:state.mode||'mission',status:status||((progressPercent()>=100)?'completed':'in_progress'),progress_percent:progressPercent(),attempts,correct,score_percent:score,hints_used:Number(state.hintsUsed||0),last_step:String(state.stepIndex||''),profile:state.profile||{},state_snapshot:state})}).catch(()=>{});}
  render();
- app.addEventListener('click',(e)=>{
+	 app.addEventListener('click',(e)=>{
    const listen=e.target.closest('.audio-listen-button,.question-read-button,.page-read-button');
    if(listen){speakAudio(listen); return;}
    const step=e.target.closest('.mission-step');
@@ -50,7 +53,15 @@
 	   if(drillHint){SkillWorldRenderer.useHint(state); const fb=drillHint.closest('.drill-question-card').querySelector('.drill-feedback'); fb.textContent=drillHint.nextElementSibling.textContent; return;}
 	   const drillShow=e.target.closest('#drill-show');
 	   if(drillShow){const section=drillShow.closest('section'); const r=SkillWorldRenderer.showLevelAnswer(state,activeDrillLevel(),activeDrillQuestion()); drillFeedback(section,r); savePersistedSkillWorld(); return;}
-	   const drillAns=e.target.closest('.drill-ans');
+		   const sequenceMove=e.target.closest('.sequence-move-up,.sequence-move-down');
+		   if(sequenceMove){moveSequence(sequenceMove,sequenceMove.classList.contains('sequence-move-up')?-1:1); return;}
+		   const sequenceRetry=e.target.closest('.sequence-retry');
+		   if(sequenceRetry){const control=sequenceRetry.closest('[data-sequence-order]'); const section=sequenceRetry.closest('section'); if(sequenceRetry.classList.contains('drill-ans')){SkillWorldRenderer.retryLevelAnswer(state,activeDrillLevel(),activeDrillQuestion()); const next=section.querySelector('#drill-next'); if(next)next.disabled=true; const feedback=section.querySelector('.drill-feedback'); if(feedback){feedback.className='feedback-card feedback-area drill-feedback';feedback.textContent='Adjust the events, then submit the complete order again.';}}else{const {zone,q}=activeQuestion(section); SkillWorldRenderer.retryAnswer(state,zone,q); const next=section.querySelector('#next');if(next)next.disabled=true;} const reset=control.querySelector('.sequence-reset'); if(reset)reset.click(); return;}
+		   const sequenceReset=e.target.closest('.sequence-reset');
+		   if(sequenceReset){const control=sequenceReset.closest('[data-sequence-order]'); const question=control.closest('.drill-question-card')?activeDrillQuestion():activeQuestion(control.closest('.screen')).q; const list=control.querySelector('.sequence-list'); (question.sequence_items||[]).forEach((value)=>list.append([...list.children].find((item)=>item.dataset.value===value))); refreshSequence(control,0); return;}
+		   const sequenceSubmit=e.target.closest('.sequence-submit');
+		   if(sequenceSubmit){const control=sequenceSubmit.closest('[data-sequence-order]'); const section=sequenceSubmit.closest('section'); const answer=sequenceValues(control); if(sequenceSubmit.classList.contains('drill-ans')){const r=SkillWorldRenderer.submitLevelAnswer(state,activeDrillLevel(),activeDrillQuestion(),answer); drillFeedback(section,r);}else{const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.submitAnswer(state,zone,q,answer); answerFeedback(section,r); updateQuestionNext(section);} savePersistedSkillWorld(); return;}
+		   const drillAns=e.target.closest('.drill-ans');
 	   if(drillAns){const section=drillAns.closest('section'); const r=SkillWorldRenderer.submitLevelAnswer(state,activeDrillLevel(),activeDrillQuestion(),drillAns.dataset.val); drillFeedback(section,r); savePersistedSkillWorld(); return;}
 	   const drillSubmit=e.target.closest('#drill-submit');
 	   if(drillSubmit){const section=drillSubmit.closest('section'); const r=SkillWorldRenderer.submitLevelAnswer(state,activeDrillLevel(),activeDrillQuestion(),section.querySelector('#drill-short').value); drillFeedback(section,r); savePersistedSkillWorld(); return;}
@@ -76,7 +87,8 @@
    if(next){if(next.classList.contains('save-growth')){state.profile=SkillWorldRenderer.finalize(state,p,learnerCtx.child_id||'local-learner'); savePersistedSkillWorld('completed');}
      if(SkillWorldRenderer.advanceMission(state,p)){state.mode='mission'; savePersistedSkillWorld(); render();}
    }
- });
+	 });
+	 app.addEventListener('keydown',(e)=>{const item=e.target.closest('[data-sequence-item]'); if(!item||!e.altKey||!['ArrowUp','ArrowDown'].includes(e.key))return; e.preventDefault(); moveSequence(e.target.closest('button')||item.querySelector('.sequence-move-up'),e.key==='ArrowUp'?-1:1);});
  }catch(err){app.innerHTML=`<main class="skill-world-shell"><section class="central-screen-card developer-error"><h1>Skill World package error</h1><p>${String(err.message||err)}</p><p>This generator fails closed instead of rendering a plain quiz.</p></section></main>`; console.error(err);}
 })();
 </script></body></html>
