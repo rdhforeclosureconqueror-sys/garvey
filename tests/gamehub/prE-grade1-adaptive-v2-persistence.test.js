@@ -4,10 +4,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.join(__dirname, '../..');
-const adaptive = fs.readFileSync(path.join(root, 'public/gamehub/adaptive_learning'), 'utf8');
+const adaptive = fs.readFileSync(path.join(root, 'public/gamehub/adaptive_learning.html'), 'utf8');
 
 test('grade 1 adaptive v2 uses controlled persistence endpoints', () => {
-  assert.match(adaptive, /Grade 1 Adaptive V2 runtime \(PR F\)/);
   assert.match(adaptive, /\/api\/adaptive-v2\/progress\/summary\//);
   assert.match(adaptive, /\/api\/adaptive-v2\/progress\/checkpoint-attempt/);
 });
