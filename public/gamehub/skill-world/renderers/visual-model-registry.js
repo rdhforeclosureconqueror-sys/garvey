@@ -33,16 +33,21 @@
  function pattern(q){const seq=q.sequence||String(q.prompt||'').split(/[,→]/).map(s=>s.trim()).filter(Boolean).slice(0,6); const core=seq.slice(0,2).join(' '); return `<div class="visual-model skill-visual-inner pattern-visual" data-renderer="pattern_completion"><div class="visual-scroll"><div class="pattern-row">${seq.map((x)=>`<span class="pattern-token">${emojiFor(x)}<small>${esc(x)}</small></span>`).join('')}<span class="pattern-token missing">?</span></div></div><p class="sw-visual-caption">Repeating unit: <strong>${esc(core||'look for the repeat')}</strong></p></div>`;}
  function sorting(q){const items=q.items||[]; const animals=items.filter(x=>/cat|dog|bird|fish/i.test(x)); const rest=items.filter(x=>!animals.includes(x)); return `<div class="visual-model skill-visual-inner sorting-visual" data-renderer="sorting_visual"><div class="visual-scroll"><div class="sorting-source">${objectTokens(items)}</div></div><div class="sorting-bins"><div class="sort-bin"><h4>Group A</h4>${objectTokens(animals.length?animals:items.filter(x=>/red/i.test(x)))}</div><div class="sort-bin"><h4>Group B</h4>${objectTokens(rest.length?rest:items.filter(x=>!/red/i.test(x)))}</div></div><p class="sw-visual-caption">Sorting rule: keep one attribute the same inside each bin.</p></div>`;}
 
+ function invalidVisual(renderer,reason){const message=`Invalid ${renderer} metadata: ${reason}. The visual cannot be drawn without changing the mathematics.`; return `<div class="visual-model skill-visual-inner ${esc(renderer.replace(/_/g,'-'))}-visual invalid-visual" data-renderer="${esc(renderer)}" data-render-status="invalid" role="img" aria-label="${esc(message)}"><p class="sw-visual-caption">${esc(message)}</p></div>`;}
+ function clockPositionDescription(hour,minute){const minutePosition=minute===0?'at 12':minute%5===0?`at ${minute/5}`:`at the ${minute}-minute tick`; const hourPosition=minute===0?`at ${hour}`:`between ${hour} and ${hour===12?1:hour+1}`; return `Analog clock. The long minute hand points ${minutePosition}. The short hour hand is ${hourPosition}.`}
  function analogClock(q){
-  const hourRaw=Number.isFinite(Number(q.hour))?Number(q.hour):(nums(q.correct_answer)[0]||12);
-  const minuteRaw=Number.isFinite(Number(q.minute))?Number(q.minute):(nums(q.correct_answer)[1]||0);
-  const hour=((hourRaw-1)%12+12)%12+1;
-  const minute=Math.max(0,Math.min(59,minuteRaw));
-  const minuteAngle=minute*6;
-  const hourAngle=((hour%12)*30)+(minute/2);
+  if(!q||typeof q!=='object'||Array.isArray(q))return invalidVisual('analog_clock','expected an object');
+  const knownTime=q.presentation_mode==='known_time_illustration'||q.mode==='known_time_illustration'||(q.time!==undefined&&q.hour===undefined&&q.minute===undefined);
+  let hourRaw=q.hour, minuteRaw=q.minute;
+  if(knownTime&&q.time!==undefined){const match=String(q.time).trim().match(/^(1[0-2]|[1-9]):([0-5]\d)$/); if(!match)return invalidVisual('analog_clock','time must use h:mm from 1:00 through 12:59'); hourRaw=match[1]; minuteRaw=match[2];}
+  if(!Number.isInteger(Number(hourRaw))||Number(hourRaw)<1||Number(hourRaw)>12)return invalidVisual('analog_clock','hour must be an integer from 1 through 12');
+  if(!Number.isInteger(Number(minuteRaw))||Number(minuteRaw)<0||Number(minuteRaw)>59)return invalidVisual('analog_clock','minute must be an integer from 0 through 59');
+  const hour=Number(hourRaw), minute=Number(minuteRaw), minuteAngle=minute*6, hourAngle=(hour%12)*30+minute/2;
   const numbers=Array.from({length:12},(_,i)=>{const n=i+1; const angle=(n*30-90)*Math.PI/180; const x=50+40*Math.cos(angle); const y=50+40*Math.sin(angle); return `<span class="clock-number n${n}" style="left:${x}%;top:${y}%">${n}</span>`;}).join('');
   const digital=`${hour}:${String(minute).padStart(2,'0')}`;
-  return `<div class="visual-model skill-visual-inner analog-clock-visual" data-renderer="analog_clock"><div class="clock-face" aria-label="analog clock showing ${esc(digital)}">${numbers}<span class="clock-center"></span><span class="clock-hand hour-hand" style="transform:rotate(${hourAngle}deg)"></span><span class="clock-hand minute-hand" style="transform:rotate(${minuteAngle}deg)"></span></div><p class="sw-visual-caption"><strong>${esc(digital)}</strong>: the short hand shows the hour and the long hand shows the minutes.</p></div>`;
+  const description=knownTime?`Known-time clock illustration for ${digital}.`:clockPositionDescription(hour,minute);
+  const caption=knownTime?`Known time: <strong>${esc(digital)}</strong>.`:'Read the time shown on the clock.';
+  return `<div class="visual-model skill-visual-inner analog-clock-visual" data-renderer="analog_clock" data-render-status="complete" data-presentation-mode="${knownTime?'known_time_illustration':'learner_reading'}" role="img" aria-label="${esc(description)}"><div class="clock-face" aria-hidden="true">${numbers}<span class="clock-center"></span><span class="clock-hand hour-hand" style="transform:rotate(${hourAngle}deg)"></span><span class="clock-hand minute-hand" style="transform:rotate(${minuteAngle}deg)"></span></div><p class="sw-visual-caption">${caption}</p></div>`;
  }
  function digitalTime(q){const hour=safe(q.hour,nums(q.correct_answer)[0]||'?'); const minute=String(safe(q.minute,nums(q.correct_answer)[1]||0)).padStart(2,'0'); return `<div class="visual-model skill-visual-inner digital-time-visual" data-renderer="digital_time"><div class="digital-clock">${esc(hour)}:${esc(minute)}</div><p class="sw-visual-caption">Read hour, colon, then minutes.</p></div>`;}
 
@@ -132,7 +137,24 @@
   return `<div class="visual-model skill-visual-inner ruler-visual" data-renderer="ruler" data-render-status="complete" data-start="${label(start)}" data-end="${label(end)}" data-length="${label(span)}" data-unit="${esc(unit)}" data-measurement-structure="${esc(structure)}" data-ruler-min="${label(min)}" data-ruler-max="${label(max)}" data-tick-interval="${label(tick)}" role="img" aria-label="${esc(description)}"><div class="ruler-track" aria-hidden="true">${ticks}</div><div class="measure-bar tall ruler-object-span" data-span="${label(span)}" style="--ruler-left:${left}%;--ruler-width:${width}%">${esc(object)}</div><p class="sw-visual-caption">${esc(caption)}</p></div>`;
  }
  function coinModel(q){const vals={penny:1,nickel:5,dime:10,quarter:25}; const coins=q.coins||[q.coin||'quarter']; return `<div class="visual-model skill-visual-inner coin-model-visual" data-renderer="coin_model"><div class="pattern-row coin-row">${coins.map((coin)=>`<span class="pattern-token coin-token"><b>${coin==='penny'?'₵':coin==='nickel'?'5¢':coin==='dime'?'10¢':'25¢'}</b><small>${esc(coin)}${vals[coin]?` = ${vals[coin]}¢`:''}</small></span>`).join('')}</div><p class="sw-visual-caption">Name each coin and remember its value before counting.</p></div>`;}
- function moneyCounting(q){const vals={penny:1,nickel:5,dime:10,quarter:25}; const coins=q.coins||[]; const total=coins.reduce((sum,c)=>sum+(vals[c]||0),0); let running=0; return `<div class="visual-model skill-visual-inner money-counting-visual" data-renderer="money_counting"><div class="pattern-row coin-row">${coins.map((coin)=>{running+=vals[coin]||0; return `<span class="pattern-token coin-token"><b>${esc(vals[coin]||'?')}¢</b><small>${esc(coin)} → ${running}¢</small></span>`;}).join('')}</div><p class="sw-visual-caption">Count from the largest coins when you can. Total shown: ${esc(q.total_cents??total)} cents.</p></div>`;}
+ function moneyCounting(q){
+  if(!q||typeof q!=='object'||Array.isArray(q))return invalidVisual('money_counting','expected an object');
+  if(!Array.isArray(q.coins))return invalidVisual('money_counting','coins must be an array');
+  if(q.coins.length===0)return invalidVisual('money_counting','coins must contain at least one entry');
+  const vals={penny:1,nickel:5,dime:10,quarter:25,half_dollar:50,dollar:100}; const labels={penny:'1¢',nickel:'5¢',dime:'10¢',quarter:'25¢',half_dollar:'50¢',dollar:'$1'}; const expanded=[];
+  for(const entry of q.coins){
+   if(typeof entry==='string'){if(!vals[entry])return invalidVisual('money_counting',`unsupported denomination ${entry}`); expanded.push(entry); continue;}
+   if(!entry||typeof entry!=='object'||Array.isArray(entry))return invalidVisual('money_counting','each coin must be a denomination string or denomination/count object');
+   const denomination=entry.denomination||entry.coin; if(!denomination)return invalidVisual('money_counting','missing denomination');
+   if(!vals[denomination])return invalidVisual('money_counting',`unsupported denomination ${denomination}`);
+   if(!Number.isInteger(entry.count)||entry.count<0)return invalidVisual('money_counting','count must be a nonnegative integer');
+   for(let i=0;i<entry.count;i++)expanded.push(denomination);
+  }
+  const computed=expanded.reduce((sum,coin)=>sum+vals[coin],0);
+  if(q.total_cents!==undefined&&(!Number.isInteger(q.total_cents)||q.total_cents!==computed))return invalidVisual('money_counting','total_cents conflicts with the displayed coins');
+  const coins=expanded.map((coin)=>`<span class="pattern-token coin-token" aria-label="${esc(coin)}, ${esc(labels[coin])}"><b>${esc(labels[coin])}</b><small>${esc(coin.replace('_',' '))}</small></span>`).join('');
+  return `<div class="visual-model skill-visual-inner money-counting-visual" data-renderer="money_counting" data-render-status="complete" role="img" aria-label="Coin collection. ${expanded.map((coin)=>`${coin.replace('_',' ')}, ${labels[coin]}`).join('; ')}. Count the total value of the coins shown."><div class="pattern-row coin-row" aria-hidden="true">${coins}</div><p class="sw-visual-caption">Count the total value of the coins shown.</p></div>`;
+ }
 
  function phonicsEmoji(item){const s=String(item||'').toLowerCase(); if(s.includes('moon')||s==='m')return '🌙'; if(s.includes('apple')||s==='a')return '🍎'; if(s.includes('ball')||s==='b')return '⚽'; if(s.includes('cat')||s==='c')return '🐱'; if(s.includes('dog')||s==='d')return '🐶'; if(s.includes('fish')||s==='f')return '🐟'; if(s.includes('sun')||s==='s')return '☀️'; if(s.includes('turtle')||s==='t')return '🐢'; if(s.includes('hat')||s==='h')return '🎩'; if(s.includes('pig')||s==='p')return '🐷'; if(s.includes('leaf')||s==='l')return '🍃'; if(s.includes('nest')||s==='n')return '🪺'; return emojiFor(item);}
  function letterCard(q){const letter=safe(q.letter||q.target_letter||q.correct_answer,'A'); const pair=q.paired_form||q.letter_pair||q.pair; const label=q.letter_label||q.case_label||q.label; const sound=q.target_sound||q.sound; return `<div class="visual-model skill-visual-inner letter-card-visual" data-renderer="letter_card"><div class="letter-card-main" aria-label="letter ${esc(letter)}">${esc(letter)}</div>${pair?`<div class="letter-card-pair">${esc(pair)}</div>`:''}${label?`<div class="letter-card-label">${esc(label)}</div>`:''}${sound?`<p class="sw-visual-caption">Common sound: <strong>${esc(sound)}</strong></p>`:''}</div>`;}
