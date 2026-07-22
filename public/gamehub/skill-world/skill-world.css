@@ -153,6 +153,7 @@ button,input,select,textarea{font:inherit;max-width:100%}
 .visual-scroll{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:4px 2px 12px;overscroll-behavior-x:contain}
 .visual-scroll > *{max-width:none}
 .sw-visual-caption{font-size:.95rem;margin:.75rem auto 0;color:#4b5c82;max-width:56ch}
+.ruler-visual{display:grid;gap:12px;padding:8px 4px}.ruler-track{position:relative;height:66px;margin:0 18px;border-bottom:8px solid #1d4ed8;background:linear-gradient(180deg,#fff 0,#eff6ff 100%);border-radius:8px}.ruler-tick{position:absolute;left:var(--position);bottom:-8px;width:2px;height:28px;background:#1e3a8a;transform:translateX(-1px)}.ruler-tick b{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:.8rem;color:#1e3a8a}.ruler-tick.start,.ruler-tick.end{width:4px;height:38px;background:#b91c1c}.ruler-object-span{box-sizing:border-box;position:relative;left:var(--ruler-left);width:var(--ruler-width);min-width:0!important;margin:0!important;padding:8px 4px;background:#fbbf24;border:3px solid #b45309;border-radius:8px;text-align:center;font-weight:900;overflow:hidden}.ruler-invalid{border:3px solid #dc2626;border-radius:16px;background:#fef2f2;padding:12px}
 
 .answer-grid{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:12px}
 .short-answer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;width:100%}
