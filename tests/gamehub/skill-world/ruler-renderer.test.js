@@ -25,23 +25,44 @@ function assertComplete(html, { start, end, length, unit, structure, text }) {
   assert.match(html, new RegExp(`data-value="${end}"`));
   assert.match(html, new RegExp(`data-span="${length}"`));
   assert.match(html, text);
-  assert.match(html, /role="img" aria-label="Ruler marked in/);
-  assert.match(html, /starts? at .*ends? at|marked endpoint/);
+  assert.match(html, /role="img" aria-label="A ruler marked from/);
+  assert.match(html, /begins at .*ends at/);
   assert.doesNotMatch(html, /data-renderer="visual_objects"|missing-visual|placeholder|unsupported/i);
   assert.ok(html.trim().length > 100);
 }
 
+function presentedText(html) {
+  return {
+    accessible: html.match(/role="img" aria-label="([^"]+)"/)?.[1] || '',
+    caption: html.match(/<p class="sw-visual-caption">([^<]+)<\/p>/)?.[1] || '',
+  };
+}
+
+function assertNoAnswerLeak(html, { length, unit }) {
+  const { accessible, caption } = presentedText(html);
+  assert.ok(accessible, 'accessible ruler description is present');
+  assert.ok(caption, 'visible ruler instruction is present');
+  const solutionStatement = new RegExp(`(?:distance|length|span(?:s|ning)?)\\s+(?:is|of|:)?\\s*${length}\\s+${unit}`, 'i');
+  assert.doesNotMatch(accessible, solutionStatement, 'accessible description must not state the computed answer');
+  assert.doesNotMatch(caption, solutionStatement, 'visible caption must not state the computed answer');
+  assert.doesNotMatch(accessible, /spanning|distance is|length is/i);
+  assert.doesNotMatch(caption, /spanning|distance is|length is/i);
+}
+
 const completeFixtures = [
-  ['zero-based measurement', { unit: 'inches', start: 0, end: 6, length: 6 }, { start: 0, end: 6, length: 6, unit: 'inches', structure: 'zero-based-measurement', text: /start point 0 to the end point 6/ }],
-  ['off-zero inches', { unit: 'inches', start: 2, end: 8, length: 6 }, { start: 2, end: 8, length: 6, unit: 'inches', structure: 'off-zero-interval', text: /start point 2 to the end point 8/ }],
-  ['off-zero centimeters', { unit: 'centimeters', start: 3, end: 10, length: 7 }, { start: 3, end: 10, length: 7, unit: 'centimeters', structure: 'off-zero-interval', text: /start point 3 to the end point 10/ }],
-  ['endpoint reading', { unit: 'inches', measurement_structure: 'endpoint-reading', endpoint: 5 }, { start: 0, end: 5, length: 5, unit: 'inches', structure: 'endpoint-reading', text: /Read the marked endpoint at 5 inches/ }],
-  ['half-unit ticks', { unit: 'inches', start: 1.5, end: 4, length: 2.5, tick_interval: 0.5, max: 5 }, { start: 1.5, end: 4, length: 2.5, unit: 'inches', structure: 'off-zero-interval', text: /start point 1.5 to the end point 4/ }],
+  ['zero-based measurement', { unit: 'inches', start: 0, end: 6, length: 6 }, { start: 0, end: 6, length: 6, unit: 'inches', structure: 'zero-based-measurement', text: /begins at the 0-inch mark and ends at the 6-inch mark/ }],
+  ['off-zero inches', { unit: 'inches', start: 2, end: 8, length: 6 }, { start: 2, end: 8, length: 6, unit: 'inches', structure: 'off-zero-interval', text: /begins at the 2-inch mark and ends at the 8-inch mark/ }],
+  ['off-zero centimeters', { unit: 'centimeters', start: 3, end: 10, length: 7 }, { start: 3, end: 10, length: 7, unit: 'centimeters', structure: 'off-zero-interval', text: /begins at the 3-centimeter mark and ends at the 10-centimeter mark/ }],
+  ['endpoint reading', { unit: 'inches', measurement_structure: 'endpoint-reading', endpoint: 5 }, { start: 0, end: 5, length: 5, unit: 'inches', structure: 'endpoint-reading', text: /Read the ruler mark where the object ends/ }],
+  ['half-unit ticks', { unit: 'inches', start: 1.5, end: 4, length: 2.5, tick_interval: 0.5, max: 5 }, { start: 1.5, end: 4, length: 2.5, unit: 'inches', structure: 'off-zero-interval', text: /begins at the 1.5-inch mark and ends at the 4-inch mark/ }],
 ];
 
 for (const [name, fixture, expected] of completeFixtures) {
   test(`${name} is complete through both production paths`, () => {
-    for (const html of paths(fixture)) assertComplete(html, expected);
+    for (const html of paths(fixture)) {
+      assertComplete(html, expected);
+      assertNoAnswerLeak(html, expected);
+    }
     if (name.includes('off-zero')) paths(fixture).forEach((html) => assert.doesNotMatch(html, /Start at 0/i));
   });
 }
@@ -76,7 +97,8 @@ test('every canonical ruler activity renders completely through registry and que
     for (const html of [Registry.render(q), Renderer.renderQuestionCard(q, 'practice', Renderer.createState(), pkg)]) {
       assert.match(html, /data-renderer="ruler"/i, q.id);
       assert.match(html, /data-render-status="complete"/, q.id);
-      assert.match(html, /role="img" aria-label="Ruler marked in/, q.id);
+      assert.match(html, /role="img" aria-label="A ruler marked from/, q.id);
+      assertNoAnswerLeak(html, { length: q.length, unit: q.unit });
       assert.doesNotMatch(html, /data-renderer="(?:visual_objects|missing)"|placeholder|unsupported renderer|missing-visual/i, q.id);
     }
   }
