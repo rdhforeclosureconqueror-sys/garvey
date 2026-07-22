@@ -1,66 +1,44 @@
 # G2M_MD_002 — Time and Money Publication Review
 
-## 1. Selected package and sequence rationale
+## Scope and decision
 
-`G2M_MD_002 — Time and Money` is the only selected package. The canonical Grade 2 Math production order in `docs/grade2_math_production_readiness_report.md` places it immediately after the approved `G2M_MD_001 — Measure Length`, so no package was skipped and no later package was opened.
+**Publication decision: certified for production publication.** This fresh audit reviewed only `G2M_MD_002 — Time and Money`; no conclusion from the earlier blocked audit was reused and no other package was opened or edited. The package has five canonical banks of ten activities, for 50 unique canonical IDs. Every `id` equals its `question_id`, and the production SkillPackage schema accepts the package without planned-bank allowances.
 
-## 2. Executive summary
+No new reusable renderer or infrastructure defect was found. The repaired shared clock and money contracts passed both production paths and the Assessment MVP path for routed stimuli.
 
-**Publication decision: blocked; remediation not begun.** The required first rendering inspection found a reusable shared-renderer defect: production clock and money visuals print the answer while the learner is being asked to derive it. Per the audit stop rule, work stopped immediately. The package JSON remains unchanged, the remaining content audit was not represented as complete, and a focused regression test records the blocker.
+## Educational and mixed-transfer review
 
-## 3. Educational review
+All 50 canonical activities were reviewed and remediated individually. Prompts now use clear Grade 2 language and distinct contexts. Every activity has exactly one activity-specific `Focus`, `Strategy`, and `Verify` hint, and every complete hint ladder is unique. Explanations show the relevant clock-counting, part-of-day, coin-value, addition, comparison, purchase, or unit-selection reasoning instead of merely repeating an answer.
 
-Not completed because the shared-renderer blocker required an immediate stop. Initial inspection also showed that the existing activities will need a fresh review of prompts, activity-specific Focus/Strategy/Verify hints, reasoning explanations, progression, and duplication after the renderer is repaired outside this curriculum change.
+The ten Mixed activities were rewritten from scratch. Their prompts, contexts, times, multi-coin arrangements, and hint ladders do not duplicate the focused banks. They transfer learning through community and family situations that ask learners to read clocks, identify a.m./p.m., count coins, compare an amount with 50 cents, select minutes rather than cents, identify an equivalent coin, and decide whether an amount is enough for a purchase.
 
-## 4. Mathematical review
+## Time and money verification
 
-Not completed because the audit stopped at the shared infrastructure defect. The package passed its baseline schema, identity, canonical-count, unique-ID, and ID-consistency checks only; that baseline is not a certification of every mathematical field.
+Every authored analog-clock hour and minute was recomputed. Minutes are valid five-minute intervals, accepted responses cover colon, space, leading-zero, and applicable a.m./p.m. forms, and renderer assertions verify the minute-hand angle and interpolated hour-hand angle. Whole-hour and half-hour behavior remains covered by the shared renderer suite. Captions and accessible output describe the task and hand positions without stating the digital answer.
 
-## 5. Mixed transfer review
+Every money collection was recomputed from penny, nickel, dime, and quarter values. Authored `total_cents` agrees with the displayed coins, accepted count responses include number, cents, cent-symbol, and decimal-dollar forms where applicable, and comparison/purchase activities accept intentional yes variants. Production output preserves exact coin count and left-to-right order, displays only denomination labels, and contains no running, cumulative, or final total.
 
-Not begun. No Mixed activity was rewritten or approved, and no focused or Mixed content was changed.
+## Visual, accessibility, and interaction review
 
-## 6. Visual review
+All 50 activities were rendered through the production visual registry and complete production question card. Assertions require the selected renderer, complete and nonblank output, exact clock geometry or coin representation, and absence of fallback, placeholder, unsupported-renderer, and answer-leak text. Every Assessment MVP clock stimulus routed from this package was also rendered and checked for safe hand-position accessibility text.
 
-The production visual registry and complete production question-card path both leak answers. For analog-clock questions that ask what time is shown, the shared renderer emits the exact digital time in a bold caption. For money-counting questions that ask how much money is shown, the shared renderer emits running totals and a `Total shown` caption containing `total_cents`. The focused regression checks every affected canonical analog-clock reading and money-counting activity through both production paths and reports the leaking activity/path pairs.
+Every canonical activity now has `visual_description`, `accessible_description`, and explicit `Read Question` audio. The audio starts with the complete prompt and adds meaningful visual context. Clock descriptions name hand positions rather than translating them into a time; money descriptions identify coin types, counts, and order without computing the total.
 
-This is a reusable defect in `public/gamehub/skill-world/renderers/visual-model-registry.js`, not an authored-content defect that can be safely repaired in the selected package JSON. Shared infrastructure was not modified. Visual inspection and package remediation must resume from the beginning after the shared renderer is fixed and its regression passes.
+Multiple-choice `options` and `choices` are synchronized, contain four unique selectable coin names, include the canonical correct answer, and balance that answer across all four positions. Focused tests also verify time and money variants, reject metadata disagreement through production contracts, and exercise the complete renderer state path.
 
-## 7. Accessibility review
+## Changed files
 
-Not completed because the audit stopped at the renderer blocker. Complete prompt-plus-visual Read Question output and non-answer-revealing descriptions still require exhaustive review after the blocker is removed.
+- `public/gamehub/skill-world/content/G2M_MD_002.skill-package.v1.json` — publication-quality remediation of all canonical activities and synchronized legacy previews.
+- `tests/gamehub/skill-world/g2m-md-002-content-quality.test.js` — exhaustive package-specific content, mathematics, renderer, accessibility, Mixed, interaction, and Assessment MVP checks.
+- `docs/curriculum-reviews/G2M_MD_002-review.md` — fresh audit evidence and production certification.
 
-## 8. Interaction review
+## Validation
 
-Not completed because the audit stopped at the renderer blocker. Options/choices, answer positions, acceptable-answer evaluation, submission, and state updates remain uncertified.
+- `node --test tests/gamehub/skill-world/g2m-md-002-content-quality.test.js`
+- `node --test tests/gamehub/skill-world/time-money-renderer-contract.test.js tests/gamehub/skill-world/skill-world-generator.test.js`
+- `npm run validate:curriculum-index`
+- `git diff --check`
 
-## 9. Files changed
+## Scope confirmation
 
-- `tests/gamehub/skill-world/g2m-md-002-content-quality.test.js` — focused baseline and two-path answer-leakage regression.
-- `docs/curriculum-reviews/G2M_MD_002-review.md` — blocker record and sequence decision.
-
-The selected package JSON was deliberately not modified.
-
-## 10. Tests and checks executed
-
-The package-specific regression, required shared renderer suites, generator suite, curriculum-index validation, whitespace check, and repository-status check were run. The focused suite is expected to fail only on the documented shared-renderer answer leakage until the infrastructure repair is made in a separate change.
-
-## 11. Browser-verification status
-
-Browser verification was not performed after the deterministic production render paths exposed the blocking shared defect. No screenshot review is claimed. The visual audit must restart after repair.
-
-## 12. Branch
-
-`work`
-
-## 13. Commit SHA
-
-Reported in the final delivery because a commit cannot contain its own immutable SHA.
-
-## 14. Pull request title
-
-`Document G2M_MD_002 shared renderer publication blocker`
-
-## 15. Scope confirmation
-
-Exactly one package, `G2M_MD_002`, was selected. The audit stopped immediately upon discovering the shared renderer defect. Only its package-specific test and review document were added; no package content, shared infrastructure, approved package, later package, assessment, route, dashboard, persistence, replay behavior, or answer shuffling was changed. No second package was begun.
+Exactly one package, `G2M_MD_002`, was audited and certified. Shared infrastructure, previously approved packages, later packages, routes, dashboards, persistence, replay behavior, and answer shuffling were not changed.
