@@ -66,15 +66,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 345 and 268; start at the greatest place and move right.",
+        "Compare 345 with 268 at hundreds place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 345 is ___ 268."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 345 is greater than 268.",
+        "incorrect": "Try again. Compare 345 and 268 from the greatest place to the ones place."
       },
-      "explanation": "345 is greater than 268.",
+      "explanation": "345 is greater than 268 because the hundreds digits are the first digits that differ: 3 is greater than 2.",
       "left": 345,
       "right": 268,
       "left_value": 345,
@@ -85,11 +85,13 @@
         "="
       ],
       "question_audio": {
-        "text": "Compare 345 and 268. Choose greater than, less than, or equals.",
+        "text": "Compare 345 and 268. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 345 and 268. 345 is greater than 268.",
+      "accessible_description": "Compare 345 and 268. 345 is greater than 268."
     },
     {
       "id": "G2M_NS_002_L2_Q1",
@@ -106,15 +108,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 456 and 432; start at the greatest place and move right.",
+        "Compare 456 with 432 at tens place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 456 is ___ 432."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 456 is greater than 432.",
+        "incorrect": "Try again. Compare 456 and 432 from the greatest place to the ones place."
       },
-      "explanation": "456 is greater than 432.",
+      "explanation": "456 is greater than 432 because the tens digits are the first digits that differ: 5 is greater than 3.",
       "left": 456,
       "right": 432,
       "left_value": 456,
@@ -125,16 +127,18 @@
       "tens": 5,
       "ones": 6,
       "options": [
-        ">",
         "<",
+        ">",
         "="
       ],
       "question_audio": {
-        "text": "Compare 456 and 432. Choose greater than, less than, or equals.",
+        "text": "Compare 456 and 432. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "place value chart comparing 456 and 432. 456 is greater than 432.",
+      "accessible_description": "Compare 456 and 432. 456 is greater than 432."
     },
     {
       "id": "G2M_NS_002_L3_Q1",
@@ -151,30 +155,32 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 458 and 452; start at the greatest place and move right.",
+        "Compare 458 with 452 at ones place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 458 is ___ 452."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 458 is greater than 452.",
+        "incorrect": "Try again. Compare 458 and 452 from the greatest place to the ones place."
       },
-      "explanation": "458 is greater than 452.",
+      "explanation": "458 is greater than 452 because the ones digits are the first digits that differ: 8 is greater than 2.",
       "left": 458,
       "right": 452,
       "left_value": 458,
       "right_value": 452,
       "options": [
-        ">",
         "<",
-        "="
+        "=",
+        ">"
       ],
       "question_audio": {
-        "text": "Compare 458 and 452. Choose greater than, less than, or equals.",
+        "text": "Compare 458 and 452. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 458 and 452. 458 is greater than 452.",
+      "accessible_description": "Compare 458 and 452. 458 is greater than 452."
     },
     {
       "id": "G2M_NS_002_L4_Q1",
@@ -192,30 +198,32 @@
       ],
       "misconception_tag": "equal_confusion",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 345 and 345; start at the greatest place and move right.",
+        "Compare 345 with 345 at all three places, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 345 is ___ 345."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 345 is equal to 345.",
+        "incorrect": "Try again. Compare 345 and 345 from the greatest place to the ones place."
       },
-      "explanation": "345 is equal to 345.",
+      "explanation": "345 is equal to 345 because their hundreds, tens, and ones digits all match.",
       "left": 345,
       "right": 345,
       "left_value": 345,
       "right_value": 345,
       "options": [
+        "=",
         ">",
-        "<",
-        "="
+        "<"
       ],
       "question_audio": {
-        "text": "Compare 345 and 345. Choose greater than, less than, or equals.",
+        "text": "Compare 345 and 345. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 345 and 345. 345 is equal to 345.",
+      "accessible_description": "Compare 345 and 345. 345 is equal to 345."
     },
     {
       "id": "G2M_NS_002_L4_Q2",
@@ -232,15 +240,15 @@
       ],
       "misconception_tag": "symbol_reversal",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 620 and 602; start at the greatest place and move right.",
+        "Compare 620 with 602 at tens place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 620 is ___ 602."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 620 is greater than 602.",
+        "incorrect": "Try again. Compare 620 and 602 from the greatest place to the ones place."
       },
-      "explanation": "620 is greater than 602.",
+      "explanation": "620 is greater than 602 because the tens digits are the first digits that differ: 2 is greater than 0.",
       "left": 620,
       "right": 602,
       "left_value": 620,
@@ -251,11 +259,13 @@
       "tens": 2,
       "ones": 0,
       "question_audio": {
-        "text": "Compare 620 and 602. Choose greater than, less than, or equals.",
+        "text": "Compare 620 and 602. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "place value chart comparing 620 and 602. 620 is greater than 602.",
+      "accessible_description": "Compare 620 and 602. 620 is greater than 602."
     },
     {
       "id": "G2M_NS_002_L1_Q3",
@@ -272,15 +282,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 701 and 699; start at the greatest place and move right.",
+        "Compare 701 with 699 at hundreds place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 701 is ___ 699."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 701 is greater than 699.",
+        "incorrect": "Try again. Compare 701 and 699 from the greatest place to the ones place."
       },
-      "explanation": "701 is greater than 699.",
+      "explanation": "701 is greater than 699 because the hundreds digits are the first digits that differ: 7 is greater than 6.",
       "left": 701,
       "right": 699,
       "left_value": 701,
@@ -288,16 +298,18 @@
       "min": 695,
       "max": 705,
       "options": [
-        ">",
         "<",
+        ">",
         "="
       ],
       "question_audio": {
-        "text": "Compare 701 and 699. Choose greater than, less than, or equals.",
+        "text": "Compare 701 and 699. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "number line comparing 701 and 699. 701 is greater than 699.",
+      "accessible_description": "Compare 701 and 699. 701 is greater than 699."
     }
   ],
   "adaptive_question_bank": [
@@ -316,25 +328,27 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 250 and 350; start at the greatest place and move right.",
+        "Compare 250 with 350 at hundreds place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 250 is ___ 350."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 250 is less than 350.",
+        "incorrect": "Try again. Compare 250 and 350 from the greatest place to the ones place."
       },
-      "explanation": "250 is less than 350.",
+      "explanation": "250 is less than 350 because the hundreds digits are the first digits that differ: 2 is less than 3.",
       "left": 250,
       "right": 350,
       "left_value": 250,
       "right_value": 350,
       "question_audio": {
-        "text": "Compare 250 and 350. Choose greater than, less than, or equals.",
+        "text": "Compare 250 and 350. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 250 and 350. 250 is less than 350.",
+      "accessible_description": "Compare 250 and 350. 250 is less than 350."
     },
     {
       "id": "G2M_NS_002_L1_Q5",
@@ -351,15 +365,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 900 and 800; start at the greatest place and move right.",
+        "Compare 900 with 800 at hundreds place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 900 is ___ 800."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 900 is greater than 800.",
+        "incorrect": "Try again. Compare 900 and 800 from the greatest place to the ones place."
       },
-      "explanation": "900 is greater than 800.",
+      "explanation": "900 is greater than 800 because the hundreds digits are the first digits that differ: 9 is greater than 8.",
       "left": 900,
       "right": 800,
       "left_value": 900,
@@ -370,16 +384,18 @@
       "tens": 0,
       "ones": 0,
       "options": [
-        ">",
         "<",
-        "="
+        "=",
+        ">"
       ],
       "question_audio": {
-        "text": "Compare 900 and 800. Choose greater than, less than, or equals.",
+        "text": "Compare 900 and 800. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "base ten blocks comparing 900 and 800. 900 is greater than 800.",
+      "accessible_description": "Compare 900 and 800. 900 is greater than 800."
     },
     {
       "id": "G2M_NS_002_L1_Q6",
@@ -396,25 +412,27 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 118 and 218; start at the greatest place and move right.",
+        "Compare 118 with 218 at hundreds place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 118 is ___ 218."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 118 is less than 218.",
+        "incorrect": "Try again. Compare 118 and 218 from the greatest place to the ones place."
       },
-      "explanation": "118 is less than 218.",
+      "explanation": "118 is less than 218 because the hundreds digits are the first digits that differ: 1 is less than 2.",
       "left": 118,
       "right": 218,
       "left_value": 118,
       "right_value": 218,
       "question_audio": {
-        "text": "Compare 118 and 218. Choose greater than, less than, or equals.",
+        "text": "Compare 118 and 218. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 118 and 218. 118 is less than 218.",
+      "accessible_description": "Compare 118 and 218. 118 is less than 218."
     },
     {
       "id": "G2M_NS_002_L1_Q7",
@@ -431,15 +449,15 @@
       ],
       "misconception_tag": "compares_left_to_right_incorrectly",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 640 and 540; start at the greatest place and move right.",
+        "Compare 640 with 540 at hundreds place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 640 is ___ 540."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 640 is greater than 540.",
+        "incorrect": "Try again. Compare 640 and 540 from the greatest place to the ones place."
       },
-      "explanation": "640 is greater than 540.",
+      "explanation": "640 is greater than 540 because the hundreds digits are the first digits that differ: 6 is greater than 5.",
       "left": 640,
       "right": 540,
       "left_value": 640,
@@ -450,11 +468,13 @@
       "tens": 4,
       "ones": 0,
       "question_audio": {
-        "text": "Compare 640 and 540. Choose greater than, less than, or equals.",
+        "text": "Compare 640 and 540. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "place value chart comparing 640 and 540. 640 is greater than 540.",
+      "accessible_description": "Compare 640 and 540. 640 is greater than 540."
     },
     {
       "id": "G2M_NS_002_L2_Q4",
@@ -471,15 +491,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 540 and 510; start at the greatest place and move right.",
+        "Compare 540 with 510 at tens place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 540 is ___ 510."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 540 is greater than 510.",
+        "incorrect": "Try again. Compare 540 and 510 from the greatest place to the ones place."
       },
-      "explanation": "540 is greater than 510.",
+      "explanation": "540 is greater than 510 because the tens digits are the first digits that differ: 4 is greater than 1.",
       "left": 540,
       "right": 510,
       "left_value": 540,
@@ -490,16 +510,18 @@
       "tens": 4,
       "ones": 0,
       "options": [
-        ">",
         "<",
-        "="
+        "=",
+        ">"
       ],
       "question_audio": {
-        "text": "Compare 540 and 510. Choose greater than, less than, or equals.",
+        "text": "Compare 540 and 510. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "place value chart comparing 540 and 510. 540 is greater than 510.",
+      "accessible_description": "Compare 540 and 510. 540 is greater than 510."
     },
     {
       "id": "G2M_NS_002_L2_Q5",
@@ -516,15 +538,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 307 and 390; start at the greatest place and move right.",
+        "Compare 307 with 390 at tens place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 307 is ___ 390."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 307 is less than 390.",
+        "incorrect": "Try again. Compare 307 and 390 from the greatest place to the ones place."
       },
-      "explanation": "307 is less than 390.",
+      "explanation": "307 is less than 390 because the tens digits are the first digits that differ: 0 is less than 9.",
       "left": 307,
       "right": 390,
       "left_value": 307,
@@ -532,11 +554,13 @@
       "min": 305,
       "max": 392,
       "question_audio": {
-        "text": "Compare 307 and 390. Choose greater than, less than, or equals.",
+        "text": "Compare 307 and 390. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "number line comparing 307 and 390. 307 is less than 390.",
+      "accessible_description": "Compare 307 and 390. 307 is less than 390."
     },
     {
       "id": "G2M_NS_002_L2_Q6",
@@ -553,25 +577,27 @@
       ],
       "misconception_tag": "compares_left_to_right_incorrectly",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 870 and 820; start at the greatest place and move right.",
+        "Compare 870 with 820 at tens place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 870 is ___ 820."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 870 is greater than 820.",
+        "incorrect": "Try again. Compare 870 and 820 from the greatest place to the ones place."
       },
-      "explanation": "870 is greater than 820.",
+      "explanation": "870 is greater than 820 because the tens digits are the first digits that differ: 7 is greater than 2.",
       "left": 870,
       "right": 820,
       "left_value": 870,
       "right_value": 820,
       "question_audio": {
-        "text": "Compare 870 and 820. Choose greater than, less than, or equals.",
+        "text": "Compare 870 and 820. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 870 and 820. 870 is greater than 820.",
+      "accessible_description": "Compare 870 and 820. 870 is greater than 820."
     },
     {
       "id": "G2M_NS_002_L2_Q7",
@@ -588,15 +614,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 254 and 296; start at the greatest place and move right.",
+        "Compare 254 with 296 at tens place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 254 is ___ 296."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 254 is less than 296.",
+        "incorrect": "Try again. Compare 254 and 296 from the greatest place to the ones place."
       },
-      "explanation": "254 is less than 296.",
+      "explanation": "254 is less than 296 because the tens digits are the first digits that differ: 5 is less than 9.",
       "left": 254,
       "right": 296,
       "left_value": 254,
@@ -607,16 +633,18 @@
       "tens": 5,
       "ones": 4,
       "options": [
-        ">",
         "<",
+        ">",
         "="
       ],
       "question_audio": {
-        "text": "Compare 254 and 296. Choose greater than, less than, or equals.",
+        "text": "Compare 254 and 296. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "place value chart comparing 254 and 296. 254 is less than 296.",
+      "accessible_description": "Compare 254 and 296. 254 is less than 296."
     },
     {
       "id": "G2M_NS_002_L3_Q4",
@@ -633,15 +661,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 905 and 902; start at the greatest place and move right.",
+        "Compare 905 with 902 at ones place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 905 is ___ 902."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 905 is greater than 902.",
+        "incorrect": "Try again. Compare 905 and 902 from the greatest place to the ones place."
       },
-      "explanation": "905 is greater than 902.",
+      "explanation": "905 is greater than 902 because the ones digits are the first digits that differ: 5 is greater than 2.",
       "left": 905,
       "right": 902,
       "left_value": 905,
@@ -657,11 +685,13 @@
         "="
       ],
       "question_audio": {
-        "text": "Compare 905 and 902. Choose greater than, less than, or equals.",
+        "text": "Compare 905 and 902. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "base ten blocks comparing 905 and 902. 905 is greater than 902.",
+      "accessible_description": "Compare 905 and 902. 905 is greater than 902."
     },
     {
       "id": "G2M_NS_002_L3_Q5",
@@ -678,25 +708,27 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 286 and 289; start at the greatest place and move right.",
+        "Compare 286 with 289 at ones place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 286 is ___ 289."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 286 is less than 289.",
+        "incorrect": "Try again. Compare 286 and 289 from the greatest place to the ones place."
       },
-      "explanation": "286 is less than 289.",
+      "explanation": "286 is less than 289 because the ones digits are the first digits that differ: 6 is less than 9.",
       "left": 286,
       "right": 289,
       "left_value": 286,
       "right_value": 289,
       "question_audio": {
-        "text": "Compare 286 and 289. Choose greater than, less than, or equals.",
+        "text": "Compare 286 and 289. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 286 and 289. 286 is less than 289.",
+      "accessible_description": "Compare 286 and 289. 286 is less than 289."
     },
     {
       "id": "G2M_NS_002_L3_Q6",
@@ -713,15 +745,15 @@
       ],
       "misconception_tag": "compares_left_to_right_incorrectly",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 777 and 771; start at the greatest place and move right.",
+        "Compare 777 with 771 at ones place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 777 is ___ 771."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 777 is greater than 771.",
+        "incorrect": "Try again. Compare 777 and 771 from the greatest place to the ones place."
       },
-      "explanation": "777 is greater than 771.",
+      "explanation": "777 is greater than 771 because the ones digits are the first digits that differ: 7 is greater than 1.",
       "left": 777,
       "right": 771,
       "left_value": 777,
@@ -732,11 +764,13 @@
       "tens": 7,
       "ones": 7,
       "question_audio": {
-        "text": "Compare 777 and 771. Choose greater than, less than, or equals.",
+        "text": "Compare 777 and 771. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "place value chart comparing 777 and 771. 777 is greater than 771.",
+      "accessible_description": "Compare 777 and 771. 777 is greater than 771."
     },
     {
       "id": "G2M_NS_002_L3_Q7",
@@ -753,15 +787,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 333 and 336; start at the greatest place and move right.",
+        "Compare 333 with 336 at ones place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 333 is ___ 336."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 333 is less than 336.",
+        "incorrect": "Try again. Compare 333 and 336 from the greatest place to the ones place."
       },
-      "explanation": "333 is less than 336.",
+      "explanation": "333 is less than 336 because the ones digits are the first digits that differ: 3 is less than 6.",
       "left": 333,
       "right": 336,
       "left_value": 333,
@@ -772,11 +806,13 @@
         "="
       ],
       "question_audio": {
-        "text": "Compare 333 and 336. Choose greater than, less than, or equals.",
+        "text": "Compare 333 and 336. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 333 and 336. 333 is less than 336.",
+      "accessible_description": "Compare 333 and 336. 333 is less than 336."
     }
   ],
   "checkpoint": [
@@ -795,25 +831,27 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 1000 and 999; start at the greatest place and move right.",
+        "Compare 1000 with 999 at thousands place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 1000 is ___ 999."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 1000 is greater than 999.",
+        "incorrect": "Try again. Compare 1000 and 999 from the greatest place to the ones place."
       },
-      "explanation": "1000 is greater than 999.",
+      "explanation": "1000 is greater than 999 because the thousands digits are the first digits that differ: 1 is greater than 0.",
       "left": 1000,
       "right": 999,
       "left_value": 1000,
       "right_value": 999,
       "question_audio": {
-        "text": "Compare 1000 and 999. Choose greater than, less than, or equals.",
+        "text": "Compare 1000 and 999. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 1000 and 999. 1000 is greater than 999.",
+      "accessible_description": "Compare 1000 and 999. 1000 is greater than 999."
     },
     {
       "id": "G2M_NS_002_L2_Q10",
@@ -830,15 +868,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 444 and 484; start at the greatest place and move right.",
+        "Compare 444 with 484 at tens place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 444 is ___ 484."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 444 is less than 484.",
+        "incorrect": "Try again. Compare 444 and 484 from the greatest place to the ones place."
       },
-      "explanation": "444 is less than 484.",
+      "explanation": "444 is less than 484 because the tens digits are the first digits that differ: 4 is less than 8.",
       "left": 444,
       "right": 484,
       "left_value": 444,
@@ -854,11 +892,13 @@
         "="
       ],
       "question_audio": {
-        "text": "Compare 444 and 484. Choose greater than, less than, or equals.",
+        "text": "Compare 444 and 484. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "place value chart comparing 444 and 484. 444 is less than 484.",
+      "accessible_description": "Compare 444 and 484. 444 is less than 484."
     },
     {
       "id": "G2M_NS_002_L3_Q9",
@@ -875,25 +915,27 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 990 and 999; start at the greatest place and move right.",
+        "Compare 990 with 999 at ones place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 990 is ___ 999."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 990 is less than 999.",
+        "incorrect": "Try again. Compare 990 and 999 from the greatest place to the ones place."
       },
-      "explanation": "990 is less than 999.",
+      "explanation": "990 is less than 999 because the ones digits are the first digits that differ: 0 is less than 9.",
       "left": 990,
       "right": 999,
       "left_value": 990,
       "right_value": 999,
       "question_audio": {
-        "text": "Compare 990 and 999. Choose greater than, less than, or equals.",
+        "text": "Compare 990 and 999. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 990 and 999. 990 is less than 999.",
+      "accessible_description": "Compare 990 and 999. 990 is less than 999."
     },
     {
       "id": "G2M_NS_002_L4_Q7",
@@ -911,25 +953,27 @@
       ],
       "misconception_tag": "equal_confusion",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 1000 and 1000; start at the greatest place and move right.",
+        "Compare 1000 with 1000 at all three places, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 1000 is ___ 1000."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 1000 is equal to 1000.",
+        "incorrect": "Try again. Compare 1000 and 1000 from the greatest place to the ones place."
       },
-      "explanation": "1000 is equal to 1000.",
+      "explanation": "1000 is equal to 1000 because their hundreds, tens, and ones digits all match.",
       "left": 1000,
       "right": 1000,
       "left_value": 1000,
       "right_value": 1000,
       "question_audio": {
-        "text": "Compare 1000 and 1000. Choose greater than, less than, or equals.",
+        "text": "Compare 1000 and 1000. Choose >, <, or =.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "comparison comparing 1000 and 1000. 1000 is equal to 1000.",
+      "accessible_description": "Compare 1000 and 1000. 1000 is equal to 1000."
     }
   ],
   "misconception_bank": {
@@ -954,15 +998,15 @@
       ],
       "misconception_tag": "place_value_compare_error",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 642 and 542; start at the greatest place and move right.",
+        "Compare 642 with 542 at hundreds place, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 642 is ___ 542."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 642 is greater than 542.",
+        "incorrect": "Try again. Compare 642 and 542 from the greatest place to the ones place."
       },
-      "explanation": "642 is greater than 542.",
+      "explanation": "642 is greater than 542 because the hundreds digits are the first digits that differ: 6 is greater than 5.",
       "left": 642,
       "right": 542,
       "left_value": 642,
@@ -971,7 +1015,15 @@
         ">",
         "<",
         "="
-      ]
+      ],
+      "question_audio": {
+        "text": "Compare 642 and 542. Choose >, <, or =.",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "visual_description": "comparison comparing 642 and 542. 642 is greater than 542.",
+      "accessible_description": "Compare 642 and 542. 642 is greater than 542."
     },
     {
       "id": "G2M_NS_002_M_Q4",
@@ -989,15 +1041,15 @@
       ],
       "misconception_tag": "equal_confusion",
       "hints": [
-        "Compare hundreds first.",
-        "If hundreds tie, compare tens. If tens tie, compare ones.",
-        "Choose the symbol that points to the smaller number."
+        "Focus on 515 and 515; start at the greatest place and move right.",
+        "Compare 515 with 515 at all three places, then choose the symbol that makes the statement true.",
+        "Check your choice by reading the complete comparison aloud: 515 is ___ 515."
       ],
       "feedback": {
-        "correct": "Great comparing!",
-        "incorrect": "Compare one place at a time from hundreds to ones."
+        "correct": "Correct: 515 is equal to 515.",
+        "incorrect": "Try again. Compare 515 and 515 from the greatest place to the ones place."
       },
-      "explanation": "515 is equal to 515.",
+      "explanation": "515 is equal to 515 because their hundreds, tens, and ones digits all match.",
       "left": 515,
       "right": 515,
       "left_value": 515,
@@ -1006,7 +1058,15 @@
       "number": 515,
       "hundreds": 5,
       "tens": 1,
-      "ones": 5
+      "ones": 5,
+      "question_audio": {
+        "text": "Compare 515 and 515. Choose >, <, or =.",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "visual_description": "base ten blocks comparing 515 and 515. 515 is equal to 515.",
+      "accessible_description": "Compare 515 and 515. 515 is equal to 515."
     }
   ],
   "game_theme": {
@@ -1040,15 +1100,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 345 and 268; start at the greatest place and move right.",
+            "Compare 345 with 268 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 345 is ___ 268."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 345 is greater than 268.",
+            "incorrect": "Try again. Compare 345 and 268 from the greatest place to the ones place."
           },
-          "explanation": "345 is greater than 268.",
+          "explanation": "345 is greater than 268 because the hundreds digits are the first digits that differ: 3 is greater than 2.",
           "left": 345,
           "right": 268,
           "left_value": 345,
@@ -1059,11 +1119,13 @@
             "="
           ],
           "question_audio": {
-            "text": "Compare 345 and 268. Choose greater than, less than, or equals.",
+            "text": "Compare 345 and 268. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 345 and 268. 345 is greater than 268.",
+          "accessible_description": "Compare 345 and 268. 345 is greater than 268."
         },
         {
           "id": "G2M_NS_002_L1_Q2",
@@ -1080,15 +1142,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 412 and 589; start at the greatest place and move right.",
+            "Compare 412 with 589 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 412 is ___ 589."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 412 is less than 589.",
+            "incorrect": "Try again. Compare 412 and 589 from the greatest place to the ones place."
           },
-          "explanation": "412 is less than 589.",
+          "explanation": "412 is less than 589 because the hundreds digits are the first digits that differ: 4 is less than 5.",
           "left": 412,
           "right": 589,
           "left_value": 412,
@@ -1099,11 +1161,13 @@
           "tens": 1,
           "ones": 2,
           "question_audio": {
-            "text": "Compare 412 and 589. Choose greater than, less than, or equals.",
+            "text": "Compare 412 and 589. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 412 and 589. 412 is less than 589.",
+          "accessible_description": "Compare 412 and 589. 412 is less than 589."
         },
         {
           "id": "G2M_NS_002_L1_Q3",
@@ -1120,15 +1184,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 701 and 699; start at the greatest place and move right.",
+            "Compare 701 with 699 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 701 is ___ 699."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 701 is greater than 699.",
+            "incorrect": "Try again. Compare 701 and 699 from the greatest place to the ones place."
           },
-          "explanation": "701 is greater than 699.",
+          "explanation": "701 is greater than 699 because the hundreds digits are the first digits that differ: 7 is greater than 6.",
           "left": 701,
           "right": 699,
           "left_value": 701,
@@ -1136,16 +1200,18 @@
           "min": 695,
           "max": 705,
           "options": [
-            ">",
             "<",
+            ">",
             "="
           ],
           "question_audio": {
-            "text": "Compare 701 and 699. Choose greater than, less than, or equals.",
+            "text": "Compare 701 and 699. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 701 and 699. 701 is greater than 699.",
+          "accessible_description": "Compare 701 and 699. 701 is greater than 699."
         },
         {
           "id": "G2M_NS_002_L1_Q4",
@@ -1162,25 +1228,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 250 and 350; start at the greatest place and move right.",
+            "Compare 250 with 350 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 250 is ___ 350."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 250 is less than 350.",
+            "incorrect": "Try again. Compare 250 and 350 from the greatest place to the ones place."
           },
-          "explanation": "250 is less than 350.",
+          "explanation": "250 is less than 350 because the hundreds digits are the first digits that differ: 2 is less than 3.",
           "left": 250,
           "right": 350,
           "left_value": 250,
           "right_value": 350,
           "question_audio": {
-            "text": "Compare 250 and 350. Choose greater than, less than, or equals.",
+            "text": "Compare 250 and 350. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 250 and 350. 250 is less than 350.",
+          "accessible_description": "Compare 250 and 350. 250 is less than 350."
         },
         {
           "id": "G2M_NS_002_L1_Q5",
@@ -1197,15 +1265,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 900 and 800; start at the greatest place and move right.",
+            "Compare 900 with 800 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 900 is ___ 800."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 900 is greater than 800.",
+            "incorrect": "Try again. Compare 900 and 800 from the greatest place to the ones place."
           },
-          "explanation": "900 is greater than 800.",
+          "explanation": "900 is greater than 800 because the hundreds digits are the first digits that differ: 9 is greater than 8.",
           "left": 900,
           "right": 800,
           "left_value": 900,
@@ -1216,16 +1284,18 @@
           "tens": 0,
           "ones": 0,
           "options": [
-            ">",
             "<",
-            "="
+            "=",
+            ">"
           ],
           "question_audio": {
-            "text": "Compare 900 and 800. Choose greater than, less than, or equals.",
+            "text": "Compare 900 and 800. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 900 and 800. 900 is greater than 800.",
+          "accessible_description": "Compare 900 and 800. 900 is greater than 800."
         },
         {
           "id": "G2M_NS_002_L1_Q6",
@@ -1242,25 +1312,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 118 and 218; start at the greatest place and move right.",
+            "Compare 118 with 218 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 118 is ___ 218."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 118 is less than 218.",
+            "incorrect": "Try again. Compare 118 and 218 from the greatest place to the ones place."
           },
-          "explanation": "118 is less than 218.",
+          "explanation": "118 is less than 218 because the hundreds digits are the first digits that differ: 1 is less than 2.",
           "left": 118,
           "right": 218,
           "left_value": 118,
           "right_value": 218,
           "question_audio": {
-            "text": "Compare 118 and 218. Choose greater than, less than, or equals.",
+            "text": "Compare 118 and 218. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 118 and 218. 118 is less than 218.",
+          "accessible_description": "Compare 118 and 218. 118 is less than 218."
         },
         {
           "id": "G2M_NS_002_L1_Q7",
@@ -1277,15 +1349,15 @@
           ],
           "misconception_tag": "compares_left_to_right_incorrectly",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 640 and 540; start at the greatest place and move right.",
+            "Compare 640 with 540 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 640 is ___ 540."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 640 is greater than 540.",
+            "incorrect": "Try again. Compare 640 and 540 from the greatest place to the ones place."
           },
-          "explanation": "640 is greater than 540.",
+          "explanation": "640 is greater than 540 because the hundreds digits are the first digits that differ: 6 is greater than 5.",
           "left": 640,
           "right": 540,
           "left_value": 640,
@@ -1296,11 +1368,13 @@
           "tens": 4,
           "ones": 0,
           "question_audio": {
-            "text": "Compare 640 and 540. Choose greater than, less than, or equals.",
+            "text": "Compare 640 and 540. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 640 and 540. 640 is greater than 540.",
+          "accessible_description": "Compare 640 and 540. 640 is greater than 540."
         },
         {
           "id": "G2M_NS_002_L1_Q8",
@@ -1317,15 +1391,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 399 and 400; start at the greatest place and move right.",
+            "Compare 399 with 400 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 399 is ___ 400."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 399 is less than 400.",
+            "incorrect": "Try again. Compare 399 and 400 from the greatest place to the ones place."
           },
-          "explanation": "399 is less than 400.",
+          "explanation": "399 is less than 400 because the hundreds digits are the first digits that differ: 3 is less than 4.",
           "left": 399,
           "right": 400,
           "left_value": 399,
@@ -1333,16 +1407,18 @@
           "min": 396,
           "max": 403,
           "options": [
-            ">",
             "<",
+            ">",
             "="
           ],
           "question_audio": {
-            "text": "Compare 399 and 400. Choose greater than, less than, or equals.",
+            "text": "Compare 399 and 400. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 399 and 400. 399 is less than 400.",
+          "accessible_description": "Compare 399 and 400. 399 is less than 400."
         },
         {
           "id": "G2M_NS_002_L1_Q9",
@@ -1359,25 +1435,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 1000 and 999; start at the greatest place and move right.",
+            "Compare 1000 with 999 at thousands place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 1000 is ___ 999."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 1000 is greater than 999.",
+            "incorrect": "Try again. Compare 1000 and 999 from the greatest place to the ones place."
           },
-          "explanation": "1000 is greater than 999.",
+          "explanation": "1000 is greater than 999 because the thousands digits are the first digits that differ: 1 is greater than 0.",
           "left": 1000,
           "right": 999,
           "left_value": 1000,
           "right_value": 999,
           "question_audio": {
-            "text": "Compare 1000 and 999. Choose greater than, less than, or equals.",
+            "text": "Compare 1000 and 999. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 1000 and 999. 1000 is greater than 999.",
+          "accessible_description": "Compare 1000 and 999. 1000 is greater than 999."
         },
         {
           "id": "G2M_NS_002_L1_Q10",
@@ -1394,15 +1472,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 287 and 187; start at the greatest place and move right.",
+            "Compare 287 with 187 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 287 is ___ 187."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 287 is greater than 187.",
+            "incorrect": "Try again. Compare 287 and 187 from the greatest place to the ones place."
           },
-          "explanation": "287 is greater than 187.",
+          "explanation": "287 is greater than 187 because the hundreds digits are the first digits that differ: 2 is greater than 1.",
           "left": 287,
           "right": 187,
           "left_value": 287,
@@ -1413,11 +1491,13 @@
           "tens": 8,
           "ones": 7,
           "question_audio": {
-            "text": "Compare 287 and 187. Choose greater than, less than, or equals.",
+            "text": "Compare 287 and 187. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 287 and 187. 287 is greater than 187.",
+          "accessible_description": "Compare 287 and 187. 287 is greater than 187."
         }
       ]
     },
@@ -1444,15 +1524,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 456 and 432; start at the greatest place and move right.",
+            "Compare 456 with 432 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 456 is ___ 432."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 456 is greater than 432.",
+            "incorrect": "Try again. Compare 456 and 432 from the greatest place to the ones place."
           },
-          "explanation": "456 is greater than 432.",
+          "explanation": "456 is greater than 432 because the tens digits are the first digits that differ: 5 is greater than 3.",
           "left": 456,
           "right": 432,
           "left_value": 456,
@@ -1463,16 +1543,18 @@
           "tens": 5,
           "ones": 6,
           "options": [
-            ">",
             "<",
+            ">",
             "="
           ],
           "question_audio": {
-            "text": "Compare 456 and 432. Choose greater than, less than, or equals.",
+            "text": "Compare 456 and 432. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 456 and 432. 456 is greater than 432.",
+          "accessible_description": "Compare 456 and 432. 456 is greater than 432."
         },
         {
           "id": "G2M_NS_002_L2_Q2",
@@ -1489,25 +1571,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 781 and 798; start at the greatest place and move right.",
+            "Compare 781 with 798 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 781 is ___ 798."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 781 is less than 798.",
+            "incorrect": "Try again. Compare 781 and 798 from the greatest place to the ones place."
           },
-          "explanation": "781 is less than 798.",
+          "explanation": "781 is less than 798 because the tens digits are the first digits that differ: 8 is less than 9.",
           "left": 781,
           "right": 798,
           "left_value": 781,
           "right_value": 798,
           "question_audio": {
-            "text": "Compare 781 and 798. Choose greater than, less than, or equals.",
+            "text": "Compare 781 and 798. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 781 and 798. 781 is less than 798.",
+          "accessible_description": "Compare 781 and 798. 781 is less than 798."
         },
         {
           "id": "G2M_NS_002_L2_Q3",
@@ -1524,25 +1608,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 629 and 681; start at the greatest place and move right.",
+            "Compare 629 with 681 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 629 is ___ 681."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 629 is less than 681.",
+            "incorrect": "Try again. Compare 629 and 681 from the greatest place to the ones place."
           },
-          "explanation": "629 is less than 681.",
+          "explanation": "629 is less than 681 because the tens digits are the first digits that differ: 2 is less than 8.",
           "left": 629,
           "right": 681,
           "left_value": 629,
           "right_value": 681,
           "question_audio": {
-            "text": "Compare 629 and 681. Choose greater than, less than, or equals.",
+            "text": "Compare 629 and 681. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 629 and 681. 629 is less than 681.",
+          "accessible_description": "Compare 629 and 681. 629 is less than 681."
         },
         {
           "id": "G2M_NS_002_L2_Q4",
@@ -1559,15 +1645,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 540 and 510; start at the greatest place and move right.",
+            "Compare 540 with 510 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 540 is ___ 510."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 540 is greater than 510.",
+            "incorrect": "Try again. Compare 540 and 510 from the greatest place to the ones place."
           },
-          "explanation": "540 is greater than 510.",
+          "explanation": "540 is greater than 510 because the tens digits are the first digits that differ: 4 is greater than 1.",
           "left": 540,
           "right": 510,
           "left_value": 540,
@@ -1578,16 +1664,18 @@
           "tens": 4,
           "ones": 0,
           "options": [
-            ">",
             "<",
-            "="
+            "=",
+            ">"
           ],
           "question_audio": {
-            "text": "Compare 540 and 510. Choose greater than, less than, or equals.",
+            "text": "Compare 540 and 510. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 540 and 510. 540 is greater than 510.",
+          "accessible_description": "Compare 540 and 510. 540 is greater than 510."
         },
         {
           "id": "G2M_NS_002_L2_Q5",
@@ -1604,15 +1692,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 307 and 390; start at the greatest place and move right.",
+            "Compare 307 with 390 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 307 is ___ 390."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 307 is less than 390.",
+            "incorrect": "Try again. Compare 307 and 390 from the greatest place to the ones place."
           },
-          "explanation": "307 is less than 390.",
+          "explanation": "307 is less than 390 because the tens digits are the first digits that differ: 0 is less than 9.",
           "left": 307,
           "right": 390,
           "left_value": 307,
@@ -1620,11 +1708,13 @@
           "min": 305,
           "max": 392,
           "question_audio": {
-            "text": "Compare 307 and 390. Choose greater than, less than, or equals.",
+            "text": "Compare 307 and 390. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 307 and 390. 307 is less than 390.",
+          "accessible_description": "Compare 307 and 390. 307 is less than 390."
         },
         {
           "id": "G2M_NS_002_L2_Q6",
@@ -1641,25 +1731,27 @@
           ],
           "misconception_tag": "compares_left_to_right_incorrectly",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 870 and 820; start at the greatest place and move right.",
+            "Compare 870 with 820 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 870 is ___ 820."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 870 is greater than 820.",
+            "incorrect": "Try again. Compare 870 and 820 from the greatest place to the ones place."
           },
-          "explanation": "870 is greater than 820.",
+          "explanation": "870 is greater than 820 because the tens digits are the first digits that differ: 7 is greater than 2.",
           "left": 870,
           "right": 820,
           "left_value": 870,
           "right_value": 820,
           "question_audio": {
-            "text": "Compare 870 and 820. Choose greater than, less than, or equals.",
+            "text": "Compare 870 and 820. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 870 and 820. 870 is greater than 820.",
+          "accessible_description": "Compare 870 and 820. 870 is greater than 820."
         },
         {
           "id": "G2M_NS_002_L2_Q7",
@@ -1676,15 +1768,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 254 and 296; start at the greatest place and move right.",
+            "Compare 254 with 296 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 254 is ___ 296."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 254 is less than 296.",
+            "incorrect": "Try again. Compare 254 and 296 from the greatest place to the ones place."
           },
-          "explanation": "254 is less than 296.",
+          "explanation": "254 is less than 296 because the tens digits are the first digits that differ: 5 is less than 9.",
           "left": 254,
           "right": 296,
           "left_value": 254,
@@ -1695,16 +1787,18 @@
           "tens": 5,
           "ones": 4,
           "options": [
-            ">",
             "<",
+            ">",
             "="
           ],
           "question_audio": {
-            "text": "Compare 254 and 296. Choose greater than, less than, or equals.",
+            "text": "Compare 254 and 296. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 254 and 296. 254 is less than 296.",
+          "accessible_description": "Compare 254 and 296. 254 is less than 296."
         },
         {
           "id": "G2M_NS_002_L2_Q8",
@@ -1721,15 +1815,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 935 and 915; start at the greatest place and move right.",
+            "Compare 935 with 915 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 935 is ___ 915."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 935 is greater than 915.",
+            "incorrect": "Try again. Compare 935 and 915 from the greatest place to the ones place."
           },
-          "explanation": "935 is greater than 915.",
+          "explanation": "935 is greater than 915 because the tens digits are the first digits that differ: 3 is greater than 1.",
           "left": 935,
           "right": 915,
           "left_value": 935,
@@ -1740,11 +1834,13 @@
           "tens": 3,
           "ones": 5,
           "question_audio": {
-            "text": "Compare 935 and 915. Choose greater than, less than, or equals.",
+            "text": "Compare 935 and 915. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 935 and 915. 935 is greater than 915.",
+          "accessible_description": "Compare 935 and 915. 935 is greater than 915."
         },
         {
           "id": "G2M_NS_002_L2_Q9",
@@ -1761,25 +1857,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 672 and 652; start at the greatest place and move right.",
+            "Compare 672 with 652 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 672 is ___ 652."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 672 is greater than 652.",
+            "incorrect": "Try again. Compare 672 and 652 from the greatest place to the ones place."
           },
-          "explanation": "672 is greater than 652.",
+          "explanation": "672 is greater than 652 because the tens digits are the first digits that differ: 7 is greater than 5.",
           "left": 672,
           "right": 652,
           "left_value": 672,
           "right_value": 652,
           "question_audio": {
-            "text": "Compare 672 and 652. Choose greater than, less than, or equals.",
+            "text": "Compare 672 and 652. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 672 and 652. 672 is greater than 652.",
+          "accessible_description": "Compare 672 and 652. 672 is greater than 652."
         },
         {
           "id": "G2M_NS_002_L2_Q10",
@@ -1796,15 +1894,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 444 and 484; start at the greatest place and move right.",
+            "Compare 444 with 484 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 444 is ___ 484."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 444 is less than 484.",
+            "incorrect": "Try again. Compare 444 and 484 from the greatest place to the ones place."
           },
-          "explanation": "444 is less than 484.",
+          "explanation": "444 is less than 484 because the tens digits are the first digits that differ: 4 is less than 8.",
           "left": 444,
           "right": 484,
           "left_value": 444,
@@ -1820,11 +1918,13 @@
             "="
           ],
           "question_audio": {
-            "text": "Compare 444 and 484. Choose greater than, less than, or equals.",
+            "text": "Compare 444 and 484. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 444 and 484. 444 is less than 484.",
+          "accessible_description": "Compare 444 and 484. 444 is less than 484."
         }
       ]
     },
@@ -1851,30 +1951,32 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 458 and 452; start at the greatest place and move right.",
+            "Compare 458 with 452 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 458 is ___ 452."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 458 is greater than 452.",
+            "incorrect": "Try again. Compare 458 and 452 from the greatest place to the ones place."
           },
-          "explanation": "458 is greater than 452.",
+          "explanation": "458 is greater than 452 because the ones digits are the first digits that differ: 8 is greater than 2.",
           "left": 458,
           "right": 452,
           "left_value": 458,
           "right_value": 452,
           "options": [
-            ">",
             "<",
-            "="
+            "=",
+            ">"
           ],
           "question_audio": {
-            "text": "Compare 458 and 452. Choose greater than, less than, or equals.",
+            "text": "Compare 458 and 452. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 458 and 452. 458 is greater than 452.",
+          "accessible_description": "Compare 458 and 452. 458 is greater than 452."
         },
         {
           "id": "G2M_NS_002_L3_Q2",
@@ -1891,15 +1993,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 719 and 716; start at the greatest place and move right.",
+            "Compare 719 with 716 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 719 is ___ 716."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 719 is greater than 716.",
+            "incorrect": "Try again. Compare 719 and 716 from the greatest place to the ones place."
           },
-          "explanation": "719 is greater than 716.",
+          "explanation": "719 is greater than 716 because the ones digits are the first digits that differ: 9 is greater than 6.",
           "left": 719,
           "right": 716,
           "left_value": 719,
@@ -1910,11 +2012,13 @@
           "tens": 1,
           "ones": 9,
           "question_audio": {
-            "text": "Compare 719 and 716. Choose greater than, less than, or equals.",
+            "text": "Compare 719 and 716. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 719 and 716. 719 is greater than 716.",
+          "accessible_description": "Compare 719 and 716. 719 is greater than 716."
         },
         {
           "id": "G2M_NS_002_L3_Q3",
@@ -1931,15 +2035,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 630 and 638; start at the greatest place and move right.",
+            "Compare 630 with 638 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 630 is ___ 638."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 630 is less than 638.",
+            "incorrect": "Try again. Compare 630 and 638 from the greatest place to the ones place."
           },
-          "explanation": "630 is less than 638.",
+          "explanation": "630 is less than 638 because the ones digits are the first digits that differ: 0 is less than 8.",
           "left": 630,
           "right": 638,
           "left_value": 630,
@@ -1947,11 +2051,13 @@
           "min": 628,
           "max": 640,
           "question_audio": {
-            "text": "Compare 630 and 638. Choose greater than, less than, or equals.",
+            "text": "Compare 630 and 638. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 630 and 638. 630 is less than 638.",
+          "accessible_description": "Compare 630 and 638. 630 is less than 638."
         },
         {
           "id": "G2M_NS_002_L3_Q4",
@@ -1968,15 +2074,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 905 and 902; start at the greatest place and move right.",
+            "Compare 905 with 902 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 905 is ___ 902."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 905 is greater than 902.",
+            "incorrect": "Try again. Compare 905 and 902 from the greatest place to the ones place."
           },
-          "explanation": "905 is greater than 902.",
+          "explanation": "905 is greater than 902 because the ones digits are the first digits that differ: 5 is greater than 2.",
           "left": 905,
           "right": 902,
           "left_value": 905,
@@ -1992,11 +2098,13 @@
             "="
           ],
           "question_audio": {
-            "text": "Compare 905 and 902. Choose greater than, less than, or equals.",
+            "text": "Compare 905 and 902. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 905 and 902. 905 is greater than 902.",
+          "accessible_description": "Compare 905 and 902. 905 is greater than 902."
         },
         {
           "id": "G2M_NS_002_L3_Q5",
@@ -2013,25 +2121,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 286 and 289; start at the greatest place and move right.",
+            "Compare 286 with 289 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 286 is ___ 289."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 286 is less than 289.",
+            "incorrect": "Try again. Compare 286 and 289 from the greatest place to the ones place."
           },
-          "explanation": "286 is less than 289.",
+          "explanation": "286 is less than 289 because the ones digits are the first digits that differ: 6 is less than 9.",
           "left": 286,
           "right": 289,
           "left_value": 286,
           "right_value": 289,
           "question_audio": {
-            "text": "Compare 286 and 289. Choose greater than, less than, or equals.",
+            "text": "Compare 286 and 289. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 286 and 289. 286 is less than 289.",
+          "accessible_description": "Compare 286 and 289. 286 is less than 289."
         },
         {
           "id": "G2M_NS_002_L3_Q6",
@@ -2048,15 +2158,15 @@
           ],
           "misconception_tag": "compares_left_to_right_incorrectly",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 777 and 771; start at the greatest place and move right.",
+            "Compare 777 with 771 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 777 is ___ 771."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 777 is greater than 771.",
+            "incorrect": "Try again. Compare 777 and 771 from the greatest place to the ones place."
           },
-          "explanation": "777 is greater than 771.",
+          "explanation": "777 is greater than 771 because the ones digits are the first digits that differ: 7 is greater than 1.",
           "left": 777,
           "right": 771,
           "left_value": 777,
@@ -2067,11 +2177,13 @@
           "tens": 7,
           "ones": 7,
           "question_audio": {
-            "text": "Compare 777 and 771. Choose greater than, less than, or equals.",
+            "text": "Compare 777 and 771. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 777 and 771. 777 is greater than 771.",
+          "accessible_description": "Compare 777 and 771. 777 is greater than 771."
         },
         {
           "id": "G2M_NS_002_L3_Q7",
@@ -2088,15 +2200,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 333 and 336; start at the greatest place and move right.",
+            "Compare 333 with 336 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 333 is ___ 336."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 333 is less than 336.",
+            "incorrect": "Try again. Compare 333 and 336 from the greatest place to the ones place."
           },
-          "explanation": "333 is less than 336.",
+          "explanation": "333 is less than 336 because the ones digits are the first digits that differ: 3 is less than 6.",
           "left": 333,
           "right": 336,
           "left_value": 333,
@@ -2107,11 +2219,13 @@
             "="
           ],
           "question_audio": {
-            "text": "Compare 333 and 336. Choose greater than, less than, or equals.",
+            "text": "Compare 333 and 336. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 333 and 336. 333 is less than 336.",
+          "accessible_description": "Compare 333 and 336. 333 is less than 336."
         },
         {
           "id": "G2M_NS_002_L3_Q8",
@@ -2128,15 +2242,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 804 and 801; start at the greatest place and move right.",
+            "Compare 804 with 801 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 804 is ___ 801."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 804 is greater than 801.",
+            "incorrect": "Try again. Compare 804 and 801 from the greatest place to the ones place."
           },
-          "explanation": "804 is greater than 801.",
+          "explanation": "804 is greater than 801 because the ones digits are the first digits that differ: 4 is greater than 1.",
           "left": 804,
           "right": 801,
           "left_value": 804,
@@ -2144,11 +2258,13 @@
           "min": 800,
           "max": 806,
           "question_audio": {
-            "text": "Compare 804 and 801. Choose greater than, less than, or equals.",
+            "text": "Compare 804 and 801. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 804 and 801. 804 is greater than 801.",
+          "accessible_description": "Compare 804 and 801. 804 is greater than 801."
         },
         {
           "id": "G2M_NS_002_L3_Q9",
@@ -2165,25 +2281,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 990 and 999; start at the greatest place and move right.",
+            "Compare 990 with 999 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 990 is ___ 999."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 990 is less than 999.",
+            "incorrect": "Try again. Compare 990 and 999 from the greatest place to the ones place."
           },
-          "explanation": "990 is less than 999.",
+          "explanation": "990 is less than 999 because the ones digits are the first digits that differ: 0 is less than 9.",
           "left": 990,
           "right": 999,
           "left_value": 990,
           "right_value": 999,
           "question_audio": {
-            "text": "Compare 990 and 999. Choose greater than, less than, or equals.",
+            "text": "Compare 990 and 999. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 990 and 999. 990 is less than 999.",
+          "accessible_description": "Compare 990 and 999. 990 is less than 999."
         },
         {
           "id": "G2M_NS_002_L3_Q10",
@@ -2200,15 +2318,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 512 and 510; start at the greatest place and move right.",
+            "Compare 512 with 510 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 512 is ___ 510."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 512 is greater than 510.",
+            "incorrect": "Try again. Compare 512 and 510 from the greatest place to the ones place."
           },
-          "explanation": "512 is greater than 510.",
+          "explanation": "512 is greater than 510 because the ones digits are the first digits that differ: 2 is greater than 0.",
           "left": 512,
           "right": 510,
           "left_value": 512,
@@ -2219,16 +2337,18 @@
           "tens": 1,
           "ones": 2,
           "options": [
-            ">",
             "<",
-            "="
+            "=",
+            ">"
           ],
           "question_audio": {
-            "text": "Compare 512 and 510. Choose greater than, less than, or equals.",
+            "text": "Compare 512 and 510. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 512 and 510. 512 is greater than 510.",
+          "accessible_description": "Compare 512 and 510. 512 is greater than 510."
         }
       ]
     },
@@ -2256,30 +2376,32 @@
           ],
           "misconception_tag": "equal_confusion",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 345 and 345; start at the greatest place and move right.",
+            "Compare 345 with 345 at all three places, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 345 is ___ 345."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 345 is equal to 345.",
+            "incorrect": "Try again. Compare 345 and 345 from the greatest place to the ones place."
           },
-          "explanation": "345 is equal to 345.",
+          "explanation": "345 is equal to 345 because their hundreds, tens, and ones digits all match.",
           "left": 345,
           "right": 345,
           "left_value": 345,
           "right_value": 345,
           "options": [
+            "=",
             ">",
-            "<",
-            "="
+            "<"
           ],
           "question_audio": {
-            "text": "Compare 345 and 345. Choose greater than, less than, or equals.",
+            "text": "Compare 345 and 345. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 345 and 345. 345 is equal to 345.",
+          "accessible_description": "Compare 345 and 345. 345 is equal to 345."
         },
         {
           "id": "G2M_NS_002_L4_Q2",
@@ -2296,15 +2418,15 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 620 and 602; start at the greatest place and move right.",
+            "Compare 620 with 602 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 620 is ___ 602."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 620 is greater than 602.",
+            "incorrect": "Try again. Compare 620 and 602 from the greatest place to the ones place."
           },
-          "explanation": "620 is greater than 602.",
+          "explanation": "620 is greater than 602 because the tens digits are the first digits that differ: 2 is greater than 0.",
           "left": 620,
           "right": 602,
           "left_value": 620,
@@ -2315,11 +2437,13 @@
           "tens": 2,
           "ones": 0,
           "question_audio": {
-            "text": "Compare 620 and 602. Choose greater than, less than, or equals.",
+            "text": "Compare 620 and 602. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 620 and 602. 620 is greater than 602.",
+          "accessible_description": "Compare 620 and 602. 620 is greater than 602."
         },
         {
           "id": "G2M_NS_002_L4_Q3",
@@ -2336,15 +2460,15 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 499 and 500; start at the greatest place and move right.",
+            "Compare 499 with 500 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 499 is ___ 500."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 499 is less than 500.",
+            "incorrect": "Try again. Compare 499 and 500 from the greatest place to the ones place."
           },
-          "explanation": "499 is less than 500.",
+          "explanation": "499 is less than 500 because the hundreds digits are the first digits that differ: 4 is less than 5.",
           "left": 499,
           "right": 500,
           "left_value": 499,
@@ -2352,11 +2476,13 @@
           "min": 496,
           "max": 503,
           "question_audio": {
-            "text": "Compare 499 and 500. Choose greater than, less than, or equals.",
+            "text": "Compare 499 and 500. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 499 and 500. 499 is less than 500.",
+          "accessible_description": "Compare 499 and 500. 499 is less than 500."
         },
         {
           "id": "G2M_NS_002_L4_Q4",
@@ -2374,15 +2500,15 @@
           ],
           "misconception_tag": "equal_confusion",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 888 and 888; start at the greatest place and move right.",
+            "Compare 888 with 888 at all three places, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 888 is ___ 888."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 888 is equal to 888.",
+            "incorrect": "Try again. Compare 888 and 888 from the greatest place to the ones place."
           },
-          "explanation": "888 is equal to 888.",
+          "explanation": "888 is equal to 888 because their hundreds, tens, and ones digits all match.",
           "left": 888,
           "right": 888,
           "left_value": 888,
@@ -2393,11 +2519,13 @@
           "tens": 8,
           "ones": 8,
           "question_audio": {
-            "text": "Compare 888 and 888. Choose greater than, less than, or equals.",
+            "text": "Compare 888 and 888. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 888 and 888. 888 is equal to 888.",
+          "accessible_description": "Compare 888 and 888. 888 is equal to 888."
         },
         {
           "id": "G2M_NS_002_L4_Q5",
@@ -2414,30 +2542,32 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 731 and 713; start at the greatest place and move right.",
+            "Compare 731 with 713 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 731 is ___ 713."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 731 is greater than 713.",
+            "incorrect": "Try again. Compare 731 and 713 from the greatest place to the ones place."
           },
-          "explanation": "731 is greater than 713.",
+          "explanation": "731 is greater than 713 because the tens digits are the first digits that differ: 3 is greater than 1.",
           "left": 731,
           "right": 713,
           "left_value": 731,
           "right_value": 713,
           "options": [
-            ">",
             "<",
+            ">",
             "="
           ],
           "question_audio": {
-            "text": "Compare 731 and 713. Choose greater than, less than, or equals.",
+            "text": "Compare 731 and 713. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 731 and 713. 731 is greater than 713.",
+          "accessible_description": "Compare 731 and 713. 731 is greater than 713."
         },
         {
           "id": "G2M_NS_002_L4_Q6",
@@ -2454,15 +2584,15 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 204 and 240; start at the greatest place and move right.",
+            "Compare 204 with 240 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 204 is ___ 240."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 204 is less than 240.",
+            "incorrect": "Try again. Compare 204 and 240 from the greatest place to the ones place."
           },
-          "explanation": "204 is less than 240.",
+          "explanation": "204 is less than 240 because the tens digits are the first digits that differ: 0 is less than 4.",
           "left": 204,
           "right": 240,
           "left_value": 204,
@@ -2473,11 +2603,13 @@
           "tens": 0,
           "ones": 4,
           "question_audio": {
-            "text": "Compare 204 and 240. Choose greater than, less than, or equals.",
+            "text": "Compare 204 and 240. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 204 and 240. 204 is less than 240.",
+          "accessible_description": "Compare 204 and 240. 204 is less than 240."
         },
         {
           "id": "G2M_NS_002_L4_Q7",
@@ -2495,25 +2627,27 @@
           ],
           "misconception_tag": "equal_confusion",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 1000 and 1000; start at the greatest place and move right.",
+            "Compare 1000 with 1000 at all three places, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 1000 is ___ 1000."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 1000 is equal to 1000.",
+            "incorrect": "Try again. Compare 1000 and 1000 from the greatest place to the ones place."
           },
-          "explanation": "1000 is equal to 1000.",
+          "explanation": "1000 is equal to 1000 because their hundreds, tens, and ones digits all match.",
           "left": 1000,
           "right": 1000,
           "left_value": 1000,
           "right_value": 1000,
           "question_audio": {
-            "text": "Compare 1000 and 1000. Choose greater than, less than, or equals.",
+            "text": "Compare 1000 and 1000. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 1000 and 1000. 1000 is equal to 1000.",
+          "accessible_description": "Compare 1000 and 1000. 1000 is equal to 1000."
         },
         {
           "id": "G2M_NS_002_L4_Q8",
@@ -2530,30 +2664,32 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 567 and 576; start at the greatest place and move right.",
+            "Compare 567 with 576 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 567 is ___ 576."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 567 is less than 576.",
+            "incorrect": "Try again. Compare 567 and 576 from the greatest place to the ones place."
           },
-          "explanation": "567 is less than 576.",
+          "explanation": "567 is less than 576 because the tens digits are the first digits that differ: 6 is less than 7.",
           "left": 567,
           "right": 576,
           "left_value": 567,
           "right_value": 576,
           "options": [
             ">",
-            "<",
-            "="
+            "=",
+            "<"
           ],
           "question_audio": {
-            "text": "Compare 567 and 576. Choose greater than, less than, or equals.",
+            "text": "Compare 567 and 576. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 567 and 576. 567 is less than 576.",
+          "accessible_description": "Compare 567 and 576. 567 is less than 576."
         },
         {
           "id": "G2M_NS_002_L4_Q9",
@@ -2570,15 +2706,15 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 909 and 990; start at the greatest place and move right.",
+            "Compare 909 with 990 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 909 is ___ 990."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 909 is less than 990.",
+            "incorrect": "Try again. Compare 909 and 990 from the greatest place to the ones place."
           },
-          "explanation": "909 is less than 990.",
+          "explanation": "909 is less than 990 because the tens digits are the first digits that differ: 0 is less than 9.",
           "left": 909,
           "right": 990,
           "left_value": 909,
@@ -2586,11 +2722,13 @@
           "min": 906,
           "max": 993,
           "question_audio": {
-            "text": "Compare 909 and 990. Choose greater than, less than, or equals.",
+            "text": "Compare 909 and 990. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 909 and 990. 909 is less than 990.",
+          "accessible_description": "Compare 909 and 990. 909 is less than 990."
         },
         {
           "id": "G2M_NS_002_L4_Q10",
@@ -2607,15 +2745,15 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 450 and 405; start at the greatest place and move right.",
+            "Compare 450 with 405 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 450 is ___ 405."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 450 is greater than 405.",
+            "incorrect": "Try again. Compare 450 and 405 from the greatest place to the ones place."
           },
-          "explanation": "450 is greater than 405.",
+          "explanation": "450 is greater than 405 because the tens digits are the first digits that differ: 5 is greater than 0.",
           "left": 450,
           "right": 405,
           "left_value": 450,
@@ -2626,11 +2764,13 @@
           "tens": 5,
           "ones": 0,
           "question_audio": {
-            "text": "Compare 450 and 405. Choose greater than, less than, or equals.",
+            "text": "Compare 450 and 405. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 450 and 405. 450 is greater than 405.",
+          "accessible_description": "Compare 450 and 405. 450 is greater than 405."
         }
       ]
     },
@@ -2657,15 +2797,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 642 and 542; start at the greatest place and move right.",
+            "Compare 642 with 542 at hundreds place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 642 is ___ 542."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 642 is greater than 542.",
+            "incorrect": "Try again. Compare 642 and 542 from the greatest place to the ones place."
           },
-          "explanation": "642 is greater than 542.",
+          "explanation": "642 is greater than 542 because the hundreds digits are the first digits that differ: 6 is greater than 5.",
           "left": 642,
           "right": 542,
           "left_value": 642,
@@ -2676,11 +2816,13 @@
             "="
           ],
           "question_audio": {
-            "text": "Compare 642 and 542. Choose greater than, less than, or equals.",
+            "text": "Compare 642 and 542. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 642 and 542. 642 is greater than 542.",
+          "accessible_description": "Compare 642 and 542. 642 is greater than 542."
         },
         {
           "id": "G2M_NS_002_M_Q2",
@@ -2697,15 +2839,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 381 and 392; start at the greatest place and move right.",
+            "Compare 381 with 392 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 381 is ___ 392."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 381 is less than 392.",
+            "incorrect": "Try again. Compare 381 and 392 from the greatest place to the ones place."
           },
-          "explanation": "381 is less than 392.",
+          "explanation": "381 is less than 392 because the tens digits are the first digits that differ: 8 is less than 9.",
           "left": 381,
           "right": 392,
           "left_value": 381,
@@ -2716,11 +2858,13 @@
           "tens": 8,
           "ones": 1,
           "question_audio": {
-            "text": "Compare 381 and 392. Choose greater than, less than, or equals.",
+            "text": "Compare 381 and 392. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 381 and 392. 381 is less than 392.",
+          "accessible_description": "Compare 381 and 392. 381 is less than 392."
         },
         {
           "id": "G2M_NS_002_M_Q3",
@@ -2737,25 +2881,27 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 728 and 724; start at the greatest place and move right.",
+            "Compare 728 with 724 at ones place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 728 is ___ 724."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 728 is greater than 724.",
+            "incorrect": "Try again. Compare 728 and 724 from the greatest place to the ones place."
           },
-          "explanation": "728 is greater than 724.",
+          "explanation": "728 is greater than 724 because the ones digits are the first digits that differ: 8 is greater than 4.",
           "left": 728,
           "right": 724,
           "left_value": 728,
           "right_value": 724,
           "question_audio": {
-            "text": "Compare 728 and 724. Choose greater than, less than, or equals.",
+            "text": "Compare 728 and 724. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 728 and 724. 728 is greater than 724.",
+          "accessible_description": "Compare 728 and 724. 728 is greater than 724."
         },
         {
           "id": "G2M_NS_002_M_Q4",
@@ -2773,15 +2919,15 @@
           ],
           "misconception_tag": "equal_confusion",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 515 and 515; start at the greatest place and move right.",
+            "Compare 515 with 515 at all three places, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 515 is ___ 515."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 515 is equal to 515.",
+            "incorrect": "Try again. Compare 515 and 515 from the greatest place to the ones place."
           },
-          "explanation": "515 is equal to 515.",
+          "explanation": "515 is equal to 515 because their hundreds, tens, and ones digits all match.",
           "left": 515,
           "right": 515,
           "left_value": 515,
@@ -2792,11 +2938,13 @@
           "tens": 1,
           "ones": 5,
           "question_audio": {
-            "text": "Compare 515 and 515. Choose greater than, less than, or equals.",
+            "text": "Compare 515 and 515. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 515 and 515. 515 is equal to 515.",
+          "accessible_description": "Compare 515 and 515. 515 is equal to 515."
         },
         {
           "id": "G2M_NS_002_M_Q5",
@@ -2813,15 +2961,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 999 and 1000; start at the greatest place and move right.",
+            "Compare 999 with 1000 at thousands place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 999 is ___ 1000."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 999 is less than 1000.",
+            "incorrect": "Try again. Compare 999 and 1000 from the greatest place to the ones place."
           },
-          "explanation": "999 is less than 1000.",
+          "explanation": "999 is less than 1000 because the thousands digits are the first digits that differ: 0 is less than 1.",
           "left": 999,
           "right": 1000,
           "left_value": 999,
@@ -2834,11 +2982,13 @@
             "="
           ],
           "question_audio": {
-            "text": "Compare 999 and 1000. Choose greater than, less than, or equals.",
+            "text": "Compare 999 and 1000. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 999 and 1000. 999 is less than 1000.",
+          "accessible_description": "Compare 999 and 1000. 999 is less than 1000."
         },
         {
           "id": "G2M_NS_002_M_Q6",
@@ -2855,25 +3005,27 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 870 and 807; start at the greatest place and move right.",
+            "Compare 870 with 807 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 870 is ___ 807."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 870 is greater than 807.",
+            "incorrect": "Try again. Compare 870 and 807 from the greatest place to the ones place."
           },
-          "explanation": "870 is greater than 807.",
+          "explanation": "870 is greater than 807 because the tens digits are the first digits that differ: 7 is greater than 0.",
           "left": 870,
           "right": 807,
           "left_value": 870,
           "right_value": 807,
           "question_audio": {
-            "text": "Compare 870 and 807. Choose greater than, less than, or equals.",
+            "text": "Compare 870 and 807. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 870 and 807. 870 is greater than 807.",
+          "accessible_description": "Compare 870 and 807. 870 is greater than 807."
         },
         {
           "id": "G2M_NS_002_M_Q7",
@@ -2890,15 +3042,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 456 and 465; start at the greatest place and move right.",
+            "Compare 456 with 465 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 456 is ___ 465."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 456 is less than 465.",
+            "incorrect": "Try again. Compare 456 and 465 from the greatest place to the ones place."
           },
-          "explanation": "456 is less than 465.",
+          "explanation": "456 is less than 465 because the tens digits are the first digits that differ: 5 is less than 6.",
           "left": 456,
           "right": 465,
           "left_value": 456,
@@ -2909,11 +3061,13 @@
           "tens": 5,
           "ones": 6,
           "question_audio": {
-            "text": "Compare 456 and 465. Choose greater than, less than, or equals.",
+            "text": "Compare 456 and 465. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 456 and 465. 456 is less than 465.",
+          "accessible_description": "Compare 456 and 465. 456 is less than 465."
         },
         {
           "id": "G2M_NS_002_M_Q8",
@@ -2931,15 +3085,15 @@
           ],
           "misconception_tag": "equal_confusion",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 222 and 222; start at the greatest place and move right.",
+            "Compare 222 with 222 at all three places, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 222 is ___ 222."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 222 is equal to 222.",
+            "incorrect": "Try again. Compare 222 and 222 from the greatest place to the ones place."
           },
-          "explanation": "222 is equal to 222.",
+          "explanation": "222 is equal to 222 because their hundreds, tens, and ones digits all match.",
           "left": 222,
           "right": 222,
           "left_value": 222,
@@ -2950,11 +3104,13 @@
             "="
           ],
           "question_audio": {
-            "text": "Compare 222 and 222. Choose greater than, less than, or equals.",
+            "text": "Compare 222 and 222. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 222 and 222. 222 is equal to 222.",
+          "accessible_description": "Compare 222 and 222. 222 is equal to 222."
         },
         {
           "id": "G2M_NS_002_M_Q9",
@@ -2971,15 +3127,15 @@
           ],
           "misconception_tag": "compares_left_to_right_incorrectly",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 604 and 640; start at the greatest place and move right.",
+            "Compare 604 with 640 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 604 is ___ 640."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 604 is less than 640.",
+            "incorrect": "Try again. Compare 604 and 640 from the greatest place to the ones place."
           },
-          "explanation": "604 is less than 640.",
+          "explanation": "604 is less than 640 because the tens digits are the first digits that differ: 0 is less than 4.",
           "left": 604,
           "right": 640,
           "left_value": 604,
@@ -2990,11 +3146,13 @@
           "tens": 0,
           "ones": 4,
           "question_audio": {
-            "text": "Compare 604 and 640. Choose greater than, less than, or equals.",
+            "text": "Compare 604 and 640. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "base ten blocks comparing 604 and 640. 604 is less than 640.",
+          "accessible_description": "Compare 604 and 640. 604 is less than 640."
         },
         {
           "id": "G2M_NS_002_M_Q10",
@@ -3011,25 +3169,27 @@
           ],
           "misconception_tag": "symbol_reversal",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 790 and 709; start at the greatest place and move right.",
+            "Compare 790 with 709 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 790 is ___ 709."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 790 is greater than 709.",
+            "incorrect": "Try again. Compare 790 and 709 from the greatest place to the ones place."
           },
-          "explanation": "790 is greater than 709.",
+          "explanation": "790 is greater than 709 because the tens digits are the first digits that differ: 9 is greater than 0.",
           "left": 790,
           "right": 709,
           "left_value": 790,
           "right_value": 709,
           "question_audio": {
-            "text": "Compare 790 and 709. Choose greater than, less than, or equals.",
+            "text": "Compare 790 and 709. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "comparison comparing 790 and 709. 790 is greater than 709.",
+          "accessible_description": "Compare 790 and 709. 790 is greater than 709."
         },
         {
           "id": "G2M_NS_002_M_Q11",
@@ -3046,15 +3206,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 318 and 381; start at the greatest place and move right.",
+            "Compare 318 with 381 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 318 is ___ 381."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 318 is less than 381.",
+            "incorrect": "Try again. Compare 318 and 381 from the greatest place to the ones place."
           },
-          "explanation": "318 is less than 381.",
+          "explanation": "318 is less than 381 because the tens digits are the first digits that differ: 1 is less than 8.",
           "left": 318,
           "right": 381,
           "left_value": 318,
@@ -3065,16 +3225,18 @@
           "tens": 1,
           "ones": 8,
           "options": [
-            ">",
             "<",
+            ">",
             "="
           ],
           "question_audio": {
-            "text": "Compare 318 and 381. Choose greater than, less than, or equals.",
+            "text": "Compare 318 and 381. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "place value chart comparing 318 and 381. 318 is less than 381.",
+          "accessible_description": "Compare 318 and 381. 318 is less than 381."
         },
         {
           "id": "G2M_NS_002_M_Q12",
@@ -3091,15 +3253,15 @@
           ],
           "misconception_tag": "place_value_compare_error",
           "hints": [
-            "Compare hundreds first.",
-            "If hundreds tie, compare tens. If tens tie, compare ones.",
-            "Choose the symbol that points to the smaller number."
+            "Focus on 905 and 950; start at the greatest place and move right.",
+            "Compare 905 with 950 at tens place, then choose the symbol that makes the statement true.",
+            "Check your choice by reading the complete comparison aloud: 905 is ___ 950."
           ],
           "feedback": {
-            "correct": "Great comparing!",
-            "incorrect": "Compare one place at a time from hundreds to ones."
+            "correct": "Correct: 905 is less than 950.",
+            "incorrect": "Try again. Compare 905 and 950 from the greatest place to the ones place."
           },
-          "explanation": "905 is less than 950.",
+          "explanation": "905 is less than 950 because the tens digits are the first digits that differ: 0 is less than 5.",
           "left": 905,
           "right": 950,
           "left_value": 905,
@@ -3107,11 +3269,13 @@
           "min": 902,
           "max": 953,
           "question_audio": {
-            "text": "Compare 905 and 950. Choose greater than, less than, or equals.",
+            "text": "Compare 905 and 950. Choose >, <, or =.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "number line comparing 905 and 950. 905 is less than 950.",
+          "accessible_description": "Compare 905 and 950. 905 is less than 950."
         }
       ]
     }
