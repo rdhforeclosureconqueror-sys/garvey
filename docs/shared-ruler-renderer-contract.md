@@ -1,5 +1,28 @@
 # Shared ruler renderer contract and repository audit
 
+## Answer-leakage audit
+
+The shared registry is the single implementation of `visual_model: "ruler"`. It is called directly by registry consumers and indirectly by question cards, lesson samples, guided demos, and drill screens in the Skill World renderer. A repository-wide search found 24 canonical ruler questions, all in `G2M_MD_001`; guided-practice and checkpoint views reuse those question shapes. The same generated markup therefore affected every canonical ruler activity and every UI surface that embeds it.
+
+The leakage root cause was presentation code that appended the computed `end - start` span to both the visible caption and the `role="img"` accessible name. Geometry normalization did not read `correct_answer`, but presenting its computed equivalent still disclosed the solution before interaction.
+
+| Renderer output | Leaking output before this fix | Expected output | Leakage before fix | Leakage after fix |
+|---|---|---|---|---|
+| Visible `.sw-visual-caption`, interval task | “The distance is 6 inches.” | Task-oriented direction to use the marked endpoints | Yes | No |
+| `role="img"` accessible name, interval task | “…spanning 6 inches.” | Ruler range, units, and object start/end marks | Yes | No |
+| Visible caption, endpoint-reading task | Stated the endpoint value as an instruction | Ask the learner to read the mark where the object ends | Yes | No solution statement |
+| Tick labels and object geometry | Ruler marks, start/end positions | Preserve the authored ruler and endpoint information | No; these are the problem representation | No |
+| `data-*` geometry contract | Normalized range, endpoints, and span | Preserve internal renderer/test geometry; it is not exposed as visible or accessibility text | Not presented to learners | No presented leakage |
+| Hidden/screen-reader nodes | None | None; the accessible name is the sole generated description | No additional node | No |
+| Tooltips (`title`) | None | None | No | No |
+| Fallback/placeholder output | None for valid metadata | Complete, nonblank ruler output | No | No |
+
+## Accessibility contract
+
+A complete ruler is one image whose accessible name identifies the ruler range and units, then identifies the object's authored start and end marks. It communicates the information a learner needs to perform the measurement without naming a computed distance, span, correct answer, or hidden solution. The visible caption likewise gives a measurement action rather than a result. For example: “A ruler marked from 0 to 10 inches. The object begins at the 2-inch mark and ends at the 8-inch mark.”
+
+Endpoint-reading uses the same endpoint-rich accessible description, while its visible instruction asks the learner to read the ending mark. Tick-mark visuals remain `aria-hidden` because their information is consolidated in the image name. Invalid metadata remains a deterministic, accessible error rather than a silently altered diagram.
+
 ## Root cause and scope
 
 The former production renderer treated `length` (or, unsafely, `correct_answer`) as an endpoint, always placed the object at zero, and always instructed the learner to start at zero. It had no interval model. Consequently, an authored interval such as 2–8 was silently changed into 0–6. This contract covers the shared `ruler` renderer only; no curriculum data is changed.
@@ -49,6 +72,6 @@ All entries use the flat `{ unit, length }` legacy shape; explicit endpoints are
 
 `unit` accepts inch/inches/in and centimeter/centimeters/cm and normalizes to plural labels. Start aliases are `start`, `start_point`, and `from`; end aliases are `end`, `end_point`, `to`, `endpoint`, and legacy `value`. The same keys may be nested under `ruler`, whose values override flat values. `min`/`minimum` defaults to zero. `max`/`maximum` defaults to at least 6 and two ticks beyond the endpoint. `tick_interval`/`tickInterval`/`increment` defaults to 1. The ruler spans min–max; the object spans start–end.
 
-Complete output exposes renderer, render status, normalized start, end, length, unit, structure, bounds, tick interval, individual tick values, and object span as `data-*` metadata. Its image label states the ruler range, endpoints, span, and unit; visible instructions describe the actual structure.
+Complete output exposes renderer, render status, normalized start, end, length, unit, structure, bounds, tick interval, individual tick values, and object span as `data-*` geometry metadata. Its image label states only the ruler range, units, and authored endpoints. Its visible caption asks the learner to measure or read the endpoint; neither presentation channel states the computed span.
 
 Invalid output is deterministic `data-renderer="ruler" data-render-status="invalid"`, remains nonblank and accessible, and explains why it refuses to draw. Invalid cases include missing interval endpoints, conflicting aliases or prompt/metadata, inconsistent length, reversed/out-of-range endpoints, unsupported or missing units, and unsupported tick intervals. It never falls back or silently changes the model.
