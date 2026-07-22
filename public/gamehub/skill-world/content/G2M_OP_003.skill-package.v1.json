@@ -512,26 +512,26 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q1, notice that 8 needs 2 more to make 10.",
+            "Strategy: Split 6 into 2 and 4; then add 8 + 2 = 10 and 10 + 4 = 14.",
+            "Verify: Use subtraction to check the sum: 14 - 6 = 8."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "explanation": "Move 2 from 6 to 8 to make 10: 8 + 2 = 10, with 4 left. Then 10 + 4 = 14. Why it works: splitting an addend does not change the total. Check: 14 - 6 = 8.",
           "options": [
-            "13",
             "14",
+            "13",
             "15",
-            "24"
+            "12"
           ],
           "choices": [
-            "13",
             "14",
+            "13",
             "15",
-            "24"
+            "12"
           ],
           "a": 8,
           "b": 6,
@@ -542,11 +542,13 @@
           ],
           "value": 14,
           "question_audio": {
-            "text": "Make 10: 8 plus 6 equals?",
+            "text": "Make 10: 8 plus 6 equals the unknown The ten frame shows 8 and 6 joining to make 14.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "The ten frame shows 8 and 6 joining to make 14.",
+          "accessible_description": "The ten frame shows 8 and 6 joining to make 14."
         },
         {
           "id": "G2M_OP_003_LVL1_Q2",
@@ -561,15 +563,15 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q2, notice that 9 needs 1 more to make 10.",
+            "Strategy: Split 4 into 1 and 3; then add 9 + 1 = 10 and 10 + 3 = 13.",
+            "Verify: Use subtraction to check the sum: 13 - 4 = 9."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "explanation": "Move 1 from 4 to 9 to make 10: 9 + 1 = 10, with 3 left. Then 10 + 3 = 13. Why it works: splitting an addend does not change the total. Check: 13 - 4 = 9.",
           "a": 9,
           "b": 4,
           "operation": "addition",
@@ -579,11 +581,13 @@
           ],
           "value": 13,
           "question_audio": {
-            "text": "Make 10: 9 plus 4 equals?",
+            "text": "Make 10: 9 plus 4 equals the unknown The ten frame shows 9 and 4 joining to make 13.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "The ten frame shows 9 and 4 joining to make 13.",
+          "accessible_description": "The ten frame shows 9 and 4 joining to make 13."
         },
         {
           "id": "G2M_OP_003_LVL1_Q3",
@@ -598,15 +602,15 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q3, notice that 7 needs 3 more to make 10.",
+            "Strategy: Split 5 into 3 and 2; then add 7 + 3 = 10 and 10 + 2 = 12.",
+            "Verify: Use subtraction to check the sum: 12 - 5 = 7."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 12. Use the strategy to check the related facts.",
+          "explanation": "Move 3 from 5 to 7 to make 10: 7 + 3 = 10, with 2 left. Then 10 + 2 = 12. Why it works: splitting an addend does not change the total. Check: 12 - 5 = 7.",
           "parts": [
             7,
             5
@@ -614,11 +618,18 @@
           "whole": 12,
           "value": 12,
           "question_audio": {
-            "text": "Make 10: 7 plus 5 equals?",
+            "text": "Make 10: 7 plus 5 equals the unknown A number bond shows whole 12 connected to parts 7 and 5; the unknown is 12.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "a": 7,
+          "b": 5,
+          "part_a": 7,
+          "part_b": 5,
+          "visual_description": "A number bond shows whole 12 connected to parts 7 and 5; the unknown is 12.",
+          "accessible_description": "A number bond shows whole 12 connected to parts 7 and 5; the unknown is 12."
         },
         {
           "id": "G2M_OP_003_LVL1_Q4",
@@ -633,24 +644,31 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q4, notice that 10 needs 0 more to make 10.",
+            "Strategy: Split 3 into 0 and 3; then add 10 + 0 = 10 and 10 + 3 = 13.",
+            "Verify: Use subtraction to check the sum: 13 - 3 = 10."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "explanation": "Move 0 from 3 to 10 to make 10: 10 + 0 = 10, with 3 left. Then 10 + 3 = 13. Why it works: splitting an addend does not change the total. Check: 13 - 3 = 10.",
           "a": 10,
           "b": 3,
           "value": 13,
           "question_audio": {
-            "text": "10 plus 3 equals?",
+            "text": "10 plus 3 equals the unknown The ten frame shows 10 and 3 joining to make 13.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "ten_frame": [
+            10,
+            3
+          ],
+          "visual_description": "The ten frame shows 10 and 3 joining to make 13.",
+          "accessible_description": "The ten frame shows 10 and 3 joining to make 13."
         },
         {
           "id": "G2M_OP_003_LVL1_Q5",
@@ -665,36 +683,39 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q5, notice that 6 needs 4 more to make 10.",
+            "Strategy: Split 8 into 4 and 4; then add 6 + 4 = 10 and 10 + 4 = 14.",
+            "Verify: Use subtraction to check the sum: 14 - 8 = 6."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "explanation": "Move 4 from 8 to 6 to make 10: 6 + 4 = 10, with 4 left. Then 10 + 4 = 14. Why it works: splitting an addend does not change the total. Check: 14 - 8 = 6.",
           "options": [
             "13",
             "14",
             "15",
-            "24"
+            "12"
           ],
           "choices": [
             "13",
             "14",
             "15",
-            "24"
+            "12"
           ],
           "a": 6,
           "b": 8,
           "value": 14,
           "question_audio": {
-            "text": "6 plus 8 equals?",
+            "text": "6 plus 8 equals the unknown The addition model shows 6 and 8 joining to make 14.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "visual_description": "The addition model shows 6 and 8 joining to make 14.",
+          "accessible_description": "The addition model shows 6 and 8 joining to make 14."
         },
         {
           "id": "G2M_OP_003_LVL1_Q6",
@@ -709,24 +730,31 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q6, notice that 9 needs 1 more to make 10.",
+            "Strategy: Split 7 into 1 and 6; then add 9 + 1 = 10 and 10 + 6 = 16.",
+            "Verify: Use subtraction to check the sum: 16 - 7 = 9."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 16. Use the strategy to check the related facts.",
+          "explanation": "Move 1 from 7 to 9 to make 10: 9 + 1 = 10, with 6 left. Then 10 + 6 = 16. Why it works: splitting an addend does not change the total. Check: 16 - 7 = 9.",
           "a": 9,
           "b": 7,
           "value": 16,
           "question_audio": {
-            "text": "9 plus 7 equals?",
+            "text": "9 plus 7 equals the unknown The ten frame shows 9 and 7 joining to make 16.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "ten_frame": [
+            9,
+            7
+          ],
+          "visual_description": "The ten frame shows 9 and 7 joining to make 16.",
+          "accessible_description": "The ten frame shows 9 and 7 joining to make 16."
         },
         {
           "id": "G2M_OP_003_LVL1_Q7",
@@ -741,15 +769,15 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q7, notice that 5 needs 5 more to make 10.",
+            "Strategy: Split 8 into 5 and 3; then add 5 + 5 = 10 and 10 + 3 = 13.",
+            "Verify: Use subtraction to check the sum: 13 - 8 = 5."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "explanation": "Move 5 from 8 to 5 to make 10: 5 + 5 = 10, with 3 left. Then 10 + 3 = 13. Why it works: splitting an addend does not change the total. Check: 13 - 8 = 5.",
           "parts": [
             5,
             8
@@ -757,11 +785,18 @@
           "whole": 13,
           "value": 13,
           "question_audio": {
-            "text": "5 plus 8 equals?",
+            "text": "5 plus 8 equals the unknown A number bond shows whole 13 connected to parts 5 and 8; the unknown is 13.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "a": 5,
+          "b": 8,
+          "part_a": 5,
+          "part_b": 8,
+          "visual_description": "A number bond shows whole 13 connected to parts 5 and 8; the unknown is 13.",
+          "accessible_description": "A number bond shows whole 13 connected to parts 5 and 8; the unknown is 13."
         },
         {
           "id": "G2M_OP_003_LVL1_Q8",
@@ -776,24 +811,31 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q8, notice that 4 needs 6 more to make 10.",
+            "Strategy: Split 9 into 6 and 3; then add 4 + 6 = 10 and 10 + 3 = 13.",
+            "Verify: Use subtraction to check the sum: 13 - 9 = 4."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "explanation": "Move 6 from 9 to 4 to make 10: 4 + 6 = 10, with 3 left. Then 10 + 3 = 13. Why it works: splitting an addend does not change the total. Check: 13 - 9 = 4.",
           "a": 4,
           "b": 9,
           "value": 13,
           "question_audio": {
-            "text": "4 plus 9 equals?",
+            "text": "4 plus 9 equals the unknown The ten frame shows 4 and 9 joining to make 13.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "ten_frame": [
+            4,
+            9
+          ],
+          "visual_description": "The ten frame shows 4 and 9 joining to make 13.",
+          "accessible_description": "The ten frame shows 4 and 9 joining to make 13."
         },
         {
           "id": "G2M_OP_003_LVL1_Q9",
@@ -808,36 +850,39 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q9, notice that 7 needs 3 more to make 10.",
+            "Strategy: Split 6 into 3 and 3; then add 7 + 3 = 10 and 10 + 3 = 13.",
+            "Verify: Use subtraction to check the sum: 13 - 6 = 7."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "explanation": "Move 3 from 6 to 7 to make 10: 7 + 3 = 10, with 3 left. Then 10 + 3 = 13. Why it works: splitting an addend does not change the total. Check: 13 - 6 = 7.",
           "options": [
             "12",
-            "13",
             "14",
-            "23"
+            "13",
+            "11"
           ],
           "choices": [
             "12",
-            "13",
             "14",
-            "23"
+            "13",
+            "11"
           ],
           "a": 7,
           "b": 6,
           "value": 13,
           "question_audio": {
-            "text": "7 plus 6 equals?",
+            "text": "7 plus 6 equals the unknown The addition model shows 7 and 6 joining to make 13.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "visual_description": "The addition model shows 7 and 6 joining to make 13.",
+          "accessible_description": "The addition model shows 7 and 6 joining to make 13."
         },
         {
           "id": "G2M_OP_003_LVL1_Q10",
@@ -852,24 +897,31 @@
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL1_Q10, notice that 8 needs 2 more to make 10.",
+            "Strategy: Split 5 into 2 and 3; then add 8 + 2 = 10 and 10 + 3 = 13.",
+            "Verify: Use subtraction to check the sum: 13 - 5 = 8."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "explanation": "Move 2 from 5 to 8 to make 10: 8 + 2 = 10, with 3 left. Then 10 + 3 = 13. Why it works: splitting an addend does not change the total. Check: 13 - 5 = 8.",
           "a": 8,
           "b": 5,
           "value": 13,
           "question_audio": {
-            "text": "8 plus 5 equals?",
+            "text": "8 plus 5 equals the unknown The ten frame shows 8 and 5 joining to make 13.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "ten_frame": [
+            8,
+            5
+          ],
+          "visual_description": "The ten frame shows 8 and 5 joining to make 13.",
+          "accessible_description": "The ten frame shows 8 and 5 joining to make 13."
         }
       ]
     },
@@ -894,36 +946,39 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q1, compare 6 and 6; the addends match.",
+            "Strategy: Double 6: two equal groups of 6 make 12.",
+            "Verify: Check the addition with subtraction: 12 - 6 = 6."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 12. Use the strategy to check the related facts.",
+          "explanation": "Two equal groups give 6 + 6 = 12. Why it works: doubling counts the same amount twice. Check: 12 - 6 = 6.",
           "options": [
             "11",
-            "12",
             "13",
-            "22"
+            "10",
+            "12"
           ],
           "choices": [
             "11",
-            "12",
             "13",
-            "22"
+            "10",
+            "12"
           ],
           "a": 6,
           "b": 6,
           "value": 12,
           "question_audio": {
-            "text": "Double: 6 plus 6 equals?",
+            "text": "Double: 6 plus 6 equals the unknown The addition model shows 6 and 6 joining to make 12.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "visual_description": "The addition model shows 6 and 6 joining to make 12.",
+          "accessible_description": "The addition model shows 6 and 6 joining to make 12."
         },
         {
           "id": "G2M_OP_003_LVL2_Q2",
@@ -938,24 +993,31 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q2, compare 8 and 8; the addends match.",
+            "Strategy: Double 8: two equal groups of 8 make 16.",
+            "Verify: Check the addition with subtraction: 16 - 8 = 8."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 16. Use the strategy to check the related facts.",
+          "explanation": "Two equal groups give 8 + 8 = 16. Why it works: doubling counts the same amount twice. Check: 16 - 8 = 8.",
           "a": 8,
           "b": 8,
           "value": 16,
           "question_audio": {
-            "text": "Double: 8 plus 8 equals?",
+            "text": "Double: 8 plus 8 equals the unknown The ten frame shows 8 and 8 joining to make 16.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "ten_frame": [
+            8,
+            8
+          ],
+          "visual_description": "The ten frame shows 8 and 8 joining to make 16.",
+          "accessible_description": "The ten frame shows 8 and 8 joining to make 16."
         },
         {
           "id": "G2M_OP_003_LVL2_Q3",
@@ -970,15 +1032,15 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q3, compare 7 and 8; they are 1 apart.",
+            "Strategy: Use 7 + 7 = 14, then add 1 to get 15.",
+            "Verify: Check the addition with subtraction: 15 - 8 = 7."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 15. Use the strategy to check the related facts.",
+          "explanation": "Start with the known double 7 + 7 = 14. One addend is 1 greater, so add 1: 14 + 1 = 15. Why it works: the near-double has exactly one more than the double. Check: 15 - 8 = 7.",
           "parts": [
             7,
             8
@@ -986,11 +1048,18 @@
           "whole": 15,
           "value": 15,
           "question_audio": {
-            "text": "Near double: 7 plus 8 equals?",
+            "text": "Near double: 7 plus 8 equals the unknown A number bond shows whole 15 connected to parts 7 and 8; the unknown is 15.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "a": 7,
+          "b": 8,
+          "part_a": 7,
+          "part_b": 8,
+          "visual_description": "A number bond shows whole 15 connected to parts 7 and 8; the unknown is 15.",
+          "accessible_description": "A number bond shows whole 15 connected to parts 7 and 8; the unknown is 15."
         },
         {
           "id": "G2M_OP_003_LVL2_Q4",
@@ -1005,24 +1074,31 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q4, compare 9 and 8; they are 1 apart.",
+            "Strategy: Use 8 + 8 = 16, then add 1 to get 17.",
+            "Verify: Check the addition with subtraction: 17 - 8 = 9."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 17. Use the strategy to check the related facts.",
+          "explanation": "Start with the known double 8 + 8 = 16. One addend is 1 greater, so add 1: 16 + 1 = 17. Why it works: the near-double has exactly one more than the double. Check: 17 - 8 = 9.",
           "a": 9,
           "b": 8,
           "value": 17,
           "question_audio": {
-            "text": "Near double: 9 plus 8 equals?",
+            "text": "Near double: 9 plus 8 equals the unknown The ten frame shows 9 and 8 joining to make 17.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "ten_frame": [
+            9,
+            8
+          ],
+          "visual_description": "The ten frame shows 9 and 8 joining to make 17.",
+          "accessible_description": "The ten frame shows 9 and 8 joining to make 17."
         },
         {
           "id": "G2M_OP_003_LVL2_Q5",
@@ -1037,36 +1113,39 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q5, compare 5 and 5; the addends match.",
+            "Strategy: Double 5: two equal groups of 5 make 10.",
+            "Verify: Check the addition with subtraction: 10 - 5 = 5."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 10. Use the strategy to check the related facts.",
+          "explanation": "Two equal groups give 5 + 5 = 10. Why it works: doubling counts the same amount twice. Check: 10 - 5 = 5.",
           "options": [
-            "9",
             "10",
+            "9",
             "11",
-            "20"
+            "8"
           ],
           "choices": [
-            "9",
             "10",
+            "9",
             "11",
-            "20"
+            "8"
           ],
           "a": 5,
           "b": 5,
           "value": 10,
           "question_audio": {
-            "text": "Double: 5 plus 5 equals?",
+            "text": "Double: 5 plus 5 equals the unknown The addition model shows 5 and 5 joining to make 10.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "visual_description": "The addition model shows 5 and 5 joining to make 10.",
+          "accessible_description": "The addition model shows 5 and 5 joining to make 10."
         },
         {
           "id": "G2M_OP_003_LVL2_Q6",
@@ -1081,15 +1160,15 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q6, compare 6 and 7; they are 1 apart.",
+            "Strategy: Use 6 + 6 = 12, then add 1 to get 13.",
+            "Verify: Check the addition with subtraction: 13 - 7 = 6."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "explanation": "Start with the known double 6 + 6 = 12. One addend is 1 greater, so add 1: 12 + 1 = 13. Why it works: the near-double has exactly one more than the double. Check: 13 - 7 = 6.",
           "parts": [
             6,
             7
@@ -1097,11 +1176,18 @@
           "whole": 13,
           "value": 13,
           "question_audio": {
-            "text": "Near double: 6 plus 7 equals?",
+            "text": "Near double: 6 plus 7 equals the unknown A number bond shows whole 13 connected to parts 6 and 7; the unknown is 13.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "a": 6,
+          "b": 7,
+          "part_a": 6,
+          "part_b": 7,
+          "visual_description": "A number bond shows whole 13 connected to parts 6 and 7; the unknown is 13.",
+          "accessible_description": "A number bond shows whole 13 connected to parts 6 and 7; the unknown is 13."
         },
         {
           "id": "G2M_OP_003_LVL2_Q7",
@@ -1116,24 +1202,31 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q7, compare 9 and 9; the addends match.",
+            "Strategy: Double 9: two equal groups of 9 make 18.",
+            "Verify: Check the addition with subtraction: 18 - 9 = 9."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 18. Use the strategy to check the related facts.",
+          "explanation": "Two equal groups give 9 + 9 = 18. Why it works: doubling counts the same amount twice. Check: 18 - 9 = 9.",
           "a": 9,
           "b": 9,
           "value": 18,
           "question_audio": {
-            "text": "Double: 9 plus 9 equals?",
+            "text": "Double: 9 plus 9 equals the unknown The ten frame shows 9 and 9 joining to make 18.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "ten_frame": [
+            9,
+            9
+          ],
+          "visual_description": "The ten frame shows 9 and 9 joining to make 18.",
+          "accessible_description": "The ten frame shows 9 and 9 joining to make 18."
         },
         {
           "id": "G2M_OP_003_LVL2_Q8",
@@ -1148,24 +1241,27 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q8, compare 4 and 5; they are 1 apart.",
+            "Strategy: Use 4 + 4 = 8, then add 1 to get 9.",
+            "Verify: Check the addition with subtraction: 9 - 5 = 4."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 9. Use the strategy to check the related facts.",
+          "explanation": "Start with the known double 4 + 4 = 8. One addend is 1 greater, so add 1: 8 + 1 = 9. Why it works: the near-double has exactly one more than the double. Check: 9 - 5 = 4.",
           "a": 4,
           "b": 5,
           "value": 9,
           "question_audio": {
-            "text": "Near double: 4 plus 5 equals?",
+            "text": "Near double: 4 plus 5 equals the unknown The addition model shows 4 and 5 joining to make 9.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "visual_description": "The addition model shows 4 and 5 joining to make 9.",
+          "accessible_description": "The addition model shows 4 and 5 joining to make 9."
         },
         {
           "id": "G2M_OP_003_LVL2_Q9",
@@ -1180,36 +1276,43 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q9, compare 7 and 7; the addends match.",
+            "Strategy: Double 7: two equal groups of 7 make 14.",
+            "Verify: Check the addition with subtraction: 14 - 7 = 7."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "explanation": "Two equal groups give 7 + 7 = 14. Why it works: doubling counts the same amount twice. Check: 14 - 7 = 7.",
           "options": [
             "13",
             "14",
             "15",
-            "24"
+            "12"
           ],
           "choices": [
             "13",
             "14",
             "15",
-            "24"
+            "12"
           ],
           "a": 7,
           "b": 7,
           "value": 14,
           "question_audio": {
-            "text": "Double: 7 plus 7 equals?",
+            "text": "Double: 7 plus 7 equals the unknown The ten frame shows 7 and 7 joining to make 14.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "ten_frame": [
+            7,
+            7
+          ],
+          "visual_description": "The ten frame shows 7 and 7 joining to make 14.",
+          "accessible_description": "The ten frame shows 7 and 7 joining to make 14."
         },
         {
           "id": "G2M_OP_003_LVL2_Q10",
@@ -1224,15 +1327,15 @@
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL2_Q10, compare 8 and 9; they are 1 apart.",
+            "Strategy: Use 8 + 8 = 16, then add 1 to get 17.",
+            "Verify: Check the addition with subtraction: 17 - 9 = 8."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 17. Use the strategy to check the related facts.",
+          "explanation": "Start with the known double 8 + 8 = 16. One addend is 1 greater, so add 1: 16 + 1 = 17. Why it works: the near-double has exactly one more than the double. Check: 17 - 9 = 8.",
           "parts": [
             8,
             9
@@ -1240,11 +1343,18 @@
           "whole": 17,
           "value": 17,
           "question_audio": {
-            "text": "Near double: 8 plus 9 equals?",
+            "text": "Near double: 8 plus 9 equals the unknown A number bond shows whole 17 connected to parts 8 and 9; the unknown is 17.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "a": 8,
+          "b": 9,
+          "part_a": 8,
+          "part_b": 9,
+          "visual_description": "A number bond shows whole 17 connected to parts 8 and 9; the unknown is 17.",
+          "accessible_description": "A number bond shows whole 17 connected to parts 8 and 9; the unknown is 17."
         }
       ]
     },
@@ -1269,37 +1379,39 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q1, identify the whole 12 and the parts 5 and 7.",
+            "Strategy: Use the related addition fact 7 + 5 = 12 to find the missing part.",
+            "Verify: Add the difference and removed part: 7 + 5 = 12."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "explanation": "The whole 12 is made from parts 5 and 7, so 12 - 5 = 7. Why it works: subtraction finds a missing part. Check with inverse addition: 7 + 5 = 12.",
           "options": [
             "6",
-            "7",
             "8",
-            "17"
+            "7",
+            "5"
           ],
           "choices": [
             "6",
-            "7",
             "8",
-            "17"
+            "7",
+            "5"
           ],
           "a": 12,
           "b": 5,
           "operation": "subtraction",
           "value": 7,
           "question_audio": {
-            "text": "Related fact: 12 minus 5 equals?",
+            "text": "Related fact: 12 minus 5 equals the unknown The subtraction model starts with 12, removes 5, and shows 7 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "The subtraction model starts with 12, removes 5, and shows 7 remaining.",
+          "accessible_description": "The subtraction model starts with 12, removes 5, and shows 7 remaining."
         },
         {
           "id": "G2M_OP_003_LVL3_Q2",
@@ -1314,24 +1426,27 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q2, identify the whole 15 and the parts 6 and 15.",
+            "Strategy: Join the parts: 9 + 6 = 15.",
+            "Verify: Undo the addition: 15 - 6 = 9."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 15. Use the strategy to check the related facts.",
+          "explanation": "Join 9 and 6 to make the whole 15. Why it works: addition joins two parts. Check with the inverse operation: 15 - 6 = 9.",
           "a": 9,
           "b": 6,
           "value": 15,
           "question_audio": {
-            "text": "Related fact: 9 plus 6 equals?",
+            "text": "Related fact: 9 plus 6 equals the unknown The addition model shows 9 and 6 joining to make 15.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "visual_description": "The addition model shows 9 and 6 joining to make 15.",
+          "accessible_description": "The addition model shows 9 and 6 joining to make 15."
         },
         {
           "id": "G2M_OP_003_LVL3_Q3",
@@ -1346,15 +1461,15 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q3, identify the whole 15 and the parts 9 and 6.",
+            "Strategy: Use the related addition fact 6 + 9 = 15 to find the missing part.",
+            "Verify: Add the difference and removed part: 6 + 9 = 15."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "explanation": "The whole 15 is made from parts 9 and 6, so 15 - 9 = 6. Why it works: subtraction finds a missing part. Check with inverse addition: 6 + 9 = 15.",
           "parts": [
             9,
             6
@@ -1362,11 +1477,18 @@
           "whole": 15,
           "value": 6,
           "question_audio": {
-            "text": "Fact family: 15 minus 9 equals?",
+            "text": "Fact family: 15 minus 9 equals the unknown A number bond shows starting whole 15, quantity 9 removed, and 6 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "subtraction",
+          "a": 15,
+          "b": 9,
+          "part_a": 9,
+          "part_b": 6,
+          "visual_description": "A number bond shows starting whole 15, quantity 9 removed, and 6 remaining.",
+          "accessible_description": "A number bond shows starting whole 15, quantity 9 removed, and 6 remaining."
         },
         {
           "id": "G2M_OP_003_LVL3_Q4",
@@ -1381,15 +1503,15 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q4, identify the whole 15 and the parts 8 and 7.",
+            "Strategy: Use the related addition fact 7 + 8 = 15 to find the missing part.",
+            "Verify: Add the difference and removed part: 7 + 8 = 15."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "explanation": "The whole 15 is made from parts 8 and 7, so 15 - 8 = 7. Why it works: subtraction finds a missing part. Check with inverse addition: 7 + 8 = 15.",
           "parts": [
             8,
             7
@@ -1397,11 +1519,18 @@
           "whole": 15,
           "value": 7,
           "question_audio": {
-            "text": "If 8 plus 7 equals 15, then 15 minus 8 equals?",
+            "text": "If 8 plus 7 equals 15, then 15 minus 8 equals the unknown A number bond shows starting whole 15, quantity 8 removed, and 7 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "subtraction",
+          "a": 15,
+          "b": 8,
+          "part_a": 8,
+          "part_b": 7,
+          "visual_description": "A number bond shows starting whole 15, quantity 8 removed, and 7 remaining.",
+          "accessible_description": "A number bond shows starting whole 15, quantity 8 removed, and 7 remaining."
         },
         {
           "id": "G2M_OP_003_LVL3_Q5",
@@ -1416,36 +1545,39 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q5, identify the whole 14 and the parts 6 and 8.",
+            "Strategy: Use the related addition fact 8 + 6 = 14 to find the missing part.",
+            "Verify: Add the difference and removed part: 8 + 6 = 14."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "explanation": "The whole 14 is made from parts 6 and 8, so 14 - 6 = 8. Why it works: subtraction finds a missing part. Check with inverse addition: 8 + 6 = 14.",
           "options": [
             "7",
-            "8",
             "9",
-            "18"
+            "6",
+            "8"
           ],
           "choices": [
             "7",
-            "8",
             "9",
-            "18"
+            "6",
+            "8"
           ],
           "a": 14,
           "b": 6,
           "value": 8,
           "question_audio": {
-            "text": "Related fact: 14 minus 6 equals?",
+            "text": "Related fact: 14 minus 6 equals the unknown The subtraction model starts with 14, removes 6, and shows 8 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "subtraction",
+          "visual_description": "The subtraction model starts with 14, removes 6, and shows 8 remaining.",
+          "accessible_description": "The subtraction model starts with 14, removes 6, and shows 8 remaining."
         },
         {
           "id": "G2M_OP_003_LVL3_Q6",
@@ -1460,15 +1592,15 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q6, identify the whole 11 and the parts 4 and 7.",
+            "Strategy: Use the related addition fact 7 + 4 = 11 to find the missing part.",
+            "Verify: Add the difference and removed part: 7 + 4 = 11."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "explanation": "The whole 11 is made from parts 4 and 7, so 11 - 4 = 7. Why it works: subtraction finds a missing part. Check with inverse addition: 7 + 4 = 11.",
           "parts": [
             4,
             7
@@ -1476,11 +1608,18 @@
           "whole": 11,
           "value": 7,
           "question_audio": {
-            "text": "Fact family: 11 minus 4 equals?",
+            "text": "Fact family: 11 minus 4 equals the unknown A number bond shows starting whole 11, quantity 4 removed, and 7 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "subtraction",
+          "a": 11,
+          "b": 4,
+          "part_a": 4,
+          "part_b": 7,
+          "visual_description": "A number bond shows starting whole 11, quantity 4 removed, and 7 remaining.",
+          "accessible_description": "A number bond shows starting whole 11, quantity 4 removed, and 7 remaining."
         },
         {
           "id": "G2M_OP_003_LVL3_Q7",
@@ -1495,24 +1634,27 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q7, identify the whole 14 and the parts 8 and 14.",
+            "Strategy: Join the parts: 6 + 8 = 14.",
+            "Verify: Undo the addition: 14 - 8 = 6."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "explanation": "Join 6 and 8 to make the whole 14. Why it works: addition joins two parts. Check with the inverse operation: 14 - 8 = 6.",
           "a": 6,
           "b": 8,
           "value": 14,
           "question_audio": {
-            "text": "Related fact: 6 plus 8 equals?",
+            "text": "Related fact: 6 plus 8 equals the unknown The addition model shows 6 and 8 joining to make 14.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "visual_description": "The addition model shows 6 and 8 joining to make 14.",
+          "accessible_description": "The addition model shows 6 and 8 joining to make 14."
         },
         {
           "id": "G2M_OP_003_LVL3_Q8",
@@ -1527,27 +1669,34 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q8, identify the whole 14 and the parts 9 and 5.",
+            "Strategy: Use the related addition fact 5 + 9 = 14 to find the missing part.",
+            "Verify: Add the difference and removed part: 5 + 9 = 14."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 5. Use the strategy to check the related facts.",
+          "explanation": "The whole 14 is made from parts 9 and 5, so 14 - 9 = 5. Why it works: subtraction finds a missing part. Check with inverse addition: 5 + 9 = 14.",
           "parts": [
-            5,
-            9
+            9,
+            5
           ],
           "whole": 14,
           "value": 5,
           "question_audio": {
-            "text": "If 5 plus 9 equals 14, then 14 minus 9 equals?",
+            "text": "If 5 plus 9 equals 14, then 14 minus 9 equals the unknown A number bond shows starting whole 14, quantity 9 removed, and 5 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "subtraction",
+          "a": 14,
+          "b": 9,
+          "part_a": 9,
+          "part_b": 5,
+          "visual_description": "A number bond shows starting whole 14, quantity 9 removed, and 5 remaining.",
+          "accessible_description": "A number bond shows starting whole 14, quantity 9 removed, and 5 remaining."
         },
         {
           "id": "G2M_OP_003_LVL3_Q9",
@@ -1562,36 +1711,39 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q9, identify the whole 13 and the parts 7 and 6.",
+            "Strategy: Use the related addition fact 6 + 7 = 13 to find the missing part.",
+            "Verify: Add the difference and removed part: 6 + 7 = 13."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "explanation": "The whole 13 is made from parts 7 and 6, so 13 - 7 = 6. Why it works: subtraction finds a missing part. Check with inverse addition: 6 + 7 = 13.",
           "options": [
-            "5",
             "6",
+            "5",
             "7",
-            "16"
+            "4"
           ],
           "choices": [
-            "5",
             "6",
+            "5",
             "7",
-            "16"
+            "4"
           ],
           "a": 13,
           "b": 7,
           "value": 6,
           "question_audio": {
-            "text": "Related fact: 13 minus 7 equals?",
+            "text": "Related fact: 13 minus 7 equals the unknown The subtraction model starts with 13, removes 7, and shows 6 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "subtraction",
+          "visual_description": "The subtraction model starts with 13, removes 7, and shows 6 remaining.",
+          "accessible_description": "The subtraction model starts with 13, removes 7, and shows 6 remaining."
         },
         {
           "id": "G2M_OP_003_LVL3_Q10",
@@ -1606,15 +1758,15 @@
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL3_Q10, identify the whole 16 and the parts 9 and 16.",
+            "Strategy: Join the parts: 7 + 9 = 16.",
+            "Verify: Undo the addition: 16 - 9 = 7."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 16. Use the strategy to check the related facts.",
+          "explanation": "Join 7 and 9 to make the whole 16. Why it works: addition joins two parts. Check with the inverse operation: 16 - 9 = 7.",
           "parts": [
             7,
             9
@@ -1622,11 +1774,18 @@
           "whole": 16,
           "value": 16,
           "question_audio": {
-            "text": "Fact family: 7 plus 9 equals?",
+            "text": "Fact family: 7 plus 9 equals the unknown A number bond shows whole 16 connected to parts 7 and 9; the unknown is 16.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "a": 7,
+          "b": 9,
+          "part_a": 7,
+          "part_b": 9,
+          "visual_description": "A number bond shows whole 16 connected to parts 7 and 9; the unknown is 16.",
+          "accessible_description": "A number bond shows whole 16 connected to parts 7 and 9; the unknown is 16."
         }
       ]
     },
@@ -1651,39 +1810,46 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q1, use whole 14 and known part 8 to identify what is missing.",
+            "Strategy: Subtract the known addend: 14 - 8 = 6.",
+            "Verify: Put the parts together: 8 + 6 = 14."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "explanation": "The whole is 14 and one part is 8. Subtract to find the other part: 14 - 8 = 6. Why it works: subtraction undoes addition. Check: 8 + 6 = 14.",
           "options": [
             "5",
             "6",
             "7",
-            "16"
+            "4"
           ],
           "choices": [
             "5",
             "6",
             "7",
-            "16"
+            "4"
           ],
           "parts": [
             8,
-            null
+            6
           ],
           "whole": 14,
           "value": 6,
           "question_audio": {
-            "text": "Missing addend: 8 plus? equals 14",
+            "text": "Missing addend: 8 plus the unknown equals 14 A number bond shows whole 14 connected to parts 8 and 6; the unknown is 6.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_addend",
+          "a": 8,
+          "b": 6,
+          "part_a": 8,
+          "part_b": 6,
+          "visual_description": "A number bond shows whole 14 connected to parts 8 and 6; the unknown is 6.",
+          "accessible_description": "A number bond shows whole 14 connected to parts 8 and 6; the unknown is 6."
         },
         {
           "id": "G2M_OP_003_LVL4_Q2",
@@ -1698,24 +1864,28 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q2, use whole 17 and known part 8 to identify what is missing.",
+            "Strategy: Find the removed part with 17 - 9 = 8.",
+            "Verify: Use inverse addition: 8 + 9 = 17."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "explanation": "Start with the whole 17 and known remaining part 9. Subtract: 17 - 9 = 8 removed. Why it works: subtraction finds a missing part. Check with inverse addition: 8 + 9 = 17.",
           "a": 17,
           "b": 8,
           "value": 8,
           "question_audio": {
-            "text": "Missing part: 17 -? equals 9",
+            "text": "Missing part: 17 minus the unknown equals 9 The subtraction model starts with 17, removes the unknown 8, and shows 9 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_subtrahend",
+          "visual_description": "The subtraction model starts with 17, removes the unknown 8, and shows 9 remaining.",
+          "accessible_description": "The subtraction model starts with 17, removes the unknown 8, and shows 9 remaining.",
+          "remaining": 9
         },
         {
           "id": "G2M_OP_003_LVL4_Q3",
@@ -1730,27 +1900,34 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q3, use whole 15 and known part 7 to identify what is missing.",
+            "Strategy: Subtract the known addend: 15 - 7 = 8.",
+            "Verify: Put the parts together: 7 + 8 = 15."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "explanation": "The whole is 15 and one part is 7. Subtract to find the other part: 15 - 7 = 8. Why it works: subtraction undoes addition. Check: 7 + 8 = 15.",
           "parts": [
-            null,
+            8,
             7
           ],
           "whole": 15,
           "value": 8,
           "question_audio": {
-            "text": "Missing addend:? plus 7 equals 15",
+            "text": "Missing addend: the unknown plus 7 equals 15 A number bond shows whole 15 connected to parts 8 and 7; the unknown is 8.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_addend",
+          "a": 8,
+          "b": 7,
+          "part_a": 8,
+          "part_b": 7,
+          "visual_description": "A number bond shows whole 15 connected to parts 8 and 7; the unknown is 8.",
+          "accessible_description": "A number bond shows whole 15 connected to parts 8 and 7; the unknown is 8."
         },
         {
           "id": "G2M_OP_003_LVL4_Q4",
@@ -1765,24 +1942,27 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q4, use whole 13 and known part 5 to identify what is missing.",
+            "Strategy: Remove 5 from 13: 13 - 5 = 8.",
+            "Verify: Use inverse addition: 8 + 5 = 13."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "explanation": "Start with 13 and remove 5 to get 8. Why it works: subtraction finds the part that remains. Check with inverse addition: 8 + 5 = 13.",
           "a": 13,
           "b": 5,
           "value": 8,
           "question_audio": {
-            "text": "Missing part: 13 minus 5 equals?",
+            "text": "Missing part: 13 minus 5 equals the unknown The subtraction model starts with 13, removes 5, and shows 8 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "subtraction",
+          "visual_description": "The subtraction model starts with 13, removes 5, and shows 8 remaining.",
+          "accessible_description": "The subtraction model starts with 13, removes 5, and shows 8 remaining."
         },
         {
           "id": "G2M_OP_003_LVL4_Q5",
@@ -1797,36 +1977,43 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q5, use whole 16 and known part 9 to identify what is missing.",
+            "Strategy: Subtract the known addend: 16 - 9 = 7.",
+            "Verify: Put the parts together: 9 + 7 = 16."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "explanation": "The whole is 16 and one part is 9. Subtract to find the other part: 16 - 9 = 7. Why it works: subtraction undoes addition. Check: 9 + 7 = 16.",
           "options": [
             "6",
-            "7",
             "8",
-            "17"
+            "7",
+            "5"
           ],
           "choices": [
             "6",
-            "7",
             "8",
-            "17"
+            "7",
+            "5"
           ],
           "a": 9,
           "b": 7,
           "value": 7,
           "question_audio": {
-            "text": "Missing addend: 9 plus? equals 16",
+            "text": "Missing addend: 9 plus the unknown equals 16 The ten frame shows 9 and 7 joining to make 16.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_addend",
+          "ten_frame": [
+            9,
+            7
+          ],
+          "visual_description": "The ten frame shows 9 and 7 joining to make 16.",
+          "accessible_description": "The ten frame shows 9 and 7 joining to make 16."
         },
         {
           "id": "G2M_OP_003_LVL4_Q6",
@@ -1841,27 +2028,34 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q6, use whole 12 and known part 6 to identify what is missing.",
+            "Strategy: Subtract the known addend: 12 - 6 = 6.",
+            "Verify: Put the parts together: 6 + 6 = 12."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "explanation": "The whole is 12 and one part is 6. Subtract to find the other part: 12 - 6 = 6. Why it works: subtraction undoes addition. Check: 6 + 6 = 12.",
           "parts": [
-            null,
+            6,
             6
           ],
           "whole": 12,
           "value": 6,
           "question_audio": {
-            "text": "Missing addend:? plus 6 equals 12",
+            "text": "Missing addend: the unknown plus 6 equals 12 A number bond shows whole 12 connected to parts 6 and 6; the unknown is 6.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_addend",
+          "a": 6,
+          "b": 6,
+          "part_a": 6,
+          "part_b": 6,
+          "visual_description": "A number bond shows whole 12 connected to parts 6 and 6; the unknown is 6.",
+          "accessible_description": "A number bond shows whole 12 connected to parts 6 and 6; the unknown is 6."
         },
         {
           "id": "G2M_OP_003_LVL4_Q7",
@@ -1876,24 +2070,28 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q7, use whole 18 and known part 8 to identify what is missing.",
+            "Strategy: Find the removed part with 18 - 10 = 8.",
+            "Verify: Use inverse addition: 8 + 10 = 18."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "explanation": "Start with the whole 18 and known remaining part 10. Subtract: 18 - 10 = 8 removed. Why it works: subtraction finds a missing part. Check with inverse addition: 8 + 10 = 18.",
           "a": 18,
           "b": 8,
           "value": 8,
           "question_audio": {
-            "text": "Missing part: 18 -? equals 10",
+            "text": "Missing part: 18 minus the unknown equals 10 The subtraction model starts with 18, removes the unknown 8, and shows 10 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_subtrahend",
+          "visual_description": "The subtraction model starts with 18, removes the unknown 8, and shows 10 remaining.",
+          "accessible_description": "The subtraction model starts with 18, removes the unknown 8, and shows 10 remaining.",
+          "remaining": 10
         },
         {
           "id": "G2M_OP_003_LVL4_Q8",
@@ -1908,24 +2106,27 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q8, use whole 11 and known part 5 to identify what is missing.",
+            "Strategy: Subtract the known addend: 11 - 5 = 6.",
+            "Verify: Put the parts together: 5 + 6 = 11."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "explanation": "The whole is 11 and one part is 5. Subtract to find the other part: 11 - 5 = 6. Why it works: subtraction undoes addition. Check: 5 + 6 = 11.",
           "a": 5,
           "b": 6,
           "value": 6,
           "question_audio": {
-            "text": "Missing addend: 5 plus? equals 11",
+            "text": "Missing addend: 5 plus the unknown equals 11 The addition model shows 5 and 6 joining to make 11.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_addend",
+          "visual_description": "The addition model shows 5 and 6 joining to make 11.",
+          "accessible_description": "The addition model shows 5 and 6 joining to make 11."
         },
         {
           "id": "G2M_OP_003_LVL4_Q9",
@@ -1940,36 +2141,39 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q9, use whole 16 and known part 7 to identify what is missing.",
+            "Strategy: Remove 7 from 16: 16 - 7 = 9.",
+            "Verify: Use inverse addition: 9 + 7 = 16."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 9. Use the strategy to check the related facts.",
+          "explanation": "Start with 16 and remove 7 to get 9. Why it works: subtraction finds the part that remains. Check with inverse addition: 9 + 7 = 16.",
           "options": [
             "8",
-            "9",
             "10",
-            "19"
+            "7",
+            "9"
           ],
           "choices": [
             "8",
-            "9",
             "10",
-            "19"
+            "7",
+            "9"
           ],
           "a": 16,
           "b": 7,
           "value": 9,
           "question_audio": {
-            "text": "Missing part: 16 minus 7 equals?",
+            "text": "Missing part: 16 minus 7 equals the unknown The subtraction model starts with 16, removes 7, and shows 9 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "subtraction",
+          "visual_description": "The subtraction model starts with 16, removes 7, and shows 9 remaining.",
+          "accessible_description": "The subtraction model starts with 16, removes 7, and shows 9 remaining."
         },
         {
           "id": "G2M_OP_003_LVL4_Q10",
@@ -1984,24 +2188,31 @@
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_LVL4_Q10, use whole 17 and known part 9 to identify what is missing.",
+            "Strategy: Subtract the known addend: 17 - 9 = 8.",
+            "Verify: Put the parts together: 9 + 8 = 17."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "explanation": "The whole is 17 and one part is 9. Subtract to find the other part: 17 - 9 = 8. Why it works: subtraction undoes addition. Check: 9 + 8 = 17.",
           "a": 8,
           "b": 9,
           "value": 8,
           "question_audio": {
-            "text": "Missing addend:? plus 9 equals 17",
+            "text": "Missing addend: the unknown plus 9 equals 17 The ten frame shows 8 and 9 joining to make 17.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_addend",
+          "ten_frame": [
+            8,
+            9
+          ],
+          "visual_description": "The ten frame shows 8 and 9 joining to make 17.",
+          "accessible_description": "The ten frame shows 8 and 9 joining to make 17."
         }
       ]
     },
@@ -2018,388 +2229,442 @@
           "question_id": "G2M_OP_003_MIXED_Q1",
           "question_type": "multiple_choice",
           "visual_model": "ten_frame",
-          "prompt": "Make 10: 8 + 6 = ?",
-          "answer": "14",
-          "correct_answer": "14",
+          "prompt": "Mina has 3 red counters and 8 blue counters. How many counters does she have altogether?",
+          "answer": "11",
+          "correct_answer": "11",
           "acceptable_answers": [
-            "14"
+            "11"
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q1, notice that 3 needs 7 more to make 10.",
+            "Strategy: Split 8 into 7 and 1; then add 3 + 7 = 10 and 10 + 1 = 11.",
+            "Verify: Use subtraction to check the sum: 11 - 8 = 3."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "explanation": "Move 7 from 8 to 3 to make 10: 3 + 7 = 10, with 1 left. Then 10 + 1 = 11. Why it works: splitting an addend does not change the total. Check: 11 - 8 = 3.",
           "options": [
-            "13",
-            "14",
-            "15",
-            "24"
+            "11",
+            "10",
+            "12",
+            "9"
           ],
           "choices": [
-            "13",
-            "14",
-            "15",
-            "24"
+            "11",
+            "10",
+            "12",
+            "9"
           ],
-          "a": 8,
-          "b": 6,
+          "a": 3,
+          "b": 8,
           "operation": "addition",
           "ten_frame": [
-            8,
-            6
+            3,
+            8
           ],
-          "value": 14,
+          "value": 11,
           "question_audio": {
-            "text": "Make 10: 8 plus 6 equals?",
+            "text": "Mina has 3 red counters and 8 blue counters. How many counters does she have altogetherthe unknown The ten frame shows 3 and 8 joining to make 11.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "strategy": "make ten",
+          "visual_description": "The ten frame shows 3 and 8 joining to make 11.",
+          "accessible_description": "The ten frame shows 3 and 8 joining to make 11."
         },
         {
           "id": "G2M_OP_003_MIXED_Q2",
           "question_id": "G2M_OP_003_MIXED_Q2",
           "question_type": "short_response",
-          "visual_model": "ten_frame",
-          "prompt": "Make 10: 9 + 4 = ?",
-          "answer": "13",
-          "correct_answer": "13",
+          "visual_model": "addition_model",
+          "prompt": "A basket holds 4 apples. Sam adds 7 more apples. How many apples are in the basket now?",
+          "answer": "10",
+          "correct_answer": "10",
           "acceptable_answers": [
-            "13"
+            "10"
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q2, notice that 3 needs 7 more to make 10.",
+            "Strategy: Split 7 into 7 and 0; then add 3 + 7 = 10 and 10 + 0 = 10.",
+            "Verify: Use subtraction to check the sum: 10 - 7 = 3."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 13. Use the strategy to check the related facts.",
-          "a": 9,
-          "b": 4,
+          "explanation": "Move 7 from 7 to 3 to make 10: 3 + 7 = 10, with 0 left. Then 10 + 0 = 10. Why it works: splitting an addend does not change the total. Check: 10 - 7 = 3.",
+          "a": 3,
+          "b": 7,
           "operation": "addition",
           "ten_frame": [
             9,
             4
           ],
-          "value": 13,
+          "value": 10,
           "question_audio": {
-            "text": "Make 10: 9 plus 4 equals?",
+            "text": "A basket holds 4 apples. Sam adds 7 more apples. How many apples are in the basket nowthe unknown The addition model shows 3 and 7 joining to make 10.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "strategy": "make ten",
+          "visual_description": "The addition model shows 3 and 7 joining to make 10.",
+          "accessible_description": "The addition model shows 3 and 7 joining to make 10."
         },
         {
           "id": "G2M_OP_003_MIXED_Q3",
           "question_id": "G2M_OP_003_MIXED_Q3",
           "question_type": "short_response",
           "visual_model": "number_bond",
-          "prompt": "Make 10: 7 + 5 = ?",
-          "answer": "12",
-          "correct_answer": "12",
+          "prompt": "There are 2 birds on a fence and 9 birds join them. How many birds are on the fence?",
+          "answer": "10",
+          "correct_answer": "10",
           "acceptable_answers": [
-            "12"
+            "10"
           ],
           "misconception_tag": "make_ten_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q3, notice that 2 needs 8 more to make 10.",
+            "Strategy: Split 8 into 8 and 0; then add 2 + 8 = 10 and 10 + 0 = 10.",
+            "Verify: Use subtraction to check the sum: 10 - 8 = 2."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 12. Use the strategy to check the related facts.",
+          "explanation": "Move 8 from 8 to 2 to make 10: 2 + 8 = 10, with 0 left. Then 10 + 0 = 10. Why it works: splitting an addend does not change the total. Check: 10 - 8 = 2.",
           "parts": [
-            7,
-            5
+            2,
+            8
           ],
-          "whole": 12,
-          "value": 12,
+          "whole": 10,
+          "value": 10,
           "question_audio": {
-            "text": "Make 10: 7 plus 5 equals?",
+            "text": "There are 2 birds on a fence and 9 birds join them. How many birds are on the fencethe unknown A number bond shows whole 10 connected to parts 2 and 8; the unknown is 10.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "a": 2,
+          "b": 8,
+          "operation": "addition",
+          "strategy": "make ten",
+          "part_a": 2,
+          "part_b": 8,
+          "visual_description": "A number bond shows whole 10 connected to parts 2 and 8; the unknown is 10.",
+          "accessible_description": "A number bond shows whole 10 connected to parts 2 and 8; the unknown is 10."
         },
         {
           "id": "G2M_OP_003_MIXED_Q4",
           "question_id": "G2M_OP_003_MIXED_Q4",
           "question_type": "multiple_choice",
           "visual_model": "addition_model",
-          "prompt": "Double: 6 + 6 = ?",
-          "answer": "12",
-          "correct_answer": "12",
+          "prompt": "Two teams each collect 4 beanbags. How many beanbags do they collect altogether?",
+          "answer": "8",
+          "correct_answer": "8",
           "acceptable_answers": [
-            "12"
+            "8"
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q4, compare 4 and 4; the addends match.",
+            "Strategy: Double 4: two equal groups of 4 make 8.",
+            "Verify: Check the addition with subtraction: 8 - 4 = 4."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 12. Use the strategy to check the related facts.",
+          "explanation": "Two equal groups give 4 + 4 = 8. Why it works: doubling counts the same amount twice. Check: 8 - 4 = 4.",
           "options": [
-            "11",
-            "12",
-            "13",
-            "22"
+            "7",
+            "8",
+            "9",
+            "6"
           ],
           "choices": [
-            "11",
-            "12",
-            "13",
-            "22"
+            "7",
+            "8",
+            "9",
+            "6"
           ],
-          "a": 6,
-          "b": 6,
-          "value": 12,
+          "a": 4,
+          "b": 4,
+          "value": 8,
           "question_audio": {
-            "text": "Double: 6 plus 6 equals?",
+            "text": "Two teams each collect 4 beanbags. How many beanbags do they collect altogetherthe unknown The addition model shows 4 and 4 joining to make 8.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "strategy": "double",
+          "visual_description": "The addition model shows 4 and 4 joining to make 8.",
+          "accessible_description": "The addition model shows 4 and 4 joining to make 8."
         },
         {
           "id": "G2M_OP_003_MIXED_Q5",
           "question_id": "G2M_OP_003_MIXED_Q5",
           "question_type": "short_response",
           "visual_model": "ten_frame",
-          "prompt": "Double: 8 + 8 = ?",
-          "answer": "16",
-          "correct_answer": "16",
+          "prompt": "One shelf has 5 books and another has 6 books. How many books are on both shelves?",
+          "answer": "7",
+          "correct_answer": "7",
           "acceptable_answers": [
-            "16"
+            "7"
           ],
           "misconception_tag": "doubles_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q5, compare 3 and 4; they are 1 apart.",
+            "Strategy: Use 3 + 3 = 6, then add 1 to get 7.",
+            "Verify: Check the addition with subtraction: 7 - 4 = 3."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 16. Use the strategy to check the related facts.",
-          "a": 8,
-          "b": 8,
-          "value": 16,
+          "explanation": "Start with the known double 3 + 3 = 6. One addend is 1 greater, so add 1: 6 + 1 = 7. Why it works: the near-double has exactly one more than the double. Check: 7 - 4 = 3.",
+          "a": 3,
+          "b": 4,
+          "value": 7,
           "question_audio": {
-            "text": "Double: 8 plus 8 equals?",
+            "text": "One shelf has 5 books and another has 6 books. How many books are on both shelvesthe unknown The ten frame shows 3 and 4 joining to make 7.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "strategy": "near double",
+          "ten_frame": [
+            3,
+            4
+          ],
+          "visual_description": "The ten frame shows 3 and 4 joining to make 7.",
+          "accessible_description": "The ten frame shows 3 and 4 joining to make 7."
         },
         {
           "id": "G2M_OP_003_MIXED_Q6",
           "question_id": "G2M_OP_003_MIXED_Q6",
           "question_type": "multiple_choice",
           "visual_model": "subtraction_model",
-          "prompt": "Related fact: 12 - 5 = ?",
-          "answer": "7",
-          "correct_answer": "7",
+          "prompt": "Kai has 20 stickers and gives 7 away. How many stickers remain?",
+          "answer": "13",
+          "correct_answer": "13",
           "acceptable_answers": [
-            "7"
+            "13"
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q6, identify the whole 20 and the parts 7 and 13.",
+            "Strategy: Use the related addition fact 13 + 7 = 20 to find the missing part.",
+            "Verify: Add the difference and removed part: 13 + 7 = 20."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "explanation": "The whole 20 is made from parts 7 and 13, so 20 - 7 = 13. Why it works: subtraction finds a missing part. Check with inverse addition: 13 + 7 = 20.",
           "options": [
-            "6",
-            "7",
-            "8",
-            "17"
+            "12",
+            "14",
+            "13",
+            "11"
           ],
           "choices": [
-            "6",
-            "7",
-            "8",
-            "17"
+            "12",
+            "14",
+            "13",
+            "11"
           ],
-          "a": 12,
-          "b": 5,
+          "a": 20,
+          "b": 7,
           "operation": "subtraction",
-          "value": 7,
+          "value": 13,
           "question_audio": {
-            "text": "Related fact: 12 minus 5 equals?",
+            "text": "Kai has 20 stickers and gives 7 away. How many stickers remainthe unknown The subtraction model starts with 20, removes 7, and shows 13 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "strategy": "related fact",
+          "visual_description": "The subtraction model starts with 20, removes 7, and shows 13 remaining.",
+          "accessible_description": "The subtraction model starts with 20, removes 7, and shows 13 remaining."
         },
         {
           "id": "G2M_OP_003_MIXED_Q7",
           "question_id": "G2M_OP_003_MIXED_Q7",
           "question_type": "short_response",
           "visual_model": "addition_model",
-          "prompt": "Related fact: 9 + 6 = ?",
-          "answer": "15",
-          "correct_answer": "15",
+          "prompt": "Nine shells are in a pail. Lia adds 3 more. How many shells are in the pail now?",
+          "answer": "12",
+          "correct_answer": "12",
           "acceptable_answers": [
-            "15"
+            "12"
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q7, identify the whole 12 and the parts 3 and 12.",
+            "Strategy: Join the parts: 9 + 3 = 12.",
+            "Verify: Undo the addition: 12 - 3 = 9."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 15. Use the strategy to check the related facts.",
+          "explanation": "Join 9 and 3 to make the whole 12. Why it works: addition joins two parts. Check with the inverse operation: 12 - 3 = 9.",
           "a": 9,
-          "b": 6,
-          "value": 15,
+          "b": 3,
+          "value": 12,
           "question_audio": {
-            "text": "Related fact: 9 plus 6 equals?",
+            "text": "Nine shells are in a pail. Lia adds 3 more. How many shells are in the pail nowthe unknown The addition model shows 9 and 3 joining to make 12.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "addition",
+          "strategy": "related fact",
+          "visual_description": "The addition model shows 9 and 3 joining to make 12.",
+          "accessible_description": "The addition model shows 9 and 3 joining to make 12."
         },
         {
           "id": "G2M_OP_003_MIXED_Q8",
           "question_id": "G2M_OP_003_MIXED_Q8",
           "question_type": "short_response",
           "visual_model": "number_bond",
-          "prompt": "Fact family: 15 - 9 = ?",
-          "answer": "6",
-          "correct_answer": "6",
+          "prompt": "A box holds 18 crayons. Nine are used. How many crayons remain?",
+          "answer": "9",
+          "correct_answer": "9",
           "acceptable_answers": [
-            "6"
+            "9"
           ],
           "misconception_tag": "related_fact_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q8, identify the whole 18 and the parts 9 and 9.",
+            "Strategy: Use the related addition fact 9 + 9 = 18 to find the missing part.",
+            "Verify: Add the difference and removed part: 9 + 9 = 18."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "explanation": "The whole 18 is made from parts 9 and 9, so 18 - 9 = 9. Why it works: subtraction finds a missing part. Check with inverse addition: 9 + 9 = 18.",
           "parts": [
             9,
-            6
+            9
           ],
-          "whole": 15,
-          "value": 6,
+          "whole": 18,
+          "value": 9,
           "question_audio": {
-            "text": "Fact family: 15 minus 9 equals?",
+            "text": "A box holds 18 crayons. Nine are used. How many crayons remainthe unknown A number bond shows starting whole 18, quantity 9 removed, and 9 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "a": 18,
+          "operation": "subtraction",
+          "strategy": "fact family",
+          "part_a": 9,
+          "visual_description": "A number bond shows starting whole 18, quantity 9 removed, and 9 remaining.",
+          "accessible_description": "A number bond shows starting whole 18, quantity 9 removed, and 9 remaining.",
+          "b": 9,
+          "part_b": 9
         },
         {
           "id": "G2M_OP_003_MIXED_Q9",
           "question_id": "G2M_OP_003_MIXED_Q9",
           "question_type": "multiple_choice",
           "visual_model": "number_bond",
-          "prompt": "Missing addend: 8 + ? = 14",
-          "answer": "6",
-          "correct_answer": "6",
+          "prompt": "Seven children are at a table. Some more arrive, and then there are 19. How many children arrived?",
+          "answer": "12",
+          "correct_answer": "12",
           "acceptable_answers": [
-            "6"
+            "12"
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q9, use whole 19 and known part 7 to identify what is missing.",
+            "Strategy: Subtract the known addend: 19 - 7 = 12.",
+            "Verify: Put the parts together: 7 + 12 = 19."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "explanation": "The whole is 19 and one part is 7. Subtract to find the other part: 19 - 7 = 12. Why it works: subtraction undoes addition. Check: 7 + 12 = 19.",
           "options": [
-            "5",
-            "6",
-            "7",
-            "16"
+            "11",
+            "13",
+            "10",
+            "12"
           ],
           "choices": [
-            "5",
-            "6",
-            "7",
-            "16"
+            "11",
+            "13",
+            "10",
+            "12"
           ],
           "parts": [
-            8,
-            null
+            7,
+            12
           ],
-          "whole": 14,
-          "value": 6,
+          "whole": 19,
+          "value": 12,
           "question_audio": {
-            "text": "Missing addend: 8 plus? equals 14",
+            "text": "Seven children are at a table. Some more arrive, and then there are 19. How many children arrivedthe unknown A number bond shows whole 19 connected to parts 7 and 12; the unknown is 12.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "a": 7,
+          "b": 12,
+          "operation": "missing_addend",
+          "strategy": "missing addend",
+          "part_a": 7,
+          "part_b": 12,
+          "visual_description": "A number bond shows whole 19 connected to parts 7 and 12; the unknown is 12.",
+          "accessible_description": "A number bond shows whole 19 connected to parts 7 and 12; the unknown is 12."
         },
         {
           "id": "G2M_OP_003_MIXED_Q10",
           "question_id": "G2M_OP_003_MIXED_Q10",
           "question_type": "short_response",
           "visual_model": "subtraction_model",
-          "prompt": "Missing part: 17 - ? = 9",
-          "answer": "8",
-          "correct_answer": "8",
+          "prompt": "A jar held 20 buttons. Some were used, and 11 remain. How many buttons were used?",
+          "answer": "9",
+          "correct_answer": "9",
           "acceptable_answers": [
-            "8"
+            "9"
           ],
           "misconception_tag": "missing_part_confusion",
           "hints": [
-            "Look for a friendly fact such as make 10, doubles, or a related fact.",
-            "Use the known fact to solve the unknown number.",
-            "Check that the parts and whole make sense."
+            "Focus: In G2M_OP_003_MIXED_Q10, use whole 20 and known part 9 to identify what is missing.",
+            "Strategy: Find the removed part with 20 - 11 = 9.",
+            "Verify: Use inverse addition: 9 + 11 = 20."
           ],
           "feedback": {
             "correct": "Great strategy work!",
             "incorrect": "Use the model and try the place-value strategy again."
           },
-          "explanation": "The answer is 8. Use the strategy to check the related facts.",
-          "a": 17,
-          "b": 8,
-          "value": 8,
+          "explanation": "Start with the whole 20 and known remaining part 11. Subtract: 20 - 11 = 9 removed. Why it works: subtraction finds a missing part. Check with inverse addition: 9 + 11 = 20.",
+          "a": 20,
+          "b": 9,
+          "value": 9,
           "question_audio": {
-            "text": "Missing part: 17 -? equals 9",
+            "text": "A jar held 20 buttons. Some were used, and 11 remain. How many buttons were usedthe unknown The subtraction model starts with 20, removes the unknown 9, and shows 11 remaining.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "operation": "missing_subtrahend",
+          "strategy": "missing part",
+          "visual_description": "The subtraction model starts with 20, removes the unknown 9, and shows 11 remaining.",
+          "accessible_description": "The subtraction model starts with 20, removes the unknown 9, and shows 11 remaining.",
+          "remaining": 11
         }
       ]
     }
