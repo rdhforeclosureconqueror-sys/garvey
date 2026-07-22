@@ -1,58 +1,55 @@
-# G2M_MD_001 — Measure Length Review
+# G2M_MD_001 — Measure Length Fresh Review
 
 ## 1. Selected package and sequence rationale
 
-`G2M_MD_001` was selected as the only package reviewed. The repository's explicit Grade 2 Math production sequence in `docs/grade2_math_completion_plan.md` lists `G2M_MD_001` immediately after the approved `G2M_WP_001` (package tasks 007 and 008, respectively). Therefore it is the next unreviewed package; no later package was opened.
+`G2M_MD_001 — Measure Length` was the only package opened. It is the requested restart target after approval of the shared off-zero ruler correction. No other package was reviewed.
 
 ## 2. Executive summary
 
-The review stopped during the required visual validation after confirming a reusable defect in the shared `ruler` renderer. For off-zero measurement activity `G2M_MD_001_LVL1_Q6`, the authored problem says a card starts at 2 inches and ends at 8 inches, but both production renderer paths display a bar beginning at zero and state, “Start at 0 ... measure 6 inches.” The renderer consumes only the computed length and cannot represent the authored start and end points.
+This was a fresh audit from the canonical source; no conclusion from the earlier blocked review was reused. The approved ruler correction now preserves authored off-zero endpoints in both production paths. During the required no-answer-leakage inspection, however, a different reusable shared-renderer defect was found: every canonical ruler visual explicitly states the computed answer in its accessible name and visible caption before the learner responds.
 
-This is a publication blocker because the visual contradicts the prompt and teaches that the endpoint, rather than the distance between endpoints, is the measurement. Following the required stop condition, shared infrastructure and curriculum content were not modified, and the remaining publication-quality audit is not claimed as complete.
+For `G2M_MD_001_LVL1_Q6`, whose answer is 6 inches, production output says both “spanning 6 inches” and “The distance is 6 inches.” The same shared behavior affects all 24 canonical ruler activities through the visual registry and complete question-card renderer. This is not authored curriculum metadata and cannot be repaired within the allowed package, test, and report files.
+
+The instruction for a newly discovered reusable shared-renderer defect requires an immediate stop and forbids modifying shared infrastructure in this curriculum pull request. Accordingly, this report does not claim publication approval, and no curriculum remediation was retained after the blocker was confirmed.
 
 ## 3. Educational review
 
-The canonical inventory contains 50 activities across four focused banks and one Mixed bank. Initial inspection found a single repeated generic hint ladder, answer-stating explanations, and ten Mixed activities copied from focused banks. These issues remain unresolved because the shared-renderer stop condition took precedence.
+The stop occurred at required production visual validation. Before stopping, the canonical inventory and schema were confirmed: 50 activities in five banks of 10, with 50 unique IDs. A full educational certification, including unique Focus/Strategy/Verify ladders, explanation remediation, progression, vocabulary, and duplicate analysis, is intentionally not claimed because publication review cannot continue past the shared blocker.
 
 ## 4. Mathematical review
 
-The blocker example is mathematically authored correctly: 8 inches minus 2 inches equals 6 inches, and its `answer`, `correct_answer`, and acceptable responses agree. The schema, 50-activity canonical count, and unique IDs pass validation. A complete recomputation and field-by-field certification was halted at the shared renderer defect and is not claimed.
+The blocker fixture is internally consistent in the authored prompt and answer fields: start 2 inches, end 8 inches, interval 6 inches, and correct answer 6. The fixed renderer now preserves start 2, end 8, and span 6. A complete recomputation of all 50 activities was stopped when production output exposed the computed span as the answer.
 
 ## 5. Mixed transfer review
 
-All ten Mixed prompts repeat focused prompts and consequently reuse their contexts, quantities, visual arrangements, and hint ladders. They are not authentic transfer activities as authored. Remediation was not begun after the stop condition.
+Mixed transfer certification was not completed. No Mixed content was changed. This avoids presenting an incomplete content pass as publication-ready after the required stop condition was reached.
 
-## 6. Visual review — shared defect
+## 6. Visual review
 
-The shared `ruler` implementation builds ticks from zero, sizes the object bar solely from `length`, and always emits a caption directing the learner to start at zero. It has no representation of an off-zero start or endpoint. Thus `G2M_MD_001_LVL1_Q6` (2 to 8 inches), `G2M_MD_001_LVL1_Q7` (1 to 6 inches), `G2M_MD_001_LVL2_Q6` (3 to 10 centimeters), and `G2M_MD_001_LVL2_Q7` (1 to 6 centimeters) cannot render as authored.
+All 24 ruler activities select the `ruler` renderer. The focused regression confirms that the approved off-zero fix is working through both required production paths. The new blocker is answer leakage: the renderer's `aria-label` includes “spanning [answer] [unit],” and its visible caption includes “The distance is [answer] [unit].” Thus the visual supplies the response rather than only representing the authored endpoints.
 
-The focused test reproduces the contradiction through both required production paths: the visual registry and complete question-card renderer. The output is nonblank and selects `ruler`, but its placement and semantics are wrong. Shared renderer code was not changed.
+The defect is reusable shared behavior, not an activity-specific authoring error. Shared renderer, CSS, registry, and infrastructure files were not modified.
+
+Chromium, Playwright, and Puppeteer are unavailable in the environment, so screenshots were not captured. Deterministic HTML inspection was performed through the production visual registry and full production question-card renderer.
 
 ## 7. Accessibility review
 
-Canonical activities lack both `visual_description` and `accessible_description`. Read Question audio contains the prompt but omits visual context. Accessibility remediation cannot accurately describe the current production visual as matching the mathematical model because the off-zero renderer output is incorrect.
+The same defect is an accessibility blocker because assistive technology receives the correct answer in the ruler's accessible name before interaction. Authoring `visual_description` or `accessible_description` cannot override or cure the answer-revealing shared output. A complete accessibility remediation was therefore not attempted.
 
 ## 8. Interaction review
 
-Schema, inventory, and ID checks pass. Both production paths select and render the `ruler` renderer, and both fail the off-zero endpoint assertion. Broader interaction and production answer-evaluation certification stopped at the required shared-infrastructure blocker.
+Both production paths render the corrected off-zero geometry and no longer reset the authored start to zero. However, the question-card interaction presents a visual whose caption and accessible name disclose the correct response before submission. Production answer evaluation and the remaining interaction matrix were not certified after this blocker.
 
 ## 9. Files changed
 
-- `tests/gamehub/skill-world/g2m-md-001-content-quality.test.js`
-- `docs/curriculum-reviews/G2M_MD_001-review.md`
+- `tests/gamehub/skill-world/g2m-md-001-content-quality.test.js` — fresh canonical/schema check, approved off-zero regression, and a focused failing regression for shared answer leakage.
+- `docs/curriculum-reviews/G2M_MD_001-review.md` — fresh blocker report.
 
-The package JSON was deliberately not changed after discovery of the shared defect.
+The canonical package JSON was left unchanged because the defect is shared infrastructure and the publication audit stopped immediately.
 
 ## 10. Tests executed
 
-- `node --test tests/gamehub/skill-world/g2m-md-001-content-quality.test.js` — expected failure documenting the shared renderer blocker.
-- `node --test tests/gamehub/skill-world/bar-model-renderer.test.js`
-- `node --test tests/gamehub/skill-world/skill-world-generator.test.js`
-- `npm run validate:curriculum-index`
-- `git diff --check`
-- `git status --short --branch`
-
-Chromium availability is reported in the final delivery. A screenshot cannot cure or supersede the deterministic contradiction reproduced through both production renderer paths.
+The required commands and outcomes are reported in the final delivery. The focused content-quality test is expected to fail only at the regression proving shared ruler answer leakage.
 
 ## 11. Branch
 
@@ -64,8 +61,8 @@ Reported in the final delivery because a commit cannot contain its own immutable
 
 ## 13. Pull request title
 
-`Report G2M_MD_001 shared ruler-renderer blocker`
+`Report G2M_MD_001 ruler answer-leakage blocker`
 
 ## 14. Scope confirmation
 
-Review stopped after exactly `G2M_MD_001`. No second package, package content, shared renderer, registry, infrastructure, approved package, other-grade content, assessment, dashboard, route, persistence, replay, or answer-shuffling file was modified.
+Exactly one package, `G2M_MD_001`, was reviewed. No shared renderer, CSS, registry, infrastructure, approved package, other-grade content, assessment, dashboard, route, persistence, replay behavior, or answer-shuffling file was modified. No second package was begun.
