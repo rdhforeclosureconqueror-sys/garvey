@@ -51,7 +51,42 @@
  function remainderModel(q){const dividend=Number(q.dividend||q.total||q.object_count)||17; const divisor=Math.max(1,Number(q.divisor||q.groups)||5); const quotient=Number(q.quotient||q.each)||Math.floor(dividend/divisor); const remainder=Number(q.remainder!==undefined?q.remainder:dividend%divisor)||0; const object=q.object||'counters'; const cards=Array.from({length:Math.min(divisor,10)},(_,i)=>`<div class="equal-group-card"><strong>Group ${i+1}</strong><div>${objectTokens(null,quotient)}</div><small>${esc(quotient)} each</small></div>`).join(''); const leftovers=remainder>0?`<div class="remainder-leftovers"><strong>Remainder ${esc(remainder)}</strong><div>${objectTokens(null,remainder)}</div><small>left over after equal groups</small></div>`:`<div class="remainder-leftovers none"><strong>No remainder</strong><small>Every ${esc(object)} fits into an equal group.</small></div>`; const equation=q.equation||`${dividend} ÷ ${divisor} = ${quotient}${remainder?` R${remainder}`:''}`; const interpretation=q.remainder_interpretation||q.context_action||'Decide whether the leftover is kept as a remainder, added as a new group, or ignored based on the story.'; return `<div class="visual-model skill-visual-inner remainder-model-visual" data-renderer="remainder_model"><div class="equation-strip">${esc(equation)}</div><div class="equal-groups-row">${cards}</div>${leftovers}<p class="sw-visual-caption">${esc(dividend)} ${esc(object)} split by ${esc(divisor)} makes ${esc(quotient)} in each group with ${esc(remainder)} left over. ${esc(interpretation)}</p></div>`;}
 
  function wordProblemModel(q){const known=q.knowns||nums(q.prompt).slice(0,3); const unknown=q.unknown_label||'unknown'; const action=q.operation||(/left|remain|fewer|less|take/i.test(q.prompt||'')?'subtract':'add'); return `<div class="visual-model skill-visual-inner word-problem-visual" data-renderer="word_problem_model"><div class="sentence-strip"><strong>${esc(action)}</strong> story problem</div><div class="pattern-row">${known.map((n,i)=>`<span class="pattern-token"><b>${esc(n)}</b><small>known ${i+1}</small></span>`).join('')}<span class="pattern-token missing"><b>?</b><small>${esc(unknown)}</small></span></div><p class="sw-visual-caption">Read the story, circle the known numbers, decide the action, then answer the unknown.</p></div>`;}
- function barModel(q){const parts=q.parts||[q.a,q.b].filter((v)=>v!==undefined); const total=safe(q.total,q.correct_answer); const labels=q.labels||['part','part']; return `<div class="visual-model skill-visual-inner bar-model-visual" data-renderer="bar_model"><div class="sentence-strip">Bar model: whole and parts</div><div class="visual-scroll"><div class="bar-model-row"><div class="measure-bar tall"><strong>${esc(total)}</strong><small>whole</small></div>${parts.map((part,i)=>`<div class="measure-bar short"><strong>${esc(part)}</strong><small>${esc(labels[i]||'part')}</small></div>`).join('')}<div class="measure-bar short missing"><strong>?</strong><small>unknown</small></div></div></div><p class="sw-visual-caption">Use the bar to compare the whole, parts, or difference.</p></div>`;}
+ function barModel(q){
+  const equation=String(q.equation||'').replace(/[×x]/g,'*').replace(/÷/g,'/').replace(/\s+/g,'');
+  const answer=String(q.correct_answer??q.answer??'');
+  const prompt=String(q.prompt||'');
+  const explicit=String(q.bar_model?.structure||q.problem_structure||q.problem_type||'').toLowerCase().replace(/[_ ]/g,'-');
+  const sides=equation.split('=');
+  const expression=sides[0]||'';
+  const rhs=sides[1];
+  const single=expression.match(/^(\?|[-+]?\d+(?:\.\d+)?)\s*([+\-])\s*(\?|[-+]?\d+(?:\.\d+)?)$/);
+  const resultUnknown=rhs==='?'||(!equation.includes('?')&&rhs!==undefined);
+  let structure=explicit;
+  if(!structure){
+   if(/how many (more|fewer)|how much (more|less)/i.test(prompt))structure=/fewer|less/i.test(prompt)?'compare-less':'compare-more';
+   else if(single?.[2]==='+')structure=single[1]==='?'?(/at first|start|some/i.test(prompt)?'start-unknown':'missing-addend'):(single[3]==='?'?'change-unknown':(resultUnknown?'result-unknown-addition':'part-part-whole'));
+   else if(single?.[2]==='-')structure=single[1]==='?'?'missing-minuend':(single[3]==='?'?'missing-subtrahend':'result-unknown-subtraction');
+   else structure='multi-step';
+  }
+  const unknown=(value)=>value===undefined||value===null||value===''||String(value)==='?';
+  const cell=(value,label,kind='short')=>{const missing=unknown(value); return `<div class="measure-bar ${kind}${missing?' missing':''}" data-quantity="${missing?'unknown':esc(value)}"><strong>${missing?'?':esc(value)}</strong><small>${esc(label)}</small></div>`;};
+  let body;
+  if(single){
+   const left=single[1],op=single[2],right=single[3];
+   const whole=op==='+'?(resultUnknown?'?':rhs):left;
+   const parts=op==='+'?[left,right]:[rhs===undefined?'?':rhs,right];
+   const partLabels=structure.startsWith('compare-')?['smaller amount','difference']:(op==='-'?['amount left','change']:['part 1','part 2']);
+   body=`${cell(whole,structure.startsWith('compare-')?'larger amount':'whole','tall')}${parts.map((value,i)=>cell(value,partLabels[i])).join('')}`;
+  }else if(Array.isArray(q.parts)&&q.total!==undefined){
+   const labels=q.labels||[];
+   body=`${cell(q.total,structure.startsWith('compare-')?'larger amount':'whole','tall')}${q.parts.map((value,i)=>cell(answer!==''&&String(value)===answer?'?':value,labels[i]||'part')).join('')}`;
+  }else{
+   const knownOperands=(expression.match(/\d+(?:\.\d+)?/g)||[]);
+   body=`${knownOperands.map((value,i)=>cell(value,`step ${i+1} quantity`)).join('')}${cell('?', 'result','tall')}`;
+  }
+  const spoken=body.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+  return `<div class="visual-model skill-visual-inner bar-model-visual" data-renderer="bar_model" data-structure="${esc(structure)}" role="img" aria-label="Bar model, ${esc(structure.replace(/-/g,' '))}: ${esc(spoken)}"><div class="sentence-strip">Bar model: ${esc(structure.replace(/-/g,' '))}</div><div class="visual-scroll"><div class="bar-model-row">${body}</div></div><p class="sw-visual-caption">Known quantities are labeled with numbers. The quantity to find is labeled with a question mark.</p></div>`;
+ }
  function equationBuilder(q){const eq=q.equation||`${safe(q.a,'?')} ${q.operator||(/subtract|left|fewer|less|take/i.test(q.prompt||'')?'-':'+')} ${safe(q.b,'?')} = ?`; const tokens=String(eq).split(/\s+/).filter(Boolean); return `<div class="visual-model skill-visual-inner equation-builder-visual" data-renderer="equation_builder"><div class="pattern-row equation-row">${tokens.map((t)=>`<span class="pattern-token ${t==='?'?'missing':''}"><b>${esc(t)}</b></span>`).join('')}</div><p class="sw-visual-caption">Build an equation that matches the words, then solve for the missing number.</p></div>`;}
  function ruler(q){const unit=(q.unit||q.units||'inches').toString(); const length=Number(q.length??q.correct_answer??nums(q.prompt)[0]??5)||5; const max=Math.max(6,Math.min(15,Math.ceil(length)+2)); const ticks=Array.from({length:max+1},(_,i)=>`<span class="ruler-tick ${i===0?'start':''} ${i===length?'end':''}"><b>${i}</b></span>`).join(''); return `<div class="visual-model skill-visual-inner ruler-visual" data-renderer="ruler"><div class="ruler-track" aria-label="ruler marked in ${esc(unit)}">${ticks}</div><div class="measure-bar tall" style="width:${Math.min(96,Math.max(20,length/max*96))}%">${esc(q.object||'object')}</div><p class="sw-visual-caption">Start at 0 and count the marks to measure ${esc(length)} ${esc(unit)}.</p></div>`;}
  function coinModel(q){const vals={penny:1,nickel:5,dime:10,quarter:25}; const coins=q.coins||[q.coin||'quarter']; return `<div class="visual-model skill-visual-inner coin-model-visual" data-renderer="coin_model"><div class="pattern-row coin-row">${coins.map((coin)=>`<span class="pattern-token coin-token"><b>${coin==='penny'?'₵':coin==='nickel'?'5¢':coin==='dime'?'10¢':'25¢'}</b><small>${esc(coin)}${vals[coin]?` = ${vals[coin]}¢`:''}</small></span>`).join('')}</div><p class="sw-visual-caption">Name each coin and remember its value before counting.</p></div>`;}
