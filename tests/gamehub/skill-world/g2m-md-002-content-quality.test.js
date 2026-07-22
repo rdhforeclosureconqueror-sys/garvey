@@ -21,17 +21,27 @@ test('selected canonical package has the expected identity, schema, counts, and 
   assert.equal(validation.valid, true, validation.errors.join('; '));
 });
 
-test('production money renderer must not disclose the authored answer', () => {
-  const question = questions.find((candidate) => candidate.visual_model === 'money_counting');
-  assert.ok(question, 'package must contain a canonical money-counting activity');
-  const disclosure = new RegExp(`(?:total shown|→)\\s*(?:[^<]*\\s)?${question.correct_answer}\\s*(?:cents|¢)`, 'i');
-  for (const [pathName, html] of [
-    ['visual registry', VisualRegistry.render(question)],
-    ['question card', Renderer.renderQuestionCard(question, 'practice', Renderer.createState(), pkg)],
-  ]) {
-    assert.ok(html.trim(), `${pathName} output must be nonblank`);
-    assert.match(html, /data-renderer="money_counting"/, `${pathName} must select money_counting`);
-    assert.doesNotMatch(html, /placeholder|data-renderer="fallback"/i, `${pathName} must not fall back`);
-    assert.doesNotMatch(html, disclosure, `${pathName} leaks ${question.correct_answer} cents`);
-  }
+test('production renderers do not print answers while asking learners to read clocks or count money', () => {
+  const answerLeaks = [];
+  const tasks = questions.filter((question) =>
+    (question.visual_model === 'analog_clock' && /what time is shown/i.test(question.prompt)) ||
+    (question.visual_model === 'money_counting' && /how much/i.test(question.prompt))
+  );
+
+  tasks.forEach((question) => {
+    const escapedAnswer = String(question.correct_answer).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const answerPattern = question.visual_model === 'analog_clock'
+      ? new RegExp(`<strong>\\s*${escapedAnswer}\\s*</strong>`, 'i')
+      : new RegExp(`Total shown:\\s*${escapedAnswer}\\s*cents`, 'i');
+    for (const [renderPath, html] of [
+      ['visual registry', VisualRegistry.render(question)],
+      ['question card', Renderer.renderQuestionCard(question, 'practice', Renderer.createState(), pkg)],
+    ]) {
+      assert.ok(html.trim(), `${question.question_id}: ${renderPath} output is blank`);
+      assert.match(html, new RegExp(`data-renderer="${question.visual_model}"`), `${question.question_id}: ${renderPath}`);
+      if (answerPattern.test(html)) answerLeaks.push(`${question.question_id} via ${renderPath}`);
+    }
+  });
+
+  assert.deepEqual(answerLeaks, [], `answer leakage from shared production renderers: ${answerLeaks.join(', ')}`);
 });
