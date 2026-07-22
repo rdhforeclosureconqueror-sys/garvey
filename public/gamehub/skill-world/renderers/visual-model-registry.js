@@ -88,7 +88,48 @@
   return `<div class="visual-model skill-visual-inner bar-model-visual" data-renderer="bar_model" data-structure="${esc(structure)}" role="img" aria-label="Bar model, ${esc(structure.replace(/-/g,' '))}: ${esc(spoken)}"><div class="sentence-strip">Bar model: ${esc(structure.replace(/-/g,' '))}</div><div class="visual-scroll"><div class="bar-model-row">${body}</div></div><p class="sw-visual-caption">Known quantities are labeled with numbers. The quantity to find is labeled with a question mark.</p></div>`;
  }
  function equationBuilder(q){const eq=q.equation||`${safe(q.a,'?')} ${q.operator||(/subtract|left|fewer|less|take/i.test(q.prompt||'')?'-':'+')} ${safe(q.b,'?')} = ?`; const tokens=String(eq).split(/\s+/).filter(Boolean); return `<div class="visual-model skill-visual-inner equation-builder-visual" data-renderer="equation_builder"><div class="pattern-row equation-row">${tokens.map((t)=>`<span class="pattern-token ${t==='?'?'missing':''}"><b>${esc(t)}</b></span>`).join('')}</div><p class="sw-visual-caption">Build an equation that matches the words, then solve for the missing number.</p></div>`;}
- function ruler(q){const unit=(q.unit||q.units||'inches').toString(); const length=Number(q.length??q.correct_answer??nums(q.prompt)[0]??5)||5; const max=Math.max(6,Math.min(15,Math.ceil(length)+2)); const ticks=Array.from({length:max+1},(_,i)=>`<span class="ruler-tick ${i===0?'start':''} ${i===length?'end':''}"><b>${i}</b></span>`).join(''); return `<div class="visual-model skill-visual-inner ruler-visual" data-renderer="ruler"><div class="ruler-track" aria-label="ruler marked in ${esc(unit)}">${ticks}</div><div class="measure-bar tall" style="width:${Math.min(96,Math.max(20,length/max*96))}%">${esc(q.object||'object')}</div><p class="sw-visual-caption">Start at 0 and count the marks to measure ${esc(length)} ${esc(unit)}.</p></div>`;}
+ function ruler(q){
+  const source=q.ruler&&typeof q.ruler==='object'?{...q,...q.ruler}:q;
+  const rawUnit=String(source.unit??source.units??'').trim().toLowerCase();
+  const units={inch:'inches',inches:'inches',in:'inches',centimeter:'centimeters',centimeters:'centimeters',cm:'centimeters'};
+  const unit=units[rawUnit];
+  const number=(...values)=>{for(const value of values){if(value!==undefined&&value!==null&&value!==''&&Number.isFinite(Number(value)))return Number(value);} return undefined;};
+  const explicitStart=number(source.start,source.start_point,source.from);
+  const explicitEnd=number(source.end,source.end_point,source.to,source.endpoint,source.value);
+  const length=number(source.length);
+  const prompt=String(source.prompt||'');
+  const intervalMatch=prompt.match(/(?:starts?|begins?|lined up)\s+(?:at|from)\s*(-?\d+(?:\.\d+)?)\s*(?:inch(?:es)?|centimeter(?:s)?|in|cm)?\s*(?:and\s+ends?\s+at|to)\s*(-?\d+(?:\.\d+)?)/i);
+  const endpointMatch=prompt.match(/ends?\s+at\s+(-?\d+(?:\.\d+)?)\s*(?:inch(?:es)?|centimeter(?:s)?|in|cm)?/i);
+  const requested=String(source.measurement_structure||source.structure||'').toLowerCase().replace(/_/g,'-');
+  const errors=[];
+  const aliases=(names)=>names.filter((name)=>source[name]!==undefined).map((name)=>Number(source[name]));
+  for(const names of [['start','start_point','from'],['end','end_point','to','endpoint','value']]){const values=aliases(names); if(values.length>1&&values.some((value)=>value!==values[0]))errors.push(`ambiguous ${names[0]} fields`);}
+  let start=explicitStart, end=explicitEnd, structure=requested;
+  if(intervalMatch){const promptStart=Number(intervalMatch[1]),promptEnd=Number(intervalMatch[2]); if(start!==undefined&&start!==promptStart)errors.push('start conflicts with prompt'); if(end!==undefined&&end!==promptEnd)errors.push('end conflicts with prompt'); start=promptStart; end=promptEnd; structure=start===0?'zero-based-measurement':'off-zero-interval';}
+  else if(requested==='endpoint-reading'||(!requested&&endpointMatch&&explicitStart===undefined)){start=0; end=explicitEnd??Number(endpointMatch?.[1]); structure='endpoint-reading';}
+  else if(explicitStart!==undefined||explicitEnd!==undefined){structure=structure||(start===0?'zero-based-measurement':'off-zero-interval'); if(start===undefined)errors.push('missing start'); if(end===undefined)errors.push('missing end');}
+  else if(length!==undefined){start=0; end=length; structure=structure||'zero-based-measurement';}
+  else errors.push('missing start, end, and length');
+  if(!unit)errors.push(rawUnit?'unsupported unit':'missing unit');
+  if(start!==undefined&&end!==undefined&&end<start)errors.push('end is less than start');
+  const span=start!==undefined&&end!==undefined?end-start:undefined;
+  if(length!==undefined&&span!==undefined&&Math.abs(length-span)>1e-9)errors.push('length does not equal end minus start');
+  const tick=number(source.tick_interval,source.tickInterval,source.increment)??1;
+  if(!(tick>0)||(!Number.isInteger(1/tick)&&tick!==1))errors.push('unsupported tick interval');
+  const min=number(source.min,source.minimum)??0;
+  const inferredMax=end===undefined?6:Math.max(6,Math.ceil(end/tick)*tick+2*tick);
+  const max=number(source.max,source.maximum)??inferredMax;
+  if(start!==undefined&&(start<min||end>max))errors.push('endpoints fall outside ruler range');
+  const label=(value)=>Number.isInteger(value)?String(value):String(Number(value.toFixed(4)));
+  if(errors.length){const description=`Invalid ruler metadata: ${errors.join('; ')}.`; return `<div class="visual-model skill-visual-inner ruler-visual ruler-invalid" data-renderer="ruler" data-render-status="invalid" data-invalid-reason="${esc(errors.join('; '))}" role="img" aria-label="${esc(description)}"><p class="sw-visual-caption">${esc(description)} The ruler cannot be drawn without changing the mathematics.</p></div>`;}
+  const tickCount=Math.round((max-min)/tick);
+  const ticks=Array.from({length:tickCount+1},(_,i)=>{const value=Number((min+i*tick).toFixed(6)); const position=((value-min)/(max-min))*100; return `<span class="ruler-tick ${value===start?'start':''} ${value===end?'end':''}" data-value="${label(value)}" style="--position:${position}%"><b>${label(value)}</b></span>`;}).join('');
+  const left=((start-min)/(max-min))*100, width=(span/(max-min))*100;
+  const object=source.object||prompt.match(/^A[n]?\s+([^ ]+)/i)?.[1]||'object';
+  const description=structure==='endpoint-reading'?`Ruler marked in ${unit} from ${label(min)} to ${label(max)}. The object starts at ${label(start)} and its marked endpoint is ${label(end)} ${unit}.`:`Ruler marked in ${unit} from ${label(min)} to ${label(max)}. The ${object} starts at ${label(start)} and ends at ${label(end)}, spanning ${label(span)} ${unit}.`;
+  const caption=structure==='endpoint-reading'?`Read the marked endpoint at ${label(end)} ${unit}.`:`Measure from the start point ${label(start)} to the end point ${label(end)}. The distance is ${label(span)} ${unit}.`;
+  return `<div class="visual-model skill-visual-inner ruler-visual" data-renderer="ruler" data-render-status="complete" data-start="${label(start)}" data-end="${label(end)}" data-length="${label(span)}" data-unit="${esc(unit)}" data-measurement-structure="${esc(structure)}" data-ruler-min="${label(min)}" data-ruler-max="${label(max)}" data-tick-interval="${label(tick)}" role="img" aria-label="${esc(description)}"><div class="ruler-track" aria-hidden="true">${ticks}</div><div class="measure-bar tall ruler-object-span" data-span="${label(span)}" style="--ruler-left:${left}%;--ruler-width:${width}%">${esc(object)}</div><p class="sw-visual-caption">${esc(caption)}</p></div>`;
+ }
  function coinModel(q){const vals={penny:1,nickel:5,dime:10,quarter:25}; const coins=q.coins||[q.coin||'quarter']; return `<div class="visual-model skill-visual-inner coin-model-visual" data-renderer="coin_model"><div class="pattern-row coin-row">${coins.map((coin)=>`<span class="pattern-token coin-token"><b>${coin==='penny'?'₵':coin==='nickel'?'5¢':coin==='dime'?'10¢':'25¢'}</b><small>${esc(coin)}${vals[coin]?` = ${vals[coin]}¢`:''}</small></span>`).join('')}</div><p class="sw-visual-caption">Name each coin and remember its value before counting.</p></div>`;}
  function moneyCounting(q){const vals={penny:1,nickel:5,dime:10,quarter:25}; const coins=q.coins||[]; const total=coins.reduce((sum,c)=>sum+(vals[c]||0),0); let running=0; return `<div class="visual-model skill-visual-inner money-counting-visual" data-renderer="money_counting"><div class="pattern-row coin-row">${coins.map((coin)=>{running+=vals[coin]||0; return `<span class="pattern-token coin-token"><b>${esc(vals[coin]||'?')}¢</b><small>${esc(coin)} → ${running}¢</small></span>`;}).join('')}</div><p class="sw-visual-caption">Count from the largest coins when you can. Total shown: ${esc(q.total_cents??total)} cents.</p></div>`;}
 
