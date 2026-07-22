@@ -439,11 +439,12 @@ function publicAnalogClockStimulusFor(question) {
   const minute = Number(question.minute);
   if (!Number.isInteger(hour) || hour < 1 || hour > 12) return null;
   if (!Number.isInteger(minute) || minute < 0 || minute > 59) return null;
-  const minuteText = String(minute).padStart(2, '0');
+  const minutePosition = minute === 0 ? 'at 12' : minute % 5 === 0 ? `at ${minute / 5}` : `at the ${minute}-minute tick`;
+  const hourPosition = minute === 0 ? `at ${hour}` : `between ${hour} and ${hour === 12 ? 1 : hour + 1}`;
   return {
     type: 'analog_clock',
     content: { hour, minute },
-    accessibility_text: `Analog clock showing ${hour}:${minuteText}`,
+    accessibility_text: `Analog clock. The long minute hand points ${minutePosition}. The short hour hand is ${hourPosition}.`,
     presentation: { renderer: 'analog_clock', label: 'Read the hour hand and minute hand.' },
   };
 }

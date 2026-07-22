@@ -209,7 +209,9 @@
       const hour = Number(stimulus.content && stimulus.content.hour);
       const minute = Number(stimulus.content && stimulus.content.minute);
       if (Number.isInteger(hour) && hour >= 1 && hour <= 12 && Number.isInteger(minute) && minute >= 0 && minute <= 59) {
-        return { type: 'analog_clock', content: { hour, minute }, accessibility_text: text(stimulus.accessibility_text) || ('Analog clock showing ' + hour + ':' + String(minute).padStart(2, '0')), presentation: stimulus.presentation || {} };
+        const minutePosition = minute === 0 ? 'at 12' : minute % 5 === 0 ? 'at ' + (minute / 5) : 'at the ' + minute + '-minute tick';
+        const hourPosition = minute === 0 ? 'at ' + hour : 'between ' + hour + ' and ' + (hour === 12 ? 1 : hour + 1);
+        return { type: 'analog_clock', content: { hour, minute }, accessibility_text: 'Analog clock. The long minute hand points ' + minutePosition + '. The short hour hand is ' + hourPosition + '.', presentation: stimulus.presentation || {} };
       }
     }
     if (['sentence', 'word', 'letter_tiles', 'reading_passage', 'sequencing', 'letter_card', 'picture_choice', 'phonics_tiles', 'sound_match', 'highlighted_text', 'sentence_builder', 'punctuation_marker', 'picture_prompt', 'ela_text_stimulus'].includes(text(stimulus.type)) && stimulus.content && typeof stimulus.content === 'object') {
@@ -943,13 +945,15 @@
       const minute = Number(stimulus.content && stimulus.content.minute);
       const hourAngle = ((hour % 12) * 30) + (minute * 0.5);
       const minuteAngle = minute * 6;
-      const minuteText = String(minute).padStart(2, '0');
       const helper = text(stimulus.presentation && stimulus.presentation.label) || 'Read the hour hand and minute hand.';
+      const minutePosition = minute === 0 ? 'at 12' : minute % 5 === 0 ? 'at ' + (minute / 5) : 'at the ' + minute + '-minute tick';
+      const hourPosition = minute === 0 ? 'at ' + hour : 'between ' + hour + ' and ' + (hour === 12 ? 1 : hour + 1);
+      const clockDescription = 'Analog clock. The long minute hand points ' + minutePosition + '. The short hour hand is ' + hourPosition + '.';
       const numbers = Array.from({ length: 12 }, function(_, index) {
         const n = index + 1;
         return '<span class="clock-number clock-number-' + n + '" aria-hidden="true">' + n + '</span>';
       }).join('');
-      return '<div class="assessment-stimulus analog-clock-stimulus" role="img" aria-label="' + escapeHtml(stimulus.accessibility_text || ('Analog clock showing ' + hour + ':' + minuteText)) + '"><div class="analog-clock-face">' + numbers + '<span class="clock-hand hour-hand" style="transform: rotate(' + hourAngle + 'deg)"></span><span class="clock-hand minute-hand" style="transform: rotate(' + minuteAngle + 'deg)"></span><span class="clock-center" aria-hidden="true"></span></div><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
+      return '<div class="assessment-stimulus analog-clock-stimulus" role="img" aria-label="' + escapeHtml(clockDescription) + '"><div class="analog-clock-face">' + numbers + '<span class="clock-hand hour-hand" style="transform: rotate(' + hourAngle + 'deg)"></span><span class="clock-hand minute-hand" style="transform: rotate(' + minuteAngle + 'deg)"></span><span class="clock-center" aria-hidden="true"></span></div><p class="stimulus-help">' + escapeHtml(helper) + '</p></div>';
     }
     if (stimulus.type === 'sentence') {
       const sentence = text(stimulus.content && stimulus.content.text);
