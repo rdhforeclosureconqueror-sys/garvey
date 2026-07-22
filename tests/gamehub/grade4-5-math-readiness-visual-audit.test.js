@@ -124,7 +124,7 @@ test('Grade 4 and Grade 5 Math visual models render structural visuals instead o
     graph_interpretation: [/graph-canvas/, /graph-dot/, /graph-table/],
     bar_graph: [/bar-fill/],
     picture_graph: [/picture-symbols/, /sw-token/],
-    data_table: [/<tbody><tr><td>A<\/td><td>2<\/td><\/tr>/],
+    data_table: [/<tbody><tr><th scope="row">A<\/th><td>2<\/td><\/tr>/],
     angle_model: [/<svg/, /<line/],
     protractor_model: [/protractor-shell/, /protractor-tick/, /protractor-ray/],
     line_relationships: [/relationship-canvas/, /line-a/, /line-b/],
