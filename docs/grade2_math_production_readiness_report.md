@@ -1,6 +1,17 @@
 # Grade 2 Math Production Readiness Report
 
-_Date: 2026-05-30_
+_Date: 2026-07-22_
+
+## Visual and graphical accuracy review
+
+- **Visual interaction types found (27):** `addition_model`, `analog_clock`, `array_model`, `bar_graph`, `bar_model`, `base_ten_blocks`, `coin_model`, `comparison`, `data_table`, `digital_time`, `equation_builder`, `expanded_form`, `line_plot`, `measurement_comparison`, `money_counting`, `number_bond`, `number_line`, `number_sequence`, `partition_shapes`, `picture_graph`, `place_value_chart`, `ruler`, `shape_identification`, `subtraction_model`, `ten_frame`, `visual_objects`, and `word_problem_model`.
+- **Visual-dependent activities:** 739 authored visual-model occurrences across all 11 packages, including all 556 Skill Practice Center questions. The count also includes lesson, worked-example, guided-practice, adaptive-bank, and checkpoint models.
+- **Graphics manually rendered:** Representative renderer output was inspected for every one of the 27 interaction types. The focused renderer test additionally renders all 739 occurrences and rejects missing, fallback, empty, or inaccessible output.
+- **Activity IDs inspected in focused manual review:** `G2M_GM_001_LVL1_Q1`, `G2M_GM_001_LVL3_Q7`, `G2M_GM_001_LVL4_Q3`, `G2M_MD_001_LVL1_Q1`, `G2M_MD_001_LVL3_Q1`, `G2M_MD_001_LVL4_Q1`, `G2M_MD_002_LVL1_Q1`, `G2M_MD_002_LVL3_Q1`, `G2M_MD_003_LVL1_Q4`, `G2M_MD_003_LVL2_Q1`, `G2M_MD_003_LVL3_Q1`, `G2M_MD_003_LVL4_Q1`, `G2M_NS_001_LVL1_Q1`, `G2M_NS_002_LVL4_Q1`, `G2M_OP_001_LVL1_Q1`, `G2M_OP_002_LVL1_Q1`, `G2M_OP_003_LVL1_Q1`, `G2M_PV_001_MIX_Q4`, `G2M_PV_001_MIX_Q8`, `G2M_PV_001_MIX_Q12`, and `G2M_WP_001_LVL1_Q1`.
+- **Visual defects found:** shape models had an unstyled empty container; three mixed-review place-value questions used a generic object renderer capped at 20 objects instead of hundreds/tens/ones; estimation activities could produce an empty object container; placeholder lesson operation models could be empty; measurement comparisons lacked accessible context; and graph/table descriptions did not expose all labels, values, keys, and scales to assistive technology.
+- **Visual defects corrected:** visible CSS models were added for all authored 2D and 3D shapes; the affected place-value activities now use exact base-ten metadata; empty estimation and operation states now render meaningful models; measurement comparisons now name their values and units; and picture graphs, bar graphs, and tables now expose complete authored data. Picture graphs also support a partial symbol when a value is not evenly divisible by its key.
+- **Automated visual assertions added:** inventory totals; renderer support; no fallback/missing/empty output; accessible descriptions; base-ten block counts; ruler endpoints and units; clock hand angles and spoken time; array object counts; graph/table labels and values; picture-graph symbol/key math; contextual Read Question audio; and activity-ID regressions for each corrected defect class.
+- **Remaining visual limitations:** this environment has no installed browser engine, so verification used the production HTML renderer and structural DOM assertions rather than pixel screenshots. The visual models remain static instructional HTML/CSS rather than drag-and-drop manipulatives. Browser and assistive-technology spot checks remain recommended before a broad learner release.
 
 ## Executive Summary
 
