@@ -1276,7 +1276,7 @@ assert.ok(VisualRegistry.hasRenderer('place_value_chart'));
 assert.ok(VisualRegistry.hasRenderer('expanded_form'));
 assert.ok(VisualRegistry.hasRenderer('base_ten_blocks'));
 const g2Questions=[...g2PlaceValue.guided_practice,...g2PlaceValue.adaptive_question_bank,...g2PlaceValue.checkpoint,...g2PlaceValue.level_banks.flatMap((level)=>level.questions)];
-assert.ok(g2Questions.some((q)=>q.visual_model==='visual_objects'),'G2M_PV_001 uses visual_objects support');
+assert.equal(g2Questions.some((q)=>q.visual_model==='visual_objects'),false,'G2M_PV_001 avoids generic counted objects for three-digit place value');
 const g2Chart=VisualRegistry.render(g2Questions.find((q)=>q.visual_model==='place_value_chart'));
 assert.match(g2Chart,/place-value-chart-visual/,'place_value_chart renderer output exists');
 assert.match(g2Chart,/Hundreds/,'place_value_chart shows Hundreds');
