@@ -30,3 +30,12 @@ Output preserves authored order/group expansion, denomination names, individual 
 ## Repository audit scope
 
 Canonical Skill World activities select `analog_clock` in the Grade 1 time package, Grade 2 time-and-money package, and Grade 3 measurement/data package; they select `money_counting` in the Grade 2 time-and-money package. Production presentation occurs through the shared registry directly, through mission and drill question cards, and—only for analog clocks—through the Assessment MVP public-stimulus selector and browser renderer. Assessment public payload normalization deliberately replaces even an authored answer-bearing accessibility string with the same hand-position description. Planning files, schemas, reports, and renderer enum declarations select or document renderer names but do not create learner-facing presentation.
+
+### Why the Assessment MVP files are in scope
+
+Changing the Skill World registry alone is insufficient because Assessment MVP does not call that registry. It has an independent production adapter and browser renderer for the same canonical `analog_clock` model:
+
+1. `assessment-mvp/selectAssessmentItems.js` converts a canonical clock question into its public learner stimulus. Before this audit, that adapter generated `accessibility_text` in the form “Analog clock showing h:mm.”
+2. `public/assessment-mvp/app.js` normalizes stored/public stimuli and renders the learner-facing clock. Before this audit, both normalization and the browser fallback accepted or generated the same answer-bearing digital-time description.
+
+Those paths exposed the exact answer to assistive technology even after the Skill World renderer was corrected. Their changes are therefore shared presentation-infrastructure fixes for the repository-wide `analog_clock` contract, not assessment-specific instructional behavior. They only replace learner-facing clock descriptions with hand-position descriptions. They do not alter assessment item eligibility or selection, response handling, answer choices, scoring, correctness evaluation, session behavior, or authored curriculum/package content.
