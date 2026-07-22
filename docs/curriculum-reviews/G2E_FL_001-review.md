@@ -23,6 +23,7 @@ The original bank could not meet a publication gate. Forty-three activities disp
 - Built phrase-reading decisions around syntactic and semantic groups, then asked learners to verify fluency by rereading the complete sentence.
 - Connected punctuation to a reader’s pause, stopping, asking, warning, calm, excited, or surprised voice.
 - Added an individual focus-guide-verify hint ladder and a teaching explanation to every activity.
+- Replaced the repeated omnibus hint template with 150 activity-specific prompts that point to the actual sentence, spelling feature, phrase boundary, or punctuation behavior.
 - Authored ten completely new Mixed situations, targets, prompts, and choice sets.
 
 ## Domain-specific improvements
@@ -92,6 +93,7 @@ The review retired all 107 original non-key choice slots and authored 150 purpos
 - Prompts use short sentences, familiar settings, and direct verbs.
 - Punctuation options include names and reading behaviors instead of depending only on tiny visual marks.
 - Meaning is never communicated by color or audio alone; audio remains optional support.
+- Listen support reads the activity text in context rather than announcing an isolated correct answer.
 - Curly quotation marks are paired with explanatory language, and every response remains readable as text.
 - Hint steps reduce cognitive load by focusing attention first, offering one concept cue second, and asking for a complete reread last.
 
@@ -101,7 +103,7 @@ The revised package uses only `multiple_choice`, `short_response`, and `sentence
 
 ## Validation coverage
 
-The focused suite proves package presence; five-bank structure; expected 10/10/10/10/10 counts; unique IDs; complete prompts, explanations, feedback, topics, targets, and hints; unique progressive hint ladders; production schema validity without warnings; placeholder absence; four normalized-unique displayed choices; exactly one displayed key; balanced positions; unique prompts, topics, targets, and answer sets; zero focused-to-Mixed duplication; and renderer/evaluator support.
+The focused suite proves package presence; five-bank structure; expected 10/10/10/10/10 counts; unique IDs; complete prompts, explanations, feedback, topics, targets, and hints; unique progressive hint ladders without the former omnibus template; non-key-revealing Listen support; production schema validity without warnings; placeholder absence; four normalized-unique displayed choices; exactly one displayed key; balanced positions; unique prompts, topics, targets, and answer sets; zero focused-to-Mixed duplication; and renderer/evaluator support.
 
 ## Deferred items
 

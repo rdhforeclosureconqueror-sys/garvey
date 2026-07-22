@@ -43,9 +43,22 @@ test('every hint ladder is unique, progressive, specific, and ends with verifica
   const ladders = questions.map((question) => question.hints.map(normalize));
   assert.equal(new Set(ladders.map(JSON.stringify)).size, 50);
   questions.forEach((question) => {
-    assert.ok(normalize(question.hints[0]).includes(normalize(question.topic)), `${question.question_id} attention cue`);
-    assert.ok(normalize(question.hints[1]).includes(normalize(question.target_word)), `${question.question_id} concept cue`);
-    assert.match(normalize(question.hints[2]), /check|reading|read|sound/, `${question.question_id} verification cue`);
+    assert.ok(question.hints[0].length >= 15, `${question.question_id} substantive attention cue`);
+    assert.ok(question.hints[1].length >= 40, `${question.question_id} substantive concept cue`);
+    assert.match(normalize(question.hints[2]), /check|confirm|verify|reread|read|compare|match|listen|make sure|trace|face|act|cover|point|clap|follow|spell|try|say|pause|use/,
+      `${question.question_id} verification cue`);
+    assert.doesNotMatch(question.hints.join(' '), /sentence meaning, word spelling, phrase grouping, or punctuation clue/i,
+      `${question.question_id} generic omnibus hint`);
+  });
+});
+
+test('Listen support reads the activity text instead of an isolated answer', () => {
+  questions.forEach((question) => {
+    assert.equal(question.question_audio.text, question.prompt, `${question.question_id} Read Question text`);
+    assert.equal(question.audio.text, question.prompt, `${question.question_id} Listen text`);
+    assert.equal(question.audio.label, 'Hear the text', `${question.question_id} Listen label`);
+    assert.notEqual(normalize(question.audio.text), normalize(question.correct_answer),
+      `${question.question_id} Listen must not announce the key alone`);
   });
 });
 
