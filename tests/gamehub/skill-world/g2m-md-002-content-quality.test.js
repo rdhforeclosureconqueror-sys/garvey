@@ -11,7 +11,7 @@ const VisualRegistry = require(path.join(root, 'public/gamehub/skill-world/rende
 const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
 const questions = pkg.level_banks.flatMap((bank) => bank.questions);
 
-test('G2M_MD_002 canonical identity is stable before the blocked audit resumes', () => {
+test('selected canonical package has the expected identity, schema, counts, and IDs', () => {
   assert.equal(pkg.skill_id, 'G2M_MD_002');
   assert.deepEqual(pkg.level_banks.map((bank) => bank.questions.length), [10, 10, 10, 10, 10]);
   assert.equal(questions.length, 50);
