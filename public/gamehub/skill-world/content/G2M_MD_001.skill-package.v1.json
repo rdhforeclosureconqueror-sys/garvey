@@ -638,25 +638,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the pencil begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a pencil starts at 0 and ends at 5 inches situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 5. In the a pencil starts at 0 and ends at 5 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The pencil is 5 inches.",
+          "explanation": "The pencil begins at 0, so the endpoint 5 names its length: 5 inches.",
           "unit": "inches",
           "units": "inches",
           "length": 5,
           "object": "pencil",
           "question_audio": {
-            "text": "A pencil starts at 0 and ends at 5 inches. How long is the pencil?",
+            "text": "A pencil starts at 0 and ends at 5 inches. How long is the pencil? Visual context: A ruler marked in inches by ones shows a pencil beginning at 0 and ending at 5. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 5,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 5,
+            "min": 0,
+            "max": 7,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "pencil",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a pencil beginning at 0 and ending at 5. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a pencil beginning at 0 and ending at 5. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q2",
@@ -673,25 +689,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the crayon begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a crayon is lined up from 0 to 4 inches situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 4. In the a crayon is lined up from 0 to 4 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The crayon is 4 inches.",
+          "explanation": "The crayon begins at 0, so the endpoint 4 names its length: 4 inches.",
           "unit": "inches",
           "units": "inches",
           "length": 4,
           "object": "crayon",
           "question_audio": {
-            "text": "A crayon is lined up from 0 to 4 inches. How long is it?",
+            "text": "A crayon is lined up from 0 to 4 inches. How long is it? Visual context: A ruler marked in inches by ones shows a crayon beginning at 0 and ending at 4. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 4,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 4,
+            "min": 0,
+            "max": 6,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "crayon",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a crayon beginning at 0 and ending at 4. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a crayon beginning at 0 and ending at 4. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q3",
@@ -708,24 +740,24 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the ribbon begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a ribbon begins at 0 and ends at 9 inches situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 9. In the a ribbon begins at 0 and ends at 9 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The ribbon is 9 inches.",
+          "explanation": "The ribbon begins at 0, so the endpoint 9 names its length: 9 inches.",
           "options": [
-            "8",
             "9",
+            "8",
             "10",
             "19"
           ],
           "choices": [
-            "8",
             "9",
+            "8",
             "10",
             "19"
           ],
@@ -734,11 +766,27 @@
           "length": 9,
           "object": "ribbon",
           "question_audio": {
-            "text": "A ribbon begins at 0 and ends at 9 inches. What is its length?",
+            "text": "A ribbon begins at 0 and ends at 9 inches. What is its length? Visual context: A ruler marked in inches by ones shows a ribbon beginning at 0 and ending at 9. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 9,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 9,
+            "min": 0,
+            "max": 11,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "ribbon",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a ribbon beginning at 0 and ending at 9. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a ribbon beginning at 0 and ending at 9. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q4",
@@ -755,25 +803,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the marker begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a marker measures 6 inches on the ruler situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 6. In the a marker measures 6 inches on the ruler situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The marker is 6 inches.",
+          "explanation": "The marker begins at 0, so the endpoint 6 names its length: 6 inches.",
           "unit": "inches",
           "units": "inches",
           "length": 6,
           "object": "marker",
           "question_audio": {
-            "text": "A marker measures 6 inches on the ruler. How long is the marker?",
+            "text": "A marker measures 6 inches on the ruler. How long is the marker? Visual context: A ruler marked in inches by ones shows a marker beginning at 0 and ending at 6. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 6,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 6,
+            "min": 0,
+            "max": 8,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "marker",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a marker beginning at 0 and ending at 6. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a marker beginning at 0 and ending at 6. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q5",
@@ -790,25 +854,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the toy car begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a toy car goes from 0 to 7 inches situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 7. In the a toy car goes from 0 to 7 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The toy car is 7 inches.",
+          "explanation": "The toy car begins at 0, so the endpoint 7 names its length: 7 inches.",
           "unit": "inches",
           "units": "inches",
           "length": 7,
           "object": "toy car",
           "question_audio": {
-            "text": "A toy car goes from 0 to 7 inches. How long is it?",
+            "text": "A toy car goes from 0 to 7 inches. How long is it? Visual context: A ruler marked in inches by ones shows a toy car beginning at 0 and ending at 7. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 7,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 7,
+            "min": 0,
+            "max": 9,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "toy car",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a toy car beginning at 0 and ending at 7. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a toy car beginning at 0 and ending at 7. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q6",
@@ -825,15 +905,15 @@
           ],
           "misconception_tag": "starts_not_at_zero",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the card begins and ends on the inches ruler.",
+            "Strategy: Count the one-inche intervals from 2 to 8; do not count the numbered marks. In the a card starts at 2 inches and ends at 8 inches situation.",
+            "Verify: Check that 2 plus your measured length reaches the ending mark at 8. In the a card starts at 2 inches and ends at 8 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The card is 6 inches.",
+          "explanation": "Length is the distance between endpoints. Subtract 2 from 8: 8 − 2 = 6 inches.",
           "options": [
             "5",
             "6",
@@ -851,11 +931,27 @@
           "length": 6,
           "object": "card",
           "question_audio": {
-            "text": "A card starts at 2 inches and ends at 8 inches. What is its length?",
+            "text": "A card starts at 2 inches and ends at 8 inches. What is its length? Visual context: A ruler marked in inches by ones shows a card beginning at 2 and ending at 8. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 2,
+          "end": 8,
+          "measurement_structure": "off-zero-interval",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 2,
+            "end": 8,
+            "min": 0,
+            "max": 10,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "card",
+            "measurement_structure": "off-zero-interval"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a card beginning at 2 and ending at 8. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a card beginning at 2 and ending at 8. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q7",
@@ -872,25 +968,41 @@
           ],
           "misconception_tag": "starts_not_at_zero",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the spoon begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a spoon starts at 1 inch and ends at 6 inches situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 5. In the a spoon starts at 1 inch and ends at 6 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The spoon is 5 inches.",
+          "explanation": "The spoon begins at 0, so the endpoint 5 names its length: 5 inches.",
           "unit": "inches",
           "units": "inches",
           "length": 5,
           "object": "spoon",
           "question_audio": {
-            "text": "A spoon starts at 1 inch and ends at 6 inches. What is its length?",
+            "text": "A spoon starts at 1 inch and ends at 6 inches. What is its length? Visual context: A ruler marked in inches by ones shows a spoon beginning at 0 and ending at 5. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 1,
+          "end": 6,
+          "measurement_structure": "off-zero-interval",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 1,
+            "end": 6,
+            "min": 0,
+            "max": 7,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "spoon",
+            "measurement_structure": "off-zero-interval"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a spoon beginning at 0 and ending at 5. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a spoon beginning at 0 and ending at 5. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q8",
@@ -907,25 +1019,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the book begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a book is 10 inches long situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 10. In the a book is 10 inches long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The book is 10 inches.",
+          "explanation": "The book begins at 0, so the endpoint 10 names its length: 10 inches.",
           "unit": "inches",
           "units": "inches",
           "length": 10,
           "object": "book",
           "question_audio": {
-            "text": "A book is 10 inches long. What length should you record?",
+            "text": "A book is 10 inches long. What length should you record? Visual context: A ruler marked in inches by ones shows a book beginning at 0 and ending at 10. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 10,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 10,
+            "min": 0,
+            "max": 12,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "book",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a book beginning at 0 and ending at 10. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a book beginning at 0 and ending at 10. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q9",
@@ -942,25 +1070,25 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the leaf begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a leaf starts at 0 and ends at 3 inches situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 3. In the a leaf starts at 0 and ends at 3 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The leaf is 3 inches.",
+          "explanation": "The leaf begins at 0, so the endpoint 3 names its length: 3 inches.",
           "options": [
             "2",
-            "3",
             "4",
+            "3",
             "13"
           ],
           "choices": [
             "2",
-            "3",
             "4",
+            "3",
             "13"
           ],
           "unit": "inches",
@@ -968,11 +1096,27 @@
           "length": 3,
           "object": "leaf",
           "question_audio": {
-            "text": "A leaf starts at 0 and ends at 3 inches. How long is it?",
+            "text": "A leaf starts at 0 and ends at 3 inches. How long is it? Visual context: A ruler marked in inches by ones shows a leaf beginning at 0 and ending at 3. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 3,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 3,
+            "min": 0,
+            "max": 6,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "leaf",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a leaf beginning at 0 and ending at 3. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a leaf beginning at 0 and ending at 3. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL1_Q10",
@@ -989,25 +1133,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the paper strip begins and ends on the inches ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a paper strip measures 8 inches situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 8. In the a paper strip measures 8 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The paper strip is 8 inches.",
+          "explanation": "The paper strip begins at 0, so the endpoint 8 names its length: 8 inches.",
           "unit": "inches",
           "units": "inches",
           "length": 8,
           "object": "paper strip",
           "question_audio": {
-            "text": "A paper strip measures 8 inches. How long is it?",
+            "text": "A paper strip measures 8 inches. How long is it? Visual context: A ruler marked in inches by ones shows a paper strip beginning at 0 and ending at 8. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 8,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 8,
+            "min": 0,
+            "max": 10,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "paper strip",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a paper strip beginning at 0 and ending at 8. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in inches by ones shows a paper strip beginning at 0 and ending at 8. Find the distance between its endpoints."
         }
       ]
     },
@@ -1034,25 +1194,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the glue stick begins and ends on the centimeters ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a glue stick starts at 0 and ends at 8 centimeters situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 8. In the a glue stick starts at 0 and ends at 8 centimeters situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The glue stick is 8 centimeters because the endpoints are 8 cm apart.",
+          "explanation": "The glue stick begins at 0, so the endpoint 8 names its length: 8 centimeters.",
           "unit": "centimeters",
           "units": "centimeters",
           "length": 8,
           "object": "glue stick",
           "question_audio": {
-            "text": "A glue stick starts at 0 and ends at 8 centimeters. How long is it?",
+            "text": "A glue stick starts at 0 and ends at 8 centimeters. How long is it? Visual context: A ruler marked in centimeters by ones shows a glue stick beginning at 0 and ending at 8. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 8,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 8,
+            "min": 0,
+            "max": 10,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "glue stick",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a glue stick beginning at 0 and ending at 8. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a glue stick beginning at 0 and ending at 8. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q2",
@@ -1069,25 +1245,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the eraser begins and ends on the centimeters ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the an eraser is 5 centimeters long situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 5. In the an eraser is 5 centimeters long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The eraser is 5 centimeters because the endpoints are 5 cm apart.",
+          "explanation": "The eraser begins at 0, so the endpoint 5 names its length: 5 centimeters.",
           "unit": "centimeters",
           "units": "centimeters",
           "length": 5,
           "object": "eraser",
           "question_audio": {
-            "text": "An eraser is 5 centimeters long. What length should you record?",
+            "text": "An eraser is 5 centimeters long. What length should you record? Visual context: A ruler marked in centimeters by ones shows a eraser beginning at 0 and ending at 5. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 5,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 5,
+            "min": 0,
+            "max": 7,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "eraser",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a eraser beginning at 0 and ending at 5. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a eraser beginning at 0 and ending at 5. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q3",
@@ -1104,25 +1296,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the craft stick begins and ends on the centimeters ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a craft stick measures 12 centimeters situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 12. In the a craft stick measures 12 centimeters situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The craft stick is 12 centimeters because the endpoints are 12 cm apart.",
+          "explanation": "The craft stick begins at 0, so the endpoint 12 names its length: 12 centimeters.",
           "unit": "centimeters",
           "units": "centimeters",
           "length": 12,
           "object": "craft stick",
           "question_audio": {
-            "text": "A craft stick measures 12 centimeters. How long is it?",
+            "text": "A craft stick measures 12 centimeters. How long is it? Visual context: A ruler marked in centimeters by ones shows a craft stick beginning at 0 and ending at 12. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 12,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 12,
+            "min": 0,
+            "max": 14,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "craft stick",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a craft stick beginning at 0 and ending at 12. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a craft stick beginning at 0 and ending at 12. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q4",
@@ -1139,37 +1347,53 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the shell begins and ends on the centimeters ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a shell starts at 0 and ends at 4 centimeters situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 4. In the a shell starts at 0 and ends at 4 centimeters situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The shell is 4 centimeters because the endpoints are 4 cm apart.",
+          "explanation": "The shell begins at 0, so the endpoint 4 names its length: 4 centimeters.",
           "options": [
             "3",
-            "4",
             "5",
-            "14"
+            "14",
+            "4"
           ],
           "choices": [
             "3",
-            "4",
             "5",
-            "14"
+            "14",
+            "4"
           ],
           "unit": "centimeters",
           "units": "centimeters",
           "length": 4,
           "object": "shell",
           "question_audio": {
-            "text": "A shell starts at 0 and ends at 4 centimeters. How long is it?",
+            "text": "A shell starts at 0 and ends at 4 centimeters. How long is it? Visual context: A ruler marked in centimeters by ones shows a shell beginning at 0 and ending at 4. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 4,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 4,
+            "min": 0,
+            "max": 6,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "shell",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a shell beginning at 0 and ending at 4. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a shell beginning at 0 and ending at 4. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q5",
@@ -1186,25 +1410,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the straw begins and ends on the centimeters ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a straw is 14 centimeters long situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 14. In the a straw is 14 centimeters long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The straw is 14 centimeters because the endpoints are 14 cm apart.",
+          "explanation": "The straw begins at 0, so the endpoint 14 names its length: 14 centimeters.",
           "unit": "centimeters",
           "units": "centimeters",
           "length": 14,
           "object": "straw",
           "question_audio": {
-            "text": "A straw is 14 centimeters long. What is its length?",
+            "text": "A straw is 14 centimeters long. What is its length? Visual context: A ruler marked in centimeters by ones shows a straw beginning at 0 and ending at 14. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 14,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 14,
+            "min": 0,
+            "max": 16,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "straw",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a straw beginning at 0 and ending at 14. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a straw beginning at 0 and ending at 14. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q6",
@@ -1221,25 +1461,41 @@
           ],
           "misconception_tag": "starts_not_at_zero",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the string begins and ends on the centimeters ruler.",
+            "Strategy: Count the one-centimeter intervals from 3 to 10; do not count the numbered marks. In the a string starts at 3 cm and ends at 10 cm situation.",
+            "Verify: Check that 3 plus your measured length reaches the ending mark at 10. In the a string starts at 3 cm and ends at 10 cm situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The string is 7 centimeters because the endpoints are 7 cm apart.",
+          "explanation": "Length is the distance between endpoints. Subtract 3 from 10: 10 − 3 = 7 centimeters.",
           "unit": "centimeters",
           "units": "centimeters",
           "length": 7,
           "object": "string",
           "question_audio": {
-            "text": "A string starts at 3 cm and ends at 10 cm. What is its length?",
+            "text": "A string starts at 3 cm and ends at 10 cm. What is its length? Visual context: A ruler marked in centimeters by ones shows a string beginning at 3 and ending at 10. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 3,
+          "end": 10,
+          "measurement_structure": "off-zero-interval",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 3,
+            "end": 10,
+            "min": 0,
+            "max": 12,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "string",
+            "measurement_structure": "off-zero-interval"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a string beginning at 3 and ending at 10. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a string beginning at 3 and ending at 10. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q7",
@@ -1256,25 +1512,41 @@
           ],
           "misconception_tag": "starts_not_at_zero",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the key begins and ends on the centimeters ruler.",
+            "Strategy: Count the one-centimeter intervals from 1 to 6; do not count the numbered marks. In the a key starts at 1 cm and ends at 6 cm situation.",
+            "Verify: Check that 1 plus your measured length reaches the ending mark at 6. In the a key starts at 1 cm and ends at 6 cm situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The key is 5 centimeters because the endpoints are 5 cm apart.",
+          "explanation": "Length is the distance between endpoints. Subtract 1 from 6: 6 − 1 = 5 centimeters.",
           "unit": "centimeters",
           "units": "centimeters",
           "length": 5,
           "object": "key",
           "question_audio": {
-            "text": "A key starts at 1 cm and ends at 6 cm. What is its length?",
+            "text": "A key starts at 1 cm and ends at 6 cm. What is its length? Visual context: A ruler marked in centimeters by ones shows a key beginning at 1 and ending at 6. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 1,
+          "end": 6,
+          "measurement_structure": "off-zero-interval",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 1,
+            "end": 6,
+            "min": 0,
+            "max": 8,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "key",
+            "measurement_structure": "off-zero-interval"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a key beginning at 1 and ending at 6. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a key beginning at 1 and ending at 6. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q8",
@@ -1291,24 +1563,24 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the paintbrush begins and ends on the centimeters ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a paintbrush measures 11 centimeters situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 11. In the a paintbrush measures 11 centimeters situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The paintbrush is 11 centimeters because the endpoints are 11 cm apart.",
+          "explanation": "The paintbrush begins at 0, so the endpoint 11 names its length: 11 centimeters.",
           "options": [
-            "10",
             "11",
+            "10",
             "12",
             "21"
           ],
           "choices": [
-            "10",
             "11",
+            "10",
             "12",
             "21"
           ],
@@ -1317,11 +1589,27 @@
           "length": 11,
           "object": "paintbrush",
           "question_audio": {
-            "text": "A paintbrush measures 11 centimeters. How long is it?",
+            "text": "A paintbrush measures 11 centimeters. How long is it? Visual context: A ruler marked in centimeters by ones shows a paintbrush beginning at 0 and ending at 11. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 11,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 11,
+            "min": 0,
+            "max": 13,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "paintbrush",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a paintbrush beginning at 0 and ending at 11. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a paintbrush beginning at 0 and ending at 11. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q9",
@@ -1338,25 +1626,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the block begins and ends on the centimeters ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a block is 6 centimeters long situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 6. In the a block is 6 centimeters long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The block is 6 centimeters because the endpoints are 6 cm apart.",
+          "explanation": "The block begins at 0, so the endpoint 6 names its length: 6 centimeters.",
           "unit": "centimeters",
           "units": "centimeters",
           "length": 6,
           "object": "block",
           "question_audio": {
-            "text": "A block is 6 centimeters long. What length should you record?",
+            "text": "A block is 6 centimeters long. What length should you record? Visual context: A ruler marked in centimeters by ones shows a block beginning at 0 and ending at 6. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 6,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 6,
+            "min": 0,
+            "max": 8,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "block",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a block beginning at 0 and ending at 6. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a block beginning at 0 and ending at 6. Find the distance between its endpoints."
         },
         {
           "id": "G2M_MD_001_LVL2_Q10",
@@ -1373,25 +1677,41 @@
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Find where the feather begins and ends on the centimeters ruler.",
+            "Strategy: Because it begins at zero, read the ending mark as its length. In the a feather starts at 0 and ends at 9 centimeters situation.",
+            "Verify: Check that 0 plus your measured length reaches the ending mark at 9. In the a feather starts at 0 and ends at 9 centimeters situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The feather is 9 centimeters because the endpoints are 9 cm apart.",
+          "explanation": "The feather begins at 0, so the endpoint 9 names its length: 9 centimeters.",
           "unit": "centimeters",
           "units": "centimeters",
           "length": 9,
           "object": "feather",
           "question_audio": {
-            "text": "A feather starts at 0 and ends at 9 centimeters. How long is it?",
+            "text": "A feather starts at 0 and ends at 9 centimeters. How long is it? Visual context: A ruler marked in centimeters by ones shows a feather beginning at 0 and ending at 9. Find the distance between its endpoints.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "start": 0,
+          "end": 9,
+          "measurement_structure": "zero-based-measurement",
+          "tick_interval": 1,
+          "ruler": {
+            "start": 0,
+            "end": 9,
+            "min": 0,
+            "max": 11,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "feather",
+            "measurement_structure": "zero-based-measurement"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a feather beginning at 0 and ending at 9. Find the distance between its endpoints.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a feather beginning at 0 and ending at 9. Find the distance between its endpoints."
         }
       ]
     },
@@ -1418,35 +1738,37 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size pencil and decide whether inches fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 7 cm, 70 inches, 1 inch. In the which is the best estimate for the length of a new pencil situation.",
+            "Verify: Ask whether 7 inches would be believable for this pencil in a classroom. In the which is the best estimate for the length of a new pencil situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 7 inches.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical pencil is closest to 7 inches; the other choices use an unsuitable unit or scale.",
           "options": [
-            "7 inches",
             "7 cm",
+            "7 inches",
             "70 inches",
             "1 inch"
           ],
           "choices": [
-            "7 inches",
             "7 cm",
+            "7 inches",
             "70 inches",
             "1 inch"
           ],
           "unit": "inches",
           "object": "pencil",
           "question_audio": {
-            "text": "Which is the best estimate for the length of a new pencil?",
+            "text": "Which is the best estimate for the length of a new pencil? Visual context: An illustration represents a pencil without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a pencil without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a pencil without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q2",
@@ -1463,35 +1785,37 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size paper clip and decide whether centimeters fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 3 cm, 3 inches, 30 inches. In the which is the best estimate for the width of a paper clip situation.",
+            "Verify: Ask whether 3 centimeters would be believable for this paper clip in a classroom. In the which is the best estimate for the width of a paper clip situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 3 centimeters.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical paper clip is closest to 3 centimeters; the other choices use an unsuitable unit or scale.",
           "options": [
             "3 cm",
-            "3 centimeters",
             "3 inches",
+            "3 centimeters",
             "30 inches"
           ],
           "choices": [
             "3 cm",
-            "3 centimeters",
             "3 inches",
+            "3 centimeters",
             "30 inches"
           ],
           "unit": "centimeters",
           "object": "paper clip",
           "question_audio": {
-            "text": "Which is the best estimate for the width of a paper clip?",
+            "text": "Which is the best estimate for the width of a paper clip? Visual context: An illustration represents a paper clip without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a paper clip without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a paper clip without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q3",
@@ -1508,35 +1832,37 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size door and decide whether inches fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 3 inches, 6 cm, 300 inches. In the a classroom door is about how many inches wide situation.",
+            "Verify: Ask whether 36 inches would be believable for this door in a classroom. In the a classroom door is about how many inches wide situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 36 inches.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical door is closest to 36 inches; the other choices use an unsuitable unit or scale.",
           "options": [
-            "36 inches",
             "3 inches",
             "6 cm",
-            "300 inches"
+            "300 inches",
+            "36 inches"
           ],
           "choices": [
-            "36 inches",
             "3 inches",
             "6 cm",
-            "300 inches"
+            "300 inches",
+            "36 inches"
           ],
           "unit": "inches",
           "object": "door",
           "question_audio": {
-            "text": "A classroom door is about how many inches wide?",
+            "text": "A classroom door is about how many inches wide? Visual context: An illustration represents a door without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a door without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a door without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q4",
@@ -1553,35 +1879,37 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size eraser and decide whether centimeters fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 4 cm, 4 inches, 40 inches. In the a small eraser is about how long situation.",
+            "Verify: Ask whether 4 centimeters would be believable for this eraser in a classroom. In the a small eraser is about how long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 4 centimeters.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical eraser is closest to 4 centimeters; the other choices use an unsuitable unit or scale.",
           "options": [
-            "4 cm",
             "4 centimeters",
+            "4 cm",
             "4 inches",
             "40 inches"
           ],
           "choices": [
-            "4 cm",
             "4 centimeters",
+            "4 cm",
             "4 inches",
             "40 inches"
           ],
           "unit": "centimeters",
           "object": "eraser",
           "question_audio": {
-            "text": "A small eraser is about how long?",
+            "text": "A small eraser is about how long? Visual context: An illustration represents a eraser without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a eraser without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a eraser without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q5",
@@ -1598,15 +1926,15 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size desk and decide whether centimeters fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 100 cm, 1 cm, 100 inches. In the a desk is about how many centimeters long situation.",
+            "Verify: Ask whether 100 centimeters would be believable for this desk in a classroom. In the a desk is about how many centimeters long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 100 centimeters.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical desk is closest to 100 centimeters; the other choices use an unsuitable unit or scale.",
           "options": [
             "100 cm",
             "100 centimeters",
@@ -1622,11 +1950,13 @@
           "unit": "centimeters",
           "object": "desk",
           "question_audio": {
-            "text": "A desk is about how many centimeters long?",
+            "text": "A desk is about how many centimeters long? Visual context: An illustration represents a desk without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a desk without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a desk without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q6",
@@ -1643,35 +1973,37 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size crayon and decide whether inches fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 40 inches, 4 cm, 1 inch. In the a crayon is about how many inches long situation.",
+            "Verify: Ask whether 4 inches would be believable for this crayon in a classroom. In the a crayon is about how many inches long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 4 inches.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical crayon is closest to 4 inches; the other choices use an unsuitable unit or scale.",
           "options": [
-            "4 inches",
             "40 inches",
             "4 cm",
+            "4 inches",
             "1 inch"
           ],
           "choices": [
-            "4 inches",
             "40 inches",
             "4 cm",
+            "4 inches",
             "1 inch"
           ],
           "unit": "inches",
           "object": "crayon",
           "question_audio": {
-            "text": "A crayon is about how many inches long?",
+            "text": "A crayon is about how many inches long? Visual context: An illustration represents a crayon without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a crayon without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a crayon without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q7",
@@ -1688,35 +2020,37 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size fingernail and decide whether centimeters fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 1 cm, 1 inch, 10 inches. In the a fingernail is about how many centimeters wide situation.",
+            "Verify: Ask whether 1 centimeters would be believable for this fingernail in a classroom. In the a fingernail is about how many centimeters wide situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 1 centimeters.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical fingernail is closest to 1 centimeters; the other choices use an unsuitable unit or scale.",
           "options": [
             "1 cm",
-            "1 centimeters",
             "1 inch",
-            "10 inches"
+            "10 inches",
+            "1 centimeters"
           ],
           "choices": [
             "1 cm",
-            "1 centimeters",
             "1 inch",
-            "10 inches"
+            "10 inches",
+            "1 centimeters"
           ],
           "unit": "centimeters",
           "object": "fingernail",
           "question_audio": {
-            "text": "A fingernail is about how many centimeters wide?",
+            "text": "A fingernail is about how many centimeters wide? Visual context: An illustration represents a fingernail without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a fingernail without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a fingernail without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q8",
@@ -1733,15 +2067,15 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size book and decide whether inches fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 1 inch, 110 inches, 11 cm. In the a book is about how many inches tall situation.",
+            "Verify: Ask whether 11 inches would be believable for this book in a classroom. In the a book is about how many inches tall situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 11 inches.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical book is closest to 11 inches; the other choices use an unsuitable unit or scale.",
           "options": [
             "11 inches",
             "1 inch",
@@ -1757,11 +2091,13 @@
           "unit": "inches",
           "object": "book",
           "question_audio": {
-            "text": "A book is about how many inches tall?",
+            "text": "A book is about how many inches tall? Visual context: An illustration represents a book without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a book without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a book without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q9",
@@ -1778,15 +2114,15 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size marker and decide whether centimeters fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 13 cm, 13 inches, 130 cm. In the a marker is about how many centimeters long situation.",
+            "Verify: Ask whether 13 centimeters would be believable for this marker in a classroom. In the a marker is about how many centimeters long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 13 centimeters.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical marker is closest to 13 centimeters; the other choices use an unsuitable unit or scale.",
           "options": [
             "13 cm",
             "13 centimeters",
@@ -1802,11 +2138,13 @@
           "unit": "centimeters",
           "object": "marker",
           "question_audio": {
-            "text": "A marker is about how many centimeters long?",
+            "text": "A marker is about how many centimeters long? Visual context: An illustration represents a marker without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a marker without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a marker without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         },
         {
           "id": "G2M_MD_001_LVL3_Q10",
@@ -1823,35 +2161,37 @@
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Picture the real-size paper strip and decide whether inches fit its size.",
+            "Strategy: Compare each choice with a familiar benchmark before choosing; the alternatives shown are 60 inches, 6 cm, 600 inches. In the a paper strip on a desk is about 6 inches situation.",
+            "Verify: Ask whether 6 inches would be believable for this paper strip in a classroom. In the a paper strip on a desk is about 6 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 6 inches.",
+          "explanation": "Estimation uses a known benchmark, not exact measuring. A typical paper strip is closest to 6 inches; the other choices use an unsuitable unit or scale.",
           "options": [
-            "6 inches",
             "60 inches",
             "6 cm",
+            "6 inches",
             "600 inches"
           ],
           "choices": [
-            "6 inches",
             "60 inches",
             "6 cm",
+            "6 inches",
             "600 inches"
           ],
           "unit": "inches",
           "object": "paper strip",
           "question_audio": {
-            "text": "A paper strip on a desk is about 6 inches. Which estimate is reasonable?",
+            "text": "A paper strip on a desk is about 6 inches. Which estimate is reasonable? Visual context: An illustration represents a paper strip without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An illustration represents a paper strip without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension.",
+          "accessible_description": "An illustration represents a paper strip without a measurement scale. Use familiar object size and the answer choices to estimate its requested dimension."
         }
       ]
     },
@@ -1878,22 +2218,27 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (9) and the shorter measurement (5) in inches.",
+            "Strategy: Subtract the shorter length from the longer length: 9 − 5. In the a red ribbon is 9 inches situation.",
+            "Verify: Add your difference to 5; it should rebuild the longer length, 9. In the a red ribbon is 9 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 4 inches.",
+          "explanation": "A length difference tells how much farther the longer object extends. 9 − 5 = 4, and 5 + 4 = 9, so the difference is 4 inches.",
           "unit": "inches",
           "question_audio": {
-            "text": "A red ribbon is 9 inches. A blue ribbon is 5 inches. How many inches longer is the red ribbon?",
+            "text": "A red ribbon is 9 inches. A blue ribbon is 5 inches. How many inches longer is the red ribbon? Visual context: A comparison model shows two differently sized objects labeled 9 and 5 inches. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 9,
+          "smaller_length": 5,
+          "difference": 4,
+          "visual_description": "A comparison model shows two differently sized objects labeled 9 and 5 inches. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 9 and 5 inches. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q2",
@@ -1910,22 +2255,27 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (14) and the shorter measurement (6) in centimeters.",
+            "Strategy: Subtract the shorter length from the longer length: 14 − 6. In the a pencil is 14 cm situation.",
+            "Verify: Add your difference to 6; it should rebuild the longer length, 14. In the a pencil is 14 cm situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 8 centimeters.",
+          "explanation": "A length difference tells how much farther the longer object extends. 14 − 6 = 8, and 6 + 8 = 14, so the difference is 8 centimeters.",
           "unit": "centimeters",
           "question_audio": {
-            "text": "A pencil is 14 cm. An eraser is 6 cm. What is the difference?",
+            "text": "A pencil is 14 cm. An eraser is 6 cm. What is the difference? Visual context: A comparison model shows two differently sized objects labeled 14 and 6 centimeters. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 14,
+          "smaller_length": 6,
+          "difference": 8,
+          "visual_description": "A comparison model shows two differently sized objects labeled 14 and 6 centimeters. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 14 and 6 centimeters. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q3",
@@ -1942,34 +2292,39 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (12) and the shorter measurement (7) in inches.",
+            "Strategy: Subtract the shorter length from the longer length: 12 − 7. In the a string is 12 inches and a strip is 7 inches situation.",
+            "Verify: Add your difference to 7; it should rebuild the longer length, 12. In the a string is 12 inches and a strip is 7 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 5 inches.",
+          "explanation": "A length difference tells how much farther the longer object extends. 12 − 7 = 5, and 7 + 5 = 12, so the difference is 5 inches.",
           "options": [
             "4",
-            "5",
             "6",
-            "15"
+            "15",
+            "5"
           ],
           "choices": [
             "4",
-            "5",
             "6",
-            "15"
+            "15",
+            "5"
           ],
           "unit": "inches",
           "question_audio": {
-            "text": "A string is 12 inches and a strip is 7 inches. How many inches shorter is the strip?",
+            "text": "A string is 12 inches and a strip is 7 inches. How many inches shorter is the strip? Visual context: A comparison model shows two differently sized objects labeled 12 and 7 inches. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 12,
+          "smaller_length": 7,
+          "difference": 5,
+          "visual_description": "A comparison model shows two differently sized objects labeled 12 and 7 inches. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 12 and 7 inches. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q4",
@@ -1986,22 +2341,27 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (11) and the shorter measurement (8) in centimeters.",
+            "Strategy: Subtract the shorter length from the longer length: 11 − 8. In the a leaf is 8 cm and a twig is 11 cm situation.",
+            "Verify: Add your difference to 8; it should rebuild the longer length, 11. In the a leaf is 8 cm and a twig is 11 cm situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 3 centimeters.",
+          "explanation": "A length difference tells how much farther the longer object extends. 11 − 8 = 3, and 8 + 3 = 11, so the difference is 3 centimeters.",
           "unit": "centimeters",
           "question_audio": {
-            "text": "A leaf is 8 cm and a twig is 11 cm. How many centimeters longer is the twig?",
+            "text": "A leaf is 8 cm and a twig is 11 cm. How many centimeters longer is the twig? Visual context: A comparison model shows two differently sized objects labeled 11 and 8 centimeters. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 11,
+          "smaller_length": 8,
+          "difference": 3,
+          "visual_description": "A comparison model shows two differently sized objects labeled 11 and 8 centimeters. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 11 and 8 centimeters. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q5",
@@ -2018,22 +2378,27 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (10) and the shorter measurement (8) in inches.",
+            "Strategy: Subtract the shorter length from the longer length: 10 − 8. In the a book is 10 inches tall situation.",
+            "Verify: Add your difference to 8; it should rebuild the longer length, 10. In the a book is 10 inches tall situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 2 inches.",
+          "explanation": "A length difference tells how much farther the longer object extends. 10 − 8 = 2, and 8 + 2 = 10, so the difference is 2 inches.",
           "unit": "inches",
           "question_audio": {
-            "text": "A book is 10 inches tall. A notebook is 8 inches tall. What is the difference?",
+            "text": "A book is 10 inches tall. A notebook is 8 inches tall. What is the difference? Visual context: A comparison model shows two differently sized objects labeled 10 and 8 inches. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 10,
+          "smaller_length": 8,
+          "difference": 2,
+          "visual_description": "A comparison model shows two differently sized objects labeled 10 and 8 inches. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 10 and 8 inches. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q6",
@@ -2050,34 +2415,39 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (13) and the shorter measurement (9) in centimeters.",
+            "Strategy: Subtract the shorter length from the longer length: 13 − 9. In the a marker is 13 cm situation.",
+            "Verify: Add your difference to 9; it should rebuild the longer length, 13. In the a marker is 13 cm situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 4 centimeters.",
+          "explanation": "A length difference tells how much farther the longer object extends. 13 − 9 = 4, and 9 + 4 = 13, so the difference is 4 centimeters.",
           "options": [
-            "3",
             "4",
+            "3",
             "5",
             "14"
           ],
           "choices": [
-            "3",
             "4",
+            "3",
             "5",
             "14"
           ],
           "unit": "centimeters",
           "question_audio": {
-            "text": "A marker is 13 cm. A crayon is 9 cm. How many centimeters longer is the marker?",
+            "text": "A marker is 13 cm. A crayon is 9 cm. How many centimeters longer is the marker? Visual context: A comparison model shows two differently sized objects labeled 13 and 9 centimeters. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 13,
+          "smaller_length": 9,
+          "difference": 4,
+          "visual_description": "A comparison model shows two differently sized objects labeled 13 and 9 centimeters. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 13 and 9 centimeters. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q7",
@@ -2094,22 +2464,27 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (15) and the shorter measurement (6) in inches.",
+            "Strategy: Subtract the shorter length from the longer length: 15 − 6. In the a toy train is 15 inches situation.",
+            "Verify: Add your difference to 6; it should rebuild the longer length, 15. In the a toy train is 15 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 9 inches.",
+          "explanation": "A length difference tells how much farther the longer object extends. 15 − 6 = 9, and 6 + 9 = 15, so the difference is 9 inches.",
           "unit": "inches",
           "question_audio": {
-            "text": "A toy train is 15 inches. A toy car is 6 inches. How much longer is the train?",
+            "text": "A toy train is 15 inches. A toy car is 6 inches. How much longer is the train? Visual context: A comparison model shows two differently sized objects labeled 15 and 6 inches. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 15,
+          "smaller_length": 6,
+          "difference": 9,
+          "visual_description": "A comparison model shows two differently sized objects labeled 15 and 6 inches. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 15 and 6 inches. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q8",
@@ -2126,22 +2501,27 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (18) and the shorter measurement (12) in centimeters.",
+            "Strategy: Subtract the shorter length from the longer length: 18 − 12. In the a ribbon is 18 cm situation.",
+            "Verify: Add your difference to 12; it should rebuild the longer length, 18. In the a ribbon is 18 cm situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 6 centimeters.",
+          "explanation": "A length difference tells how much farther the longer object extends. 18 − 12 = 6, and 12 + 6 = 18, so the difference is 6 centimeters.",
           "unit": "centimeters",
           "question_audio": {
-            "text": "A ribbon is 18 cm. Another ribbon is 12 cm. What is the length difference?",
+            "text": "A ribbon is 18 cm. Another ribbon is 12 cm. What is the length difference? Visual context: A comparison model shows two differently sized objects labeled 18 and 12 centimeters. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 18,
+          "smaller_length": 12,
+          "difference": 6,
+          "visual_description": "A comparison model shows two differently sized objects labeled 18 and 12 centimeters. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 18 and 12 centimeters. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q9",
@@ -2158,15 +2538,15 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (9) and the shorter measurement (7) in inches.",
+            "Strategy: Subtract the shorter length from the longer length: 9 − 7. In the a card is 7 inches situation.",
+            "Verify: Add your difference to 7; it should rebuild the longer length, 9. In the a card is 7 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 2 inches.",
+          "explanation": "A length difference tells how much farther the longer object extends. 9 − 7 = 2, and 7 + 2 = 9, so the difference is 2 inches.",
           "options": [
             "1",
             "2",
@@ -2181,11 +2561,16 @@
           ],
           "unit": "inches",
           "question_audio": {
-            "text": "A card is 7 inches. An envelope is 9 inches. How many inches shorter is the card?",
+            "text": "A card is 7 inches. An envelope is 9 inches. How many inches shorter is the card? Visual context: A comparison model shows two differently sized objects labeled 9 and 7 inches. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 9,
+          "smaller_length": 7,
+          "difference": 2,
+          "visual_description": "A comparison model shows two differently sized objects labeled 9 and 7 inches. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 9 and 7 inches. Find how much longer or shorter one is."
         },
         {
           "id": "G2M_MD_001_LVL4_Q10",
@@ -2202,22 +2587,27 @@
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Identify the longer measurement (10) and the shorter measurement (5) in centimeters.",
+            "Strategy: Subtract the shorter length from the longer length: 10 − 5. In the a shell is 5 cm situation.",
+            "Verify: Add your difference to 5; it should rebuild the longer length, 10. In the a shell is 5 cm situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 5 centimeters.",
+          "explanation": "A length difference tells how much farther the longer object extends. 10 − 5 = 5, and 5 + 5 = 10, so the difference is 5 centimeters.",
           "unit": "centimeters",
           "question_audio": {
-            "text": "A shell is 5 cm. A feather is 10 cm. How many centimeters longer is the feather?",
+            "text": "A shell is 5 cm. A feather is 10 cm. How many centimeters longer is the feather? Visual context: A comparison model shows two differently sized objects labeled 10 and 5 centimeters. Find how much longer or shorter one is.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 10,
+          "smaller_length": 5,
+          "difference": 5,
+          "visual_description": "A comparison model shows two differently sized objects labeled 10 and 5 centimeters. Find how much longer or shorter one is.",
+          "accessible_description": "A comparison model shows two differently sized objects labeled 10 and 5 centimeters. Find how much longer or shorter one is."
         }
       ]
     },
@@ -2234,383 +2624,459 @@
           "question_id": "G2M_MD_001_MIXED_Q1",
           "question_type": "short_response",
           "visual_model": "ruler",
-          "prompt": "A pencil starts at 0 and ends at 5 inches. How long is the pencil?",
-          "answer": "5",
-          "correct_answer": "5",
+          "prompt": "A bookmark begins at 3 inches and ends at 10 inches. How long is it?",
+          "answer": "7",
+          "correct_answer": "7",
           "acceptable_answers": [
-            "5",
-            "5 inches",
-            "5 in"
+            "7",
+            "7 inches",
+            "7 in"
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Locate both endpoints of the bookmark; it does not start at zero.",
+            "Strategy: Find the interval by subtracting the start, 3, from the end, 10. In the a bookmark begins at 3 inches and ends at 10 inches situation.",
+            "Verify: Add your result to 3 and confirm that you land on 10. In the a bookmark begins at 3 inches and ends at 10 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The pencil is 5 inches.",
+          "explanation": "An off-zero measurement is the distance between endpoints: 10 − 3 = 7 inches.",
           "unit": "inches",
-          "units": "inches",
-          "length": 5,
-          "object": "pencil",
+          "object": "bookmark",
           "question_audio": {
-            "text": "A pencil starts at 0 and ends at 5 inches. How long is the pencil?",
+            "text": "A bookmark begins at 3 inches and ends at 10 inches. How long is it? Visual context: A ruler marked in inches by ones shows a bookmark from 3 to 10. Determine the distance between those marks.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "length": 7,
+          "units": "inches",
+          "start": 3,
+          "end": 10,
+          "tick_interval": 1,
+          "measurement_structure": "off-zero-interval",
+          "ruler": {
+            "start": 3,
+            "end": 10,
+            "min": 0,
+            "max": 12,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "bookmark",
+            "measurement_structure": "off-zero-interval"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a bookmark from 3 to 10. Determine the distance between those marks.",
+          "accessible_description": "A ruler marked in inches by ones shows a bookmark from 3 to 10. Determine the distance between those marks."
         },
         {
           "id": "G2M_MD_001_MIXED_Q2",
           "question_id": "G2M_MD_001_MIXED_Q2",
           "question_type": "short_response",
           "visual_model": "ruler",
-          "prompt": "A crayon is lined up from 0 to 4 inches. How long is it?",
-          "answer": "4",
-          "correct_answer": "4",
+          "prompt": "A seed packet begins at 4 centimeters and ends at 13 centimeters. What is its length?",
+          "answer": "9",
+          "correct_answer": "9",
           "acceptable_answers": [
-            "4",
-            "4 inches",
-            "4 in"
+            "9",
+            "9 centimeters",
+            "9 cm"
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Locate both endpoints of the seed packet; it does not start at zero.",
+            "Strategy: Find the interval by subtracting the start, 4, from the end, 13. In the a seed packet begins at 4 centimeters and ends at 13 centimeters situation.",
+            "Verify: Add your result to 4 and confirm that you land on 13. In the a seed packet begins at 4 centimeters and ends at 13 centimeters situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The crayon is 4 inches.",
-          "unit": "inches",
-          "units": "inches",
-          "length": 4,
-          "object": "crayon",
+          "explanation": "An off-zero measurement is the distance between endpoints: 13 − 4 = 9 centimeters.",
+          "unit": "centimeters",
+          "object": "seed packet",
           "question_audio": {
-            "text": "A crayon is lined up from 0 to 4 inches. How long is it?",
+            "text": "A seed packet begins at 4 centimeters and ends at 13 centimeters. What is its length? Visual context: A ruler marked in centimeters by ones shows a seed packet from 4 to 13. Determine the distance between those marks.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "length": 9,
+          "units": "centimeters",
+          "start": 4,
+          "end": 13,
+          "tick_interval": 1,
+          "measurement_structure": "off-zero-interval",
+          "ruler": {
+            "start": 4,
+            "end": 13,
+            "min": 0,
+            "max": 15,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "seed packet",
+            "measurement_structure": "off-zero-interval"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a seed packet from 4 to 13. Determine the distance between those marks.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a seed packet from 4 to 13. Determine the distance between those marks."
         },
         {
           "id": "G2M_MD_001_MIXED_Q3",
           "question_id": "G2M_MD_001_MIXED_Q3",
-          "question_type": "short_response",
-          "visual_model": "ruler",
-          "prompt": "A glue stick starts at 0 and ends at 8 centimeters. How long is it?",
-          "answer": "8",
-          "correct_answer": "8",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "Maya estimates the width of a lunch tray. Which estimate is most reasonable?",
+          "answer": "12 inches",
+          "correct_answer": "12 inches",
           "acceptable_answers": [
-            "8",
-            "8 centimeters",
-            "8 cm"
+            "12",
+            "12 inches",
+            "12 in"
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Use the pictured lunch tray and decide which unit and size are realistic.",
+            "Strategy: Compare each choice with a familiar real-world benchmark for a lunch tray. In the maya estimates the width of a lunch tray situation.",
+            "Verify: Imagine the chosen length beside the real object and reject choices that are far too small or large. In the maya estimates the width of a lunch tray situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The glue stick is 8 centimeters because the endpoints are 8 cm apart.",
-          "unit": "centimeters",
-          "units": "centimeters",
-          "length": 8,
-          "object": "glue stick",
+          "explanation": "A reasonable estimate matches both the unit and the usual size. 12 inches is a sensible real-world measurement for this lunch tray.",
+          "unit": "inches",
+          "object": "lunch tray",
           "question_audio": {
-            "text": "A glue stick starts at 0 and ends at 8 centimeters. How long is it?",
+            "text": "Maya estimates the width of a lunch tray. Which estimate is most reasonable? Visual context: An unscaled picture shows a lunch tray. Choose a reasonable estimate for the dimension named in the question.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "options": [
+            "12 centimeters",
+            "1 inch",
+            "12 inches",
+            "120 inches"
+          ],
+          "visual_description": "An unscaled picture shows a lunch tray. Choose a reasonable estimate for the dimension named in the question.",
+          "accessible_description": "An unscaled picture shows a lunch tray. Choose a reasonable estimate for the dimension named in the question.",
+          "choices": [
+            "12 centimeters",
+            "1 inch",
+            "12 inches",
+            "120 inches"
+          ]
         },
         {
           "id": "G2M_MD_001_MIXED_Q4",
           "question_id": "G2M_MD_001_MIXED_Q4",
           "question_type": "short_response",
-          "visual_model": "ruler",
-          "prompt": "An eraser is 5 centimeters long. What length should you record?",
-          "answer": "5",
-          "correct_answer": "5",
+          "visual_model": "measurement_comparison",
+          "prompt": "A kite tail is 16 inches long. A handle strap is 9 inches long. How many inches longer is the kite tail?",
+          "answer": "7",
+          "correct_answer": "7",
           "acceptable_answers": [
-            "5",
-            "5 centimeters",
-            "5 cm"
+            "7",
+            "7 inches",
+            "7 in"
           ],
           "misconception_tag": "unit_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Compare the 16-inche and 9-inche lengths.",
+            "Strategy: Subtract the smaller measurement, 9, from the larger, 16. In the a kite tail is 16 inches long situation.",
+            "Verify: Add 7 to 9 to check that it equals 16. In the a kite tail is 16 inches long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "The eraser is 5 centimeters because the endpoints are 5 cm apart.",
-          "unit": "centimeters",
-          "units": "centimeters",
-          "length": 5,
-          "object": "eraser",
+          "explanation": "Difference measures the extra length: 16 − 9 = 7 inches; addition checks the comparison.",
+          "unit": "inches",
+          "object": "kite tail",
           "question_audio": {
-            "text": "An eraser is 5 centimeters long. What length should you record?",
+            "text": "A kite tail is 16 inches long. A handle strap is 9 inches long. How many inches longer is the kite tail? Visual context: A comparison visual represents kite tail and another object with lengths 16 and 9 inches. Find the difference between them.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 16,
+          "smaller_length": 9,
+          "difference": 7,
+          "visual_description": "A comparison visual represents kite tail and another object with lengths 16 and 9 inches. Find the difference between them.",
+          "accessible_description": "A comparison visual represents kite tail and another object with lengths 16 and 9 inches. Find the difference between them."
         },
         {
           "id": "G2M_MD_001_MIXED_Q5",
           "question_id": "G2M_MD_001_MIXED_Q5",
           "question_type": "multiple_choice",
           "visual_model": "visual_objects",
-          "prompt": "Which is the best estimate for the length of a new pencil?",
-          "answer": "7 inches",
-          "correct_answer": "7 inches",
+          "prompt": "Which estimate is most reasonable for the length of a child’s shoe?",
+          "answer": "20 centimeters",
+          "correct_answer": "20 centimeters",
           "acceptable_answers": [
-            "7",
-            "7 inches",
-            "7 in"
+            "20",
+            "20 centimeters",
+            "20 cm"
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Use the pictured child’s shoe and decide which unit and size are realistic.",
+            "Strategy: Compare each choice with a familiar real-world benchmark for a child’s shoe. In the which estimate is most reasonable for the length of a child’s shoe situation.",
+            "Verify: Imagine the chosen length beside the real object and reject choices that are far too small or large. In the which estimate is most reasonable for the length of a child’s shoe situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 7 inches.",
-          "options": [
-            "7 inches",
-            "7 cm",
-            "70 inches",
-            "1 inch"
-          ],
-          "choices": [
-            "7 inches",
-            "7 cm",
-            "70 inches",
-            "1 inch"
-          ],
-          "unit": "inches",
-          "object": "pencil",
+          "explanation": "A reasonable estimate matches both the unit and the usual size. 20 centimeters is a sensible real-world measurement for this child’s shoe.",
+          "unit": "centimeters",
+          "object": "child’s shoe",
           "question_audio": {
-            "text": "Which is the best estimate for the length of a new pencil?",
+            "text": "Which estimate is most reasonable for the length of a child’s shoe? Visual context: An unscaled picture shows a child’s shoe. Choose a reasonable estimate for the dimension named in the question.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "options": [
+            "2 centimeters",
+            "20 inches",
+            "200 centimeters",
+            "20 centimeters"
+          ],
+          "visual_description": "An unscaled picture shows a child’s shoe. Choose a reasonable estimate for the dimension named in the question.",
+          "accessible_description": "An unscaled picture shows a child’s shoe. Choose a reasonable estimate for the dimension named in the question.",
+          "choices": [
+            "2 centimeters",
+            "20 inches",
+            "200 centimeters",
+            "20 centimeters"
+          ]
         },
         {
           "id": "G2M_MD_001_MIXED_Q6",
           "question_id": "G2M_MD_001_MIXED_Q6",
-          "question_type": "multiple_choice",
-          "visual_model": "visual_objects",
-          "prompt": "Which is the best estimate for the width of a paper clip?",
-          "answer": "3 centimeters",
-          "correct_answer": "3 centimeters",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "A garden label is 17 centimeters long and a plant tag is 8 centimeters long. What is their length difference?",
+          "answer": "9",
+          "correct_answer": "9",
           "acceptable_answers": [
-            "3",
-            "3 centimeters",
-            "3 cm"
+            "9",
+            "9 centimeters",
+            "9 cm"
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Compare the 17-centimeter and 8-centimeter lengths.",
+            "Strategy: Subtract the smaller measurement, 8, from the larger, 17. In the a garden label is 17 centimeters long and a plant tag is 8 centimeters long situation.",
+            "Verify: Add 9 to 8 to check that it equals 17. In the a garden label is 17 centimeters long and a plant tag is 8 centimeters long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 3 centimeters.",
-          "options": [
-            "3 cm",
-            "3 centimeters",
-            "3 inches",
-            "30 inches"
-          ],
-          "choices": [
-            "3 cm",
-            "3 centimeters",
-            "3 inches",
-            "30 inches"
-          ],
+          "explanation": "Difference measures the extra length: 17 − 8 = 9 centimeters; addition checks the comparison.",
           "unit": "centimeters",
-          "object": "paper clip",
+          "object": "garden label",
           "question_audio": {
-            "text": "Which is the best estimate for the width of a paper clip?",
+            "text": "A garden label is 17 centimeters long and a plant tag is 8 centimeters long. What is their length difference? Visual context: A comparison visual represents garden label and another object with lengths 17 and 8 centimeters. Find the difference between them.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "larger_length": 17,
+          "smaller_length": 8,
+          "difference": 9,
+          "visual_description": "A comparison visual represents garden label and another object with lengths 17 and 8 centimeters. Find the difference between them.",
+          "accessible_description": "A comparison visual represents garden label and another object with lengths 17 and 8 centimeters. Find the difference between them."
         },
         {
           "id": "G2M_MD_001_MIXED_Q7",
           "question_id": "G2M_MD_001_MIXED_Q7",
-          "question_type": "multiple_choice",
-          "visual_model": "visual_objects",
-          "prompt": "A classroom door is about how many inches wide?",
-          "answer": "36 inches",
-          "correct_answer": "36 inches",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A photo frame edge starts at 2 inches and ends at 11 inches. How long is the edge?",
+          "answer": "9",
+          "correct_answer": "9",
           "acceptable_answers": [
-            "36",
-            "36 inches",
-            "36 in"
+            "9",
+            "9 inches",
+            "9 in"
           ],
           "misconception_tag": "estimate_error",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Locate both endpoints of the photo frame edge; it does not start at zero.",
+            "Strategy: Find the interval by subtracting the start, 2, from the end, 11. In the a photo frame edge starts at 2 inches and ends at 11 inches situation.",
+            "Verify: Add your result to 2 and confirm that you land on 11. In the a photo frame edge starts at 2 inches and ends at 11 inches situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "A reasonable estimate is 36 inches.",
-          "options": [
-            "36 inches",
-            "3 inches",
-            "6 cm",
-            "300 inches"
-          ],
-          "choices": [
-            "36 inches",
-            "3 inches",
-            "6 cm",
-            "300 inches"
-          ],
+          "explanation": "An off-zero measurement is the distance between endpoints: 11 − 2 = 9 inches.",
           "unit": "inches",
-          "object": "door",
+          "object": "photo frame edge",
           "question_audio": {
-            "text": "A classroom door is about how many inches wide?",
+            "text": "A photo frame edge starts at 2 inches and ends at 11 inches. How long is the edge? Visual context: A ruler marked in inches by ones shows a photo frame edge from 2 to 11. Determine the distance between those marks.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "length": 9,
+          "units": "inches",
+          "start": 2,
+          "end": 11,
+          "tick_interval": 1,
+          "measurement_structure": "off-zero-interval",
+          "ruler": {
+            "start": 2,
+            "end": 11,
+            "min": 0,
+            "max": 13,
+            "tick_interval": 1,
+            "unit": "inches",
+            "object": "photo frame edge",
+            "measurement_structure": "off-zero-interval"
+          },
+          "visual_description": "A ruler marked in inches by ones shows a photo frame edge from 2 to 11. Determine the distance between those marks.",
+          "accessible_description": "A ruler marked in inches by ones shows a photo frame edge from 2 to 11. Determine the distance between those marks."
         },
         {
           "id": "G2M_MD_001_MIXED_Q8",
           "question_id": "G2M_MD_001_MIXED_Q8",
-          "question_type": "short_response",
-          "visual_model": "measurement_comparison",
-          "prompt": "A red ribbon is 9 inches. A blue ribbon is 5 inches. How many inches longer is the red ribbon?",
-          "answer": "4",
-          "correct_answer": "4",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "Noah estimates the height of a water bottle. Which estimate is most reasonable?",
+          "answer": "24 centimeters",
+          "correct_answer": "24 centimeters",
           "acceptable_answers": [
-            "4",
-            "4 inches",
-            "4 in"
+            "24",
+            "24 centimeters",
+            "24 cm"
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Use the pictured water bottle and decide which unit and size are realistic.",
+            "Strategy: Compare each choice with a familiar real-world benchmark for a water bottle. In the noah estimates the height of a water bottle situation.",
+            "Verify: Imagine the chosen length beside the real object and reject choices that are far too small or large. In the noah estimates the height of a water bottle situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 4 inches.",
-          "unit": "inches",
+          "explanation": "A reasonable estimate matches both the unit and the usual size. 24 centimeters is a sensible real-world measurement for this water bottle.",
+          "unit": "centimeters",
           "question_audio": {
-            "text": "A red ribbon is 9 inches. A blue ribbon is 5 inches. How many inches longer is the red ribbon?",
+            "text": "Noah estimates the height of a water bottle. Which estimate is most reasonable? Visual context: An unscaled picture shows a water bottle. Choose a reasonable estimate for the dimension named in the question.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "object": "water bottle",
+          "options": [
+            "24 centimeters",
+            "24 inches",
+            "240 centimeters",
+            "2 centimeters"
+          ],
+          "visual_description": "An unscaled picture shows a water bottle. Choose a reasonable estimate for the dimension named in the question.",
+          "accessible_description": "An unscaled picture shows a water bottle. Choose a reasonable estimate for the dimension named in the question.",
+          "choices": [
+            "24 centimeters",
+            "24 inches",
+            "240 centimeters",
+            "2 centimeters"
+          ]
         },
         {
           "id": "G2M_MD_001_MIXED_Q9",
           "question_id": "G2M_MD_001_MIXED_Q9",
           "question_type": "short_response",
-          "visual_model": "number_line",
-          "prompt": "A pencil is 14 cm. An eraser is 6 cm. What is the difference?",
+          "visual_model": "measurement_comparison",
+          "prompt": "A model bridge is 19 inches long. A model boat is 11 inches long. How many inches longer is the bridge?",
           "answer": "8",
           "correct_answer": "8",
           "acceptable_answers": [
             "8",
-            "8 centimeters",
-            "8 cm"
+            "8 inches",
+            "8 in"
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Compare the 19-inche and 11-inche lengths.",
+            "Strategy: Subtract the smaller measurement, 11, from the larger, 19. In the a model bridge is 19 inches long situation.",
+            "Verify: Add 8 to 11 to check that it equals 19. In the a model bridge is 19 inches long situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 8 centimeters.",
-          "unit": "centimeters",
+          "explanation": "Difference measures the extra length: 19 − 11 = 8 inches; addition checks the comparison.",
+          "unit": "inches",
           "question_audio": {
-            "text": "A pencil is 14 cm. An eraser is 6 cm. What is the difference?",
+            "text": "A model bridge is 19 inches long. A model boat is 11 inches long. How many inches longer is the bridge? Visual context: A comparison visual represents model bridge and another object with lengths 19 and 11 inches. Find the difference between them.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "object": "model bridge",
+          "larger_length": 19,
+          "smaller_length": 11,
+          "difference": 8,
+          "visual_description": "A comparison visual represents model bridge and another object with lengths 19 and 11 inches. Find the difference between them.",
+          "accessible_description": "A comparison visual represents model bridge and another object with lengths 19 and 11 inches. Find the difference between them."
         },
         {
           "id": "G2M_MD_001_MIXED_Q10",
           "question_id": "G2M_MD_001_MIXED_Q10",
-          "question_type": "multiple_choice",
-          "visual_model": "measurement_comparison",
-          "prompt": "A string is 12 inches and a strip is 7 inches. How many inches shorter is the strip?",
-          "answer": "5",
-          "correct_answer": "5",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A name tag begins at 5 centimeters and ends at 11 centimeters. What is its length?",
+          "answer": "6",
+          "correct_answer": "6",
           "acceptable_answers": [
-            "5",
-            "5 inches",
-            "5 in"
+            "6",
+            "6 centimeters",
+            "6 cm"
           ],
           "misconception_tag": "length_difference_confusion",
           "hints": [
-            "Line up the object at 0.",
-            "Use the unit named in the question.",
-            "For differences, subtract the shorter length from the longer length."
+            "Focus: Locate both endpoints of the name tag; it does not start at zero.",
+            "Strategy: Find the interval by subtracting the start, 5, from the end, 11. In the a name tag begins at 5 centimeters and ends at 11 centimeters situation.",
+            "Verify: Add your result to 5 and confirm that you land on 11. In the a name tag begins at 5 centimeters and ends at 11 centimeters situation."
           ],
           "feedback": {
-            "correct": "Nice strategy!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your measurement reasoning is on track.",
+            "incorrect": "Recheck the visual, the unit, and each measurement step."
           },
-          "explanation": "Find the difference by subtracting the shorter length from the longer length: 5 inches.",
-          "options": [
-            "4",
-            "5",
-            "6",
-            "15"
-          ],
-          "choices": [
-            "4",
-            "5",
-            "6",
-            "15"
-          ],
-          "unit": "inches",
+          "explanation": "An off-zero measurement is the distance between endpoints: 11 − 5 = 6 centimeters.",
+          "unit": "centimeters",
           "question_audio": {
-            "text": "A string is 12 inches and a strip is 7 inches. How many inches shorter is the strip?",
+            "text": "A name tag begins at 5 centimeters and ends at 11 centimeters. What is its length? Visual context: A ruler marked in centimeters by ones shows a name tag from 5 to 11. Determine the distance between those marks.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "object": "name tag",
+          "length": 6,
+          "units": "centimeters",
+          "start": 5,
+          "end": 11,
+          "tick_interval": 1,
+          "measurement_structure": "off-zero-interval",
+          "ruler": {
+            "start": 5,
+            "end": 11,
+            "min": 0,
+            "max": 13,
+            "tick_interval": 1,
+            "unit": "centimeters",
+            "object": "name tag",
+            "measurement_structure": "off-zero-interval"
+          },
+          "visual_description": "A ruler marked in centimeters by ones shows a name tag from 5 to 11. Determine the distance between those marks.",
+          "accessible_description": "A ruler marked in centimeters by ones shows a name tag from 5 to 11. Determine the distance between those marks."
         }
       ]
     }
