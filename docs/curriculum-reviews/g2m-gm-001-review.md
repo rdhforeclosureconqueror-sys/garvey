@@ -2,53 +2,63 @@
 
 ## Executive Summary
 
-**Publication decision: blocked by shared infrastructure.** The audit selected exactly `G2M_GM_001`, the next approved Grade 2 Math package, and confirmed its canonical inventory of five banks with ten activities each. Required visual validation of the first canonical activity, `G2M_GM_001_LVL1_Q1`, immediately exposed a reusable defect in the production `shape_identification` renderer. The activity asks the learner to identify the shape with three sides, but the visual's accessible label says **“triangle shape model”** and its visible caption begins **“triangle model.”** Both reveal the authored answer before the learner responds.
+**Publication decision: blocked by shared infrastructure.** This audit restarted at the first canonical activity and treated no earlier curriculum finding as valid. The repaired production `shape_identification` renderer passed its package-specific answer-safety regression. Review then proceeded in canonical order through all 20 activities in Levels 1 and 2 and the first seven activities in Level 3. Rendering `G2M_GM_001_LVL3_Q7` exposed a different reusable defect in the production `partition_shapes` renderer: the visible model is correctly marked and drawn as unequal, while its accessible label falsely says the parts are equal.
 
-The same defect occurs through the production visual registry and the production question-card path. Under the audit's fail-closed stop rule, review stopped immediately. No curriculum content was rewritten, and this document does not claim a completed audit of all 50 activities.
+The conflict changes the mathematical fact presented to a screen-reader learner and undermines the assessed distinction between equal and unequal shares. Under the required fail-closed rule, the audit stopped immediately at activity 27 of 50. No curriculum JSON or shared infrastructure was modified. This document and a package-specific failing regression are the only audit changes.
 
 ## Educational Review
 
-Only the package inventory and the first activity were reached before the mandatory stop. The first prompt uses Grade 2 vocabulary and asks about a defining attribute, but its instructional validity is defeated by the visual giving the answer. Educational quality, progression, duplication, hints, and explanations across the remaining activities were not certified.
+The audit reviewed Levels 1 and 2 completely and reached `G2M_GM_001_LVL3_Q7` in Level 3. The reviewed sequence moves from naming common two- and three-dimensional figures to reasoning about defining attributes and then equal shares. The reviewed mathematics and answer keys are correct. Prompts use generally appropriate Grade 2 vocabulary.
+
+Several curriculum-quality opportunities were observed—including generic hint ladders and terse explanations—but they were not finalized or edited because the shared infrastructure blocker requires an immediate stop. Activities 28–50, full progression, duplication, and Mixed transfer are not certified.
 
 ## Mathematical Review
 
-The blocking activity's authored relationship is mathematically correct: a triangle has three sides, and `triangle` is its authored answer. Full recomputation of every geometry relationship and every authored answer was not completed after the shared-renderer defect triggered the required stop.
+Authored answers through `G2M_GM_001_LVL3_Q7` were recomputed and found mathematically correct. In the blocking activity, three regions are not thirds when one region is larger because thirds must be equal shares; the authored answer `no` and `equal: false` are correct.
 
-## Mixed Review
-
-The Mixed bank exists with ten canonical activities. Authentic transfer, focused-context reuse, prompt duplication, hint-ladder reuse, and explanation reuse were not certified because the audit stopped during the first focused activity's production rendering.
+The production rendering is mathematically inconsistent across modalities. Its visible class is `shares-3 unequal`, but its `aria-label` describes “1 of 3 equal parts shaded.” A learner using the accessible name therefore receives a false statement that directly contradicts both the visual and the concept under assessment.
 
 ## Visual Review
 
-`G2M_GM_001_LVL1_Q1` selects the intended `shape_identification` renderer with no fallback or placeholder. However, the shared renderer derives the shape name from `question.shape` and emits it in both the `aria-label` and visible caption. For an identification prompt whose correct answer is the same shape name, that behavior is direct answer leakage.
+All production visuals for the first 27 canonical activities were rendered through the production visual registry. Activities 1–20 selected the repaired `shape_identification` renderer without fallback, placeholder output, or shape-name answer leakage. The first six partition activities selected `partition_shapes` and represented their authored equal shares consistently.
 
-The package-specific blocker regression exercises both required production paths and fails until the shared renderer stops exposing the unknown shape name. The full fail-closed package presentation and remaining 49 activities were not audited after the stop condition. Shared renderer code was deliberately not modified in this curriculum change.
+`G2M_GM_001_LVL3_Q7` also selects `partition_shapes` and visibly renders an unequal three-part rectangle. However, the shared renderer's accessible label is hard-coded to describe the shaded regions as equal. Because this behavior belongs to a reusable renderer rather than package-authored prose, it is a shared infrastructure defect and must be repaired in a dedicated infrastructure PR.
 
 ## Accessibility Review
 
-The shared visual's accessible name reveals `triangle`, the answer being assessed. That makes the first activity inaccessible as an answer-safe assessment even before auditing the package-authored `visual_description`, `accessible_description`, and Read Question audio fields. Accessibility completeness for the package was not certified.
+The reviewed activities include `question_audio` with the label `Read Question`, type `question`, cached-audio-first preference, and text matching each prompt. The repaired shape renderer provides answer-safe accessible naming for the reviewed shape activities.
+
+Accessibility certification fails at `G2M_GM_001_LVL3_Q7`. Sighted learners receive unequal regions, while screen-reader learners are told the regions are equal. This is neither equivalent access nor mathematically safe alternative text. Review of the remaining 23 activities and their Read Question audio stopped as required.
+
+## Mixed Review
+
+The Mixed bank exists with ten canonical activities, but it was not reached after the reusable infrastructure defect triggered the immediate-stop rule. Mixed transfer, duplication against focused banks, answer safety, visuals, accessibility, and audio are not certified.
+
+## Curriculum Changes
+
+None. The package JSON was deliberately left unchanged. Potential prompt, hint, explanation, progression, and duplication improvements remain unimplemented until the shared renderer is repaired and the package audit can restart from the beginning.
 
 ## Regression Tests
 
-The package-specific regression verifies package identity, exact level-bank identities, 50 canonical activities, unique matching IDs, and production schema validity. Its blocker assertion renders the first activity through the production visual registry and production question-card renderer, verifies selection of `shape_identification`, and rejects the answer-bearing accessible label and caption. The assertion is intentionally red while the shared defect remains.
+The package-specific regression retains guards for exact package identity, five canonical ten-item banks, 50 unique matching IDs, production schema validity, and repaired shape-identification answer safety. A new focused assertion renders `G2M_GM_001_LVL3_Q7` through the production visual registry, confirms the intended visibly unequal model, rejects an accessible label that calls the regions equal, and requires the accessible label to identify the inequality.
 
-## Files Changed
+The new assertion is intentionally red. It is scoped to this package and provides a reproducible handoff for a dedicated shared-infrastructure PR.
 
-- `docs/curriculum-reviews/g2m-gm-001-review.md` — records the shared-renderer publication blocker and the deliberately limited audit scope.
-- `tests/gamehub/skill-world/g2m-gm-001-content-quality.test.js` — package identity/schema guard and focused blocker regression.
+## Validation Results
 
-The curriculum package JSON was not modified after discovery of the shared infrastructure blocker.
+- `node --test tests/gamehub/skill-world/g2m-gm-001-content-quality.test.js` — expected failure only in the new unequal-partition accessibility regression.
+- `npm run validate:curriculum-index` — package/index validation remains green.
+- `git diff --check` — patch formatting remains green.
 
-## Testing
+## Files Modified
 
-- `node --test tests/gamehub/skill-world/g2m-gm-001-content-quality.test.js` — expected blocker failure: the shared renderer exposes `triangle` through both production paths.
-- `npm run validate:curriculum-index`
-- `git diff --check`
+- `docs/curriculum-reviews/g2m-gm-001-review.md` — replaces the resolved shape-renderer blocker report with the newly discovered unequal-partition accessibility blocker and exact stop scope.
+- `tests/gamehub/skill-world/g2m-gm-001-content-quality.test.js` — adds the package-specific failing regression for the shared `partition_shapes` defect.
 
 ## Commit SHA
 
-Reported in the final delivery because a commit cannot include its own immutable SHA.
+Reported in the final delivery because a commit cannot contain its own immutable SHA.
 
-## Scope Confirmation
+## Dedicated Infrastructure PR Handoff
 
-Exactly one package, `G2M_GM_001`, was opened. Only this review and its package-specific blocker regression were added. No curriculum JSON, shared renderer, registry, schema, other package, or application infrastructure was modified.
+Repair the reusable production `partition_shapes` renderer so its accessible description distinguishes equal from unequal partitions using the authored `equal` state. The dedicated infrastructure change should preserve the visible unequal rendering, avoid embedding an assessed response beyond describing the visual faithfully, and make this package regression pass. After that repair merges, restart the complete `G2M_GM_001` publication audit from activity 1.

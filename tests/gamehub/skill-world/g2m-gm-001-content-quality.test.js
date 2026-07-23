@@ -42,3 +42,20 @@ test('shape-identification visuals must not print the answer to an identificatio
   }
   assert.deepEqual(leaks, [], `shared shape_identification renderer reveals "triangle" via: ${leaks.join(', ')}`);
 });
+
+test('unequal partition visual must describe its unequal parts accessibly', () => {
+  const question = questions.find(({ id }) => id === 'G2M_GM_001_LVL3_Q7');
+  assert.equal(question.prompt, 'Are 3 parts thirds if one part is much larger?');
+  assert.equal(question.equal, false);
+  assert.equal(question.correct_answer, 'no');
+
+  const html = Registry.render(question);
+  assert.match(html, /data-renderer="partition_shapes"/, 'intended production renderer');
+  assert.match(html, /class="partition-shape rectangle shares-3 unequal"/, 'visible model represents unequal parts');
+  assert.doesNotMatch(
+    html,
+    /aria-label="[^"]*equal parts shaded"/i,
+    'accessible description must not call the visibly unequal parts equal',
+  );
+  assert.match(html, /aria-label="[^"]*unequal/i, 'accessible description identifies unequal parts');
+});
