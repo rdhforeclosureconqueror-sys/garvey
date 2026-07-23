@@ -10,7 +10,7 @@ const count = (html, pattern) => (html.match(pattern) || []).length;
 test('shared shape and estimation renderers never return empty visual containers', () => {
   const shape = VisualRegistry.render({ visual_model: 'shape_identification', shape: 'triangle' });
   assert.match(shape, /big-shape triangle/);
-  assert.match(shape, /role="img" aria-label="triangle shape model"/);
+  assert.match(shape, /role="img" aria-label="Unlabeled shape for identification"/);
 
   const estimate = VisualRegistry.render({ visual_model: 'visual_objects', prompt: 'Estimate the object length.' });
   assert.match(estimate, /estimation-object/);

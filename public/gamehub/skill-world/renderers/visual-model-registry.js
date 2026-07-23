@@ -2,6 +2,43 @@
  const esc=(v)=>String(v??'').replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const safe=(v,f='?')=>v===undefined||v===null||v===''?f:v;
  const nums=(text)=>String(text||'').match(/\d+/g)?.map(Number)||[];
+ // Identification visuals are assessment content: answer terms must never be
+ // emitted as visible captions, accessible names, or accessible descriptions.
+ const SHAPE_IDENTIFICATION_CONTRACT=Object.freeze({
+  answerSafe:true,
+  accessible:true,
+  forbiddenOutputs:Object.freeze(['visible caption','accessible name','accessible description']),
+  permittedOutputs:Object.freeze(['geometry','orientation','size','fill','other non-answer attributes'])
+ });
+ const SHAPE_GEOMETRY=Object.freeze({
+  triangle:'A flat figure with three straight sides and three corners.',
+  square:'A flat figure with four equal straight sides and four right-angle corners.',
+  circle:'A flat, round figure with one continuous curved edge and no corners.',
+  rectangle:'A flat figure with four straight sides and four right-angle corners; opposite sides have equal lengths.',
+  pentagon:'A flat figure with five straight sides and five corners.',
+  hexagon:'A flat figure with six straight sides and six corners.',
+  octagon:'A flat figure with eight straight sides and eight corners.',
+  cube:'A solid figure shown with six equal flat faces, straight edges, and corners.',
+  sphere:'A solid, completely round figure with one curved surface and no edges or corners.',
+  cylinder:'A solid figure with two equal round flat faces and one curved surface.',
+  cone:'A solid figure with one round flat face, one curved surface, and one point.',
+  'rectangular prism':'A solid figure shown with six rectangular flat faces, straight edges, and corners.'
+ });
+ const safeShapeAttribute=(value,allowed)=>allowed.includes(String(value||'').toLowerCase())?String(value).toLowerCase():'';
+ function shapeIdentification(q){
+  const shape=String(q.shape||'').trim().toLowerCase();
+  const geometry=SHAPE_GEOMETRY[shape]||'An unlabeled figure whose geometry should be inspected before answering.';
+  const details=[
+   safeShapeAttribute(q.orientation,['upright','rotated','tilted','horizontal','vertical']),
+   safeShapeAttribute(q.size,['small','medium','large']),
+   safeShapeAttribute(q.fill,['solid','outline','shaded','unfilled'])
+  ].filter(Boolean);
+  const description=`${geometry}${details.length?` It is ${details.join(', ')}.`:''} Use these attributes to identify it; its name is intentionally withheld.`;
+  // The CSS class is presentation-only and hidden inside the named image. It
+  // must never be reused to generate learner-facing or assistive text.
+  const shapeClass=SHAPE_GEOMETRY[shape]?shape.replace(/\s+/g,'-'):'unknown-shape';
+  return `<div class="visual-model skill-visual-inner shape-visual" data-renderer="shape_identification" role="img" aria-label="Unlabeled shape for identification" aria-description="${esc(description)}"><div class="big-shape ${esc(shapeClass)}" aria-hidden="true"></div><p class="sw-visual-caption" aria-hidden="true">Study the figure's sides, corners, faces, edges, and curved surfaces.</p></div>`;
+ }
  const emojiFor=(item)=>{const s=String(item||'').toLowerCase(); if(s.includes('red'))return '🔴'; if(s.includes('blue'))return '🔵'; if(s.includes('cat'))return '🐱'; if(s.includes('dog'))return '🐶'; if(s.includes('ball'))return '⚽'; if(s.includes('cube'))return '🧊'; if(s.includes('circle'))return '⚪'; if(s.includes('square'))return '⬜'; if(s.includes('triangle'))return '🔺'; return /^\d+$/.test(s)?esc(s):'⭐';};
  function objectTokens(items,count){const arr=items&&items.length?items:Array.from({length:Math.min(Number(count)||0,20)},(_,i)=>i+1); return arr.map((it)=>`<span class="sw-token" aria-label="${esc(it)}">${emojiFor(it)}<small>${esc(it)}</small></span>`).join('');}
  function quantityModel(value,label){const n=Number(value); if(!Number.isFinite(n))return `<span class="whole-box">${esc(label)}</span>`; if(n<=20)return `<div class="quantity-model" data-quantity="${n}" aria-label="${n} ${esc(label)}">${objectTokens(null,n)}</div>`; const tens=Math.floor(n/10),ones=n%10; const rods=Array.from({length:tens},()=>'<span class="quantity-ten" aria-hidden="true"></span>').join(''); const cubes=Array.from({length:ones},()=>'<span class="quantity-one" aria-hidden="true"></span>').join(''); return `<div class="quantity-model base-ten-quantity" data-quantity="${n}" aria-label="${n}: ${tens} tens and ${ones} ones"><strong>${n}</strong><div class="quantity-blocks">${rods}${cubes}</div><small>${tens} tens + ${ones} ones</small></div>`;}
@@ -323,8 +360,8 @@ const renderers={polygon_area_model:polygonAreaModel, net_model:netModel, dot_pl
   number_line:numberLine, base_ten_blocks:baseTen, place_value_chart:placeValueChart, decimal_grid:decimalGrid, expanded_form:expandedForm, rounding_model:roundingModel, fraction_bar:fractionBar, fraction_circle:fractionCircle, fraction_area_model:fractionAreaModel, fraction_division_model:fractionDivisionModel,
   addition_model:(q)=>`<div class="visual-model skill-visual-inner addition-visual" data-renderer="addition_model" role="img" aria-label="Addition model: ${esc(q.a??'first addend')} plus ${esc(q.b??'second addend')} equals the whole">${quantityModel(q.a,'first addend')}<b>+</b>${quantityModel(q.b,'second addend')}<b>=</b><div class="whole-box">whole</div></div>`,
   subtraction_model:(q)=>`<div class="visual-model skill-visual-inner subtraction-visual" data-renderer="subtraction_model" role="img" aria-label="Subtraction model: start with ${esc(q.a??'the whole')}, take away ${esc(q.b??'a part')}, and find what remains">${quantityModel(q.a,'starting whole')}<b>take away</b><div class="crossed">${quantityModel(q.b,'part taken away')}</div><b>remaining?</b></div>`,
-  shape_identification:(q)=>{const shape=q.shape||'square'; return `<div class="visual-model skill-visual-inner shape-visual" data-renderer="shape_identification" role="img" aria-label="${esc(shape)} shape model"><div class="big-shape ${esc(shape.replace(/\s+/g,'-'))}" aria-hidden="true"></div><p class="sw-visual-caption">${esc(shape)} model. Count its sides, corners, faces, or curved surfaces.</p></div>`;},
+  shape_identification:shapeIdentification,
   measurement_comparison:(q)=>`<div class="visual-model skill-visual-inner measurement-visual" data-renderer="measurement_comparison" role="img" aria-label="Measurement comparison: ${esc(q.left||'A')} is ${esc(q.left_length||q.a||'the first length')}; ${esc(q.right||'B')} is ${esc(q.right_length||q.b||'the second length')}; unit ${esc(q.unit||q.units||'units')}"><div class="measure-bar tall">${esc(q.left||'A')}</div><div class="measure-bar short">${esc(q.right||'B')}</div><p class="sw-visual-caption">Compare both endpoints using the same ${esc(q.unit||q.units||'unit')}.</p></div>`
  };
- return {render(question){if(!question){return '<div class="visual-model skill-visual-inner missing-visual" data-renderer="missing">Missing visual data</div>';} const k=question.visual_model||question.support_type||question.question_type; const html=renderers[k]?renderers[k](question):renderers.visual_objects(question); return html;},hasRenderer(key){return Boolean(renderers[key]);}};
+ return {render(question){if(!question){return '<div class="visual-model skill-visual-inner missing-visual" data-renderer="missing">Missing visual data</div>';} const k=question.visual_model||question.support_type||question.question_type; const html=renderers[k]?renderers[k](question):renderers.visual_objects(question); return html;},hasRenderer(key){return Boolean(renderers[key]);},getContract(key){return key==='shape_identification'?SHAPE_IDENTIFICATION_CONTRACT:null;}};
 });
