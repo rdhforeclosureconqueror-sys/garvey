@@ -70,43 +70,7 @@
       "question_id": "G2M_MD_003_LVL1_Q1",
       "question_type": "graph_reading",
       "visual_model": "picture_graph",
-      "prompt": "How many students chose cats?",
-      "answer": "6",
-      "correct_answer": "6",
-      "acceptable_answers": [
-        "6"
-      ],
-      "misconception_tag": "category_count_error",
-      "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
-      ],
-      "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
-      },
-      "explanation": "Use the picture graph key and count to get 6.",
-      "data": {
-        "Cats": 6,
-        "Dogs": 4,
-        "Fish": 3
-      },
-      "scale": 1,
-      "graph_title": "Class Choices",
-      "question_audio": {
-        "text": "How many students chose cats?",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "id": "G2M_MD_003_LVL1_Q2",
-      "question_id": "G2M_MD_003_LVL1_Q2",
-      "question_type": "graph_reading",
-      "visual_model": "picture_graph",
-      "prompt": "How many students chose dogs?",
+      "prompt": "Study the picture graph. How many are recorded for Tulips? Use the display titled Garden Votes.",
       "answer": "4",
       "correct_answer": "4",
       "acceptable_answers": [
@@ -114,64 +78,106 @@
       ],
       "misconception_tag": "category_count_error",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Find the Tulips label in Garden Votes.",
+        "Strategy: Read the value aligned with the requested label.",
+        "Verify: Check the Tulips, Daisies, Lilies values against the question before submitting on Garden Votes."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "Use the picture graph key and count to get 4.",
+      "explanation": "The Tulips row shows 4. Reading that labeled row gives 4.",
       "data": {
-        "Cats": 6,
-        "Dogs": 4,
-        "Fish": 3
+        "Tulips": 4,
+        "Daisies": 7,
+        "Lilies": 3
       },
       "scale": 1,
-      "graph_title": "Class Choices",
+      "graph_title": "Garden Votes",
       "question_audio": {
-        "text": "How many students chose dogs?",
+        "text": "Study the picture graph. How many are recorded for Tulips? Use the display titled Garden Votes. A picture graph titled Garden Votes with three labeled categories: Tulips, Daisies, Lilies. The key says one star stands for 1; symbols are arranged in labeled rows.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "A picture graph titled Garden Votes with three labeled categories: Tulips, Daisies, Lilies. The key says one star stands for 1; symbols are arranged in labeled rows.",
+      "accessible_description": "A picture graph titled Garden Votes with three labeled categories: Tulips, Daisies, Lilies. The key says one star stands for 1; symbols are arranged in labeled rows."
+    },
+    {
+      "id": "G2M_MD_003_LVL1_Q2",
+      "question_id": "G2M_MD_003_LVL1_Q2",
+      "question_type": "graph_reading",
+      "visual_model": "picture_graph",
+      "prompt": "How many more Turtles than Birds are shown in the picture graph? Use the display titled Pet Survey.",
+      "answer": "4",
+      "correct_answer": "4",
+      "acceptable_answers": [
+        "4"
+      ],
+      "misconception_tag": "category_count_error",
+      "hints": [
+        "Focus: Find the Turtles label in Pet Survey.",
+        "Strategy: Compare 10 and 6 by subtracting the smaller count.",
+        "Verify: Check the Rabbits, Turtles, Birds values against the question before submitting on Pet Survey."
+      ],
+      "feedback": {
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
+      },
+      "explanation": "The display shows 10 for Turtles and 6 for Birds. Subtracting 10 − 6 gives 4 more.",
+      "data": {
+        "Rabbits": 6,
+        "Turtles": 10,
+        "Birds": 6
+      },
+      "scale": 2,
+      "graph_title": "Pet Survey",
+      "question_audio": {
+        "text": "How many more Turtles than Birds are shown in the picture graph? Use the display titled Pet Survey. A picture graph titled Pet Survey with three labeled categories: Rabbits, Turtles, Birds. The key says one star stands for 2; symbols are arranged in labeled rows.",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "visual_description": "A picture graph titled Pet Survey with three labeled categories: Rabbits, Turtles, Birds. The key says one star stands for 2; symbols are arranged in labeled rows.",
+      "accessible_description": "A picture graph titled Pet Survey with three labeled categories: Rabbits, Turtles, Birds. The key says one star stands for 2; symbols are arranged in labeled rows."
     },
     {
       "id": "G2M_MD_003_LVL1_Q3",
       "question_id": "G2M_MD_003_LVL1_Q3",
       "question_type": "graph_reading",
       "visual_model": "picture_graph",
-      "prompt": "How many more chose cats than fish?",
-      "answer": "3",
-      "correct_answer": "3",
+      "prompt": "How many are shown for Chalk and Hoops altogether? Use the display titled Recess Choices.",
+      "answer": "11",
+      "correct_answer": "11",
       "acceptable_answers": [
-        "3"
+        "11"
       ],
       "misconception_tag": "more_less_data_confusion",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Find the Chalk label in Recess Choices.",
+        "Strategy: Combine only the Chalk and Hoops counts.",
+        "Verify: Check the Chalk, Bubbles, Hoops values against the question before submitting on Recess Choices."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "Use the picture graph key and count to get 3.",
+      "explanation": "The two labeled counts are 6 and 5. Adding them, 6 + 5, gives 11 altogether.",
       "data": {
-        "Cats": 6,
-        "Dogs": 4,
-        "Fish": 3
+        "Chalk": 6,
+        "Bubbles": 9,
+        "Hoops": 5
       },
       "scale": 1,
-      "graph_title": "Class Choices",
+      "graph_title": "Recess Choices",
       "question_audio": {
-        "text": "How many more chose cats than fish?",
+        "text": "How many are shown for Chalk and Hoops altogether? Use the display titled Recess Choices. A picture graph titled Recess Choices with three labeled categories: Chalk, Bubbles, Hoops. The key says one star stands for 1; symbols are arranged in labeled rows.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "A picture graph titled Recess Choices with three labeled categories: Chalk, Bubbles, Hoops. The key says one star stands for 1; symbols are arranged in labeled rows.",
+      "accessible_description": "A picture graph titled Recess Choices with three labeled categories: Chalk, Bubbles, Hoops. The key says one star stands for 1; symbols are arranged in labeled rows."
     }
   ],
   "adaptive_question_bank": [
@@ -180,147 +186,159 @@
       "question_id": "G2M_MD_003_LVL2_Q1",
       "question_type": "data_interpretation",
       "visual_model": "bar_graph",
-      "prompt": "How many books did Room 1 read?",
-      "answer": "7",
-      "correct_answer": "7",
+      "prompt": "Study the bar graph. How many are recorded for Monday? Use the display titled Library Returns.",
+      "answer": "4",
+      "correct_answer": "4",
       "acceptable_answers": [
-        "7"
+        "4"
       ],
       "misconception_tag": "category_count_error",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Find the Monday label in Library Returns.",
+        "Strategy: Read the value aligned with the requested label.",
+        "Verify: Check the Monday, Tuesday, Wednesday values against the question before submitting on Library Returns."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "The correct answer is 7.",
+      "explanation": "The Monday row shows 4. Reading that labeled row gives 4.",
       "data": {
-        "Room1": 7,
-        "Room2": 9,
-        "Room3": 5
+        "Monday": 4,
+        "Tuesday": 7,
+        "Wednesday": 3
       },
-      "graph_title": "Bar Graph",
+      "graph_title": "Library Returns",
       "question_audio": {
-        "text": "How many books did Room 1 read?",
+        "text": "Study the bar graph. How many are recorded for Monday? Use the display titled Library Returns. A bar graph titled Library Returns with three labeled categories: Monday, Tuesday, Wednesday. Vertical bars stand over the category labels, with a scale of 1.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "scale": 1,
+      "visual_description": "A bar graph titled Library Returns with three labeled categories: Monday, Tuesday, Wednesday. Vertical bars stand over the category labels, with a scale of 1.",
+      "accessible_description": "A bar graph titled Library Returns with three labeled categories: Monday, Tuesday, Wednesday. Vertical bars stand over the category labels, with a scale of 1."
     },
     {
       "id": "G2M_MD_003_LVL2_Q2",
       "question_id": "G2M_MD_003_LVL2_Q2",
       "question_type": "data_interpretation",
       "visual_model": "bar_graph",
-      "prompt": "How many books did Room 2 read?",
-      "answer": "9",
-      "correct_answer": "9",
+      "prompt": "How many more Robins than Finches are shown in the bar graph? Use the display titled Trail Birds.",
+      "answer": "4",
+      "correct_answer": "4",
       "acceptable_answers": [
-        "9"
+        "4"
       ],
       "misconception_tag": "category_count_error",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Find the Robins label in Trail Birds.",
+        "Strategy: Compare 8 and 4 by subtracting the smaller count.",
+        "Verify: Check the Wrens, Robins, Finches values against the question before submitting on Trail Birds."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "The correct answer is 9.",
+      "explanation": "The display shows 8 for Robins and 4 for Finches. Subtracting 8 − 4 gives 4 more.",
       "data": {
-        "Room1": 7,
-        "Room2": 9,
-        "Room3": 5
+        "Wrens": 5,
+        "Robins": 8,
+        "Finches": 4
       },
-      "graph_title": "Bar Graph",
+      "graph_title": "Trail Birds",
       "question_audio": {
-        "text": "How many books did Room 2 read?",
+        "text": "How many more Robins than Finches are shown in the bar graph? Use the display titled Trail Birds. A bar graph titled Trail Birds with three labeled categories: Wrens, Robins, Finches. Vertical bars stand over the category labels, with a scale of 1.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "scale": 1,
+      "visual_description": "A bar graph titled Trail Birds with three labeled categories: Wrens, Robins, Finches. Vertical bars stand over the category labels, with a scale of 1.",
+      "accessible_description": "A bar graph titled Trail Birds with three labeled categories: Wrens, Robins, Finches. Vertical bars stand over the category labels, with a scale of 1."
     },
     {
       "id": "G2M_MD_003_LVL3_Q1",
       "question_id": "G2M_MD_003_LVL3_Q1",
       "question_type": "data_interpretation",
       "visual_model": "data_table",
-      "prompt": "Use the table. How many students picked carrots?",
-      "answer": "5",
-      "correct_answer": "5",
+      "prompt": "Study the table. How many are recorded for Peaches? Use the display titled Cafeteria Fruit.",
+      "answer": "4",
+      "correct_answer": "4",
       "acceptable_answers": [
-        "5"
+        "4"
       ],
       "misconception_tag": "category_count_error",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Find the Peaches label in Cafeteria Fruit.",
+        "Strategy: Read the value aligned with the requested label.",
+        "Verify: Check the Peaches, Plums, Melons values against the question before submitting on Cafeteria Fruit."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "The correct answer is 5.",
+      "explanation": "The Peaches row shows 4. Reading that labeled row gives 4.",
       "data": {
-        "Carrots": 5,
-        "Peas": 3,
-        "Corn": 8
+        "Peaches": 4,
+        "Plums": 7,
+        "Melons": 3
       },
-      "graph_title": "Data Table",
+      "graph_title": "Cafeteria Fruit",
       "question_audio": {
-        "text": "Use the table. How many students picked carrots?",
+        "text": "Study the table. How many are recorded for Peaches? Use the display titled Cafeteria Fruit. A data table titled Cafeteria Fruit with three labeled categories: Peaches, Plums, Melons. Each category is in its own row beside its count.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "scale": 1,
+      "visual_description": "A data table titled Cafeteria Fruit with three labeled categories: Peaches, Plums, Melons. Each category is in its own row beside its count.",
+      "accessible_description": "A data table titled Cafeteria Fruit with three labeled categories: Peaches, Plums, Melons. Each category is in its own row beside its count."
     },
     {
       "id": "G2M_MD_003_LVL3_Q2",
       "question_id": "G2M_MD_003_LVL3_Q2",
       "question_type": "data_interpretation",
       "visual_model": "data_table",
-      "prompt": "Use the table. How many more picked corn than peas?",
-      "answer": "5",
-      "correct_answer": "5",
+      "prompt": "How many more Poetry than Science are shown in the table? Use the display titled Book Cart.",
+      "answer": "4",
+      "correct_answer": "4",
       "acceptable_answers": [
-        "5"
+        "4"
       ],
       "misconception_tag": "more_less_data_confusion",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Find the Poetry label in Book Cart.",
+        "Strategy: Compare 8 and 4 by subtracting the smaller count.",
+        "Verify: Check the Adventure, Poetry, Science values against the question before submitting on Book Cart."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "The correct answer is 5.",
+      "explanation": "The display shows 8 for Poetry and 4 for Science. Subtracting 8 − 4 gives 4 more.",
       "data": {
-        "Carrots": 5,
-        "Peas": 3,
-        "Corn": 8
+        "Adventure": 5,
+        "Poetry": 8,
+        "Science": 4
       },
-      "graph_title": "Data Table",
+      "graph_title": "Book Cart",
       "question_audio": {
-        "text": "Use the table. How many more picked corn than peas?",
+        "text": "How many more Poetry than Science are shown in the table? Use the display titled Book Cart. A data table titled Book Cart with three labeled categories: Adventure, Poetry, Science. Each category is in its own row beside its count.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "scale": 1,
+      "visual_description": "A data table titled Book Cart with three labeled categories: Adventure, Poetry, Science. Each category is in its own row beside its count.",
+      "accessible_description": "A data table titled Book Cart with three labeled categories: Adventure, Poetry, Science. Each category is in its own row beside its count."
     },
     {
       "id": "G2M_MD_003_LVL4_Q1",
       "question_id": "G2M_MD_003_LVL4_Q1",
       "question_type": "graph_reading",
       "visual_model": "line_plot",
-      "prompt": "How many X marks are above 4?",
+      "prompt": "On the Button Widths line plot, how many measurements are at 4?",
       "answer": "3",
       "correct_answer": "3",
       "acceptable_answers": [
@@ -328,15 +346,15 @@
       ],
       "misconception_tag": "line_plot_mark_error",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Look at the X stacks on Button Widths, not empty number labels.",
+        "Strategy: Count the stack connected to the number named in the question.",
+        "Verify: Match each counted X to one item in the measurement list on Button Widths."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "The correct answer is 3.",
+      "explanation": "There are 3 X marks stacked over 4. Each X is one measurement, so the count is 3.",
       "values": [
         2,
         3,
@@ -345,63 +363,63 @@
         4,
         4,
         5,
-        6,
-        6,
-        7
+        6
       ],
       "min": 2,
-      "max": 7,
-      "graph_title": "Leaf Lengths",
+      "max": 6,
+      "graph_title": "Button Widths",
       "question_audio": {
-        "text": "How many X marks are above 4?",
+        "text": "On the Button Widths line plot, how many measurements are at 4? A line plot titled Button Widths, labeled from 2 through 6. X marks are stacked above the number for each measurement.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "A line plot titled Button Widths, labeled from 2 through 6. X marks are stacked above the number for each measurement.",
+      "accessible_description": "A line plot titled Button Widths, labeled from 2 through 6. X marks are stacked above the number for each measurement."
     },
     {
       "id": "G2M_MD_003_LVL4_Q2",
       "question_id": "G2M_MD_003_LVL4_Q2",
       "question_type": "graph_reading",
       "visual_model": "line_plot",
-      "prompt": "How many measurements are 6?",
-      "answer": "2",
-      "correct_answer": "2",
+      "prompt": "How many measurements are shown altogether on the Crayon Lengths line plot?",
+      "answer": "8",
+      "correct_answer": "8",
       "acceptable_answers": [
-        "2"
+        "8"
       ],
       "misconception_tag": "line_plot_mark_error",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Look at the X stacks on Crayon Lengths, not empty number labels.",
+        "Strategy: Count every X once across all stacks.",
+        "Verify: Match each counted X to one item in the measurement list on Crayon Lengths."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "The correct answer is 2.",
+      "explanation": "Each X represents one measurement. Counting all 8 X marks gives 8 measurements altogether.",
       "values": [
-        2,
         3,
-        3,
-        4,
         4,
         4,
         5,
+        5,
+        5,
         6,
-        6,
-        7
+        8
       ],
-      "min": 2,
-      "max": 7,
-      "graph_title": "Leaf Lengths",
+      "min": 3,
+      "max": 8,
+      "graph_title": "Crayon Lengths",
       "question_audio": {
-        "text": "How many measurements are 6?",
+        "text": "How many measurements are shown altogether on the Crayon Lengths line plot? A line plot titled Crayon Lengths, labeled from 3 through 8. X marks are stacked above the number for each measurement.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "A line plot titled Crayon Lengths, labeled from 3 through 8. X marks are stacked above the number for each measurement.",
+      "accessible_description": "A line plot titled Crayon Lengths, labeled from 3 through 8. X marks are stacked above the number for each measurement."
     }
   ],
   "checkpoint": [
@@ -410,106 +428,114 @@
       "question_id": "G2M_MD_003_MIXED_Q1",
       "question_type": "graph_reading",
       "visual_model": "picture_graph",
-      "prompt": "How many more chose cats than fish?",
-      "answer": "3",
-      "correct_answer": "3",
+      "prompt": "Choose the useful graph-reading method. Study the picture graph. How many are recorded for Maze? Use the display titled Fair Booth Poll.",
+      "answer": "14",
+      "correct_answer": "14",
       "acceptable_answers": [
-        "3"
+        "14"
       ],
       "misconception_tag": "more_less_data_confusion",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+        "Strategy: Read the value aligned with the requested label.",
+        "Verify: Explain why your chosen method fits the picture graph before submitting on Fair Booth Poll."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "Use the picture graph key and count to get 3.",
+      "explanation": "The Maze row shows 14. Reading that labeled row gives 14.",
       "data": {
-        "Cats": 6,
-        "Dogs": 4,
-        "Fish": 3
+        "Maze": 14,
+        "Puppets": 22,
+        "Bowling": 10
       },
       "scale": 1,
-      "graph_title": "Class Choices",
+      "graph_title": "Fair Booth Poll",
       "question_audio": {
-        "text": "How many more chose cats than fish?",
+        "text": "Choose the useful graph-reading method. Study the picture graph. How many are recorded for Maze? Use the display titled Fair Booth Poll. A picture graph titled Fair Booth Poll with three labeled categories: Maze, Puppets, Bowling. The key says one star stands for 1; symbols are arranged in labeled rows.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "A picture graph titled Fair Booth Poll with three labeled categories: Maze, Puppets, Bowling. The key says one star stands for 1; symbols are arranged in labeled rows.",
+      "accessible_description": "A picture graph titled Fair Booth Poll with three labeled categories: Maze, Puppets, Bowling. The key says one star stands for 1; symbols are arranged in labeled rows."
     },
     {
       "id": "G2M_MD_003_MIXED_Q2",
       "question_id": "G2M_MD_003_MIXED_Q2",
       "question_type": "data_interpretation",
       "visual_model": "bar_graph",
-      "prompt": "How many books did Room 1 read?",
-      "answer": "7",
-      "correct_answer": "7",
+      "prompt": "Choose the useful graph-reading method. How many more Cans than Bottles are shown in the bar graph? Use the display titled Park Cleanup.",
+      "answer": "12",
+      "correct_answer": "12",
       "acceptable_answers": [
-        "7"
+        "12"
       ],
       "misconception_tag": "category_count_error",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+        "Strategy: Compare 23 and 11 by subtracting the smaller count.",
+        "Verify: Explain why your chosen method fits the bar graph before submitting on Park Cleanup."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "The correct answer is 7.",
+      "explanation": "The display shows 23 for Cans and 11 for Bottles. Subtracting 23 − 11 gives 12 more.",
       "data": {
-        "Room1": 7,
-        "Room2": 9,
-        "Room3": 5
+        "Paper": 15,
+        "Cans": 23,
+        "Bottles": 11
       },
-      "graph_title": "Bar Graph",
+      "graph_title": "Park Cleanup",
       "question_audio": {
-        "text": "How many books did Room 1 read?",
+        "text": "Choose the useful graph-reading method. How many more Cans than Bottles are shown in the bar graph? Use the display titled Park Cleanup. A bar graph titled Park Cleanup with three labeled categories: Paper, Cans, Bottles. Vertical bars stand over the category labels, with a scale of 1.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "scale": 1,
+      "visual_description": "A bar graph titled Park Cleanup with three labeled categories: Paper, Cans, Bottles. Vertical bars stand over the category labels, with a scale of 1.",
+      "accessible_description": "A bar graph titled Park Cleanup with three labeled categories: Paper, Cans, Bottles. Vertical bars stand over the category labels, with a scale of 1."
     },
     {
       "id": "G2M_MD_003_MIXED_Q3",
       "question_id": "G2M_MD_003_MIXED_Q3",
       "question_type": "data_interpretation",
       "visual_model": "data_table",
-      "prompt": "Use the table. How many more picked corn than peas?",
-      "answer": "5",
-      "correct_answer": "5",
+      "prompt": "Choose the useful graph-reading method. How many are shown for Sandwiches and Juice altogether? Use the display titled Picnic Orders.",
+      "answer": "28",
+      "correct_answer": "28",
       "acceptable_answers": [
-        "5"
+        "28"
       ],
       "misconception_tag": "more_less_data_confusion",
       "hints": [
-        "Read the title and labels first.",
-        "Use the key or scale before counting.",
-        "For more or less, subtract the smaller count from the larger count."
+        "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+        "Strategy: Combine only the Sandwiches and Juice counts.",
+        "Verify: Explain why your chosen method fits the data table before submitting on Picnic Orders."
       ],
       "feedback": {
-        "correct": "Great math thinking!",
-        "incorrect": "Use the visual model and try again."
+        "correct": "Your data reasoning is correct!",
+        "incorrect": "Check the labels and marks, then try again."
       },
-      "explanation": "The correct answer is 5.",
+      "explanation": "The two labeled counts are 16 and 12. Adding them, 16 + 12, gives 28 altogether.",
       "data": {
-        "Carrots": 5,
-        "Peas": 3,
-        "Corn": 8
+        "Sandwiches": 16,
+        "Fruit Cups": 24,
+        "Juice": 12
       },
-      "graph_title": "Data Table",
+      "graph_title": "Picnic Orders",
       "question_audio": {
-        "text": "Use the table. How many more picked corn than peas?",
+        "text": "Choose the useful graph-reading method. How many are shown for Sandwiches and Juice altogether? Use the display titled Picnic Orders. A data table titled Picnic Orders with three labeled categories: Sandwiches, Fruit Cups, Juice. Each category is in its own row beside its count.",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "scale": 1,
+      "visual_description": "A data table titled Picnic Orders with three labeled categories: Sandwiches, Fruit Cups, Juice. Each category is in its own row beside its count.",
+      "accessible_description": "A data table titled Picnic Orders with three labeled categories: Sandwiches, Fruit Cups, Juice. Each category is in its own row beside its count."
     }
   ],
   "level_banks": [
@@ -526,43 +552,7 @@
           "question_id": "G2M_MD_003_LVL1_Q1",
           "question_type": "graph_reading",
           "visual_model": "picture_graph",
-          "prompt": "How many students chose cats?",
-          "answer": "6",
-          "correct_answer": "6",
-          "acceptable_answers": [
-            "6"
-          ],
-          "misconception_tag": "category_count_error",
-          "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
-          ],
-          "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
-          },
-          "explanation": "Use the picture graph key and count to get 6.",
-          "data": {
-            "Cats": 6,
-            "Dogs": 4,
-            "Fish": 3
-          },
-          "scale": 1,
-          "graph_title": "Class Choices",
-          "question_audio": {
-            "text": "How many students chose cats?",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "id": "G2M_MD_003_LVL1_Q2",
-          "question_id": "G2M_MD_003_LVL1_Q2",
-          "question_type": "graph_reading",
-          "visual_model": "picture_graph",
-          "prompt": "How many students chose dogs?",
+          "prompt": "Study the picture graph. How many are recorded for Tulips? Use the display titled Garden Votes.",
           "answer": "4",
           "correct_answer": "4",
           "acceptable_answers": [
@@ -570,320 +560,390 @@
           ],
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Tulips label in Garden Votes.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Tulips, Daisies, Lilies values against the question before submitting on Garden Votes."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 4.",
+          "explanation": "The Tulips row shows 4. Reading that labeled row gives 4.",
           "data": {
-            "Cats": 6,
-            "Dogs": 4,
-            "Fish": 3
+            "Tulips": 4,
+            "Daisies": 7,
+            "Lilies": 3
           },
           "scale": 1,
-          "graph_title": "Class Choices",
+          "graph_title": "Garden Votes",
           "question_audio": {
-            "text": "How many students chose dogs?",
+            "text": "Study the picture graph. How many are recorded for Tulips? Use the display titled Garden Votes. A picture graph titled Garden Votes with three labeled categories: Tulips, Daisies, Lilies. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Garden Votes with three labeled categories: Tulips, Daisies, Lilies. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Garden Votes with three labeled categories: Tulips, Daisies, Lilies. The key says one star stands for 1; symbols are arranged in labeled rows."
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q2",
+          "question_id": "G2M_MD_003_LVL1_Q2",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many more Turtles than Birds are shown in the picture graph? Use the display titled Pet Survey.",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Focus: Find the Turtles label in Pet Survey.",
+            "Strategy: Compare 10 and 6 by subtracting the smaller count.",
+            "Verify: Check the Rabbits, Turtles, Birds values against the question before submitting on Pet Survey."
+          ],
+          "feedback": {
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
+          },
+          "explanation": "The display shows 10 for Turtles and 6 for Birds. Subtracting 10 − 6 gives 4 more.",
+          "data": {
+            "Rabbits": 6,
+            "Turtles": 10,
+            "Birds": 6
+          },
+          "scale": 2,
+          "graph_title": "Pet Survey",
+          "question_audio": {
+            "text": "How many more Turtles than Birds are shown in the picture graph? Use the display titled Pet Survey. A picture graph titled Pet Survey with three labeled categories: Rabbits, Turtles, Birds. The key says one star stands for 2; symbols are arranged in labeled rows.",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "visual_description": "A picture graph titled Pet Survey with three labeled categories: Rabbits, Turtles, Birds. The key says one star stands for 2; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Pet Survey with three labeled categories: Rabbits, Turtles, Birds. The key says one star stands for 2; symbols are arranged in labeled rows."
         },
         {
           "id": "G2M_MD_003_LVL1_Q3",
           "question_id": "G2M_MD_003_LVL1_Q3",
           "question_type": "graph_reading",
           "visual_model": "picture_graph",
-          "prompt": "How many more chose cats than fish?",
-          "answer": "3",
-          "correct_answer": "3",
+          "prompt": "How many are shown for Chalk and Hoops altogether? Use the display titled Recess Choices.",
+          "answer": "11",
+          "correct_answer": "11",
           "acceptable_answers": [
-            "3"
+            "11"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Chalk label in Recess Choices.",
+            "Strategy: Combine only the Chalk and Hoops counts.",
+            "Verify: Check the Chalk, Bubbles, Hoops values against the question before submitting on Recess Choices."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 3.",
+          "explanation": "The two labeled counts are 6 and 5. Adding them, 6 + 5, gives 11 altogether.",
           "data": {
-            "Cats": 6,
-            "Dogs": 4,
-            "Fish": 3
+            "Chalk": 6,
+            "Bubbles": 9,
+            "Hoops": 5
           },
           "scale": 1,
-          "graph_title": "Class Choices",
+          "graph_title": "Recess Choices",
           "question_audio": {
-            "text": "How many more chose cats than fish?",
+            "text": "How many are shown for Chalk and Hoops altogether? Use the display titled Recess Choices. A picture graph titled Recess Choices with three labeled categories: Chalk, Bubbles, Hoops. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Recess Choices with three labeled categories: Chalk, Bubbles, Hoops. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Recess Choices with three labeled categories: Chalk, Bubbles, Hoops. The key says one star stands for 1; symbols are arranged in labeled rows."
         },
         {
           "id": "G2M_MD_003_LVL1_Q4",
           "question_id": "G2M_MD_003_LVL1_Q4",
-          "question_type": "graph_reading",
+          "question_type": "multiple_choice",
           "visual_model": "picture_graph",
-          "prompt": "A key says each star equals 2 votes. How many votes do 5 stars show?",
-          "answer": "10",
-          "correct_answer": "10",
-          "acceptable_answers": [
-            "10"
-          ],
+          "prompt": "Which category has the greatest count in the picture graph? Use the display titled Snack Poll.",
+          "answer": "Pears",
+          "correct_answer": "Pears",
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Pears label in Snack Poll.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Pears, Crackers, Yogurt values against the question before submitting on Snack Poll."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 10.",
+          "explanation": "Comparing 7, 7, 6 shows that 7 is greatest, so its category, Pears, has the greatest count.",
           "data": {
-            "Soccer": 10,
-            "Art": 6,
-            "Music": 4
+            "Pears": 7,
+            "Crackers": 7,
+            "Yogurt": 6
           },
-          "scale": 2,
-          "graph_title": "Class Choices",
+          "scale": 1,
+          "graph_title": "Snack Poll",
           "question_audio": {
-            "text": "A key says each star equals 2 votes. How many votes do 5 stars show?",
+            "text": "Which category has the greatest count in the picture graph? Use the display titled Snack Poll. A picture graph titled Snack Poll with three labeled categories: Pears, Crackers, Yogurt. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Snack Poll with three labeled categories: Pears, Crackers, Yogurt. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Snack Poll with three labeled categories: Pears, Crackers, Yogurt. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "options": [
+            "Crackers",
+            "Yogurt",
+            "Other",
+            "Pears"
+          ],
+          "choices": [
+            "Crackers",
+            "Yogurt",
+            "Other",
+            "Pears"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL1_Q5",
           "question_id": "G2M_MD_003_LVL1_Q5",
-          "question_type": "multiple_choice",
+          "question_type": "data_interpretation",
           "visual_model": "picture_graph",
-          "prompt": "Which activity has 6 votes?",
-          "answer": "Art",
-          "correct_answer": "Art",
+          "prompt": "The key says each star stands for 2. How many stars represent the 10 Dance responses? Use the display titled Club Sign-ups.",
+          "answer": "5",
+          "correct_answer": "5",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Chess label in Club Sign-ups.",
+            "Strategy: Use groups of 2, not single votes.",
+            "Verify: Check the Chess, Dance, Robotics values against the question before submitting on Club Sign-ups."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The picture graph shows Art for that category.",
-          "choices": [
-            "Soccer",
-            "Art",
-            "Music"
-          ],
+          "explanation": "Dance has 10 responses. Making groups of 2, 10 ÷ 2 = 5, so that many stars are needed.",
           "data": {
-            "Soccer": 10,
-            "Art": 6,
-            "Music": 4
+            "Chess": 4,
+            "Dance": 10,
+            "Robotics": 12
           },
-          "scale": 1,
-          "graph_title": "Class Choices",
+          "scale": 2,
+          "graph_title": "Club Sign-ups",
           "question_audio": {
-            "text": "Which activity has 6 votes?",
+            "text": "The key says each star stands for 2. How many stars represent the 10 Dance responses? Use the display titled Club Sign-ups. A picture graph titled Club Sign-ups with three labeled categories: Chess, Dance, Robotics. The key says one star stands for 2; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "acceptable_answers": [
+            "5"
+          ],
+          "visual_description": "A picture graph titled Club Sign-ups with three labeled categories: Chess, Dance, Robotics. The key says one star stands for 2; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Club Sign-ups with three labeled categories: Chess, Dance, Robotics. The key says one star stands for 2; symbols are arranged in labeled rows."
         },
         {
           "id": "G2M_MD_003_LVL1_Q6",
           "question_id": "G2M_MD_003_LVL1_Q6",
           "question_type": "graph_reading",
           "visual_model": "picture_graph",
-          "prompt": "How many fewer chose music than soccer?",
-          "answer": "6",
-          "correct_answer": "6",
+          "prompt": "Study the picture graph. How many are recorded for Comics? Use the display titled Reading Picks.",
+          "answer": "5",
+          "correct_answer": "5",
           "acceptable_answers": [
-            "6"
+            "5"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Comics label in Reading Picks.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Comics, Poems, Folktales values against the question before submitting on Reading Picks."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 6.",
+          "explanation": "The Comics row shows 5. Reading that labeled row gives 5.",
           "data": {
-            "Soccer": 10,
-            "Art": 6,
-            "Music": 4
+            "Comics": 5,
+            "Poems": 9,
+            "Folktales": 3
           },
-          "scale": 2,
-          "graph_title": "Class Choices",
+          "scale": 1,
+          "graph_title": "Reading Picks",
           "question_audio": {
-            "text": "How many fewer chose music than soccer?",
+            "text": "Study the picture graph. How many are recorded for Comics? Use the display titled Reading Picks. A picture graph titled Reading Picks with three labeled categories: Comics, Poems, Folktales. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Reading Picks with three labeled categories: Comics, Poems, Folktales. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Reading Picks with three labeled categories: Comics, Poems, Folktales. The key says one star stands for 1; symbols are arranged in labeled rows."
         },
         {
           "id": "G2M_MD_003_LVL1_Q7",
           "question_id": "G2M_MD_003_LVL1_Q7",
           "question_type": "graph_reading",
           "visual_model": "picture_graph",
-          "prompt": "How many students chose apples?",
-          "answer": "8",
-          "correct_answer": "8",
+          "prompt": "How many more Toss than Jump are shown in the picture graph? Use the display titled Field Day.",
+          "answer": "3",
+          "correct_answer": "3",
           "acceptable_answers": [
-            "8"
+            "3"
           ],
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Toss label in Field Day.",
+            "Strategy: Compare 7 and 4 by subtracting the smaller count.",
+            "Verify: Check the Relay, Toss, Jump values against the question before submitting on Field Day."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 8.",
+          "explanation": "The display shows 7 for Toss and 4 for Jump. Subtracting 7 − 4 gives 3 more.",
           "data": {
-            "Apples": 8,
-            "Bananas": 5,
-            "Oranges": 7
+            "Relay": 6,
+            "Toss": 7,
+            "Jump": 4
           },
           "scale": 1,
-          "graph_title": "Class Choices",
+          "graph_title": "Field Day",
           "question_audio": {
-            "text": "How many students chose apples?",
+            "text": "How many more Toss than Jump are shown in the picture graph? Use the display titled Field Day. A picture graph titled Field Day with three labeled categories: Relay, Toss, Jump. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Field Day with three labeled categories: Relay, Toss, Jump. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Field Day with three labeled categories: Relay, Toss, Jump. The key says one star stands for 1; symbols are arranged in labeled rows."
         },
         {
           "id": "G2M_MD_003_LVL1_Q8",
           "question_id": "G2M_MD_003_LVL1_Q8",
           "question_type": "graph_reading",
           "visual_model": "picture_graph",
-          "prompt": "How many more chose apples than bananas?",
-          "answer": "3",
-          "correct_answer": "3",
+          "prompt": "How many are shown for Beans and Basil altogether? Use the display titled Class Plants.",
+          "answer": "18",
+          "correct_answer": "18",
           "acceptable_answers": [
-            "3"
+            "18"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Beans label in Class Plants.",
+            "Strategy: Combine only the Beans and Basil counts.",
+            "Verify: Check the Beans, Mint, Basil values against the question before submitting on Class Plants."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 3.",
+          "explanation": "The two labeled counts are 10 and 8. Adding them, 10 + 8, gives 18 altogether.",
           "data": {
-            "Apples": 8,
-            "Bananas": 5,
-            "Oranges": 7
+            "Beans": 10,
+            "Mint": 10,
+            "Basil": 8
           },
-          "scale": 1,
-          "graph_title": "Class Choices",
+          "scale": 2,
+          "graph_title": "Class Plants",
           "question_audio": {
-            "text": "How many more chose apples than bananas?",
+            "text": "How many are shown for Beans and Basil altogether? Use the display titled Class Plants. A picture graph titled Class Plants with three labeled categories: Beans, Mint, Basil. The key says one star stands for 2; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Class Plants with three labeled categories: Beans, Mint, Basil. The key says one star stands for 2; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Class Plants with three labeled categories: Beans, Mint, Basil. The key says one star stands for 2; symbols are arranged in labeled rows."
         },
         {
           "id": "G2M_MD_003_LVL1_Q9",
           "question_id": "G2M_MD_003_LVL1_Q9",
           "question_type": "multiple_choice",
           "visual_model": "picture_graph",
-          "prompt": "Which fruit has 7 votes?",
-          "answer": "Oranges",
-          "correct_answer": "Oranges",
+          "prompt": "Which category has the greatest count in the picture graph? Use the display titled Music Requests.",
+          "answer": "Flute",
+          "correct_answer": "Flute",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Drums label in Music Requests.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Drums, Flute, Piano values against the question before submitting on Music Requests."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The picture graph shows Oranges for that category.",
-          "choices": [
-            "Apples",
-            "Bananas",
-            "Oranges"
-          ],
+          "explanation": "Comparing 4, 9, 6 shows that 9 is greatest, so its category, Flute, has the greatest count.",
           "data": {
-            "Apples": 8,
-            "Bananas": 5,
-            "Oranges": 7
+            "Drums": 4,
+            "Flute": 9,
+            "Piano": 6
           },
           "scale": 1,
-          "graph_title": "Class Choices",
+          "graph_title": "Music Requests",
           "question_audio": {
-            "text": "Which fruit has 7 votes?",
+            "text": "Which category has the greatest count in the picture graph? Use the display titled Music Requests. A picture graph titled Music Requests with three labeled categories: Drums, Flute, Piano. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Music Requests with three labeled categories: Drums, Flute, Piano. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Music Requests with three labeled categories: Drums, Flute, Piano. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "options": [
+            "Flute",
+            "Drums",
+            "Piano",
+            "Other"
+          ],
+          "choices": [
+            "Flute",
+            "Drums",
+            "Piano",
+            "Other"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL1_Q10",
           "question_id": "G2M_MD_003_LVL1_Q10",
           "question_type": "graph_reading",
           "visual_model": "picture_graph",
-          "prompt": "How many total votes are shown for apples and oranges?",
-          "answer": "15",
-          "correct_answer": "15",
+          "prompt": "The key says each star stands for 1. How many stars represent the 7 Clay responses? Use the display titled Art Supplies.",
+          "answer": "7",
+          "correct_answer": "7",
           "acceptable_answers": [
-            "15"
+            "7"
           ],
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Paint label in Art Supplies.",
+            "Strategy: Use groups of 1, not single votes.",
+            "Verify: Check the Paint, Clay, Yarn values against the question before submitting on Art Supplies."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 15.",
+          "explanation": "Clay has 7 responses. Making groups of 1, 7 ÷ 1 = 7, so that many stars are needed.",
           "data": {
-            "Apples": 8,
-            "Bananas": 5,
-            "Oranges": 7
+            "Paint": 5,
+            "Clay": 7,
+            "Yarn": 7
           },
           "scale": 1,
-          "graph_title": "Class Choices",
+          "graph_title": "Art Supplies",
           "question_audio": {
-            "text": "How many total votes are shown for apples and oranges?",
+            "text": "The key says each star stands for 1. How many stars represent the 7 Clay responses? Use the display titled Art Supplies. A picture graph titled Art Supplies with three labeled categories: Paint, Clay, Yarn. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Art Supplies with three labeled categories: Paint, Clay, Yarn. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Art Supplies with three labeled categories: Paint, Clay, Yarn. The key says one star stands for 1; symbols are arranged in labeled rows."
         }
       ]
     },
@@ -900,354 +960,416 @@
           "question_id": "G2M_MD_003_LVL2_Q1",
           "question_type": "data_interpretation",
           "visual_model": "bar_graph",
-          "prompt": "How many books did Room 1 read?",
-          "answer": "7",
-          "correct_answer": "7",
+          "prompt": "Study the bar graph. How many are recorded for Monday? Use the display titled Library Returns.",
+          "answer": "4",
+          "correct_answer": "4",
           "acceptable_answers": [
-            "7"
+            "4"
           ],
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Monday label in Library Returns.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Monday, Tuesday, Wednesday values against the question before submitting on Library Returns."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 7.",
+          "explanation": "The Monday row shows 4. Reading that labeled row gives 4.",
           "data": {
-            "Room1": 7,
-            "Room2": 9,
-            "Room3": 5
+            "Monday": 4,
+            "Tuesday": 7,
+            "Wednesday": 3
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Library Returns",
           "question_audio": {
-            "text": "How many books did Room 1 read?",
+            "text": "Study the bar graph. How many are recorded for Monday? Use the display titled Library Returns. A bar graph titled Library Returns with three labeled categories: Monday, Tuesday, Wednesday. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Library Returns with three labeled categories: Monday, Tuesday, Wednesday. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Library Returns with three labeled categories: Monday, Tuesday, Wednesday. Vertical bars stand over the category labels, with a scale of 1."
         },
         {
           "id": "G2M_MD_003_LVL2_Q2",
           "question_id": "G2M_MD_003_LVL2_Q2",
           "question_type": "data_interpretation",
           "visual_model": "bar_graph",
-          "prompt": "How many books did Room 2 read?",
-          "answer": "9",
-          "correct_answer": "9",
+          "prompt": "How many more Robins than Finches are shown in the bar graph? Use the display titled Trail Birds.",
+          "answer": "4",
+          "correct_answer": "4",
           "acceptable_answers": [
-            "9"
+            "4"
           ],
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Robins label in Trail Birds.",
+            "Strategy: Compare 8 and 4 by subtracting the smaller count.",
+            "Verify: Check the Wrens, Robins, Finches values against the question before submitting on Trail Birds."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 9.",
+          "explanation": "The display shows 8 for Robins and 4 for Finches. Subtracting 8 − 4 gives 4 more.",
           "data": {
-            "Room1": 7,
-            "Room2": 9,
-            "Room3": 5
+            "Wrens": 5,
+            "Robins": 8,
+            "Finches": 4
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Trail Birds",
           "question_audio": {
-            "text": "How many books did Room 2 read?",
+            "text": "How many more Robins than Finches are shown in the bar graph? Use the display titled Trail Birds. A bar graph titled Trail Birds with three labeled categories: Wrens, Robins, Finches. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Trail Birds with three labeled categories: Wrens, Robins, Finches. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Trail Birds with three labeled categories: Wrens, Robins, Finches. Vertical bars stand over the category labels, with a scale of 1."
         },
         {
           "id": "G2M_MD_003_LVL2_Q3",
           "question_id": "G2M_MD_003_LVL2_Q3",
           "question_type": "data_interpretation",
           "visual_model": "bar_graph",
-          "prompt": "How many more books did Room 2 read than Room 3?",
-          "answer": "4",
-          "correct_answer": "4",
+          "prompt": "How many are shown for Soup and Wraps altogether? Use the display titled Lunch Choices.",
+          "answer": "11",
+          "correct_answer": "11",
           "acceptable_answers": [
-            "4"
+            "11"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Soup label in Lunch Choices.",
+            "Strategy: Combine only the Soup and Wraps counts.",
+            "Verify: Check the Soup, Salad, Wraps values against the question before submitting on Lunch Choices."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 4.",
+          "explanation": "The two labeled counts are 6 and 5. Adding them, 6 + 5, gives 11 altogether.",
           "data": {
-            "Room1": 7,
-            "Room2": 9,
-            "Room3": 5
+            "Soup": 6,
+            "Salad": 9,
+            "Wraps": 5
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Lunch Choices",
           "question_audio": {
-            "text": "How many more books did Room 2 read than Room 3?",
+            "text": "How many are shown for Soup and Wraps altogether? Use the display titled Lunch Choices. A bar graph titled Lunch Choices with three labeled categories: Soup, Salad, Wraps. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Lunch Choices with three labeled categories: Soup, Salad, Wraps. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Lunch Choices with three labeled categories: Soup, Salad, Wraps. Vertical bars stand over the category labels, with a scale of 1."
         },
         {
           "id": "G2M_MD_003_LVL2_Q4",
           "question_id": "G2M_MD_003_LVL2_Q4",
           "question_type": "multiple_choice",
           "visual_model": "bar_graph",
-          "prompt": "Which room read 5 books?",
-          "answer": "Room3",
-          "correct_answer": "Room3",
+          "prompt": "Which category has the greatest count in the bar graph? Use the display titled Toy Drive.",
+          "answer": "Puzzles",
+          "correct_answer": "Puzzles",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Puzzles label in Toy Drive.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Puzzles, Balls, Blocks values against the question before submitting on Toy Drive."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is Room3.",
-          "choices": [
-            "Room1",
-            "Room2",
-            "Room3"
-          ],
+          "explanation": "Comparing 7, 7, 6 shows that 7 is greatest, so its category, Puzzles, has the greatest count.",
           "data": {
-            "Room1": 7,
-            "Room2": 9,
-            "Room3": 5
+            "Puzzles": 7,
+            "Balls": 7,
+            "Blocks": 6
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Toy Drive",
           "question_audio": {
-            "text": "Which room read 5 books?",
+            "text": "Which category has the greatest count in the bar graph? Use the display titled Toy Drive. A bar graph titled Toy Drive with three labeled categories: Puzzles, Balls, Blocks. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Toy Drive with three labeled categories: Puzzles, Balls, Blocks. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Toy Drive with three labeled categories: Puzzles, Balls, Blocks. Vertical bars stand over the category labels, with a scale of 1.",
+          "options": [
+            "Balls",
+            "Blocks",
+            "Other",
+            "Puzzles"
+          ],
+          "choices": [
+            "Balls",
+            "Blocks",
+            "Other",
+            "Puzzles"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL2_Q5",
           "question_id": "G2M_MD_003_LVL2_Q5",
-          "question_type": "data_interpretation",
+          "question_type": "multiple_choice",
           "visual_model": "bar_graph",
-          "prompt": "How many votes did jump rope get?",
-          "answer": "8",
-          "correct_answer": "8",
-          "acceptable_answers": [
-            "8"
-          ],
+          "prompt": "Which category has exactly 8 recorded? Use the display titled School Garden.",
+          "answer": "Peppers",
+          "correct_answer": "Peppers",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Tomatoes label in School Garden.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Tomatoes, Peppers, Beans values against the question before submitting on School Garden."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 8.",
+          "explanation": "The row labeled Peppers carries the count 8, so Peppers matches the requested count.",
           "data": {
-            "Tag": 6,
-            "Jump Rope": 8,
-            "Hopscotch": 4
+            "Tomatoes": 4,
+            "Peppers": 8,
+            "Beans": 7
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "School Garden",
           "question_audio": {
-            "text": "How many votes did jump rope get?",
+            "text": "Which category has exactly 8 recorded? Use the display titled School Garden. A bar graph titled School Garden with three labeled categories: Tomatoes, Peppers, Beans. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled School Garden with three labeled categories: Tomatoes, Peppers, Beans. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled School Garden with three labeled categories: Tomatoes, Peppers, Beans. Vertical bars stand over the category labels, with a scale of 1.",
+          "options": [
+            "Peppers",
+            "Tomatoes",
+            "Beans",
+            "None"
+          ],
+          "choices": [
+            "Peppers",
+            "Tomatoes",
+            "Beans",
+            "None"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL2_Q6",
           "question_id": "G2M_MD_003_LVL2_Q6",
           "question_type": "data_interpretation",
           "visual_model": "bar_graph",
-          "prompt": "How many fewer votes did hopscotch get than jump rope?",
-          "answer": "4",
-          "correct_answer": "4",
+          "prompt": "Study the bar graph. How many are recorded for Room A? Use the display titled Read-a-thon.",
+          "answer": "5",
+          "correct_answer": "5",
           "acceptable_answers": [
-            "4"
+            "5"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Room A label in Read-a-thon.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Room A, Room B, Room C values against the question before submitting on Read-a-thon."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 4.",
+          "explanation": "The Room A row shows 5. Reading that labeled row gives 5.",
           "data": {
-            "Tag": 6,
-            "Jump Rope": 8,
-            "Hopscotch": 4
+            "Room A": 5,
+            "Room B": 9,
+            "Room C": 3
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Read-a-thon",
           "question_audio": {
-            "text": "How many fewer votes did hopscotch get than jump rope?",
+            "text": "Study the bar graph. How many are recorded for Room A? Use the display titled Read-a-thon. A bar graph titled Read-a-thon with three labeled categories: Room A, Room B, Room C. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Read-a-thon with three labeled categories: Room A, Room B, Room C. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Read-a-thon with three labeled categories: Room A, Room B, Room C. Vertical bars stand over the category labels, with a scale of 1."
         },
         {
           "id": "G2M_MD_003_LVL2_Q7",
           "question_id": "G2M_MD_003_LVL2_Q7",
           "question_type": "data_interpretation",
           "visual_model": "bar_graph",
-          "prompt": "If the bar scale counts by 2s, what count is shown by a bar ending at 12?",
-          "answer": "12",
-          "correct_answer": "12",
+          "prompt": "How many more Cloudy than Rainy are shown in the bar graph? Use the display titled Weather Days.",
+          "answer": "3",
+          "correct_answer": "3",
           "acceptable_answers": [
-            "12"
+            "3"
           ],
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Cloudy label in Weather Days.",
+            "Strategy: Compare 7 and 4 by subtracting the smaller count.",
+            "Verify: Check the Sunny, Cloudy, Rainy values against the question before submitting on Weather Days."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 12.",
+          "explanation": "The display shows 7 for Cloudy and 4 for Rainy. Subtracting 7 − 4 gives 3 more.",
           "data": {
-            "Red": 12,
-            "Blue": 6,
-            "Green": 10
+            "Sunny": 6,
+            "Cloudy": 7,
+            "Rainy": 4
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Weather Days",
           "question_audio": {
-            "text": "If the bar scale counts by 2s, what count is shown by a bar ending at 12?",
+            "text": "How many more Cloudy than Rainy are shown in the bar graph? Use the display titled Weather Days. A bar graph titled Weather Days with three labeled categories: Sunny, Cloudy, Rainy. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Weather Days with three labeled categories: Sunny, Cloudy, Rainy. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Weather Days with three labeled categories: Sunny, Cloudy, Rainy. Vertical bars stand over the category labels, with a scale of 1."
         },
         {
           "id": "G2M_MD_003_LVL2_Q8",
           "question_id": "G2M_MD_003_LVL2_Q8",
-          "question_type": "multiple_choice",
+          "question_type": "data_interpretation",
           "visual_model": "bar_graph",
-          "prompt": "Which color has the greatest count?",
-          "answer": "Red",
-          "correct_answer": "Red",
+          "prompt": "How many are shown for Red and Blue altogether? Use the display titled Bike Rack.",
+          "answer": "12",
+          "correct_answer": "12",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Red label in Bike Rack.",
+            "Strategy: Combine only the Red and Blue counts.",
+            "Verify: Check the Red, Silver, Blue values against the question before submitting on Bike Rack."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is Red.",
-          "choices": [
-            "Red",
-            "Blue",
-            "Green"
-          ],
+          "explanation": "The two labeled counts are 7 and 5. Adding them, 7 + 5, gives 12 altogether.",
           "data": {
-            "Red": 12,
-            "Blue": 6,
-            "Green": 10
+            "Red": 7,
+            "Silver": 8,
+            "Blue": 5
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Bike Rack",
           "question_audio": {
-            "text": "Which color has the greatest count?",
+            "text": "How many are shown for Red and Blue altogether? Use the display titled Bike Rack. A bar graph titled Bike Rack with three labeled categories: Red, Silver, Blue. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "acceptable_answers": [
+            "12"
+          ],
+          "visual_description": "A bar graph titled Bike Rack with three labeled categories: Red, Silver, Blue. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Bike Rack with three labeled categories: Red, Silver, Blue. Vertical bars stand over the category labels, with a scale of 1."
         },
         {
           "id": "G2M_MD_003_LVL2_Q9",
           "question_id": "G2M_MD_003_LVL2_Q9",
-          "question_type": "data_interpretation",
+          "question_type": "multiple_choice",
           "visual_model": "bar_graph",
-          "prompt": "How many more chose green than blue?",
-          "answer": "4",
-          "correct_answer": "4",
-          "acceptable_answers": [
-            "4"
-          ],
+          "prompt": "Which category has the greatest count in the bar graph? Use the display titled Nature Walk.",
+          "answer": "Leaves",
+          "correct_answer": "Leaves",
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Rocks label in Nature Walk.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Rocks, Leaves, Seeds values against the question before submitting on Nature Walk."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 4.",
+          "explanation": "Comparing 4, 9, 6 shows that 9 is greatest, so its category, Leaves, has the greatest count.",
           "data": {
-            "Red": 12,
-            "Blue": 6,
-            "Green": 10
+            "Rocks": 4,
+            "Leaves": 9,
+            "Seeds": 6
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Nature Walk",
           "question_audio": {
-            "text": "How many more chose green than blue?",
+            "text": "Which category has the greatest count in the bar graph? Use the display titled Nature Walk. A bar graph titled Nature Walk with three labeled categories: Rocks, Leaves, Seeds. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Nature Walk with three labeled categories: Rocks, Leaves, Seeds. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Nature Walk with three labeled categories: Rocks, Leaves, Seeds. Vertical bars stand over the category labels, with a scale of 1.",
+          "options": [
+            "Leaves",
+            "Rocks",
+            "Seeds",
+            "Other"
+          ],
+          "choices": [
+            "Leaves",
+            "Rocks",
+            "Seeds",
+            "Other"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL2_Q10",
           "question_id": "G2M_MD_003_LVL2_Q10",
-          "question_type": "data_interpretation",
+          "question_type": "multiple_choice",
           "visual_model": "bar_graph",
-          "prompt": "How many students chose tag and hopscotch altogether?",
-          "answer": "10",
-          "correct_answer": "10",
-          "acceptable_answers": [
-            "10"
-          ],
+          "prompt": "Which category has exactly 7 recorded? Use the display titled Game Booth.",
+          "answer": "Darts",
+          "correct_answer": "Darts",
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Rings label in Game Booth.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Rings, Darts, Beanbags values against the question before submitting on Game Booth."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 10.",
+          "explanation": "The row labeled Darts carries the count 7, so Darts matches the requested count.",
           "data": {
-            "Tag": 6,
-            "Jump Rope": 8,
-            "Hopscotch": 4
+            "Rings": 5,
+            "Darts": 7,
+            "Beanbags": 7
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Game Booth",
           "question_audio": {
-            "text": "How many students chose tag and hopscotch altogether?",
+            "text": "Which category has exactly 7 recorded? Use the display titled Game Booth. A bar graph titled Game Booth with three labeled categories: Rings, Darts, Beanbags. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Game Booth with three labeled categories: Rings, Darts, Beanbags. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Game Booth with three labeled categories: Rings, Darts, Beanbags. Vertical bars stand over the category labels, with a scale of 1.",
+          "options": [
+            "Rings",
+            "Darts",
+            "Beanbags",
+            "None"
+          ],
+          "choices": [
+            "Rings",
+            "Darts",
+            "Beanbags",
+            "None"
+          ]
         }
       ]
     },
@@ -1264,184 +1386,215 @@
           "question_id": "G2M_MD_003_LVL3_Q1",
           "question_type": "data_interpretation",
           "visual_model": "data_table",
-          "prompt": "Use the table. How many students picked carrots?",
-          "answer": "5",
-          "correct_answer": "5",
+          "prompt": "Study the table. How many are recorded for Peaches? Use the display titled Cafeteria Fruit.",
+          "answer": "4",
+          "correct_answer": "4",
           "acceptable_answers": [
-            "5"
+            "4"
           ],
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Peaches label in Cafeteria Fruit.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Peaches, Plums, Melons values against the question before submitting on Cafeteria Fruit."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 5.",
+          "explanation": "The Peaches row shows 4. Reading that labeled row gives 4.",
           "data": {
-            "Carrots": 5,
-            "Peas": 3,
-            "Corn": 8
+            "Peaches": 4,
+            "Plums": 7,
+            "Melons": 3
           },
-          "graph_title": "Data Table",
+          "graph_title": "Cafeteria Fruit",
           "question_audio": {
-            "text": "Use the table. How many students picked carrots?",
+            "text": "Study the table. How many are recorded for Peaches? Use the display titled Cafeteria Fruit. A data table titled Cafeteria Fruit with three labeled categories: Peaches, Plums, Melons. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Cafeteria Fruit with three labeled categories: Peaches, Plums, Melons. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Cafeteria Fruit with three labeled categories: Peaches, Plums, Melons. Each category is in its own row beside its count."
         },
         {
           "id": "G2M_MD_003_LVL3_Q2",
           "question_id": "G2M_MD_003_LVL3_Q2",
           "question_type": "data_interpretation",
           "visual_model": "data_table",
-          "prompt": "Use the table. How many more picked corn than peas?",
-          "answer": "5",
-          "correct_answer": "5",
+          "prompt": "How many more Poetry than Science are shown in the table? Use the display titled Book Cart.",
+          "answer": "4",
+          "correct_answer": "4",
           "acceptable_answers": [
-            "5"
+            "4"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Poetry label in Book Cart.",
+            "Strategy: Compare 8 and 4 by subtracting the smaller count.",
+            "Verify: Check the Adventure, Poetry, Science values against the question before submitting on Book Cart."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 5.",
+          "explanation": "The display shows 8 for Poetry and 4 for Science. Subtracting 8 − 4 gives 4 more.",
           "data": {
-            "Carrots": 5,
-            "Peas": 3,
-            "Corn": 8
+            "Adventure": 5,
+            "Poetry": 8,
+            "Science": 4
           },
-          "graph_title": "Data Table",
+          "graph_title": "Book Cart",
           "question_audio": {
-            "text": "Use the table. How many more picked corn than peas?",
+            "text": "How many more Poetry than Science are shown in the table? Use the display titled Book Cart. A data table titled Book Cart with three labeled categories: Adventure, Poetry, Science. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Book Cart with three labeled categories: Adventure, Poetry, Science. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Book Cart with three labeled categories: Adventure, Poetry, Science. Each category is in its own row beside its count."
         },
         {
           "id": "G2M_MD_003_LVL3_Q3",
           "question_id": "G2M_MD_003_LVL3_Q3",
-          "question_type": "multiple_choice",
+          "question_type": "data_interpretation",
           "visual_model": "data_table",
-          "prompt": "Which vegetable had exactly 5 votes?",
-          "answer": "Carrots",
-          "correct_answer": "Carrots",
+          "prompt": "How many are shown for Sunflower and Radish altogether? Use the display titled Seed Packets.",
+          "answer": "11",
+          "correct_answer": "11",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Sunflower label in Seed Packets.",
+            "Strategy: Combine only the Sunflower and Radish counts.",
+            "Verify: Check the Sunflower, Pea, Radish values against the question before submitting on Seed Packets."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is Carrots.",
-          "choices": [
-            "Carrots",
-            "Peas",
-            "Corn"
-          ],
+          "explanation": "The two labeled counts are 6 and 5. Adding them, 6 + 5, gives 11 altogether.",
           "data": {
-            "Carrots": 5,
-            "Peas": 3,
-            "Corn": 8
+            "Sunflower": 6,
+            "Pea": 9,
+            "Radish": 5
           },
-          "graph_title": "Data Table",
+          "graph_title": "Seed Packets",
           "question_audio": {
-            "text": "Which vegetable had exactly 5 votes?",
+            "text": "How many are shown for Sunflower and Radish altogether? Use the display titled Seed Packets. A data table titled Seed Packets with three labeled categories: Sunflower, Pea, Radish. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "acceptable_answers": [
+            "11"
+          ],
+          "visual_description": "A data table titled Seed Packets with three labeled categories: Sunflower, Pea, Radish. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Seed Packets with three labeled categories: Sunflower, Pea, Radish. Each category is in its own row beside its count."
         },
         {
           "id": "G2M_MD_003_LVL3_Q4",
           "question_id": "G2M_MD_003_LVL3_Q4",
-          "question_type": "data_interpretation",
+          "question_type": "multiple_choice",
           "visual_model": "data_table",
-          "prompt": "How many votes are in the table altogether?",
-          "answer": "16",
-          "correct_answer": "16",
-          "acceptable_answers": [
-            "16"
-          ],
+          "prompt": "Which category has the greatest count in the table? Use the display titled Lost and Found.",
+          "answer": "Hats",
+          "correct_answer": "Hats",
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Hats label in Lost and Found.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Hats, Mittens, Scarves values against the question before submitting on Lost and Found."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 16.",
+          "explanation": "Comparing 7, 7, 6 shows that 7 is greatest, so its category, Hats, has the greatest count.",
           "data": {
-            "Carrots": 5,
-            "Peas": 3,
-            "Corn": 8
+            "Hats": 7,
+            "Mittens": 7,
+            "Scarves": 6
           },
-          "graph_title": "Data Table",
+          "graph_title": "Lost and Found",
           "question_audio": {
-            "text": "How many votes are in the table altogether?",
+            "text": "Which category has the greatest count in the table? Use the display titled Lost and Found. A data table titled Lost and Found with three labeled categories: Hats, Mittens, Scarves. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Lost and Found with three labeled categories: Hats, Mittens, Scarves. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Lost and Found with three labeled categories: Hats, Mittens, Scarves. Each category is in its own row beside its count.",
+          "options": [
+            "Mittens",
+            "Scarves",
+            "Other",
+            "Hats"
+          ],
+          "choices": [
+            "Mittens",
+            "Scarves",
+            "Other",
+            "Hats"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL3_Q5",
           "question_id": "G2M_MD_003_LVL3_Q5",
-          "question_type": "data_interpretation",
+          "question_type": "multiple_choice",
           "visual_model": "data_table",
-          "prompt": "Use the table. How many students chose mystery books?",
-          "answer": "9",
-          "correct_answer": "9",
-          "acceptable_answers": [
-            "9"
-          ],
+          "prompt": "Which category has exactly 8 recorded? Use the display titled Animal Tracks.",
+          "answer": "Fox",
+          "correct_answer": "Fox",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Deer label in Animal Tracks.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Deer, Fox, Rabbit values against the question before submitting on Animal Tracks."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 9.",
+          "explanation": "The row labeled Fox carries the count 8, so Fox matches the requested count.",
           "data": {
-            "Mystery": 9,
-            "Animal": 6,
-            "Space": 4
+            "Deer": 4,
+            "Fox": 8,
+            "Rabbit": 7
           },
-          "graph_title": "Data Table",
+          "graph_title": "Animal Tracks",
           "question_audio": {
-            "text": "Use the table. How many students chose mystery books?",
+            "text": "Which category has exactly 8 recorded? Use the display titled Animal Tracks. A data table titled Animal Tracks with three labeled categories: Deer, Fox, Rabbit. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Animal Tracks with three labeled categories: Deer, Fox, Rabbit. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Animal Tracks with three labeled categories: Deer, Fox, Rabbit. Each category is in its own row beside its count.",
+          "options": [
+            "Fox",
+            "Deer",
+            "Rabbit",
+            "None"
+          ],
+          "choices": [
+            "Fox",
+            "Deer",
+            "Rabbit",
+            "None"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL3_Q6",
           "question_id": "G2M_MD_003_LVL3_Q6",
           "question_type": "data_interpretation",
           "visual_model": "data_table",
-          "prompt": "How many fewer chose space books than mystery books?",
+          "prompt": "Study the table. How many are recorded for Cards? Use the display titled Craft Orders.",
           "answer": "5",
           "correct_answer": "5",
           "acceptable_answers": [
@@ -1449,169 +1602,200 @@
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Cards label in Craft Orders.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Cards, Frames, Kites values against the question before submitting on Craft Orders."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 5.",
+          "explanation": "The Cards row shows 5. Reading that labeled row gives 5.",
           "data": {
-            "Mystery": 9,
-            "Animal": 6,
-            "Space": 4
+            "Cards": 5,
+            "Frames": 9,
+            "Kites": 3
           },
-          "graph_title": "Data Table",
+          "graph_title": "Craft Orders",
           "question_audio": {
-            "text": "How many fewer chose space books than mystery books?",
+            "text": "Study the table. How many are recorded for Cards? Use the display titled Craft Orders. A data table titled Craft Orders with three labeled categories: Cards, Frames, Kites. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Craft Orders with three labeled categories: Cards, Frames, Kites. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Craft Orders with three labeled categories: Cards, Frames, Kites. Each category is in its own row beside its count."
         },
         {
           "id": "G2M_MD_003_LVL3_Q7",
           "question_id": "G2M_MD_003_LVL3_Q7",
-          "question_type": "multiple_choice",
+          "question_type": "data_interpretation",
           "visual_model": "data_table",
-          "prompt": "Which book type has 6 votes?",
-          "answer": "Animal",
-          "correct_answer": "Animal",
+          "prompt": "How many more Swings than Climber are shown in the table? Use the display titled Playground Survey.",
+          "answer": "3",
+          "correct_answer": "3",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Swings label in Playground Survey.",
+            "Strategy: Compare 7 and 4 by subtracting the smaller count.",
+            "Verify: Check the Slides, Swings, Climber values against the question before submitting on Playground Survey."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is Animal.",
-          "choices": [
-            "Mystery",
-            "Animal",
-            "Space"
-          ],
+          "explanation": "The display shows 7 for Swings and 4 for Climber. Subtracting 7 − 4 gives 3 more.",
           "data": {
-            "Mystery": 9,
-            "Animal": 6,
-            "Space": 4
+            "Slides": 6,
+            "Swings": 7,
+            "Climber": 4
           },
-          "graph_title": "Data Table",
+          "graph_title": "Playground Survey",
           "question_audio": {
-            "text": "Which book type has 6 votes?",
+            "text": "How many more Swings than Climber are shown in the table? Use the display titled Playground Survey. A data table titled Playground Survey with three labeled categories: Slides, Swings, Climber. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "acceptable_answers": [
+            "3"
+          ],
+          "visual_description": "A data table titled Playground Survey with three labeled categories: Slides, Swings, Climber. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Playground Survey with three labeled categories: Slides, Swings, Climber. Each category is in its own row beside its count."
         },
         {
           "id": "G2M_MD_003_LVL3_Q8",
           "question_id": "G2M_MD_003_LVL3_Q8",
           "question_type": "data_interpretation",
           "visual_model": "data_table",
-          "prompt": "How many students chose animal and space books together?",
-          "answer": "10",
-          "correct_answer": "10",
+          "prompt": "How many are shown for Cans and Rice altogether? Use the display titled Donation Boxes.",
+          "answer": "12",
+          "correct_answer": "12",
           "acceptable_answers": [
-            "10"
+            "12"
           ],
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Cans label in Donation Boxes.",
+            "Strategy: Combine only the Cans and Rice counts.",
+            "Verify: Check the Cans, Soap, Rice values against the question before submitting on Donation Boxes."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 10.",
+          "explanation": "The two labeled counts are 7 and 5. Adding them, 7 + 5, gives 12 altogether.",
           "data": {
-            "Mystery": 9,
-            "Animal": 6,
-            "Space": 4
+            "Cans": 7,
+            "Soap": 8,
+            "Rice": 5
           },
-          "graph_title": "Data Table",
+          "graph_title": "Donation Boxes",
           "question_audio": {
-            "text": "How many students chose animal and space books together?",
+            "text": "How many are shown for Cans and Rice altogether? Use the display titled Donation Boxes. A data table titled Donation Boxes with three labeled categories: Cans, Soap, Rice. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Donation Boxes with three labeled categories: Cans, Soap, Rice. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Donation Boxes with three labeled categories: Cans, Soap, Rice. Each category is in its own row beside its count."
         },
         {
           "id": "G2M_MD_003_LVL3_Q9",
           "question_id": "G2M_MD_003_LVL3_Q9",
-          "question_type": "data_interpretation",
+          "question_type": "multiple_choice",
           "visual_model": "data_table",
-          "prompt": "A graph key says each picture equals 2. Which count would need 4 pictures?",
-          "answer": "8",
-          "correct_answer": "8",
-          "acceptable_answers": [
-            "8"
-          ],
+          "prompt": "Which category has the greatest count in the table? Use the display titled Class Jobs.",
+          "answer": "Librarian",
+          "correct_answer": "Librarian",
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Messenger label in Class Jobs.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Messenger, Librarian, Helper values against the question before submitting on Class Jobs."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 8.",
+          "explanation": "Comparing 4, 9, 6 shows that 9 is greatest, so its category, Librarian, has the greatest count.",
           "data": {
-            "A": 8,
-            "B": 6,
-            "C": 4
+            "Messenger": 4,
+            "Librarian": 9,
+            "Helper": 6
           },
-          "graph_title": "Data Table",
+          "graph_title": "Class Jobs",
           "question_audio": {
-            "text": "A graph key says each picture equals 2. Which count would need 4 pictures?",
+            "text": "Which category has the greatest count in the table? Use the display titled Class Jobs. A data table titled Class Jobs with three labeled categories: Messenger, Librarian, Helper. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Class Jobs with three labeled categories: Messenger, Librarian, Helper. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Class Jobs with three labeled categories: Messenger, Librarian, Helper. Each category is in its own row beside its count.",
+          "options": [
+            "Librarian",
+            "Messenger",
+            "Helper",
+            "Other"
+          ],
+          "choices": [
+            "Librarian",
+            "Messenger",
+            "Helper",
+            "Other"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL3_Q10",
           "question_id": "G2M_MD_003_LVL3_Q10",
-          "question_type": "data_interpretation",
+          "question_type": "multiple_choice",
           "visual_model": "data_table",
-          "prompt": "How many more is 8 than 6?",
-          "answer": "2",
-          "correct_answer": "2",
-          "acceptable_answers": [
-            "2"
-          ],
+          "prompt": "Which category has exactly 7 recorded? Use the display titled Aquarium Count.",
+          "answer": "Shrimp",
+          "correct_answer": "Shrimp",
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Find the Snails label in Aquarium Count.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Check the Snails, Shrimp, Guppies values against the question before submitting on Aquarium Count."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 2.",
+          "explanation": "The row labeled Shrimp carries the count 7, so Shrimp matches the requested count.",
           "data": {
-            "A": 8,
-            "B": 6,
-            "C": 4
+            "Snails": 5,
+            "Shrimp": 7,
+            "Guppies": 7
           },
-          "graph_title": "Data Table",
+          "graph_title": "Aquarium Count",
           "question_audio": {
-            "text": "How many more is 8 than 6?",
+            "text": "Which category has exactly 7 recorded? Use the display titled Aquarium Count. A data table titled Aquarium Count with three labeled categories: Snails, Shrimp, Guppies. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Aquarium Count with three labeled categories: Snails, Shrimp, Guppies. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Aquarium Count with three labeled categories: Snails, Shrimp, Guppies. Each category is in its own row beside its count.",
+          "options": [
+            "Snails",
+            "Shrimp",
+            "Guppies",
+            "None"
+          ],
+          "choices": [
+            "Snails",
+            "Shrimp",
+            "Guppies",
+            "None"
+          ]
         }
       ]
     },
@@ -1628,7 +1812,7 @@
           "question_id": "G2M_MD_003_LVL4_Q1",
           "question_type": "graph_reading",
           "visual_model": "line_plot",
-          "prompt": "How many X marks are above 4?",
+          "prompt": "On the Button Widths line plot, how many measurements are at 4?",
           "answer": "3",
           "correct_answer": "3",
           "acceptable_answers": [
@@ -1636,15 +1820,15 @@
           ],
           "misconception_tag": "line_plot_mark_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Look at the X stacks on Button Widths, not empty number labels.",
+            "Strategy: Count the stack connected to the number named in the question.",
+            "Verify: Match each counted X to one item in the measurement list on Button Widths."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 3.",
+          "explanation": "There are 3 X marks stacked over 4. Each X is one measurement, so the count is 3.",
           "values": [
             2,
             3,
@@ -1653,130 +1837,139 @@
             4,
             4,
             5,
-            6,
-            6,
-            7
+            6
           ],
           "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
+          "max": 6,
+          "graph_title": "Button Widths",
           "question_audio": {
-            "text": "How many X marks are above 4?",
+            "text": "On the Button Widths line plot, how many measurements are at 4? A line plot titled Button Widths, labeled from 2 through 6. X marks are stacked above the number for each measurement.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A line plot titled Button Widths, labeled from 2 through 6. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Button Widths, labeled from 2 through 6. X marks are stacked above the number for each measurement."
         },
         {
           "id": "G2M_MD_003_LVL4_Q2",
           "question_id": "G2M_MD_003_LVL4_Q2",
           "question_type": "graph_reading",
           "visual_model": "line_plot",
-          "prompt": "How many measurements are 6?",
-          "answer": "2",
-          "correct_answer": "2",
+          "prompt": "How many measurements are shown altogether on the Crayon Lengths line plot?",
+          "answer": "8",
+          "correct_answer": "8",
           "acceptable_answers": [
-            "2"
+            "8"
           ],
           "misconception_tag": "line_plot_mark_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Look at the X stacks on Crayon Lengths, not empty number labels.",
+            "Strategy: Count every X once across all stacks.",
+            "Verify: Match each counted X to one item in the measurement list on Crayon Lengths."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 2.",
+          "explanation": "Each X represents one measurement. Counting all 8 X marks gives 8 measurements altogether.",
           "values": [
-            2,
             3,
-            3,
-            4,
             4,
             4,
             5,
+            5,
+            5,
             6,
-            6,
-            7
+            8
           ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
+          "min": 3,
+          "max": 8,
+          "graph_title": "Crayon Lengths",
           "question_audio": {
-            "text": "How many measurements are 6?",
+            "text": "How many measurements are shown altogether on the Crayon Lengths line plot? A line plot titled Crayon Lengths, labeled from 3 through 8. X marks are stacked above the number for each measurement.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A line plot titled Crayon Lengths, labeled from 3 through 8. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Crayon Lengths, labeled from 3 through 8. X marks are stacked above the number for each measurement."
         },
         {
           "id": "G2M_MD_003_LVL4_Q3",
           "question_id": "G2M_MD_003_LVL4_Q3",
-          "question_type": "graph_reading",
+          "question_type": "multiple_choice",
           "visual_model": "line_plot",
-          "prompt": "How many measurements are shown altogether?",
-          "answer": "10",
-          "correct_answer": "10",
-          "acceptable_answers": [
-            "10"
-          ],
+          "prompt": "Which measurement occurs most often on the Bean Sprout Heights line plot?",
+          "answer": "6",
+          "correct_answer": "6",
           "misconception_tag": "line_plot_mark_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Look at the X stacks on Bean Sprout Heights, not empty number labels.",
+            "Strategy: Count the stack connected to the number named in the question.",
+            "Verify: Match each counted X to one item in the measurement list on Bean Sprout Heights."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 10.",
+          "explanation": "The tallest stack has 3 X marks and sits over 6. Therefore 6 occurs most often.",
           "values": [
-            2,
-            3,
-            3,
             4,
-            4,
-            4,
+            5,
             5,
             6,
             6,
-            7
+            6,
+            7,
+            8
           ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
+          "min": 4,
+          "max": 8,
+          "graph_title": "Bean Sprout Heights",
           "question_audio": {
-            "text": "How many measurements are shown altogether?",
+            "text": "Which measurement occurs most often on the Bean Sprout Heights line plot? A line plot titled Bean Sprout Heights, labeled from 4 through 8. X marks are stacked above the number for each measurement.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A line plot titled Bean Sprout Heights, labeled from 4 through 8. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Bean Sprout Heights, labeled from 4 through 8. X marks are stacked above the number for each measurement.",
+          "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "choices": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
         },
         {
           "id": "G2M_MD_003_LVL4_Q4",
           "question_id": "G2M_MD_003_LVL4_Q4",
           "question_type": "graph_reading",
           "visual_model": "line_plot",
-          "prompt": "Which length has the most X marks?",
-          "answer": "4",
-          "correct_answer": "4",
+          "prompt": "How many more measurements are at 4 than at 2? Use the display titled Toy Car Distances.",
+          "answer": "2",
+          "correct_answer": "2",
           "acceptable_answers": [
-            "4"
+            "2"
           ],
           "misconception_tag": "line_plot_mark_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Look at the X stacks on Toy Car Distances, not empty number labels.",
+            "Strategy: Count the stacks at 4 and 2, then subtract.",
+            "Verify: Match each counted X to one item in the measurement list on Toy Car Distances."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 4.",
+          "explanation": "There are 3 marks at 4 and 1 at 2. The difference 3 − 1 is 2.",
           "values": [
             2,
             3,
@@ -1785,246 +1978,26 @@
             4,
             4,
             5,
-            6,
-            6,
             7
           ],
           "min": 2,
           "max": 7,
-          "graph_title": "Leaf Lengths",
+          "graph_title": "Toy Car Distances",
           "question_audio": {
-            "text": "Which length has the most X marks?",
+            "text": "How many more measurements are at 4 than at 2? Use the display titled Toy Car Distances. A line plot titled Toy Car Distances, labeled from 2 through 7. X marks are stacked above the number for each measurement.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A line plot titled Toy Car Distances, labeled from 2 through 7. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Toy Car Distances, labeled from 2 through 7. X marks are stacked above the number for each measurement."
         },
         {
           "id": "G2M_MD_003_LVL4_Q5",
           "question_id": "G2M_MD_003_LVL4_Q5",
           "question_type": "graph_reading",
           "visual_model": "line_plot",
-          "prompt": "How many more measurements are 4 than 2?",
-          "answer": "2",
-          "correct_answer": "2",
-          "acceptable_answers": [
-            "2"
-          ],
-          "misconception_tag": "line_plot_mark_error",
-          "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
-          ],
-          "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
-          },
-          "explanation": "The correct answer is 2.",
-          "values": [
-            2,
-            3,
-            3,
-            4,
-            4,
-            4,
-            5,
-            6,
-            6,
-            7
-          ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
-          "question_audio": {
-            "text": "How many more measurements are 4 than 2?",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "id": "G2M_MD_003_LVL4_Q6",
-          "question_id": "G2M_MD_003_LVL4_Q6",
-          "question_type": "graph_reading",
-          "visual_model": "line_plot",
-          "prompt": "How many X marks should be over 3?",
-          "answer": "2",
-          "correct_answer": "2",
-          "acceptable_answers": [
-            "2"
-          ],
-          "misconception_tag": "line_plot_mark_error",
-          "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
-          ],
-          "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
-          },
-          "explanation": "The correct answer is 2.",
-          "values": [
-            2,
-            3,
-            3,
-            4,
-            4,
-            4,
-            5,
-            6,
-            6,
-            7
-          ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
-          "question_audio": {
-            "text": "How many X marks should be over 3?",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "id": "G2M_MD_003_LVL4_Q7",
-          "question_id": "G2M_MD_003_LVL4_Q7",
-          "question_type": "graph_reading",
-          "visual_model": "line_plot",
-          "prompt": "How many measurements are less than 5?",
-          "answer": "6",
-          "correct_answer": "6",
-          "acceptable_answers": [
-            "6"
-          ],
-          "misconception_tag": "line_plot_mark_error",
-          "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
-          ],
-          "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
-          },
-          "explanation": "The correct answer is 6.",
-          "values": [
-            2,
-            3,
-            3,
-            4,
-            4,
-            4,
-            5,
-            6,
-            6,
-            7
-          ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
-          "question_audio": {
-            "text": "How many measurements are less than 5?",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "id": "G2M_MD_003_LVL4_Q8",
-          "question_id": "G2M_MD_003_LVL4_Q8",
-          "question_type": "graph_reading",
-          "visual_model": "line_plot",
-          "prompt": "How many measurements are greater than 5?",
-          "answer": "3",
-          "correct_answer": "3",
-          "acceptable_answers": [
-            "3"
-          ],
-          "misconception_tag": "line_plot_mark_error",
-          "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
-          ],
-          "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
-          },
-          "explanation": "The correct answer is 3.",
-          "values": [
-            2,
-            3,
-            3,
-            4,
-            4,
-            4,
-            5,
-            6,
-            6,
-            7
-          ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
-          "question_audio": {
-            "text": "How many measurements are greater than 5?",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "id": "G2M_MD_003_LVL4_Q9",
-          "question_id": "G2M_MD_003_LVL4_Q9",
-          "question_type": "graph_reading",
-          "visual_model": "line_plot",
-          "prompt": "What is the smallest measurement on the line plot?",
-          "answer": "2",
-          "correct_answer": "2",
-          "acceptable_answers": [
-            "2"
-          ],
-          "misconception_tag": "line_plot_mark_error",
-          "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
-          ],
-          "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
-          },
-          "explanation": "The correct answer is 2.",
-          "values": [
-            2,
-            3,
-            3,
-            4,
-            4,
-            4,
-            5,
-            6,
-            6,
-            7
-          ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
-          "question_audio": {
-            "text": "What is the smallest measurement on the line plot?",
-            "label": "Read Question",
-            "type": "question",
-            "playback_preference": "cached_audio_first"
-          }
-        },
-        {
-          "id": "G2M_MD_003_LVL4_Q10",
-          "question_id": "G2M_MD_003_LVL4_Q10",
-          "question_type": "graph_reading",
-          "visual_model": "line_plot",
-          "prompt": "What is the largest measurement on the line plot?",
+          "prompt": "What is the greatest measurement that has an X on the Paper Strip Lengths line plot?",
           "answer": "7",
           "correct_answer": "7",
           "acceptable_answers": [
@@ -2032,15 +2005,103 @@
           ],
           "misconception_tag": "line_plot_mark_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Look at the X stacks on Paper Strip Lengths, not empty number labels.",
+            "Strategy: Move from right to left until you find a number with an X.",
+            "Verify: Match each counted X to one item in the measurement list on Paper Strip Lengths."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 7.",
+          "explanation": "Scan rightward only to labels that have an X. The rightmost marked value is 7, so it is the greatest measurement recorded.",
+          "values": [
+            3,
+            4,
+            4,
+            5,
+            5,
+            5,
+            6,
+            7
+          ],
+          "min": 3,
+          "max": 7,
+          "graph_title": "Paper Strip Lengths",
+          "question_audio": {
+            "text": "What is the greatest measurement that has an X on the Paper Strip Lengths line plot? A line plot titled Paper Strip Lengths, labeled from 3 through 7. X marks are stacked above the number for each measurement.",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "visual_description": "A line plot titled Paper Strip Lengths, labeled from 3 through 7. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Paper Strip Lengths, labeled from 3 through 7. X marks are stacked above the number for each measurement."
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q6",
+          "question_id": "G2M_MD_003_LVL4_Q6",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "On the Footprint Lengths line plot, how many measurements are at 6?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Focus: Look at the X stacks on Footprint Lengths, not empty number labels.",
+            "Strategy: Count the stack connected to the number named in the question.",
+            "Verify: Match each counted X to one item in the measurement list on Footprint Lengths."
+          ],
+          "feedback": {
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
+          },
+          "explanation": "There are 3 X marks stacked over 6. Each X is one measurement, so the count is 3.",
+          "values": [
+            4,
+            5,
+            5,
+            6,
+            6,
+            6,
+            7,
+            9
+          ],
+          "min": 4,
+          "max": 9,
+          "graph_title": "Footprint Lengths",
+          "question_audio": {
+            "text": "On the Footprint Lengths line plot, how many measurements are at 6? A line plot titled Footprint Lengths, labeled from 4 through 9. X marks are stacked above the number for each measurement.",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "visual_description": "A line plot titled Footprint Lengths, labeled from 4 through 9. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Footprint Lengths, labeled from 4 through 9. X marks are stacked above the number for each measurement."
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q7",
+          "question_id": "G2M_MD_003_LVL4_Q7",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are shown altogether on the Block Tower Heights line plot?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Focus: Look at the X stacks on Block Tower Heights, not empty number labels.",
+            "Strategy: Count every X once across all stacks.",
+            "Verify: Match each counted X to one item in the measurement list on Block Tower Heights."
+          ],
+          "feedback": {
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
+          },
+          "explanation": "Each X represents one measurement. Counting all 8 X marks gives 8 measurements altogether.",
           "values": [
             2,
             3,
@@ -2049,19 +2110,160 @@
             4,
             4,
             5,
+            6
+          ],
+          "min": 2,
+          "max": 6,
+          "graph_title": "Block Tower Heights",
+          "question_audio": {
+            "text": "How many measurements are shown altogether on the Block Tower Heights line plot? A line plot titled Block Tower Heights, labeled from 2 through 6. X marks are stacked above the number for each measurement.",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "visual_description": "A line plot titled Block Tower Heights, labeled from 2 through 6. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Block Tower Heights, labeled from 2 through 6. X marks are stacked above the number for each measurement."
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q8",
+          "question_id": "G2M_MD_003_LVL4_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "line_plot",
+          "prompt": "Which measurement occurs most often on the Leaf Widths line plot?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Focus: Look at the X stacks on Leaf Widths, not empty number labels.",
+            "Strategy: Count the stack connected to the number named in the question.",
+            "Verify: Match each counted X to one item in the measurement list on Leaf Widths."
+          ],
+          "feedback": {
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
+          },
+          "explanation": "The tallest stack has 3 X marks and sits over 5. Therefore 5 occurs most often.",
+          "values": [
+            3,
+            4,
+            4,
+            5,
+            5,
+            5,
+            6,
+            8
+          ],
+          "min": 3,
+          "max": 8,
+          "graph_title": "Leaf Widths",
+          "question_audio": {
+            "text": "Which measurement occurs most often on the Leaf Widths line plot? A line plot titled Leaf Widths, labeled from 3 through 8. X marks are stacked above the number for each measurement.",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "visual_description": "A line plot titled Leaf Widths, labeled from 3 through 8. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Leaf Widths, labeled from 3 through 8. X marks are stacked above the number for each measurement.",
+          "options": [
+            "3",
+            "4",
+            "6",
+            "5"
+          ],
+          "choices": [
+            "3",
+            "4",
+            "6",
+            "5"
+          ]
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q9",
+          "question_id": "G2M_MD_003_LVL4_Q9",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many more measurements are at 6 than at 4? Use the display titled String Lengths.",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Focus: Look at the X stacks on String Lengths, not empty number labels.",
+            "Strategy: Count the stacks at 6 and 4, then subtract.",
+            "Verify: Match each counted X to one item in the measurement list on String Lengths."
+          ],
+          "feedback": {
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
+          },
+          "explanation": "There are 3 marks at 6 and 1 at 4. The difference 3 − 1 is 2.",
+          "values": [
+            4,
+            5,
+            5,
             6,
             6,
+            6,
+            7,
+            8
+          ],
+          "min": 4,
+          "max": 8,
+          "graph_title": "String Lengths",
+          "question_audio": {
+            "text": "How many more measurements are at 6 than at 4? Use the display titled String Lengths. A line plot titled String Lengths, labeled from 4 through 8. X marks are stacked above the number for each measurement.",
+            "label": "Read Question",
+            "type": "question",
+            "playback_preference": "cached_audio_first"
+          },
+          "visual_description": "A line plot titled String Lengths, labeled from 4 through 8. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled String Lengths, labeled from 4 through 8. X marks are stacked above the number for each measurement."
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q10",
+          "question_id": "G2M_MD_003_LVL4_Q10",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "What is the greatest measurement that has an X on the Stone Widths line plot?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Focus: Look at the X stacks on Stone Widths, not empty number labels.",
+            "Strategy: Move from right to left until you find a number with an X.",
+            "Verify: Match each counted X to one item in the measurement list on Stone Widths."
+          ],
+          "feedback": {
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
+          },
+          "explanation": "Scan rightward only to labels that have an X. The rightmost marked value is 7, so it is the greatest measurement recorded.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
             7
           ],
           "min": 2,
           "max": 7,
-          "graph_title": "Leaf Lengths",
+          "graph_title": "Stone Widths",
           "question_audio": {
-            "text": "What is the largest measurement on the line plot?",
+            "text": "What is the greatest measurement that has an X on the Stone Widths line plot? A line plot titled Stone Widths, labeled from 2 through 7. X marks are stacked above the number for each measurement.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A line plot titled Stone Widths, labeled from 2 through 7. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Stone Widths, labeled from 2 through 7. X marks are stacked above the number for each measurement."
         }
       ]
     },
@@ -2078,382 +2280,416 @@
           "question_id": "G2M_MD_003_MIXED_Q1",
           "question_type": "graph_reading",
           "visual_model": "picture_graph",
-          "prompt": "How many more chose cats than fish?",
-          "answer": "3",
-          "correct_answer": "3",
+          "prompt": "Choose the useful graph-reading method. Study the picture graph. How many are recorded for Maze? Use the display titled Fair Booth Poll.",
+          "answer": "14",
+          "correct_answer": "14",
           "acceptable_answers": [
-            "3"
+            "14"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Explain why your chosen method fits the picture graph before submitting on Fair Booth Poll."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 3.",
+          "explanation": "The Maze row shows 14. Reading that labeled row gives 14.",
           "data": {
-            "Cats": 6,
-            "Dogs": 4,
-            "Fish": 3
+            "Maze": 14,
+            "Puppets": 22,
+            "Bowling": 10
           },
           "scale": 1,
-          "graph_title": "Class Choices",
+          "graph_title": "Fair Booth Poll",
           "question_audio": {
-            "text": "How many more chose cats than fish?",
+            "text": "Choose the useful graph-reading method. Study the picture graph. How many are recorded for Maze? Use the display titled Fair Booth Poll. A picture graph titled Fair Booth Poll with three labeled categories: Maze, Puppets, Bowling. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Fair Booth Poll with three labeled categories: Maze, Puppets, Bowling. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Fair Booth Poll with three labeled categories: Maze, Puppets, Bowling. The key says one star stands for 1; symbols are arranged in labeled rows."
         },
         {
           "id": "G2M_MD_003_MIXED_Q2",
           "question_id": "G2M_MD_003_MIXED_Q2",
           "question_type": "data_interpretation",
           "visual_model": "bar_graph",
-          "prompt": "How many books did Room 1 read?",
-          "answer": "7",
-          "correct_answer": "7",
+          "prompt": "Choose the useful graph-reading method. How many more Cans than Bottles are shown in the bar graph? Use the display titled Park Cleanup.",
+          "answer": "12",
+          "correct_answer": "12",
           "acceptable_answers": [
-            "7"
+            "12"
           ],
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Compare 23 and 11 by subtracting the smaller count.",
+            "Verify: Explain why your chosen method fits the bar graph before submitting on Park Cleanup."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 7.",
+          "explanation": "The display shows 23 for Cans and 11 for Bottles. Subtracting 23 − 11 gives 12 more.",
           "data": {
-            "Room1": 7,
-            "Room2": 9,
-            "Room3": 5
+            "Paper": 15,
+            "Cans": 23,
+            "Bottles": 11
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Park Cleanup",
           "question_audio": {
-            "text": "How many books did Room 1 read?",
+            "text": "Choose the useful graph-reading method. How many more Cans than Bottles are shown in the bar graph? Use the display titled Park Cleanup. A bar graph titled Park Cleanup with three labeled categories: Paper, Cans, Bottles. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Park Cleanup with three labeled categories: Paper, Cans, Bottles. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Park Cleanup with three labeled categories: Paper, Cans, Bottles. Vertical bars stand over the category labels, with a scale of 1."
         },
         {
           "id": "G2M_MD_003_MIXED_Q3",
           "question_id": "G2M_MD_003_MIXED_Q3",
           "question_type": "data_interpretation",
           "visual_model": "data_table",
-          "prompt": "Use the table. How many more picked corn than peas?",
-          "answer": "5",
-          "correct_answer": "5",
+          "prompt": "Choose the useful graph-reading method. How many are shown for Sandwiches and Juice altogether? Use the display titled Picnic Orders.",
+          "answer": "28",
+          "correct_answer": "28",
           "acceptable_answers": [
-            "5"
+            "28"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Combine only the Sandwiches and Juice counts.",
+            "Verify: Explain why your chosen method fits the data table before submitting on Picnic Orders."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 5.",
+          "explanation": "The two labeled counts are 16 and 12. Adding them, 16 + 12, gives 28 altogether.",
           "data": {
-            "Carrots": 5,
-            "Peas": 3,
-            "Corn": 8
+            "Sandwiches": 16,
+            "Fruit Cups": 24,
+            "Juice": 12
           },
-          "graph_title": "Data Table",
+          "graph_title": "Picnic Orders",
           "question_audio": {
-            "text": "Use the table. How many more picked corn than peas?",
+            "text": "Choose the useful graph-reading method. How many are shown for Sandwiches and Juice altogether? Use the display titled Picnic Orders. A data table titled Picnic Orders with three labeled categories: Sandwiches, Fruit Cups, Juice. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Picnic Orders with three labeled categories: Sandwiches, Fruit Cups, Juice. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Picnic Orders with three labeled categories: Sandwiches, Fruit Cups, Juice. Each category is in its own row beside its count."
         },
         {
           "id": "G2M_MD_003_MIXED_Q4",
           "question_id": "G2M_MD_003_MIXED_Q4",
           "question_type": "graph_reading",
           "visual_model": "line_plot",
-          "prompt": "How many X marks are above 4?",
-          "answer": "3",
-          "correct_answer": "3",
+          "prompt": "Choose the useful graph-reading method. How many more measurements are at 15 than at 13? Use the display titled Shell Lengths.",
+          "answer": "2",
+          "correct_answer": "2",
           "acceptable_answers": [
-            "3"
+            "2"
           ],
           "misconception_tag": "line_plot_mark_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Count the stacks at 15 and 13, then subtract.",
+            "Verify: Explain why your chosen method fits the line plot before submitting on Shell Lengths."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 3.",
+          "explanation": "There are 3 marks at 15 and 1 at 13. The difference 3 − 1 is 2.",
           "values": [
-            2,
-            3,
-            3,
-            4,
-            4,
-            4,
-            5,
-            6,
-            6,
-            7
+            13,
+            14,
+            14,
+            15,
+            15,
+            15,
+            16,
+            18
           ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
+          "min": 13,
+          "max": 18,
+          "graph_title": "Shell Lengths",
           "question_audio": {
-            "text": "How many X marks are above 4?",
+            "text": "Choose the useful graph-reading method. How many more measurements are at 15 than at 13? Use the display titled Shell Lengths. A line plot titled Shell Lengths, labeled from 13 through 18. X marks are stacked above the number for each measurement.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A line plot titled Shell Lengths, labeled from 13 through 18. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Shell Lengths, labeled from 13 through 18. X marks are stacked above the number for each measurement."
         },
         {
           "id": "G2M_MD_003_MIXED_Q5",
           "question_id": "G2M_MD_003_MIXED_Q5",
           "question_type": "graph_reading",
           "visual_model": "picture_graph",
-          "prompt": "A key says each star equals 2 votes. How many votes do 5 stars show?",
-          "answer": "10",
-          "correct_answer": "10",
+          "prompt": "Choose the useful graph-reading method. The key says each star stands for 2. How many stars represent the 26 Space responses? Use the display titled Museum Favorites.",
+          "answer": "13",
+          "correct_answer": "13",
           "acceptable_answers": [
-            "10"
+            "13"
           ],
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Use groups of 2, not single votes.",
+            "Verify: Explain why your chosen method fits the picture graph before submitting on Museum Favorites."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "Use the picture graph key and count to get 10.",
+          "explanation": "Space has 26 responses. Making groups of 2, 26 ÷ 2 = 13, so that many stars are needed.",
           "data": {
-            "Soccer": 10,
-            "Art": 6,
-            "Music": 4
+            "Dinosaurs": 18,
+            "Space": 26,
+            "Trains": 14
           },
           "scale": 2,
-          "graph_title": "Class Choices",
+          "graph_title": "Museum Favorites",
           "question_audio": {
-            "text": "A key says each star equals 2 votes. How many votes do 5 stars show?",
+            "text": "Choose the useful graph-reading method. The key says each star stands for 2. How many stars represent the 26 Space responses? Use the display titled Museum Favorites. A picture graph titled Museum Favorites with three labeled categories: Dinosaurs, Space, Trains. The key says one star stands for 2; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Museum Favorites with three labeled categories: Dinosaurs, Space, Trains. The key says one star stands for 2; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Museum Favorites with three labeled categories: Dinosaurs, Space, Trains. The key says one star stands for 2; symbols are arranged in labeled rows."
         },
         {
           "id": "G2M_MD_003_MIXED_Q6",
           "question_id": "G2M_MD_003_MIXED_Q6",
           "question_type": "data_interpretation",
           "visual_model": "bar_graph",
-          "prompt": "How many more chose green than blue?",
-          "answer": "4",
-          "correct_answer": "4",
+          "prompt": "Choose the useful graph-reading method. Study the bar graph. How many are recorded for Oak Stop? Use the display titled Bus Riders.",
+          "answer": "19",
+          "correct_answer": "19",
           "acceptable_answers": [
-            "4"
+            "19"
           ],
           "misconception_tag": "more_less_data_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Explain why your chosen method fits the bar graph before submitting on Bus Riders."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 4.",
+          "explanation": "The Oak Stop row shows 19. Reading that labeled row gives 19.",
           "data": {
-            "Red": 12,
-            "Blue": 6,
-            "Green": 10
+            "Oak Stop": 19,
+            "Pine Stop": 27,
+            "Lake Stop": 15
           },
-          "graph_title": "Bar Graph",
+          "graph_title": "Bus Riders",
           "question_audio": {
-            "text": "How many more chose green than blue?",
+            "text": "Choose the useful graph-reading method. Study the bar graph. How many are recorded for Oak Stop? Use the display titled Bus Riders. A bar graph titled Bus Riders with three labeled categories: Oak Stop, Pine Stop, Lake Stop. Vertical bars stand over the category labels, with a scale of 1.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A bar graph titled Bus Riders with three labeled categories: Oak Stop, Pine Stop, Lake Stop. Vertical bars stand over the category labels, with a scale of 1.",
+          "accessible_description": "A bar graph titled Bus Riders with three labeled categories: Oak Stop, Pine Stop, Lake Stop. Vertical bars stand over the category labels, with a scale of 1."
         },
         {
           "id": "G2M_MD_003_MIXED_Q7",
           "question_id": "G2M_MD_003_MIXED_Q7",
           "question_type": "data_interpretation",
           "visual_model": "data_table",
-          "prompt": "How many votes are in the table altogether?",
-          "answer": "16",
-          "correct_answer": "16",
+          "prompt": "Choose the useful graph-reading method. How many more Bagels than Rolls are shown in the table? Use the display titled Bake Sale.",
+          "answer": "12",
+          "correct_answer": "12",
           "acceptable_answers": [
-            "16"
+            "12"
           ],
           "misconception_tag": "graph_scale_confusion",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Compare 28 and 16 by subtracting the smaller count.",
+            "Verify: Explain why your chosen method fits the data table before submitting on Bake Sale."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 16.",
+          "explanation": "The display shows 28 for Bagels and 16 for Rolls. Subtracting 28 − 16 gives 12 more.",
           "data": {
-            "Carrots": 5,
-            "Peas": 3,
-            "Corn": 8
+            "Muffins": 20,
+            "Bagels": 28,
+            "Rolls": 16
           },
-          "graph_title": "Data Table",
+          "graph_title": "Bake Sale",
           "question_audio": {
-            "text": "How many votes are in the table altogether?",
+            "text": "Choose the useful graph-reading method. How many more Bagels than Rolls are shown in the table? Use the display titled Bake Sale. A data table titled Bake Sale with three labeled categories: Muffins, Bagels, Rolls. Each category is in its own row beside its count.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "scale": 1,
+          "visual_description": "A data table titled Bake Sale with three labeled categories: Muffins, Bagels, Rolls. Each category is in its own row beside its count.",
+          "accessible_description": "A data table titled Bake Sale with three labeled categories: Muffins, Bagels, Rolls. Each category is in its own row beside its count."
         },
         {
           "id": "G2M_MD_003_MIXED_Q8",
           "question_id": "G2M_MD_003_MIXED_Q8",
-          "question_type": "graph_reading",
+          "question_type": "multiple_choice",
           "visual_model": "line_plot",
-          "prompt": "How many measurements are shown altogether?",
-          "answer": "10",
-          "correct_answer": "10",
-          "acceptable_answers": [
-            "10"
-          ],
+          "prompt": "Choose the useful graph-reading method. Which measurement occurs most often on the Ribbon Lengths line plot?",
+          "answer": "19",
+          "correct_answer": "19",
           "misconception_tag": "line_plot_mark_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Count the stack connected to the number named in the question.",
+            "Verify: Explain why your chosen method fits the line plot before submitting on Ribbon Lengths."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 10.",
+          "explanation": "The tallest stack has 3 X marks and sits over 19. Therefore 19 occurs most often.",
           "values": [
-            2,
-            3,
-            3,
-            4,
-            4,
-            4,
-            5,
-            6,
-            6,
-            7
+            17,
+            18,
+            18,
+            19,
+            19,
+            19,
+            20,
+            22
           ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
+          "min": 17,
+          "max": 22,
+          "graph_title": "Ribbon Lengths",
           "question_audio": {
-            "text": "How many measurements are shown altogether?",
+            "text": "Choose the useful graph-reading method. Which measurement occurs most often on the Ribbon Lengths line plot? A line plot titled Ribbon Lengths, labeled from 17 through 22. X marks are stacked above the number for each measurement.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A line plot titled Ribbon Lengths, labeled from 17 through 22. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Ribbon Lengths, labeled from 17 through 22. X marks are stacked above the number for each measurement.",
+          "options": [
+            "17",
+            "18",
+            "20",
+            "19"
+          ],
+          "choices": [
+            "17",
+            "18",
+            "20",
+            "19"
+          ]
         },
         {
           "id": "G2M_MD_003_MIXED_Q9",
           "question_id": "G2M_MD_003_MIXED_Q9",
           "question_type": "multiple_choice",
           "visual_model": "picture_graph",
-          "prompt": "Which fruit has 7 votes?",
-          "answer": "Oranges",
-          "correct_answer": "Oranges",
+          "prompt": "Choose the useful graph-reading method. Which category has the greatest count in the picture graph? Use the display titled Talent Show.",
+          "answer": "Dance",
+          "correct_answer": "Dance",
           "misconception_tag": "category_count_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Read the value aligned with the requested label.",
+            "Verify: Explain why your chosen method fits the picture graph before submitting on Talent Show."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The picture graph shows Oranges for that category.",
-          "choices": [
-            "Apples",
-            "Bananas",
-            "Oranges"
-          ],
+          "explanation": "Comparing 22, 30, 18 shows that 30 is greatest, so its category, Dance, has the greatest count.",
           "data": {
-            "Apples": 8,
-            "Bananas": 5,
-            "Oranges": 7
+            "Magic": 22,
+            "Dance": 30,
+            "Jokes": 18
           },
           "scale": 1,
-          "graph_title": "Class Choices",
+          "graph_title": "Talent Show",
           "question_audio": {
-            "text": "Which fruit has 7 votes?",
+            "text": "Choose the useful graph-reading method. Which category has the greatest count in the picture graph? Use the display titled Talent Show. A picture graph titled Talent Show with three labeled categories: Magic, Dance, Jokes. The key says one star stands for 1; symbols are arranged in labeled rows.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A picture graph titled Talent Show with three labeled categories: Magic, Dance, Jokes. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "accessible_description": "A picture graph titled Talent Show with three labeled categories: Magic, Dance, Jokes. The key says one star stands for 1; symbols are arranged in labeled rows.",
+          "options": [
+            "Dance",
+            "Magic",
+            "Jokes",
+            "Other"
+          ],
+          "choices": [
+            "Dance",
+            "Magic",
+            "Jokes",
+            "Other"
+          ]
         },
         {
           "id": "G2M_MD_003_MIXED_Q10",
           "question_id": "G2M_MD_003_MIXED_Q10",
           "question_type": "graph_reading",
           "visual_model": "line_plot",
-          "prompt": "What is the largest measurement on the line plot?",
-          "answer": "7",
-          "correct_answer": "7",
+          "prompt": "Choose the useful graph-reading method. What is the greatest measurement that has an X on the Pencil Lengths line plot?",
+          "answer": "24",
+          "correct_answer": "24",
           "acceptable_answers": [
-            "7"
+            "24"
           ],
           "misconception_tag": "line_plot_mark_error",
           "hints": [
-            "Read the title and labels first.",
-            "Use the key or scale before counting.",
-            "For more or less, subtract the smaller count from the larger count."
+            "Focus: Decide whether this display calls for counting marks, reading a labeled value, comparing, or combining.",
+            "Strategy: Move from right to left until you find a number with an X.",
+            "Verify: Explain why your chosen method fits the line plot before submitting on Pencil Lengths."
           ],
           "feedback": {
-            "correct": "Great math thinking!",
-            "incorrect": "Use the visual model and try again."
+            "correct": "Your data reasoning is correct!",
+            "incorrect": "Check the labels and marks, then try again."
           },
-          "explanation": "The correct answer is 7.",
+          "explanation": "Scan rightward only to labels that have an X. The rightmost marked value is 24, so it is the greatest measurement recorded.",
           "values": [
-            2,
-            3,
-            3,
-            4,
-            4,
-            4,
-            5,
-            6,
-            6,
-            7
+            19,
+            20,
+            20,
+            21,
+            21,
+            21,
+            22,
+            24
           ],
-          "min": 2,
-          "max": 7,
-          "graph_title": "Leaf Lengths",
+          "min": 19,
+          "max": 24,
+          "graph_title": "Pencil Lengths",
           "question_audio": {
-            "text": "What is the largest measurement on the line plot?",
+            "text": "Choose the useful graph-reading method. What is the greatest measurement that has an X on the Pencil Lengths line plot? A line plot titled Pencil Lengths, labeled from 19 through 24. X marks are stacked above the number for each measurement.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "A line plot titled Pencil Lengths, labeled from 19 through 24. X marks are stacked above the number for each measurement.",
+          "accessible_description": "A line plot titled Pencil Lengths, labeled from 19 through 24. X marks are stacked above the number for each measurement."
         }
       ]
     }
