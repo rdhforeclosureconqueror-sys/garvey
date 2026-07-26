@@ -722,24 +722,24 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q1, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 24 + 18 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "24 + 18 = 42. Add to put together or find the missing addend.",
+          "explanation": "24 + 18 = 42. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 42 - 18 = 24.",
           "options": [
-            "41",
             "42",
+            "41",
             "43",
             "52"
           ],
           "choices": [
-            "41",
             "42",
+            "41",
             "43",
             "52"
           ],
@@ -752,11 +752,31 @@
             18
           ],
           "question_audio": {
-            "text": "Mia has 24 shells. Leo gives her 18 more. How many shells does Mia have now?",
+            "text": "Mia has 24 shells. Leo gives her 18 more. How many shells does Mia have now? Visual context: The bar model shows known quantities 24 and 18, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              24,
+              18
+            ],
+            "unknown_quantity": "?",
+            "equation": "24 + 18 = ?"
+          },
+          "bar_model": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              24,
+              18
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows known quantities 24 and 18, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows known quantities 24 and 18, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q2",
@@ -771,15 +791,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q2, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 36 + 27 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "36 + 27 = 63. Add to put together or find the missing addend.",
+          "explanation": "36 + 27 = 63. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 63 - 27 = 36.",
           "equation": "36 + 27 = ?",
           "a": 36,
           "b": 27,
@@ -789,11 +809,23 @@
             27
           ],
           "question_audio": {
-            "text": "There are 36 red apples and 27 green apples. How many apples are there altogether?",
+            "text": "There are 36 red apples and 27 green apples. How many apples are there altogether? Visual context: The equation builder shows known quantities 36 and 27, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              36,
+              27
+            ],
+            "unknown_quantity": "?",
+            "equation": "36 + 27 = ?"
+          },
+          "visual_description": "The equation builder shows known quantities 36 and 27, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows known quantities 36 and 27, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q3",
@@ -808,15 +840,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q3, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 29 + 31 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "29 + 31 = 60. Add to put together or find the missing addend.",
+          "explanation": "29 + 31 = 60. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 60 - 31 = 29.",
           "equation": "29 + 31 = ?",
           "a": 29,
           "b": 31,
@@ -826,11 +858,23 @@
             31
           ],
           "question_audio": {
-            "text": "A class reads 29 books in March and 31 in April. How many books did they read in all?",
+            "text": "A class reads 29 books in March and 31 in April. How many books did they read in all? Visual context: The word problem model shows known quantities 29 and 31, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              29,
+              31
+            ],
+            "unknown_quantity": "?",
+            "equation": "29 + 31 = ?"
+          },
+          "visual_description": "The word problem model shows known quantities 29 and 31, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows known quantities 29 and 31, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q4",
@@ -845,15 +889,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q4, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 45 + 16 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "45 + 16 = 61. Add to put together or find the missing addend.",
+          "explanation": "45 + 16 = 61. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 61 - 16 = 45.",
           "options": [
             "60",
             "61",
@@ -875,11 +919,31 @@
             16
           ],
           "question_audio": {
-            "text": "There were 45 birds in a tree. 16 more landed. How many birds are in the tree now?",
+            "text": "There were 45 birds in a tree. 16 more landed. How many birds are in the tree now? Visual context: The bar model shows known quantities 45 and 16, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              45,
+              16
+            ],
+            "unknown_quantity": "?",
+            "equation": "45 + 16 = ?"
+          },
+          "bar_model": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              45,
+              16
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows known quantities 45 and 16, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows known quantities 45 and 16, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q5",
@@ -894,15 +958,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q5, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 38 + 22 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "38 + 22 = 60. Add to put together or find the missing addend.",
+          "explanation": "38 + 22 = 60. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 60 - 22 = 38.",
           "equation": "38 + 22 = ?",
           "a": 38,
           "b": 22,
@@ -912,11 +976,23 @@
             22
           ],
           "question_audio": {
-            "text": "Sam packed 38 crayons and 22 markers. How many art tools did Sam pack?",
+            "text": "Sam packed 38 crayons and 22 markers. How many art tools did Sam pack? Visual context: The equation builder shows known quantities 38 and 22, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              38,
+              22
+            ],
+            "unknown_quantity": "?",
+            "equation": "38 + 22 = ?"
+          },
+          "visual_description": "The equation builder shows known quantities 38 and 22, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows known quantities 38 and 22, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q6",
@@ -931,15 +1007,15 @@
           ],
           "misconception_tag": "missing_unknown_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q6, identify the unknown change between the known start and result.",
+            "Strategy: Represent the story with 17 + the unknown = 49.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "17 + 32 = 49. Add to put together or find the missing addend.",
+          "explanation": "17 + 32 = 32. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 32 - 32 = 17.",
           "equation": "17 + ? = 49",
           "a": 17,
           "b": 32,
@@ -949,11 +1025,31 @@
             32
           ],
           "question_audio": {
-            "text": "Nora found 17 rocks. Then she found some more. Now she has 49 rocks. How many more rocks did she find?",
+            "text": "Nora found 17 rocks. Then she found some more. Now she has 49 rocks. How many more rocks did she find? Visual context: The word problem model shows known start and result quantities 17 and 49, with the change unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "change-unknown",
+          "word_problem_metadata": {
+            "structure": "change-unknown",
+            "known_quantities": [
+              17,
+              49
+            ],
+            "unknown_quantity": "?",
+            "equation": "17 + ? = 49"
+          },
+          "missing_part_metadata": {
+            "unknown_position": "change",
+            "known_quantities": [
+              17,
+              49
+            ],
+            "answer": 32
+          },
+          "visual_description": "The word problem model shows known start and result quantities 17 and 49, with the change unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows known start and result quantities 17 and 49, with the change unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q7",
@@ -968,25 +1064,25 @@
           ],
           "misconception_tag": "missing_unknown_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q7, identify the unknown starting amount before the change.",
+            "Strategy: Use the inverse operation on 25 and 64 to find the start.",
+            "Verify: Add your start to 25; the total should be 64."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "39 + 25 = 64. Add to put together or find the missing addend.",
+          "explanation": "64 - 25 = 39, so the unknown start is 39. Why it works: subtraction undoes the added 25. Check with the inverse operation: 39 + 25 = 64.",
           "options": [
             "38",
-            "39",
             "40",
+            "39",
             "49"
           ],
           "choices": [
             "38",
-            "39",
             "40",
+            "39",
             "49"
           ],
           "equation": "? + 25 = 64",
@@ -998,11 +1094,39 @@
             25
           ],
           "question_audio": {
-            "text": "A shelf has some picture books. 25 chapter books are added. Now there are 64 books. How many picture books were on the shelf?",
+            "text": "A shelf has some picture books. 25 chapter books are added. Now there are 64 books. How many picture books were on the shelf? Visual context: The bar model shows an unknown starting amount and known quantities 25 and 64. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "start-unknown",
+          "word_problem_metadata": {
+            "structure": "start-unknown",
+            "known_quantities": [
+              25,
+              64
+            ],
+            "unknown_quantity": "?",
+            "equation": "? + 25 = 64"
+          },
+          "missing_part_metadata": {
+            "unknown_position": "start",
+            "known_quantities": [
+              25,
+              64
+            ],
+            "answer": 39
+          },
+          "bar_model": {
+            "structure": "start-unknown",
+            "known_quantities": [
+              25,
+              64
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows an unknown starting amount and known quantities 25 and 64. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows an unknown starting amount and known quantities 25 and 64. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q8",
@@ -1017,15 +1141,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q8, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 28 + 34 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "28 + 34 = 62. Add to put together or find the missing addend.",
+          "explanation": "28 + 34 = 62. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 62 - 34 = 28.",
           "equation": "28 + 34 = ?",
           "a": 28,
           "b": 34,
@@ -1035,11 +1159,23 @@
             34
           ],
           "question_audio": {
-            "text": "There are 28 kids on one bus and 34 on another bus. How many kids are on both buses?",
+            "text": "There are 28 kids on one bus and 34 on another bus. How many kids are on both buses? Visual context: The equation builder shows known quantities 28 and 34, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              28,
+              34
+            ],
+            "unknown_quantity": "?",
+            "equation": "28 + 34 = ?"
+          },
+          "visual_description": "The equation builder shows known quantities 28 and 34, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows known quantities 28 and 34, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q9",
@@ -1054,15 +1190,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q9, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 19 + 46 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "19 + 46 = 65. Add to put together or find the missing addend.",
+          "explanation": "19 + 46 = 65. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 65 - 46 = 19.",
           "equation": "19 + 46 = ?",
           "a": 19,
           "b": 46,
@@ -1072,11 +1208,23 @@
             46
           ],
           "question_audio": {
-            "text": "The garden has 19 tulips and 46 daisies. How many flowers are there?",
+            "text": "The garden has 19 tulips and 46 daisies. How many flowers are there? Visual context: The word problem model shows known quantities 19 and 46, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              19,
+              46
+            ],
+            "unknown_quantity": "?",
+            "equation": "19 + 46 = ?"
+          },
+          "visual_description": "The word problem model shows known quantities 19 and 46, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows known quantities 19 and 46, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL1_Q10",
@@ -1091,26 +1239,26 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL1_Q10, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 37 + 28 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "37 + 28 = 65. Add to put together or find the missing addend.",
+          "explanation": "37 + 28 = 65. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 65 - 28 = 37.",
           "options": [
             "64",
-            "65",
             "66",
-            "75"
+            "75",
+            "65"
           ],
           "choices": [
             "64",
-            "65",
             "66",
-            "75"
+            "75",
+            "65"
           ],
           "equation": "37 + 28 = ?",
           "a": 37,
@@ -1121,11 +1269,31 @@
             28
           ],
           "question_audio": {
-            "text": "A team scored 37 points, then scored 28 more. What was the total score?",
+            "text": "A team scored 37 points, then scored 28 more. What was the total score? Visual context: The bar model shows known quantities 37 and 28, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              37,
+              28
+            ],
+            "unknown_quantity": "?",
+            "equation": "37 + 28 = ?"
+          },
+          "bar_model": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              37,
+              28
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows known quantities 37 and 28, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows known quantities 37 and 28, with the result unknown. A question mark marks the quantity to find."
         }
       ]
     },
@@ -1150,15 +1318,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q1, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 72 - 28 = the unknown.",
+            "Verify: Add the difference to 28; the sum should be 72."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 72 - 28 = 44.",
+          "explanation": "72 - 28 = 44. Why it works: subtraction removes 28 from the starting amount. Check with inverse addition: 44 + 28 = 72.",
           "equation": "72 - 28 = ?",
           "a": 72,
           "b": 28,
@@ -1168,11 +1336,31 @@
             28
           ],
           "question_audio": {
-            "text": "There were 72 stickers. Ana used 28. How many stickers are left?",
+            "text": "There were 72 stickers. Ana used 28. How many stickers are left? Visual context: The bar model shows known quantities 72 and 28, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              72,
+              28
+            ],
+            "unknown_quantity": "?",
+            "equation": "72 - 28 = ?"
+          },
+          "bar_model": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              72,
+              28
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows known quantities 72 and 28, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows known quantities 72 and 28, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q2",
@@ -1187,15 +1375,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q2, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 65 - 19 = the unknown.",
+            "Verify: Add the difference to 19; the sum should be 65."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 65 - 19 = 46.",
+          "explanation": "65 - 19 = 46. Why it works: subtraction removes 19 from the starting amount. Check with inverse addition: 46 + 19 = 65.",
           "equation": "65 - 19 = ?",
           "a": 65,
           "b": 19,
@@ -1205,11 +1393,23 @@
             19
           ],
           "question_audio": {
-            "text": "A jar had 65 marbles. 19 rolled out. How many marbles stayed in the jar?",
+            "text": "A jar had 65 marbles. 19 rolled out. How many marbles stayed in the jar? Visual context: The equation builder shows known quantities 65 and 19, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              65,
+              19
+            ],
+            "unknown_quantity": "?",
+            "equation": "65 - 19 = ?"
+          },
+          "visual_description": "The equation builder shows known quantities 65 and 19, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows known quantities 65 and 19, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q3",
@@ -1224,15 +1424,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q3, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 90 - 34 = the unknown.",
+            "Verify: Add the difference to 34; the sum should be 90."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 90 - 34 = 56.",
+          "explanation": "90 - 34 = 56. Why it works: subtraction removes 34 from the starting amount. Check with inverse addition: 56 + 34 = 90.",
           "equation": "90 - 34 = ?",
           "a": 90,
           "b": 34,
@@ -1242,11 +1442,23 @@
             34
           ],
           "question_audio": {
-            "text": "Coach had 90 cones and put away 34. How many cones are still out?",
+            "text": "Coach had 90 cones and put away 34. How many cones are still out? Visual context: The word problem model shows known quantities 90 and 34, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              90,
+              34
+            ],
+            "unknown_quantity": "?",
+            "equation": "90 - 34 = ?"
+          },
+          "visual_description": "The word problem model shows known quantities 90 and 34, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows known quantities 90 and 34, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q4",
@@ -1261,24 +1473,24 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q4, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 58 - 27 = the unknown.",
+            "Verify: Add the difference to 27; the sum should be 58."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 58 - 27 = 31.",
+          "explanation": "58 - 27 = 31. Why it works: subtraction removes 27 from the starting amount. Check with inverse addition: 31 + 27 = 58.",
           "options": [
-            "30",
             "31",
+            "30",
             "32",
             "41"
           ],
           "choices": [
-            "30",
             "31",
+            "30",
             "32",
             "41"
           ],
@@ -1291,11 +1503,31 @@
             27
           ],
           "question_audio": {
-            "text": "There are 58 tickets. 27 are blue. How many are not blue?",
+            "text": "There are 58 tickets. 27 are blue. How many are not blue? Visual context: The bar model shows known quantities 58 and 27, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              58,
+              27
+            ],
+            "unknown_quantity": "?",
+            "equation": "58 - 27 = ?"
+          },
+          "bar_model": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              58,
+              27
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows known quantities 58 and 27, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows known quantities 58 and 27, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q5",
@@ -1310,15 +1542,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q5, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 48 - 21 = the unknown.",
+            "Verify: Add the difference to 21; the sum should be 48."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 48 - 21 = 27.",
+          "explanation": "48 - 21 = 27. Why it works: subtraction removes 21 from the starting amount. Check with inverse addition: 27 + 21 = 48.",
           "equation": "48 - 21 = ?",
           "a": 48,
           "b": 21,
@@ -1328,11 +1560,23 @@
             21
           ],
           "question_audio": {
-            "text": "Lena baked 48 muffins. Her class ate 21. How many muffins remain?",
+            "text": "Lena baked 48 muffins. Her class ate 21. How many muffins remain? Visual context: The equation builder shows known quantities 48 and 21, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              48,
+              21
+            ],
+            "unknown_quantity": "?",
+            "equation": "48 - 21 = ?"
+          },
+          "visual_description": "The equation builder shows known quantities 48 and 21, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows known quantities 48 and 21, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q6",
@@ -1347,15 +1591,15 @@
           ],
           "misconception_tag": "missing_unknown_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q6, identify the unknown change between the known start and result.",
+            "Strategy: Represent the story with 83 - the unknown = 57.",
+            "Verify: Add the difference to 26; the sum should be 83."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 83 - 26 = 57.",
+          "explanation": "83 - 26 = 26. Why it works: subtraction removes 26 from the starting amount. Check with inverse addition: 26 + 26 = 83.",
           "equation": "83 - ? = 57",
           "a": 83,
           "b": 26,
@@ -1365,11 +1609,31 @@
             26
           ],
           "question_audio": {
-            "text": "A box had 83 beads. Some were used. Now 57 beads are left. How many beads were used?",
+            "text": "A box had 83 beads. Some were used. Now 57 beads are left. How many beads were used? Visual context: The word problem model shows known start and result quantities 83 and 57, with the change unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "missing-subtrahend",
+          "word_problem_metadata": {
+            "structure": "missing-subtrahend",
+            "known_quantities": [
+              83,
+              57
+            ],
+            "unknown_quantity": "?",
+            "equation": "83 - ? = 57"
+          },
+          "missing_part_metadata": {
+            "unknown_position": "change",
+            "known_quantities": [
+              83,
+              57
+            ],
+            "answer": 26
+          },
+          "visual_description": "The word problem model shows known start and result quantities 83 and 57, with the change unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows known start and result quantities 83 and 57, with the change unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q7",
@@ -1384,15 +1648,15 @@
           ],
           "misconception_tag": "missing_unknown_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q7, identify the unknown starting amount before the change.",
+            "Strategy: Use the inverse operation on 18 and 42 to find the start.",
+            "Verify: Subtract 18 from your start; the result should be 42."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 60 - 18 = 42.",
+          "explanation": "42 + 18 = 60, so the starting amount was 60. Why it works: adding back what was removed rebuilds the start. Check with the inverse operation: 60 - 18 = 42.",
           "equation": "? - 18 = 42",
           "a": 60,
           "b": 18,
@@ -1402,11 +1666,39 @@
             18
           ],
           "question_audio": {
-            "text": "There were some pencils. 18 broke, and 42 pencils are left. How many pencils were there at first?",
+            "text": "There were some pencils. 18 broke, and 42 pencils are left. How many pencils were there at first? Visual context: The bar model shows an unknown starting amount and known quantities 18 and 42. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "missing-minuend",
+          "word_problem_metadata": {
+            "structure": "missing-minuend",
+            "known_quantities": [
+              18,
+              42
+            ],
+            "unknown_quantity": "?",
+            "equation": "? - 18 = 42"
+          },
+          "missing_part_metadata": {
+            "unknown_position": "start",
+            "known_quantities": [
+              18,
+              42
+            ],
+            "answer": 60
+          },
+          "bar_model": {
+            "structure": "missing-minuend",
+            "known_quantities": [
+              18,
+              42
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows an unknown starting amount and known quantities 18 and 42. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows an unknown starting amount and known quantities 18 and 42. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q8",
@@ -1421,15 +1713,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q8, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 76 - 39 = the unknown.",
+            "Verify: Add the difference to 39; the sum should be 76."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 76 - 39 = 37.",
+          "explanation": "76 - 39 = 37. Why it works: subtraction removes 39 from the starting amount. Check with inverse addition: 37 + 39 = 76.",
           "options": [
             "36",
             "37",
@@ -1451,11 +1743,23 @@
             39
           ],
           "question_audio": {
-            "text": "A library had 76 books on a cart. 39 were shelved. How many books are left?",
+            "text": "A library had 76 books on a cart. 39 were shelved. How many books are left? Visual context: The equation builder shows known quantities 76 and 39, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              76,
+              39
+            ],
+            "unknown_quantity": "?",
+            "equation": "76 - 39 = ?"
+          },
+          "visual_description": "The equation builder shows known quantities 76 and 39, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows known quantities 76 and 39, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q9",
@@ -1470,15 +1774,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q9, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 54 - 16 = the unknown.",
+            "Verify: Add the difference to 16; the sum should be 54."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 54 - 16 = 38.",
+          "explanation": "54 - 16 = 38. Why it works: subtraction removes 16 from the starting amount. Check with inverse addition: 38 + 16 = 54.",
           "equation": "54 - 16 = ?",
           "a": 54,
           "b": 16,
@@ -1488,11 +1792,23 @@
             16
           ],
           "question_audio": {
-            "text": "Jay had 54 cards and gave away 16. How many cards does Jay have now?",
+            "text": "Jay had 54 cards and gave away 16. How many cards does Jay have now? Visual context: The word problem model shows known quantities 54 and 16, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              54,
+              16
+            ],
+            "unknown_quantity": "?",
+            "equation": "54 - 16 = ?"
+          },
+          "visual_description": "The word problem model shows known quantities 54 and 16, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows known quantities 54 and 16, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL2_Q10",
@@ -1507,15 +1823,15 @@
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL2_Q10, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 69 - 24 = the unknown.",
+            "Verify: Add the difference to 24; the sum should be 69."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 69 - 24 = 45.",
+          "explanation": "69 - 24 = 45. Why it works: subtraction removes 24 from the starting amount. Check with inverse addition: 45 + 24 = 69.",
           "equation": "69 - 24 = ?",
           "a": 69,
           "b": 24,
@@ -1525,11 +1841,31 @@
             24
           ],
           "question_audio": {
-            "text": "A tank had 69 fish. 24 fish moved to another tank. How many fish stayed?",
+            "text": "A tank had 69 fish. 24 fish moved to another tank. How many fish stayed? Visual context: The bar model shows known quantities 69 and 24, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              69,
+              24
+            ],
+            "unknown_quantity": "?",
+            "equation": "69 - 24 = ?"
+          },
+          "bar_model": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              69,
+              24
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows known quantities 69 and 24, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows known quantities 69 and 24, with the result unknown. A question mark marks the quantity to find."
         }
       ]
     },
@@ -1554,15 +1890,15 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q1, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 29 from 46 to measure the gap.",
+            "Verify: Add the difference to 29; the sum should be 46."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 46 - 29 = 17.",
+          "explanation": "46 - 29 = 17. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 29 + 17 = 46.",
           "equation": "46 - 29 = ?",
           "a": 46,
           "b": 29,
@@ -1577,11 +1913,29 @@
           ],
           "total": 46,
           "question_audio": {
-            "text": "Ravi has 46 stamps. Kim has 29 stamps. How many more stamps does Ravi have than Kim?",
+            "text": "Ravi has 46 stamps. Kim has 29 stamps. How many more stamps does Ravi have than Kim? Visual context: The word problem model shows a comparison between 46 and 29, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              46,
+              29
+            ],
+            "unknown_quantity": "?",
+            "equation": "46 - 29 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 46,
+            "smaller": 29,
+            "difference": 17,
+            "unknown": "difference"
+          },
+          "visual_description": "The word problem model shows a comparison between 46 and 29, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a comparison between 46 and 29, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q2",
@@ -1596,15 +1950,15 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q2, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 52 from 68 to measure the gap.",
+            "Verify: Add the difference to 52; the sum should be 68."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 68 - 52 = 16.",
+          "explanation": "68 - 52 = 16. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 52 + 16 = 68.",
           "equation": "68 - 52 = ?",
           "a": 68,
           "b": 52,
@@ -1619,11 +1973,29 @@
           ],
           "total": 68,
           "question_audio": {
-            "text": "The blue ribbon is 68 cm. The red ribbon is 52 cm. How many centimeters longer is the blue ribbon?",
+            "text": "The blue ribbon is 68 cm. The red ribbon is 52 cm. How many centimeters longer is the blue ribbon? Visual context: The number line shows a comparison between 68 and 52, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              68,
+              52
+            ],
+            "unknown_quantity": "?",
+            "equation": "68 - 52 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 68,
+            "smaller": 52,
+            "difference": 16,
+            "unknown": "difference"
+          },
+          "visual_description": "The number line shows a comparison between 68 and 52, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The number line shows a comparison between 68 and 52, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q3",
@@ -1638,25 +2010,25 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q3, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 37 from 58 to measure the gap.",
+            "Verify: Add the difference to 37; the sum should be 58."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 58 - 37 = 21.",
+          "explanation": "58 - 37 = 21. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 37 + 21 = 58.",
           "options": [
             "20",
-            "21",
             "22",
+            "21",
             "31"
           ],
           "choices": [
             "20",
-            "21",
             "22",
+            "21",
             "31"
           ],
           "equation": "58 - 37 = ?",
@@ -1673,11 +2045,37 @@
           ],
           "total": 58,
           "question_audio": {
-            "text": "A team has 37 soccer balls and 58 basketballs. How many fewer soccer balls are there?",
+            "text": "A team has 37 soccer balls and 58 basketballs. How many fewer soccer balls are there? Visual context: The bar model shows a comparison between 58 and 37, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-less",
+          "word_problem_metadata": {
+            "structure": "compare-less",
+            "known_quantities": [
+              58,
+              37
+            ],
+            "unknown_quantity": "?",
+            "equation": "58 - 37 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 58,
+            "smaller": 37,
+            "difference": 21,
+            "unknown": "difference"
+          },
+          "bar_model": {
+            "structure": "compare-less",
+            "known_quantities": [
+              58,
+              37
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows a comparison between 58 and 37, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows a comparison between 58 and 37, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q4",
@@ -1692,15 +2090,15 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q4, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 49 from 74 to measure the gap.",
+            "Verify: Add the difference to 49; the sum should be 74."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 74 - 49 = 25.",
+          "explanation": "74 - 49 = 25. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 49 + 25 = 74.",
           "equation": "74 - 49 = ?",
           "a": 74,
           "b": 49,
@@ -1715,11 +2113,29 @@
           ],
           "total": 74,
           "question_audio": {
-            "text": "There are 74 oak trees and 49 pine trees. How many more oak trees are there?",
+            "text": "There are 74 oak trees and 49 pine trees. How many more oak trees are there? Visual context: The word problem model shows a comparison between 74 and 49, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              74,
+              49
+            ],
+            "unknown_quantity": "?",
+            "equation": "74 - 49 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 74,
+            "smaller": 49,
+            "difference": 25,
+            "unknown": "difference"
+          },
+          "visual_description": "The word problem model shows a comparison between 74 and 49, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a comparison between 74 and 49, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q5",
@@ -1734,15 +2150,15 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q5, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 41 from 63 to measure the gap.",
+            "Verify: Add the difference to 41; the sum should be 63."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 63 - 41 = 22.",
+          "explanation": "63 - 41 = 22. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 41 + 22 = 63.",
           "equation": "63 - 41 = ?",
           "a": 63,
           "b": 41,
@@ -1757,11 +2173,29 @@
           ],
           "total": 63,
           "question_audio": {
-            "text": "Maya saved 63 cents. Noah saved 41 cents. How many more cents did Maya save?",
+            "text": "Maya saved 63 cents. Noah saved 41 cents. How many more cents did Maya save? Visual context: The number line shows a comparison between 63 and 41, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              63,
+              41
+            ],
+            "unknown_quantity": "?",
+            "equation": "63 - 41 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 63,
+            "smaller": 41,
+            "difference": 22,
+            "unknown": "difference"
+          },
+          "visual_description": "The number line shows a comparison between 63 and 41, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The number line shows a comparison between 63 and 41, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q6",
@@ -1776,26 +2210,26 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q6, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 32 from 45 to measure the gap.",
+            "Verify: Add the difference to 32; the sum should be 45."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 45 - 32 = 13.",
+          "explanation": "45 - 32 = 13. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 32 + 13 = 45.",
           "options": [
             "12",
-            "13",
             "14",
-            "23"
+            "23",
+            "13"
           ],
           "choices": [
             "12",
-            "13",
             "14",
-            "23"
+            "23",
+            "13"
           ],
           "equation": "45 - 32 = ?",
           "a": 45,
@@ -1811,11 +2245,37 @@
           ],
           "total": 45,
           "question_audio": {
-            "text": "A chart shows 32 cats and 45 dogs. How many fewer cats than dogs?",
+            "text": "A chart shows 32 cats and 45 dogs. How many fewer cats than dogs? Visual context: The bar model shows a comparison between 45 and 32, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-less",
+          "word_problem_metadata": {
+            "structure": "compare-less",
+            "known_quantities": [
+              45,
+              32
+            ],
+            "unknown_quantity": "?",
+            "equation": "45 - 32 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 45,
+            "smaller": 32,
+            "difference": 13,
+            "unknown": "difference"
+          },
+          "bar_model": {
+            "structure": "compare-less",
+            "known_quantities": [
+              45,
+              32
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows a comparison between 45 and 32, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows a comparison between 45 and 32, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q7",
@@ -1830,15 +2290,15 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q7, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 28 from 35 to measure the gap.",
+            "Verify: Add the difference to 28; the sum should be 35."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 35 - 28 = 7.",
+          "explanation": "35 - 28 = 7. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 28 + 7 = 35.",
           "equation": "35 - 28 = ?",
           "a": 35,
           "b": 28,
@@ -1853,11 +2313,29 @@
           ],
           "total": 35,
           "question_audio": {
-            "text": "The morning class has 28 students. The afternoon class has 35 students. How many more are in the afternoon class?",
+            "text": "The morning class has 28 students. The afternoon class has 35 students. How many more are in the afternoon class? Visual context: The word problem model shows a comparison between 35 and 28, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              35,
+              28
+            ],
+            "unknown_quantity": "?",
+            "equation": "35 - 28 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 35,
+            "smaller": 28,
+            "difference": 7,
+            "unknown": "difference"
+          },
+          "visual_description": "The word problem model shows a comparison between 35 and 28, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a comparison between 35 and 28, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q8",
@@ -1872,15 +2350,15 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q8, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 46 from 59 to measure the gap.",
+            "Verify: Add the difference to 46; the sum should be 59."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 59 - 46 = 13.",
+          "explanation": "59 - 46 = 13. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 46 + 13 = 59.",
           "equation": "59 - 46 = ?",
           "a": 59,
           "b": 46,
@@ -1895,11 +2373,29 @@
           ],
           "total": 59,
           "question_audio": {
-            "text": "A plant is 59 cm tall. Another plant is 46 cm tall. What is the difference in height?",
+            "text": "A plant is 59 cm tall. Another plant is 46 cm tall. What is the difference in height? Visual context: The number line shows a comparison between 59 and 46, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              59,
+              46
+            ],
+            "unknown_quantity": "?",
+            "equation": "59 - 46 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 59,
+            "smaller": 46,
+            "difference": 13,
+            "unknown": "difference"
+          },
+          "visual_description": "The number line shows a comparison between 59 and 46, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The number line shows a comparison between 59 and 46, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q9",
@@ -1914,24 +2410,24 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q9, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 57 from 86 to measure the gap.",
+            "Verify: Add the difference to 57; the sum should be 86."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 86 - 57 = 29.",
+          "explanation": "86 - 57 = 29. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 57 + 29 = 86.",
           "options": [
-            "28",
             "29",
+            "28",
             "30",
             "39"
           ],
           "choices": [
-            "28",
             "29",
+            "28",
             "30",
             "39"
           ],
@@ -1949,11 +2445,37 @@
           ],
           "total": 86,
           "question_audio": {
-            "text": "There are 86 fiction books and 57 nonfiction books. How many more fiction books?",
+            "text": "There are 86 fiction books and 57 nonfiction books. How many more fiction books? Visual context: The bar model shows a comparison between 86 and 57, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              86,
+              57
+            ],
+            "unknown_quantity": "?",
+            "equation": "86 - 57 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 86,
+            "smaller": 57,
+            "difference": 29,
+            "unknown": "difference"
+          },
+          "bar_model": {
+            "structure": "compare-more",
+            "known_quantities": [
+              86,
+              57
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows a comparison between 86 and 57, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows a comparison between 86 and 57, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL3_Q10",
@@ -1968,15 +2490,15 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL3_Q10, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 24 from 40 to measure the gap.",
+            "Verify: Add the difference to 24; the sum should be 40."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 40 - 24 = 16.",
+          "explanation": "40 - 24 = 16. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 24 + 16 = 40.",
           "equation": "40 - 24 = ?",
           "a": 40,
           "b": 24,
@@ -1991,11 +2513,29 @@
           ],
           "total": 40,
           "question_audio": {
-            "text": "Ella made 40 bracelets. Zoe made 24 bracelets. How many fewer did Zoe make?",
+            "text": "Ella made 40 bracelets. Zoe made 24 bracelets. How many fewer did Zoe make? Visual context: The word problem model shows a comparison between 40 and 24, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-less",
+          "word_problem_metadata": {
+            "structure": "compare-less",
+            "known_quantities": [
+              40,
+              24
+            ],
+            "unknown_quantity": "?",
+            "equation": "40 - 24 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 40,
+            "smaller": 24,
+            "difference": 16,
+            "unknown": "difference"
+          },
+          "visual_description": "The word problem model shows a comparison between 40 and 24, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a comparison between 40 and 24, with the difference unknown. A question mark marks the quantity to find."
         }
       ]
     },
@@ -2020,15 +2560,15 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q1, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 24 + 31 - 18 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 24 + 31 - 18 = 37."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 24 + 31 - 18 = 37.",
+          "explanation": "First, 24 + 31 = 55. Then, 55 - 18 = 37. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 55, then undo the first to return to 24.",
           "equation": "24 + 31 - 18 = ?",
           "a": 24,
           "b": 31,
@@ -2040,11 +2580,24 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "A class collected 24 cans Monday and 31 cans Tuesday. They recycled 18 cans. How many cans are left?",
+            "text": "A class collected 24 cans Monday and 31 cans Tuesday. They recycled 18 cans. How many cans are left? Visual context: The word problem model shows a two-step relationship using 24, 31, 18. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              24,
+              31,
+              18
+            ],
+            "unknown_quantity": "?",
+            "equation": "24 + 31 - 18 = ?"
+          },
+          "visual_description": "The word problem model shows a two-step relationship using 24, 31, 18. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a two-step relationship using 24, 31, 18. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q2",
@@ -2059,15 +2612,15 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q2, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 70 - 25 + 14 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 70 - 25 + 14 = 59."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 70 - 25 + 14 = 59.",
+          "explanation": "First, 70 - 25 = 45. Then, 45 + 14 = 59. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 45, then undo the first to return to 70.",
           "options": [
             "58",
             "59",
@@ -2091,11 +2644,33 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "Ben had 70 stickers. He gave 25 away and then got 14 more. How many stickers now?",
+            "text": "Ben had 70 stickers. He gave 25 away and then got 14 more. How many stickers now? Visual context: The bar model shows a two-step relationship using 70, 25, 14. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              70,
+              25,
+              14
+            ],
+            "unknown_quantity": "?",
+            "equation": "70 - 25 + 14 = ?"
+          },
+          "bar_model": {
+            "structure": "multi-step",
+            "known_quantities": [
+              70,
+              25,
+              14
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows a two-step relationship using 70, 25, 14. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows a two-step relationship using 70, 25, 14. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q3",
@@ -2110,15 +2685,15 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q3, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 19 + 22 + 17 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 19 + 22 + 17 = 58."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 19 + 22 + 17 = 58.",
+          "explanation": "First, 19 + 22 = 41. Then, 41 + 17 = 58. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 41, then undo the first to return to 19.",
           "equation": "19 + 22 + 17 = ?",
           "a": 19,
           "b": 22,
@@ -2130,11 +2705,24 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "There are 19 red, 22 blue, and 17 green balloons. How many balloons are there in all?",
+            "text": "There are 19 red, 22 blue, and 17 green balloons. How many balloons are there in all? Visual context: The equation builder shows a two-step relationship using 19, 22, 17. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              19,
+              22,
+              17
+            ],
+            "unknown_quantity": "?",
+            "equation": "19 + 22 + 17 = ?"
+          },
+          "visual_description": "The equation builder shows a two-step relationship using 19, 22, 17. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows a two-step relationship using 19, 22, 17. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q4",
@@ -2149,25 +2737,25 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q4, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 64 - 18 + 23 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 64 - 18 + 23 = 69."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 64 - 18 + 23 = 69.",
+          "explanation": "First, 64 - 18 = 46. Then, 46 + 23 = 69. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 46, then undo the first to return to 64.",
           "options": [
             "68",
-            "69",
             "70",
+            "69",
             "79"
           ],
           "choices": [
             "68",
-            "69",
             "70",
+            "69",
             "79"
           ],
           "equation": "64 - 18 + 23 = ?",
@@ -2181,11 +2769,24 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "A bus had 64 riders. 18 got off and 23 got on. How many riders are on the bus?",
+            "text": "A bus had 64 riders. 18 got off and 23 got on. How many riders are on the bus? Visual context: The word problem model shows a two-step relationship using 64, 18, 23. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              64,
+              18,
+              23
+            ],
+            "unknown_quantity": "?",
+            "equation": "64 - 18 + 23 = ?"
+          },
+          "visual_description": "The word problem model shows a two-step relationship using 64, 18, 23. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a two-step relationship using 64, 18, 23. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q5",
@@ -2200,15 +2801,15 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q5, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 90 - (28 + 26) = the unknown.",
+            "Verify: Undo the final step, then check the first step against 90 - (28 + 26) = 36."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 90 - (28 + 26) = 36.",
+          "explanation": "First, 28 + 26 = 54. Then, 90 - 54 = 36. Why it works: combining the used parts before subtracting matches the story. Check: 36 + 54 = 90.",
           "equation": "90 - (28 + 26) = ?",
           "a": 90,
           "b": 28,
@@ -2220,11 +2821,33 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "Lily read 28 pages Saturday and 26 Sunday. Her book has 90 pages. How many pages are left?",
+            "text": "Lily read 28 pages Saturday and 26 Sunday. Her book has 90 pages. How many pages are left? Visual context: The bar model shows a two-step relationship using 90, 28, 26. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              90,
+              28,
+              26
+            ],
+            "unknown_quantity": "?",
+            "equation": "90 - (28 + 26) = ?"
+          },
+          "bar_model": {
+            "structure": "multi-step",
+            "known_quantities": [
+              90,
+              28,
+              26
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows a two-step relationship using 90, 28, 26. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows a two-step relationship using 90, 28, 26. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q6",
@@ -2239,26 +2862,26 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q6, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 82 - 37 - 18 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 82 - 37 - 18 = 27."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 82 - 37 - 18 = 27.",
+          "explanation": "First, 82 - 37 = 45. Then, 45 - 18 = 27. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 45, then undo the first to return to 82.",
           "options": [
             "26",
-            "27",
             "28",
-            "37"
+            "37",
+            "27"
           ],
           "choices": [
             "26",
-            "27",
             "28",
-            "37"
+            "37",
+            "27"
           ],
           "equation": "82 - 37 - 18 = ?",
           "a": 82,
@@ -2271,11 +2894,24 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "A store had 82 pencils. It sold 37 and then sold 18 more. How many pencils remain?",
+            "text": "A store had 82 pencils. It sold 37 and then sold 18 more. How many pencils remain? Visual context: The equation builder shows a two-step relationship using 82, 37, 18. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              82,
+              37,
+              18
+            ],
+            "unknown_quantity": "?",
+            "equation": "82 - 37 - 18 = ?"
+          },
+          "visual_description": "The equation builder shows a two-step relationship using 82, 37, 18. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows a two-step relationship using 82, 37, 18. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q7",
@@ -2290,15 +2926,15 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q7, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 16 + 24 + 19 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 16 + 24 + 19 = 59."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 16 + 24 + 19 = 59.",
+          "explanation": "First, 16 + 24 = 40. Then, 40 + 19 = 59. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 40, then undo the first to return to 16.",
           "equation": "16 + 24 + 19 = ?",
           "a": 16,
           "b": 24,
@@ -2310,11 +2946,24 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "A team scored 16, 24, and 19 points. What was the total score?",
+            "text": "A team scored 16, 24, and 19 points. What was the total score? Visual context: The word problem model shows a two-step relationship using 16, 24, 19. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              16,
+              24,
+              19
+            ],
+            "unknown_quantity": "?",
+            "equation": "16 + 24 + 19 = ?"
+          },
+          "visual_description": "The word problem model shows a two-step relationship using 16, 24, 19. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a two-step relationship using 16, 24, 19. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q8",
@@ -2329,24 +2978,24 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q8, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 45 + 28 - 16 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 45 + 28 - 16 = 57."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 45 + 28 - 16 = 57.",
+          "explanation": "First, 45 + 28 = 73. Then, 73 - 16 = 57. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 73, then undo the first to return to 45.",
           "options": [
-            "56",
             "57",
+            "56",
             "58",
             "67"
           ],
           "choices": [
-            "56",
             "57",
+            "56",
             "58",
             "67"
           ],
@@ -2361,11 +3010,33 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "A garden had 45 flowers. Kids planted 28 more, then picked 16. How many flowers are in the garden?",
+            "text": "A garden had 45 flowers. Kids planted 28 more, then picked 16. How many flowers are in the garden? Visual context: The bar model shows a two-step relationship using 45, 28, 16. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              45,
+              28,
+              16
+            ],
+            "unknown_quantity": "?",
+            "equation": "45 + 28 - 16 = ?"
+          },
+          "bar_model": {
+            "structure": "multi-step",
+            "known_quantities": [
+              45,
+              28,
+              16
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows a two-step relationship using 45, 28, 16. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows a two-step relationship using 45, 28, 16. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q9",
@@ -2380,15 +3051,15 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q9, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 30 + 24 - 19 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 30 + 24 - 19 = 35."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 30 + 24 - 19 = 35.",
+          "explanation": "First, 30 + 24 = 54. Then, 54 - 19 = 35. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 54, then undo the first to return to 30.",
           "equation": "30 + 24 - 19 = ?",
           "a": 30,
           "b": 24,
@@ -2400,11 +3071,24 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "There were 30 chairs in a room. 24 more chairs came in. 19 chairs were moved out. How many chairs remain?",
+            "text": "There were 30 chairs in a room. 24 more chairs came in. 19 chairs were moved out. How many chairs remain? Visual context: The equation builder shows a two-step relationship using 30, 24, 19. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              30,
+              24,
+              19
+            ],
+            "unknown_quantity": "?",
+            "equation": "30 + 24 - 19 = ?"
+          },
+          "visual_description": "The equation builder shows a two-step relationship using 30, 24, 19. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows a two-step relationship using 30, 24, 19. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_LVL4_Q10",
@@ -2419,15 +3103,15 @@
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_LVL4_Q10, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 75 - 29 - 18 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 75 - 29 - 18 = 28."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 75 - 29 - 18 = 28.",
+          "explanation": "First, 75 - 29 = 46. Then, 46 - 18 = 28. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 46, then undo the first to return to 75.",
           "options": [
             "27",
             "28",
@@ -2451,11 +3135,24 @@
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "A jar held 75 buttons. 29 were blue and 18 were red. How many buttons were another color?",
+            "text": "A jar held 75 buttons. 29 were blue and 18 were red. How many buttons were another color? Visual context: The word problem model shows a two-step relationship using 75, 29, 18. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              75,
+              29,
+              18
+            ],
+            "unknown_quantity": "?",
+            "equation": "75 - 29 - 18 = ?"
+          },
+          "visual_description": "The word problem model shows a two-step relationship using 75, 29, 18. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a two-step relationship using 75, 29, 18. A question mark marks the quantity to find."
         }
       ]
     },
@@ -2471,191 +3168,271 @@
           "id": "G2M_WP_001_MIXED_Q1",
           "question_id": "G2M_WP_001_MIXED_Q1",
           "question_type": "multiple_choice",
-          "visual_model": "bar_model",
-          "prompt": "Mia has 24 shells. Leo gives her 18 more. How many shells does Mia have now?",
-          "answer": "42",
-          "correct_answer": "42",
+          "visual_model": "equation_builder",
+          "prompt": "A nature club placed 26 seed packets in one bin and 17 in another. How many seed packets are in the two bins altogether?",
+          "answer": "43",
+          "correct_answer": "43",
           "acceptable_answers": [
-            "42"
+            "43"
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q1, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 26 + 17 = the unknown.",
+            "Verify: Subtract one addend from your total; you should recover the other addend."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "24 + 18 = 42. Add to put together or find the missing addend.",
+          "explanation": "26 + 17 = 43. Why it works: the story joins the two amounts into one total. Check with the inverse operation: 43 - 17 = 26.",
           "options": [
-            "41",
             "42",
+            "44",
             "43",
-            "52"
+            "53"
           ],
           "choices": [
-            "41",
             "42",
+            "44",
             "43",
-            "52"
+            "53"
           ],
-          "equation": "24 + 18 = ?",
-          "a": 24,
-          "b": 18,
+          "equation": "26 + 17 = ?",
+          "a": 26,
+          "b": 17,
           "operation": "addition",
           "knowns": [
-            24,
-            18
+            26,
+            17
           ],
           "question_audio": {
-            "text": "Mia has 24 shells. Leo gives her 18 more. How many shells does Mia have now?",
+            "text": "A nature club placed 26 seed packets in one bin and 17 in another. How many seed packets are in the two bins altogether? Visual context: The equation builder shows known quantities 26 and 17, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-addition",
+          "word_problem_metadata": {
+            "structure": "result-unknown-addition",
+            "known_quantities": [
+              26,
+              17
+            ],
+            "unknown_quantity": "?",
+            "equation": "26 + 17 = ?"
+          },
+          "visual_description": "The equation builder shows known quantities 26 and 17, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows known quantities 26 and 17, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q2",
           "question_id": "G2M_WP_001_MIXED_Q2",
           "question_type": "short_response",
-          "visual_model": "equation_builder",
-          "prompt": "There are 36 red apples and 27 green apples. How many apples are there altogether?",
-          "answer": "63",
-          "correct_answer": "63",
+          "visual_model": "bar_model",
+          "prompt": "Omar counted some toy cars. His friend brought 23 more, and then there were 71. How many toy cars did Omar count at first?",
+          "answer": "48",
+          "correct_answer": "48",
           "acceptable_answers": [
-            "63"
+            "48"
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q2, identify the unknown starting amount before the change.",
+            "Strategy: Use the inverse operation on 23 and 71 to find the start.",
+            "Verify: Add your start to 23; the total should be 71."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "36 + 27 = 63. Add to put together or find the missing addend.",
-          "equation": "36 + 27 = ?",
-          "a": 36,
-          "b": 27,
+          "explanation": "71 - 23 = 48, so the unknown start is 48. Why it works: subtraction undoes the added 23. Check with the inverse operation: 48 + 23 = 71.",
+          "equation": "? + 23 = 71",
+          "a": 48,
+          "b": 23,
           "operation": "addition",
           "knowns": [
-            36,
-            27
+            48,
+            23
           ],
           "question_audio": {
-            "text": "There are 36 red apples and 27 green apples. How many apples are there altogether?",
+            "text": "Omar counted some toy cars. His friend brought 23 more, and then there were 71. How many toy cars did Omar count at first? Visual context: The bar model shows an unknown starting amount and known quantities 23 and 71. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "start-unknown",
+          "word_problem_metadata": {
+            "structure": "start-unknown",
+            "known_quantities": [
+              23,
+              71
+            ],
+            "unknown_quantity": "?",
+            "equation": "? + 23 = 71"
+          },
+          "missing_part_metadata": {
+            "unknown_position": "start",
+            "known_quantities": [
+              23,
+              71
+            ],
+            "answer": 48
+          },
+          "bar_model": {
+            "structure": "start-unknown",
+            "known_quantities": [
+              23,
+              71
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows an unknown starting amount and known quantities 23 and 71. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows an unknown starting amount and known quantities 23 and 71. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q3",
           "question_id": "G2M_WP_001_MIXED_Q3",
           "question_type": "short_response",
-          "visual_model": "bar_model",
-          "prompt": "There were 72 stickers. Ana used 28. How many stickers are left?",
-          "answer": "44",
-          "correct_answer": "44",
+          "visual_model": "word_problem_model",
+          "prompt": "A craft table started with 84 paper squares. Students used 36. How many paper squares remain?",
+          "answer": "48",
+          "correct_answer": "48",
           "acceptable_answers": [
-            "44"
+            "48"
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q3, identify the two known quantities and the unknown result.",
+            "Strategy: Represent the story with 84 - 36 = the unknown.",
+            "Verify: Add the difference to 36; the sum should be 84."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 72 - 28 = 44.",
-          "equation": "72 - 28 = ?",
-          "a": 72,
-          "b": 28,
+          "explanation": "84 - 36 = 48. Why it works: subtraction removes 36 from the starting amount. Check with inverse addition: 48 + 36 = 84.",
+          "equation": "84 - 36 = ?",
+          "a": 84,
+          "b": 36,
           "operation": "subtraction",
           "knowns": [
-            72,
-            28
+            84,
+            36
           ],
           "question_audio": {
-            "text": "There were 72 stickers. Ana used 28. How many stickers are left?",
+            "text": "A craft table started with 84 paper squares. Students used 36. How many paper squares remain? Visual context: The word problem model shows known quantities 84 and 36, with the result unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "result-unknown-subtraction",
+          "word_problem_metadata": {
+            "structure": "result-unknown-subtraction",
+            "known_quantities": [
+              84,
+              36
+            ],
+            "unknown_quantity": "?",
+            "equation": "84 - 36 = ?"
+          },
+          "visual_description": "The word problem model shows known quantities 84 and 36, with the result unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows known quantities 84 and 36, with the result unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q4",
           "question_id": "G2M_WP_001_MIXED_Q4",
           "question_type": "short_response",
-          "visual_model": "equation_builder",
-          "prompt": "A jar had 65 marbles. 19 rolled out. How many marbles stayed in the jar?",
-          "answer": "46",
-          "correct_answer": "46",
+          "visual_model": "bar_model",
+          "prompt": "Some lanterns were hanging in the hall. Workers took down 27, leaving 45. How many lanterns were hanging at first?",
+          "answer": "72",
+          "correct_answer": "72",
           "acceptable_answers": [
-            "46"
+            "72"
           ],
           "misconception_tag": "operation_selection_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q4, identify the unknown starting amount before the change.",
+            "Strategy: Use the inverse operation on 27 and 45 to find the start.",
+            "Verify: Subtract 27 from your start; the result should be 45."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Subtract to take apart or find the missing part: 65 - 19 = 46.",
-          "equation": "65 - 19 = ?",
-          "a": 65,
-          "b": 19,
+          "explanation": "45 + 27 = 72, so the starting amount was 72. Why it works: adding back what was removed rebuilds the start. Check with the inverse operation: 72 - 27 = 45.",
+          "equation": "? - 27 = 45",
+          "a": 72,
+          "b": 27,
           "operation": "subtraction",
           "knowns": [
-            65,
-            19
+            72,
+            27
           ],
           "question_audio": {
-            "text": "A jar had 65 marbles. 19 rolled out. How many marbles stayed in the jar?",
+            "text": "Some lanterns were hanging in the hall. Workers took down 27, leaving 45. How many lanterns were hanging at first? Visual context: The bar model shows an unknown starting amount and known quantities 27 and 45. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "missing-minuend",
+          "word_problem_metadata": {
+            "structure": "missing-minuend",
+            "known_quantities": [
+              27,
+              45
+            ],
+            "unknown_quantity": "?",
+            "equation": "? - 27 = 45"
+          },
+          "missing_part_metadata": {
+            "unknown_position": "start",
+            "known_quantities": [
+              27,
+              45
+            ],
+            "answer": 72
+          },
+          "bar_model": {
+            "structure": "missing-minuend",
+            "known_quantities": [
+              27,
+              45
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows an unknown starting amount and known quantities 27 and 45. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows an unknown starting amount and known quantities 27 and 45. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q5",
           "question_id": "G2M_WP_001_MIXED_Q5",
           "question_type": "short_response",
-          "visual_model": "word_problem_model",
-          "prompt": "Ravi has 46 stamps. Kim has 29 stamps. How many more stamps does Ravi have than Kim?",
-          "answer": "17",
-          "correct_answer": "17",
+          "visual_model": "number_line",
+          "prompt": "The science shelf holds 67 animal books and 43 space books. How many more animal books are there than space books?",
+          "answer": "24",
+          "correct_answer": "24",
           "acceptable_answers": [
-            "17"
+            "24"
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q5, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 43 from 67 to measure the gap.",
+            "Verify: Add the difference to 43; the sum should be 67."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 46 - 29 = 17.",
-          "equation": "46 - 29 = ?",
-          "a": 46,
-          "b": 29,
+          "explanation": "67 - 43 = 24. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 43 + 24 = 67.",
+          "equation": "67 - 43 = ?",
+          "a": 67,
+          "b": 43,
           "operation": "compare",
           "knowns": [
-            46,
-            29
+            67,
+            43
           ],
           "parts": [
             29,
@@ -2663,18 +3440,36 @@
           ],
           "total": 46,
           "question_audio": {
-            "text": "Ravi has 46 stamps. Kim has 29 stamps. How many more stamps does Ravi have than Kim?",
+            "text": "The science shelf holds 67 animal books and 43 space books. How many more animal books are there than space books? Visual context: The number line shows a comparison between 67 and 43, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              67,
+              43
+            ],
+            "unknown_quantity": "?",
+            "equation": "67 - 43 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 67,
+            "smaller": 43,
+            "difference": 24,
+            "unknown": "difference"
+          },
+          "visual_description": "The number line shows a comparison between 67 and 43, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The number line shows a comparison between 67 and 43, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q6",
           "question_id": "G2M_WP_001_MIXED_Q6",
           "question_type": "short_response",
-          "visual_model": "number_line",
-          "prompt": "The blue ribbon is 68 cm. The red ribbon is 52 cm. How many centimeters longer is the blue ribbon?",
+          "visual_model": "bar_model",
+          "prompt": "Ava built a tower 54 centimeters tall. Luis built one 38 centimeters tall. How many centimeters shorter is Luis’s tower?",
           "answer": "16",
           "correct_answer": "16",
           "acceptable_answers": [
@@ -2682,22 +3477,22 @@
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q6, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 38 from 54 to measure the gap.",
+            "Verify: Add the difference to 38; the sum should be 54."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 68 - 52 = 16.",
-          "equation": "68 - 52 = ?",
-          "a": 68,
-          "b": 52,
+          "explanation": "54 - 38 = 16. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 38 + 16 = 54.",
+          "equation": "54 - 38 = ?",
+          "a": 54,
+          "b": 38,
           "operation": "compare",
           "knowns": [
-            68,
-            52
+            54,
+            38
           ],
           "parts": [
             52,
@@ -2705,53 +3500,79 @@
           ],
           "total": 68,
           "question_audio": {
-            "text": "The blue ribbon is 68 cm. The red ribbon is 52 cm. How many centimeters longer is the blue ribbon?",
+            "text": "Ava built a tower 54 centimeters tall. Luis built one 38 centimeters tall. How many centimeters shorter is Luis’s tower? Visual context: The bar model shows a comparison between 54 and 38, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-less",
+          "word_problem_metadata": {
+            "structure": "compare-less",
+            "known_quantities": [
+              54,
+              38
+            ],
+            "unknown_quantity": "?",
+            "equation": "54 - 38 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 54,
+            "smaller": 38,
+            "difference": 16,
+            "unknown": "difference"
+          },
+          "bar_model": {
+            "structure": "compare-less",
+            "known_quantities": [
+              54,
+              38
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows a comparison between 54 and 38, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows a comparison between 54 and 38, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q7",
           "question_id": "G2M_WP_001_MIXED_Q7",
           "question_type": "multiple_choice",
-          "visual_model": "bar_model",
-          "prompt": "A team has 37 soccer balls and 58 basketballs. How many fewer soccer balls are there?",
-          "answer": "21",
-          "correct_answer": "21",
+          "visual_model": "word_problem_model",
+          "prompt": "The school garden has 79 tomato plants and 51 pepper plants. What is the difference between the numbers of plants?",
+          "answer": "28",
+          "correct_answer": "28",
           "acceptable_answers": [
-            "21"
+            "28"
           ],
           "misconception_tag": "compare_problem_confusion",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q7, identify which amount is larger and which difference the story asks for.",
+            "Strategy: Subtract 51 from 79 to measure the gap.",
+            "Verify: Add the difference to 51; the sum should be 79."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Compare by subtracting the smaller amount from the larger amount: 58 - 37 = 21.",
+          "explanation": "79 - 51 = 28. Why it works: subtraction measures the gap between the larger and smaller amounts. Check with inverse addition: 51 + 28 = 79.",
           "options": [
-            "20",
-            "21",
-            "22",
-            "31"
+            "27",
+            "29",
+            "38",
+            "28"
           ],
           "choices": [
-            "20",
-            "21",
-            "22",
-            "31"
+            "27",
+            "29",
+            "38",
+            "28"
           ],
-          "equation": "58 - 37 = ?",
-          "a": 58,
-          "b": 37,
+          "equation": "79 - 51 = ?",
+          "a": 79,
+          "b": 51,
           "operation": "compare",
           "knowns": [
-            58,
-            37
+            79,
+            51
           ],
           "parts": [
             37,
@@ -2759,140 +3580,206 @@
           ],
           "total": 58,
           "question_audio": {
-            "text": "A team has 37 soccer balls and 58 basketballs. How many fewer soccer balls are there?",
+            "text": "The school garden has 79 tomato plants and 51 pepper plants. What is the difference between the numbers of plants? Visual context: The word problem model shows a comparison between 79 and 51, with the difference unknown. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "compare-more",
+          "word_problem_metadata": {
+            "structure": "compare-more",
+            "known_quantities": [
+              79,
+              51
+            ],
+            "unknown_quantity": "?",
+            "equation": "79 - 51 = ?"
+          },
+          "comparison_metadata": {
+            "larger": 79,
+            "smaller": 51,
+            "difference": 28,
+            "unknown": "difference"
+          },
+          "visual_description": "The word problem model shows a comparison between 79 and 51, with the difference unknown. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a comparison between 79 and 51, with the difference unknown. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q8",
           "question_id": "G2M_WP_001_MIXED_Q8",
           "question_type": "short_response",
-          "visual_model": "word_problem_model",
-          "prompt": "A class collected 24 cans Monday and 31 cans Tuesday. They recycled 18 cans. How many cans are left?",
-          "answer": "37",
-          "correct_answer": "37",
+          "visual_model": "equation_builder",
+          "prompt": "At field day, 21 students chose hoops and 33 chose jump ropes. Then 16 students returned equipment. How many students still had equipment?",
+          "answer": "38",
+          "correct_answer": "38",
           "acceptable_answers": [
-            "37"
+            "38"
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q8, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 21 + 33 - 16 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 21 + 33 - 16 = 38."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 24 + 31 - 18 = 37.",
-          "equation": "24 + 31 - 18 = ?",
-          "a": 24,
-          "b": 31,
-          "c": 18,
+          "explanation": "First, 21 + 33 = 54. Then, 54 - 16 = 38. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 54, then undo the first to return to 21.",
+          "equation": "21 + 33 - 16 = ?",
+          "a": 21,
+          "b": 33,
+          "c": 16,
           "knowns": [
-            24,
-            31,
-            18
+            21,
+            33,
+            16
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "A class collected 24 cans Monday and 31 cans Tuesday. They recycled 18 cans. How many cans are left?",
+            "text": "At field day, 21 students chose hoops and 33 chose jump ropes. Then 16 students returned equipment. How many students still had equipment? Visual context: The equation builder shows a two-step relationship using 21, 33, 16. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              21,
+              33,
+              16
+            ],
+            "unknown_quantity": "?",
+            "equation": "21 + 33 - 16 = ?"
+          },
+          "visual_description": "The equation builder shows a two-step relationship using 21, 33, 16. A question mark marks the quantity to find.",
+          "accessible_description": "The equation builder shows a two-step relationship using 21, 33, 16. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q9",
           "question_id": "G2M_WP_001_MIXED_Q9",
           "question_type": "multiple_choice",
           "visual_model": "bar_model",
-          "prompt": "Ben had 70 stickers. He gave 25 away and then got 14 more. How many stickers now?",
-          "answer": "59",
-          "correct_answer": "59",
+          "prompt": "A bakery displayed 88 rolls. It sold 34 in the morning and added 12 fresh rolls. How many rolls were then displayed?",
+          "answer": "66",
+          "correct_answer": "66",
           "acceptable_answers": [
-            "59"
+            "66"
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q9, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 88 - 34 + 12 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 88 - 34 + 12 = 66."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 70 - 25 + 14 = 59.",
+          "explanation": "First, 88 - 34 = 54. Then, 54 + 12 = 66. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 54, then undo the first to return to 88.",
           "options": [
-            "58",
-            "59",
-            "60",
-            "69"
+            "66",
+            "65",
+            "67",
+            "76"
           ],
           "choices": [
-            "58",
-            "59",
-            "60",
-            "69"
+            "66",
+            "65",
+            "67",
+            "76"
           ],
-          "equation": "70 - 25 + 14 = ?",
-          "a": 70,
-          "b": 25,
-          "c": 14,
+          "equation": "88 - 34 + 12 = ?",
+          "a": 88,
+          "b": 34,
+          "c": 12,
           "knowns": [
-            70,
-            25,
-            14
+            88,
+            34,
+            12
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "Ben had 70 stickers. He gave 25 away and then got 14 more. How many stickers now?",
+            "text": "A bakery displayed 88 rolls. It sold 34 in the morning and added 12 fresh rolls. How many rolls were then displayed? Visual context: The bar model shows a two-step relationship using 88, 34, 12. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              88,
+              34,
+              12
+            ],
+            "unknown_quantity": "?",
+            "equation": "88 - 34 + 12 = ?"
+          },
+          "bar_model": {
+            "structure": "multi-step",
+            "known_quantities": [
+              88,
+              34,
+              12
+            ],
+            "unknown_quantity": "?"
+          },
+          "visual_description": "The bar model shows a two-step relationship using 88, 34, 12. A question mark marks the quantity to find.",
+          "accessible_description": "The bar model shows a two-step relationship using 88, 34, 12. A question mark marks the quantity to find."
         },
         {
           "id": "G2M_WP_001_MIXED_Q10",
           "question_id": "G2M_WP_001_MIXED_Q10",
           "question_type": "short_response",
-          "visual_model": "equation_builder",
-          "prompt": "There are 19 red, 22 blue, and 17 green balloons. How many balloons are there in all?",
-          "answer": "58",
-          "correct_answer": "58",
+          "visual_model": "word_problem_model",
+          "prompt": "A museum had 73 visitors. Then 18 left, and later 29 more arrived. How many visitors were at the museum then?",
+          "answer": "84",
+          "correct_answer": "84",
           "acceptable_answers": [
-            "58"
+            "84"
           ],
           "misconception_tag": "two_step_tracking_error",
           "hints": [
-            "Read the story and find what is asked.",
-            "Choose add, subtract, or compare.",
-            "Write an equation and solve the unknown."
+            "Focus: In G2M_WP_001_MIXED_Q10, identify the order of the two changes in the story.",
+            "Strategy: Follow the story in order using 73 - 18 + 29 = the unknown.",
+            "Verify: Undo the final step, then check the first step against 73 - 18 + 29 = 84."
           ],
           "feedback": {
             "correct": "Nice strategy!",
             "incorrect": "Use the visual model and try again."
           },
-          "explanation": "Solve one step, then use that result for the next step: 19 + 22 + 17 = 58.",
-          "equation": "19 + 22 + 17 = ?",
-          "a": 19,
-          "b": 22,
-          "c": 17,
+          "explanation": "First, 73 - 18 = 55. Then, 55 + 29 = 84. Why it works: solving each action in story order tracks the changing amount. Check: undo the last step to return to 55, then undo the first to return to 73.",
+          "equation": "73 - 18 + 29 = ?",
+          "a": 73,
+          "b": 18,
+          "c": 29,
           "knowns": [
-            19,
-            22,
-            17
+            73,
+            18,
+            29
           ],
           "operation": "two_step",
           "question_audio": {
-            "text": "There are 19 red, 22 blue, and 17 green balloons. How many balloons are there in all?",
+            "text": "A museum had 73 visitors. Then 18 left, and later 29 more arrived. How many visitors were at the museum then? Visual context: The word problem model shows a two-step relationship using 73, 18, 29. A question mark marks the quantity to find.",
             "label": "Read Question",
             "type": "question",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "problem_structure": "multi-step",
+          "word_problem_metadata": {
+            "structure": "multi-step",
+            "known_quantities": [
+              73,
+              18,
+              29
+            ],
+            "unknown_quantity": "?",
+            "equation": "73 - 18 + 29 = ?"
+          },
+          "visual_description": "The word problem model shows a two-step relationship using 73, 18, 29. A question mark marks the quantity to find.",
+          "accessible_description": "The word problem model shows a two-step relationship using 73, 18, 29. A question mark marks the quantity to find."
         }
       ]
     }
