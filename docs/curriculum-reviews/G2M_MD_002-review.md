@@ -6,6 +6,8 @@
 
 No new reusable renderer or infrastructure defect was found. The repaired shared clock and money contracts passed both production paths and the Assessment MVP path for routed stimuli.
 
+The restart did identify stale, pre-audit copies in `guided_practice`, `adaptive_question_bank`, and `checkpoint`. Those copies are now regenerated from their canonical bank activities, so every duplicated representation carries the same prompt, hints, explanation, accepted responses, audio, and accessibility metadata. Redundant accepted-answer spellings that normalize to the same production value were also removed.
+
 ## Educational and mixed-transfer review
 
 All 50 canonical activities were reviewed and remediated individually. Prompts now use clear Grade 2 language and distinct contexts. Every activity has exactly one activity-specific `Focus`, `Strategy`, and `Verify` hint, and every complete hint ladder is unique. Explanations show the relevant clock-counting, part-of-day, coin-value, addition, comparison, purchase, or unit-selection reasoning instead of merely repeating an answer.
@@ -26,6 +28,8 @@ Every canonical activity now has `visual_description`, `accessible_description`,
 
 Multiple-choice `options` and `choices` are synchronized, contain four unique selectable coin names, include the canonical correct answer, and balance that answer across all four positions. Focused tests also verify time and money variants, reject metadata disagreement through production contracts, and exercise the complete renderer state path.
 
+Production evaluation accepts every canonical answer and every authored acceptable variant, rejects an unrelated response, records an incorrect submission and misconception tag, permits a retry, and updates attempts, correctness, and score after the corrected submission. All 50 activities select their authored renderer through both production rendering paths without blank, invalid, fallback, unsupported, or placeholder output.
+
 ## Changed files
 
 - `public/gamehub/skill-world/content/G2M_MD_002.skill-package.v1.json` — publication-quality remediation of all canonical activities and synchronized legacy previews.
@@ -35,9 +39,18 @@ Multiple-choice `options` and `choices` are synchronized, contain four unique se
 ## Validation
 
 - `node --test tests/gamehub/skill-world/g2m-md-002-content-quality.test.js`
-- `node --test tests/gamehub/skill-world/time-money-renderer-contract.test.js tests/gamehub/skill-world/skill-world-generator.test.js`
+- `node --test tests/gamehub/skill-world/time-money-renderer-contract.test.js`
+- `node --test tests/gamehub/skill-world/ruler-renderer.test.js`
+- `node --test tests/gamehub/skill-world/bar-model-renderer.test.js`
+- `node --test tests/gamehub/skill-world/shared-visual-infrastructure.test.js`
+- `node --test tests/gamehub/skill-world/skill-world-generator.test.js`
 - `npm run validate:curriculum-index`
 - `git diff --check`
+- `git status --short --branch`
+
+## Browser verification
+
+Playwright, Puppeteer, Chromium, Chrome, and a `playwright` executable were not available in the audit environment, so browser screenshots could not be captured. This is an environment limitation rather than a publication defect. Every canonical activity was instead rendered deterministically through both the production visual registry and production question-card renderer; exact clock angles, twelve numerals, coin counts, denomination order, complete render status, renderer selection, and answer-leak exclusions were asserted. Representative whole-hour, half-hour, and five-minute clocks plus identical, mixed, single, and dollars-and-cents coin models were additionally covered by the shared renderer contract suite.
 
 ## Scope confirmation
 

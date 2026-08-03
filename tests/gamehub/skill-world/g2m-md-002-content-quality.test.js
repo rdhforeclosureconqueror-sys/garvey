@@ -19,6 +19,38 @@ test('selected canonical package has the expected identity, schema, counts, and 
   questions.forEach((question) => assert.equal(question.id, question.question_id));
   const validation = Schema.validateSkillPackage(pkg, { allowPlannedLevelBanks: false });
   assert.equal(validation.valid, true, validation.errors.join('; '));
+  assert.deepEqual(pkg.guided_practice, canonicalBanks[0].questions.slice(0, 3), 'guided preview mirrors canonical content');
+  assert.deepEqual(pkg.adaptive_question_bank, [
+    ...canonicalBanks[1].questions.slice(0, 2),
+    ...canonicalBanks[2].questions.slice(0, 2),
+    ...canonicalBanks[3].questions.slice(0, 2),
+  ], 'adaptive preview mirrors canonical content');
+  assert.deepEqual(pkg.checkpoint, canonicalBanks[4].questions.slice(0, 3), 'checkpoint mirrors canonical content');
+});
+
+test('all canonical answers and acceptable variants pass production evaluation and submission state', () => {
+  questions.forEach((question) => {
+    assert.equal(question.answer, question.correct_answer, `${question.id}: duplicated answer fields`);
+    assert.equal(Renderer.evaluateAnswer(question, question.correct_answer), true, `${question.id}: canonical answer`);
+    assert.equal(Renderer.evaluateAnswer(question, '__unrelated__'), false, `${question.id}: unrelated answer`);
+    if (question.acceptable_answers) {
+      assert.equal(new Set(question.acceptable_answers.map((answer) => String(answer).trim().toLowerCase())).size,
+        question.acceptable_answers.length, `${question.id}: acceptable answers are unique`);
+      question.acceptable_answers.forEach((answer) =>
+        assert.equal(Renderer.evaluateAnswer(question, answer), true, `${question.id}: acceptable ${answer}`));
+    }
+
+    const state = Renderer.createState();
+    const wrong = Renderer.submitAnswer(state, 'practice', question, '__unrelated__');
+    assert.equal(wrong.correct, false, `${question.id}: wrong submission`);
+    assert.equal(state.attempts, 1, `${question.id}: first state update`);
+    assert.equal(state.misconceptionTags.at(-1), question.misconception_tag, `${question.id}: misconception state`);
+    Renderer.retryAnswer(state, 'practice', question);
+    const correct = Renderer.submitAnswer(state, 'practice', question, question.correct_answer);
+    assert.equal(correct.correct, true, `${question.id}: corrected submission`);
+    assert.equal(state.attempts, 2, `${question.id}: retry state update`);
+    assert.equal(state.correct, 1, `${question.id}: score state`);
+  });
 });
 
 test('production renderers do not print answers while asking learners to read clocks or count money', () => {
@@ -56,6 +88,20 @@ function visualSlice(html, renderer) {
   const end = html.indexOf('</div><div class="answer-panel">', start);
   return end < 0 ? html.slice(outer) : html.slice(outer, end + 6);
 }
+
+test('every canonical activity selects its production renderer through both complete rendering paths', () => {
+  questions.forEach((question) => {
+    for (const [renderPath, html] of [
+      ['visual registry', VisualRegistry.render(question)],
+      ['question card', Renderer.renderQuestionCard(question, 'practice', Renderer.createState(), pkg)],
+    ]) {
+      assert.ok(html.trim(), `${question.id}: ${renderPath} output is blank`);
+      assert.match(html, new RegExp(`data-renderer="${question.visual_model}"`), `${question.id}: ${renderPath} renderer`);
+      assert.doesNotMatch(html, /unsupported visual|visual placeholder|renderer fallback|data-render-status="(?:invalid|fallback)"/i,
+        `${question.id}: ${renderPath} production output`);
+    }
+  });
+});
 
 test('all 50 activities have complete, answer-safe accessibility and unique teaching', () => {
   assert.equal(new Set(questions.map(({ prompt }) => prompt.trim().toLowerCase())).size, 50);
