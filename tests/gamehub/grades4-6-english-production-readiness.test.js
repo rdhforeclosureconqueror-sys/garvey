@@ -238,9 +238,18 @@ test('Grades 4-6 English writing validation is rule-based, sampled, and not plac
   }
 });
 
-test('Grades 4-6 English hub filters and route actions are manifest-driven without hardcoded English placeholders', () => {
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/, 'hub filters generated missions by selected grade');
-  assert.match(hub, /Start Skill World/, 'hub exposes Start Skill World');
-  assert.match(hub, /Practice This Skill/, 'hub exposes Practice This Skill');
+test('Grades 4-6 English hub uses the production manifest, filters, cards, routes, and labels', () => {
+  assert.match(hub, /const skillWorldManifestUrl='\/gamehub\/skill-world\/content\/manifest\.json'/, 'hub declares the production package manifest');
+  assert.match(hub, /fetch\(skillWorldManifestUrl\)/, 'hub loads the production package manifest');
+  assert.match(hub, /Promise\.all\(packageFiles\.map\(async\(file\)=>/, 'hub loads every package selected from the manifest');
+  assert.match(hub, /state\.packages=packages\.filter\(\(pkg\)=>pkg\.packageId&&Number\.isInteger\(pkg\.grade\)&&subjects\.includes\(pkg\.subject\)\)/, 'hub retains valid packages for supported production subjects');
+  assert.match(hub, /function selectedPackages\(\)[\s\S]*?state\.packages\.filter\(\(pkg\)=>pkg\.grade===state\.grade&&pkg\.subject===state\.subject\)/, 'hub filters package selection by both grade and subject');
+  assert.match(hub, /const rows=selectedPackages\(\)\.map\(renderLessonCard\)\.join\(''\)/, 'hub renders exactly the selected packages as lesson cards');
+  assert.match(hub, /function renderLessonCard\(pkg\)[\s\S]*?skillWorldHref\(pkg\.packageId\)[\s\S]*?skillWorldDrillHref\(pkg\.packageId\)/, 'lesson cards render both lesson and drill navigation');
+  assert.match(hub, /function skillWorldHref\(packageId\)\{ return withRouteContext\(`\/skill-world\/\$\{encodeURIComponent\(packageId\)\}`\); \}/, 'lesson launches use the production Skill World route and preserve route context');
+  assert.match(hub, /function skillWorldDrillHref\(packageId\)\{ return withRouteContext\(`\/skill-world\/\$\{encodeURIComponent\(packageId\)\}\/drill`\); \}/, 'drill launches use the production drill route and preserve route context');
+  assert.match(hub, />Start Lesson<\//, 'hub exposes the canonical Start Lesson label');
+  assert.match(hub, />Practice This Skill<\//, 'hub exposes the canonical Practice This Skill label');
+  assert.doesNotMatch(hub, /renderGeneratedMission|Start Skill World/, 'hub does not retain the superseded generated-mission contract');
   assert.doesNotMatch(hub, /G[456]E_[A-Z]+_001[^\n]+coming soon|Grade [456] English[^\n]+placeholder/i, 'hub does not hardcode Grades 4-6 English placeholder cards');
 });
