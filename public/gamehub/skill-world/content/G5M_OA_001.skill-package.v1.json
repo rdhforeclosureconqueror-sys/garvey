@@ -1,7 +1,7 @@
 {
   "metadata": {
     "schema_version": "skill-package.v1",
-    "production_status": "ready_for_manual_qa",
+    "production_status": "publication_certified",
     "source_plan": "grade5-math-completion-plan.v1",
     "voice_standard": "full_voice_standard_cached_ai_audio_optional"
   },
@@ -283,23 +283,23 @@
           "question_id": "G5M_OA_001_L1_Q1",
           "question_type": "expression_response",
           "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+          "prompt": "At the community garden, 6 teams each collect 4 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
           "answer": "(4 + 3) \u00d7 6",
           "correct_answer": "(4 + 3) \u00d7 6",
           "misconception_tag": "parentheses_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Identify the amount for one team and the number of equal teams in the community garden story.",
+            "Strategy: Group 4 + 3 in parentheses, then show 6 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c6 groups of one team's morning-and-afternoon total.\u201d"
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (4 + 3) \u00d7 6.",
-          "read_aloud_text": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+          "explanation": "The parentheses group one team's 4 + 3 cans because that sum must be found first. Multiplying the grouped sum by 6 represents 6 equal teams, so (4 + 3) \u00d7 6 matches the situation.",
+          "read_aloud_text": "At the community garden, 6 teams each collect 4 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
           "question_audio": {
-            "text": "Write an expression for the sum of 4 and 3, then multiply by 6.",
+            "text": "At the community garden, 6 teams each collect 4 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -309,7 +309,7 @@
           "acceptable_answers": [
             "(4 + 3) \u00d7 6",
             "(4+3)\u00d76",
-            "(4 + 3) \u00d7 6"
+            "6\u00d7(4+3)"
           ],
           "expression": "(4 + 3) \u00d7 6",
           "expression_parts": [
@@ -320,30 +320,32 @@
             ")",
             "\u00d7",
             6
-          ]
+          ],
+          "visual_description": "An expression builder displays separate tiles for 4, plus, 3, grouping symbols, multiplication, and 6; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 4, plus, 3, grouping symbols, multiplication, and 6; the tiles are not assembled into a final expression."
         },
         {
           "id": "G5M_OA_001_L1_Q2",
           "question_id": "G5M_OA_001_L1_Q2",
           "question_type": "multiple_choice",
           "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+          "prompt": "At the school supply drive, 7 teams each collect 5 cans in the morning and 4 cans in the afternoon. Write an expression for the total number of cans.",
           "answer": "(5 + 4) \u00d7 7",
           "correct_answer": "(5 + 4) \u00d7 7",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Identify the amount for one team and the number of equal teams in the school supply drive story.",
+            "Strategy: Group 5 + 4 in parentheses, then show 7 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c7 groups of one team's morning-and-afternoon total.\u201d"
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (5 + 4) \u00d7 7.",
-          "read_aloud_text": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+          "explanation": "The parentheses group one team's 5 + 4 cans because that sum must be found first. Multiplying the grouped sum by 7 represents 7 equal teams, so (5 + 4) \u00d7 7 matches the situation.",
+          "read_aloud_text": "At the school supply drive, 7 teams each collect 5 cans in the morning and 4 cans in the afternoon. Write an expression for the total number of cans.",
           "question_audio": {
-            "text": "Write an expression for the sum of 5 and 4, then multiply by 7.",
+            "text": "At the school supply drive, 7 teams each collect 5 cans in the morning and 4 cans in the afternoon. Write an expression for the total number of cans.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -353,8 +355,8 @@
           "choices": [
             "(5 + 4) \u00d7 7",
             "5 + 4 \u00d7 7",
-            "5 \u00d7 4 + 7",
-            "(5 \u00d7 4) + 7"
+            "(5 \u00d7 4) + 7",
+            "5 + (4 \u00d7 7)"
           ],
           "expression": "(5 + 4) \u00d7 7",
           "expression_parts": [
@@ -365,6 +367,13 @@
             ")",
             "\u00d7",
             7
+          ],
+          "visual_description": "An expression builder displays separate tiles for 5, plus, 4, grouping symbols, multiplication, and 7; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 5, plus, 4, grouping symbols, multiplication, and 7; the tiles are not assembled into a final expression.",
+          "acceptable_answers": [
+            "(5 + 4) \u00d7 7",
+            "(5+4)\u00d77",
+            "7\u00d7(5+4)"
           ]
         },
         {
@@ -372,23 +381,23 @@
           "question_id": "G5M_OA_001_L1_Q3",
           "question_type": "expression_response",
           "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 6 and 5, then multiply by 5.",
-          "answer": "(6 + 5) \u00d7 5",
-          "correct_answer": "(6 + 5) \u00d7 5",
+          "prompt": "At the science club, 5 teams each collect 6 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
+          "answer": "(6 + 2) \u00d7 5",
+          "correct_answer": "(6 + 2) \u00d7 5",
           "misconception_tag": "parentheses_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Identify the amount for one team and the number of equal teams in the science club story.",
+            "Strategy: Group 6 + 2 in parentheses, then show 5 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c5 groups of one team's morning-and-afternoon total.\u201d"
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (6 + 5) \u00d7 5.",
-          "read_aloud_text": "Write an expression for the sum of 6 and 5, then multiply by 5.",
+          "explanation": "The parentheses group one team's 6 + 2 cans because that sum must be found first. Multiplying the grouped sum by 5 represents 5 equal teams, so (6 + 2) \u00d7 5 matches the situation.",
+          "read_aloud_text": "At the science club, 5 teams each collect 6 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
           "question_audio": {
-            "text": "Write an expression for the sum of 6 and 5, then multiply by 5.",
+            "text": "At the science club, 5 teams each collect 6 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -396,43 +405,45 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(6 + 5) \u00d7 5",
-            "(6+5)\u00d75",
-            "(6 + 5) \u00d7 5"
+            "(6 + 2) \u00d7 5",
+            "(6+2)\u00d75",
+            "5\u00d7(6+2)"
           ],
-          "expression": "(6 + 5) \u00d7 5",
+          "expression": "(6 + 2) \u00d7 5",
           "expression_parts": [
             "(",
             6,
             "+",
-            5,
+            2,
             ")",
             "\u00d7",
             5
-          ]
+          ],
+          "visual_description": "An expression builder displays separate tiles for 6, plus, 2, grouping symbols, multiplication, and 5; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 6, plus, 2, grouping symbols, multiplication, and 5; the tiles are not assembled into a final expression."
         },
         {
           "id": "G5M_OA_001_L1_Q4",
           "question_id": "G5M_OA_001_L1_Q4",
           "question_type": "multiple_choice",
           "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 7 and 2, then multiply by 6.",
-          "answer": "(7 + 2) \u00d7 6",
-          "correct_answer": "(7 + 2) \u00d7 6",
+          "prompt": "At the neighborhood mural, 4 teams each collect 8 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
+          "answer": "(8 + 3) \u00d7 4",
+          "correct_answer": "(8 + 3) \u00d7 4",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Identify the amount for one team and the number of equal teams in the neighborhood mural story.",
+            "Strategy: Group 8 + 3 in parentheses, then show 4 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c4 groups of one team's morning-and-afternoon total.\u201d"
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (7 + 2) \u00d7 6.",
-          "read_aloud_text": "Write an expression for the sum of 7 and 2, then multiply by 6.",
+          "explanation": "The parentheses group one team's 8 + 3 cans because that sum must be found first. Multiplying the grouped sum by 4 represents 4 equal teams, so (8 + 3) \u00d7 4 matches the situation.",
+          "read_aloud_text": "At the neighborhood mural, 4 teams each collect 8 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
           "question_audio": {
-            "text": "Write an expression for the sum of 7 and 2, then multiply by 6.",
+            "text": "At the neighborhood mural, 4 teams each collect 8 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -440,56 +451,12 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(7 + 2) \u00d7 6",
-            "7 + 2 \u00d7 6",
-            "7 \u00d7 2 + 6",
-            "(7 \u00d7 2) + 6"
+            "(8 + 3) \u00d7 4",
+            "8 + 3 \u00d7 4",
+            "(8 \u00d7 3) + 4",
+            "8 + (3 \u00d7 4)"
           ],
-          "expression": "(7 + 2) \u00d7 6",
-          "expression_parts": [
-            "(",
-            7,
-            "+",
-            2,
-            ")",
-            "\u00d7",
-            6
-          ]
-        },
-        {
-          "id": "G5M_OA_001_L1_Q5",
-          "question_id": "G5M_OA_001_L1_Q5",
-          "question_type": "expression_response",
-          "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 8 and 3, then multiply by 7.",
-          "answer": "(8 + 3) \u00d7 7",
-          "correct_answer": "(8 + 3) \u00d7 7",
-          "misconception_tag": "parentheses_confusion",
-          "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
-          ],
-          "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
-          },
-          "explanation": "The answer is (8 + 3) \u00d7 7.",
-          "read_aloud_text": "Write an expression for the sum of 8 and 3, then multiply by 7.",
-          "question_audio": {
-            "text": "Write an expression for the sum of 8 and 3, then multiply by 7.",
-            "label": "Read Question",
-            "type": "question",
-            "repeat_count": 1,
-            "voice": "alloy",
-            "playback_preference": "cached_audio_first"
-          },
-          "acceptable_answers": [
-            "(8 + 3) \u00d7 7",
-            "(8+3)\u00d77",
-            "(8 + 3) \u00d7 7"
-          ],
-          "expression": "(8 + 3) \u00d7 7",
+          "expression": "(8 + 3) \u00d7 4",
           "expression_parts": [
             "(",
             8,
@@ -497,31 +464,84 @@
             3,
             ")",
             "\u00d7",
-            7
+            4
+          ],
+          "visual_description": "An expression builder displays separate tiles for 8, plus, 3, grouping symbols, multiplication, and 4; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 8, plus, 3, grouping symbols, multiplication, and 4; the tiles are not assembled into a final expression.",
+          "acceptable_answers": [
+            "(8 + 3) \u00d7 4",
+            "(8+3)\u00d74",
+            "4\u00d7(8+3)"
           ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q5",
+          "question_id": "G5M_OA_001_L1_Q5",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "prompt": "At the field day, 3 teams each collect 9 cans in the morning and 5 cans in the afternoon. Write an expression for the total number of cans.",
+          "answer": "(9 + 5) \u00d7 3",
+          "correct_answer": "(9 + 5) \u00d7 3",
+          "misconception_tag": "parentheses_confusion",
+          "hints": [
+            "Focus: Identify the amount for one team and the number of equal teams in the field day story.",
+            "Strategy: Group 9 + 5 in parentheses, then show 3 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c3 groups of one team's morning-and-afternoon total.\u201d"
+          ],
+          "feedback": {
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
+          },
+          "explanation": "The parentheses group one team's 9 + 5 cans because that sum must be found first. Multiplying the grouped sum by 3 represents 3 equal teams, so (9 + 5) \u00d7 3 matches the situation.",
+          "read_aloud_text": "At the field day, 3 teams each collect 9 cans in the morning and 5 cans in the afternoon. Write an expression for the total number of cans.",
+          "question_audio": {
+            "text": "At the field day, 3 teams each collect 9 cans in the morning and 5 cans in the afternoon. Write an expression for the total number of cans.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(9 + 5) \u00d7 3",
+            "(9+5)\u00d73",
+            "3\u00d7(9+5)"
+          ],
+          "expression": "(9 + 5) \u00d7 3",
+          "expression_parts": [
+            "(",
+            9,
+            "+",
+            5,
+            ")",
+            "\u00d7",
+            3
+          ],
+          "visual_description": "An expression builder displays separate tiles for 9, plus, 5, grouping symbols, multiplication, and 3; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 9, plus, 5, grouping symbols, multiplication, and 3; the tiles are not assembled into a final expression."
         },
         {
           "id": "G5M_OA_001_L1_Q6",
           "question_id": "G5M_OA_001_L1_Q6",
           "question_type": "multiple_choice",
           "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 9 and 4, then multiply by 5.",
-          "answer": "(9 + 4) \u00d7 5",
-          "correct_answer": "(9 + 4) \u00d7 5",
+          "prompt": "At the library team, 8 teams each collect 10 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
+          "answer": "(10 + 2) \u00d7 8",
+          "correct_answer": "(10 + 2) \u00d7 8",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Identify the amount for one team and the number of equal teams in the library team story.",
+            "Strategy: Group 10 + 2 in parentheses, then show 8 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c8 groups of one team's morning-and-afternoon total.\u201d"
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (9 + 4) \u00d7 5.",
-          "read_aloud_text": "Write an expression for the sum of 9 and 4, then multiply by 5.",
+          "explanation": "The parentheses group one team's 10 + 2 cans because that sum must be found first. Multiplying the grouped sum by 8 represents 8 equal teams, so (10 + 2) \u00d7 8 matches the situation.",
+          "read_aloud_text": "At the library team, 8 teams each collect 10 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
           "question_audio": {
-            "text": "Write an expression for the sum of 9 and 4, then multiply by 5.",
+            "text": "At the library team, 8 teams each collect 10 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -529,20 +549,27 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(9 + 4) \u00d7 5",
-            "9 + 4 \u00d7 5",
-            "9 \u00d7 4 + 5",
-            "(9 \u00d7 4) + 5"
+            "(10 + 2) \u00d7 8",
+            "10 + 2 \u00d7 8",
+            "(10 \u00d7 2) + 8",
+            "10 + (2 \u00d7 8)"
           ],
-          "expression": "(9 + 4) \u00d7 5",
+          "expression": "(10 + 2) \u00d7 8",
           "expression_parts": [
             "(",
-            9,
+            10,
             "+",
-            4,
+            2,
             ")",
             "\u00d7",
-            5
+            8
+          ],
+          "visual_description": "An expression builder displays separate tiles for 10, plus, 2, grouping symbols, multiplication, and 8; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 10, plus, 2, grouping symbols, multiplication, and 8; the tiles are not assembled into a final expression.",
+          "acceptable_answers": [
+            "(10 + 2) \u00d7 8",
+            "(10+2)\u00d78",
+            "8\u00d7(10+2)"
           ]
         },
         {
@@ -550,23 +577,23 @@
           "question_id": "G5M_OA_001_L1_Q7",
           "question_type": "expression_response",
           "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 10 and 5, then multiply by 6.",
-          "answer": "(10 + 5) \u00d7 6",
-          "correct_answer": "(10 + 5) \u00d7 6",
+          "prompt": "At the music workshop, 4 teams each collect 7 cans in the morning and 6 cans in the afternoon. Write an expression for the total number of cans.",
+          "answer": "(7 + 6) \u00d7 4",
+          "correct_answer": "(7 + 6) \u00d7 4",
           "misconception_tag": "parentheses_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Identify the amount for one team and the number of equal teams in the music workshop story.",
+            "Strategy: Group 7 + 6 in parentheses, then show 4 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c4 groups of one team's morning-and-afternoon total.\u201d"
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (10 + 5) \u00d7 6.",
-          "read_aloud_text": "Write an expression for the sum of 10 and 5, then multiply by 6.",
+          "explanation": "The parentheses group one team's 7 + 6 cans because that sum must be found first. Multiplying the grouped sum by 4 represents 4 equal teams, so (7 + 6) \u00d7 4 matches the situation.",
+          "read_aloud_text": "At the music workshop, 4 teams each collect 7 cans in the morning and 6 cans in the afternoon. Write an expression for the total number of cans.",
           "question_audio": {
-            "text": "Write an expression for the sum of 10 and 5, then multiply by 6.",
+            "text": "At the music workshop, 4 teams each collect 7 cans in the morning and 6 cans in the afternoon. Write an expression for the total number of cans.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -574,43 +601,45 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(10 + 5) \u00d7 6",
-            "(10+5)\u00d76",
-            "(10 + 5) \u00d7 6"
+            "(7 + 6) \u00d7 4",
+            "(7+6)\u00d74",
+            "4\u00d7(7+6)"
           ],
-          "expression": "(10 + 5) \u00d7 6",
+          "expression": "(7 + 6) \u00d7 4",
           "expression_parts": [
             "(",
-            10,
+            7,
             "+",
-            5,
+            6,
             ")",
             "\u00d7",
-            6
-          ]
+            4
+          ],
+          "visual_description": "An expression builder displays separate tiles for 7, plus, 6, grouping symbols, multiplication, and 4; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 7, plus, 6, grouping symbols, multiplication, and 4; the tiles are not assembled into a final expression."
         },
         {
           "id": "G5M_OA_001_L1_Q8",
           "question_id": "G5M_OA_001_L1_Q8",
           "question_type": "multiple_choice",
           "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 11 and 2, then multiply by 7.",
-          "answer": "(11 + 2) \u00d7 7",
-          "correct_answer": "(11 + 2) \u00d7 7",
+          "prompt": "At the recycling project, 5 teams each collect 12 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
+          "answer": "(12 + 3) \u00d7 5",
+          "correct_answer": "(12 + 3) \u00d7 5",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Identify the amount for one team and the number of equal teams in the recycling project story.",
+            "Strategy: Group 12 + 3 in parentheses, then show 5 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c5 groups of one team's morning-and-afternoon total.\u201d"
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (11 + 2) \u00d7 7.",
-          "read_aloud_text": "Write an expression for the sum of 11 and 2, then multiply by 7.",
+          "explanation": "The parentheses group one team's 12 + 3 cans because that sum must be found first. Multiplying the grouped sum by 5 represents 5 equal teams, so (12 + 3) \u00d7 5 matches the situation.",
+          "read_aloud_text": "At the recycling project, 5 teams each collect 12 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
           "question_audio": {
-            "text": "Write an expression for the sum of 11 and 2, then multiply by 7.",
+            "text": "At the recycling project, 5 teams each collect 12 cans in the morning and 3 cans in the afternoon. Write an expression for the total number of cans.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -618,54 +647,10 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(11 + 2) \u00d7 7",
-            "11 + 2 \u00d7 7",
-            "11 \u00d7 2 + 7",
-            "(11 \u00d7 2) + 7"
-          ],
-          "expression": "(11 + 2) \u00d7 7",
-          "expression_parts": [
-            "(",
-            11,
-            "+",
-            2,
-            ")",
-            "\u00d7",
-            7
-          ]
-        },
-        {
-          "id": "G5M_OA_001_L1_Q9",
-          "question_id": "G5M_OA_001_L1_Q9",
-          "question_type": "expression_response",
-          "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 12 and 3, then multiply by 5.",
-          "answer": "(12 + 3) \u00d7 5",
-          "correct_answer": "(12 + 3) \u00d7 5",
-          "misconception_tag": "parentheses_confusion",
-          "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
-          ],
-          "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
-          },
-          "explanation": "The answer is (12 + 3) \u00d7 5.",
-          "read_aloud_text": "Write an expression for the sum of 12 and 3, then multiply by 5.",
-          "question_audio": {
-            "text": "Write an expression for the sum of 12 and 3, then multiply by 5.",
-            "label": "Read Question",
-            "type": "question",
-            "repeat_count": 1,
-            "voice": "alloy",
-            "playback_preference": "cached_audio_first"
-          },
-          "acceptable_answers": [
             "(12 + 3) \u00d7 5",
-            "(12+3)\u00d75",
-            "(12 + 3) \u00d7 5"
+            "12 + 3 \u00d7 5",
+            "(12 \u00d7 3) + 5",
+            "12 + (3 \u00d7 5)"
           ],
           "expression": "(12 + 3) \u00d7 5",
           "expression_parts": [
@@ -676,30 +661,83 @@
             ")",
             "\u00d7",
             5
+          ],
+          "visual_description": "An expression builder displays separate tiles for 12, plus, 3, grouping symbols, multiplication, and 5; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 12, plus, 3, grouping symbols, multiplication, and 5; the tiles are not assembled into a final expression.",
+          "acceptable_answers": [
+            "(12 + 3) \u00d7 5",
+            "(12+3)\u00d75",
+            "5\u00d7(12+3)"
           ]
+        },
+        {
+          "id": "G5M_OA_001_L1_Q9",
+          "question_id": "G5M_OA_001_L1_Q9",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "prompt": "At the robotics club, 6 teams each collect 11 cans in the morning and 4 cans in the afternoon. Write an expression for the total number of cans.",
+          "answer": "(11 + 4) \u00d7 6",
+          "correct_answer": "(11 + 4) \u00d7 6",
+          "misconception_tag": "parentheses_confusion",
+          "hints": [
+            "Focus: Identify the amount for one team and the number of equal teams in the robotics club story.",
+            "Strategy: Group 11 + 4 in parentheses, then show 6 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c6 groups of one team's morning-and-afternoon total.\u201d"
+          ],
+          "feedback": {
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
+          },
+          "explanation": "The parentheses group one team's 11 + 4 cans because that sum must be found first. Multiplying the grouped sum by 6 represents 6 equal teams, so (11 + 4) \u00d7 6 matches the situation.",
+          "read_aloud_text": "At the robotics club, 6 teams each collect 11 cans in the morning and 4 cans in the afternoon. Write an expression for the total number of cans.",
+          "question_audio": {
+            "text": "At the robotics club, 6 teams each collect 11 cans in the morning and 4 cans in the afternoon. Write an expression for the total number of cans.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(11 + 4) \u00d7 6",
+            "(11+4)\u00d76",
+            "6\u00d7(11+4)"
+          ],
+          "expression": "(11 + 4) \u00d7 6",
+          "expression_parts": [
+            "(",
+            11,
+            "+",
+            4,
+            ")",
+            "\u00d7",
+            6
+          ],
+          "visual_description": "An expression builder displays separate tiles for 11, plus, 4, grouping symbols, multiplication, and 6; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 11, plus, 4, grouping symbols, multiplication, and 6; the tiles are not assembled into a final expression."
         },
         {
           "id": "G5M_OA_001_L1_Q10",
           "question_id": "G5M_OA_001_L1_Q10",
           "question_type": "multiple_choice",
           "visual_model": "expression_builder",
-          "prompt": "Write an expression for the sum of 13 and 4, then multiply by 6.",
-          "answer": "(13 + 4) \u00d7 6",
-          "correct_answer": "(13 + 4) \u00d7 6",
+          "prompt": "At the community kitchen, 7 teams each collect 13 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
+          "answer": "(13 + 2) \u00d7 7",
+          "correct_answer": "(13 + 2) \u00d7 7",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Identify the amount for one team and the number of equal teams in the community kitchen story.",
+            "Strategy: Group 13 + 2 in parentheses, then show 7 equal groups with multiplication.",
+            "Verify: Read the expression in words and check that it says \u201c7 groups of one team's morning-and-afternoon total.\u201d"
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (13 + 4) \u00d7 6.",
-          "read_aloud_text": "Write an expression for the sum of 13 and 4, then multiply by 6.",
+          "explanation": "The parentheses group one team's 13 + 2 cans because that sum must be found first. Multiplying the grouped sum by 7 represents 7 equal teams, so (13 + 2) \u00d7 7 matches the situation.",
+          "read_aloud_text": "At the community kitchen, 7 teams each collect 13 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
           "question_audio": {
-            "text": "Write an expression for the sum of 13 and 4, then multiply by 6.",
+            "text": "At the community kitchen, 7 teams each collect 13 cans in the morning and 2 cans in the afternoon. Write an expression for the total number of cans.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -707,20 +745,27 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(13 + 4) \u00d7 6",
-            "13 + 4 \u00d7 6",
-            "13 \u00d7 4 + 6",
-            "(13 \u00d7 4) + 6"
+            "(13 + 2) \u00d7 7",
+            "13 + 2 \u00d7 7",
+            "(13 \u00d7 2) + 7",
+            "13 + (2 \u00d7 7)"
           ],
-          "expression": "(13 + 4) \u00d7 6",
+          "expression": "(13 + 2) \u00d7 7",
           "expression_parts": [
             "(",
             13,
             "+",
-            4,
+            2,
             ")",
             "\u00d7",
-            6
+            7
+          ],
+          "visual_description": "An expression builder displays separate tiles for 13, plus, 2, grouping symbols, multiplication, and 7; the tiles are not assembled into a final expression.",
+          "accessible_description": "An expression builder displays separate tiles for 13, plus, 2, grouping symbols, multiplication, and 7; the tiles are not assembled into a final expression.",
+          "acceptable_answers": [
+            "(13 + 2) \u00d7 7",
+            "(13+2)\u00d77",
+            "7\u00d7(13+2)"
           ]
         }
       ]
@@ -743,18 +788,18 @@
           "correct_answer": "32",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 5 + 3 is inside parentheses.",
+            "Strategy: Find 5 + 3 first, and multiply that result by 4.",
+            "Verify: Divide your result by 4; the quotient should equal the grouped sum 5 + 3."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 32.",
-          "read_aloud_text": "Evaluate the expression: the quantity 5 plus 3, multiplied by 4.",
+          "explanation": "Grouping symbols tell us to add first: 5 + 3 = 8. Then multiply: 8 \u00d7 4 = 32. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 5 plus 3, multiplied by 4.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 5 plus 3, multiplied by 4.",
+            "text": "Evaluate the quantity 5 plus 3, multiplied by 4.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -762,8 +807,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "32",
-            "32",
             "32"
           ],
           "expression": "(5 + 3) \u00d7 4",
@@ -775,7 +818,9 @@
             ")",
             "\u00d7",
             4
-          ]
+          ],
+          "visual_description": "An expression builder shows (5 + 3) \u00d7 4 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (5 + 3) \u00d7 4 with the parenthesized group visually separated from the multiplication step."
         },
         {
           "id": "G5M_OA_001_L2_Q2",
@@ -787,18 +832,18 @@
           "correct_answer": "50",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 6 + 4 is inside parentheses.",
+            "Strategy: Find 6 + 4 first, and multiply that result by 5.",
+            "Verify: Divide your result by 5; the quotient should equal the grouped sum 6 + 4."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 50.",
-          "read_aloud_text": "Evaluate the expression: the quantity 6 plus 4, multiplied by 5.",
+          "explanation": "Grouping symbols tell us to add first: 6 + 4 = 10. Then multiply: 10 \u00d7 5 = 50. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 6 plus 4, multiplied by 5.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 6 plus 4, multiplied by 5.",
+            "text": "Evaluate the quantity 6 plus 4, multiplied by 5.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -808,8 +853,8 @@
           "choices": [
             "50",
             "26",
-            "34",
-            "55"
+            "15",
+            "44"
           ],
           "expression": "(6 + 4) \u00d7 5",
           "expression_parts": [
@@ -820,6 +865,11 @@
             ")",
             "\u00d7",
             5
+          ],
+          "visual_description": "An expression builder shows (6 + 4) \u00d7 5 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (6 + 4) \u00d7 5 with the parenthesized group visually separated from the multiplication step.",
+          "acceptable_answers": [
+            "50"
           ]
         },
         {
@@ -832,18 +882,18 @@
           "correct_answer": "72",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 7 + 5 is inside parentheses.",
+            "Strategy: Find 7 + 5 first, and multiply that result by 6.",
+            "Verify: Divide your result by 6; the quotient should equal the grouped sum 7 + 5."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 72.",
-          "read_aloud_text": "Evaluate the expression: the quantity 7 plus 5, multiplied by 6.",
+          "explanation": "Grouping symbols tell us to add first: 7 + 5 = 12. Then multiply: 12 \u00d7 6 = 72. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 7 plus 5, multiplied by 6.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 7 plus 5, multiplied by 6.",
+            "text": "Evaluate the quantity 7 plus 5, multiplied by 6.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -851,8 +901,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "72",
-            "72",
             "72"
           ],
           "expression": "(7 + 5) \u00d7 6",
@@ -864,7 +912,9 @@
             ")",
             "\u00d7",
             6
-          ]
+          ],
+          "visual_description": "An expression builder shows (7 + 5) \u00d7 6 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (7 + 5) \u00d7 6 with the parenthesized group visually separated from the multiplication step."
         },
         {
           "id": "G5M_OA_001_L2_Q4",
@@ -876,18 +926,18 @@
           "correct_answer": "42",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 8 + 6 is inside parentheses.",
+            "Strategy: Find 8 + 6 first, and multiply that result by 3.",
+            "Verify: Divide your result by 3; the quotient should equal the grouped sum 8 + 6."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 42.",
-          "read_aloud_text": "Evaluate the expression: the quantity 8 plus 6, multiplied by 3.",
+          "explanation": "Grouping symbols tell us to add first: 8 + 6 = 14. Then multiply: 14 \u00d7 3 = 42. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 8 plus 6, multiplied by 3.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 8 plus 6, multiplied by 3.",
+            "text": "Evaluate the quantity 8 plus 6, multiplied by 3.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -897,8 +947,8 @@
           "choices": [
             "42",
             "26",
-            "30",
-            "45"
+            "17",
+            "66"
           ],
           "expression": "(8 + 6) \u00d7 3",
           "expression_parts": [
@@ -909,6 +959,11 @@
             ")",
             "\u00d7",
             3
+          ],
+          "visual_description": "An expression builder shows (8 + 6) \u00d7 3 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (8 + 6) \u00d7 3 with the parenthesized group visually separated from the multiplication step.",
+          "acceptable_answers": [
+            "42"
           ]
         },
         {
@@ -921,18 +976,18 @@
           "correct_answer": "44",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 9 + 2 is inside parentheses.",
+            "Strategy: Find 9 + 2 first, and multiply that result by 4.",
+            "Verify: Divide your result by 4; the quotient should equal the grouped sum 9 + 2."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 44.",
-          "read_aloud_text": "Evaluate the expression: the quantity 9 plus 2, multiplied by 4.",
+          "explanation": "Grouping symbols tell us to add first: 9 + 2 = 11. Then multiply: 11 \u00d7 4 = 44. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 9 plus 2, multiplied by 4.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 9 plus 2, multiplied by 4.",
+            "text": "Evaluate the quantity 9 plus 2, multiplied by 4.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -940,8 +995,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "44",
-            "44",
             "44"
           ],
           "expression": "(9 + 2) \u00d7 4",
@@ -953,7 +1006,9 @@
             ")",
             "\u00d7",
             4
-          ]
+          ],
+          "visual_description": "An expression builder shows (9 + 2) \u00d7 4 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (9 + 2) \u00d7 4 with the parenthesized group visually separated from the multiplication step."
         },
         {
           "id": "G5M_OA_001_L2_Q6",
@@ -965,18 +1020,18 @@
           "correct_answer": "65",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 10 + 3 is inside parentheses.",
+            "Strategy: Find 10 + 3 first, and multiply that result by 5.",
+            "Verify: Divide your result by 5; the quotient should equal the grouped sum 10 + 3."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 65.",
-          "read_aloud_text": "Evaluate the expression: the quantity 10 plus 3, multiplied by 5.",
+          "explanation": "Grouping symbols tell us to add first: 10 + 3 = 13. Then multiply: 13 \u00d7 5 = 65. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 10 plus 3, multiplied by 5.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 10 plus 3, multiplied by 5.",
+            "text": "Evaluate the quantity 10 plus 3, multiplied by 5.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -986,8 +1041,8 @@
           "choices": [
             "65",
             "25",
-            "53",
-            "70"
+            "18",
+            "45"
           ],
           "expression": "(10 + 3) \u00d7 5",
           "expression_parts": [
@@ -998,6 +1053,11 @@
             ")",
             "\u00d7",
             5
+          ],
+          "visual_description": "An expression builder shows (10 + 3) \u00d7 5 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (10 + 3) \u00d7 5 with the parenthesized group visually separated from the multiplication step.",
+          "acceptable_answers": [
+            "65"
           ]
         },
         {
@@ -1010,18 +1070,18 @@
           "correct_answer": "90",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 11 + 4 is inside parentheses.",
+            "Strategy: Find 11 + 4 first, and multiply that result by 6.",
+            "Verify: Divide your result by 6; the quotient should equal the grouped sum 11 + 4."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 90.",
-          "read_aloud_text": "Evaluate the expression: the quantity 11 plus 4, multiplied by 6.",
+          "explanation": "Grouping symbols tell us to add first: 11 + 4 = 15. Then multiply: 15 \u00d7 6 = 90. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 11 plus 4, multiplied by 6.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 11 plus 4, multiplied by 6.",
+            "text": "Evaluate the quantity 11 plus 4, multiplied by 6.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1029,8 +1089,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "90",
-            "90",
             "90"
           ],
           "expression": "(11 + 4) \u00d7 6",
@@ -1042,7 +1100,9 @@
             ")",
             "\u00d7",
             6
-          ]
+          ],
+          "visual_description": "An expression builder shows (11 + 4) \u00d7 6 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (11 + 4) \u00d7 6 with the parenthesized group visually separated from the multiplication step."
         },
         {
           "id": "G5M_OA_001_L2_Q8",
@@ -1054,18 +1114,18 @@
           "correct_answer": "51",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 12 + 5 is inside parentheses.",
+            "Strategy: Find 12 + 5 first, and multiply that result by 3.",
+            "Verify: Divide your result by 3; the quotient should equal the grouped sum 12 + 5."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 51.",
-          "read_aloud_text": "Evaluate the expression: the quantity 12 plus 5, multiplied by 3.",
+          "explanation": "Grouping symbols tell us to add first: 12 + 5 = 17. Then multiply: 17 \u00d7 3 = 51. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 12 plus 5, multiplied by 3.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 12 plus 5, multiplied by 3.",
+            "text": "Evaluate the quantity 12 plus 5, multiplied by 3.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1075,8 +1135,8 @@
           "choices": [
             "51",
             "27",
-            "41",
-            "54"
+            "20",
+            "75"
           ],
           "expression": "(12 + 5) \u00d7 3",
           "expression_parts": [
@@ -1087,6 +1147,11 @@
             ")",
             "\u00d7",
             3
+          ],
+          "visual_description": "An expression builder shows (12 + 5) \u00d7 3 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (12 + 5) \u00d7 3 with the parenthesized group visually separated from the multiplication step.",
+          "acceptable_answers": [
+            "51"
           ]
         },
         {
@@ -1099,18 +1164,18 @@
           "correct_answer": "76",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 13 + 6 is inside parentheses.",
+            "Strategy: Find 13 + 6 first, and multiply that result by 4.",
+            "Verify: Divide your result by 4; the quotient should equal the grouped sum 13 + 6."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 76.",
-          "read_aloud_text": "Evaluate the expression: the quantity 13 plus 6, multiplied by 4.",
+          "explanation": "Grouping symbols tell us to add first: 13 + 6 = 19. Then multiply: 19 \u00d7 4 = 76. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 13 plus 6, multiplied by 4.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 13 plus 6, multiplied by 4.",
+            "text": "Evaluate the quantity 13 plus 6, multiplied by 4.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1118,8 +1183,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "76",
-            "76",
             "76"
           ],
           "expression": "(13 + 6) \u00d7 4",
@@ -1131,7 +1194,9 @@
             ")",
             "\u00d7",
             4
-          ]
+          ],
+          "visual_description": "An expression builder shows (13 + 6) \u00d7 4 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (13 + 6) \u00d7 4 with the parenthesized group visually separated from the multiplication step."
         },
         {
           "id": "G5M_OA_001_L2_Q10",
@@ -1143,18 +1208,18 @@
           "correct_answer": "80",
           "misconception_tag": "operation_order_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Notice that 14 + 2 is inside parentheses.",
+            "Strategy: Find 14 + 2 first, and multiply that result by 5.",
+            "Verify: Divide your result by 5; the quotient should equal the grouped sum 14 + 2."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 80.",
-          "read_aloud_text": "Evaluate the expression: the quantity 14 plus 2, multiplied by 5.",
+          "explanation": "Grouping symbols tell us to add first: 14 + 2 = 16. Then multiply: 16 \u00d7 5 = 80. Doing the grouped operation first preserves the meaning of the expression.",
+          "read_aloud_text": "Evaluate the quantity 14 plus 2, multiplied by 5.",
           "question_audio": {
-            "text": "Evaluate the expression: the quantity 14 plus 2, multiplied by 5.",
+            "text": "Evaluate the quantity 14 plus 2, multiplied by 5.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1164,8 +1229,8 @@
           "choices": [
             "80",
             "24",
-            "72",
-            "85"
+            "21",
+            "38"
           ],
           "expression": "(14 + 2) \u00d7 5",
           "expression_parts": [
@@ -1176,6 +1241,11 @@
             ")",
             "\u00d7",
             5
+          ],
+          "visual_description": "An expression builder shows (14 + 2) \u00d7 5 with the parenthesized group visually separated from the multiplication step.",
+          "accessible_description": "An expression builder shows (14 + 2) \u00d7 5 with the parenthesized group visually separated from the multiplication step.",
+          "acceptable_answers": [
+            "80"
           ]
         }
       ]
@@ -1193,23 +1263,23 @@
           "question_id": "G5M_OA_001_L3_Q1",
           "question_type": "short_response",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 3, then add 1. What is the output when the input is 5?",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 3, then add 1.\u201d What is the output for an input of 5?",
           "answer": "16",
           "correct_answer": "16",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 3, then add 1.",
+            "Strategy: Substitute 5 for the input, calculate the product, and add 1.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 16.",
-          "read_aloud_text": "The rule is multiply by 3, then add 1. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 5 \u00d7 3 = 15, then 15 + 1 = 16. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 3, then add 1.\u201d What is the output for an input of 5?",
           "question_audio": {
-            "text": "The rule is multiply by 3, then add 1. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 3, then add 1.\u201d What is the output for an input of 5?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1217,8 +1287,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "16",
-            "16",
             "16"
           ],
           "pattern_rows": [
@@ -1239,30 +1307,32 @@
               "output": 13
             }
           ],
-          "rule": "\u00d7 3, then + 1"
+          "rule": "\u00d7 3, then + 1",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 4, 2 to 7, 3 to 10, 4 to 13 and asks for the row whose input is 5.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 4, 2 to 7, 3 to 10, 4 to 13 and asks for the row whose input is 5."
         },
         {
           "id": "G5M_OA_001_L3_Q2",
           "question_id": "G5M_OA_001_L3_Q2",
           "question_type": "multiple_choice",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 4, then add 2. What is the output when the input is 5?",
-          "answer": "22",
-          "correct_answer": "22",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 4, then add 2.\u201d What is the output for an input of 6?",
+          "answer": "26",
+          "correct_answer": "26",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 4, then add 2.",
+            "Strategy: Substitute 6 for the input, calculate the product, and add 2.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 22.",
-          "read_aloud_text": "The rule is multiply by 4, then add 2. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 6 \u00d7 4 = 24, then 24 + 2 = 26. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 4, then add 2.\u201d What is the output for an input of 6?",
           "question_audio": {
-            "text": "The rule is multiply by 4, then add 2. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 4, then add 2.\u201d What is the output for an input of 6?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1270,10 +1340,10 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "22",
-            "11",
-            "18",
-            "26"
+            "26",
+            "36",
+            "8",
+            "22"
           ],
           "pattern_rows": [
             {
@@ -1293,30 +1363,35 @@
               "output": 18
             }
           ],
-          "rule": "\u00d7 4, then + 2"
+          "rule": "\u00d7 4, then + 2",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 6, 2 to 10, 3 to 14, 4 to 18 and asks for the row whose input is 6.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 6, 2 to 10, 3 to 14, 4 to 18 and asks for the row whose input is 6.",
+          "acceptable_answers": [
+            "26"
+          ]
         },
         {
           "id": "G5M_OA_001_L3_Q3",
           "question_id": "G5M_OA_001_L3_Q3",
           "question_type": "short_response",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 5, then add 3. What is the output when the input is 5?",
-          "answer": "28",
-          "correct_answer": "28",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 5, then add 3.\u201d What is the output for an input of 4?",
+          "answer": "23",
+          "correct_answer": "23",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 5, then add 3.",
+            "Strategy: Substitute 4 for the input, calculate the product, and add 3.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 28.",
-          "read_aloud_text": "The rule is multiply by 5, then add 3. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 4 \u00d7 5 = 20, then 20 + 3 = 23. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 5, then add 3.\u201d What is the output for an input of 4?",
           "question_audio": {
-            "text": "The rule is multiply by 5, then add 3. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 5, then add 3.\u201d What is the output for an input of 4?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1324,9 +1399,7 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "28",
-            "28",
-            "28"
+            "23"
           ],
           "pattern_rows": [
             {
@@ -1346,30 +1419,32 @@
               "output": 23
             }
           ],
-          "rule": "\u00d7 5, then + 3"
+          "rule": "\u00d7 5, then + 3",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 8, 2 to 13, 3 to 18, 4 to 23 and asks for the row whose input is 4.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 8, 2 to 13, 3 to 18, 4 to 23 and asks for the row whose input is 4."
         },
         {
           "id": "G5M_OA_001_L3_Q4",
           "question_id": "G5M_OA_001_L3_Q4",
           "question_type": "multiple_choice",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 2, then add 4. What is the output when the input is 5?",
-          "answer": "14",
-          "correct_answer": "14",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 2, then add 4.\u201d What is the output for an input of 7?",
+          "answer": "18",
+          "correct_answer": "18",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 2, then add 4.",
+            "Strategy: Substitute 7 for the input, calculate the product, and add 4.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 14.",
-          "read_aloud_text": "The rule is multiply by 2, then add 4. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 7 \u00d7 2 = 14, then 14 + 4 = 18. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 2, then add 4.\u201d What is the output for an input of 7?",
           "question_audio": {
-            "text": "The rule is multiply by 2, then add 4. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 2, then add 4.\u201d What is the output for an input of 7?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1377,10 +1452,10 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "14",
+            "18",
+            "42",
             "11",
-            "12",
-            "16"
+            "10"
           ],
           "pattern_rows": [
             {
@@ -1400,30 +1475,35 @@
               "output": 12
             }
           ],
-          "rule": "\u00d7 2, then + 4"
+          "rule": "\u00d7 2, then + 4",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 6, 2 to 8, 3 to 10, 4 to 12 and asks for the row whose input is 7.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 6, 2 to 8, 3 to 10, 4 to 12 and asks for the row whose input is 7.",
+          "acceptable_answers": [
+            "18"
+          ]
         },
         {
           "id": "G5M_OA_001_L3_Q5",
           "question_id": "G5M_OA_001_L3_Q5",
           "question_type": "short_response",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 3, then add 5. What is the output when the input is 5?",
-          "answer": "20",
-          "correct_answer": "20",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 3, then add 5.\u201d What is the output for an input of 6?",
+          "answer": "23",
+          "correct_answer": "23",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 3, then add 5.",
+            "Strategy: Substitute 6 for the input, calculate the product, and add 5.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 20.",
-          "read_aloud_text": "The rule is multiply by 3, then add 5. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 6 \u00d7 3 = 18, then 18 + 5 = 23. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 3, then add 5.\u201d What is the output for an input of 6?",
           "question_audio": {
-            "text": "The rule is multiply by 3, then add 5. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 3, then add 5.\u201d What is the output for an input of 6?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1431,9 +1511,7 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "20",
-            "20",
-            "20"
+            "23"
           ],
           "pattern_rows": [
             {
@@ -1453,30 +1531,32 @@
               "output": 17
             }
           ],
-          "rule": "\u00d7 3, then + 5"
+          "rule": "\u00d7 3, then + 5",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 8, 2 to 11, 3 to 14, 4 to 17 and asks for the row whose input is 6.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 8, 2 to 11, 3 to 14, 4 to 17 and asks for the row whose input is 6."
         },
         {
           "id": "G5M_OA_001_L3_Q6",
           "question_id": "G5M_OA_001_L3_Q6",
           "question_type": "multiple_choice",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 4, then add 6. What is the output when the input is 5?",
-          "answer": "26",
-          "correct_answer": "26",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 4, then add 6.\u201d What is the output for an input of 3?",
+          "answer": "18",
+          "correct_answer": "18",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 4, then add 6.",
+            "Strategy: Substitute 3 for the input, calculate the product, and add 6.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 26.",
-          "read_aloud_text": "The rule is multiply by 4, then add 6. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 3 \u00d7 4 = 12, then 12 + 6 = 18. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 4, then add 6.\u201d What is the output for an input of 3?",
           "question_audio": {
-            "text": "The rule is multiply by 4, then add 6. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 4, then add 6.\u201d What is the output for an input of 3?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1484,10 +1564,10 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "26",
-            "15",
-            "22",
-            "30"
+            "18",
+            "30",
+            "9",
+            "6"
           ],
           "pattern_rows": [
             {
@@ -1507,30 +1587,35 @@
               "output": 22
             }
           ],
-          "rule": "\u00d7 4, then + 6"
+          "rule": "\u00d7 4, then + 6",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 10, 2 to 14, 3 to 18, 4 to 22 and asks for the row whose input is 3.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 10, 2 to 14, 3 to 18, 4 to 22 and asks for the row whose input is 3.",
+          "acceptable_answers": [
+            "18"
+          ]
         },
         {
           "id": "G5M_OA_001_L3_Q7",
           "question_id": "G5M_OA_001_L3_Q7",
           "question_type": "short_response",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 5, then add 7. What is the output when the input is 5?",
-          "answer": "32",
-          "correct_answer": "32",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 5, then add 7.\u201d What is the output for an input of 2?",
+          "answer": "17",
+          "correct_answer": "17",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 5, then add 7.",
+            "Strategy: Substitute 2 for the input, calculate the product, and add 7.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 32.",
-          "read_aloud_text": "The rule is multiply by 5, then add 7. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 2 \u00d7 5 = 10, then 10 + 7 = 17. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 5, then add 7.\u201d What is the output for an input of 2?",
           "question_audio": {
-            "text": "The rule is multiply by 5, then add 7. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 5, then add 7.\u201d What is the output for an input of 2?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1538,9 +1623,7 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "32",
-            "32",
-            "32"
+            "17"
           ],
           "pattern_rows": [
             {
@@ -1560,30 +1643,32 @@
               "output": 27
             }
           ],
-          "rule": "\u00d7 5, then + 7"
+          "rule": "\u00d7 5, then + 7",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 12, 2 to 17, 3 to 22, 4 to 27 and asks for the row whose input is 2.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 12, 2 to 17, 3 to 22, 4 to 27 and asks for the row whose input is 2."
         },
         {
           "id": "G5M_OA_001_L3_Q8",
           "question_id": "G5M_OA_001_L3_Q8",
           "question_type": "multiple_choice",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 2, then add 8. What is the output when the input is 5?",
-          "answer": "18",
-          "correct_answer": "18",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 2, then add 8.\u201d What is the output for an input of 8?",
+          "answer": "24",
+          "correct_answer": "24",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 2, then add 8.",
+            "Strategy: Substitute 8 for the input, calculate the product, and add 8.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 18.",
-          "read_aloud_text": "The rule is multiply by 2, then add 8. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 8 \u00d7 2 = 16, then 16 + 8 = 24. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 2, then add 8.\u201d What is the output for an input of 8?",
           "question_audio": {
-            "text": "The rule is multiply by 2, then add 8. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 2, then add 8.\u201d What is the output for an input of 8?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1591,10 +1676,10 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "18",
-            "15",
+            "24",
+            "80",
             "16",
-            "20"
+            "8"
           ],
           "pattern_rows": [
             {
@@ -1614,30 +1699,35 @@
               "output": 16
             }
           ],
-          "rule": "\u00d7 2, then + 8"
+          "rule": "\u00d7 2, then + 8",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 10, 2 to 12, 3 to 14, 4 to 16 and asks for the row whose input is 8.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 10, 2 to 12, 3 to 14, 4 to 16 and asks for the row whose input is 8.",
+          "acceptable_answers": [
+            "24"
+          ]
         },
         {
           "id": "G5M_OA_001_L3_Q9",
           "question_id": "G5M_OA_001_L3_Q9",
           "question_type": "short_response",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 3, then add 9. What is the output when the input is 5?",
-          "answer": "24",
-          "correct_answer": "24",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 3, then add 9.\u201d What is the output for an input of 7?",
+          "answer": "30",
+          "correct_answer": "30",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 3, then add 9.",
+            "Strategy: Substitute 7 for the input, calculate the product, and add 9.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 24.",
-          "read_aloud_text": "The rule is multiply by 3, then add 9. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 7 \u00d7 3 = 21, then 21 + 9 = 30. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 3, then add 9.\u201d What is the output for an input of 7?",
           "question_audio": {
-            "text": "The rule is multiply by 3, then add 9. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 3, then add 9.\u201d What is the output for an input of 7?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1645,9 +1735,7 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "24",
-            "24",
-            "24"
+            "30"
           ],
           "pattern_rows": [
             {
@@ -1667,30 +1755,32 @@
               "output": 21
             }
           ],
-          "rule": "\u00d7 3, then + 9"
+          "rule": "\u00d7 3, then + 9",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 12, 2 to 15, 3 to 18, 4 to 21 and asks for the row whose input is 7.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 12, 2 to 15, 3 to 18, 4 to 21 and asks for the row whose input is 7."
         },
         {
           "id": "G5M_OA_001_L3_Q10",
           "question_id": "G5M_OA_001_L3_Q10",
           "question_type": "multiple_choice",
           "visual_model": "pattern_table",
-          "prompt": "The rule is multiply by 4, then add 10. What is the output when the input is 5?",
-          "answer": "30",
-          "correct_answer": "30",
+          "prompt": "A pattern table follows the rule \u201cmultiply by 4, then add 10.\u201d What is the output for an input of 6?",
+          "answer": "34",
+          "correct_answer": "34",
           "misconception_tag": "pattern_rule_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Keep the two parts of the rule in order: multiply by 4, then add 10.",
+            "Strategy: Substitute 6 for the input, calculate the product, and add 10.",
+            "Verify: Compare your two-step calculation with how each completed row changes input to output."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is 30.",
-          "read_aloud_text": "The rule is multiply by 4, then add 10. What is the output when the input is five?",
+          "explanation": "Apply the operations in the stated order: 6 \u00d7 4 = 24, then 24 + 10 = 34. The table rows follow the same rule, which confirms the output.",
+          "read_aloud_text": "A pattern table follows the rule \u201cmultiply by 4, then add 10.\u201d What is the output for an input of 6?",
           "question_audio": {
-            "text": "The rule is multiply by 4, then add 10. What is the output when the input is five?",
+            "text": "A pattern table follows the rule \u201cmultiply by 4, then add 10.\u201d What is the output for an input of 6?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1698,10 +1788,10 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "30",
-            "19",
-            "26",
-            "34"
+            "34",
+            "84",
+            "16",
+            "14"
           ],
           "pattern_rows": [
             {
@@ -1721,7 +1811,12 @@
               "output": 26
             }
           ],
-          "rule": "\u00d7 4, then + 10"
+          "rule": "\u00d7 4, then + 10",
+          "visual_description": "A two-column input-output table shows completed pairs 1 to 14, 2 to 18, 3 to 22, 4 to 26 and asks for the row whose input is 6.",
+          "accessible_description": "A two-column input-output table shows completed pairs 1 to 14, 2 to 18, 3 to 22, 4 to 26 and asks for the row whose input is 6.",
+          "acceptable_answers": [
+            "34"
+          ]
         }
       ]
     },
@@ -1738,23 +1833,23 @@
           "question_id": "G5M_OA_001_L4_Q1",
           "question_type": "coordinate_response",
           "visual_model": "coordinate_plane",
-          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
-          "answer": "(2, 3)",
-          "correct_answer": "(2, 3)",
+          "prompt": "What ordered pair names point A shown on the coordinate plane?",
+          "answer": "(1, 4)",
+          "correct_answer": "(1, 4)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point A and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 1 units right and 4 units up, and check that you land on point A."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (2, 3).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 1, and then the vertical y-coordinate, 4. Therefore the point is named (1, 4); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point A? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled A.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+            "text": "What ordered pair names point A? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled A.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1762,38 +1857,39 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(2, 3)",
-            "(2,3)",
-            "(2, 3)"
+            "(1, 4)",
+            "(1,4)"
           ],
-          "x": 2,
-          "y": 3,
+          "x": 1,
+          "y": 4,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(2, 3)"
+          "point_label": "A",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled A. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled A. Grid lines and numbered x- and y-axes provide the information needed to read its location."
         },
         {
           "id": "G5M_OA_001_L4_Q2",
           "question_id": "G5M_OA_001_L4_Q2",
           "question_type": "multiple_choice",
           "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 3 and y = 5?",
-          "answer": "(3, 5)",
-          "correct_answer": "(3, 5)",
+          "prompt": "What ordered pair names point B shown on the coordinate plane?",
+          "answer": "(2, 6)",
+          "correct_answer": "(2, 6)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point B and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 2 units right and 6 units up, and check that you land on point B."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (3, 5).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 2, and then the vertical y-coordinate, 6. Therefore the point is named (2, 6); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point B? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled B.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+            "text": "What ordered pair names point B? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled B.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1801,39 +1897,45 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(3, 5)",
-            "(5, 3)",
-            "(4, 5)",
-            "(3, 6)"
+            "(2, 6)",
+            "(6, 2)",
+            "(3, 6)",
+            "(2, 0)"
           ],
-          "x": 3,
-          "y": 5,
+          "x": 2,
+          "y": 6,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(3, 5)"
+          "point_label": "B",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled B. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled B. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "acceptable_answers": [
+            "(2, 6)",
+            "(2,6)"
+          ]
         },
         {
           "id": "G5M_OA_001_L4_Q3",
           "question_id": "G5M_OA_001_L4_Q3",
           "question_type": "coordinate_response",
           "visual_model": "coordinate_plane",
-          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
-          "answer": "(4, 1)",
-          "correct_answer": "(4, 1)",
+          "prompt": "What ordered pair names point C shown on the coordinate plane?",
+          "answer": "(3, 2)",
+          "correct_answer": "(3, 2)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point C and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 3 units right and 2 units up, and check that you land on point C."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (4, 1).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 3, and then the vertical y-coordinate, 2. Therefore the point is named (3, 2); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point C? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled C.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+            "text": "What ordered pair names point C? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled C.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1841,38 +1943,39 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(4, 1)",
-            "(4,1)",
-            "(4, 1)"
+            "(3, 2)",
+            "(3,2)"
           ],
-          "x": 4,
-          "y": 1,
+          "x": 3,
+          "y": 2,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(4, 1)"
+          "point_label": "C",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled C. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled C. Grid lines and numbered x- and y-axes provide the information needed to read its location."
         },
         {
           "id": "G5M_OA_001_L4_Q4",
           "question_id": "G5M_OA_001_L4_Q4",
           "question_type": "multiple_choice",
           "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 5 and y = 3?",
-          "answer": "(5, 3)",
-          "correct_answer": "(5, 3)",
+          "prompt": "What ordered pair names point D shown on the coordinate plane?",
+          "answer": "(4, 5)",
+          "correct_answer": "(4, 5)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point D and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 4 units right and 5 units up, and check that you land on point D."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (5, 3).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 4, and then the vertical y-coordinate, 5. Therefore the point is named (4, 5); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point D? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled D.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+            "text": "What ordered pair names point D? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled D.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1880,39 +1983,45 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(5, 3)",
-            "(3, 5)",
-            "(6, 3)",
-            "(5, 4)"
+            "(4, 5)",
+            "(5, 4)",
+            "(5, 5)",
+            "(4, 6)"
           ],
-          "x": 5,
-          "y": 3,
+          "x": 4,
+          "y": 5,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(5, 3)"
+          "point_label": "D",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled D. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled D. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "acceptable_answers": [
+            "(4, 5)",
+            "(4,5)"
+          ]
         },
         {
           "id": "G5M_OA_001_L4_Q5",
           "question_id": "G5M_OA_001_L4_Q5",
           "question_type": "coordinate_response",
           "visual_model": "coordinate_plane",
-          "prompt": "What ordered pair names the plotted point with x = 6 and y = 5?",
-          "answer": "(6, 5)",
-          "correct_answer": "(6, 5)",
+          "prompt": "What ordered pair names point E shown on the coordinate plane?",
+          "answer": "(5, 1)",
+          "correct_answer": "(5, 1)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point E and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 5 units right and 1 units up, and check that you land on point E."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (6, 5).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 6 and y equals 5?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 5, and then the vertical y-coordinate, 1. Therefore the point is named (5, 1); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point E? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled E.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 6 and y equals 5?",
+            "text": "What ordered pair names point E? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled E.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1920,38 +2029,39 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(6, 5)",
-            "(6,5)",
-            "(6, 5)"
+            "(5, 1)",
+            "(5,1)"
           ],
-          "x": 6,
-          "y": 5,
+          "x": 5,
+          "y": 1,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(6, 5)"
+          "point_label": "E",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled E. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled E. Grid lines and numbered x- and y-axes provide the information needed to read its location."
         },
         {
           "id": "G5M_OA_001_L4_Q6",
           "question_id": "G5M_OA_001_L4_Q6",
           "question_type": "multiple_choice",
           "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 1 and y = 1?",
-          "answer": "(1, 1)",
-          "correct_answer": "(1, 1)",
+          "prompt": "What ordered pair names point F shown on the coordinate plane?",
+          "answer": "(6, 3)",
+          "correct_answer": "(6, 3)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point F and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 6 units right and 3 units up, and check that you land on point F."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (1, 1).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 1 and y equals 1?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 6, and then the vertical y-coordinate, 3. Therefore the point is named (6, 3); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point F? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled F.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 1 and y equals 1?",
+            "text": "What ordered pair names point F? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled F.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1959,39 +2069,45 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(1, 1)",
-            "(1, 1)",
-            "(2, 1)",
-            "(1, 2)"
+            "(6, 3)",
+            "(3, 6)",
+            "(0, 3)",
+            "(6, 4)"
           ],
-          "x": 1,
-          "y": 1,
+          "x": 6,
+          "y": 3,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(1, 1)"
+          "point_label": "F",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled F. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled F. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "acceptable_answers": [
+            "(6, 3)",
+            "(6,3)"
+          ]
         },
         {
           "id": "G5M_OA_001_L4_Q7",
           "question_id": "G5M_OA_001_L4_Q7",
           "question_type": "coordinate_response",
           "visual_model": "coordinate_plane",
-          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
-          "answer": "(2, 3)",
-          "correct_answer": "(2, 3)",
+          "prompt": "What ordered pair names point G shown on the coordinate plane?",
+          "answer": "(2, 5)",
+          "correct_answer": "(2, 5)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point G and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 2 units right and 5 units up, and check that you land on point G."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (2, 3).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 2, and then the vertical y-coordinate, 5. Therefore the point is named (2, 5); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point G? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled G.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+            "text": "What ordered pair names point G? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled G.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1999,38 +2115,39 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(2, 3)",
-            "(2,3)",
-            "(2, 3)"
+            "(2, 5)",
+            "(2,5)"
           ],
           "x": 2,
-          "y": 3,
+          "y": 5,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(2, 3)"
+          "point_label": "G",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled G. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled G. Grid lines and numbered x- and y-axes provide the information needed to read its location."
         },
         {
           "id": "G5M_OA_001_L4_Q8",
           "question_id": "G5M_OA_001_L4_Q8",
           "question_type": "multiple_choice",
           "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 3 and y = 5?",
-          "answer": "(3, 5)",
-          "correct_answer": "(3, 5)",
+          "prompt": "What ordered pair names point H shown on the coordinate plane?",
+          "answer": "(3, 6)",
+          "correct_answer": "(3, 6)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point H and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 3 units right and 6 units up, and check that you land on point H."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (3, 5).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 3, and then the vertical y-coordinate, 6. Therefore the point is named (3, 6); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point H? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled H.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+            "text": "What ordered pair names point H? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled H.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2038,39 +2155,45 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(3, 5)",
-            "(5, 3)",
-            "(4, 5)",
-            "(3, 6)"
+            "(3, 6)",
+            "(6, 3)",
+            "(4, 6)",
+            "(3, 0)"
           ],
           "x": 3,
-          "y": 5,
+          "y": 6,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(3, 5)"
+          "point_label": "H",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled H. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled H. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "acceptable_answers": [
+            "(3, 6)",
+            "(3,6)"
+          ]
         },
         {
           "id": "G5M_OA_001_L4_Q9",
           "question_id": "G5M_OA_001_L4_Q9",
           "question_type": "coordinate_response",
           "visual_model": "coordinate_plane",
-          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "prompt": "What ordered pair names point I shown on the coordinate plane?",
           "answer": "(4, 1)",
           "correct_answer": "(4, 1)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point I and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 4 units right and 1 units up, and check that you land on point I."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (4, 1).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 4, and then the vertical y-coordinate, 1. Therefore the point is named (4, 1); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point I? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled I.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+            "text": "What ordered pair names point I? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled I.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2079,37 +2202,38 @@
           },
           "acceptable_answers": [
             "(4, 1)",
-            "(4,1)",
-            "(4, 1)"
+            "(4,1)"
           ],
           "x": 4,
           "y": 1,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(4, 1)"
+          "point_label": "I",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled I. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled I. Grid lines and numbered x- and y-axes provide the information needed to read its location."
         },
         {
           "id": "G5M_OA_001_L4_Q10",
           "question_id": "G5M_OA_001_L4_Q10",
           "question_type": "multiple_choice",
           "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 5 and y = 3?",
-          "answer": "(5, 3)",
-          "correct_answer": "(5, 3)",
+          "prompt": "What ordered pair names point J shown on the coordinate plane?",
+          "answer": "(5, 4)",
+          "correct_answer": "(5, 4)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point J and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 5 units right and 4 units up, and check that you land on point J."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (5, 3).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 5, and then the vertical y-coordinate, 4. Therefore the point is named (5, 4); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point J? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled J.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+            "text": "What ordered pair names point J? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled J.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2117,16 +2241,22 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(5, 3)",
-            "(3, 5)",
-            "(6, 3)",
-            "(5, 4)"
+            "(5, 4)",
+            "(4, 5)",
+            "(6, 4)",
+            "(5, 5)"
           ],
           "x": 5,
-          "y": 3,
+          "y": 4,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(5, 3)"
+          "point_label": "J",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled J. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled J. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "acceptable_answers": [
+            "(5, 4)",
+            "(5,4)"
+          ]
         }
       ]
     },
@@ -2141,25 +2271,25 @@
         {
           "id": "G5M_OA_001_MIXED_Q1",
           "question_id": "G5M_OA_001_MIXED_Q1",
-          "question_type": "coordinate_response",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
-          "answer": "(2, 3)",
-          "correct_answer": "(2, 3)",
+          "question_type": "expression_response",
+          "visual_model": "expression_builder",
+          "prompt": "A maker fair has 4 tables. Each table needs 6 blue cards and 7 gold cards. Write an expression for all the cards.",
+          "answer": "(6 + 7) \u00d7 4",
+          "correct_answer": "(6 + 7) \u00d7 4",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Separate the cards needed at one table from the number of tables.",
+            "Strategy: Put 6 + 7 in parentheses and multiply the group by 4.",
+            "Verify: Explain why the multiplier 4 applies to both card colors."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (2, 3).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+          "explanation": "The grouped sum 6 + 7 represents the cards at one table. Multiplying that quantity by 4 counts the same requirement for every table, so (6 + 7) \u00d7 4 models the fair without calculating unnecessarily.",
+          "read_aloud_text": "A maker fair has 4 tables. Each table needs 6 blue cards and 7 gold cards. Write an expression for all the cards.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+            "text": "A maker fair has 4 tables. Each table needs 6 blue cards and 7 gold cards. Write an expression for all the cards.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2167,38 +2297,45 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(2, 3)",
-            "(2,3)",
-            "(2, 3)"
+            "(6 + 7) \u00d7 4",
+            "(6+7)\u00d74",
+            "4\u00d7(6+7)"
           ],
-          "x": 2,
-          "y": 3,
-          "max_x": 6,
-          "max_y": 6,
-          "point_label": "(2, 3)"
+          "visual_description": "An expression builder offers number and operation tiles for the maker-fair quantities without arranging them into the answer.",
+          "accessible_description": "An expression builder offers number and operation tiles for the maker-fair quantities without arranging them into the answer.",
+          "expression": "(6 + 7) \u00d7 4",
+          "expression_parts": [
+            "(",
+            6,
+            "+",
+            7,
+            ")",
+            "\u00d7",
+            4
+          ]
         },
         {
           "id": "G5M_OA_001_MIXED_Q2",
           "question_id": "G5M_OA_001_MIXED_Q2",
           "question_type": "multiple_choice",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 3 and y = 5?",
-          "answer": "(3, 5)",
-          "correct_answer": "(3, 5)",
+          "visual_model": "expression_builder",
+          "prompt": "A maker fair has 6 tables. Each table needs 8 blue cards and 5 gold cards. Write an expression for all the cards.",
+          "answer": "(8 + 5) \u00d7 6",
+          "correct_answer": "(8 + 5) \u00d7 6",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Separate the cards needed at one table from the number of tables.",
+            "Strategy: Put 8 + 5 in parentheses and multiply the group by 6.",
+            "Verify: Explain why the multiplier 6 applies to both card colors."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (3, 5).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+          "explanation": "The grouped sum 8 + 5 represents the cards at one table. Multiplying that quantity by 6 counts the same requirement for every table, so (8 + 5) \u00d7 6 models the fair without calculating unnecessarily.",
+          "read_aloud_text": "A maker fair has 6 tables. Each table needs 8 blue cards and 5 gold cards. Write an expression for all the cards.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+            "text": "A maker fair has 6 tables. Each table needs 8 blue cards and 5 gold cards. Write an expression for all the cards.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2206,39 +2343,51 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(3, 5)",
-            "(5, 3)",
-            "(4, 5)",
-            "(3, 6)"
+            "8+5\u00d76",
+            "(8 + 5) \u00d7 6",
+            "(8\u00d75)+6",
+            "8+(5\u00d76)"
           ],
-          "x": 3,
-          "y": 5,
-          "max_x": 6,
-          "max_y": 6,
-          "point_label": "(3, 5)"
+          "visual_description": "An expression builder offers number and operation tiles for the maker-fair quantities without arranging them into the answer.",
+          "accessible_description": "An expression builder offers number and operation tiles for the maker-fair quantities without arranging them into the answer.",
+          "expression": "(8 + 5) \u00d7 6",
+          "expression_parts": [
+            "(",
+            8,
+            "+",
+            5,
+            ")",
+            "\u00d7",
+            6
+          ],
+          "acceptable_answers": [
+            "(8 + 5) \u00d7 6",
+            "(8+5)\u00d76",
+            "6\u00d7(8+5)"
+          ]
         },
         {
           "id": "G5M_OA_001_MIXED_Q3",
           "question_id": "G5M_OA_001_MIXED_Q3",
-          "question_type": "coordinate_response",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
-          "answer": "(4, 1)",
-          "correct_answer": "(4, 1)",
+          "question_type": "short_response",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (15 + 3) \u00d7 4.",
+          "answer": "72",
+          "correct_answer": "72",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Find the operation enclosed by parentheses.",
+            "Strategy: Add 15 and 3, then multiply the sum by 4.",
+            "Verify: Divide your result by 4 and confirm the quotient is 18."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (4, 1).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+          "explanation": "Add inside parentheses first: 15 + 3 = 18. Then 18 \u00d7 4 = 72. The grouping symbols determine this order.",
+          "read_aloud_text": "Evaluate the quantity 15 plus 3, multiplied by 4.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+            "text": "Evaluate the quantity 15 plus 3, multiplied by 4.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2246,38 +2395,43 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(4, 1)",
-            "(4,1)",
-            "(4, 1)"
+            "72"
           ],
-          "x": 4,
-          "y": 1,
-          "max_x": 6,
-          "max_y": 6,
-          "point_label": "(4, 1)"
+          "visual_description": "An expression builder displays (15 + 3) \u00d7 4, emphasizing the grouped addition.",
+          "accessible_description": "An expression builder displays (15 + 3) \u00d7 4, emphasizing the grouped addition.",
+          "expression": "(15 + 3) \u00d7 4",
+          "expression_parts": [
+            "(",
+            15,
+            "+",
+            3,
+            ")",
+            "\u00d7",
+            4
+          ]
         },
         {
           "id": "G5M_OA_001_MIXED_Q4",
           "question_id": "G5M_OA_001_MIXED_Q4",
           "question_type": "multiple_choice",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 5 and y = 3?",
-          "answer": "(5, 3)",
-          "correct_answer": "(5, 3)",
+          "visual_model": "expression_builder",
+          "prompt": "Evaluate (9 + 7) \u00d7 5.",
+          "answer": "80",
+          "correct_answer": "80",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Find the operation enclosed by parentheses.",
+            "Strategy: Add 9 and 7, then multiply the sum by 5.",
+            "Verify: Divide your result by 5 and confirm the quotient is 16."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (5, 3).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+          "explanation": "Add inside parentheses first: 9 + 7 = 16. Then 16 \u00d7 5 = 80. The grouping symbols determine this order.",
+          "read_aloud_text": "Evaluate the quantity 9 plus 7, multiplied by 5.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+            "text": "Evaluate the quantity 9 plus 7, multiplied by 5.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2285,39 +2439,49 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(5, 3)",
-            "(3, 5)",
-            "(6, 3)",
-            "(5, 4)"
+            "44",
+            "80",
+            "21",
+            "98"
           ],
-          "x": 5,
-          "y": 3,
-          "max_x": 6,
-          "max_y": 6,
-          "point_label": "(5, 3)"
+          "visual_description": "An expression builder displays (9 + 7) \u00d7 5, emphasizing the grouped addition.",
+          "accessible_description": "An expression builder displays (9 + 7) \u00d7 5, emphasizing the grouped addition.",
+          "expression": "(9 + 7) \u00d7 5",
+          "expression_parts": [
+            "(",
+            9,
+            "+",
+            7,
+            ")",
+            "\u00d7",
+            5
+          ],
+          "acceptable_answers": [
+            "80"
+          ]
         },
         {
           "id": "G5M_OA_001_MIXED_Q5",
           "question_id": "G5M_OA_001_MIXED_Q5",
-          "question_type": "coordinate_response",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 6 and y = 5?",
-          "answer": "(6, 5)",
-          "correct_answer": "(6, 5)",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "Use the rule \u201cmultiply by 2, then add 3.\u201d What output matches input 9?",
+          "answer": "21",
+          "correct_answer": "21",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Read both operations and their order.",
+            "Strategy: Multiply 9 by 2, then add 3.",
+            "Verify: Test the rule on a completed row before checking the requested input."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (6, 5).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 6 and y equals 5?",
+          "explanation": "9 \u00d7 2 = 18, and 18 + 3 = 21. Applying both steps in order agrees with the input-output pattern.",
+          "read_aloud_text": "Use the rule \u201cmultiply by 2, then add 3.\u201d What output matches input 9?",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 6 and y equals 5?",
+            "text": "Use the rule \u201cmultiply by 2, then add 3.\u201d What output matches input 9?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2325,38 +2489,52 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(6, 5)",
-            "(6,5)",
-            "(6, 5)"
+            "21"
           ],
-          "x": 6,
-          "y": 5,
-          "max_x": 6,
-          "max_y": 6,
-          "point_label": "(6, 5)"
+          "visual_description": "An input-output table lists 1 to 5, 2 to 7, 3 to 9, 4 to 11 and includes an unfinished row for input 9.",
+          "accessible_description": "An input-output table lists 1 to 5, 2 to 7, 3 to 9, 4 to 11 and includes an unfinished row for input 9.",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 5
+            },
+            {
+              "input": 2,
+              "output": 7
+            },
+            {
+              "input": 3,
+              "output": 9
+            },
+            {
+              "input": 4,
+              "output": 11
+            }
+          ],
+          "rule": "\u00d7 2, then + 3"
         },
         {
           "id": "G5M_OA_001_MIXED_Q6",
           "question_id": "G5M_OA_001_MIXED_Q6",
           "question_type": "multiple_choice",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 1 and y = 1?",
-          "answer": "(1, 1)",
-          "correct_answer": "(1, 1)",
+          "visual_model": "pattern_table",
+          "prompt": "Use the rule \u201cmultiply by 4, then add 1.\u201d What output matches input 7?",
+          "answer": "29",
+          "correct_answer": "29",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Read both operations and their order.",
+            "Strategy: Multiply 7 by 4, then add 1.",
+            "Verify: Test the rule on a completed row before checking the requested input."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (1, 1).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 1 and y equals 1?",
+          "explanation": "7 \u00d7 4 = 28, and 28 + 1 = 29. Applying both steps in order agrees with the input-output pattern.",
+          "read_aloud_text": "Use the rule \u201cmultiply by 4, then add 1.\u201d What output matches input 7?",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 1 and y equals 1?",
+            "text": "Use the rule \u201cmultiply by 4, then add 1.\u201d What output matches input 7?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2364,39 +2542,58 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "(1, 1)",
-            "(1, 1)",
-            "(2, 1)",
-            "(1, 2)"
+            "29",
+            "35",
+            "27",
+            "8"
           ],
-          "x": 1,
-          "y": 1,
-          "max_x": 6,
-          "max_y": 6,
-          "point_label": "(1, 1)"
+          "visual_description": "An input-output table lists 1 to 5, 2 to 9, 3 to 13, 4 to 17 and includes an unfinished row for input 7.",
+          "accessible_description": "An input-output table lists 1 to 5, 2 to 9, 3 to 13, 4 to 17 and includes an unfinished row for input 7.",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 5
+            },
+            {
+              "input": 2,
+              "output": 9
+            },
+            {
+              "input": 3,
+              "output": 13
+            },
+            {
+              "input": 4,
+              "output": 17
+            }
+          ],
+          "rule": "\u00d7 4, then + 1",
+          "acceptable_answers": [
+            "29"
+          ]
         },
         {
           "id": "G5M_OA_001_MIXED_Q7",
           "question_id": "G5M_OA_001_MIXED_Q7",
-          "question_type": "coordinate_response",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
-          "answer": "(2, 3)",
-          "correct_answer": "(2, 3)",
+          "question_type": "short_response",
+          "visual_model": "pattern_table",
+          "prompt": "Use the rule \u201cmultiply by 3, then add 4.\u201d What output matches input 8?",
+          "answer": "28",
+          "correct_answer": "28",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Read both operations and their order.",
+            "Strategy: Multiply 8 by 3, then add 4.",
+            "Verify: Test the rule on a completed row before checking the requested input."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (2, 3).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+          "explanation": "8 \u00d7 3 = 24, and 24 + 4 = 28. Applying both steps in order agrees with the input-output pattern.",
+          "read_aloud_text": "Use the rule \u201cmultiply by 3, then add 4.\u201d What output matches input 8?",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 2 and y equals 3?",
+            "text": "Use the rule \u201cmultiply by 3, then add 4.\u201d What output matches input 8?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2404,78 +2601,92 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(2, 3)",
-            "(2,3)",
-            "(2, 3)"
+            "28"
           ],
-          "x": 2,
-          "y": 3,
-          "max_x": 6,
-          "max_y": 6,
-          "point_label": "(2, 3)"
+          "visual_description": "An input-output table lists 1 to 7, 2 to 10, 3 to 13, 4 to 16 and includes an unfinished row for input 8.",
+          "accessible_description": "An input-output table lists 1 to 7, 2 to 10, 3 to 13, 4 to 16 and includes an unfinished row for input 8.",
+          "pattern_rows": [
+            {
+              "input": 1,
+              "output": 7
+            },
+            {
+              "input": 2,
+              "output": 10
+            },
+            {
+              "input": 3,
+              "output": 13
+            },
+            {
+              "input": 4,
+              "output": 16
+            }
+          ],
+          "rule": "\u00d7 3, then + 4"
         },
         {
           "id": "G5M_OA_001_MIXED_Q8",
           "question_id": "G5M_OA_001_MIXED_Q8",
-          "question_type": "multiple_choice",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 3 and y = 5?",
-          "answer": "(3, 5)",
-          "correct_answer": "(3, 5)",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names point K shown on the coordinate plane?",
+          "answer": "(1, 6)",
+          "correct_answer": "(1, 6)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point K and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 1 units right and 6 units up, and check that you land on point K."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (3, 5).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 1, and then the vertical y-coordinate, 6. Therefore the point is named (1, 6); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point K? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled K.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 3 and y equals 5?",
+            "text": "What ordered pair names point K? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled K.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
           },
-          "choices": [
-            "(3, 5)",
-            "(5, 3)",
-            "(4, 5)",
-            "(3, 6)"
-          ],
-          "x": 3,
-          "y": 5,
+          "x": 1,
+          "y": 6,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(3, 5)"
+          "point_label": "K",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled K. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled K. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "acceptable_answers": [
+            "(1, 6)",
+            "(1,6)"
+          ]
         },
         {
           "id": "G5M_OA_001_MIXED_Q9",
           "question_id": "G5M_OA_001_MIXED_Q9",
-          "question_type": "coordinate_response",
+          "question_type": "multiple_choice",
           "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
-          "answer": "(4, 1)",
-          "correct_answer": "(4, 1)",
+          "prompt": "What ordered pair names point L shown on the coordinate plane?",
+          "answer": "(4, 2)",
+          "correct_answer": "(4, 2)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point L and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 4 units right and 2 units up, and check that you land on point L."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (4, 1).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 4, and then the vertical y-coordinate, 2. Therefore the point is named (4, 2); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point L? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled L.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 4 and y equals 1?",
+            "text": "What ordered pair names point L? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled L.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2483,55 +2694,62 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "(4, 1)",
-            "(4,1)",
-            "(4, 1)"
+            "(4, 2)",
+            "(4,2)"
           ],
           "x": 4,
-          "y": 1,
+          "y": 2,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(4, 1)"
+          "point_label": "L",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled L. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled L. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "choices": [
+            "(4, 2)",
+            "(2, 4)",
+            "(5, 2)",
+            "(4, 3)"
+          ]
         },
         {
           "id": "G5M_OA_001_MIXED_Q10",
           "question_id": "G5M_OA_001_MIXED_Q10",
-          "question_type": "multiple_choice",
-          "visual_model": "ordered_pair_plot",
-          "prompt": "What ordered pair names the plotted point with x = 5 and y = 3?",
-          "answer": "(5, 3)",
-          "correct_answer": "(5, 3)",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names point M shown on the coordinate plane?",
+          "answer": "(6, 5)",
+          "correct_answer": "(6, 5)",
           "misconception_tag": "coordinate_order_reversal",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: Locate point M and remember that an ordered pair is written (x, y).",
+            "Strategy: Trace vertically to read x first, then horizontally to read y.",
+            "Verify: Start at the origin, move 6 units right and 5 units up, and check that you land on point M."
           ],
           "feedback": {
-            "correct": "Correct. Your reasoning matches the model.",
-            "incorrect": "Try again. Rebuild the model and check each place or step."
+            "correct": "Correct. Your steps and the model agree.",
+            "incorrect": "Try again. Use the Focus hint, carry out the Strategy, and then Verify each step."
           },
-          "explanation": "The answer is (5, 3).",
-          "read_aloud_text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+          "explanation": "An ordered pair is written (x, y): first read the horizontal x-coordinate, 6, and then the vertical y-coordinate, 5. Therefore the point is named (6, 5); keeping x first prevents a coordinate reversal.",
+          "read_aloud_text": "What ordered pair names point M? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled M.",
           "question_audio": {
-            "text": "What ordered pair names the plotted point with x equals 5 and y equals 3?",
+            "text": "What ordered pair names point M? The visual is a first-quadrant coordinate grid numbered zero through six on both axes, with one plotted point labeled M.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
           },
-          "choices": [
-            "(5, 3)",
-            "(3, 5)",
-            "(6, 3)",
-            "(5, 4)"
-          ],
-          "x": 5,
-          "y": 3,
+          "x": 6,
+          "y": 5,
           "max_x": 6,
           "max_y": 6,
-          "point_label": "(5, 3)"
+          "point_label": "M",
+          "visual_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled M. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "accessible_description": "A first-quadrant coordinate plane from 0 through 6 on both axes shows one point labeled M. Grid lines and numbered x- and y-axes provide the information needed to read its location.",
+          "acceptable_answers": [
+            "(6, 5)",
+            "(6,5)"
+          ]
         }
       ]
     }
