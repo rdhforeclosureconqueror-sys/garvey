@@ -72,71 +72,77 @@
       "question_id": "G2M_MD_002_LVL1_Q1",
       "question_type": "short_response",
       "visual_model": "analog_clock",
-      "prompt": "What time is shown on the analog clock?",
+      "prompt": "The art center schedule shows an analog clock. What time does it show?",
       "answer": "3:05",
       "correct_answer": "3:05",
       "acceptable_answers": [
         "3:05",
-        "3 05"
+        "3 05",
+        "03:05"
       ],
       "misconception_tag": "minute_hand_confusion",
       "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
+        "Focus: Notice where the long hand points on this art center schedule.",
+        "Strategy: Count by fives from 12 to clock number 1, then read the hour the short hand has passed.",
+        "Verify: Check that the minute hand gives 5 minutes and that the short hand is in the matching hour space."
       ],
       "feedback": {
         "correct": "Nice strategy!",
         "incorrect": "Use the visual model and try again."
       },
-      "explanation": "The hour hand is near 3 and the minute hand shows 5 minutes, so the time is 3:05.",
+      "explanation": "Each clock number represents 5 minutes. The long hand reaches 1, which is 5 minutes after the hour; the short hand has passed 3. Writing the hour and two minute digits gives 3:05.",
       "hour": 3,
       "minute": 5,
       "question_audio": {
-        "text": "What time is shown on the analog clock?",
+        "text": "The art center schedule shows an analog clock. What time does it show? The visual shows an analog clock with the long minute hand pointing to 1 and the short hour hand a little between 3 and 4",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "an analog clock with the long minute hand pointing to 1 and the short hour hand a little between 3 and 4",
+      "accessible_description": "an analog clock with the long minute hand pointing to 1 and the short hour hand a little between 3 and 4"
     },
     {
       "id": "G2M_MD_002_LVL1_Q2",
       "question_id": "G2M_MD_002_LVL1_Q2",
       "question_type": "short_response",
       "visual_model": "analog_clock",
-      "prompt": "What time is shown on the analog clock?",
+      "prompt": "The library clock shows an analog clock. What time does it show?",
       "answer": "7:20",
       "correct_answer": "7:20",
       "acceptable_answers": [
         "7:20",
-        "7 20"
+        "7 20",
+        "07:20"
       ],
       "misconception_tag": "minute_hand_confusion",
       "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
+        "Focus: Notice where the long hand points on this library clock.",
+        "Strategy: Count by fives from 12 to clock number 4, then read the hour the short hand has passed.",
+        "Verify: Check that the minute hand gives 20 minutes and that the short hand is in the matching hour space."
       ],
       "feedback": {
         "correct": "Nice strategy!",
         "incorrect": "Use the visual model and try again."
       },
-      "explanation": "The hour hand is near 7 and the minute hand shows 20 minutes, so the time is 7:20.",
+      "explanation": "Each clock number represents 5 minutes. The long hand reaches 4, which is 20 minutes after the hour; the short hand has passed 7. Writing the hour and two minute digits gives 7:20.",
       "hour": 7,
       "minute": 20,
       "question_audio": {
-        "text": "What time is shown on the analog clock?",
+        "text": "The library clock shows an analog clock. What time does it show? The visual shows an analog clock with the long minute hand pointing to 4 and the short hour hand a little between 7 and 8",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "an analog clock with the long minute hand pointing to 4 and the short hour hand a little between 7 and 8",
+      "accessible_description": "an analog clock with the long minute hand pointing to 4 and the short hour hand a little between 7 and 8"
     },
     {
       "id": "G2M_MD_002_LVL1_Q3",
       "question_id": "G2M_MD_002_LVL1_Q3",
       "question_type": "short_response",
       "visual_model": "analog_clock",
-      "prompt": "What time is shown on the analog clock?",
+      "prompt": "The classroom clock shows an analog clock. What time does it show?",
       "answer": "10:45",
       "correct_answer": "10:45",
       "acceptable_answers": [
@@ -145,96 +151,190 @@
       ],
       "misconception_tag": "minute_hand_confusion",
       "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
+        "Focus: Notice where the long hand points on this classroom clock.",
+        "Strategy: Count by fives from 12 to clock number 9, then read the hour the short hand has passed.",
+        "Verify: Check that the minute hand gives 45 minutes and that the short hand is in the matching hour space."
       ],
       "feedback": {
         "correct": "Nice strategy!",
         "incorrect": "Use the visual model and try again."
       },
-      "explanation": "The hour hand is near 10 and the minute hand shows 45 minutes, so the time is 10:45.",
+      "explanation": "Each clock number represents 5 minutes. The long hand reaches 9, which is 45 minutes after the hour; the short hand has passed 10. Writing the hour and two minute digits gives 10:45.",
       "hour": 10,
       "minute": 45,
       "question_audio": {
-        "text": "What time is shown on the analog clock?",
+        "text": "The classroom clock shows an analog clock. What time does it show? The visual shows an analog clock with the long minute hand pointing to 9 and the short hour hand most of the way between 10 and 11",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "id": "G2M_MD_002_LVL1_Q4",
-      "question_id": "G2M_MD_002_LVL1_Q4",
-      "question_type": "short_response",
-      "visual_model": "analog_clock",
-      "prompt": "What time is shown on the analog clock?",
-      "answer": "1:30",
-      "correct_answer": "1:30",
-      "acceptable_answers": [
-        "1:30",
-        "1 30"
-      ],
-      "misconception_tag": "minute_hand_confusion",
-      "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
-      ],
-      "feedback": {
-        "correct": "Nice strategy!",
-        "incorrect": "Use the visual model and try again."
       },
-      "explanation": "The hour hand is near 1 and the minute hand shows 30 minutes, so the time is 1:30.",
-      "hour": 1,
-      "minute": 30,
-      "question_audio": {
-        "text": "What time is shown on the analog clock?",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "id": "G2M_MD_002_LVL1_Q5",
-      "question_id": "G2M_MD_002_LVL1_Q5",
-      "question_type": "short_response",
-      "visual_model": "analog_clock",
-      "prompt": "What time is shown on the analog clock?",
-      "answer": "6:15",
-      "correct_answer": "6:15",
-      "acceptable_answers": [
-        "6:15",
-        "6 15"
-      ],
-      "misconception_tag": "minute_hand_confusion",
-      "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
-      ],
-      "feedback": {
-        "correct": "Nice strategy!",
-        "incorrect": "Use the visual model and try again."
-      },
-      "explanation": "The hour hand is near 6 and the minute hand shows 15 minutes, so the time is 6:15.",
-      "hour": 6,
-      "minute": 15,
-      "question_audio": {
-        "text": "What time is shown on the analog clock?",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      }
+      "visual_description": "an analog clock with the long minute hand pointing to 9 and the short hour hand most of the way between 10 and 11",
+      "accessible_description": "an analog clock with the long minute hand pointing to 9 and the short hour hand most of the way between 10 and 11"
     }
   ],
   "adaptive_question_bank": [
+    {
+      "id": "G2M_MD_002_LVL2_Q1",
+      "question_id": "G2M_MD_002_LVL2_Q1",
+      "question_type": "short_response",
+      "visual_model": "digital_time",
+      "prompt": "School starts at 8:05 in the morning. Write the time with a.m. or p.m.",
+      "answer": "8:05 a.m.",
+      "correct_answer": "8:05 a.m.",
+      "acceptable_answers": [
+        "8:05 a.m.",
+        "8:05a.m.",
+        "8 05 a.m.",
+        "8:05 am",
+        "8:05am",
+        "08:05 a.m."
+      ],
+      "misconception_tag": "hour_hand_between_numbers",
+      "hints": [
+        "Focus: Find the context word that tells which part of the day this event happens.",
+        "Strategy: Keep the shown hour and minutes, then choose a.m. for before noon or p.m. for after noon.",
+        "Verify: Read the event again: morning means before noon, so the time label must agree."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The clock gives 8:05. In this context, morning means before noon. Therefore the complete time uses a.m.: 8:05 a.m.",
+      "hour": 8,
+      "minute": 5,
+      "question_audio": {
+        "text": "School starts at 8:05 in the morning. Write the time with a.m. or p.m. The visual shows a digital clock display with 8 as the hour and 05 as the minutes",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "visual_description": "a digital clock display with 8 as the hour and 05 as the minutes",
+      "accessible_description": "a digital clock display with 8 as the hour and 05 as the minutes"
+    },
+    {
+      "id": "G2M_MD_002_LVL2_Q2",
+      "question_id": "G2M_MD_002_LVL2_Q2",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "Dinner is at 6:30 in the evening. Write the time with a.m. or p.m.",
+      "answer": "6:30 p.m.",
+      "correct_answer": "6:30 p.m.",
+      "acceptable_answers": [
+        "6:30 p.m.",
+        "6:30p.m.",
+        "6 30 p.m.",
+        "6:30 pm",
+        "6:30pm",
+        "06:30 p.m."
+      ],
+      "misconception_tag": "hour_hand_between_numbers",
+      "hints": [
+        "Focus: Find the context word that tells which part of the day this event happens.",
+        "Strategy: Keep the shown hour and minutes, then choose a.m. for before noon or p.m. for after noon.",
+        "Verify: Read the event again: evening means after noon, so the time label must agree."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The clock gives 6:30. In this context, evening means after noon. Therefore the complete time uses p.m.: 6:30 p.m.",
+      "hour": 6,
+      "minute": 30,
+      "question_audio": {
+        "text": "Dinner is at 6:30 in the evening. Write the time with a.m. or p.m. The visual shows an analog clock with the long minute hand pointing to 6 and the short hour hand halfway between 6 and 7",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "visual_description": "an analog clock with the long minute hand pointing to 6 and the short hour hand halfway between 6 and 7",
+      "accessible_description": "an analog clock with the long minute hand pointing to 6 and the short hour hand halfway between 6 and 7"
+    },
+    {
+      "id": "G2M_MD_002_LVL3_Q1",
+      "question_id": "G2M_MD_002_LVL3_Q1",
+      "question_type": "short_response",
+      "visual_model": "coin_model",
+      "prompt": "Maya finds a penny in her pocket. How many cents is it worth?",
+      "answer": "1",
+      "correct_answer": "1",
+      "acceptable_answers": [
+        "1",
+        "1 cents",
+        "1¢",
+        "$0.01",
+        "penny"
+      ],
+      "misconception_tag": "coin_value_confusion",
+      "hints": [
+        "Focus: Identify the single penny in this activity.",
+        "Strategy: Connect the coin name to its learned value in cents.",
+        "Verify: Check the coin-value fact against the picture before answering."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Coin values stay the same even in a new setting. A penny is worth 1 cent, so 1 is the matching response.",
+      "coin": "penny",
+      "coins": [
+        "penny"
+      ],
+      "options": null,
+      "question_audio": {
+        "text": "Maya finds a penny in her pocket. How many cents is it worth? The visual shows one penny shown by itself",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "visual_description": "one penny, shown by itself with its denomination label",
+      "accessible_description": "one penny shown by itself"
+    },
+    {
+      "id": "G2M_MD_002_LVL3_Q2",
+      "question_id": "G2M_MD_002_LVL3_Q2",
+      "question_type": "short_response",
+      "visual_model": "coin_model",
+      "prompt": "A nickel is beside the class store register. What is its value in cents?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5",
+        "5 cents",
+        "5¢",
+        "$0.05",
+        "nickel"
+      ],
+      "misconception_tag": "coin_value_confusion",
+      "hints": [
+        "Focus: Identify the single nickel in this activity.",
+        "Strategy: Connect the coin name to its learned value in cents.",
+        "Verify: Check the coin-value fact against the picture before answering."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Coin values stay the same even in a new setting. A nickel is worth 5 cents, so 5 is the matching response.",
+      "coin": "nickel",
+      "coins": [
+        "nickel"
+      ],
+      "options": null,
+      "question_audio": {
+        "text": "A nickel is beside the class store register. What is its value in cents? The visual shows one nickel shown by itself",
+        "label": "Read Question",
+        "type": "question",
+        "playback_preference": "cached_audio_first"
+      },
+      "visual_description": "one nickel, shown by itself with its denomination label",
+      "accessible_description": "one nickel shown by itself"
+    },
     {
       "id": "G2M_MD_002_LVL4_Q1",
       "question_id": "G2M_MD_002_LVL4_Q1",
       "question_type": "short_response",
       "visual_model": "money_counting",
-      "prompt": "Count the coins: quarter, dime, penny. How much money is there?",
+      "prompt": "The craft box holds the coins shown. How many cents are there altogether?",
       "answer": "36",
       "correct_answer": "36",
       "acceptable_answers": [
@@ -245,15 +345,15 @@
       ],
       "misconception_tag": "coin_counting_skip_error",
       "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
+        "Focus: Name each coin in the craft box before adding.",
+        "Strategy: Start with quarter worth 25 cents, then add each next coin's value.",
+        "Verify: Count the same coins a second way or add the individual values again to confirm the total."
       ],
       "feedback": {
         "correct": "Nice strategy!",
         "incorrect": "Use the visual model and try again."
       },
-      "explanation": "Count the coins to get 36 cents.",
+      "explanation": "The coin values are 25, 10, 1 cents. Adding them in the pictured order gives 25 + 10 + 1 = 36, so the collection is worth 36 cents.",
       "coins": [
         "quarter",
         "dime",
@@ -261,18 +361,20 @@
       ],
       "total_cents": 36,
       "question_audio": {
-        "text": "Count the coins: quarter, dime, penny. How much money is there?",
+        "text": "The craft box holds the coins shown. How many cents are there altogether? The visual shows 3 coins arranged left to right: quarter, dime, penny",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "coins arranged left to right: quarter, dime, penny",
+      "accessible_description": "3 coins arranged left to right: quarter, dime, penny"
     },
     {
       "id": "G2M_MD_002_LVL4_Q2",
       "question_id": "G2M_MD_002_LVL4_Q2",
       "question_type": "short_response",
       "visual_model": "money_counting",
-      "prompt": "Count the coins: dime, dime, nickel. How much money is there?",
+      "prompt": "The snack cart holds the coins shown. How many cents are there altogether?",
       "answer": "25",
       "correct_answer": "25",
       "acceptable_answers": [
@@ -283,15 +385,15 @@
       ],
       "misconception_tag": "coin_counting_skip_error",
       "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
+        "Focus: Name each coin in the snack cart before adding.",
+        "Strategy: Start with dime worth 10 cents, then add each next coin's value.",
+        "Verify: Count the same coins a second way or add the individual values again to confirm the total."
       ],
       "feedback": {
         "correct": "Nice strategy!",
         "incorrect": "Use the visual model and try again."
       },
-      "explanation": "Count the coins to get 25 cents.",
+      "explanation": "The coin values are 10, 10, 5 cents. Adding them in the pictured order gives 10 + 10 + 5 = 25, so the collection is worth 25 cents.",
       "coins": [
         "dime",
         "dime",
@@ -299,126 +401,13 @@
       ],
       "total_cents": 25,
       "question_audio": {
-        "text": "Count the coins: dime, dime, nickel. How much money is there?",
+        "text": "The snack cart holds the coins shown. How many cents are there altogether? The visual shows 3 coins arranged left to right: dime, dime, nickel",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "id": "G2M_MD_002_LVL4_Q3",
-      "question_id": "G2M_MD_002_LVL4_Q3",
-      "question_type": "short_response",
-      "visual_model": "money_counting",
-      "prompt": "Count the coins: quarter, nickel, penny, penny. How much money is there?",
-      "answer": "32",
-      "correct_answer": "32",
-      "acceptable_answers": [
-        "32",
-        "32 cents",
-        "32¢",
-        "$0.32"
-      ],
-      "misconception_tag": "coin_counting_skip_error",
-      "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
-      ],
-      "feedback": {
-        "correct": "Nice strategy!",
-        "incorrect": "Use the visual model and try again."
       },
-      "explanation": "Count the coins to get 32 cents.",
-      "coins": [
-        "quarter",
-        "nickel",
-        "penny",
-        "penny"
-      ],
-      "total_cents": 32,
-      "question_audio": {
-        "text": "Count the coins: quarter, nickel, penny, penny. How much money is there?",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "id": "G2M_MD_002_LVL4_Q4",
-      "question_id": "G2M_MD_002_LVL4_Q4",
-      "question_type": "short_response",
-      "visual_model": "money_counting",
-      "prompt": "Count the coins: dime, nickel, penny. How much money is there?",
-      "answer": "16",
-      "correct_answer": "16",
-      "acceptable_answers": [
-        "16",
-        "16 cents",
-        "16¢",
-        "$0.16"
-      ],
-      "misconception_tag": "coin_counting_skip_error",
-      "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
-      ],
-      "feedback": {
-        "correct": "Nice strategy!",
-        "incorrect": "Use the visual model and try again."
-      },
-      "explanation": "Count the coins to get 16 cents.",
-      "coins": [
-        "dime",
-        "nickel",
-        "penny"
-      ],
-      "total_cents": 16,
-      "question_audio": {
-        "text": "Count the coins: dime, nickel, penny. How much money is there?",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "id": "G2M_MD_002_LVL4_Q5",
-      "question_id": "G2M_MD_002_LVL4_Q5",
-      "question_type": "short_response",
-      "visual_model": "money_counting",
-      "prompt": "Count the coins: quarter, quarter, dime. How much money is there?",
-      "answer": "60",
-      "correct_answer": "60",
-      "acceptable_answers": [
-        "60",
-        "60 cents",
-        "60¢",
-        "$0.60"
-      ],
-      "misconception_tag": "coin_counting_skip_error",
-      "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
-      ],
-      "feedback": {
-        "correct": "Nice strategy!",
-        "incorrect": "Use the visual model and try again."
-      },
-      "explanation": "Count the coins to get 60 cents.",
-      "coins": [
-        "quarter",
-        "quarter",
-        "dime"
-      ],
-      "total_cents": 60,
-      "question_audio": {
-        "text": "Count the coins: quarter, quarter, dime. How much money is there?",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      }
+      "visual_description": "coins arranged left to right: dime, dime, nickel",
+      "accessible_description": "3 coins arranged left to right: dime, dime, nickel"
     }
   ],
   "checkpoint": [
@@ -427,172 +416,107 @@
       "question_id": "G2M_MD_002_MIXED_Q1",
       "question_type": "short_response",
       "visual_model": "analog_clock",
-      "prompt": "What time is shown on the analog clock?",
-      "answer": "3:05",
-      "correct_answer": "3:05",
+      "prompt": "The community garden opens when the shown clock time arrives. What time is shown?",
+      "answer": "11:10",
+      "correct_answer": "11:10",
       "acceptable_answers": [
-        "3:05",
-        "3 05"
+        "11:10",
+        "11 10"
       ],
       "misconception_tag": "minute_hand_confusion",
       "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
+        "Focus: Decide whether the event asks you to read a clock, label part of the day, or select a unit.",
+        "Strategy: Use the hour and minute information in the garden opening clock; count clock numbers by fives when hands are shown.",
+        "Verify: Make sure the response matches both the displayed time and the event words."
       ],
       "feedback": {
         "correct": "Nice strategy!",
         "incorrect": "Use the visual model and try again."
       },
-      "explanation": "The hour hand is near 3 and the minute hand shows 5 minutes, so the time is 3:05.",
-      "hour": 3,
-      "minute": 5,
+      "explanation": "The minute information represents 10 minutes after hour 11. Writing the hour followed by two minute digits gives 11:10.",
       "question_audio": {
-        "text": "What time is shown on the analog clock?",
+        "text": "The community garden opens when the shown clock time arrives. What time is shown? The visual shows an analog clock with the long minute hand pointing to 2 and the short hour hand a little between 11 and 12",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "an analog clock with the long minute hand pointing to 2 and the short hour hand a little between 11 and 12",
+      "accessible_description": "an analog clock with the long minute hand pointing to 2 and the short hour hand a little between 11 and 12",
+      "hour": 11,
+      "minute": 10
     },
     {
       "id": "G2M_MD_002_MIXED_Q2",
       "question_id": "G2M_MD_002_MIXED_Q2",
       "question_type": "short_response",
       "visual_model": "analog_clock",
-      "prompt": "What time is shown on the analog clock?",
-      "answer": "7:20",
-      "correct_answer": "7:20",
+      "prompt": "A dance lesson ends at the time on this clock. What time does the clock show?",
+      "answer": "4:50",
+      "correct_answer": "4:50",
       "acceptable_answers": [
-        "7:20",
-        "7 20"
+        "4:50",
+        "4 50",
+        "04:50"
       ],
       "misconception_tag": "minute_hand_confusion",
       "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
+        "Focus: Decide whether the event asks you to read a clock, label part of the day, or select a unit.",
+        "Strategy: Use the hour and minute information in the dance studio clock; count clock numbers by fives when hands are shown.",
+        "Verify: Make sure the response matches both the displayed time and the event words."
       ],
       "feedback": {
         "correct": "Nice strategy!",
         "incorrect": "Use the visual model and try again."
       },
-      "explanation": "The hour hand is near 7 and the minute hand shows 20 minutes, so the time is 7:20.",
-      "hour": 7,
-      "minute": 20,
+      "explanation": "The minute information represents 50 minutes after hour 4. Writing the hour followed by two minute digits gives 4:50.",
       "question_audio": {
-        "text": "What time is shown on the analog clock?",
+        "text": "A dance lesson ends at the time on this clock. What time does the clock show? The visual shows an analog clock with the long minute hand pointing to 10 and the short hour hand most of the way between 4 and 5",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
+      },
+      "visual_description": "an analog clock with the long minute hand pointing to 10 and the short hour hand most of the way between 4 and 5",
+      "accessible_description": "an analog clock with the long minute hand pointing to 10 and the short hour hand most of the way between 4 and 5",
+      "hour": 4,
+      "minute": 50
     },
     {
       "id": "G2M_MD_002_MIXED_Q3",
       "question_id": "G2M_MD_002_MIXED_Q3",
       "question_type": "short_response",
       "visual_model": "digital_time",
-      "prompt": "School starts at 8:05 in the morning. Write the time with a.m. or p.m.",
-      "answer": "8:05 a.m.",
-      "correct_answer": "8:05 a.m.",
+      "prompt": "A family visits the market at 9:35 in the morning. Write the time with a.m. or p.m.",
+      "answer": "9:35 a.m.",
+      "correct_answer": "9:35 a.m.",
       "acceptable_answers": [
-        "8:05",
-        "8 05",
-        "8:05 a.m.",
-        "8:05a.m.",
-        "8 05 a.m.",
-        "8:05 a.m."
+        "9:35 a.m.",
+        "9:35a.m.",
+        "9 35 a.m.",
+        "9:35 am",
+        "9:35am",
+        "09:35 a.m."
       ],
       "misconception_tag": "hour_hand_between_numbers",
       "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
+        "Focus: Decide whether the event asks you to read a clock, label part of the day, or select a unit.",
+        "Strategy: Use the hour and minute information in the market visit; count clock numbers by fives when hands are shown.",
+        "Verify: Make sure the response matches both the displayed time and the event words."
       ],
       "feedback": {
         "correct": "Nice strategy!",
         "incorrect": "Use the visual model and try again."
       },
-      "explanation": "The context tells whether the time is a.m.; the time is 8:05 a.m..",
-      "hour": 8,
-      "minute": 5,
+      "explanation": "The minute information represents 35 minutes after hour 9. Morning calls for a.m., giving 9:35 a.m..",
       "question_audio": {
-        "text": "School starts at 8 05 in the morning. Write the time with a.m. or p.m.",
+        "text": "A family visits the market at 9:35 in the morning. Write the time with a.m. or p.m. The visual shows a digital clock with 9 as the hour and 35 as the minutes",
         "label": "Read Question",
         "type": "question",
         "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "id": "G2M_MD_002_MIXED_Q4",
-      "question_id": "G2M_MD_002_MIXED_Q4",
-      "question_type": "short_response",
-      "visual_model": "analog_clock",
-      "prompt": "Dinner is at 6:30 in the evening. Write the time with a.m. or p.m.",
-      "answer": "6:30 p.m.",
-      "correct_answer": "6:30 p.m.",
-      "acceptable_answers": [
-        "6:30",
-        "6 30",
-        "6:30 p.m.",
-        "6:30p.m.",
-        "6 30 p.m.",
-        "6:30 p.m."
-      ],
-      "misconception_tag": "hour_hand_between_numbers",
-      "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
-      ],
-      "feedback": {
-        "correct": "Nice strategy!",
-        "incorrect": "Use the visual model and try again."
       },
-      "explanation": "The context tells whether the time is p.m.; the time is 6:30 p.m..",
-      "hour": 6,
-      "minute": 30,
-      "question_audio": {
-        "text": "Dinner is at 6 30 in the evening. Write the time with a.m. or p.m.",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      }
-    },
-    {
-      "id": "G2M_MD_002_MIXED_Q5",
-      "question_id": "G2M_MD_002_MIXED_Q5",
-      "question_type": "short_response",
-      "visual_model": "digital_time",
-      "prompt": "Recess is at 10:15 in the morning. Write the time.",
-      "answer": "10:15 a.m.",
-      "correct_answer": "10:15 a.m.",
-      "acceptable_answers": [
-        "10:15",
-        "10 15",
-        "10:15 a.m.",
-        "10:15a.m.",
-        "10 15 a.m.",
-        "10:15 a.m."
-      ],
-      "misconception_tag": "hour_hand_between_numbers",
-      "hints": [
-        "Look at the hour hand first.",
-        "Count minutes by fives around the clock.",
-        "For coins, count from the largest values to the smallest."
-      ],
-      "feedback": {
-        "correct": "Nice strategy!",
-        "incorrect": "Use the visual model and try again."
-      },
-      "explanation": "The context tells whether the time is a.m.; the time is 10:15 a.m..",
-      "hour": 10,
-      "minute": 15,
-      "question_audio": {
-        "text": "Recess is at 10 15 in the morning. Write the time.",
-        "label": "Read Question",
-        "type": "question",
-        "playback_preference": "cached_audio_first"
-      }
+      "visual_description": "a digital clock with 9 as the hour and 35 as the minutes",
+      "accessible_description": "a digital clock with 9 as the hour and 35 as the minutes",
+      "hour": 9,
+      "minute": 35
     }
   ],
   "level_banks": [
@@ -684,8 +608,7 @@
           "correct_answer": "10:45",
           "acceptable_answers": [
             "10:45",
-            "10 45",
-            "10:45"
+            "10 45"
           ],
           "misconception_tag": "minute_hand_confusion",
           "hints": [
@@ -824,8 +747,7 @@
           "correct_answer": "12:10",
           "acceptable_answers": [
             "12:10",
-            "12 10",
-            "12:10"
+            "12 10"
           ],
           "misconception_tag": "minute_hand_confusion",
           "hints": [
@@ -1053,8 +975,7 @@
             "10:15a.m.",
             "10 15 a.m.",
             "10:15 am",
-            "10:15am",
-            "10:15 a.m."
+            "10:15am"
           ],
           "misconception_tag": "hour_hand_between_numbers",
           "hints": [
@@ -1129,8 +1050,7 @@
             "12:00p.m.",
             "12 00 p.m.",
             "12:00 pm",
-            "12:00pm",
-            "12:00 p.m."
+            "12:00pm"
           ],
           "misconception_tag": "hour_hand_between_numbers",
           "hints": [
@@ -2235,8 +2155,7 @@
           "correct_answer": "11:10",
           "acceptable_answers": [
             "11:10",
-            "11 10",
-            "11:10"
+            "11 10"
           ],
           "misconception_tag": "minute_hand_confusion",
           "hints": [
@@ -2463,9 +2382,7 @@
           "answer": "yes",
           "correct_answer": "yes",
           "acceptable_answers": [
-            "yes",
-            "Yes",
-            "YES"
+            "yes"
           ],
           "misconception_tag": "coin_value_confusion",
           "hints": [
@@ -2502,8 +2419,7 @@
           "answer": "nickel",
           "correct_answer": "nickel",
           "acceptable_answers": [
-            "nickel",
-            "Nickel"
+            "nickel"
           ],
           "misconception_tag": "coin_counting_skip_error",
           "hints": [
@@ -2572,9 +2488,7 @@
           "answer": "yes",
           "correct_answer": "yes",
           "acceptable_answers": [
-            "yes",
-            "Yes",
-            "YES"
+            "yes"
           ],
           "misconception_tag": "coin_counting_skip_error",
           "hints": [
