@@ -67,6 +67,8 @@ Audited package implementation commit: `fe19e0c836495ebfa996d94af2b878d17597e8da
 
 Exactly three packages were completed: `G5M_NBT_001`, `G5M_NBT_002`, and `G5M_NBT_003`. No fourth package was started. No shared renderer, registry, CSS, schema, route, persistence, replay, shuffling, assessment, manifest, or unrelated curriculum package was modified. This report does not claim browser verification and does not expand certification beyond the automated evidence stated above.
 
+Final self-check: `G5M_NBT_001`, `G5M_NBT_002`, and `G5M_NBT_003` use the same ordered 16-section publication-audit structure, and each report records its files changed, test commands and results, browser-verification status, branch, commit SHA, pull-request title, scope confirmation, and final certification.
+
 ## Final Publication Certification
 
 **CERTIFIED FOR PRODUCTION PUBLICATION, subject to the explicitly recorded browser-verification limitation.** All 50 canonical activities in `G5M_NBT_003` passed the documented schema, curriculum, mathematical, direct-renderer, production-card, accessibility-metadata, answer-evaluation, submission, and retry checks. No new reusable shared renderer or infrastructure defect was discovered. This certification is limited to the evidence and files listed in this report.
