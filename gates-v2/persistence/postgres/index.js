@@ -1,0 +1,4 @@
+'use strict';
+const Content=require('./postgresContentReleaseRepository'),Session=require('./postgresSessionRepository'),Event=require('./postgresEventRepository'),Idempotency=require('./postgresIdempotencyRepository'),Transactions=require('./postgresTransactionalExperienceRepository');
+function createPostgresPersistence(pool,options={}){if(!pool?.connect||!pool?.query)throw new TypeError('A PostgreSQL pool is required');const releases=new Content(pool),sessions=new Session(pool,releases),events=new Event(pool),idempotency=new Idempotency(pool),transactions=new Transactions({pool,releases,sessions,events,idempotency,...options});return{releases,sessions,events,idempotency,transactions};}
+module.exports={createPostgresPersistence,PostgresContentReleaseRepository:Content,PostgresSessionRepository:Session,PostgresEventRepository:Event,PostgresIdempotencyRepository:Idempotency,PostgresTransactionalExperienceRepository:Transactions};

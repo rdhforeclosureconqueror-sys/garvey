@@ -1,0 +1,3 @@
+'use strict';const test=require('node:test'),assert=require('node:assert/strict');const {PRIVATE_GATES_V2_CONTRACT}=require('../../server/gatesV2PrivateContract');const {payload}=require('../../server/gatesV2PrivateHandlers');
+test('private contract describes unmounted operations',()=>{assert.equal(PRIVATE_GATES_V2_CONTRACT.length,7);assert.ok(PRIVATE_GATES_V2_CONTRACT.every(x=>x.path.startsWith('/api/gates/v2/')));});
+test('mutation payload requires revision and idempotency',()=>{assert.throws(()=>payload({body:{},params:{}},true),e=>e.code==='VALIDATION_FAILED');assert.equal(payload({body:{expected_revision:0,idempotency_key:'k'},params:{sessionId:'s'}},true).session_id,'s');});

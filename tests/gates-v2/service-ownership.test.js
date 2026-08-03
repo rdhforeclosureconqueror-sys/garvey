@@ -1,0 +1,2 @@
+'use strict';const test=require('node:test'),assert=require('node:assert/strict');const Service=require('../../gates-v2/service/gatesV2ExperienceService');
+test('service rejects absent upstream ownership before repository access',async()=>{let called=false;const service=new Service({persistence:{releases:{selectOfferedRelease(){called=true;}}}});await assert.rejects(service.listAvailableExperiences({feature_flags:{}}),e=>e.code==='CHILD_OWNERSHIP_MISMATCH');assert.equal(called,false);});
