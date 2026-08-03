@@ -30,7 +30,9 @@
         "short_response",
         "vocabulary_match"
       ]
-    }
+    },
+    "production_status": "publication_certified",
+    "audit_date": "2026-08-03"
   },
   "skill_id": "G5E_VOC_001",
   "grade": 5,
@@ -326,7 +328,7 @@
       "question_type": "vocabulary_match",
       "visual_model": "vocabulary_match",
       "support_type": "vocabulary_match",
-      "correct_answer": "ancient = old; narrow \u2260 wide; whisper is quieter than shout",
+      "correct_answer": "ancient = old; narrow ≠ wide; whisper is quieter than shout",
       "hints": [
         "Read the full sentence or expression before choosing.",
         "Look for clue words, word parts, relationships, or the situation.",
@@ -379,7 +381,7 @@
     },
     {
       "question_id": "G5E_VOC_001_LVL4_Q10",
-      "prompt": "Which meaning fits the proverb \"Don\u2019t count your chickens before they hatch\"?",
+      "prompt": "Which meaning fits the proverb \"Don’t count your chickens before they hatch\"?",
       "question_type": "multiple_choice",
       "visual_model": "figurative_language_card",
       "support_type": "figurative_language_card",
@@ -393,7 +395,7 @@
       "explanation": "The proverb warns against planning as if something is certain before it is.",
       "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
       "question_audio": {
-        "text": "Which meaning fits the proverb \"Don\u2019t count your chickens before they hatch\"? Choices: Do not assume success before it happens., Count animals carefully., Eggs always hatch at the same time..",
+        "text": "Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? Choices: Do not assume success before it happens., Count animals carefully., Eggs always hatch at the same time..",
         "label": "Read Question",
         "type": "question",
         "repeat_count": 1,
@@ -402,7 +404,7 @@
         "cached_audio_optional": true
       },
       "audio": {
-        "text": "Don\u2019t count your chickens before they hatch.",
+        "text": "Don’t count your chickens before they hatch.",
         "label": "Listen",
         "type": "sentence",
         "repeat_count": 1,
@@ -417,7 +419,7 @@
         "Count animals carefully.",
         "Eggs always hatch at the same time."
       ],
-      "phrase": "Don\u2019t count your chickens before they hatch.",
+      "phrase": "Don’t count your chickens before they hatch.",
       "figurative_type": "proverb",
       "literal_meaning": "count chicks only after eggs hatch",
       "figurative_meaning": "do not assume success too early"
@@ -931,15 +933,15 @@
           "support_type": "context_sentence",
           "correct_answer": "hard to find",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “hard to find” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "The drought and saving every drop show that scarce means hard to find.",
+          "explanation": "The drought and saving every drop show that scarce means hard to find. This works because the learner can connect the response “hard to find” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" Choices: hard to find, easy to waste, brightly colored.",
+            "text": "In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" The visual is a context-sentence display with the language evidence described in the question. Choices: hard to find, easy to waste, brightly colored.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -964,7 +966,11 @@
             "brightly colored"
           ],
           "word": "scarce",
-          "sentence": "During the drought, fresh water was scarce, so families saved every drop."
+          "sentence": "During the drought, fresh water was scarce, so families saved every drop.",
+          "answer": "hard to find",
+          "visual_description": "A context-sentence display supports this task: In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" It presents During the drought, fresh water was scarce, so families saved every drop.; scarce. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" It presents During the drought, fresh water was scarce, so families saved every drop.; scarce. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" The visual is a context-sentence display with the language evidence described in the question. Choices: hard to find, easy to waste, brightly colored."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q02",
@@ -974,15 +980,15 @@
           "support_type": "context_sentence",
           "correct_answer": "tested each bridge plank before stepping",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “What context clue best shows the meaning of cautious?” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “tested each bridge plank before stepping” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Testing before stepping shows careful behavior.",
+          "explanation": "Testing before stepping shows careful behavior. This works because the learner can connect the response “tested each bridge plank before stepping” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What context clue best shows the meaning of cautious?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What context clue best shows the meaning of cautious? Choices: tested each bridge plank before stepping, ran ahead without looking, sang loudly on the trail.",
+            "text": "What context clue best shows the meaning of cautious? The visual is a context-sentence display with the language evidence described in the question. Choices: ran ahead without looking, tested each bridge plank before stepping, sang loudly on the trail.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1002,12 +1008,16 @@
           },
           "audio_required": false,
           "choices": [
-            "tested each bridge plank before stepping",
             "ran ahead without looking",
+            "tested each bridge plank before stepping",
             "sang loudly on the trail"
           ],
           "word": "cautious",
-          "sentence": "Mira was cautious; she tested each bridge plank before stepping."
+          "sentence": "Mira was cautious; she tested each bridge plank before stepping.",
+          "answer": "tested each bridge plank before stepping",
+          "visual_description": "A context-sentence display supports this task: What context clue best shows the meaning of cautious? It presents Mira was cautious; she tested each bridge plank before stepping.; cautious. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: What context clue best shows the meaning of cautious? It presents Mira was cautious; she tested each bridge plank before stepping.; cautious. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What context clue best shows the meaning of cautious? The visual is a context-sentence display with the language evidence described in the question. Choices: ran ahead without looking, tested each bridge plank before stepping, sang loudly on the trail."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q03",
@@ -1017,15 +1027,15 @@
           "support_type": "context_sentence",
           "correct_answer": "protect",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Use context to write the meaning of preserve in the sentence: \"The class voted to preserve the old mur…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “protect” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Covering the mural during construction is a clue that preserve means protect or keep safe.",
+          "explanation": "Covering the mural during construction is a clue that preserve means protect or keep safe. This works because the learner can connect the response “protect” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Use context to write the meaning of preserve in the sentence: \"The class voted to preserve the old mural by covering it du…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Use context to write the meaning of preserve in the sentence: \"The class voted to preserve the old mural by covering it during construction.\"",
+            "text": "Use context to write the meaning of preserve in the sentence: \"The class voted to preserve the old mural by covering it during construction.\" The visual is a context-sentence display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1051,7 +1061,11 @@
             "maintain"
           ],
           "word": "preserve",
-          "sentence": "The class voted to preserve the old mural by covering it during construction."
+          "sentence": "The class voted to preserve the old mural by covering it during construction.",
+          "answer": "protect",
+          "visual_description": "A context-sentence display supports this task: Use context to write the meaning of preserve in the sentence: \"The class voted to preserve the old mural by covering it during construction.\" It presents The class voted to preserve the old mural by covering it during construction.; preserve. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: Use context to write the meaning of preserve in the sentence: \"The class voted to preserve the old mural by covering it during construction.\" It presents The class voted to preserve the old mural by covering it during construction.; preserve. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Use context to write the meaning of preserve in the sentence: \"The class voted to preserve the old mural by covering it during construction.\" The visual is a context-sentence display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q04",
@@ -1061,15 +1075,15 @@
           "support_type": "context_sentence",
           "correct_answer": "very clever",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which meaning of brilliant fits this sentence? \"The brilliant solution saved time and used fewer suppl…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “very clever” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Saving time and supplies describes a very clever solution, not brightness.",
+          "explanation": "Saving time and supplies describes a very clever solution, not brightness. This works because the learner can connect the response “very clever” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which meaning of brilliant fits this sentence? \"The brilliant solution saved time and used fewer supplies.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which meaning of brilliant fits this sentence? \"The brilliant solution saved time and used fewer supplies.\" Choices: very clever, shiny with light, loud and noisy.",
+            "text": "Which meaning of brilliant fits this sentence? \"The brilliant solution saved time and used fewer supplies.\" The visual is a context-sentence display with the language evidence described in the question. Choices: shiny with light, loud and noisy, very clever.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1089,12 +1103,16 @@
           },
           "audio_required": false,
           "choices": [
-            "very clever",
             "shiny with light",
-            "loud and noisy"
+            "loud and noisy",
+            "very clever"
           ],
           "word": "brilliant",
-          "sentence": "The brilliant solution saved time and used fewer supplies."
+          "sentence": "The brilliant solution saved time and used fewer supplies.",
+          "answer": "very clever",
+          "visual_description": "A context-sentence display supports this task: Which meaning of brilliant fits this sentence? \"The brilliant solution saved time and used fewer supplies.\" It presents The brilliant solution saved time and used fewer supplies.; brilliant. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: Which meaning of brilliant fits this sentence? \"The brilliant solution saved time and used fewer supplies.\" It presents The brilliant solution saved time and used fewer supplies.; brilliant. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which meaning of brilliant fits this sentence? \"The brilliant solution saved time and used fewer supplies.\" The visual is a context-sentence display with the language evidence described in the question. Choices: shiny with light, loud and noisy, very clever."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q05",
@@ -1104,15 +1122,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "fragile = easily broken; expand = grow larger; swift = fast",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Match each context word to the meaning shown by its sentence.” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this vocabulary match response.",
+            "Verify: Reread the prompt with your response and confirm that “fragile = easily broken; expand = grow larger; swift = fast” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Each meaning is supported by the action in its sentence.",
+          "explanation": "Each meaning is supported by the action in its sentence. This works because the learner can connect the response “fragile = easily broken; expand = grow larger; swift = fast” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Match each context word to the meaning shown by its sentence.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Match each context word to the meaning shown by its sentence.",
+            "text": "Match each context word to the meaning shown by its sentence. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1134,24 +1152,28 @@
           "pairs": [
             {
               "left": "fragile",
-              "right": "easily broken",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "expand",
-              "right": "grow larger",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "swift",
-              "right": "fast",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "fragile = easily broken; expand = grow larger; swift = fast",
             "fragile-easily broken, expand-grow larger, swift-fast"
-          ]
+          ],
+          "answer": "fragile = easily broken; expand = grow larger; swift = fast",
+          "visual_description": "A vocabulary-matching display supports this task: Match each context word to the meaning shown by its sentence. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Match each context word to the meaning shown by its sentence. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Match each context word to the meaning shown by its sentence. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q06",
@@ -1161,15 +1183,15 @@
           "support_type": "context_sentence",
           "correct_answer": "calm and peaceful",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “What does contrast mean in this sentence? \"Unlike the noisy cafeteria, the courtyard was tranquil.\"” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “calm and peaceful” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Unlike signals an opposite clue: not noisy, but calm.",
+          "explanation": "Unlike signals an opposite clue: not noisy, but calm. This works because the learner can connect the response “calm and peaceful” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What does contrast mean in this sentence? \"Unlike the noisy cafeteria, the courtyard was tranquil.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What does contrast mean in this sentence? \"Unlike the noisy cafeteria, the courtyard was tranquil.\" Choices: calm and peaceful, crowded and loud, full of food.",
+            "text": "What does contrast mean in this sentence? \"Unlike the noisy cafeteria, the courtyard was tranquil.\" The visual is a context-sentence display with the language evidence described in the question. Choices: calm and peaceful, crowded and loud, full of food.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1194,7 +1216,11 @@
             "full of food"
           ],
           "word": "tranquil",
-          "sentence": "Unlike the noisy cafeteria, the courtyard was tranquil."
+          "sentence": "Unlike the noisy cafeteria, the courtyard was tranquil.",
+          "answer": "calm and peaceful",
+          "visual_description": "A context-sentence display supports this task: What does contrast mean in this sentence? \"Unlike the noisy cafeteria, the courtyard was tranquil.\" It presents Unlike the noisy cafeteria, the courtyard was tranquil.; tranquil. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: What does contrast mean in this sentence? \"Unlike the noisy cafeteria, the courtyard was tranquil.\" It presents Unlike the noisy cafeteria, the courtyard was tranquil.; tranquil. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What does contrast mean in this sentence? \"Unlike the noisy cafeteria, the courtyard was tranquil.\" The visual is a context-sentence display with the language evidence described in the question. Choices: calm and peaceful, crowded and loud, full of food."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q07",
@@ -1204,15 +1230,15 @@
           "support_type": "context_sentence",
           "correct_answer": "branches, shingles, and broken signs",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which clue helps define debris? \"After the storm, crews cleared debris, including branches, shingles,…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “branches, shingles, and broken signs” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "The examples name pieces of debris.",
+          "explanation": "The examples name pieces of debris. This works because the learner can connect the response “branches, shingles, and broken signs” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which clue helps define debris? \"After the storm, crews cleared debris, including branches, shingles, and broken signs.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which clue helps define debris? \"After the storm, crews cleared debris, including branches, shingles, and broken signs.\" Choices: branches, shingles, and broken signs, After the storm, crews cleared.",
+            "text": "Which clue helps define debris? \"After the storm, crews cleared debris, including branches, shingles, and broken signs.\" The visual is a context-sentence display with the language evidence described in the question. Choices: After the storm, branches, shingles, and broken signs, crews cleared.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1232,12 +1258,16 @@
           },
           "audio_required": false,
           "choices": [
-            "branches, shingles, and broken signs",
             "After the storm",
+            "branches, shingles, and broken signs",
             "crews cleared"
           ],
           "word": "debris",
-          "sentence": "After the storm, crews cleared debris, including branches, shingles, and broken signs."
+          "sentence": "After the storm, crews cleared debris, including branches, shingles, and broken signs.",
+          "answer": "branches, shingles, and broken signs",
+          "visual_description": "A context-sentence display supports this task: Which clue helps define debris? \"After the storm, crews cleared debris, including branches, shingles, and broken signs.\" It presents After the storm, crews cleared debris, including branches, shingles, and broken signs.; debris. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: Which clue helps define debris? \"After the storm, crews cleared debris, including branches, shingles, and broken signs.\" It presents After the storm, crews cleared debris, including branches, shingles, and broken signs.; debris. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which clue helps define debris? \"After the storm, crews cleared debris, including branches, shingles, and broken signs.\" The visual is a context-sentence display with the language evidence described in the question. Choices: After the storm, branches, shingles, and broken signs, crews cleared."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q08",
@@ -1247,15 +1277,15 @@
           "support_type": "context_sentence",
           "correct_answer": "not willing or unsure",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “What is the meaning of reluctant? \"Jon was reluctant to enter the contest; he hesitated and almost wal…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “not willing or unsure” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Hesitated and almost walked away show reluctance.",
+          "explanation": "Hesitated and almost walked away show reluctance. This works because the learner can connect the response “not willing or unsure” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What is the meaning of reluctant? \"Jon was reluctant to enter the contest; he hesitated and almost walked away.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What is the meaning of reluctant? \"Jon was reluctant to enter the contest; he hesitated and almost walked away.\" Choices: not willing or unsure, excited to begin, finished quickly.",
+            "text": "What is the meaning of reluctant? \"Jon was reluctant to enter the contest; he hesitated and almost walked away.\" The visual is a context-sentence display with the language evidence described in the question. Choices: excited to begin, finished quickly, not willing or unsure.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1275,12 +1305,16 @@
           },
           "audio_required": false,
           "choices": [
-            "not willing or unsure",
             "excited to begin",
-            "finished quickly"
+            "finished quickly",
+            "not willing or unsure"
           ],
           "word": "reluctant",
-          "sentence": "Jon was reluctant to enter the contest; he hesitated and almost walked away."
+          "sentence": "Jon was reluctant to enter the contest; he hesitated and almost walked away.",
+          "answer": "not willing or unsure",
+          "visual_description": "A context-sentence display supports this task: What is the meaning of reluctant? \"Jon was reluctant to enter the contest; he hesitated and almost walked away.\" It presents Jon was reluctant to enter the contest; he hesitated and almost walked away.; reluctant. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: What is the meaning of reluctant? \"Jon was reluctant to enter the contest; he hesitated and almost walked away.\" It presents Jon was reluctant to enter the contest; he hesitated and almost walked away.; reluctant. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What is the meaning of reluctant? \"Jon was reluctant to enter the contest; he hesitated and almost walked away.\" The visual is a context-sentence display with the language evidence described in the question. Choices: excited to begin, finished quickly, not willing or unsure."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q09",
@@ -1290,15 +1324,15 @@
           "support_type": "context_sentence",
           "correct_answer": "put together",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wo…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “put together” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Connecting wooden pieces shows assemble means put together.",
+          "explanation": "Connecting wooden pieces shows assemble means put together. This works because the learner can connect the response “put together” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\"",
+            "text": "Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\" The visual is a context-sentence display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1324,7 +1358,11 @@
             "join pieces"
           ],
           "word": "assemble",
-          "sentence": "Volunteers will assemble the shelves by connecting the wooden pieces."
+          "sentence": "Volunteers will assemble the shelves by connecting the wooden pieces.",
+          "answer": "put together",
+          "visual_description": "A context-sentence display supports this task: Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\" It presents Volunteers will assemble the shelves by connecting the wooden pieces.; assemble. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\" It presents Volunteers will assemble the shelves by connecting the wooden pieces.; assemble. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\" The visual is a context-sentence display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL1_Q10",
@@ -1334,15 +1372,15 @@
           "support_type": "context_sentence",
           "correct_answer": "a natural home for living things",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which answer best defines habitat in this sentence? \"The wetland is a habitat where frogs, herons, and…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “a natural home for living things” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Where animals live tells that habitat means natural home.",
+          "explanation": "Where animals live tells that habitat means natural home. This works because the learner can connect the response “a natural home for living things” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which answer best defines habitat in this sentence? \"The wetland is a habitat where frogs, herons, and turtles live.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which answer best defines habitat in this sentence? \"The wetland is a habitat where frogs, herons, and turtles live.\" Choices: a natural home for living things, a kind of weather, a tool for measuring water.",
+            "text": "Which answer best defines habitat in this sentence? \"The wetland is a habitat where frogs, herons, and turtles live.\" The visual is a context-sentence display with the language evidence described in the question. Choices: a natural home for living things, a kind of weather, a tool for measuring water.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1367,7 +1405,11 @@
             "a tool for measuring water"
           ],
           "word": "habitat",
-          "sentence": "The wetland is a habitat where frogs, herons, and turtles live."
+          "sentence": "The wetland is a habitat where frogs, herons, and turtles live.",
+          "answer": "a natural home for living things",
+          "visual_description": "A context-sentence display supports this task: Which answer best defines habitat in this sentence? \"The wetland is a habitat where frogs, herons, and turtles live.\" It presents The wetland is a habitat where frogs, herons, and turtles live.; habitat. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: Which answer best defines habitat in this sentence? \"The wetland is a habitat where frogs, herons, and turtles live.\" It presents The wetland is a habitat where frogs, herons, and turtles live.; habitat. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which answer best defines habitat in this sentence? \"The wetland is a habitat where frogs, herons, and turtles live.\" The visual is a context-sentence display with the language evidence described in the question. Choices: a natural home for living things, a kind of weather, a tool for measuring water."
         }
       ]
     },
@@ -1387,15 +1429,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "read again",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “The prefix re- helps show that reread means what?” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “read again” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "The prefix re- means again.",
+          "explanation": "The prefix re- means again. This works because the learner can connect the response “read again” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “The prefix re- helps show that reread means what?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "The prefix re- helps show that reread means what? Choices: read again, read before others, not read.",
+            "text": "The prefix re- helps show that reread means what? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: read before others, read again, not read.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1415,22 +1457,26 @@
           },
           "audio_required": false,
           "choices": [
-            "read again",
             "read before others",
+            "read again",
             "not read"
           ],
           "pairs": [
             {
               "left": "re-",
-              "right": "again",
-              "relation": "prefix meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "reread",
-              "right": "read again",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "read again",
+          "visual_description": "A vocabulary-matching display supports this task: The prefix re- helps show that reread means what? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: The prefix re- helps show that reread means what? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "The prefix re- helps show that reread means what? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: read before others, read again, not read."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q02",
@@ -1440,15 +1486,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "without care",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “What does the suffix -less mean in careless?” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “without care” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "The suffix -less means without.",
+          "explanation": "The suffix -less means without. This works because the learner can connect the response “without care” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What does the suffix -less mean in careless?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What does the suffix -less mean in careless? Choices: without care, full of care, able to care.",
+            "text": "What does the suffix -less mean in careless? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: full of care, able to care, without care.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1468,22 +1514,26 @@
           },
           "audio_required": false,
           "choices": [
-            "without care",
             "full of care",
-            "able to care"
+            "able to care",
+            "without care"
           ],
           "pairs": [
             {
               "left": "-less",
-              "right": "without",
-              "relation": "suffix meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "careless",
-              "right": "without care",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "without care",
+          "visual_description": "A vocabulary-matching display supports this task: What does the suffix -less mean in careless? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: What does the suffix -less mean in careless? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What does the suffix -less mean in careless? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: full of care, able to care, without care."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q03",
@@ -1493,15 +1543,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "able to be carried",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Use the root port, meaning carry, to explain portable.” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “able to be carried” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Port means carry, so portable means able to be carried.",
+          "explanation": "Port means carry, so portable means able to be carried. This works because the learner can connect the response “able to be carried” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Use the root port, meaning carry, to explain portable.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Use the root port, meaning carry, to explain portable.",
+            "text": "Use the root port, meaning carry, to explain portable. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1523,20 +1573,24 @@
           "pairs": [
             {
               "left": "port",
-              "right": "carry",
-              "relation": "root meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "portable",
-              "right": "able to be carried",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "able to be carried",
             "can be carried",
             "easy to carry"
-          ]
+          ],
+          "answer": "able to be carried",
+          "visual_description": "A vocabulary-matching display supports this task: Use the root port, meaning carry, to explain portable. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Use the root port, meaning carry, to explain portable. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Use the root port, meaning carry, to explain portable. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q04",
@@ -1546,15 +1600,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "hopeful",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which word means full of hope?” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “hopeful” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "The suffix -ful means full of.",
+          "explanation": "The suffix -ful means full of. This works because the learner can connect the response “hopeful” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word means full of hope?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which word means full of hope? Choices: hopeful, hopeless, rehoped.",
+            "text": "Which word means full of hope? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: hopeful, hopeless, rehoped.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1581,15 +1635,19 @@
           "pairs": [
             {
               "left": "-ful",
-              "right": "full of",
-              "relation": "suffix meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "hopeful",
-              "right": "full of hope",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "hopeful",
+          "visual_description": "A vocabulary-matching display supports this task: Which word means full of hope? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Which word means full of hope? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word means full of hope? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: hopeful, hopeless, rehoped."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q05",
@@ -1599,15 +1657,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "pre- = before; bio = life; visible = able to be seen",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Match each word part or word to its meaning.” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this vocabulary match response.",
+            "Verify: Reread the prompt with your response and confirm that “pre- = before; bio = life; visible = able to be seen” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "The matches use common Grade 5 prefixes, roots, and suffixes.",
+          "explanation": "The matches use common Grade 5 prefixes, roots, and suffixes. This works because the learner can connect the response “pre- = before; bio = life; visible = able to be seen” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Match each word part or word to its meaning.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Match each word part or word to its meaning.",
+            "text": "Match each word part or word to its meaning. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1629,24 +1687,28 @@
           "pairs": [
             {
               "left": "pre-",
-              "right": "before",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "bio",
-              "right": "life",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "visible",
-              "right": "able to be seen",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "pre- = before; bio = life; visible = able to be seen",
             "pre-before, bio-life, visible-able to be seen"
-          ]
+          ],
+          "answer": "pre- = before; bio = life; visible = able to be seen",
+          "visual_description": "A vocabulary-matching display supports this task: Match each word part or word to its meaning. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Match each word part or word to its meaning. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Match each word part or word to its meaning. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q06",
@@ -1656,15 +1718,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "a statement about what may happen",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “The word prediction uses the root dict, meaning say. What is a prediction?” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “a statement about what may happen” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "A prediction is something said about what may happen.",
+          "explanation": "A prediction is something said about what may happen. This works because the learner can connect the response “a statement about what may happen” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “The word prediction uses the root dict, meaning say. What is a prediction?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "The word prediction uses the root dict, meaning say. What is a prediction? Choices: a statement about what may happen, a drawing of a word, a number sentence.",
+            "text": "The word prediction uses the root dict, meaning say. What is a prediction? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: a drawing of a word, a statement about what may happen, a number sentence.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1684,22 +1746,26 @@
           },
           "audio_required": false,
           "choices": [
-            "a statement about what may happen",
             "a drawing of a word",
+            "a statement about what may happen",
             "a number sentence"
           ],
           "pairs": [
             {
               "left": "dict",
-              "right": "say",
-              "relation": "root meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "prediction",
-              "right": "statement about what may happen",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "a statement about what may happen",
+          "visual_description": "A vocabulary-matching display supports this task: The word prediction uses the root dict, meaning say. What is a prediction? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: The word prediction uses the root dict, meaning say. What is a prediction? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "The word prediction uses the root dict, meaning say. What is a prediction? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: a drawing of a word, a statement about what may happen, a number sentence."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q07",
@@ -1709,15 +1775,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "incorrect",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which word has a prefix meaning not?” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “incorrect” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "In- can mean not, as in incorrect.",
+          "explanation": "In- can mean not, as in incorrect. This works because the learner can connect the response “incorrect” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word has a prefix meaning not?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which word has a prefix meaning not? Choices: incorrect, preview, transport.",
+            "text": "Which word has a prefix meaning not? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: preview, transport, incorrect.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1737,22 +1803,26 @@
           },
           "audio_required": false,
           "choices": [
-            "incorrect",
             "preview",
-            "transport"
+            "transport",
+            "incorrect"
           ],
           "pairs": [
             {
               "left": "in-",
-              "right": "not",
-              "relation": "prefix meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "incorrect",
-              "right": "not correct",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "incorrect",
+          "visual_description": "A vocabulary-matching display supports this task: Which word has a prefix meaning not? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Which word has a prefix meaning not? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word has a prefix meaning not? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: preview, transport, incorrect."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q08",
@@ -1762,15 +1832,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "write or record",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “What does the root graph mean in autograph, photograph, and paragraph?” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “write or record” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Graph means write or record.",
+          "explanation": "Graph means write or record. This works because the learner can connect the response “write or record” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What does the root graph mean in autograph, photograph, and paragraph?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What does the root graph mean in autograph, photograph, and paragraph? Choices: write or record, water, small.",
+            "text": "What does the root graph mean in autograph, photograph, and paragraph? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: write or record, water, small.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1797,15 +1867,19 @@
           "pairs": [
             {
               "left": "graph",
-              "right": "write or record",
-              "relation": "root meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "autograph",
-              "right": "a person\u2019s written signature",
-              "relation": "example"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "write or record",
+          "visual_description": "A vocabulary-matching display supports this task: What does the root graph mean in autograph, photograph, and paragraph? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: What does the root graph mean in autograph, photograph, and paragraph? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What does the root graph mean in autograph, photograph, and paragraph? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: write or record, water, small."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q09",
@@ -1815,15 +1889,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "understand wrongly",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Write the meaning of misunderstand using the prefix mis-.” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “understand wrongly” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Mis- means wrongly or badly.",
+          "explanation": "Mis- means wrongly or badly. This works because the learner can connect the response “understand wrongly” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Write the meaning of misunderstand using the prefix mis-.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Write the meaning of misunderstand using the prefix mis-.",
+            "text": "Write the meaning of misunderstand using the prefix mis-. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1845,20 +1919,24 @@
           "pairs": [
             {
               "left": "mis-",
-              "right": "wrongly",
-              "relation": "prefix meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "misunderstand",
-              "right": "understand wrongly",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "understand wrongly",
             "understand incorrectly",
             "get the wrong idea"
-          ]
+          ],
+          "answer": "understand wrongly",
+          "visual_description": "A vocabulary-matching display supports this task: Write the meaning of misunderstand using the prefix mis-. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Write the meaning of misunderstand using the prefix mis-. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Write the meaning of misunderstand using the prefix mis-. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL2_Q10",
@@ -1868,15 +1946,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "spectator",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which word belongs in the same word family as inspect?” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “spectator” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Spectator shares the root spect, meaning look.",
+          "explanation": "Spectator shares the root spect, meaning look. This works because the learner can connect the response “spectator” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word belongs in the same word family as inspect?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which word belongs in the same word family as inspect? Choices: spectator, portable, rewrite.",
+            "text": "Which word belongs in the same word family as inspect? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: portable, spectator, rewrite.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1896,22 +1974,26 @@
           },
           "audio_required": false,
           "choices": [
-            "spectator",
             "portable",
+            "spectator",
             "rewrite"
           ],
           "pairs": [
             {
               "left": "spect",
-              "right": "look",
-              "relation": "root meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "inspect",
-              "right": "look into carefully",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "spectator",
+          "visual_description": "A vocabulary-matching display supports this task: Which word belongs in the same word family as inspect? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Which word belongs in the same word family as inspect? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word belongs in the same word family as inspect? The visual is a vocabulary-matching display with the language evidence described in the question. Choices: portable, spectator, rewrite."
         }
       ]
     },
@@ -1931,15 +2013,15 @@
           "support_type": "word_scale",
           "correct_answer": "huge",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which synonym best replaces enormous in \"The enormous boulder blocked the trail\"?” and study its word scale.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “huge” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Enormous means very large, so huge is the best synonym.",
+          "explanation": "Enormous means very large, so huge is the best synonym. This works because the learner can connect the response “huge” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which synonym best replaces enormous in \"The enormous boulder blocked the trail\"?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which synonym best replaces enormous in \"The enormous boulder blocked the trail\"? Choices: huge, tiny, ordinary.",
+            "text": "Which synonym best replaces enormous in \"The enormous boulder blocked the trail\"? The visual is a word-intensity scale with the language evidence described in the question. Choices: tiny, ordinary, huge.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1959,9 +2041,9 @@
           },
           "audio_required": false,
           "choices": [
-            "huge",
             "tiny",
-            "ordinary"
+            "ordinary",
+            "huge"
           ],
           "scale_words": [
             "tiny",
@@ -1969,7 +2051,11 @@
             "large",
             "huge"
           ],
-          "target_word": "huge"
+          "target_word": "tiny",
+          "answer": "huge",
+          "visual_description": "A word-intensity scale supports this task: Which synonym best replaces enormous in \"The enormous boulder blocked the trail\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A word-intensity scale supports this task: Which synonym best replaces enormous in \"The enormous boulder blocked the trail\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which synonym best replaces enormous in \"The enormous boulder blocked the trail\"? The visual is a word-intensity scale with the language evidence described in the question. Choices: tiny, ordinary, huge."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q02",
@@ -1979,15 +2065,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "selfish",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Choose the antonym of generous.” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “selfish” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Generous means willing to give; selfish is the opposite.",
+          "explanation": "Generous means willing to give; selfish is the opposite. This works because the learner can connect the response “selfish” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Choose the antonym of generous.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Choose the antonym of generous. Choices: selfish, kind, giving.",
+            "text": "Choose the antonym of generous. The visual is a vocabulary-matching display with the language evidence described in the question. Choices: selfish, kind, giving.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2014,10 +2100,14 @@
           "pairs": [
             {
               "left": "generous",
-              "right": "selfish",
-              "relation": "antonym"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "selfish",
+          "visual_description": "A vocabulary-matching display supports this task: Choose the antonym of generous. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Choose the antonym of generous. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Choose the antonym of generous. The visual is a vocabulary-matching display with the language evidence described in the question. Choices: selfish, kind, giving."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q03",
@@ -2027,15 +2117,15 @@
           "support_type": "word_scale",
           "correct_answer": "furious",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which word has the strongest shade of meaning?” and study its word scale.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “furious” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Furious is stronger than angry, upset, or annoyed.",
+          "explanation": "Furious is stronger than angry, upset, or annoyed. This works because the learner can connect the response “furious” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word has the strongest shade of meaning?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which word has the strongest shade of meaning? Choices: furious, annoyed, upset.",
+            "text": "Which word has the strongest shade of meaning? The visual is a word-intensity scale with the language evidence described in the question. Choices: annoyed, furious, upset.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2055,8 +2145,8 @@
           },
           "audio_required": false,
           "choices": [
-            "furious",
             "annoyed",
+            "furious",
             "upset"
           ],
           "scale_words": [
@@ -2065,7 +2155,11 @@
             "angry",
             "furious"
           ],
-          "target_word": "furious"
+          "target_word": "annoyed",
+          "answer": "furious",
+          "visual_description": "A word-intensity scale supports this task: Which word has the strongest shade of meaning? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A word-intensity scale supports this task: Which word has the strongest shade of meaning? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word has the strongest shade of meaning? The visual is a word-intensity scale with the language evidence described in the question. Choices: annoyed, furious, upset."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q04",
@@ -2075,15 +2169,15 @@
           "support_type": "word_scale",
           "correct_answer": "jog",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Write a milder synonym for sprint.” and study its word scale.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “jog” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Jog or trot is less intense than sprint.",
+          "explanation": "Jog or trot is less intense than sprint. This works because the learner can connect the response “jog” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Write a milder synonym for sprint.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Write a milder synonym for sprint.",
+            "text": "Write a milder synonym for sprint. The visual is a word-intensity scale with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2113,7 +2207,11 @@
             "run",
             "sprint"
           ],
-          "target_word": "jog"
+          "target_word": "walk",
+          "answer": "jog",
+          "visual_description": "A word-intensity scale supports this task: Write a milder synonym for sprint. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A word-intensity scale supports this task: Write a milder synonym for sprint. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Write a milder synonym for sprint. The visual is a word-intensity scale with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q05",
@@ -2121,17 +2219,17 @@
           "question_type": "vocabulary_match",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "ancient = old; narrow \u2260 wide; whisper is quieter than shout",
+          "correct_answer": "ancient = old; narrow ≠ wide; whisper is quieter than shout",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Match each word to its relationship.” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this vocabulary match response.",
+            "Verify: Reread the prompt with your response and confirm that “ancient = old; narrow ≠ wide; whisper is quieter than shout” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "The matches show synonym, antonym, and shade relationships.",
+          "explanation": "The matches show synonym, antonym, and shade relationships. This works because the learner can connect the response “ancient = old; narrow ≠ wide; whisper is quieter than shout” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Match each word to its relationship.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Match each word to its relationship.",
+            "text": "Match each word to its relationship. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2153,24 +2251,28 @@
           "pairs": [
             {
               "left": "ancient",
-              "right": "old",
-              "relation": "synonym"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "narrow",
-              "right": "wide",
-              "relation": "antonym"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "whisper",
-              "right": "quieter than shout",
-              "relation": "shade"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "ancient = old; narrow = opposite of wide; whisper = quieter than shout",
             "ancient-old, narrow-wide antonym, whisper-quieter"
-          ]
+          ],
+          "answer": "ancient = old; narrow ≠ wide; whisper is quieter than shout",
+          "visual_description": "A vocabulary-matching display supports this task: Match each word to its relationship. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Match each word to its relationship. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Match each word to its relationship. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q06",
@@ -2180,15 +2282,15 @@
           "support_type": "word_scale",
           "correct_answer": "downpour",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which word best completes the scale from weakest to strongest: drizzle, rain, downpour?” and study its word scale.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “downpour” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Downpour is the strongest amount of rain.",
+          "explanation": "Downpour is the strongest amount of rain. This works because the learner can connect the response “downpour” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word best completes the scale from weakest to strongest: drizzle, rain, downpour?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which word best completes the scale from weakest to strongest: drizzle, rain, downpour? Choices: downpour, mist, sprinkle.",
+            "text": "Which word best completes the scale from weakest to strongest: drizzle, rain, downpour? The visual is a word-intensity scale with the language evidence described in the question. Choices: mist, sprinkle, downpour.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2208,9 +2310,9 @@
           },
           "audio_required": false,
           "choices": [
-            "downpour",
             "mist",
-            "sprinkle"
+            "sprinkle",
+            "downpour"
           ],
           "scale_words": [
             "mist",
@@ -2218,7 +2320,11 @@
             "rain",
             "downpour"
           ],
-          "target_word": "downpour"
+          "target_word": "mist",
+          "answer": "downpour",
+          "visual_description": "A word-intensity scale supports this task: Which word best completes the scale from weakest to strongest: drizzle, rain, downpour? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A word-intensity scale supports this task: Which word best completes the scale from weakest to strongest: drizzle, rain, downpour? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word best completes the scale from weakest to strongest: drizzle, rain, downpour? The visual is a word-intensity scale with the language evidence described in the question. Choices: mist, sprinkle, downpour."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q07",
@@ -2228,15 +2334,15 @@
           "support_type": "word_scale",
           "correct_answer": "glance",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which word precisely means to look quickly?” and study its word scale.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “glance” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Glance means to look quickly.",
+          "explanation": "Glance means to look quickly. This works because the learner can connect the response “glance” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word precisely means to look quickly?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which word precisely means to look quickly? Choices: glance, stare, study.",
+            "text": "Which word precisely means to look quickly? The visual is a word-intensity scale with the language evidence described in the question. Choices: glance, stare, study.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2266,7 +2372,11 @@
             "study",
             "stare"
           ],
-          "target_word": "glance"
+          "target_word": "glance",
+          "answer": "glance",
+          "visual_description": "A word-intensity scale supports this task: Which word precisely means to look quickly? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A word-intensity scale supports this task: Which word precisely means to look quickly? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word precisely means to look quickly? The visual is a word-intensity scale with the language evidence described in the question. Choices: glance, stare, study."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q08",
@@ -2276,15 +2386,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "shrink",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Choose the antonym of expand.” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “shrink” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Expand means grow larger; shrink means grow smaller.",
+          "explanation": "Expand means grow larger; shrink means grow smaller. This works because the learner can connect the response “shrink” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Choose the antonym of expand.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Choose the antonym of expand. Choices: shrink, increase, stretch.",
+            "text": "Choose the antonym of expand. The visual is a vocabulary-matching display with the language evidence described in the question. Choices: increase, shrink, stretch.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2304,17 +2414,21 @@
           },
           "audio_required": false,
           "choices": [
-            "shrink",
             "increase",
+            "shrink",
             "stretch"
           ],
           "pairs": [
             {
               "left": "expand",
-              "right": "shrink",
-              "relation": "antonym"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
-          ]
+          ],
+          "answer": "shrink",
+          "visual_description": "A vocabulary-matching display supports this task: Choose the antonym of expand. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Choose the antonym of expand. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Choose the antonym of expand. The visual is a vocabulary-matching display with the language evidence described in the question. Choices: increase, shrink, stretch."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q09",
@@ -2324,15 +2438,15 @@
           "support_type": "word_scale",
           "correct_answer": "exhausted",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Write the strongest word for very tired: sleepy, tired, exhausted.” and study its word scale.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “exhausted” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Exhausted is the strongest shade for very tired.",
+          "explanation": "Exhausted is the strongest shade for very tired. This works because the learner can connect the response “exhausted” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Write the strongest word for very tired: sleepy, tired, exhausted.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Write the strongest word for very tired: sleepy, tired, exhausted.",
+            "text": "Write the strongest word for very tired: sleepy, tired, exhausted. The visual is a word-intensity scale with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2361,7 +2475,11 @@
             "weary",
             "exhausted"
           ],
-          "target_word": "exhausted"
+          "target_word": "sleepy",
+          "answer": "exhausted",
+          "visual_description": "A word-intensity scale supports this task: Write the strongest word for very tired: sleepy, tired, exhausted. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A word-intensity scale supports this task: Write the strongest word for very tired: sleepy, tired, exhausted. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Write the strongest word for very tired: sleepy, tired, exhausted. The visual is a word-intensity scale with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL3_Q10",
@@ -2371,15 +2489,15 @@
           "support_type": "word_scale",
           "correct_answer": "child",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which word best fits a respectful formal report: kid, child, youngster?” and study its word scale.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “child” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Child is the most formal and precise choice for a report.",
+          "explanation": "Child is the most formal and precise choice for a report. This works because the learner can connect the response “child” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word best fits a respectful formal report: kid, child, youngster?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which word best fits a respectful formal report: kid, child, youngster? Choices: child, kid, youngster.",
+            "text": "Which word best fits a respectful formal report: kid, child, youngster? The visual is a word-intensity scale with the language evidence described in the question. Choices: kid, youngster, child.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2399,16 +2517,20 @@
           },
           "audio_required": false,
           "choices": [
-            "child",
             "kid",
-            "youngster"
+            "youngster",
+            "child"
           ],
           "scale_words": [
             "kid",
             "youngster",
             "child"
           ],
-          "target_word": "child"
+          "target_word": "kid",
+          "answer": "child",
+          "visual_description": "A word-intensity scale supports this task: Which word best fits a respectful formal report: kid, child, youngster? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A word-intensity scale supports this task: Which word best fits a respectful formal report: kid, child, youngster? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word best fits a respectful formal report: kid, child, youngster? The visual is a word-intensity scale with the language evidence described in the question. Choices: kid, youngster, child."
         }
       ]
     },
@@ -2428,15 +2550,15 @@
           "support_type": "figurative_language_card",
           "correct_answer": "study",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books fo…” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “study” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "literal_vs_figurative_confusion",
-          "explanation": "The test context shows hit the books means study.",
+          "explanation": "The test context shows hit the books means study. This works because the learner can connect the response “study” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" Choices: study, strike a stack of books, buy new notebooks.",
+            "text": "What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" The visual is a figurative-language card with the language evidence described in the question. Choices: study, strike a stack of books, buy new notebooks.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2464,7 +2586,11 @@
           "figurative_type": "idiom",
           "literal_meaning": "strike books",
           "figurative_meaning": "study",
-          "context": "for her science test"
+          "context": "for her science test",
+          "answer": "study",
+          "visual_description": "A figurative-language card supports this task: What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" The visual is a figurative-language card with the language evidence described in the question. Choices: study, strike a stack of books, buy new notebooks."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q02",
@@ -2474,15 +2600,15 @@
           "support_type": "figurative_language_card",
           "correct_answer": "busy and active",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “The sentence says, \"The classroom was a beehive of activity.\" What does the metaphor mean?” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “busy and active” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "literal_vs_figurative_confusion",
-          "explanation": "A beehive suggests many parts moving busily.",
+          "explanation": "A beehive suggests many parts moving busily. This works because the learner can connect the response “busy and active” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “The sentence says, \"The classroom was a beehive of activity.\" What does the metaphor mean?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "The sentence says, \"The classroom was a beehive of activity.\" What does the metaphor mean? Choices: busy and active, full of insects, silent and empty.",
+            "text": "The sentence says, \"The classroom was a beehive of activity.\" What does the metaphor mean? The visual is a figurative-language card with the language evidence described in the question. Choices: full of insects, busy and active, silent and empty.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2502,14 +2628,18 @@
           },
           "audio_required": false,
           "choices": [
-            "busy and active",
             "full of insects",
+            "busy and active",
             "silent and empty"
           ],
           "phrase": "The classroom was a beehive of activity.",
           "figurative_type": "metaphor",
           "literal_meaning": "a place where bees live",
-          "figurative_meaning": "busy and active"
+          "figurative_meaning": "busy and active",
+          "answer": "busy and active",
+          "visual_description": "A figurative-language card supports this task: The sentence says, \"The classroom was a beehive of activity.\" What does the metaphor mean? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: The sentence says, \"The classroom was a beehive of activity.\" What does the metaphor mean? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "The sentence says, \"The classroom was a beehive of activity.\" What does the metaphor mean? The visual is a figurative-language card with the language evidence described in the question. Choices: full of insects, busy and active, silent and empty."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q03",
@@ -2519,15 +2649,15 @@
           "support_type": "figurative_language_card",
           "correct_answer": "a job is easier when people help",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Write the meaning of the proverb \"Many hands make light work.\"” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “a job is easier when people help” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "adage_proverb_confusion",
-          "explanation": "The proverb teaches that teamwork makes a task easier.",
+          "explanation": "The proverb teaches that teamwork makes a task easier. This works because the learner can connect the response “a job is easier when people help” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Write the meaning of the proverb \"Many hands make light work.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Write the meaning of the proverb \"Many hands make light work.\"",
+            "text": "Write the meaning of the proverb \"Many hands make light work.\" The visual is a figurative-language card with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2554,7 +2684,11 @@
           "phrase": "Many hands make light work.",
           "figurative_type": "proverb",
           "literal_meaning": "many hands change weight",
-          "figurative_meaning": "work is easier when people help"
+          "figurative_meaning": "work is easier when people help",
+          "answer": "a job is easier when people help",
+          "visual_description": "A figurative-language card supports this task: Write the meaning of the proverb \"Many hands make light work.\" It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: Write the meaning of the proverb \"Many hands make light work.\" It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Write the meaning of the proverb \"Many hands make light work.\" The visual is a figurative-language card with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q04",
@@ -2564,15 +2698,15 @@
           "support_type": "figurative_language_card",
           "correct_answer": "Think carefully before acting.",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which sentence explains the adage \"Look before you leap\"?” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “Think carefully before acting.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "adage_proverb_confusion",
-          "explanation": "The adage advises planning before action.",
+          "explanation": "The adage advises planning before action. This works because the learner can connect the response “Think carefully before acting.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which sentence explains the adage \"Look before you leap\"?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which sentence explains the adage \"Look before you leap\"? Choices: Think carefully before acting., Jump as far as you can., Watch someone else jump..",
+            "text": "Which sentence explains the adage \"Look before you leap\"? The visual is a figurative-language card with the language evidence described in the question. Choices: Jump as far as you can., Watch someone else jump., Think carefully before acting..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2592,14 +2726,18 @@
           },
           "audio_required": false,
           "choices": [
-            "Think carefully before acting.",
             "Jump as far as you can.",
-            "Watch someone else jump."
+            "Watch someone else jump.",
+            "Think carefully before acting."
           ],
           "phrase": "Look before you leap.",
           "figurative_type": "adage",
           "literal_meaning": "look before jumping",
-          "figurative_meaning": "think carefully before acting"
+          "figurative_meaning": "think carefully before acting",
+          "answer": "Think carefully before acting.",
+          "visual_description": "A figurative-language card supports this task: Which sentence explains the adage \"Look before you leap\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: Which sentence explains the adage \"Look before you leap\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which sentence explains the adage \"Look before you leap\"? The visual is a figurative-language card with the language evidence described in the question. Choices: Jump as far as you can., Watch someone else jump., Think carefully before acting.."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q05",
@@ -2609,15 +2747,15 @@
           "support_type": "vocabulary_match",
           "correct_answer": "under the weather = sick; piece of cake = easy; time flies = time passes quickly",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Match each figurative phrase to its meaning.” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this vocabulary match response.",
+            "Verify: Reread the prompt with your response and confirm that “under the weather = sick; piece of cake = easy; time flies = time passes quickly” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "literal_vs_figurative_confusion",
-          "explanation": "Each phrase has a figurative meaning different from its literal words.",
+          "explanation": "Each phrase has a figurative meaning different from its literal words. This works because the learner can connect the response “under the weather = sick; piece of cake = easy; time flies = time passes quickly” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Match each figurative phrase to its meaning.” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Match each figurative phrase to its meaning.",
+            "text": "Match each figurative phrase to its meaning. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2639,24 +2777,28 @@
           "pairs": [
             {
               "left": "under the weather",
-              "right": "sick",
-              "relation": "idiom means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "piece of cake",
-              "right": "easy",
-              "relation": "idiom means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "time flies",
-              "right": "time passes quickly",
-              "relation": "idiom means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "under the weather = sick; piece of cake = easy; time flies = time passes quickly",
             "under weather-sick, piece of cake-easy, time flies-time passes quickly"
-          ]
+          ],
+          "answer": "under the weather = sick; piece of cake = easy; time flies = time passes quickly",
+          "visual_description": "A vocabulary-matching display supports this task: Match each figurative phrase to its meaning. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: Match each figurative phrase to its meaning. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Match each figurative phrase to its meaning. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q06",
@@ -2666,15 +2808,15 @@
           "support_type": "figurative_language_card",
           "correct_answer": "very quickly",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “What does the simile mean? \"The runner moved like lightning down the final stretch.\"” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “very quickly” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "literal_vs_figurative_confusion",
-          "explanation": "Lightning suggests great speed.",
+          "explanation": "Lightning suggests great speed. This works because the learner can connect the response “very quickly” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What does the simile mean? \"The runner moved like lightning down the final stretch.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What does the simile mean? \"The runner moved like lightning down the final stretch.\" Choices: very quickly, during a storm, in a zigzag only.",
+            "text": "What does the simile mean? \"The runner moved like lightning down the final stretch.\" The visual is a figurative-language card with the language evidence described in the question. Choices: very quickly, during a storm, in a zigzag only.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2701,7 +2843,11 @@
           "phrase": "like lightning",
           "figurative_type": "simile",
           "literal_meaning": "similar to lightning",
-          "figurative_meaning": "very quickly"
+          "figurative_meaning": "very quickly",
+          "answer": "very quickly",
+          "visual_description": "A figurative-language card supports this task: What does the simile mean? \"The runner moved like lightning down the final stretch.\" It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: What does the simile mean? \"The runner moved like lightning down the final stretch.\" It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What does the simile mean? \"The runner moved like lightning down the final stretch.\" The visual is a figurative-language card with the language evidence described in the question. Choices: very quickly, during a storm, in a zigzag only."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q07",
@@ -2711,15 +2857,15 @@
           "support_type": "figurative_language_card",
           "correct_answer": "Practice makes perfect.",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which is an adage or proverb rather than a simple description?” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “Practice makes perfect.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "adage_proverb_confusion",
-          "explanation": "It is a short saying that teaches a general lesson.",
+          "explanation": "It is a short saying that teaches a general lesson. This works because the learner can connect the response “Practice makes perfect.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which is an adage or proverb rather than a simple description?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which is an adage or proverb rather than a simple description? Choices: Practice makes perfect., The blue notebook is open., The bell rang at noon..",
+            "text": "Which is an adage or proverb rather than a simple description? The visual is a figurative-language card with the language evidence described in the question. Choices: The blue notebook is open., Practice makes perfect., The bell rang at noon..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2739,14 +2885,18 @@
           },
           "audio_required": false,
           "choices": [
-            "Practice makes perfect.",
             "The blue notebook is open.",
+            "Practice makes perfect.",
             "The bell rang at noon."
           ],
           "phrase": "Practice makes perfect.",
           "figurative_type": "adage/proverb",
           "literal_meaning": "practice creates perfection",
-          "figurative_meaning": "regular practice improves skill"
+          "figurative_meaning": "regular practice improves skill",
+          "answer": "Practice makes perfect.",
+          "visual_description": "A figurative-language card supports this task: Which is an adage or proverb rather than a simple description? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: Which is an adage or proverb rather than a simple description? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which is an adage or proverb rather than a simple description? The visual is a figurative-language card with the language evidence described in the question. Choices: The blue notebook is open., Practice makes perfect., The bell rang at noon.."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q08",
@@ -2756,15 +2906,15 @@
           "support_type": "figurative_language_card",
           "correct_answer": "reveal a secret",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “What does \"spill the beans\" mean in this sentence? \"I almost spilled the beans about the surprise party.\"” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “reveal a secret” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "literal_vs_figurative_confusion",
-          "explanation": "A surprise party is a secret, so spilling the beans means revealing it.",
+          "explanation": "A surprise party is a secret, so spilling the beans means revealing it. This works because the learner can connect the response “reveal a secret” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What does \"spill the beans\" mean in this sentence? \"I almost spilled the beans about the surprise party.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What does \"spill the beans\" mean in this sentence? \"I almost spilled the beans about the surprise party.\" Choices: reveal a secret, drop food on the floor, cook dinner.",
+            "text": "What does \"spill the beans\" mean in this sentence? \"I almost spilled the beans about the surprise party.\" The visual is a figurative-language card with the language evidence described in the question. Choices: drop food on the floor, cook dinner, reveal a secret.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2784,15 +2934,19 @@
           },
           "audio_required": false,
           "choices": [
-            "reveal a secret",
             "drop food on the floor",
-            "cook dinner"
+            "cook dinner",
+            "reveal a secret"
           ],
           "phrase": "spill the beans",
           "figurative_type": "idiom",
           "literal_meaning": "knock beans out of a container",
           "figurative_meaning": "reveal a secret",
-          "context": "about the surprise party"
+          "context": "about the surprise party",
+          "answer": "reveal a secret",
+          "visual_description": "A figurative-language card supports this task: What does \"spill the beans\" mean in this sentence? \"I almost spilled the beans about the surprise party.\" It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: What does \"spill the beans\" mean in this sentence? \"I almost spilled the beans about the surprise party.\" It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What does \"spill the beans\" mean in this sentence? \"I almost spilled the beans about the surprise party.\" The visual is a figurative-language card with the language evidence described in the question. Choices: drop food on the floor, cook dinner, reveal a secret."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q09",
@@ -2802,15 +2956,15 @@
           "support_type": "figurative_language_card",
           "correct_answer": "her idea made me start thinking",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Write what the metaphor means: \"Her idea planted a seed in my mind.\"” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “her idea made me start thinking” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "literal_vs_figurative_confusion",
-          "explanation": "The metaphor compares a new thought to a seed beginning to grow.",
+          "explanation": "The metaphor compares a new thought to a seed beginning to grow. This works because the learner can connect the response “her idea made me start thinking” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Write what the metaphor means: \"Her idea planted a seed in my mind.\"” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Write what the metaphor means: \"Her idea planted a seed in my mind.\"",
+            "text": "Write what the metaphor means: \"Her idea planted a seed in my mind.\" The visual is a figurative-language card with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2837,25 +2991,29 @@
           "phrase": "planted a seed in my mind",
           "figurative_type": "metaphor",
           "literal_meaning": "put a seed in soil",
-          "figurative_meaning": "started a thought or idea"
+          "figurative_meaning": "started a thought or idea",
+          "answer": "her idea made me start thinking",
+          "visual_description": "A figurative-language card supports this task: Write what the metaphor means: \"Her idea planted a seed in my mind.\" It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: Write what the metaphor means: \"Her idea planted a seed in my mind.\" It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Write what the metaphor means: \"Her idea planted a seed in my mind.\" The visual is a figurative-language card with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_LVL4_Q10",
-          "prompt": "Which meaning fits the proverb \"Don\u2019t count your chickens before they hatch\"?",
+          "prompt": "Which meaning fits the proverb \"Don’t count your chickens before they hatch\"?",
           "question_type": "multiple_choice",
           "visual_model": "figurative_language_card",
           "support_type": "figurative_language_card",
           "correct_answer": "Do not assume success before it happens.",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Which meaning fits the proverb \"Don’t count your chickens before they hatch\"?” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “Do not assume success before it happens.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "adage_proverb_confusion",
-          "explanation": "The proverb warns against planning as if something is certain before it is.",
+          "explanation": "The proverb warns against planning as if something is certain before it is. This works because the learner can connect the response “Do not assume success before it happens.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which meaning fits the proverb \"Don’t count your chickens before they hatch\"?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which meaning fits the proverb \"Don\u2019t count your chickens before they hatch\"? Choices: Do not assume success before it happens., Count animals carefully., Eggs always hatch at the same time..",
+            "text": "Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? The visual is a figurative-language card with the language evidence described in the question. Choices: Do not assume success before it happens., Count animals carefully., Eggs always hatch at the same time..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2864,7 +3022,7 @@
             "cached_audio_optional": true
           },
           "audio": {
-            "text": "Don\u2019t count your chickens before they hatch.",
+            "text": "Don’t count your chickens before they hatch.",
             "label": "Listen",
             "type": "sentence",
             "repeat_count": 1,
@@ -2879,10 +3037,14 @@
             "Count animals carefully.",
             "Eggs always hatch at the same time."
           ],
-          "phrase": "Don\u2019t count your chickens before they hatch.",
+          "phrase": "Don’t count your chickens before they hatch.",
           "figurative_type": "proverb",
           "literal_meaning": "count chicks only after eggs hatch",
-          "figurative_meaning": "do not assume success too early"
+          "figurative_meaning": "do not assume success too early",
+          "answer": "Do not assume success before it happens.",
+          "visual_description": "A figurative-language card supports this task: Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? The visual is a figurative-language card with the language evidence described in the question. Choices: Do not assume success before it happens., Count animals carefully., Eggs always hatch at the same time.."
         }
       ]
     },
@@ -2896,21 +3058,21 @@
       "questions": [
         {
           "question_id": "G5E_VOC_001_MIXED_Q01",
-          "prompt": "In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\"",
+          "prompt": "While planning emergency supplies, a team uses a sentence clue. In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\"",
           "question_type": "multiple_choice",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
           "correct_answer": "hard to find",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “While planning emergency supplies, a team uses a sentence clue. In the sentence, what does scarce mean…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “hard to find” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "The drought and saving every drop show that scarce means hard to find.",
+          "explanation": "The drought and saving every drop show that scarce means hard to find. This works because the learner can connect the response “hard to find” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While planning emergency supplies, a team uses a sentence clue. In the sentence, what does scarce mean? \"During the drough…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" Choices: hard to find, easy to waste, brightly colored.",
+            "text": "While planning emergency supplies, a team uses a sentence clue. In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" The visual is a context-sentence display with the language evidence described in the question. Choices: easy to waste, hard to find, brightly colored.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2930,30 +3092,34 @@
           },
           "audio_required": false,
           "choices": [
-            "hard to find",
             "easy to waste",
+            "hard to find",
             "brightly colored"
           ],
           "word": "scarce",
-          "sentence": "During the drought, fresh water was scarce, so families saved every drop."
+          "sentence": "During the drought, fresh water was scarce, so families saved every drop.",
+          "answer": "hard to find",
+          "visual_description": "A context-sentence display supports this task: While planning emergency supplies, a team uses a sentence clue. In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" It presents During the drought, fresh water was scarce, so families saved every drop.; scarce. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: While planning emergency supplies, a team uses a sentence clue. In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" It presents During the drought, fresh water was scarce, so families saved every drop.; scarce. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While planning emergency supplies, a team uses a sentence clue. In the sentence, what does scarce mean? \"During the drought, fresh water was scarce, so families saved every drop.\" The visual is a context-sentence display with the language evidence described in the question. Choices: easy to waste, hard to find, brightly colored."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q02",
-          "prompt": "Use the root port, meaning carry, to explain portable.",
+          "prompt": "While choosing gear for a hiking guide, a student combines a root and suffix. Use the root port, meaning carry, to explain portable.",
           "question_type": "short_response",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
           "correct_answer": "able to be carried",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “While choosing gear for a hiking guide, a student combines a root and suffix. Use the root port, meani…” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “able to be carried” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Port means carry, so portable means able to be carried.",
+          "explanation": "Port means carry, so portable means able to be carried. This works because the learner can connect the response “able to be carried” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While choosing gear for a hiking guide, a student combines a root and suffix. Use the root port, meaning carry, to explain…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Use the root port, meaning carry, to explain portable.",
+            "text": "While choosing gear for a hiking guide, a student combines a root and suffix. Use the root port, meaning carry, to explain portable. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2975,38 +3141,42 @@
           "pairs": [
             {
               "left": "port",
-              "right": "carry",
-              "relation": "root meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "portable",
-              "right": "able to be carried",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "able to be carried",
             "can be carried",
             "easy to carry"
-          ]
+          ],
+          "answer": "able to be carried",
+          "visual_description": "A vocabulary-matching display supports this task: While choosing gear for a hiking guide, a student combines a root and suffix. Use the root port, meaning carry, to explain portable. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: While choosing gear for a hiking guide, a student combines a root and suffix. Use the root port, meaning carry, to explain portable. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While choosing gear for a hiking guide, a student combines a root and suffix. Use the root port, meaning carry, to explain portable. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q03",
-          "prompt": "Which word has the strongest shade of meaning?",
+          "prompt": "While revising a storm report, a student chooses the most intense word. Which word has the strongest shade of meaning?",
           "question_type": "multiple_choice",
           "visual_model": "word_scale",
           "support_type": "word_scale",
           "correct_answer": "furious",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “While revising a storm report, a student chooses the most intense word. Which word has the strongest s…” and study its word scale.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “furious” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "Furious is stronger than angry, upset, or annoyed.",
+          "explanation": "Furious is stronger than angry, upset, or annoyed. This works because the learner can connect the response “furious” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While revising a storm report, a student chooses the most intense word. Which word has the strongest shade of meaning?” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which word has the strongest shade of meaning? Choices: furious, annoyed, upset.",
+            "text": "While revising a storm report, a student chooses the most intense word. Which word has the strongest shade of meaning? The visual is a word-intensity scale with the language evidence described in the question. Choices: annoyed, upset, furious.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3026,9 +3196,9 @@
           },
           "audio_required": false,
           "choices": [
-            "furious",
             "annoyed",
-            "upset"
+            "upset",
+            "furious"
           ],
           "scale_words": [
             "annoyed",
@@ -3036,25 +3206,29 @@
             "angry",
             "furious"
           ],
-          "target_word": "furious"
+          "target_word": "annoyed",
+          "answer": "furious",
+          "visual_description": "A word-intensity scale supports this task: While revising a storm report, a student chooses the most intense word. Which word has the strongest shade of meaning? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A word-intensity scale supports this task: While revising a storm report, a student chooses the most intense word. Which word has the strongest shade of meaning? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While revising a storm report, a student chooses the most intense word. Which word has the strongest shade of meaning? The visual is a word-intensity scale with the language evidence described in the question. Choices: annoyed, upset, furious."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q04",
-          "prompt": "What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\"",
+          "prompt": "While scheduling homework after practice, a student interprets an idiom. What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\"",
           "question_type": "multiple_choice",
           "visual_model": "figurative_language_card",
           "support_type": "figurative_language_card",
           "correct_answer": "study",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “While scheduling homework after practice, a student interprets an idiom. What does the idiom \"hit the…” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “study” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "literal_vs_figurative_confusion",
-          "explanation": "The test context shows hit the books means study.",
+          "explanation": "The test context shows hit the books means study. This works because the learner can connect the response “study” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While scheduling homework after practice, a student interprets an idiom. What does the idiom \"hit the books\" mean in this…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" Choices: study, strike a stack of books, buy new notebooks.",
+            "text": "While scheduling homework after practice, a student interprets an idiom. What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" The visual is a figurative-language card with the language evidence described in the question. Choices: study, strike a stack of books, buy new notebooks.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3082,25 +3256,29 @@
           "figurative_type": "idiom",
           "literal_meaning": "strike books",
           "figurative_meaning": "study",
-          "context": "for her science test"
+          "context": "for her science test",
+          "answer": "study",
+          "visual_description": "A figurative-language card supports this task: While scheduling homework after practice, a student interprets an idiom. What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: While scheduling homework after practice, a student interprets an idiom. What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While scheduling homework after practice, a student interprets an idiom. What does the idiom \"hit the books\" mean in this sentence? \"After soccer, Lena had to hit the books for her science test.\" The visual is a figurative-language card with the language evidence described in the question. Choices: study, strike a stack of books, buy new notebooks."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q05",
-          "prompt": "Match each context word to the meaning shown by its sentence.",
+          "prompt": "While creating museum labels, a student matches three unfamiliar words to contextual meanings. Match each context word to the meaning shown by its sentence.",
           "question_type": "vocabulary_match",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
           "correct_answer": "fragile = easily broken; expand = grow larger; swift = fast",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “While creating museum labels, a student matches three unfamiliar words to contextual meanings. Match e…” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this vocabulary match response.",
+            "Verify: Reread the prompt with your response and confirm that “fragile = easily broken; expand = grow larger; swift = fast” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Each meaning is supported by the action in its sentence.",
+          "explanation": "Each meaning is supported by the action in its sentence. This works because the learner can connect the response “fragile = easily broken; expand = grow larger; swift = fast” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While creating museum labels, a student matches three unfamiliar words to contextual meanings. Match each context word to…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Match each context word to the meaning shown by its sentence.",
+            "text": "While creating museum labels, a student matches three unfamiliar words to contextual meanings. Match each context word to the meaning shown by its sentence. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3122,42 +3300,46 @@
           "pairs": [
             {
               "left": "fragile",
-              "right": "easily broken",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "expand",
-              "right": "grow larger",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "swift",
-              "right": "fast",
-              "relation": "means"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "fragile = easily broken; expand = grow larger; swift = fast",
             "fragile-easily broken, expand-grow larger, swift-fast"
-          ]
+          ],
+          "answer": "fragile = easily broken; expand = grow larger; swift = fast",
+          "visual_description": "A vocabulary-matching display supports this task: While creating museum labels, a student matches three unfamiliar words to contextual meanings. Match each context word to the meaning shown by its sentence. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: While creating museum labels, a student matches three unfamiliar words to contextual meanings. Match each context word to the meaning shown by its sentence. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While creating museum labels, a student matches three unfamiliar words to contextual meanings. Match each context word to the meaning shown by its sentence. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q06",
-          "prompt": "Write the meaning of misunderstand using the prefix mis-.",
+          "prompt": "While resolving confusing directions, a student uses a prefix to explain a misunderstanding. Write the meaning of misunderstand using the prefix mis-.",
           "question_type": "short_response",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
           "correct_answer": "understand wrongly",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “While resolving confusing directions, a student uses a prefix to explain a misunderstanding. Write the…” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “understand wrongly” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Mis- means wrongly or badly.",
+          "explanation": "Mis- means wrongly or badly. This works because the learner can connect the response “understand wrongly” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While resolving confusing directions, a student uses a prefix to explain a misunderstanding. Write the meaning of misunder…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Write the meaning of misunderstand using the prefix mis-.",
+            "text": "While resolving confusing directions, a student uses a prefix to explain a misunderstanding. Write the meaning of misunderstand using the prefix mis-. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3179,38 +3361,42 @@
           "pairs": [
             {
               "left": "mis-",
-              "right": "wrongly",
-              "relation": "prefix meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "misunderstand",
-              "right": "understand wrongly",
-              "relation": "word meaning"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "understand wrongly",
             "understand incorrectly",
             "get the wrong idea"
-          ]
+          ],
+          "answer": "understand wrongly",
+          "visual_description": "A vocabulary-matching display supports this task: While resolving confusing directions, a student uses a prefix to explain a misunderstanding. Write the meaning of misunderstand using the prefix mis-. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: While resolving confusing directions, a student uses a prefix to explain a misunderstanding. Write the meaning of misunderstand using the prefix mis-. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While resolving confusing directions, a student uses a prefix to explain a misunderstanding. Write the meaning of misunderstand using the prefix mis-. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q07",
-          "prompt": "Match each word to its relationship.",
+          "prompt": "While editing a sound-and-history article, a student compares several word relationships. Match each word to its relationship.",
           "question_type": "vocabulary_match",
           "visual_model": "vocabulary_match",
           "support_type": "vocabulary_match",
-          "correct_answer": "ancient = old; narrow \u2260 wide; whisper is quieter than shout",
+          "correct_answer": "ancient = old; narrow ≠ wide; whisper is quieter than shout",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “While editing a sound-and-history article, a student compares several word relationships. Match each w…” and study its vocabulary match.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this vocabulary match response.",
+            "Verify: Reread the prompt with your response and confirm that “ancient = old; narrow ≠ wide; whisper is quieter than shout” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "shade_of_meaning_confusion",
-          "explanation": "The matches show synonym, antonym, and shade relationships.",
+          "explanation": "The matches show synonym, antonym, and shade relationships. This works because the learner can connect the response “ancient = old; narrow ≠ wide; whisper is quieter than shout” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While editing a sound-and-history article, a student compares several word relationships. Match each word to its relations…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Match each word to its relationship.",
+            "text": "While editing a sound-and-history article, a student compares several word relationships. Match each word to its relationship. The visual is a vocabulary-matching display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3232,42 +3418,46 @@
           "pairs": [
             {
               "left": "ancient",
-              "right": "old",
-              "relation": "synonym"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "narrow",
-              "right": "wide",
-              "relation": "antonym"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             },
             {
               "left": "whisper",
-              "right": "quieter than shout",
-              "relation": "shade"
+              "right": "choose its match",
+              "relation": "reason from the prompt"
             }
           ],
           "acceptable_answers": [
             "ancient = old; narrow = opposite of wide; whisper = quieter than shout",
             "ancient-old, narrow-wide antonym, whisper-quieter"
-          ]
+          ],
+          "answer": "ancient = old; narrow ≠ wide; whisper is quieter than shout",
+          "visual_description": "A vocabulary-matching display supports this task: While editing a sound-and-history article, a student compares several word relationships. Match each word to its relationship. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A vocabulary-matching display supports this task: While editing a sound-and-history article, a student compares several word relationships. Match each word to its relationship. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While editing a sound-and-history article, a student compares several word relationships. Match each word to its relationship. The visual is a vocabulary-matching display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q08",
-          "prompt": "Which sentence explains the adage \"Look before you leap\"?",
+          "prompt": "Before testing a model bridge, a team applies familiar wisdom to a new decision. Which sentence explains the adage \"Look before you leap\"?",
           "question_type": "multiple_choice",
           "visual_model": "figurative_language_card",
           "support_type": "figurative_language_card",
           "correct_answer": "Think carefully before acting.",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Before testing a model bridge, a team applies familiar wisdom to a new decision. Which sentence explai…” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “Think carefully before acting.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "adage_proverb_confusion",
-          "explanation": "The adage advises planning before action.",
+          "explanation": "The adage advises planning before action. This works because the learner can connect the response “Think carefully before acting.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Before testing a model bridge, a team applies familiar wisdom to a new decision. Which sentence explains the adage \"Look b…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which sentence explains the adage \"Look before you leap\"? Choices: Think carefully before acting., Jump as far as you can., Watch someone else jump..",
+            "text": "Before testing a model bridge, a team applies familiar wisdom to a new decision. Which sentence explains the adage \"Look before you leap\"? The visual is a figurative-language card with the language evidence described in the question. Choices: Jump as far as you can., Think carefully before acting., Watch someone else jump..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3287,32 +3477,36 @@
           },
           "audio_required": false,
           "choices": [
-            "Think carefully before acting.",
             "Jump as far as you can.",
+            "Think carefully before acting.",
             "Watch someone else jump."
           ],
           "phrase": "Look before you leap.",
           "figurative_type": "adage",
           "literal_meaning": "look before jumping",
-          "figurative_meaning": "think carefully before acting"
+          "figurative_meaning": "think carefully before acting",
+          "answer": "Think carefully before acting.",
+          "visual_description": "A figurative-language card supports this task: Before testing a model bridge, a team applies familiar wisdom to a new decision. Which sentence explains the adage \"Look before you leap\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: Before testing a model bridge, a team applies familiar wisdom to a new decision. Which sentence explains the adage \"Look before you leap\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Before testing a model bridge, a team applies familiar wisdom to a new decision. Which sentence explains the adage \"Look before you leap\"? The visual is a figurative-language card with the language evidence described in the question. Choices: Jump as far as you can., Think carefully before acting., Watch someone else jump.."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q09",
-          "prompt": "Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\"",
+          "prompt": "While following furniture-workshop directions, a student infers a verb from the action. Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\"",
           "question_type": "short_response",
           "visual_model": "context_sentence",
           "support_type": "context_sentence",
           "correct_answer": "put together",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “While following furniture-workshop directions, a student infers a verb from the action. Write a meanin…” and study its context sentence.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “put together” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "context_clue_ignored",
-          "explanation": "Connecting wooden pieces shows assemble means put together.",
+          "explanation": "Connecting wooden pieces shows assemble means put together. This works because the learner can connect the response “put together” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While following furniture-workshop directions, a student infers a verb from the action. Write a meaning for assemble using…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\"",
+            "text": "While following furniture-workshop directions, a student infers a verb from the action. Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\" The visual is a context-sentence display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3338,25 +3532,29 @@
             "join pieces"
           ],
           "word": "assemble",
-          "sentence": "Volunteers will assemble the shelves by connecting the wooden pieces."
+          "sentence": "Volunteers will assemble the shelves by connecting the wooden pieces.",
+          "answer": "put together",
+          "visual_description": "A context-sentence display supports this task: While following furniture-workshop directions, a student infers a verb from the action. Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\" It presents Volunteers will assemble the shelves by connecting the wooden pieces.; assemble. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A context-sentence display supports this task: While following furniture-workshop directions, a student infers a verb from the action. Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\" It presents Volunteers will assemble the shelves by connecting the wooden pieces.; assemble. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While following furniture-workshop directions, a student infers a verb from the action. Write a meaning for assemble using context: \"Volunteers will assemble the shelves by connecting the wooden pieces.\" The visual is a context-sentence display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_VOC_001_MIXED_Q10",
-          "prompt": "Which meaning fits the proverb \"Don\u2019t count your chickens before they hatch\"?",
+          "prompt": "Before announcing the results of a seed experiment, a student interprets a proverb. Which meaning fits the proverb \"Don’t count your chickens before they hatch\"?",
           "question_type": "multiple_choice",
           "visual_model": "figurative_language_card",
           "support_type": "figurative_language_card",
           "correct_answer": "Do not assume success before it happens.",
           "hints": [
-            "Read the full sentence or expression before choosing.",
-            "Look for clue words, word parts, relationships, or the situation.",
-            "Check whether the meaning is literal, figurative, or a stronger/weaker shade."
+            "Focus: Read the exact task “Before announcing the results of a seed experiment, a student interprets a proverb. Which meaning fits…” and study its figurative language card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “Do not assume success before it happens.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "adage_proverb_confusion",
-          "explanation": "The proverb warns against planning as if something is certain before it is.",
+          "explanation": "The proverb warns against planning as if something is certain before it is. This works because the learner can connect the response “Do not assume success before it happens.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Before announcing the results of a seed experiment, a student interprets a proverb. Which meaning fits the proverb \"Don’t…” identifies the exact evidence the learner must use.",
           "feedback": "Good vocabulary thinking. You used context, word parts, relationships, or figurative meaning instead of guessing.",
           "question_audio": {
-            "text": "Which meaning fits the proverb \"Don\u2019t count your chickens before they hatch\"? Choices: Do not assume success before it happens., Count animals carefully., Eggs always hatch at the same time..",
+            "text": "Before announcing the results of a seed experiment, a student interprets a proverb. Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? The visual is a figurative-language card with the language evidence described in the question. Choices: Count animals carefully., Eggs always hatch at the same time., Do not assume success before it happens..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3365,7 +3563,7 @@
             "cached_audio_optional": true
           },
           "audio": {
-            "text": "Don\u2019t count your chickens before they hatch.",
+            "text": "Don’t count your chickens before they hatch.",
             "label": "Listen",
             "type": "sentence",
             "repeat_count": 1,
@@ -3376,14 +3574,18 @@
           },
           "audio_required": false,
           "choices": [
-            "Do not assume success before it happens.",
             "Count animals carefully.",
-            "Eggs always hatch at the same time."
+            "Eggs always hatch at the same time.",
+            "Do not assume success before it happens."
           ],
-          "phrase": "Don\u2019t count your chickens before they hatch.",
+          "phrase": "Don’t count your chickens before they hatch.",
           "figurative_type": "proverb",
           "literal_meaning": "count chicks only after eggs hatch",
-          "figurative_meaning": "do not assume success too early"
+          "figurative_meaning": "do not assume success too early",
+          "answer": "Do not assume success before it happens.",
+          "visual_description": "A figurative-language card supports this task: Before announcing the results of a seed experiment, a student interprets a proverb. Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A figurative-language card supports this task: Before announcing the results of a seed experiment, a student interprets a proverb. Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Before announcing the results of a seed experiment, a student interprets a proverb. Which meaning fits the proverb \"Don’t count your chickens before they hatch\"? The visual is a figurative-language card with the language evidence described in the question. Choices: Count animals carefully., Eggs always hatch at the same time., Do not assume success before it happens.."
         }
       ]
     }

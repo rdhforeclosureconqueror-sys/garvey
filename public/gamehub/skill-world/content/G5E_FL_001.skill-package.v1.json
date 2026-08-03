@@ -19,7 +19,9 @@
       ],
       "audio_contract": "cached AI audio first with browser speech fallback; all audio fields optional",
       "skill_practice_center": true
-    }
+    },
+    "production_status": "publication_certified",
+    "audit_date": "2026-08-03"
   },
   "skill_id": "G5E_FL_001",
   "grade": 5,
@@ -1077,15 +1079,15 @@
           "support_type": "sentence_card",
           "correct_answer": "delicate",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which word must be read exactly as printed in the sentence?” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “delicate” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "The printed word is delicate, so accurate reading keeps that exact word.",
+          "explanation": "The printed word is delicate, so accurate reading keeps that exact word. This works because the learner can connect the response “delicate” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word must be read exactly as printed in the sentence?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which word must be read exactly as printed in the sentence? Choices: delicate, distant, difficult.",
+            "text": "Which word must be read exactly as printed in the sentence? The visual is a sentence card with the language evidence described in the question. Choices: delicate, distant, difficult.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1116,7 +1118,11 @@
             "delicate",
             "distant",
             "difficult"
-          ]
+          ],
+          "answer": "delicate",
+          "visual_description": "A sentence card supports this task: Which word must be read exactly as printed in the sentence? It presents The delicate fern curled tightly during the unexpected frost.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Which word must be read exactly as printed in the sentence? It presents The delicate fern curled tightly during the unexpected frost.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word must be read exactly as printed in the sentence? The visual is a sentence card with the language evidence described in the question. Choices: delicate, distant, difficult."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q02",
@@ -1126,15 +1132,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "not",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which small word changes the meaning if it is skipped?” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “not” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Skipping not reverses the meaning, so it must be read accurately.",
+          "explanation": "Skipping not reverses the meaning, so it must be read accurately. This works because the learner can connect the response “not” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which small word changes the meaning if it is skipped?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which small word changes the meaning if it is skipped? Choices: not, the, river.",
+            "text": "Which small word changes the meaning if it is skipped? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: the, not, river.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1162,10 +1168,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "not",
             "the",
+            "not",
             "river"
-          ]
+          ],
+          "answer": "not",
+          "visual_description": "A sentence-highlighting display supports this task: Which small word changes the meaning if it is skipped? It presents The hikers did not cross the river until the ranger returned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Which small word changes the meaning if it is skipped? It presents The hikers did not cross the river until the ranger returned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which small word changes the meaning if it is skipped? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: the, not, river."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q03",
@@ -1175,15 +1185,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "temperature",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\"…” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “temperature” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "The word temperature is the exact word named in the sentence.",
+          "explanation": "The word temperature is the exact word named in the sentence. This works because the learner can connect the response “temperature” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour.",
+            "text": "Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour. The visual is a sentence-highlighting display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1213,7 +1223,11 @@
           "acceptable_answers": [
             "temperature",
             "the word temperature"
-          ]
+          ],
+          "answer": "temperature",
+          "visual_description": "A sentence-highlighting display supports this task: Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour. It presents The scientist recorded the temperature every hour.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour. It presents The scientist recorded the temperature every hour.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Type the quoted word that shows what the scientist recorded: The scientist recorded the \"temperature\" every hour. The visual is a sentence-highlighting display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q04",
@@ -1223,15 +1237,15 @@
           "support_type": "sentence_card",
           "correct_answer": "proposal",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Complete the sentence with the missing word: The committee reviewed the ___ before voting.” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “proposal” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Accurate reading uses proposal, not a similar-looking word.",
+          "explanation": "Accurate reading uses proposal, not a similar-looking word. This works because the learner can connect the response “proposal” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Complete the sentence with the missing word: The committee reviewed the ___ before voting.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the sentence with the missing word: The committee reviewed the ___ before voting.",
+            "text": "Complete the sentence with the missing word: The committee reviewed the ___ before voting. The visual is a sentence card with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1262,7 +1276,11 @@
             "proposal",
             "the proposal"
           ],
-          "blank_sentence": "The committee reviewed the ___ before voting."
+          "blank_sentence": "The committee reviewed the ___ before voting.",
+          "answer": "proposal",
+          "visual_description": "A sentence card supports this task: Complete the sentence with the missing word: The committee reviewed the ___ before voting. It presents The committee reviewed the proposal before voting.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Complete the sentence with the missing word: The committee reviewed the ___ before voting. It presents The committee reviewed the proposal before voting.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Complete the sentence with the missing word: The committee reviewed the ___ before voting. The visual is a sentence card with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q05",
@@ -1272,15 +1290,15 @@
           "support_type": "sentence_card",
           "correct_answer": "maps",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which word should be read after “ancient” in the sentence?” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “maps” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "The sentence says ancient maps, so maps is the accurate next word.",
+          "explanation": "The sentence says ancient maps, so maps is the accurate next word. This works because the learner can connect the response “maps” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word should be read after “ancient” in the sentence?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which word should be read after “ancient” in the sentence? Choices: maps, marks, masks.",
+            "text": "Which word should be read after “ancient” in the sentence? The visual is a sentence card with the language evidence described in the question. Choices: marks, masks, maps.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1308,10 +1326,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "maps",
             "marks",
-            "masks"
-          ]
+            "masks",
+            "maps"
+          ],
+          "answer": "maps",
+          "visual_description": "A sentence card supports this task: Which word should be read after “ancient” in the sentence? It presents The ancient maps revealed a safer route through the valley.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Which word should be read after “ancient” in the sentence? It presents The ancient maps revealed a safer route through the valley.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word should be read after “ancient” in the sentence? The visual is a sentence card with the language evidence described in the question. Choices: marks, masks, maps."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q06",
@@ -1321,15 +1343,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "solar panels",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which two-word phrase appears exactly in the passage?” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “solar panels” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Solar panels is printed exactly in the sentence.",
+          "explanation": "Solar panels is printed exactly in the sentence. This works because the learner can connect the response “solar panels” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which two-word phrase appears exactly in the passage?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which two-word phrase appears exactly in the passage? Choices: solar panels, silver pencils, silent planets.",
+            "text": "Which two-word phrase appears exactly in the passage? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: solar panels, silver pencils, silent planets.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1360,7 +1382,11 @@
             "solar panels",
             "silver pencils",
             "silent planets"
-          ]
+          ],
+          "answer": "solar panels",
+          "visual_description": "A sentence-highlighting display supports this task: Which two-word phrase appears exactly in the passage? It presents New solar panels helped the school reduce its electricity use.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Which two-word phrase appears exactly in the passage? It presents New solar panels helped the school reduce its electricity use.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which two-word phrase appears exactly in the passage? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: solar panels, silver pencils, silent planets."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q07",
@@ -1370,15 +1396,15 @@
           "support_type": "sentence_card",
           "correct_answer": "dessert",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Type the word that should not be changed to “desert.”” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “dessert” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Dessert and desert look similar, but the sentence prints dessert.",
+          "explanation": "Dessert and desert look similar, but the sentence prints dessert. This works because the learner can connect the response “dessert” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Type the word that should not be changed to “desert.”” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Type the word that should not be changed to “desert.”",
+            "text": "Type the word that should not be changed to “desert.” The visual is a sentence card with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1407,7 +1433,11 @@
           "audio_required": false,
           "acceptable_answers": [
             "dessert"
-          ]
+          ],
+          "answer": "dessert",
+          "visual_description": "A sentence card supports this task: Type the word that should not be changed to “desert.” It presents For the celebration, Maya baked a peach dessert with cinnamon.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Type the word that should not be changed to “desert.” It presents For the celebration, Maya baked a peach dessert with cinnamon.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Type the word that should not be changed to “desert.” The visual is a sentence card with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q08",
@@ -1417,15 +1447,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "practical",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes.” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “practical” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Practical is the exact adjective in the sentence.",
+          "explanation": "Practical is the exact adjective in the sentence. This works because the learner can connect the response “practical” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes.",
+            "text": "Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes. The visual is a sentence-highlighting display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1455,7 +1485,11 @@
           "acceptable_answers": [
             "practical"
           ],
-          "blank_sentence": "The mayor announced a ___ plan for safer bike lanes."
+          "blank_sentence": "The mayor announced a ___ plan for safer bike lanes.",
+          "answer": "practical",
+          "visual_description": "A sentence-highlighting display supports this task: Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes. It presents The mayor announced a practical plan for safer bike lanes.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes. It presents The mayor announced a practical plan for safer bike lanes.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Complete the accurate sentence: The mayor announced a ___ plan for safer bike lanes. The visual is a sentence-highlighting display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q09",
@@ -1465,15 +1499,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "microscope",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which word in the sentence names the tool?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “microscope” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "The tool named in the sentence is microscope.",
+          "explanation": "The tool named in the sentence is microscope. This works because the learner can connect the response “microscope” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word in the sentence names the tool?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which word in the sentence names the tool? Choices: microscope, microphone, telescope.",
+            "text": "Which word in the sentence names the tool? The visual is a fluency practice display with the language evidence described in the question. Choices: microphone, microscope, telescope.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1501,10 +1535,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "microscope",
             "microphone",
+            "microscope",
             "telescope"
-          ]
+          ],
+          "answer": "microscope",
+          "visual_description": "A fluency practice display supports this task: Which word in the sentence names the tool? It presents Under the microscope, the pond water looked alive with motion.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Which word in the sentence names the tool? It presents Under the microscope, the pond water looked alive with motion.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word in the sentence names the tool? The visual is a fluency practice display with the language evidence described in the question. Choices: microphone, microscope, telescope."
         },
         {
           "question_id": "G5E_FL_001_LVL1_Q10",
@@ -1514,15 +1552,15 @@
           "support_type": "sentence_card",
           "correct_answer": "branch",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which word completes the quote accurately: “The current carried the ___ downstream.”” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “branch” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "The sentence says branch, so fluent accuracy keeps that word.",
+          "explanation": "The sentence says branch, so fluent accuracy keeps that word. This works because the learner can connect the response “branch” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which word completes the quote accurately: “The current carried the ___ downstream.”” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which word completes the quote accurately: “The current carried the ___ downstream.”",
+            "text": "Which word completes the quote accurately: “The current carried the ___ downstream.” The visual is a sentence card with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1553,7 +1591,11 @@
             "branch",
             "the branch"
           ],
-          "blank_sentence": "The current carried the ___ downstream."
+          "blank_sentence": "The current carried the ___ downstream.",
+          "answer": "branch",
+          "visual_description": "A sentence card supports this task: Which word completes the quote accurately: “The current carried the ___ downstream.” It presents The current carried the branch downstream.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Which word completes the quote accurately: “The current carried the ___ downstream.” It presents The current carried the branch downstream.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which word completes the quote accurately: “The current carried the ___ downstream.” The visual is a sentence card with the language evidence described in the question."
         }
       ]
     },
@@ -1573,15 +1615,15 @@
           "support_type": "phrase_builder",
           "correct_answer": "After the final bell",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which phrase chunk should be read together first?” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “After the final bell” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "After the final bell is an opening phrase that belongs together before the comma.",
+          "explanation": "After the final bell is an opening phrase that belongs together before the comma. This works because the learner can connect the response “After the final bell” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which phrase chunk should be read together first?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which phrase chunk should be read together first? Choices: After the final bell, bell the students, quietly into.",
+            "text": "Which phrase chunk should be read together first? The visual is a phrase-grouping display with the language evidence described in the question. Choices: bell the students, quietly into, After the final bell.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1609,15 +1651,19 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "After the final bell",
             "bell the students",
-            "quietly into"
+            "quietly into",
+            "After the final bell"
           ],
           "phrase_chunks": [
             "After the final bell",
             "the students walked quietly",
             "into the courtyard"
-          ]
+          ],
+          "answer": "After the final bell",
+          "visual_description": "A phrase-grouping display supports this task: Which phrase chunk should be read together first? It presents After the final bell, the students walked quietly into the courtyard.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: Which phrase chunk should be read together first? It presents After the final bell, the students walked quietly into the courtyard.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which phrase chunk should be read together first? The visual is a phrase-grouping display with the language evidence described in the question. Choices: bell the students, quietly into, After the final bell."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q02",
@@ -1627,15 +1673,15 @@
           "support_type": "phrase_builder",
           "correct_answer": "The young inventor / tested her design / before the science fair.",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Choose the best phrase grouping for smooth reading.” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “The young inventor / tested her design / before the science fair.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "The best grouping keeps subject, action, and time phrase together.",
+          "explanation": "The best grouping keeps subject, action, and time phrase together. This works because the learner can connect the response “The young inventor / tested her design / before the science fair.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Choose the best phrase grouping for smooth reading.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Choose the best phrase grouping for smooth reading. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair..",
+            "text": "Choose the best phrase grouping for smooth reading. The visual is a phrase-grouping display with the language evidence described in the question. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1671,7 +1717,11 @@
             "The young inventor",
             "tested her design",
             "before the science fair"
-          ]
+          ],
+          "answer": "The young inventor / tested her design / before the science fair.",
+          "visual_description": "A phrase-grouping display supports this task: Choose the best phrase grouping for smooth reading. It presents The young inventor tested her design before the science fair.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: Choose the best phrase grouping for smooth reading. It presents The young inventor tested her design before the science fair.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Choose the best phrase grouping for smooth reading. The visual is a phrase-grouping display with the language evidence described in the question. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair.."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q03",
@@ -1681,15 +1731,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "along the creek bank",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Type the phrase that tells where the volunteers planted trees.” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “along the creek bank” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "Along the creek bank is the location phrase and should be read as a unit.",
+          "explanation": "Along the creek bank is the location phrase and should be read as a unit. This works because the learner can connect the response “along the creek bank” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Type the phrase that tells where the volunteers planted trees.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Type the phrase that tells where the volunteers planted trees.",
+            "text": "Type the phrase that tells where the volunteers planted trees. The visual is a sentence-highlighting display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1725,7 +1775,11 @@
             "Before lunch",
             "the volunteers planted trees",
             "along the creek bank"
-          ]
+          ],
+          "answer": "along the creek bank",
+          "visual_description": "A sentence-highlighting display supports this task: Type the phrase that tells where the volunteers planted trees. It presents Before lunch, the volunteers planted trees along the creek bank.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Type the phrase that tells where the volunteers planted trees. It presents Before lunch, the volunteers planted trees along the creek bank.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Type the phrase that tells where the volunteers planted trees. The visual is a sentence-highlighting display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q04",
@@ -1735,15 +1789,15 @@
           "support_type": "phrase_builder",
           "correct_answer": "village",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Complete the phrase chunk: During the long winter, the ___ stored extra grain.” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “village” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "The phrase the village stored belongs together for smooth reading.",
+          "explanation": "The phrase the village stored belongs together for smooth reading. This works because the learner can connect the response “village” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Complete the phrase chunk: During the long winter, the ___ stored extra grain.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the phrase chunk: During the long winter, the ___ stored extra grain.",
+            "text": "Complete the phrase chunk: During the long winter, the ___ stored extra grain. The visual is a phrase-grouping display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1779,7 +1833,11 @@
             "the village stored",
             "extra grain"
           ],
-          "blank_sentence": "During the long winter, the ___ stored extra grain."
+          "blank_sentence": "During the long winter, the ___ stored extra grain.",
+          "answer": "village",
+          "visual_description": "A phrase-grouping display supports this task: Complete the phrase chunk: During the long winter, the ___ stored extra grain. It presents During the long winter, the village stored extra grain.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: Complete the phrase chunk: During the long winter, the ___ stored extra grain. It presents During the long winter, the village stored extra grain.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Complete the phrase chunk: During the long winter, the ___ stored extra grain. The visual is a phrase-grouping display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q05",
@@ -1789,15 +1847,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "steady and clear",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which reading rate best fits an informational sentence with important facts?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “steady and clear” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "A steady, clear rate helps listeners understand the facts.",
+          "explanation": "A steady, clear rate helps listeners understand the facts. This works because the learner can connect the response “steady and clear” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which reading rate best fits an informational sentence with important facts?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which reading rate best fits an informational sentence with important facts? Choices: steady and clear, rushed and breathless, so slow that each word is separated.",
+            "text": "Which reading rate best fits an informational sentence with important facts? The visual is a fluency practice display with the language evidence described in the question. Choices: rushed and breathless, steady and clear, so slow that each word is separated.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1825,10 +1883,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "steady and clear",
             "rushed and breathless",
+            "steady and clear",
             "so slow that each word is separated"
-          ]
+          ],
+          "answer": "steady and clear",
+          "visual_description": "A fluency practice display supports this task: Which reading rate best fits an informational sentence with important facts? It presents Evaporation occurs when heat changes liquid water into vapor.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Which reading rate best fits an informational sentence with important facts? It presents Evaporation occurs when heat changes liquid water into vapor.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which reading rate best fits an informational sentence with important facts? The visual is a fluency practice display with the language evidence described in the question. Choices: rushed and breathless, steady and clear, so slow that each word is separated."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q06",
@@ -1838,15 +1900,15 @@
           "support_type": "phrase_builder",
           "correct_answer": "Because the bridge was closed",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which phrase should be kept together to show cause?” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “Because the bridge was closed” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "The opening cause phrase belongs together before the pause.",
+          "explanation": "The opening cause phrase belongs together before the pause. This works because the learner can connect the response “Because the bridge was closed” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which phrase should be kept together to show cause?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which phrase should be kept together to show cause? Choices: Because the bridge was closed, closed the buses, alternate roads.",
+            "text": "Which phrase should be kept together to show cause? The visual is a phrase-grouping display with the language evidence described in the question. Choices: closed the buses, alternate roads, Because the bridge was closed.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1874,15 +1936,19 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "Because the bridge was closed",
             "closed the buses",
-            "alternate roads"
+            "alternate roads",
+            "Because the bridge was closed"
           ],
           "phrase_chunks": [
             "Because the bridge was closed",
             "the buses followed",
             "alternate roads"
-          ]
+          ],
+          "answer": "Because the bridge was closed",
+          "visual_description": "A phrase-grouping display supports this task: Which phrase should be kept together to show cause? It presents Because the bridge was closed, the buses followed alternate roads.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: Which phrase should be kept together to show cause? It presents Because the bridge was closed, the buses followed alternate roads.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which phrase should be kept together to show cause? The visual is a phrase-grouping display with the language evidence described in the question. Choices: closed the buses, alternate roads, Because the bridge was closed."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q07",
@@ -1892,15 +1958,15 @@
           "support_type": "sentence_card",
           "correct_answer": "with confidence",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Type the two-word phrase that tells how the speaker answered.” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “with confidence” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "With confidence describes how Priya answered and should be read smoothly.",
+          "explanation": "With confidence describes how Priya answered and should be read smoothly. This works because the learner can connect the response “with confidence” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Type the two-word phrase that tells how the speaker answered.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Type the two-word phrase that tells how the speaker answered.",
+            "text": "Type the two-word phrase that tells how the speaker answered. The visual is a sentence card with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1935,7 +2001,11 @@
             "After studying the evidence",
             "Priya answered",
             "with confidence"
-          ]
+          ],
+          "answer": "with confidence",
+          "visual_description": "A sentence card supports this task: Type the two-word phrase that tells how the speaker answered. It presents After studying the evidence, Priya answered with confidence.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Type the two-word phrase that tells how the speaker answered. It presents After studying the evidence, Priya answered with confidence.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Type the two-word phrase that tells how the speaker answered. The visual is a sentence card with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q08",
@@ -1945,15 +2015,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "scarred",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves.” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “scarred” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "Scarred begins the interrupting phrase that should be read with pauses.",
+          "explanation": "Scarred begins the interrupting phrase that should be read with pauses. This works because the learner can connect the response “scarred” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves.",
+            "text": "Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves. The visual is a sentence-highlighting display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1988,7 +2058,11 @@
             "scarred by lightning",
             "still produced new leaves"
           ],
-          "blank_sentence": "The oak tree, ___ by lightning, still produced new leaves."
+          "blank_sentence": "The oak tree, ___ by lightning, still produced new leaves.",
+          "answer": "scarred",
+          "visual_description": "A sentence-highlighting display supports this task: Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves. It presents The oak tree, scarred by lightning, still produced new leaves.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves. It presents The oak tree, scarred by lightning, still produced new leaves.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Complete the smooth phrase: The oak tree, ___ by lightning, still produced new leaves. The visual is a sentence-highlighting display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q09",
@@ -1998,15 +2072,15 @@
           "support_type": "phrase_builder",
           "correct_answer": "In the museum basement, / archivists protected fragile letters.",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which chunking shows a natural pause after the introduction?” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “In the museum basement, / archivists protected fragile letters.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "The comma marks a natural pause after the opening phrase.",
+          "explanation": "The comma marks a natural pause after the opening phrase. This works because the learner can connect the response “In the museum basement, / archivists protected fragile letters.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which chunking shows a natural pause after the introduction?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which chunking shows a natural pause after the introduction? Choices: In the museum basement, / archivists protected fragile letters., In the / museum basement archivists / protected fragile letters., In the museum / basement archivists protected / fragile letters..",
+            "text": "Which chunking shows a natural pause after the introduction? The visual is a phrase-grouping display with the language evidence described in the question. Choices: In the museum basement, / archivists protected fragile letters., In the / museum basement archivists / protected fragile letters., In the museum / basement archivists protected / fragile letters..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2042,7 +2116,11 @@
             "In the museum basement",
             "archivists protected",
             "fragile letters"
-          ]
+          ],
+          "answer": "In the museum basement, / archivists protected fragile letters.",
+          "visual_description": "A phrase-grouping display supports this task: Which chunking shows a natural pause after the introduction? It presents In the museum basement, archivists protected fragile letters.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: Which chunking shows a natural pause after the introduction? It presents In the museum basement, archivists protected fragile letters.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which chunking shows a natural pause after the introduction? The visual is a phrase-grouping display with the language evidence described in the question. Choices: In the museum basement, / archivists protected fragile letters., In the / museum basement archivists / protected fragile letters., In the museum / basement archivists protected / fragile letters.."
         },
         {
           "question_id": "G5E_FL_001_LVL2_Q10",
@@ -2052,15 +2130,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "pause briefly at phrase breaks",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which pace helps a listener follow a complex sentence?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “pause briefly at phrase breaks” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "Brief pauses at phrase breaks make a complex sentence easier to understand.",
+          "explanation": "Brief pauses at phrase breaks make a complex sentence easier to understand. This works because the learner can connect the response “pause briefly at phrase breaks” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which pace helps a listener follow a complex sentence?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which pace helps a listener follow a complex sentence? Choices: pause briefly at phrase breaks, race to finish quickly, stop after every single word.",
+            "text": "Which pace helps a listener follow a complex sentence? The visual is a fluency practice display with the language evidence described in the question. Choices: race to finish quickly, pause briefly at phrase breaks, stop after every single word.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2088,15 +2166,19 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "pause briefly at phrase breaks",
             "race to finish quickly",
+            "pause briefly at phrase breaks",
             "stop after every single word"
           ],
           "phrase_chunks": [
             "Although the trail was steep",
             "the view from the ridge",
             "inspired everyone"
-          ]
+          ],
+          "answer": "pause briefly at phrase breaks",
+          "visual_description": "A fluency practice display supports this task: Which pace helps a listener follow a complex sentence? It presents Although the trail was steep, the view from the ridge inspired everyone.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Which pace helps a listener follow a complex sentence? It presents Although the trail was steep, the view from the ridge inspired everyone.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which pace helps a listener follow a complex sentence? The visual is a fluency practice display with the language evidence described in the question. Choices: race to finish quickly, pause briefly at phrase breaks, stop after every single word."
         }
       ]
     },
@@ -2116,15 +2198,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "rise slightly to show a question",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “How should your voice change at the question mark?” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “rise slightly to show a question” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "A question mark signals a questioning voice, often with a slight rise.",
+          "explanation": "A question mark signals a questioning voice, often with a slight rise. This works because the learner can connect the response “rise slightly to show a question” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “How should your voice change at the question mark?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "How should your voice change at the question mark? Choices: rise slightly to show a question, stay completely flat, speed up and ignore the mark.",
+            "text": "How should your voice change at the question mark? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: stay completely flat, speed up and ignore the mark, rise slightly to show a question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2152,10 +2234,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "rise slightly to show a question",
             "stay completely flat",
-            "speed up and ignore the mark"
-          ]
+            "speed up and ignore the mark",
+            "rise slightly to show a question"
+          ],
+          "answer": "rise slightly to show a question",
+          "visual_description": "A sentence-highlighting display supports this task: How should your voice change at the question mark? It presents Could the tiny seedling survive the dry summer?. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: How should your voice change at the question mark? It presents Could the tiny seedling survive the dry summer?. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "How should your voice change at the question mark? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: stay completely flat, speed up and ignore the mark, rise slightly to show a question."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q02",
@@ -2165,15 +2251,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "commas",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which punctuation tells you to pause between items in the list?” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “commas” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "Commas separate list items and cue small pauses.",
+          "explanation": "Commas separate list items and cue small pauses. This works because the learner can connect the response “commas” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which punctuation tells you to pause between items in the list?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which punctuation tells you to pause between items in the list? Choices: commas, apostrophes, capital letters.",
+            "text": "Which punctuation tells you to pause between items in the list? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: commas, apostrophes, capital letters.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2204,7 +2290,11 @@
             "commas",
             "apostrophes",
             "capital letters"
-          ]
+          ],
+          "answer": "commas",
+          "visual_description": "A sentence-highlighting display supports this task: Which punctuation tells you to pause between items in the list? It presents The explorers packed rope, lanterns, maps, and extra water.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Which punctuation tells you to pause between items in the list? It presents The explorers packed rope, lanterns, maps, and extra water.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which punctuation tells you to pause between items in the list? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: commas, apostrophes, capital letters."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q03",
@@ -2214,15 +2304,15 @@
           "support_type": "sentence_card",
           "correct_answer": "exclamation point",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Type the punctuation mark that signals strong surprise in this sentence.” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “exclamation point” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "The exclamation point tells the reader to use an excited or surprised voice.",
+          "explanation": "The exclamation point tells the reader to use an excited or surprised voice. This works because the learner can connect the response “exclamation point” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Type the punctuation mark that signals strong surprise in this sentence.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Type the punctuation mark that signals strong surprise in this sentence.",
+            "text": "Type the punctuation mark that signals strong surprise in this sentence. The visual is a sentence card with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2253,7 +2343,11 @@
             "exclamation point",
             "!",
             "exclamation mark"
-          ]
+          ],
+          "answer": "exclamation point",
+          "visual_description": "A sentence card supports this task: Type the punctuation mark that signals strong surprise in this sentence. It presents What an astonishing discovery the class made!. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Type the punctuation mark that signals strong surprise in this sentence. It presents What an astonishing discovery the class made!. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Type the punctuation mark that signals strong surprise in this sentence. The visual is a sentence card with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q04",
@@ -2263,15 +2357,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "excitement",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Complete the sentence with the missing expression word: The line should be read with ___ because it en…” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “excitement” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "An exclamation point usually calls for energy or excitement.",
+          "explanation": "An exclamation point usually calls for energy or excitement. This works because the learner can connect the response “excitement” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation…” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point.",
+            "text": "Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point. The visual is a fluency practice display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2303,7 +2397,11 @@
             "energy",
             "enthusiasm"
           ],
-          "blank_sentence": "The line should be read with ___ because it ends in an exclamation point."
+          "blank_sentence": "The line should be read with ___ because it ends in an exclamation point.",
+          "answer": "excitement",
+          "visual_description": "A fluency practice display supports this task: Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point. It presents The line should be read with excitement because it ends in an exclamation point.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point. It presents The line should be read with excitement because it ends in an exclamation point.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Complete the sentence with the missing expression word: The line should be read with ___ because it ends in an exclamation point. The visual is a fluency practice display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q05",
@@ -2313,15 +2411,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "pause briefly",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “What should you do at the comma after “Meanwhile”?” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “pause briefly” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "The comma after Meanwhile cues a brief pause.",
+          "explanation": "The comma after Meanwhile cues a brief pause. This works because the learner can connect the response “pause briefly” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “What should you do at the comma after “Meanwhile”?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "What should you do at the comma after “Meanwhile”? Choices: pause briefly, skip the next word, read louder until the period.",
+            "text": "What should you do at the comma after “Meanwhile”? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: skip the next word, pause briefly, read louder until the period.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2349,10 +2447,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "pause briefly",
             "skip the next word",
+            "pause briefly",
             "read louder until the period"
-          ]
+          ],
+          "answer": "pause briefly",
+          "visual_description": "A sentence-highlighting display supports this task: What should you do at the comma after “Meanwhile”? It presents Meanwhile, the tide crept higher against the seawall.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: What should you do at the comma after “Meanwhile”? It presents Meanwhile, the tide crept higher against the seawall.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "What should you do at the comma after “Meanwhile”? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: skip the next word, pause briefly, read louder until the period."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q06",
@@ -2362,15 +2464,15 @@
           "support_type": "sentence_card",
           "correct_answer": "worried and urgent",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which voice best matches the dialogue?” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “worried and urgent” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "The words storm, closer, and warned suggest a worried, urgent voice.",
+          "explanation": "The words storm, closer, and warned suggest a worried, urgent voice. This works because the learner can connect the response “worried and urgent” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which voice best matches the dialogue?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which voice best matches the dialogue? Choices: worried and urgent, sleepy and bored, silly and playful.",
+            "text": "Which voice best matches the dialogue? The visual is a sentence card with the language evidence described in the question. Choices: sleepy and bored, silly and playful, worried and urgent.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2398,10 +2500,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "worried and urgent",
             "sleepy and bored",
-            "silly and playful"
-          ]
+            "silly and playful",
+            "worried and urgent"
+          ],
+          "answer": "worried and urgent",
+          "visual_description": "A sentence card supports this task: Which voice best matches the dialogue? It presents “The storm is moving closer,” Dad warned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Which voice best matches the dialogue? It presents “The storm is moving closer,” Dad warned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which voice best matches the dialogue? The visual is a sentence card with the language evidence described in the question. Choices: sleepy and bored, silly and playful, worried and urgent."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q07",
@@ -2411,15 +2517,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "whispered",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Type the word that tells the speaker’s feeling.” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “whispered” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "Whispered tells the reader to use a quiet voice.",
+          "explanation": "Whispered tells the reader to use a quiet voice. This works because the learner can connect the response “whispered” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Type the word that tells the speaker’s feeling.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Type the word that tells the speaker’s feeling.",
+            "text": "Type the word that tells the speaker’s feeling. The visual is a sentence-highlighting display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2448,7 +2554,11 @@
           "audio_required": false,
           "acceptable_answers": [
             "whispered"
-          ]
+          ],
+          "answer": "whispered",
+          "visual_description": "A sentence-highlighting display supports this task: Type the word that tells the speaker’s feeling. It presents “Please do not wake the baby,” Elena whispered.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Type the word that tells the speaker’s feeling. It presents “Please do not wake the baby,” Elena whispered.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Type the word that tells the speaker’s feeling. The visual is a sentence-highlighting display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q08",
@@ -2458,15 +2568,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "lower",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Complete the sentence: Parentheses often signal information to read in a slightly ___ voice.” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “lower” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "Parentheses set off extra information, often read a little softer or lower.",
+          "explanation": "Parentheses set off extra information, often read a little softer or lower. This works because the learner can connect the response “lower” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Complete the sentence: Parentheses often signal information to read in a slightly ___ voice.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the sentence: Parentheses often signal information to read in a slightly ___ voice.",
+            "text": "Complete the sentence: Parentheses often signal information to read in a slightly ___ voice. The visual is a sentence-highlighting display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2498,7 +2608,11 @@
             "quieter",
             "softer"
           ],
-          "blank_sentence": "Parentheses often signal information to read in a slightly ___ voice."
+          "blank_sentence": "Parentheses often signal information to read in a slightly ___ voice.",
+          "answer": "lower",
+          "visual_description": "A sentence-highlighting display supports this task: Complete the sentence: Parentheses often signal information to read in a slightly ___ voice. It presents The moon jellyfish (which has no brain) drifts through warm coastal water.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Complete the sentence: Parentheses often signal information to read in a slightly ___ voice. It presents The moon jellyfish (which has no brain) drifts through warm coastal water.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Complete the sentence: Parentheses often signal information to read in a slightly ___ voice. The visual is a sentence-highlighting display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q09",
@@ -2508,15 +2622,15 @@
           "support_type": "sentence_card",
           "correct_answer": "period",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which punctuation creates the longest stop?” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “period” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "A period ends a sentence and cues a full stop.",
+          "explanation": "A period ends a sentence and cues a full stop. This works because the learner can connect the response “period” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which punctuation creates the longest stop?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which punctuation creates the longest stop? Choices: period, comma, quotation mark.",
+            "text": "Which punctuation creates the longest stop? The visual is a sentence card with the language evidence described in the question. Choices: period, comma, quotation mark.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2547,7 +2661,11 @@
             "period",
             "comma",
             "quotation mark"
-          ]
+          ],
+          "answer": "period",
+          "visual_description": "A sentence card supports this task: Which punctuation creates the longest stop? It presents The final lantern flickered. Then the room became dark.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Which punctuation creates the longest stop? It presents The final lantern flickered. Then the room became dark.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which punctuation creates the longest stop? The visual is a sentence card with the language evidence described in the question. Choices: period, comma, quotation mark."
         },
         {
           "question_id": "G5E_FL_001_LVL3_Q10",
@@ -2557,15 +2675,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "calm wonder",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which expression best fits the sentence?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “calm wonder” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "The image of stars shimmering suggests calm wonder, not a flat voice.",
+          "explanation": "The image of stars shimmering suggests calm wonder, not a flat voice. This works because the learner can connect the response “calm wonder” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which expression best fits the sentence?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which expression best fits the sentence? Choices: calm wonder, angry shouting, flat robot voice.",
+            "text": "Which expression best fits the sentence? The visual is a fluency practice display with the language evidence described in the question. Choices: angry shouting, calm wonder, flat robot voice.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2593,10 +2711,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "calm wonder",
             "angry shouting",
+            "calm wonder",
             "flat robot voice"
-          ]
+          ],
+          "answer": "calm wonder",
+          "visual_description": "A fluency practice display supports this task: Which expression best fits the sentence? It presents Above the desert, millions of stars shimmered in the cold night sky.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Which expression best fits the sentence? It presents Above the desert, millions of stars shimmered in the cold night sky.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which expression best fits the sentence? The visual is a fluency practice display with the language evidence described in the question. Choices: angry shouting, calm wonder, flat robot voice."
         }
       ]
     },
@@ -2616,15 +2738,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "reread to fix accuracy before adding expression",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “After a first read with two skipped words, what should the reader do next?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “reread to fix accuracy before adding expression” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Repeated reading begins by correcting missed words so meaning is accurate.",
+          "explanation": "Repeated reading begins by correcting missed words so meaning is accurate. This works because the learner can connect the response “reread to fix accuracy before adding expression” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “After a first read with two skipped words, what should the reader do next?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "After a first read with two skipped words, what should the reader do next? Choices: reread to fix accuracy before adding expression, read faster to finish, ignore the skipped words.",
+            "text": "After a first read with two skipped words, what should the reader do next? The visual is a fluency practice display with the language evidence described in the question. Choices: read faster to finish, ignore the skipped words, reread to fix accuracy before adding expression.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2652,10 +2774,14 @@
           "audio_required": false,
           "passage": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
           "choices": [
-            "reread to fix accuracy before adding expression",
             "read faster to finish",
-            "ignore the skipped words"
-          ]
+            "ignore the skipped words",
+            "reread to fix accuracy before adding expression"
+          ],
+          "answer": "reread to fix accuracy before adding expression",
+          "visual_description": "A fluency practice display supports this task: After a first read with two skipped words, what should the reader do next? It presents First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: After a first read with two skipped words, what should the reader do next? It presents First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "After a first read with two skipped words, what should the reader do next? The visual is a fluency practice display with the language evidence described in the question. Choices: read faster to finish, ignore the skipped words, reread to fix accuracy before adding expression."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q02",
@@ -2665,15 +2791,15 @@
           "support_type": "phrase_builder",
           "correct_answer": "make the phrase groups smoother while keeping every word accurate",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which goal fits a second reading of this passage?” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “make the phrase groups smoother while keeping every word accurate” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "A second reading should improve phrasing without changing the author’s words.",
+          "explanation": "A second reading should improve phrasing without changing the author’s words. This works because the learner can connect the response “make the phrase groups smoother while keeping every word accurate” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which goal fits a second reading of this passage?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which goal fits a second reading of this passage? Choices: make the phrase groups smoother while keeping every word accurate, change difficult words to easier words, skip descriptive phrases.",
+            "text": "Which goal fits a second reading of this passage? The visual is a phrase-grouping display with the language evidence described in the question. Choices: make the phrase groups smoother while keeping every word accurate, change difficult words to easier words, skip descriptive phrases.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2709,7 +2835,11 @@
             "The glacier moved slowly",
             "carving a wide valley",
             "and leaving polished stones behind"
-          ]
+          ],
+          "answer": "make the phrase groups smoother while keeping every word accurate",
+          "visual_description": "A phrase-grouping display supports this task: Which goal fits a second reading of this passage? It presents The glacier moved slowly, carving a wide valley and leaving polished stones behind.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: Which goal fits a second reading of this passage? It presents The glacier moved slowly, carving a wide valley and leaving polished stones behind.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which goal fits a second reading of this passage? The visual is a phrase-grouping display with the language evidence described in the question. Choices: make the phrase groups smoother while keeping every word accurate, change difficult words to easier words, skip descriptive phrases."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q03",
@@ -2719,15 +2849,15 @@
           "support_type": "sentence_highlight",
           "correct_answer": "pauses",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Type one thing a reader should improve on a reread after ignoring commas.” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “pauses” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "If commas were ignored, the reread should add brief pauses at punctuation.",
+          "explanation": "If commas were ignored, the reread should add brief pauses at punctuation. This works because the learner can connect the response “pauses” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Type one thing a reader should improve on a reread after ignoring commas.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Type one thing a reader should improve on a reread after ignoring commas.",
+            "text": "Type one thing a reader should improve on a reread after ignoring commas. The visual is a sentence-highlighting display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2760,7 +2890,11 @@
             "comma pauses",
             "punctuation",
             "read the commas"
-          ]
+          ],
+          "answer": "pauses",
+          "visual_description": "A sentence-highlighting display supports this task: Type one thing a reader should improve on a reread after ignoring commas. It presents When the debate ended, the council members thanked the students, collected their notes, and scheduled another meeting.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: Type one thing a reader should improve on a reread after ignoring commas. It presents When the debate ended, the council members thanked the students, collected their notes, and scheduled another meeting.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Type one thing a reader should improve on a reread after ignoring commas. The visual is a sentence-highlighting display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q04",
@@ -2770,15 +2904,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "expression",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Complete the goal: On the third read, match your ___ to the author’s meaning.” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “expression” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "Repeated reading should improve expression so the voice supports meaning.",
+          "explanation": "Repeated reading should improve expression so the voice supports meaning. This works because the learner can connect the response “expression” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Complete the goal: On the third read, match your ___ to the author’s meaning.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+            "text": "Complete the goal: On the third read, match your ___ to the author’s meaning. The visual is a fluency practice display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2810,7 +2944,11 @@
             "voice",
             "tone"
           ],
-          "blank_sentence": "On the third read, match your ___ to the author’s meaning."
+          "blank_sentence": "On the third read, match your ___ to the author’s meaning.",
+          "answer": "expression",
+          "visual_description": "A fluency practice display supports this task: Complete the goal: On the third read, match your ___ to the author’s meaning. It presents The rescued seal hesitated, then slid toward the waves as the crowd cheered.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Complete the goal: On the third read, match your ___ to the author’s meaning. It presents The rescued seal hesitated, then slid toward the waves as the crowd cheered.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Complete the goal: On the third read, match your ___ to the author’s meaning. The visual is a fluency practice display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q05",
@@ -2820,15 +2958,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "accuracy",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which score should improve first if the reader says “manufacture” as “manufature”?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “accuracy” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Misreading a word is an accuracy issue.",
+          "explanation": "Misreading a word is an accuracy issue. This works because the learner can connect the response “accuracy” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which score should improve first if the reader says “manufacture” as “manufature”?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which score should improve first if the reader says “manufacture” as “manufature”? Choices: accuracy, volume, background music.",
+            "text": "Which score should improve first if the reader says “manufacture” as “manufature”? The visual is a fluency practice display with the language evidence described in the question. Choices: volume, accuracy, background music.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2856,10 +2994,14 @@
           "audio_required": false,
           "passage": "Manufacturers inspected each bicycle carefully before shipping it to stores.",
           "choices": [
-            "accuracy",
             "volume",
+            "accuracy",
             "background music"
-          ]
+          ],
+          "answer": "accuracy",
+          "visual_description": "A fluency practice display supports this task: Which score should improve first if the reader says “manufacture” as “manufature”? It presents Manufacturers inspected each bicycle carefully before shipping it to stores.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Which score should improve first if the reader says “manufacture” as “manufature”? It presents Manufacturers inspected each bicycle carefully before shipping it to stores.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which score should improve first if the reader says “manufacture” as “manufature”? The visual is a fluency practice display with the language evidence described in the question. Choices: volume, accuracy, background music."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q06",
@@ -2869,15 +3011,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "read once for words, again for phrases, and again for expression",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which rereading plan best supports meaning?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “read once for words, again for phrases, and again for expression” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "A purposeful repeated-reading plan builds accuracy, phrasing, and expression.",
+          "explanation": "A purposeful repeated-reading plan builds accuracy, phrasing, and expression. This works because the learner can connect the response “read once for words, again for phrases, and again for expression” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which rereading plan best supports meaning?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which rereading plan best supports meaning? Choices: read once for words, again for phrases, and again for expression, read once as fast as possible, read only the first and last sentence.",
+            "text": "Which rereading plan best supports meaning? The visual is a fluency practice display with the language evidence described in the question. Choices: read once as fast as possible, read only the first and last sentence, read once for words, again for phrases, and again for expression.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2905,10 +3047,14 @@
           "audio_required": false,
           "passage": "During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.",
           "choices": [
-            "read once for words, again for phrases, and again for expression",
             "read once as fast as possible",
-            "read only the first and last sentence"
-          ]
+            "read only the first and last sentence",
+            "read once for words, again for phrases, and again for expression"
+          ],
+          "answer": "read once for words, again for phrases, and again for expression",
+          "visual_description": "A fluency practice display supports this task: Which rereading plan best supports meaning? It presents During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Which rereading plan best supports meaning? It presents During the drought, families conserved water by repairing leaks, collecting rain, and planting native grasses.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which rereading plan best supports meaning? The visual is a fluency practice display with the language evidence described in the question. Choices: read once as fast as possible, read only the first and last sentence, read once for words, again for phrases, and again for expression."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q07",
@@ -2918,15 +3064,15 @@
           "support_type": "sentence_card",
           "correct_answer": "new shoots appeared",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Type the phrase that should sound hopeful in the reread.” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this short response response.",
+            "Verify: Reread the prompt with your response and confirm that “new shoots appeared” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "New shoots appeared signals recovery and should be read with a hopeful tone.",
+          "explanation": "New shoots appeared signals recovery and should be read with a hopeful tone. This works because the learner can connect the response “new shoots appeared” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Type the phrase that should sound hopeful in the reread.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Type the phrase that should sound hopeful in the reread.",
+            "text": "Type the phrase that should sound hopeful in the reread. The visual is a sentence card with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2956,7 +3102,11 @@
           "acceptable_answers": [
             "new shoots appeared",
             "shoots appeared"
-          ]
+          ],
+          "answer": "new shoots appeared",
+          "visual_description": "A sentence card supports this task: Type the phrase that should sound hopeful in the reread. It presents After weeks of ash and smoke, new shoots appeared at the edge of the burned forest.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: Type the phrase that should sound hopeful in the reread. It presents After weeks of ash and smoke, new shoots appeared at the edge of the burned forest.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Type the phrase that should sound hopeful in the reread. The visual is a sentence card with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q08",
@@ -2966,15 +3116,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "meaning",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Complete the sentence: Repeated reading is not just faster reading; it should improve ___.” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “meaning” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "Fluency supports understanding, so rereading should improve meaning.",
+          "explanation": "Fluency supports understanding, so rereading should improve meaning. This works because the learner can connect the response “meaning” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Complete the sentence: Repeated reading is not just faster reading; it should improve ___.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the sentence: Repeated reading is not just faster reading; it should improve ___.",
+            "text": "Complete the sentence: Repeated reading is not just faster reading; it should improve ___. The visual is a fluency practice display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3006,7 +3156,11 @@
             "understanding",
             "comprehension"
           ],
-          "blank_sentence": "Repeated reading is not just faster reading; it should improve ___."
+          "blank_sentence": "Repeated reading is not just faster reading; it should improve ___.",
+          "answer": "meaning",
+          "visual_description": "A fluency practice display supports this task: Complete the sentence: Repeated reading is not just faster reading; it should improve ___. It presents A fluent reader rereads so the words, pauses, and tone make the passage easier to understand.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Complete the sentence: Repeated reading is not just faster reading; it should improve ___. It presents A fluent reader rereads so the words, pauses, and tone make the passage easier to understand.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Complete the sentence: Repeated reading is not just faster reading; it should improve ___. The visual is a fluency practice display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q09",
@@ -3016,15 +3170,15 @@
           "support_type": "phrase_builder",
           "correct_answer": "pause after the opening phrase and stress key words",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which change would make the second read stronger?” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “pause after the opening phrase and stress key words” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "Pausing and stressing key words helps the listener follow the meaning.",
+          "explanation": "Pausing and stressing key words helps the listener follow the meaning. This works because the learner can connect the response “pause after the opening phrase and stress key words” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which change would make the second read stronger?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which change would make the second read stronger? Choices: pause after the opening phrase and stress key words, skip the opening phrase, read every word in the same flat tone.",
+            "text": "Which change would make the second read stronger? The visual is a phrase-grouping display with the language evidence described in the question. Choices: pause after the opening phrase and stress key words, skip the opening phrase, read every word in the same flat tone.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3060,7 +3214,11 @@
             "At the edge of the harbor",
             "workers repaired the lighthouse",
             "before the fog returned"
-          ]
+          ],
+          "answer": "pause after the opening phrase and stress key words",
+          "visual_description": "A phrase-grouping display supports this task: Which change would make the second read stronger? It presents At the edge of the harbor, workers repaired the lighthouse before the fog returned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: Which change would make the second read stronger? It presents At the edge of the harbor, workers repaired the lighthouse before the fog returned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which change would make the second read stronger? The visual is a phrase-grouping display with the language evidence described in the question. Choices: pause after the opening phrase and stress key words, skip the opening phrase, read every word in the same flat tone."
         },
         {
           "question_id": "G5E_FL_001_LVL4_Q10",
@@ -3070,15 +3228,15 @@
           "support_type": "fluency_meter",
           "correct_answer": "The reader kept all words accurate and sounded more like the passage felt.",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “Which evidence shows fluency improved after rereading?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “The reader kept all words accurate and sounded more like the passage felt.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "Improved fluency combines accuracy, smoothness, punctuation, and expression.",
+          "explanation": "Improved fluency combines accuracy, smoothness, punctuation, and expression. This works because the learner can connect the response “The reader kept all words accurate and sounded more like the passage felt.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “Which evidence shows fluency improved after rereading?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which evidence shows fluency improved after rereading? Choices: The reader kept all words accurate and sounded more like the passage felt., The reader skipped longer words but finished sooner., The reader read louder without noticing punctuation..",
+            "text": "Which evidence shows fluency improved after rereading? The visual is a fluency practice display with the language evidence described in the question. Choices: The reader skipped longer words but finished sooner., The reader kept all words accurate and sounded more like the passage felt., The reader read louder without noticing punctuation..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3106,10 +3264,14 @@
           "audio_required": false,
           "passage": "The old library reopened at sunrise, and neighbors lined the sidewalk with smiles.",
           "choices": [
-            "The reader kept all words accurate and sounded more like the passage felt.",
             "The reader skipped longer words but finished sooner.",
+            "The reader kept all words accurate and sounded more like the passage felt.",
             "The reader read louder without noticing punctuation."
-          ]
+          ],
+          "answer": "The reader kept all words accurate and sounded more like the passage felt.",
+          "visual_description": "A fluency practice display supports this task: Which evidence shows fluency improved after rereading? It presents The old library reopened at sunrise, and neighbors lined the sidewalk with smiles.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: Which evidence shows fluency improved after rereading? It presents The old library reopened at sunrise, and neighbors lined the sidewalk with smiles.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "Which evidence shows fluency improved after rereading? The visual is a fluency practice display with the language evidence described in the question. Choices: The reader skipped longer words but finished sooner., The reader kept all words accurate and sounded more like the passage felt., The reader read louder without noticing punctuation.."
         }
       ]
     },
@@ -3123,21 +3285,21 @@
       "questions": [
         {
           "question_id": "G5E_FL_001_MIXED_Q01",
-          "prompt": "Which small word changes the meaning if it is skipped?",
+          "prompt": "While checking a safety announcement for exact meaning, which small word changes the meaning if it is skipped?",
           "question_type": "multiple_choice",
           "visual_model": "sentence_highlight",
           "support_type": "sentence_highlight",
           "correct_answer": "not",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “While checking a safety announcement for exact meaning, which small word changes the meaning if it is…” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “not” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Skipping not reverses the meaning, so it must be read accurately.",
+          "explanation": "Skipping not reverses the meaning, so it must be read accurately. This works because the learner can connect the response “not” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While checking a safety announcement for exact meaning, which small word changes the meaning if it is skipped?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which small word changes the meaning if it is skipped? Choices: not, the, river.",
+            "text": "While checking a safety announcement for exact meaning, which small word changes the meaning if it is skipped? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: the, river, not.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3165,28 +3327,32 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "not",
             "the",
-            "river"
-          ]
+            "river",
+            "not"
+          ],
+          "answer": "not",
+          "visual_description": "A sentence-highlighting display supports this task: While checking a safety announcement for exact meaning, which small word changes the meaning if it is skipped? It presents The hikers did not cross the river until the ranger returned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: While checking a safety announcement for exact meaning, which small word changes the meaning if it is skipped? It presents The hikers did not cross the river until the ranger returned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While checking a safety announcement for exact meaning, which small word changes the meaning if it is skipped? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: the, river, not."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q02",
-          "prompt": "Choose the best phrase grouping for smooth reading.",
+          "prompt": "While recording a science-fair introduction for younger students, choose the best phrase grouping for smooth reading.",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
           "support_type": "phrase_builder",
           "correct_answer": "The young inventor / tested her design / before the science fair.",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “While recording a science-fair introduction for younger students, choose the best phrase grouping for…” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “The young inventor / tested her design / before the science fair.” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "The best grouping keeps subject, action, and time phrase together.",
+          "explanation": "The best grouping keeps subject, action, and time phrase together. This works because the learner can connect the response “The young inventor / tested her design / before the science fair.” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While recording a science-fair introduction for younger students, choose the best phrase grouping for smooth reading.” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Choose the best phrase grouping for smooth reading. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair..",
+            "text": "While recording a science-fair introduction for younger students, choose the best phrase grouping for smooth reading. The visual is a phrase-grouping display with the language evidence described in the question. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair..",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3222,25 +3388,29 @@
             "The young inventor",
             "tested her design",
             "before the science fair"
-          ]
+          ],
+          "answer": "The young inventor / tested her design / before the science fair.",
+          "visual_description": "A phrase-grouping display supports this task: While recording a science-fair introduction for younger students, choose the best phrase grouping for smooth reading. It presents The young inventor tested her design before the science fair.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: While recording a science-fair introduction for younger students, choose the best phrase grouping for smooth reading. It presents The young inventor tested her design before the science fair.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While recording a science-fair introduction for younger students, choose the best phrase grouping for smooth reading. The visual is a phrase-grouping display with the language evidence described in the question. Choices: The young inventor / tested her design / before the science fair., The young / inventor tested / her design before / the science fair., The young inventor tested / her / design before the / science fair.."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q03",
-          "prompt": "How should your voice change at the question mark?",
+          "prompt": "During a live interview rehearsal, how should your voice change at the question mark?",
           "question_type": "multiple_choice",
           "visual_model": "sentence_highlight",
           "support_type": "sentence_highlight",
           "correct_answer": "rise slightly to show a question",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “During a live interview rehearsal, how should your voice change at the question mark?” and study its sentence highlight.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “rise slightly to show a question” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "punctuation_ignored",
-          "explanation": "A question mark signals a questioning voice, often with a slight rise.",
+          "explanation": "A question mark signals a questioning voice, often with a slight rise. This works because the learner can connect the response “rise slightly to show a question” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “During a live interview rehearsal, how should your voice change at the question mark?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "How should your voice change at the question mark? Choices: rise slightly to show a question, stay completely flat, speed up and ignore the mark.",
+            "text": "During a live interview rehearsal, how should your voice change at the question mark? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: stay completely flat, rise slightly to show a question, speed up and ignore the mark.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3268,28 +3438,32 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "rise slightly to show a question",
             "stay completely flat",
+            "rise slightly to show a question",
             "speed up and ignore the mark"
-          ]
+          ],
+          "answer": "rise slightly to show a question",
+          "visual_description": "A sentence-highlighting display supports this task: During a live interview rehearsal, how should your voice change at the question mark? It presents Could the tiny seedling survive the dry summer?. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence-highlighting display supports this task: During a live interview rehearsal, how should your voice change at the question mark? It presents Could the tiny seedling survive the dry summer?. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "During a live interview rehearsal, how should your voice change at the question mark? The visual is a sentence-highlighting display with the language evidence described in the question. Choices: stay completely flat, rise slightly to show a question, speed up and ignore the mark."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q04",
-          "prompt": "After a first read with two skipped words, what should the reader do next?",
+          "prompt": "After recording the first take of a class podcast, after a first read with two skipped words, what should the reader do next?",
           "question_type": "multiple_choice",
           "visual_model": "fluency_meter",
           "support_type": "fluency_meter",
           "correct_answer": "reread to fix accuracy before adding expression",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “After recording the first take of a class podcast, after a first read with two skipped words, what sho…” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “reread to fix accuracy before adding expression” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "Repeated reading begins by correcting missed words so meaning is accurate.",
+          "explanation": "Repeated reading begins by correcting missed words so meaning is accurate. This works because the learner can connect the response “reread to fix accuracy before adding expression” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “After recording the first take of a class podcast, after a first read with two skipped words, what should the reader do ne…” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "After a first read with two skipped words, what should the reader do next? Choices: reread to fix accuracy before adding expression, read faster to finish, ignore the skipped words.",
+            "text": "After recording the first take of a class podcast, after a first read with two skipped words, what should the reader do next? The visual is a fluency practice display with the language evidence described in the question. Choices: read faster to finish, ignore the skipped words, reread to fix accuracy before adding expression.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3317,28 +3491,32 @@
           "audio_required": false,
           "passage": "First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.",
           "choices": [
-            "reread to fix accuracy before adding expression",
             "read faster to finish",
-            "ignore the skipped words"
-          ]
+            "ignore the skipped words",
+            "reread to fix accuracy before adding expression"
+          ],
+          "answer": "reread to fix accuracy before adding expression",
+          "visual_description": "A fluency practice display supports this task: After recording the first take of a class podcast, after a first read with two skipped words, what should the reader do next? It presents First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: After recording the first take of a class podcast, after a first read with two skipped words, what should the reader do next? It presents First read: The canal carried water to nearby farms. Reread: The narrow canal carried water to nearby farms during dry months.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "After recording the first take of a class podcast, after a first read with two skipped words, what should the reader do next? The visual is a fluency practice display with the language evidence described in the question. Choices: read faster to finish, ignore the skipped words, reread to fix accuracy before adding expression."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q05",
-          "prompt": "Which word in the sentence names the tool?",
+          "prompt": "While reading directions aloud at the nature center, which word in the sentence names the tool?",
           "question_type": "multiple_choice",
           "visual_model": "fluency_meter",
           "support_type": "fluency_meter",
           "correct_answer": "microscope",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “While reading directions aloud at the nature center, which word in the sentence names the tool?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “microscope” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "skips_words",
-          "explanation": "The tool named in the sentence is microscope.",
+          "explanation": "The tool named in the sentence is microscope. This works because the learner can connect the response “microscope” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While reading directions aloud at the nature center, which word in the sentence names the tool?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which word in the sentence names the tool? Choices: microscope, microphone, telescope.",
+            "text": "While reading directions aloud at the nature center, which word in the sentence names the tool? The visual is a fluency practice display with the language evidence described in the question. Choices: microscope, microphone, telescope.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3369,25 +3547,29 @@
             "microscope",
             "microphone",
             "telescope"
-          ]
+          ],
+          "answer": "microscope",
+          "visual_description": "A fluency practice display supports this task: While reading directions aloud at the nature center, which word in the sentence names the tool? It presents Under the microscope, the pond water looked alive with motion.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: While reading directions aloud at the nature center, which word in the sentence names the tool? It presents Under the microscope, the pond water looked alive with motion.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While reading directions aloud at the nature center, which word in the sentence names the tool? The visual is a fluency practice display with the language evidence described in the question. Choices: microscope, microphone, telescope."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q06",
-          "prompt": "Which phrase should be kept together to show cause?",
+          "prompt": "While explaining a route change to visitors, which phrase should be kept together to show cause?",
           "question_type": "multiple_choice",
           "visual_model": "phrase_builder",
           "support_type": "phrase_builder",
           "correct_answer": "Because the bridge was closed",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “While explaining a route change to visitors, which phrase should be kept together to show cause?” and study its phrase builder.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “Because the bridge was closed” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "The opening cause phrase belongs together before the pause.",
+          "explanation": "The opening cause phrase belongs together before the pause. This works because the learner can connect the response “Because the bridge was closed” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While explaining a route change to visitors, which phrase should be kept together to show cause?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which phrase should be kept together to show cause? Choices: Because the bridge was closed, closed the buses, alternate roads.",
+            "text": "While explaining a route change to visitors, which phrase should be kept together to show cause? The visual is a phrase-grouping display with the language evidence described in the question. Choices: closed the buses, Because the bridge was closed, alternate roads.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3415,33 +3597,37 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "Because the bridge was closed",
             "closed the buses",
+            "Because the bridge was closed",
             "alternate roads"
           ],
           "phrase_chunks": [
             "Because the bridge was closed",
             "the buses followed",
             "alternate roads"
-          ]
+          ],
+          "answer": "Because the bridge was closed",
+          "visual_description": "A phrase-grouping display supports this task: While explaining a route change to visitors, which phrase should be kept together to show cause? It presents Because the bridge was closed, the buses followed alternate roads.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A phrase-grouping display supports this task: While explaining a route change to visitors, which phrase should be kept together to show cause? It presents Because the bridge was closed, the buses followed alternate roads.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While explaining a route change to visitors, which phrase should be kept together to show cause? The visual is a phrase-grouping display with the language evidence described in the question. Choices: closed the buses, Because the bridge was closed, alternate roads."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q07",
-          "prompt": "Which voice best matches the dialogue?",
+          "prompt": "During a dramatic reading for the school broadcast, which voice best matches the dialogue?",
           "question_type": "multiple_choice",
           "visual_model": "sentence_card",
           "support_type": "sentence_card",
           "correct_answer": "worried and urgent",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “During a dramatic reading for the school broadcast, which voice best matches the dialogue?” and study its sentence card.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “worried and urgent” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "The words storm, closer, and warned suggest a worried, urgent voice.",
+          "explanation": "The words storm, closer, and warned suggest a worried, urgent voice. This works because the learner can connect the response “worried and urgent” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “During a dramatic reading for the school broadcast, which voice best matches the dialogue?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which voice best matches the dialogue? Choices: worried and urgent, sleepy and bored, silly and playful.",
+            "text": "During a dramatic reading for the school broadcast, which voice best matches the dialogue? The visual is a sentence card with the language evidence described in the question. Choices: sleepy and bored, silly and playful, worried and urgent.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3469,28 +3655,32 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "worried and urgent",
             "sleepy and bored",
-            "silly and playful"
-          ]
+            "silly and playful",
+            "worried and urgent"
+          ],
+          "answer": "worried and urgent",
+          "visual_description": "A sentence card supports this task: During a dramatic reading for the school broadcast, which voice best matches the dialogue? It presents “The storm is moving closer,” Dad warned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A sentence card supports this task: During a dramatic reading for the school broadcast, which voice best matches the dialogue? It presents “The storm is moving closer,” Dad warned.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "During a dramatic reading for the school broadcast, which voice best matches the dialogue? The visual is a sentence card with the language evidence described in the question. Choices: sleepy and bored, silly and playful, worried and urgent."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q08",
-          "prompt": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+          "prompt": "While preparing the final take of an audiobook excerpt, complete the goal: On the third read, match your ___ to the author’s meaning.",
           "question_type": "sentence_completion",
           "visual_model": "fluency_meter",
           "support_type": "fluency_meter",
           "correct_answer": "expression",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “While preparing the final take of an audiobook excerpt, complete the goal: On the third read, match yo…” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this sentence completion response.",
+            "Verify: Reread the prompt with your response and confirm that “expression” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "Repeated reading should improve expression so the voice supports meaning.",
+          "explanation": "Repeated reading should improve expression so the voice supports meaning. This works because the learner can connect the response “expression” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While preparing the final take of an audiobook excerpt, complete the goal: On the third read, match your ___ to the author…” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Complete the goal: On the third read, match your ___ to the author’s meaning.",
+            "text": "While preparing the final take of an audiobook excerpt, complete the goal: On the third read, match your ___ to the author’s meaning. The visual is a fluency practice display with the language evidence described in the question.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3522,25 +3712,29 @@
             "voice",
             "tone"
           ],
-          "blank_sentence": "On the third read, match your ___ to the author’s meaning."
+          "blank_sentence": "On the third read, match your ___ to the author’s meaning.",
+          "answer": "expression",
+          "visual_description": "A fluency practice display supports this task: While preparing the final take of an audiobook excerpt, complete the goal: On the third read, match your ___ to the author’s meaning. It presents The rescued seal hesitated, then slid toward the waves as the crowd cheered.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: While preparing the final take of an audiobook excerpt, complete the goal: On the third read, match your ___ to the author’s meaning. It presents The rescued seal hesitated, then slid toward the waves as the crowd cheered.. It leaves the response for the student to construct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While preparing the final take of an audiobook excerpt, complete the goal: On the third read, match your ___ to the author’s meaning. The visual is a fluency practice display with the language evidence described in the question."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q09",
-          "prompt": "Which pace helps a listener follow a complex sentence?",
+          "prompt": "While presenting a complex ecology sentence to families, which pace helps a listener follow a complex sentence?",
           "question_type": "multiple_choice",
           "visual_model": "fluency_meter",
           "support_type": "fluency_meter",
           "correct_answer": "pause briefly at phrase breaks",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “While presenting a complex ecology sentence to families, which pace helps a listener follow a complex…” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “pause briefly at phrase breaks” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "phrase_chunking_error",
-          "explanation": "Brief pauses at phrase breaks make a complex sentence easier to understand.",
+          "explanation": "Brief pauses at phrase breaks make a complex sentence easier to understand. This works because the learner can connect the response “pause briefly at phrase breaks” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “While presenting a complex ecology sentence to families, which pace helps a listener follow a complex sentence?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which pace helps a listener follow a complex sentence? Choices: pause briefly at phrase breaks, race to finish quickly, stop after every single word.",
+            "text": "While presenting a complex ecology sentence to families, which pace helps a listener follow a complex sentence? The visual is a fluency practice display with the language evidence described in the question. Choices: pause briefly at phrase breaks, race to finish quickly, stop after every single word.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3576,25 +3770,29 @@
             "Although the trail was steep",
             "the view from the ridge",
             "inspired everyone"
-          ]
+          ],
+          "answer": "pause briefly at phrase breaks",
+          "visual_description": "A fluency practice display supports this task: While presenting a complex ecology sentence to families, which pace helps a listener follow a complex sentence? It presents Although the trail was steep, the view from the ridge inspired everyone.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: While presenting a complex ecology sentence to families, which pace helps a listener follow a complex sentence? It presents Although the trail was steep, the view from the ridge inspired everyone.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "While presenting a complex ecology sentence to families, which pace helps a listener follow a complex sentence? The visual is a fluency practice display with the language evidence described in the question. Choices: pause briefly at phrase breaks, race to finish quickly, stop after every single word."
         },
         {
           "question_id": "G5E_FL_001_MIXED_Q10",
-          "prompt": "Which expression best fits the sentence?",
+          "prompt": "At the quiet ending of a planetarium narration, which expression best fits the sentence?",
           "question_type": "multiple_choice",
           "visual_model": "fluency_meter",
           "support_type": "fluency_meter",
           "correct_answer": "calm wonder",
           "hints": [
-            "First, read every word exactly as printed.",
-            "Next, group words that belong together and notice punctuation marks.",
-            "Finally, reread with a voice that matches the meaning of the text."
+            "Focus: Read the exact task “At the quiet ending of a planetarium narration, which expression best fits the sentence?” and study its fluency meter.",
+            "Strategy: Use the displayed word parts, context, phrasing, punctuation, or relationship that directly supports this multiple choice response.",
+            "Verify: Reread the prompt with your response and confirm that “calm wonder” fits every relevant clue without changing the printed language."
           ],
           "misconception_tag": "expression_flat_reading",
-          "explanation": "The image of stars shimmering suggests calm wonder, not a flat voice.",
+          "explanation": "The image of stars shimmering suggests calm wonder, not a flat voice. This works because the learner can connect the response “calm wonder” to the specific language evidence in the display, then reread to verify meaning and form. The task wording “At the quiet ending of a planetarium narration, which expression best fits the sentence?” identifies the exact evidence the learner must use.",
           "feedback": "Strong fluent reading choice. You used the words, phrasing, punctuation, or meaning in the text.",
           "question_audio": {
-            "text": "Which expression best fits the sentence? Choices: calm wonder, angry shouting, flat robot voice.",
+            "text": "At the quiet ending of a planetarium narration, which expression best fits the sentence? The visual is a fluency practice display with the language evidence described in the question. Choices: angry shouting, calm wonder, flat robot voice.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -3622,10 +3820,14 @@
           "repeat_after_me": true,
           "audio_required": false,
           "choices": [
-            "calm wonder",
             "angry shouting",
+            "calm wonder",
             "flat robot voice"
-          ]
+          ],
+          "answer": "calm wonder",
+          "visual_description": "A fluency practice display supports this task: At the quiet ending of a planetarium narration, which expression best fits the sentence? It presents Above the desert, millions of stars shimmered in the cold night sky.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "accessible_description": "A fluency practice display supports this task: At the quiet ending of a planetarium narration, which expression best fits the sentence? It presents Above the desert, millions of stars shimmered in the cold night sky.. It offers 3 response choices without identifying which one is correct. Students use the displayed language evidence to reason about the response.",
+          "read_aloud_text": "At the quiet ending of a planetarium narration, which expression best fits the sentence? The visual is a fluency practice display with the language evidence described in the question. Choices: angry shouting, calm wonder, flat robot voice."
         }
       ]
     }
