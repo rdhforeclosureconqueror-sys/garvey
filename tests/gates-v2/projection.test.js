@@ -1,0 +1,3 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),reduce=require('../../gates-v2/engine/reducer');const {experience,startInput}=require('./reducer-engine-helpers');
+test('reducer exposes only the established child projection allowlist',()=>{const r=reduce({experience:experience(),session:startInput(),action:{type:'START_EXPERIENCE'}}),serialized=JSON.stringify(r.projection);assert.deepEqual(Object.keys(r.projection).sort(),['current_node','fixture_id','gate_title','permitted_controls','revision','status'].sort());for(const secret of ['authoring_tags','effect_refs','source_provenance','approvals','parent_summary_template','next_node_id'])assert.equal(serialized.includes(secret),false)});

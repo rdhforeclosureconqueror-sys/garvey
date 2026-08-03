@@ -1,0 +1,6 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict');
+const reduce=require('../../gates-v2/engine/reducer');
+const {experience,startInput}=require('./reducer-engine-helpers');
+const step=(x,s,a)=>reduce({experience:x,session:s,action:a});
+test('starts an immutable session and follows choice branches',()=>{const x=experience(),seed=startInput(),before=structuredClone(seed);let r=step(x,seed,{type:'START_EXPERIENCE'});assert.equal(r.valid,true);assert.deepEqual(seed,before);assert.equal(r.nextSession.current_node_id,'opening');assert.deepEqual(r.events.map(e=>e.type),['experience_started','node_viewed']);r=step(x,r.nextSession,{type:'VIEW_NODE'});r=step(x,r.nextSession,{type:'SELECT_CHOICE',option_id:'mad'});r=step(x,r.nextSession,{type:'SELECT_CHOICE',option_id:'hot_face'});r=step(x,r.nextSession,{type:'COMPLETE_PRACTICE',option_id:'breath_done'});r=step(x,r.nextSession,{type:'SELECT_CHOICE',option_id:'push_blocks'});assert.equal(r.nextSession.current_node_id,'push_result');r=step(x,r.nextSession,{type:'VIEW_NODE'});assert.equal(r.nextSession.current_node_id,'repair_choice');r=step(x,r.nextSession,{type:'SELECT_CHOICE',option_id:'name_and_fix'});assert.equal(r.nextSession.current_node_id,'repair_result')});
