@@ -1,9 +1,10 @@
 {
   "metadata": {
     "schema_version": "skill-package.v1",
-    "production_status": "ready_for_manual_qa",
+    "production_status": "publication_certified",
     "source_plan": "grade5-math-completion-plan.v1",
-    "voice_standard": "full_voice_standard_cached_ai_audio_optional"
+    "voice_standard": "full_voice_standard_cached_ai_audio_optional",
+    "audit_date": "2026-08-03"
   },
   "skill_id": "G5M_NBT_003",
   "grade": 5,
@@ -223,7 +224,7 @@
       "question_id": "G5M_NBT_003_L2_Q1",
       "question_type": "decimal_response",
       "visual_model": "decimal_grid",
-      "prompt": "Multiply 1.20 \u00d7 0.30.",
+      "prompt": "Multiply 1.20 × 0.30.",
       "answer": "0.36",
       "correct_answer": "0.36",
       "misconception_tag": "decimal_product_size_error",
@@ -282,18 +283,18 @@
           "correct_answer": "same place values line up",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.46.",
-          "read_aloud_text": "Explain why the decimal points should line up before adding decimals.",
+          "explanation": "Decimal points align ones with ones, tenths with tenths, and hundredths with hundredths; therefore same place values line up.",
+          "read_aloud_text": "In the sum 1.30 + 0.16, why should the decimal points line up?",
           "question_audio": {
-            "text": "Explain why the decimal points should line up before adding decimals.",
+            "text": "In the sum 1.30 + 0.16, why should the decimal points line up?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -314,7 +315,9 @@
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
           ],
-          "value": 1.3
+          "value": 1.3,
+          "visual_description": "An accessible place value chart representing 1.30 + 0.16. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible place value chart representing 1.30 + 0.16. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q2",
@@ -326,18 +329,18 @@
           "correct_answer": "same place values line up",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.57.",
-          "read_aloud_text": "Explain why the decimal points should line up before adding decimals.",
+          "explanation": "Decimal points align ones with ones, tenths with tenths, and hundredths with hundredths; therefore same place values line up.",
+          "read_aloud_text": "In the sum 1.40 + 0.17, why should the decimal points line up?",
           "question_audio": {
-            "text": "Explain why the decimal points should line up before adding decimals.",
+            "text": "In the sum 1.40 + 0.17, why should the decimal points line up?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -345,10 +348,10 @@
             "playback_preference": "cached_audio_first"
           },
           "choices": [
-            "1.57",
-            "1.67",
-            "1.23",
-            "1.6"
+            "same place values line up",
+            "decimal points always move right",
+            "digits should be ordered by size",
+            "zeros cannot be used in decimals"
           ],
           "operands": [
             "1.40",
@@ -364,7 +367,9 @@
             "line up same place values",
             "tenths with tenths and hundredths with hundredths"
           ],
-          "value": 1.4
+          "value": 1.4,
+          "visual_description": "An accessible place value chart representing 1.40 + 0.17. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible place value chart representing 1.40 + 0.17. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q3",
@@ -376,18 +381,18 @@
           "correct_answer": "1.68",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.68.",
-          "read_aloud_text": "Add 1.50 and 0.18, lining up decimal points.",
+          "explanation": "Adding aligned place values in 1.50 + 0.18 gives 1.68; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "Add 1.50 + 0.18.",
           "question_audio": {
-            "text": "Add 1.50 and 0.18, lining up decimal points.",
+            "text": "Add 1.50 + 0.18.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -395,8 +400,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "1.68",
-            "1.68",
             "1.68"
           ],
           "operands": [
@@ -407,7 +410,9 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.50 + 0.18. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.50 + 0.18. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q4",
@@ -419,18 +424,18 @@
           "correct_answer": "1.79",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.79.",
-          "read_aloud_text": "Add 1.60 and 0.19, lining up decimal points.",
+          "explanation": "Adding aligned place values in 1.60 + 0.19 gives 1.79; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "Add 1.60 + 0.19.",
           "question_audio": {
-            "text": "Add 1.60 and 0.19, lining up decimal points.",
+            "text": "Add 1.60 + 0.19.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -451,7 +456,9 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.60 + 0.19. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.60 + 0.19. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q5",
@@ -463,18 +470,18 @@
           "correct_answer": "1.85",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.85.",
-          "read_aloud_text": "Add 1.70 and 0.15, lining up decimal points.",
+          "explanation": "Adding aligned place values in 1.70 + 0.15 gives 1.85; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "Add 1.70 + 0.15.",
           "question_audio": {
-            "text": "Add 1.70 and 0.15, lining up decimal points.",
+            "text": "Add 1.70 + 0.15.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -482,8 +489,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "1.85",
-            "1.85",
             "1.85"
           ],
           "operands": [
@@ -494,7 +499,9 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.70 + 0.15. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.70 + 0.15. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q6",
@@ -506,18 +513,18 @@
           "correct_answer": "1.96",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.96.",
-          "read_aloud_text": "Add 1.80 and 0.16, lining up decimal points.",
+          "explanation": "Adding aligned place values in 1.80 + 0.16 gives 1.96; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "Add 1.80 + 0.16.",
           "question_audio": {
-            "text": "Add 1.80 and 0.16, lining up decimal points.",
+            "text": "Add 1.80 + 0.16.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -538,7 +545,9 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.80 + 0.16. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.80 + 0.16. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q7",
@@ -550,18 +559,18 @@
           "correct_answer": "2.07",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 2.07.",
-          "read_aloud_text": "Add 1.90 and 0.17, lining up decimal points.",
+          "explanation": "Adding aligned place values in 1.90 + 0.17 gives 2.07; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "Add 1.90 + 0.17.",
           "question_audio": {
-            "text": "Add 1.90 and 0.17, lining up decimal points.",
+            "text": "Add 1.90 + 0.17.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -569,8 +578,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "2.07",
-            "2.07",
             "2.07"
           ],
           "operands": [
@@ -581,7 +588,9 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.90 + 0.17. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.90 + 0.17. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q8",
@@ -593,18 +602,18 @@
           "correct_answer": "2.18",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 2.18.",
-          "read_aloud_text": "Add 2.00 and 0.18, lining up decimal points.",
+          "explanation": "Adding aligned place values in 2.00 + 0.18 gives 2.18; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "Add 2.00 + 0.18.",
           "question_audio": {
-            "text": "Add 2.00 and 0.18, lining up decimal points.",
+            "text": "Add 2.00 + 0.18.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -625,7 +634,9 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 2.00 + 0.18. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 2.00 + 0.18. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q9",
@@ -637,18 +648,18 @@
           "correct_answer": "2.29",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 2.29.",
-          "read_aloud_text": "Add 2.10 and 0.19, lining up decimal points.",
+          "explanation": "Adding aligned place values in 2.10 + 0.19 gives 2.29; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "Add 2.10 + 0.19.",
           "question_audio": {
-            "text": "Add 2.10 and 0.19, lining up decimal points.",
+            "text": "Add 2.10 + 0.19.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -656,8 +667,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "2.29",
-            "2.29",
             "2.29"
           ],
           "operands": [
@@ -668,7 +677,9 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 2.10 + 0.19. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 2.10 + 0.19. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L1_Q10",
@@ -680,18 +691,18 @@
           "correct_answer": "2.35",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 2.35.",
-          "read_aloud_text": "Add 2.20 and 0.15, lining up decimal points.",
+          "explanation": "Adding aligned place values in 2.20 + 0.15 gives 2.35; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "Add 2.20 + 0.15.",
           "question_audio": {
-            "text": "Add 2.20 and 0.15, lining up decimal points.",
+            "text": "Add 2.20 + 0.15.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -712,7 +723,9 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 2.20 + 0.15. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 2.20 + 0.15. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         }
       ]
     },
@@ -729,23 +742,23 @@
           "question_id": "G5M_NBT_003_L2_Q1",
           "question_type": "decimal_response",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.20 \u00d7 0.30.",
+          "prompt": "Multiply 1.20 × 0.30.",
           "answer": "0.36",
           "correct_answer": "0.36",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.36.",
-          "read_aloud_text": "Multiply 1.20 times 0.30. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.36, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 1.20 times 0.30.",
           "question_audio": {
-            "text": "Multiply 1.20 times 0.30. Estimate first to place the decimal point.",
+            "text": "Multiply 1.20 times 0.30.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -753,36 +766,36 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "0.36",
-            "0.36",
             "0.36"
           ],
           "grid_base": 100,
           "shaded": 4,
-          "decimal_label": "Product about 0.36"
+          "decimal_label": "Product about 0.36",
+          "visual_description": "An accessible decimal grid representing Multiply 1.20 × 0.30.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 1.20 × 0.30.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q2",
           "question_id": "G5M_NBT_003_L2_Q2",
           "question_type": "multiple_choice",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.30 \u00d7 0.40.",
+          "prompt": "Multiply 1.30 × 0.40.",
           "answer": "0.52",
           "correct_answer": "0.52",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.52.",
-          "read_aloud_text": "Multiply 1.30 times 0.40. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.52, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 1.30 times 0.40.",
           "question_audio": {
-            "text": "Multiply 1.30 times 0.40. Estimate first to place the decimal point.",
+            "text": "Multiply 1.30 times 0.40.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -797,30 +810,32 @@
           ],
           "grid_base": 100,
           "shaded": 5,
-          "decimal_label": "Product about 0.52"
+          "decimal_label": "Product about 0.52",
+          "visual_description": "An accessible decimal grid representing Multiply 1.30 × 0.40.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 1.30 × 0.40.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q3",
           "question_id": "G5M_NBT_003_L2_Q3",
           "question_type": "decimal_response",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.40 \u00d7 0.50.",
+          "prompt": "Multiply 1.40 × 0.50.",
           "answer": "0.70",
           "correct_answer": "0.70",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.70.",
-          "read_aloud_text": "Multiply 1.40 times 0.50. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.70, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 1.40 times 0.50.",
           "question_audio": {
-            "text": "Multiply 1.40 times 0.50. Estimate first to place the decimal point.",
+            "text": "Multiply 1.40 times 0.50.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -828,36 +843,36 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "0.70",
-            "0.70",
             "0.70"
           ],
           "grid_base": 100,
           "shaded": 7,
-          "decimal_label": "Product about 0.70"
+          "decimal_label": "Product about 0.70",
+          "visual_description": "An accessible decimal grid representing Multiply 1.40 × 0.50.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 1.40 × 0.50.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q4",
           "question_id": "G5M_NBT_003_L2_Q4",
           "question_type": "multiple_choice",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.50 \u00d7 0.20.",
+          "prompt": "Multiply 1.50 × 0.20.",
           "answer": "0.30",
           "correct_answer": "0.30",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.30.",
-          "read_aloud_text": "Multiply 1.50 times 0.20. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.30, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 1.50 times 0.20.",
           "question_audio": {
-            "text": "Multiply 1.50 times 0.20. Estimate first to place the decimal point.",
+            "text": "Multiply 1.50 times 0.20.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -872,30 +887,32 @@
           ],
           "grid_base": 100,
           "shaded": 3,
-          "decimal_label": "Product about 0.30"
+          "decimal_label": "Product about 0.30",
+          "visual_description": "An accessible decimal grid representing Multiply 1.50 × 0.20.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 1.50 × 0.20.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q5",
           "question_id": "G5M_NBT_003_L2_Q5",
           "question_type": "decimal_response",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.60 \u00d7 0.30.",
+          "prompt": "Multiply 1.60 × 0.30.",
           "answer": "0.48",
           "correct_answer": "0.48",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.48.",
-          "read_aloud_text": "Multiply 1.60 times 0.30. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.48, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 1.60 times 0.30.",
           "question_audio": {
-            "text": "Multiply 1.60 times 0.30. Estimate first to place the decimal point.",
+            "text": "Multiply 1.60 times 0.30.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -903,36 +920,36 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "0.48",
-            "0.48",
             "0.48"
           ],
           "grid_base": 100,
           "shaded": 5,
-          "decimal_label": "Product about 0.48"
+          "decimal_label": "Product about 0.48",
+          "visual_description": "An accessible decimal grid representing Multiply 1.60 × 0.30.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 1.60 × 0.30.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q6",
           "question_id": "G5M_NBT_003_L2_Q6",
           "question_type": "multiple_choice",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.70 \u00d7 0.40.",
+          "prompt": "Multiply 1.70 × 0.40.",
           "answer": "0.68",
           "correct_answer": "0.68",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.68.",
-          "read_aloud_text": "Multiply 1.70 times 0.40. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.68, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 1.70 times 0.40.",
           "question_audio": {
-            "text": "Multiply 1.70 times 0.40. Estimate first to place the decimal point.",
+            "text": "Multiply 1.70 times 0.40.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -947,30 +964,32 @@
           ],
           "grid_base": 100,
           "shaded": 7,
-          "decimal_label": "Product about 0.68"
+          "decimal_label": "Product about 0.68",
+          "visual_description": "An accessible decimal grid representing Multiply 1.70 × 0.40.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 1.70 × 0.40.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q7",
           "question_id": "G5M_NBT_003_L2_Q7",
           "question_type": "decimal_response",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.80 \u00d7 0.50.",
+          "prompt": "Multiply 1.80 × 0.50.",
           "answer": "0.90",
           "correct_answer": "0.90",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.90.",
-          "read_aloud_text": "Multiply 1.80 times 0.50. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.90, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 1.80 times 0.50.",
           "question_audio": {
-            "text": "Multiply 1.80 times 0.50. Estimate first to place the decimal point.",
+            "text": "Multiply 1.80 times 0.50.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -978,36 +997,36 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "0.90",
-            "0.90",
             "0.90"
           ],
           "grid_base": 100,
           "shaded": 9,
-          "decimal_label": "Product about 0.90"
+          "decimal_label": "Product about 0.90",
+          "visual_description": "An accessible decimal grid representing Multiply 1.80 × 0.50.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 1.80 × 0.50.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q8",
           "question_id": "G5M_NBT_003_L2_Q8",
           "question_type": "multiple_choice",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.90 \u00d7 0.20.",
+          "prompt": "Multiply 1.90 × 0.20.",
           "answer": "0.38",
           "correct_answer": "0.38",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.38.",
-          "read_aloud_text": "Multiply 1.90 times 0.20. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.38, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 1.90 times 0.20.",
           "question_audio": {
-            "text": "Multiply 1.90 times 0.20. Estimate first to place the decimal point.",
+            "text": "Multiply 1.90 times 0.20.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1022,30 +1041,32 @@
           ],
           "grid_base": 100,
           "shaded": 4,
-          "decimal_label": "Product about 0.38"
+          "decimal_label": "Product about 0.38",
+          "visual_description": "An accessible decimal grid representing Multiply 1.90 × 0.20.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 1.90 × 0.20.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q9",
           "question_id": "G5M_NBT_003_L2_Q9",
           "question_type": "decimal_response",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 2.00 \u00d7 0.30.",
+          "prompt": "Multiply 2.00 × 0.30.",
           "answer": "0.60",
           "correct_answer": "0.60",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.60.",
-          "read_aloud_text": "Multiply 2.00 times 0.30. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.60, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 2.00 times 0.30.",
           "question_audio": {
-            "text": "Multiply 2.00 times 0.30. Estimate first to place the decimal point.",
+            "text": "Multiply 2.00 times 0.30.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1053,36 +1074,36 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "0.60",
-            "0.60",
             "0.60"
           ],
           "grid_base": 100,
           "shaded": 6,
-          "decimal_label": "Product about 0.60"
+          "decimal_label": "Product about 0.60",
+          "visual_description": "An accessible decimal grid representing Multiply 2.00 × 0.30.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 2.00 × 0.30.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L2_Q10",
           "question_id": "G5M_NBT_003_L2_Q10",
           "question_type": "multiple_choice",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 2.10 \u00d7 0.40.",
+          "prompt": "Multiply 2.10 × 0.40.",
           "answer": "0.84",
           "correct_answer": "0.84",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.84.",
-          "read_aloud_text": "Multiply 2.10 times 0.40. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.84, with the unit interpreted from the question.",
+          "read_aloud_text": "Multiply 2.10 times 0.40.",
           "question_audio": {
-            "text": "Multiply 2.10 times 0.40. Estimate first to place the decimal point.",
+            "text": "Multiply 2.10 times 0.40.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1097,7 +1118,9 @@
           ],
           "grid_base": 100,
           "shaded": 8,
-          "decimal_label": "Product about 0.84"
+          "decimal_label": "Product about 0.84",
+          "visual_description": "An accessible decimal grid representing Multiply 2.10 × 0.40.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing Multiply 2.10 × 0.40.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         }
       ]
     },
@@ -1114,23 +1137,23 @@
           "question_id": "G5M_NBT_003_L3_Q1",
           "question_type": "decimal_response",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 0.93 \u00f7 0.30.",
+          "prompt": "Divide 0.93 ÷ 0.30.",
           "answer": "3.10",
           "correct_answer": "3.10",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.10.",
-          "read_aloud_text": "Divide 0.93 by 0.30. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.10, and multiplication checks the result.",
+          "read_aloud_text": "Divide 0.93 divided by 0.30.",
           "question_audio": {
-            "text": "Divide 0.93 by 0.30. Keep decimal places aligned.",
+            "text": "Divide 0.93 divided by 0.30.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1138,42 +1161,42 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3.10",
-            "3.10",
             "3.10"
           ],
           "operands": [
             "0.93",
             "0.30"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 0.93 ÷ 0.30. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 0.93 ÷ 0.30. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q2",
           "question_id": "G5M_NBT_003_L3_Q2",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 1.28 \u00f7 0.40.",
+          "prompt": "Divide 1.28 ÷ 0.40.",
           "answer": "3.20",
           "correct_answer": "3.20",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.20.",
-          "read_aloud_text": "Divide 1.28 by 0.40. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.20, and multiplication checks the result.",
+          "read_aloud_text": "Divide 1.28 divided by 0.40.",
           "question_audio": {
-            "text": "Divide 1.28 by 0.40. Keep decimal places aligned.",
+            "text": "Divide 1.28 divided by 0.40.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1190,34 +1213,36 @@
             "1.28",
             "0.40"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.28 ÷ 0.40. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.28 ÷ 0.40. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q3",
           "question_id": "G5M_NBT_003_L3_Q3",
           "question_type": "decimal_response",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 1.65 \u00f7 0.50.",
+          "prompt": "Divide 1.65 ÷ 0.50.",
           "answer": "3.30",
           "correct_answer": "3.30",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.30.",
-          "read_aloud_text": "Divide 1.65 by 0.50. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.30, and multiplication checks the result.",
+          "read_aloud_text": "Divide 1.65 divided by 0.50.",
           "question_audio": {
-            "text": "Divide 1.65 by 0.50. Keep decimal places aligned.",
+            "text": "Divide 1.65 divided by 0.50.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1225,42 +1250,42 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3.30",
-            "3.30",
             "3.30"
           ],
           "operands": [
             "1.65",
             "0.50"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.65 ÷ 0.50. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.65 ÷ 0.50. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q4",
           "question_id": "G5M_NBT_003_L3_Q4",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 0.68 \u00f7 0.20.",
+          "prompt": "Divide 0.68 ÷ 0.20.",
           "answer": "3.40",
           "correct_answer": "3.40",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.40.",
-          "read_aloud_text": "Divide 0.68 by 0.20. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.40, and multiplication checks the result.",
+          "read_aloud_text": "Divide 0.68 divided by 0.20.",
           "question_audio": {
-            "text": "Divide 0.68 by 0.20. Keep decimal places aligned.",
+            "text": "Divide 0.68 divided by 0.20.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1277,34 +1302,36 @@
             "0.68",
             "0.20"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 0.68 ÷ 0.20. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 0.68 ÷ 0.20. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q5",
           "question_id": "G5M_NBT_003_L3_Q5",
           "question_type": "decimal_response",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 1.05 \u00f7 0.30.",
+          "prompt": "Divide 1.05 ÷ 0.30.",
           "answer": "3.50",
           "correct_answer": "3.50",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.50.",
-          "read_aloud_text": "Divide 1.05 by 0.30. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.50, and multiplication checks the result.",
+          "read_aloud_text": "Divide 1.05 divided by 0.30.",
           "question_audio": {
-            "text": "Divide 1.05 by 0.30. Keep decimal places aligned.",
+            "text": "Divide 1.05 divided by 0.30.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1312,42 +1339,42 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3.50",
-            "3.50",
             "3.50"
           ],
           "operands": [
             "1.05",
             "0.30"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.05 ÷ 0.30. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.05 ÷ 0.30. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q6",
           "question_id": "G5M_NBT_003_L3_Q6",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 1.44 \u00f7 0.40.",
+          "prompt": "Divide 1.44 ÷ 0.40.",
           "answer": "3.60",
           "correct_answer": "3.60",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.60.",
-          "read_aloud_text": "Divide 1.44 by 0.40. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.60, and multiplication checks the result.",
+          "read_aloud_text": "Divide 1.44 divided by 0.40.",
           "question_audio": {
-            "text": "Divide 1.44 by 0.40. Keep decimal places aligned.",
+            "text": "Divide 1.44 divided by 0.40.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1364,34 +1391,36 @@
             "1.44",
             "0.40"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.44 ÷ 0.40. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.44 ÷ 0.40. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q7",
           "question_id": "G5M_NBT_003_L3_Q7",
           "question_type": "decimal_response",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 1.85 \u00f7 0.50.",
+          "prompt": "Divide 1.85 ÷ 0.50.",
           "answer": "3.70",
           "correct_answer": "3.70",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.70.",
-          "read_aloud_text": "Divide 1.85 by 0.50. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.70, and multiplication checks the result.",
+          "read_aloud_text": "Divide 1.85 divided by 0.50.",
           "question_audio": {
-            "text": "Divide 1.85 by 0.50. Keep decimal places aligned.",
+            "text": "Divide 1.85 divided by 0.50.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1399,42 +1428,42 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3.70",
-            "3.70",
             "3.70"
           ],
           "operands": [
             "1.85",
             "0.50"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.85 ÷ 0.50. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.85 ÷ 0.50. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q8",
           "question_id": "G5M_NBT_003_L3_Q8",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 0.76 \u00f7 0.20.",
+          "prompt": "Divide 0.76 ÷ 0.20.",
           "answer": "3.80",
           "correct_answer": "3.80",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.80.",
-          "read_aloud_text": "Divide 0.76 by 0.20. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.80, and multiplication checks the result.",
+          "read_aloud_text": "Divide 0.76 divided by 0.20.",
           "question_audio": {
-            "text": "Divide 0.76 by 0.20. Keep decimal places aligned.",
+            "text": "Divide 0.76 divided by 0.20.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1451,34 +1480,36 @@
             "0.76",
             "0.20"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 0.76 ÷ 0.20. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 0.76 ÷ 0.20. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q9",
           "question_id": "G5M_NBT_003_L3_Q9",
           "question_type": "decimal_response",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 1.17 \u00f7 0.30.",
+          "prompt": "Divide 1.17 ÷ 0.30.",
           "answer": "3.90",
           "correct_answer": "3.90",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.90.",
-          "read_aloud_text": "Divide 1.17 by 0.30. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.90, and multiplication checks the result.",
+          "read_aloud_text": "Divide 1.17 divided by 0.30.",
           "question_audio": {
-            "text": "Divide 1.17 by 0.30. Keep decimal places aligned.",
+            "text": "Divide 1.17 divided by 0.30.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1486,42 +1517,42 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3.90",
-            "3.90",
             "3.90"
           ],
           "operands": [
             "1.17",
             "0.30"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.17 ÷ 0.30. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.17 ÷ 0.30. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L3_Q10",
           "question_id": "G5M_NBT_003_L3_Q10",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 1.60 \u00f7 0.40.",
+          "prompt": "Divide 1.60 ÷ 0.40.",
           "answer": "4.00",
           "correct_answer": "4.00",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 4.00.",
-          "read_aloud_text": "Divide 1.60 by 0.40. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 4.00, and multiplication checks the result.",
+          "read_aloud_text": "Divide 1.60 divided by 0.40.",
           "question_audio": {
-            "text": "Divide 1.60 by 0.40. Keep decimal places aligned.",
+            "text": "Divide 1.60 divided by 0.40.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1538,11 +1569,13 @@
             "1.60",
             "0.40"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.60 ÷ 0.40. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.60 ÷ 0.40. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         }
       ]
     },
@@ -1564,18 +1597,18 @@
           "correct_answer": "4.05",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 4.05.",
-          "read_aloud_text": "A snack costs 1.35 dollars. What is the cost of 3 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 4.05, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $1.35. What is the cost of 3 snacks?",
           "question_audio": {
-            "text": "A snack costs 1.35 dollars. What is the cost of 3 snacks?",
+            "text": "A snack costs $1.35. What is the cost of 3 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1584,7 +1617,6 @@
           },
           "acceptable_answers": [
             "4.05",
-            "4.05",
             "multiply price by number of snacks"
           ],
           "knowns": [
@@ -1592,7 +1624,9 @@
             3
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 1.35 multiply 3. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 1.35 multiply 3. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q2",
@@ -1604,18 +1638,18 @@
           "correct_answer": "5.80",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 5.80.",
-          "read_aloud_text": "A snack costs 1.45 dollars. What is the cost of 4 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 5.80, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $1.45. What is the cost of 4 snacks?",
           "question_audio": {
-            "text": "A snack costs 1.45 dollars. What is the cost of 4 snacks?",
+            "text": "A snack costs $1.45. What is the cost of 4 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1633,7 +1667,9 @@
             4
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 1.45 multiply 4. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 1.45 multiply 4. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q3",
@@ -1645,18 +1681,18 @@
           "correct_answer": "7.75",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 7.75.",
-          "read_aloud_text": "A snack costs 1.55 dollars. What is the cost of 5 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 7.75, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $1.55. What is the cost of 5 snacks?",
           "question_audio": {
-            "text": "A snack costs 1.55 dollars. What is the cost of 5 snacks?",
+            "text": "A snack costs $1.55. What is the cost of 5 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1664,8 +1700,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "7.75",
-            "7.75",
             "7.75"
           ],
           "knowns": [
@@ -1673,7 +1707,9 @@
             5
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 1.55 multiply 5. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 1.55 multiply 5. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q4",
@@ -1685,18 +1721,18 @@
           "correct_answer": "3.30",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.30.",
-          "read_aloud_text": "A snack costs 1.65 dollars. What is the cost of 2 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 3.30, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $1.65. What is the cost of 2 snacks?",
           "question_audio": {
-            "text": "A snack costs 1.65 dollars. What is the cost of 2 snacks?",
+            "text": "A snack costs $1.65. What is the cost of 2 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1714,7 +1750,9 @@
             2
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 1.65 multiply 2. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 1.65 multiply 2. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q5",
@@ -1726,18 +1764,18 @@
           "correct_answer": "5.25",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 5.25.",
-          "read_aloud_text": "A snack costs 1.75 dollars. What is the cost of 3 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 5.25, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $1.75. What is the cost of 3 snacks?",
           "question_audio": {
-            "text": "A snack costs 1.75 dollars. What is the cost of 3 snacks?",
+            "text": "A snack costs $1.75. What is the cost of 3 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1745,8 +1783,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "5.25",
-            "5.25",
             "5.25"
           ],
           "knowns": [
@@ -1754,7 +1790,9 @@
             3
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 1.75 multiply 3. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 1.75 multiply 3. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q6",
@@ -1766,18 +1804,18 @@
           "correct_answer": "7.40",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 7.40.",
-          "read_aloud_text": "A snack costs 1.85 dollars. What is the cost of 4 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 7.40, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $1.85. What is the cost of 4 snacks?",
           "question_audio": {
-            "text": "A snack costs 1.85 dollars. What is the cost of 4 snacks?",
+            "text": "A snack costs $1.85. What is the cost of 4 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1795,7 +1833,9 @@
             4
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 1.85 multiply 4. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 1.85 multiply 4. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q7",
@@ -1807,18 +1847,18 @@
           "correct_answer": "9.75",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 9.75.",
-          "read_aloud_text": "A snack costs 1.95 dollars. What is the cost of 5 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 9.75, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $1.95. What is the cost of 5 snacks?",
           "question_audio": {
-            "text": "A snack costs 1.95 dollars. What is the cost of 5 snacks?",
+            "text": "A snack costs $1.95. What is the cost of 5 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1826,8 +1866,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "9.75",
-            "9.75",
             "9.75"
           ],
           "knowns": [
@@ -1835,7 +1873,9 @@
             5
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 1.95 multiply 5. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 1.95 multiply 5. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q8",
@@ -1847,18 +1887,18 @@
           "correct_answer": "4.10",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 4.10.",
-          "read_aloud_text": "A snack costs 2.05 dollars. What is the cost of 2 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 4.10, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $2.05. What is the cost of 2 snacks?",
           "question_audio": {
-            "text": "A snack costs 2.05 dollars. What is the cost of 2 snacks?",
+            "text": "A snack costs $2.05. What is the cost of 2 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1876,7 +1916,9 @@
             2
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 2.05 multiply 2. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 2.05 multiply 2. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q9",
@@ -1888,18 +1930,18 @@
           "correct_answer": "6.45",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 6.45.",
-          "read_aloud_text": "A snack costs 2.15 dollars. What is the cost of 3 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 6.45, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $2.15. What is the cost of 3 snacks?",
           "question_audio": {
-            "text": "A snack costs 2.15 dollars. What is the cost of 3 snacks?",
+            "text": "A snack costs $2.15. What is the cost of 3 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1907,8 +1949,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "6.45",
-            "6.45",
             "6.45"
           ],
           "knowns": [
@@ -1916,7 +1956,9 @@
             3
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 2.15 multiply 3. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 2.15 multiply 3. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_L4_Q10",
@@ -1928,18 +1970,18 @@
           "correct_answer": "9.00",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 9.00.",
-          "read_aloud_text": "A snack costs 2.25 dollars. What is the cost of 4 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 9.00, with the unit interpreted from the question.",
+          "read_aloud_text": "A snack costs $2.25. What is the cost of 4 snacks?",
           "question_audio": {
-            "text": "A snack costs 2.25 dollars. What is the cost of 4 snacks?",
+            "text": "A snack costs $2.25. What is the cost of 4 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1957,7 +1999,9 @@
             4
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 2.25 multiply 4. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 2.25 multiply 4. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         }
       ]
     },
@@ -1974,23 +2018,23 @@
           "question_id": "G5M_NBT_003_MIXED_Q1",
           "question_type": "decimal_response",
           "visual_model": "algorithm_steps",
-          "prompt": "Add 1.30 + 0.16.",
+          "prompt": "For a mixed decimal-operations check, add 1.30 + 0.16.",
           "answer": "1.46",
           "correct_answer": "1.46",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.46.",
-          "read_aloud_text": "Add 1.30 and 0.16, lining up decimal points.",
+          "explanation": "Adding aligned place values in 1.30 + 0.16 gives 1.46; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "For a mixed decimal-operations check, add 1.30 + 0.16.",
           "question_audio": {
-            "text": "Add 1.30 and 0.16, lining up decimal points.",
+            "text": "For a mixed decimal-operations check, add 1.30 + 0.16.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1998,8 +2042,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "1.46",
-            "1.46",
             "1.46"
           ],
           "operands": [
@@ -2010,30 +2052,32 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.30 + 0.16. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.30 + 0.16. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q2",
           "question_id": "G5M_NBT_003_MIXED_Q2",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Add 1.40 + 0.17.",
+          "prompt": "For a mixed decimal-operations check, add 1.40 + 0.17.",
           "answer": "1.57",
           "correct_answer": "1.57",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.57.",
-          "read_aloud_text": "Add 1.40 and 0.17, lining up decimal points.",
+          "explanation": "Adding aligned place values in 1.40 + 0.17 gives 1.57; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "For a mixed decimal-operations check, add 1.40 + 0.17.",
           "question_audio": {
-            "text": "Add 1.40 and 0.17, lining up decimal points.",
+            "text": "For a mixed decimal-operations check, add 1.40 + 0.17.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2054,30 +2098,32 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.40 + 0.17. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.40 + 0.17. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q3",
           "question_id": "G5M_NBT_003_MIXED_Q3",
           "question_type": "decimal_response",
           "visual_model": "algorithm_steps",
-          "prompt": "Add 1.50 + 0.18.",
+          "prompt": "For a mixed decimal-operations check, add 1.50 + 0.18.",
           "answer": "1.68",
           "correct_answer": "1.68",
           "misconception_tag": "decimal_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: write equivalent zeros as needed, align decimal points, and add like place values.",
+            "Verify: estimate the sum and subtract one addend from the result to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.68.",
-          "read_aloud_text": "Add 1.50 and 0.18, lining up decimal points.",
+          "explanation": "Adding aligned place values in 1.50 + 0.18 gives 1.68; the decimal point remains aligned with the addends.",
+          "read_aloud_text": "For a mixed decimal-operations check, add 1.50 + 0.18.",
           "question_audio": {
-            "text": "Add 1.50 and 0.18, lining up decimal points.",
+            "text": "For a mixed decimal-operations check, add 1.50 + 0.18.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2085,8 +2131,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "1.68",
-            "1.68",
             "1.68"
           ],
           "operands": [
@@ -2097,30 +2141,32 @@
           "algorithm_steps": [
             "Line up decimal points.",
             "Add hundredths, tenths, then ones."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.50 + 0.18. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.50 + 0.18. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q4",
           "question_id": "G5M_NBT_003_MIXED_Q4",
           "question_type": "multiple_choice",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.50 \u00d7 0.20.",
+          "prompt": "For a mixed decimal-operations check, multiply 1.50 × 0.20.",
           "answer": "0.30",
           "correct_answer": "0.30",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.30.",
-          "read_aloud_text": "Multiply 1.50 times 0.20. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.30, with the unit interpreted from the question.",
+          "read_aloud_text": "For a mixed decimal-operations check, multiply 1.50 times 0.20.",
           "question_audio": {
-            "text": "Multiply 1.50 times 0.20. Estimate first to place the decimal point.",
+            "text": "For a mixed decimal-operations check, multiply 1.50 times 0.20.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2135,30 +2181,32 @@
           ],
           "grid_base": 100,
           "shaded": 3,
-          "decimal_label": "Product about 0.30"
+          "decimal_label": "Product about 0.30",
+          "visual_description": "An accessible decimal grid representing For a mixed decimal-operations check, multiply 1.50 × 0.20.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing For a mixed decimal-operations check, multiply 1.50 × 0.20.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q5",
           "question_id": "G5M_NBT_003_MIXED_Q5",
           "question_type": "decimal_response",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.60 \u00d7 0.30.",
+          "prompt": "For a mixed decimal-operations check, multiply 1.60 × 0.30.",
           "answer": "0.48",
           "correct_answer": "0.48",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.48.",
-          "read_aloud_text": "Multiply 1.60 times 0.30. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.48, with the unit interpreted from the question.",
+          "read_aloud_text": "For a mixed decimal-operations check, multiply 1.60 times 0.30.",
           "question_audio": {
-            "text": "Multiply 1.60 times 0.30. Estimate first to place the decimal point.",
+            "text": "For a mixed decimal-operations check, multiply 1.60 times 0.30.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2166,36 +2214,36 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "0.48",
-            "0.48",
             "0.48"
           ],
           "grid_base": 100,
           "shaded": 5,
-          "decimal_label": "Product about 0.48"
+          "decimal_label": "Product about 0.48",
+          "visual_description": "An accessible decimal grid representing For a mixed decimal-operations check, multiply 1.60 × 0.30.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing For a mixed decimal-operations check, multiply 1.60 × 0.30.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q6",
           "question_id": "G5M_NBT_003_MIXED_Q6",
           "question_type": "multiple_choice",
           "visual_model": "decimal_grid",
-          "prompt": "Multiply 1.70 \u00d7 0.40.",
+          "prompt": "For a mixed decimal-operations check, multiply 1.70 × 0.40.",
           "answer": "0.68",
           "correct_answer": "0.68",
           "misconception_tag": "decimal_product_size_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 0.68.",
-          "read_aloud_text": "Multiply 1.70 times 0.40. Estimate first to place the decimal point.",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 0.68, with the unit interpreted from the question.",
+          "read_aloud_text": "For a mixed decimal-operations check, multiply 1.70 times 0.40.",
           "question_audio": {
-            "text": "Multiply 1.70 times 0.40. Estimate first to place the decimal point.",
+            "text": "For a mixed decimal-operations check, multiply 1.70 times 0.40.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2210,30 +2258,32 @@
           ],
           "grid_base": 100,
           "shaded": 7,
-          "decimal_label": "Product about 0.68"
+          "decimal_label": "Product about 0.68",
+          "visual_description": "An accessible decimal grid representing For a mixed decimal-operations check, multiply 1.70 × 0.40.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible decimal grid representing For a mixed decimal-operations check, multiply 1.70 × 0.40.. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q7",
           "question_id": "G5M_NBT_003_MIXED_Q7",
           "question_type": "decimal_response",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 1.85 \u00f7 0.50.",
+          "prompt": "For a mixed decimal-operations check, divide 1.85 ÷ 0.50.",
           "answer": "3.70",
           "correct_answer": "3.70",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.70.",
-          "read_aloud_text": "Divide 1.85 by 0.50. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.70, and multiplication checks the result.",
+          "read_aloud_text": "For a mixed decimal-operations check, divide 1.85 divided by 0.50.",
           "question_audio": {
-            "text": "Divide 1.85 by 0.50. Keep decimal places aligned.",
+            "text": "For a mixed decimal-operations check, divide 1.85 divided by 0.50.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2241,42 +2291,42 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3.70",
-            "3.70",
             "3.70"
           ],
           "operands": [
             "1.85",
             "0.50"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 1.85 ÷ 0.50. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 1.85 ÷ 0.50. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q8",
           "question_id": "G5M_NBT_003_MIXED_Q8",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Divide 0.76 \u00f7 0.20.",
+          "prompt": "For a mixed decimal-operations check, divide 0.76 ÷ 0.20.",
           "answer": "3.80",
           "correct_answer": "3.80",
           "misconception_tag": "decimal_quotient_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: scale both dividend and divisor by the same power of 10 until the divisor is whole, then divide.",
+            "Verify: multiply the quotient by the original divisor and recover the dividend."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 3.80.",
-          "read_aloud_text": "Divide 0.76 by 0.20. Keep decimal places aligned.",
+          "explanation": "Scaling both quantities preserves the quotient. The resulting whole-number division gives 3.80, and multiplication checks the result.",
+          "read_aloud_text": "For a mixed decimal-operations check, divide 0.76 divided by 0.20.",
           "question_audio": {
-            "text": "Divide 0.76 by 0.20. Keep decimal places aligned.",
+            "text": "For a mixed decimal-operations check, divide 0.76 divided by 0.20.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2293,34 +2343,36 @@
             "0.76",
             "0.20"
           ],
-          "operation": "\u00f7",
+          "operation": "÷",
           "algorithm_steps": [
             "Use place value to make the divisor a whole number if needed.",
             "Place the decimal point in the quotient."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps representing 0.76 ÷ 0.20. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible algorithm steps representing 0.76 ÷ 0.20. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q9",
           "question_id": "G5M_NBT_003_MIXED_Q9",
           "question_type": "word_problem",
           "visual_model": "word_problem_model",
-          "prompt": "A snack costs $2.15. What is the cost of 3 snacks?",
+          "prompt": "For a mixed decimal-operations check, a snack costs $2.15. What is the cost of 3 snacks?",
           "answer": "6.45",
           "correct_answer": "6.45",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 6.45.",
-          "read_aloud_text": "A snack costs 2.15 dollars. What is the cost of 3 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 6.45, with the unit interpreted from the question.",
+          "read_aloud_text": "For a mixed decimal-operations check, a snack costs $2.15. What is the cost of 3 snacks?",
           "question_audio": {
-            "text": "A snack costs 2.15 dollars. What is the cost of 3 snacks?",
+            "text": "For a mixed decimal-operations check, a snack costs $2.15. What is the cost of 3 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2328,8 +2380,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "6.45",
-            "6.45",
             "6.45"
           ],
           "knowns": [
@@ -2337,30 +2387,32 @@
             3
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 2.15 multiply 3. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 2.15 multiply 3. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         },
         {
           "id": "G5M_NBT_003_MIXED_Q10",
           "question_id": "G5M_NBT_003_MIXED_Q10",
           "question_type": "multiple_choice",
           "visual_model": "word_problem_model",
-          "prompt": "A snack costs $2.25. What is the cost of 4 snacks?",
+          "prompt": "For a mixed decimal-operations check, a snack costs $2.25. What is the cost of 4 snacks?",
           "answer": "9.00",
           "correct_answer": "9.00",
           "misconception_tag": "decimal_word_problem_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: identify the operation and align each decimal quantity by place value.",
+            "Strategy: translate the context into an equation, keep the money or measurement unit attached, and calculate.",
+            "Verify: estimate from the context and use the inverse operation to check."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 9.00.",
-          "read_aloud_text": "A snack costs 2.25 dollars. What is the cost of 4 snacks?",
+          "explanation": "The context calls for the modeled decimal operation. Computing with the authored quantities gives 9.00, with the unit interpreted from the question.",
+          "read_aloud_text": "For a mixed decimal-operations check, a snack costs $2.25. What is the cost of 4 snacks?",
           "question_audio": {
-            "text": "A snack costs 2.25 dollars. What is the cost of 4 snacks?",
+            "text": "For a mixed decimal-operations check, a snack costs $2.25. What is the cost of 4 snacks?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2378,7 +2430,9 @@
             4
           ],
           "unknown_label": "total cost",
-          "operation": "multiply"
+          "operation": "multiply",
+          "visual_description": "An accessible word problem model representing 2.25 multiply 4. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct.",
+          "accessible_description": "An accessible word problem model representing 2.25 multiply 4. Place-value labels, quantities, and units needed to solve are present, but no result is marked correct."
         }
       ]
     }
