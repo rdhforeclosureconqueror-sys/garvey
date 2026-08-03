@@ -640,6 +640,29 @@ class AssessmentMvpPostgresStore {
       [sessionRow.id]
     );
     const selectionConfig = sessionRow.selection_config || {};
+    let scoreSummary = null;
+    if (sessionRow.status === "completed") {
+      const scoreResult = await client.query(
+        `SELECT COUNT(i.id)::int AS maximum_score,
+                COUNT(r.id) FILTER (WHERE r.score_status = 'correct')::int AS raw_score,
+                COUNT(r.id) FILTER (WHERE r.score_status IN ('correct', 'incorrect'))::int AS answered_items,
+                (COUNT(i.id) - COUNT(r.id) FILTER (WHERE r.score_status IS DISTINCT FROM 'omitted'))::int AS skipped_items
+           FROM assessment_session_items i
+           LEFT JOIN assessment_responses r ON r.session_item_id = i.id
+          WHERE i.session_id = $1`,
+        [sessionRow.id]
+      );
+      const counts = scoreResult.rows[0] || {};
+      const maximumScore = Number(counts.maximum_score || itemRows.length || 0);
+      const rawScore = Number(counts.raw_score || 0);
+      scoreSummary = {
+        raw_score: rawScore,
+        maximum_score: maximumScore,
+        percentage: maximumScore ? Math.round((rawScore / maximumScore) * 100) : 0,
+        answered_items: Number(counts.answered_items || 0),
+        skipped_items: Number(counts.skipped_items || 0),
+      };
+    }
     return {
       session_id: sessionRow.session_id,
       assessment_role: sessionRow.assessment_role,
@@ -664,6 +687,7 @@ class AssessmentMvpPostgresStore {
         provisional_label: entry.provisional_label,
       })),
       recommendation_count: Number(recommendationResult.rows[0]?.count || 0),
+      ...(scoreSummary ? { score_summary: scoreSummary } : {}),
       ...(sessionRow.prior_session_id ? { prior_session_id_public_reference_if_safe: sessionRow.prior_session_public_id || null } : {}),
     };
   }
@@ -818,6 +842,15 @@ class AssessmentMvpPostgresStore {
       .slice()
       .sort((a, b) => Number(itemById.get(String(a.session_item_id))?.display_order || 0) - Number(itemById.get(String(b.session_item_id))?.display_order || 0))
       .map((row) => responseResultFromRow(row, itemById.get(String(row.session_item_id))));
+    const rawScore = response_results.filter((result) => result.status === "correct").length;
+    const maximumScore = itemRows.length;
+    const score_summary = {
+      raw_score: rawScore,
+      maximum_score: maximumScore,
+      percentage: maximumScore ? Math.round((rawScore / maximumScore) * 100) : 0,
+      answered_items: response_results.filter((result) => result.status === "correct" || result.status === "incorrect").length,
+      skipped_items: response_results.filter((result) => result.status === "omitted").length,
+    };
     const skill_evidence = await this.loadPersistedSkillEvidence(sessionRow.id, client, { grade: Number(sessionRow.grade), subject: sessionRow.subject });
     const recommendations = await this.loadPersistedRecommendations(sessionRow, client);
     let skipped_recommendations = [];
@@ -842,6 +875,7 @@ class AssessmentMvpPostgresStore {
       subject: sessionRow.subject,
       status: "completed",
       response_results,
+      score_summary,
       skill_evidence,
       recommendations,
       skipped_recommendations,

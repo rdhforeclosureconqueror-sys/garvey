@@ -125,7 +125,16 @@ function parseNumeric(value) {
   const text = value.trim();
   if (!text) return { ok: false, reason: 'malformed_numeric_response' };
   if (/[a-zA-Z]/.test(text)) return { ok: false, reason: 'units_unsupported' };
-  if (/^[-+]?\d[\d,]*(?:\.\d+)?\s+\d+\s*\/\s*\d+$/.test(text)) return { ok: false, reason: 'ambiguous_mixed_number' };
+  const mixedMatch = text.match(/^([-+]?)(\d[\d,]*)\s+(\d+)\s*\/\s*(\d+)$/);
+  if (mixedMatch) {
+    const sign = mixedMatch[1] === '-' ? -1n : 1n;
+    const whole = BigInt(mixedMatch[2].replace(/,/g, ''));
+    const numerator = BigInt(mixedMatch[3]);
+    const denominator = BigInt(mixedMatch[4]);
+    if (denominator === 0n || numerator >= denominator) return { ok: false, reason: 'malformed_fraction_response' };
+    const parsed = rational(sign * ((whole * denominator) + numerator), denominator);
+    return { ok: true, value: parsed, normalized: `${parsed.n}/${parsed.d}` };
+  }
   if (/[-+]?\d[\d,]*(?:\.\d+)?\s+[-+]?\d[\d,]*(?:\.\d+)?/.test(text)) return { ok: false, reason: 'multiple_numeric_values' };
   if (/^[-+]?\d[\d,]*(?:\.\d+)?\s+\/\s*[-+]?\d[\d,]*(?:\.\d+)?$/.test(text)) return { ok: false, reason: 'malformed_fraction_response' };
 
@@ -179,9 +188,9 @@ function scoreNumeric(record, response) {
   const parsedExpected = [];
   for (const expected of expectedValues) {
     const parsed = parseNumeric(expected);
-    if (!parsed.ok) return notScorable(record, response, 'missing_deterministic_answer');
-    parsedExpected.push(parsed.value);
+    if (parsed.ok) parsedExpected.push(parsed.value);
   }
+  if (!parsedExpected.length) return notScorable(record, response, 'missing_deterministic_answer');
   return scored(record, parsedResponse.normalized, parsedExpected.some((expected) => equalRational(expected, parsedResponse.value)));
 }
 
@@ -322,16 +331,38 @@ function scoreResponses(scoringRecords, submissions) {
     if (record && record.item_identity) recordsByIdentity.set(record.item_identity, record);
   }
 
+  const submittedIdentities = new Set();
   const responseResults = submissions.map((submission) => {
     const identity = responseIdentity(submission || {});
     if (!identity || !recordsByIdentity.has(identity)) return unknown(identity || null);
     const record = recordsByIdentity.get(identity);
+    submittedIdentities.add(identity);
     return scoreOne(record, firstPresent(submission, ['response', 'answer', 'value']));
   });
+
+  for (const record of scoringRecords) {
+    if (record?.item_identity && !submittedIdentities.has(record.item_identity)) responseResults.push(omitted(record));
+  }
+
+  const summaryIdentities = new Set();
+  const scorableResults = responseResults.filter((result) => {
+    if (result.status === 'unknown_item' || summaryIdentities.has(result.item_identity)) return false;
+    summaryIdentities.add(result.item_identity);
+    return true;
+  });
+  const correct = scorableResults.filter((result) => result.status === 'correct').length;
+  const maximum = scoringRecords.filter((record) => record?.item_identity).length;
 
   return {
     responses: responseResults,
     skillEvidence: aggregate(responseResults),
+    scoreSummary: {
+      raw_score: correct,
+      maximum_score: maximum,
+      percentage: maximum ? Math.round((correct / maximum) * 100) : 0,
+      answered_items: scorableResults.filter((result) => result.status === 'correct' || result.status === 'incorrect').length,
+      skipped_items: scorableResults.filter((result) => result.status === 'omitted').length,
+    },
   };
 }
 

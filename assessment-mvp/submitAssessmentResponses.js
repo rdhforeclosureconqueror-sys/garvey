@@ -85,6 +85,7 @@ function submitAssessmentResponses(session, responses, options = {}) {
     status: 'completed',
     completed_session: completedSession,
     response_results: scored.responses,
+    score_summary: scored.scoreSummary,
     skill_evidence: enrichedSkillEvidence,
     recommendations: recommendationResult.recommendations.slice(0, 3),
     skipped_recommendations: recommendationResult.skipped,

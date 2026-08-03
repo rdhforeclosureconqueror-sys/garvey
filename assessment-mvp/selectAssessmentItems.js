@@ -53,6 +53,25 @@ function getAnswer(question) {
   return undefined;
 }
 
+function scoringAnswersFor(question) {
+  const primary = getAnswer(question);
+  const values = Array.isArray(primary) ? [...primary] : [primary];
+  for (const key of ['acceptable_answers', 'accepted_answers', 'answers']) {
+    if (!Array.isArray(question[key])) continue;
+    values.push(...question[key]);
+  }
+  const unique = [];
+  const seen = new Set();
+  for (const value of values) {
+    if (value === undefined || value === null || String(value).trim() === '') continue;
+    const key = normalize(value);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(value);
+  }
+  return unique.length === 1 ? unique[0] : unique;
+}
+
 function hasDeterministicAnswer(question) {
   const answer = getAnswer(question);
   if (answer === undefined || answer === null) return false;
@@ -782,7 +801,10 @@ function selectAssessmentItems(packages, options = {}) {
         item_identity: identity,
         source_package_id: packageId,
         source_question_id: question.question_id,
-        answer: getAnswer(question),
+        answer: scoringAnswersFor(question),
+        question_type: question.question_type,
+        ...(Array.isArray(question.choices) ? { choices: [...question.choices] } : {}),
+        ...(Array.isArray(question.options) ? { options: [...question.options] } : {}),
       });
     }
   }
@@ -820,4 +842,5 @@ module.exports = {
   DUPLICATE_ANSWER_CHOICES,
   INVALID_SINGLE_CHOICE_CONFIGURATION,
   CORRECT_ANSWER_NOT_IN_CHOICES,
+  scoringAnswersFor,
 };
