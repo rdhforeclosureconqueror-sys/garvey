@@ -1,0 +1,1 @@
+'use strict';const fs=require('node:fs'),path=require('node:path');const root=path.resolve(__dirname,'../..');const load=n=>JSON.parse(fs.readFileSync(path.join(root,'gates-v2/content/fixtures/example-only',n)));const clone=x=>structuredClone(x);module.exports={root,load,clone};

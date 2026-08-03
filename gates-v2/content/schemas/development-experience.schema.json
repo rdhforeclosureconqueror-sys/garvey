@@ -1,0 +1,552 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "development-experience.schema.json",
+  "title": "Gates V2 Development Experience",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "content_notice",
+    "experience_id",
+    "experience_version",
+    "gate_id",
+    "experience_type",
+    "lifecycle",
+    "locale",
+    "age_band",
+    "reading_level",
+    "source_provenance",
+    "approvals",
+    "entry_node_id",
+    "nodes",
+    "replay_policy",
+    "completion_rules",
+    "parent_summary_template",
+    "family_practice_refs",
+    "accessibility",
+    "media_manifest_ref",
+    "reflection_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "development-experience.v1"
+    },
+    "content_notice": {
+      "type": "string"
+    },
+    "experience_id": {
+      "type": "string"
+    },
+    "experience_version": {
+      "type": "string"
+    },
+    "gate_id": {
+      "enum": [
+        "gate_attention",
+        "gate_emotion",
+        "gate_choice",
+        "gate_body",
+        "gate_discipline",
+        "gate_truth",
+        "gate_repair",
+        "gate_creation",
+        "gate_community",
+        "gate_legacy"
+      ]
+    },
+    "experience_type": {
+      "enum": [
+        "gate_adventure",
+        "guided_practice",
+        "family_conversation",
+        "scenario_game",
+        "classroom_activity"
+      ]
+    },
+    "lifecycle": {
+      "enum": [
+        "draft",
+        "imported",
+        "under_review",
+        "approved",
+        "published",
+        "retired"
+      ]
+    },
+    "locale": {
+      "type": "string"
+    },
+    "age_band": {
+      "enum": [
+        "k1",
+        "g2_3",
+        "g4"
+      ]
+    },
+    "reading_level": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_grade",
+        "method",
+        "reviewed"
+      ],
+      "properties": {
+        "target_grade": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 12
+        },
+        "method": {
+          "type": "string"
+        },
+        "reviewed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "source_provenance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "source_type",
+          "source_version",
+          "relationship",
+          "canonicality",
+          "verification_status"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_type": {
+            "enum": [
+              "canonical_book",
+              "orin_chapter",
+              "approved_statement",
+              "author_note",
+              "v1_import",
+              "new_child_content",
+              "review_record"
+            ]
+          },
+          "source_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locator": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "chapter": {
+                "type": "string"
+              },
+              "section": {
+                "type": "string"
+              },
+              "page": {
+                "type": "string"
+              }
+            }
+          },
+          "relationship": {
+            "enum": [
+              "quotes",
+              "adapts",
+              "echoes",
+              "informed_by",
+              "unresolved"
+            ]
+          },
+          "canonicality": {
+            "enum": [
+              "canonical",
+              "supporting",
+              "non_canonical",
+              "unknown"
+            ]
+          },
+          "verification_status": {
+            "enum": [
+              "unverified",
+              "verified",
+              "disputed"
+            ]
+          }
+        }
+      }
+    },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "review_type",
+          "reviewer_id",
+          "decision",
+          "reviewed_version_hash",
+          "decided_at"
+        ],
+        "properties": {
+          "review_type": {
+            "enum": [
+              "author",
+              "philosophy",
+              "developmental",
+              "cultural",
+              "safety",
+              "technical"
+            ]
+          },
+          "reviewer_id": {
+            "type": "string",
+            "minLength": 2
+          },
+          "decision": {
+            "enum": [
+              "approved",
+              "changes_requested",
+              "rejected"
+            ]
+          },
+          "reviewed_version_hash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "decided_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "notes_ref": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "entry_node_id": {
+      "type": "string"
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 80,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "node_id",
+          "node_type",
+          "visible_text",
+          "accessibility_label"
+        ],
+        "properties": {
+          "node_id": {
+            "type": "string"
+          },
+          "node_type": {
+            "enum": [
+              "content",
+              "notice",
+              "practice",
+              "choice",
+              "reflection",
+              "completion"
+            ]
+          },
+          "purpose": {
+            "enum": [
+              "introduction",
+              "scene",
+              "emotion",
+              "body",
+              "thought",
+              "pause",
+              "calming",
+              "action",
+              "consequence",
+              "repair",
+              "support",
+              "reflection",
+              "celebration"
+            ]
+          },
+          "visible_text": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "narration_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "media_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "accessibility_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "option_id",
+                "child_action_text",
+                "next_node_id",
+                "authoring_tags",
+                "effect_refs"
+              ],
+              "properties": {
+                "option_id": {
+                  "type": "string"
+                },
+                "child_action_text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "narration_ref": {
+                  "type": "string"
+                },
+                "next_node_id": {
+                  "type": "string"
+                },
+                "authoring_tags": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "protective",
+                      "supportive",
+                      "help_seeking",
+                      "connection_building",
+                      "space_seeking",
+                      "delaying",
+                      "ineffective",
+                      "reactive",
+                      "harmful"
+                    ]
+                  }
+                },
+                "context_notes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "effect_refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "age_variant_ref": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "next": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "next_node_id"
+            ],
+            "properties": {
+              "next_node_id": {
+                "type": "string"
+              }
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "consequence": {
+                "type": "boolean"
+              },
+              "repair_required": {
+                "type": "boolean"
+              },
+              "max_visits": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "internal_notes": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "replay_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed",
+        "origins",
+        "max_replays"
+      ],
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "origins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_replays": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        }
+      }
+    },
+    "completion_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rule",
+          "node_id"
+        ],
+        "properties": {
+          "rule": {
+            "const": "visited"
+          },
+          "node_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parent_summary_template": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "include",
+        "exclude"
+      ],
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "family_practice_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "keyboard",
+        "screen_reader",
+        "reduced_motion",
+        "low_stimulation",
+        "audio_optional",
+        "transcript_required",
+        "one_task_per_screen"
+      ],
+      "properties": {
+        "keyboard": {
+          "type": "boolean"
+        },
+        "screen_reader": {
+          "type": "boolean"
+        },
+        "reduced_motion": {
+          "type": "boolean"
+        },
+        "low_stimulation": {
+          "type": "boolean"
+        },
+        "audio_optional": {
+          "type": "boolean"
+        },
+        "transcript_required": {
+          "type": "boolean"
+        },
+        "one_task_per_screen": {
+          "type": "boolean"
+        }
+      }
+    },
+    "media_manifest_ref": {
+      "type": "string"
+    },
+    "reflection_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modes",
+        "persistence",
+        "raw_voice_storage"
+      ],
+      "properties": {
+        "modes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "selected",
+              "spoken_ephemeral",
+              "drawing",
+              "short_text",
+              "parent_assisted",
+              "skip"
+            ]
+          }
+        },
+        "persistence": {
+          "enum": [
+            "none",
+            "derived_only",
+            "private_child",
+            "parent_visible_with_consent"
+          ]
+        },
+        "raw_voice_storage": {
+          "const": false
+        },
+        "consent_prompt_ref": {
+          "type": "string"
+        },
+        "retention_days": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

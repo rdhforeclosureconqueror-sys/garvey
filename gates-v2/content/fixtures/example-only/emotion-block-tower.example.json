@@ -1,0 +1,435 @@
+{
+  "schema_version": "development-experience.v1",
+  "experience_id": "example_emotion_block_tower_k1",
+  "experience_version": "0.0.1-example",
+  "gate_id": "gate_emotion",
+  "experience_type": "gate_adventure",
+  "lifecycle": "draft",
+  "locale": "en-US",
+  "age_band": "k1",
+  "reading_level": {
+    "target_grade": 2,
+    "method": "editorial_plus_automated",
+    "reviewed": false
+  },
+  "source_provenance": [
+    {
+      "source_id": "unresolved_emotion_source",
+      "source_type": "new_child_content",
+      "source_version": "0.0.1",
+      "relationship": "echoes",
+      "canonicality": "non_canonical",
+      "verification_status": "unverified"
+    }
+  ],
+  "approvals": [],
+  "entry_node_id": "opening",
+  "nodes": [
+    {
+      "node_id": "opening",
+      "node_type": "content",
+      "purpose": "introduction",
+      "visible_text": [
+        "Maya builds a tall block tower.",
+        "She puts a red block on top.",
+        "Leo walks by with a box.",
+        "The box bumps the tower.",
+        "The blocks fall with a crash.",
+        "Maya's face feels hot.",
+        "Her hands squeeze tight."
+      ],
+      "narration_refs": [
+        "audio_opening_en_example_v1"
+      ],
+      "accessibility_label": "Maya's block tower falls after Leo bumps it.",
+      "next": {
+        "next_node_id": "notice_feeling"
+      }
+    },
+    {
+      "node_id": "notice_feeling",
+      "node_type": "notice",
+      "purpose": "emotion",
+      "visible_text": [
+        "What feeling might be here?"
+      ],
+      "accessibility_label": "Choose a feeling Maya might notice.",
+      "options": [
+        {
+          "option_id": "mad",
+          "child_action_text": "Mad",
+          "next_node_id": "notice_body",
+          "authoring_tags": [],
+          "effect_refs": []
+        },
+        {
+          "option_id": "sad",
+          "child_action_text": "Sad",
+          "next_node_id": "notice_body",
+          "authoring_tags": [],
+          "effect_refs": []
+        },
+        {
+          "option_id": "surprised",
+          "child_action_text": "Surprised",
+          "next_node_id": "notice_body",
+          "authoring_tags": [],
+          "effect_refs": []
+        }
+      ]
+    },
+    {
+      "node_id": "notice_body",
+      "node_type": "notice",
+      "purpose": "body",
+      "visible_text": [
+        "What does Maya notice in her body?"
+      ],
+      "accessibility_label": "Choose a body clue.",
+      "options": [
+        {
+          "option_id": "hot_face",
+          "child_action_text": "A hot face",
+          "next_node_id": "pause",
+          "authoring_tags": [],
+          "effect_refs": []
+        },
+        {
+          "option_id": "tight_hands",
+          "child_action_text": "Tight hands",
+          "next_node_id": "pause",
+          "authoring_tags": [],
+          "effect_refs": []
+        },
+        {
+          "option_id": "fast_heart",
+          "child_action_text": "A fast heart",
+          "next_node_id": "pause",
+          "authoring_tags": [],
+          "effect_refs": []
+        }
+      ]
+    },
+    {
+      "node_id": "pause",
+      "node_type": "practice",
+      "purpose": "calming",
+      "visible_text": [
+        "Maya can pause.",
+        "Breathe in slowly.",
+        "Breathe out slowly."
+      ],
+      "accessibility_label": "Take one slow breath with Maya.",
+      "options": [
+        {
+          "option_id": "breath_done",
+          "child_action_text": "I took a breath",
+          "next_node_id": "first_action",
+          "authoring_tags": [
+            "supportive"
+          ],
+          "effect_refs": [
+            "calm_supports"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "first_action",
+      "node_type": "choice",
+      "purpose": "action",
+      "visible_text": [
+        "What could Maya do next?"
+      ],
+      "accessibility_label": "Choose Maya's next action.",
+      "options": [
+        {
+          "option_id": "ask_accident",
+          "child_action_text": "Ask, \u2018Was it an accident?\u2019",
+          "next_node_id": "ask_result",
+          "authoring_tags": [
+            "connection_building"
+          ],
+          "effect_refs": [
+            "clarity_supports",
+            "connection_supports"
+          ]
+        },
+        {
+          "option_id": "ask_space",
+          "child_action_text": "Say, \u2018I need some space.\u2019",
+          "next_node_id": "space_result",
+          "authoring_tags": [
+            "protective",
+            "space_seeking"
+          ],
+          "effect_refs": [
+            "safety_supports",
+            "calm_supports"
+          ]
+        },
+        {
+          "option_id": "push_blocks",
+          "child_action_text": "Knock over Leo's blocks",
+          "next_node_id": "push_result",
+          "authoring_tags": [
+            "reactive",
+            "harmful"
+          ],
+          "effect_refs": [
+            "connection_strains",
+            "repair_burden_strains"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "ask_result",
+      "node_type": "content",
+      "purpose": "consequence",
+      "visible_text": [
+        "Leo says, \u2018Yes. I am sorry.\u2019",
+        "Maya still feels upset.",
+        "Now she knows what happened."
+      ],
+      "accessibility_label": "Leo explains that it was an accident.",
+      "next": {
+        "next_node_id": "healthy_followup"
+      },
+      "metadata": {
+        "consequence": true
+      }
+    },
+    {
+      "node_id": "space_result",
+      "node_type": "content",
+      "purpose": "consequence",
+      "visible_text": [
+        "Maya steps back.",
+        "Her hands begin to loosen.",
+        "Leo waits nearby."
+      ],
+      "accessibility_label": "Maya takes space and begins to calm.",
+      "next": {
+        "next_node_id": "healthy_followup"
+      },
+      "metadata": {
+        "consequence": true
+      }
+    },
+    {
+      "node_id": "healthy_followup",
+      "node_type": "choice",
+      "purpose": "action",
+      "visible_text": [
+        "What could Maya do now?"
+      ],
+      "accessibility_label": "Choose Maya's next action.",
+      "options": [
+        {
+          "option_id": "rebuild_together",
+          "child_action_text": "Ask Leo to help rebuild",
+          "next_node_id": "reflection",
+          "authoring_tags": [
+            "connection_building",
+            "supportive"
+          ],
+          "effect_refs": [
+            "connection_supports"
+          ]
+        },
+        {
+          "option_id": "adult_help",
+          "child_action_text": "Ask an adult for help",
+          "next_node_id": "reflection",
+          "authoring_tags": [
+            "help_seeking",
+            "protective"
+          ],
+          "effect_refs": [
+            "support_supports"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "push_result",
+      "node_type": "content",
+      "purpose": "consequence",
+      "visible_text": [
+        "Leo's blocks fall too.",
+        "Leo looks hurt.",
+        "The problem is bigger now."
+      ],
+      "accessibility_label": "Leo's blocks fall and the problem grows.",
+      "next": {
+        "next_node_id": "repair_choice"
+      },
+      "metadata": {
+        "consequence": true,
+        "repair_required": true
+      }
+    },
+    {
+      "node_id": "repair_choice",
+      "node_type": "choice",
+      "purpose": "repair",
+      "visible_text": [
+        "Maya can try to repair.",
+        "What could she do?"
+      ],
+      "accessibility_label": "Choose a repair action.",
+      "options": [
+        {
+          "option_id": "name_and_fix",
+          "child_action_text": "Say what happened and help fix the blocks",
+          "next_node_id": "repair_result",
+          "authoring_tags": [
+            "supportive",
+            "connection_building"
+          ],
+          "effect_refs": [
+            "responsibility_supports",
+            "connection_supports"
+          ]
+        },
+        {
+          "option_id": "ask_adult",
+          "child_action_text": "Ask an adult to help them talk",
+          "next_node_id": "repair_result",
+          "authoring_tags": [
+            "help_seeking",
+            "protective"
+          ],
+          "effect_refs": [
+            "support_supports"
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "repair_result",
+      "node_type": "content",
+      "purpose": "consequence",
+      "visible_text": [
+        "Maya says what she did.",
+        "She helps with the blocks.",
+        "Leo still needs a little time.",
+        "Repair has started."
+      ],
+      "accessibility_label": "Maya begins repair, and Leo still needs time.",
+      "next": {
+        "next_node_id": "reflection"
+      },
+      "metadata": {
+        "consequence": true
+      }
+    },
+    {
+      "node_id": "reflection",
+      "node_type": "reflection",
+      "purpose": "reflection",
+      "visible_text": [
+        "What helped Maya notice before choosing?"
+      ],
+      "accessibility_label": "Choose what helped Maya notice.",
+      "options": [
+        {
+          "option_id": "feeling",
+          "child_action_text": "Her feeling",
+          "next_node_id": "complete",
+          "authoring_tags": [],
+          "effect_refs": []
+        },
+        {
+          "option_id": "body",
+          "child_action_text": "Her body clue",
+          "next_node_id": "complete",
+          "authoring_tags": [],
+          "effect_refs": []
+        },
+        {
+          "option_id": "pause",
+          "child_action_text": "Her pause",
+          "next_node_id": "complete",
+          "authoring_tags": [],
+          "effect_refs": []
+        }
+      ],
+      "metadata": {
+        "max_visits": 3
+      }
+    },
+    {
+      "node_id": "complete",
+      "node_type": "completion",
+      "purpose": "celebration",
+      "visible_text": [
+        "Maya noticed, chose, and kept learning.",
+        "You can explore another path."
+      ],
+      "accessibility_label": "Experience complete. Replay another path or return.",
+      "options": [
+        {
+          "option_id": "replay_first_choice",
+          "child_action_text": "Try another choice",
+          "next_node_id": "first_action",
+          "authoring_tags": [],
+          "effect_refs": []
+        }
+      ],
+      "metadata": {
+        "max_visits": 4
+      }
+    }
+  ],
+  "replay_policy": {
+    "allowed": true,
+    "origins": [
+      "first_action"
+    ],
+    "max_replays": 3
+  },
+  "completion_rules": [
+    {
+      "rule": "visited",
+      "node_id": "complete"
+    }
+  ],
+  "parent_summary_template": {
+    "include": [
+      "participation",
+      "tools",
+      "repair_practiced",
+      "paths_explored",
+      "family_practice"
+    ],
+    "exclude": [
+      "moral_ranking",
+      "hidden_tags"
+    ]
+  },
+  "family_practice_refs": [
+    "example_family_emotional_weather"
+  ],
+  "accessibility": {
+    "keyboard": true,
+    "screen_reader": true,
+    "reduced_motion": true,
+    "low_stimulation": true,
+    "audio_optional": true,
+    "transcript_required": true,
+    "one_task_per_screen": true
+  },
+  "media_manifest_ref": "example_emotion_tower_media_0.0.1",
+  "content_notice": "EXAMPLE ONLY \u2014 NOT CANONICAL OR PUBLISHED CONTENT",
+  "reflection_policy": {
+    "modes": [
+      "selected",
+      "spoken_ephemeral",
+      "skip"
+    ],
+    "persistence": "derived_only",
+    "raw_voice_storage": false
+  }
+}

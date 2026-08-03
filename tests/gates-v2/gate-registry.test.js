@@ -1,0 +1,4 @@
+'use strict';const test=require('node:test'),assert=require('node:assert/strict');const r=require('../../gates-v2/domain/gateRegistry');
+test('valid ten-Gate registry and lookups are canonical',()=>{assert.equal(r.validateGateRegistry().valid,true);assert.equal(r.getBySlug('body').order,4);assert.equal([...r.ordered()].length,10)});
+for(const [name,change]of [['missing Gate',x=>x.pop()],['duplicate Gate ID',x=>x[1].gate_id=x[0].gate_id],['duplicate slug',x=>x[1].slug=x[0].slug],['duplicate order',x=>x[1].order=1],['incorrect Body order',x=>x[3].order=5],['wrong sequence',x=>x.reverse()]])test(`${name} fails`,()=>{const x=r.GATES.map(g=>({...g}));change(x);assert.equal(r.validateGateRegistry(x).valid,false)});
+test('mutation attempts do not alter exported registry',()=>{assert.throws(()=>r.GATES.push({}));assert.throws(()=>{r.GATES[0].slug='x'});assert.equal(r.GATES[0].slug,'attention')});
