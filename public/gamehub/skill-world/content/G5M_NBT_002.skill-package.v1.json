@@ -1,9 +1,10 @@
 {
   "metadata": {
     "schema_version": "skill-package.v1",
-    "production_status": "ready_for_manual_qa",
+    "production_status": "publication_certified",
     "source_plan": "grade5-math-completion-plan.v1",
-    "voice_standard": "full_voice_standard_cached_ai_audio_optional"
+    "voice_standard": "full_voice_standard_cached_ai_audio_optional",
+    "audit_date": "2026-08-03"
   },
   "skill_id": "G5M_NBT_002",
   "grade": 5,
@@ -35,7 +36,7 @@
     {
       "question_type": "multiplication_equation",
       "visual_model": "area_model",
-      "prompt": "Find 27 \u00d7 13.",
+      "prompt": "Find 27 × 13.",
       "answer": "351",
       "correct_answer": "351",
       "misconception_tag": "partial_products_confusion",
@@ -67,7 +68,7 @@
         27,
         13
       ],
-      "operation": "\u00d7",
+      "operation": "×",
       "partial_products": [
         270,
         81
@@ -86,7 +87,7 @@
     {
       "question_type": "multiple_choice",
       "visual_model": "algorithm_steps",
-      "prompt": "Find 31 \u00d7 14.",
+      "prompt": "Find 31 × 14.",
       "answer": "434",
       "correct_answer": "434",
       "misconception_tag": "digit_alignment_error",
@@ -119,7 +120,7 @@
         31,
         14
       ],
-      "operation": "\u00d7",
+      "operation": "×",
       "partial_products": [
         310,
         124
@@ -147,7 +148,7 @@
       "question_id": "G5M_NBT_002_L1_Q1",
       "question_type": "multiplication_equation",
       "visual_model": "area_model",
-      "prompt": "Find 27 \u00d7 13.",
+      "prompt": "Find 27 × 13.",
       "answer": "351",
       "correct_answer": "351",
       "misconception_tag": "partial_products_confusion",
@@ -179,7 +180,7 @@
         27,
         13
       ],
-      "operation": "\u00d7",
+      "operation": "×",
       "partial_products": [
         270,
         81
@@ -199,7 +200,7 @@
       "question_id": "G5M_NBT_002_MIXED_Q1",
       "question_type": "multiplication_equation",
       "visual_model": "area_model",
-      "prompt": "Find 27 \u00d7 13.",
+      "prompt": "Find 27 × 13.",
       "answer": "351",
       "correct_answer": "351",
       "misconception_tag": "partial_products_confusion",
@@ -231,7 +232,7 @@
         27,
         13
       ],
-      "operation": "\u00d7",
+      "operation": "×",
       "partial_products": [
         270,
         81
@@ -251,7 +252,7 @@
       "question_id": "G5M_NBT_002_L2_Q1",
       "question_type": "multiplication_equation",
       "visual_model": "partial_products_model",
-      "prompt": "Find 27 \u00d7 13.",
+      "prompt": "Find 27 × 13.",
       "answer": "351",
       "correct_answer": "351",
       "misconception_tag": "partial_products_confusion",
@@ -283,7 +284,7 @@
         27,
         13
       ],
-      "operation": "\u00d7",
+      "operation": "×",
       "partial_products": [
         270,
         81
@@ -318,20 +319,20 @@
           "question_id": "G5M_NBT_002_L1_Q1",
           "question_type": "multiplication_equation",
           "visual_model": "area_model",
-          "prompt": "Find 27 \u00d7 13.",
+          "prompt": "Find 27 × 13.",
           "answer": "351",
           "correct_answer": "351",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 27 and 13 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 351 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 351.",
+          "explanation": "The distributive property partitions 27 × 13 into the authored partial products. Their sum is 351, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 27 times 13.",
           "question_audio": {
             "text": "Find 27 times 13.",
@@ -342,15 +343,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "351",
-            "351",
             "351"
           ],
           "operands": [
             27,
             13
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             270,
             81
@@ -361,27 +360,29 @@
           "algorithm_steps": [
             "Multiply 27 by each place-value part of 13.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible area model for 27 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible area model for 27 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q2",
           "question_id": "G5M_NBT_002_L1_Q2",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Find 31 \u00d7 14.",
+          "prompt": "Find 31 × 14.",
           "answer": "434",
           "correct_answer": "434",
           "misconception_tag": "digit_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 31 and 14 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 434 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 434.",
+          "explanation": "The distributive property partitions 31 × 14 into the authored partial products. Their sum is 434, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 31 times 14.",
           "question_audio": {
             "text": "Find 31 times 14.",
@@ -401,7 +402,7 @@
             31,
             14
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             310,
             124
@@ -412,27 +413,29 @@
           "algorithm_steps": [
             "Multiply 31 by each place-value part of 14.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps for 31 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible algorithm steps for 31 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q3",
           "question_id": "G5M_NBT_002_L1_Q3",
           "question_type": "multiplication_equation",
           "visual_model": "partial_products_model",
-          "prompt": "Find 35 \u00d7 15.",
+          "prompt": "Find 35 × 15.",
           "answer": "525",
           "correct_answer": "525",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 35 and 15 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 525 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 525.",
+          "explanation": "The distributive property partitions 35 × 15 into the authored partial products. Their sum is 525, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 35 times 15.",
           "question_audio": {
             "text": "Find 35 times 15.",
@@ -443,15 +446,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "525",
-            "525",
             "525"
           ],
           "operands": [
             35,
             15
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             350,
             175
@@ -462,27 +463,29 @@
           "algorithm_steps": [
             "Multiply 35 by each place-value part of 15.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 35 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 35 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q4",
           "question_id": "G5M_NBT_002_L1_Q4",
           "question_type": "multiple_choice",
           "visual_model": "area_model",
-          "prompt": "Find 39 \u00d7 16.",
+          "prompt": "Find 39 × 16.",
           "answer": "624",
           "correct_answer": "624",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 39 and 16 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 624 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 624.",
+          "explanation": "The distributive property partitions 39 × 16 into the authored partial products. Their sum is 624, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 39 times 16.",
           "question_audio": {
             "text": "Find 39 times 16.",
@@ -502,38 +505,40 @@
             39,
             16
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             390,
             234
           ],
           "rows": 39,
-          "columns": 12,
+          "columns": 16,
           "area": 624,
           "algorithm_steps": [
             "Multiply 39 by each place-value part of 16.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible area model for 39 times 16, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible area model for 39 times 16, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q5",
           "question_id": "G5M_NBT_002_L1_Q5",
           "question_type": "multiplication_equation",
           "visual_model": "algorithm_steps",
-          "prompt": "Find 43 \u00d7 17.",
+          "prompt": "Find 43 × 17.",
           "answer": "731",
           "correct_answer": "731",
           "misconception_tag": "digit_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 43 and 17 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 731 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 731.",
+          "explanation": "The distributive property partitions 43 × 17 into the authored partial products. Their sum is 731, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 43 times 17.",
           "question_audio": {
             "text": "Find 43 times 17.",
@@ -544,46 +549,46 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "731",
-            "731",
             "731"
           ],
           "operands": [
             43,
             17
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             430,
             301
           ],
           "rows": 43,
-          "columns": 12,
+          "columns": 17,
           "area": 731,
           "algorithm_steps": [
             "Multiply 43 by each place-value part of 17.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps for 43 times 17, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible algorithm steps for 43 times 17, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q6",
           "question_id": "G5M_NBT_002_L1_Q6",
           "question_type": "multiple_choice",
           "visual_model": "partial_products_model",
-          "prompt": "Find 47 \u00d7 18.",
+          "prompt": "Find 47 × 18.",
           "answer": "846",
           "correct_answer": "846",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 47 and 18 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 846 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 846.",
+          "explanation": "The distributive property partitions 47 × 18 into the authored partial products. Their sum is 846, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 47 times 18.",
           "question_audio": {
             "text": "Find 47 times 18.",
@@ -603,38 +608,40 @@
             47,
             18
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             470,
             376
           ],
           "rows": 47,
-          "columns": 12,
+          "columns": 18,
           "area": 846,
           "algorithm_steps": [
             "Multiply 47 by each place-value part of 18.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 47 times 18, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 47 times 18, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q7",
           "question_id": "G5M_NBT_002_L1_Q7",
           "question_type": "multiplication_equation",
           "visual_model": "area_model",
-          "prompt": "Find 51 \u00d7 12.",
+          "prompt": "Find 51 × 12.",
           "answer": "612",
           "correct_answer": "612",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 51 and 12 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 612 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 612.",
+          "explanation": "The distributive property partitions 51 × 12 into the authored partial products. Their sum is 612, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 51 times 12.",
           "question_audio": {
             "text": "Find 51 times 12.",
@@ -645,15 +652,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "612",
-            "612",
             "612"
           ],
           "operands": [
             51,
             12
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             510,
             102
@@ -664,27 +669,29 @@
           "algorithm_steps": [
             "Multiply 51 by each place-value part of 12.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible area model for 51 times 12, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible area model for 51 times 12, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q8",
           "question_id": "G5M_NBT_002_L1_Q8",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Find 55 \u00d7 13.",
+          "prompt": "Find 55 × 13.",
           "answer": "715",
           "correct_answer": "715",
           "misconception_tag": "digit_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 55 and 13 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 715 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 715.",
+          "explanation": "The distributive property partitions 55 × 13 into the authored partial products. Their sum is 715, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 55 times 13.",
           "question_audio": {
             "text": "Find 55 times 13.",
@@ -704,7 +711,7 @@
             55,
             13
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             550,
             165
@@ -715,27 +722,29 @@
           "algorithm_steps": [
             "Multiply 55 by each place-value part of 13.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps for 55 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible algorithm steps for 55 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q9",
           "question_id": "G5M_NBT_002_L1_Q9",
           "question_type": "multiplication_equation",
           "visual_model": "partial_products_model",
-          "prompt": "Find 59 \u00d7 14.",
+          "prompt": "Find 59 × 14.",
           "answer": "826",
           "correct_answer": "826",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 59 and 14 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 826 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 826.",
+          "explanation": "The distributive property partitions 59 × 14 into the authored partial products. Their sum is 826, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 59 times 14.",
           "question_audio": {
             "text": "Find 59 times 14.",
@@ -746,15 +755,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "826",
-            "826",
             "826"
           ],
           "operands": [
             59,
             14
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             590,
             236
@@ -765,27 +772,29 @@
           "algorithm_steps": [
             "Multiply 59 by each place-value part of 14.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 59 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 59 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L1_Q10",
           "question_id": "G5M_NBT_002_L1_Q10",
           "question_type": "multiple_choice",
           "visual_model": "area_model",
-          "prompt": "Find 63 \u00d7 15.",
+          "prompt": "Find 63 × 15.",
           "answer": "945",
           "correct_answer": "945",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 63 and 15 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 945 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 945.",
+          "explanation": "The distributive property partitions 63 × 15 into the authored partial products. Their sum is 945, which also agrees with the area and standard-algorithm metadata.",
           "read_aloud_text": "Find 63 times 15.",
           "question_audio": {
             "text": "Find 63 times 15.",
@@ -805,7 +814,7 @@
             63,
             15
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             630,
             315
@@ -816,7 +825,9 @@
           "algorithm_steps": [
             "Multiply 63 by each place-value part of 15.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible area model for 63 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible area model for 63 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         }
       ]
     },
@@ -833,23 +844,23 @@
           "question_id": "G5M_NBT_002_L2_Q1",
           "question_type": "multiplication_equation",
           "visual_model": "partial_products_model",
-          "prompt": "Find 27 \u00d7 13.",
+          "prompt": "Use partial products to find 27 × 13.",
           "answer": "351",
           "correct_answer": "351",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 27 and 13 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 351 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 351.",
-          "read_aloud_text": "Find 27 times 13.",
+          "explanation": "The distributive property partitions 27 × 13 into the authored partial products. Their sum is 351, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 27 times 13.",
           "question_audio": {
-            "text": "Find 27 times 13.",
+            "text": "Use partial products to find 27 times 13.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -857,15 +868,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "351",
-            "351",
             "351"
           ],
           "operands": [
             27,
             13
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             270,
             81
@@ -876,30 +885,32 @@
           "algorithm_steps": [
             "Multiply 27 by each place-value part of 13.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 27 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 27 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q2",
           "question_id": "G5M_NBT_002_L2_Q2",
           "question_type": "multiple_choice",
           "visual_model": "partial_products_model",
-          "prompt": "Find 31 \u00d7 14.",
+          "prompt": "Use partial products to find 31 × 14.",
           "answer": "434",
           "correct_answer": "434",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 31 and 14 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 434 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 434.",
-          "read_aloud_text": "Find 31 times 14.",
+          "explanation": "The distributive property partitions 31 × 14 into the authored partial products. Their sum is 434, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 31 times 14.",
           "question_audio": {
-            "text": "Find 31 times 14.",
+            "text": "Use partial products to find 31 times 14.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -916,7 +927,7 @@
             31,
             14
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             310,
             124
@@ -927,30 +938,32 @@
           "algorithm_steps": [
             "Multiply 31 by each place-value part of 14.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 31 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 31 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q3",
           "question_id": "G5M_NBT_002_L2_Q3",
           "question_type": "multiplication_equation",
           "visual_model": "partial_products_model",
-          "prompt": "Find 35 \u00d7 15.",
+          "prompt": "Use partial products to find 35 × 15.",
           "answer": "525",
           "correct_answer": "525",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 35 and 15 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 525 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 525.",
-          "read_aloud_text": "Find 35 times 15.",
+          "explanation": "The distributive property partitions 35 × 15 into the authored partial products. Their sum is 525, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 35 times 15.",
           "question_audio": {
-            "text": "Find 35 times 15.",
+            "text": "Use partial products to find 35 times 15.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -958,15 +971,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "525",
-            "525",
             "525"
           ],
           "operands": [
             35,
             15
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             350,
             175
@@ -977,30 +988,32 @@
           "algorithm_steps": [
             "Multiply 35 by each place-value part of 15.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 35 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 35 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q4",
           "question_id": "G5M_NBT_002_L2_Q4",
           "question_type": "multiple_choice",
           "visual_model": "partial_products_model",
-          "prompt": "Find 39 \u00d7 16.",
+          "prompt": "Use partial products to find 39 × 16.",
           "answer": "624",
           "correct_answer": "624",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 39 and 16 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 624 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 624.",
-          "read_aloud_text": "Find 39 times 16.",
+          "explanation": "The distributive property partitions 39 × 16 into the authored partial products. Their sum is 624, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 39 times 16.",
           "question_audio": {
-            "text": "Find 39 times 16.",
+            "text": "Use partial products to find 39 times 16.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1017,41 +1030,43 @@
             39,
             16
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             390,
             234
           ],
           "rows": 39,
-          "columns": 12,
+          "columns": 16,
           "area": 624,
           "algorithm_steps": [
             "Multiply 39 by each place-value part of 16.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 39 times 16, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 39 times 16, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q5",
           "question_id": "G5M_NBT_002_L2_Q5",
           "question_type": "multiplication_equation",
           "visual_model": "partial_products_model",
-          "prompt": "Find 43 \u00d7 17.",
+          "prompt": "Use partial products to find 43 × 17.",
           "answer": "731",
           "correct_answer": "731",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 43 and 17 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 731 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 731.",
-          "read_aloud_text": "Find 43 times 17.",
+          "explanation": "The distributive property partitions 43 × 17 into the authored partial products. Their sum is 731, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 43 times 17.",
           "question_audio": {
-            "text": "Find 43 times 17.",
+            "text": "Use partial products to find 43 times 17.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1059,49 +1074,49 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "731",
-            "731",
             "731"
           ],
           "operands": [
             43,
             17
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             430,
             301
           ],
           "rows": 43,
-          "columns": 12,
+          "columns": 17,
           "area": 731,
           "algorithm_steps": [
             "Multiply 43 by each place-value part of 17.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 43 times 17, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 43 times 17, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q6",
           "question_id": "G5M_NBT_002_L2_Q6",
           "question_type": "multiple_choice",
           "visual_model": "partial_products_model",
-          "prompt": "Find 47 \u00d7 18.",
+          "prompt": "Use partial products to find 47 × 18.",
           "answer": "846",
           "correct_answer": "846",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 47 and 18 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 846 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 846.",
-          "read_aloud_text": "Find 47 times 18.",
+          "explanation": "The distributive property partitions 47 × 18 into the authored partial products. Their sum is 846, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 47 times 18.",
           "question_audio": {
-            "text": "Find 47 times 18.",
+            "text": "Use partial products to find 47 times 18.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1118,41 +1133,43 @@
             47,
             18
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             470,
             376
           ],
           "rows": 47,
-          "columns": 12,
+          "columns": 18,
           "area": 846,
           "algorithm_steps": [
             "Multiply 47 by each place-value part of 18.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 47 times 18, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 47 times 18, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q7",
           "question_id": "G5M_NBT_002_L2_Q7",
           "question_type": "multiplication_equation",
           "visual_model": "partial_products_model",
-          "prompt": "Find 51 \u00d7 12.",
+          "prompt": "Use partial products to find 51 × 12.",
           "answer": "612",
           "correct_answer": "612",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 51 and 12 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 612 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 612.",
-          "read_aloud_text": "Find 51 times 12.",
+          "explanation": "The distributive property partitions 51 × 12 into the authored partial products. Their sum is 612, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 51 times 12.",
           "question_audio": {
-            "text": "Find 51 times 12.",
+            "text": "Use partial products to find 51 times 12.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1160,15 +1177,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "612",
-            "612",
             "612"
           ],
           "operands": [
             51,
             12
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             510,
             102
@@ -1179,30 +1194,32 @@
           "algorithm_steps": [
             "Multiply 51 by each place-value part of 12.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 51 times 12, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 51 times 12, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q8",
           "question_id": "G5M_NBT_002_L2_Q8",
           "question_type": "multiple_choice",
           "visual_model": "partial_products_model",
-          "prompt": "Find 55 \u00d7 13.",
+          "prompt": "Use partial products to find 55 × 13.",
           "answer": "715",
           "correct_answer": "715",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 55 and 13 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 715 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 715.",
-          "read_aloud_text": "Find 55 times 13.",
+          "explanation": "The distributive property partitions 55 × 13 into the authored partial products. Their sum is 715, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 55 times 13.",
           "question_audio": {
-            "text": "Find 55 times 13.",
+            "text": "Use partial products to find 55 times 13.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1219,7 +1236,7 @@
             55,
             13
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             550,
             165
@@ -1230,30 +1247,32 @@
           "algorithm_steps": [
             "Multiply 55 by each place-value part of 13.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 55 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 55 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q9",
           "question_id": "G5M_NBT_002_L2_Q9",
           "question_type": "multiplication_equation",
           "visual_model": "partial_products_model",
-          "prompt": "Find 59 \u00d7 14.",
+          "prompt": "Use partial products to find 59 × 14.",
           "answer": "826",
           "correct_answer": "826",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 59 and 14 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 826 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 826.",
-          "read_aloud_text": "Find 59 times 14.",
+          "explanation": "The distributive property partitions 59 × 14 into the authored partial products. Their sum is 826, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 59 times 14.",
           "question_audio": {
-            "text": "Find 59 times 14.",
+            "text": "Use partial products to find 59 times 14.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1261,15 +1280,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "826",
-            "826",
             "826"
           ],
           "operands": [
             59,
             14
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             590,
             236
@@ -1280,30 +1297,32 @@
           "algorithm_steps": [
             "Multiply 59 by each place-value part of 14.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 59 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 59 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_L2_Q10",
           "question_id": "G5M_NBT_002_L2_Q10",
           "question_type": "multiple_choice",
           "visual_model": "partial_products_model",
-          "prompt": "Find 63 \u00d7 15.",
+          "prompt": "Use partial products to find 63 × 15.",
           "answer": "945",
           "correct_answer": "945",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 63 and 15 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 945 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 945.",
-          "read_aloud_text": "Find 63 times 15.",
+          "explanation": "The distributive property partitions 63 × 15 into the authored partial products. Their sum is 945, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "Use partial products to find 63 times 15.",
           "question_audio": {
-            "text": "Find 63 times 15.",
+            "text": "Use partial products to find 63 times 15.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1320,7 +1339,7 @@
             63,
             15
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             630,
             315
@@ -1331,7 +1350,9 @@
           "algorithm_steps": [
             "Multiply 63 by each place-value part of 15.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 63 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 63 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         }
       ]
     },
@@ -1348,20 +1369,20 @@
           "question_id": "G5M_NBT_002_L3_Q1",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Find 180 \u00f7 4.",
+          "prompt": "Find 180 ÷ 4.",
           "answer": "45",
           "correct_answer": "45",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 4 fit in 180.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 4, add the remainder, and confirm the result is 180."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 45.",
+          "explanation": "180 = 4 × 45. Multiplication reverses the division and confirms the quotient 45.",
           "read_aloud_text": "Find 180 divided by 4.",
           "question_audio": {
             "text": "Find 180 divided by 4.",
@@ -1372,8 +1393,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "45",
-            "45",
             "45"
           ],
           "dividend": 180,
@@ -1385,27 +1404,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 180 divided by 4, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 180 divided by 4, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q2",
           "question_id": "G5M_NBT_002_L3_Q2",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Find 240 \u00f7 5.",
+          "prompt": "Find 240 ÷ 5.",
           "answer": "48",
           "correct_answer": "48",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 5 fit in 240.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 5, add the remainder, and confirm the result is 240."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 48.",
+          "explanation": "240 = 5 × 48. Multiplication reverses the division and confirms the quotient 48.",
           "read_aloud_text": "Find 240 divided by 5.",
           "question_audio": {
             "text": "Find 240 divided by 5.",
@@ -1417,9 +1439,9 @@
           },
           "choices": [
             "48",
-            "58",
-            "47",
-            "5"
+            "5",
+            "49",
+            "0"
           ],
           "dividend": 240,
           "divisor": 5,
@@ -1430,27 +1452,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 240 divided by 5, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 240 divided by 5, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q3",
           "question_id": "G5M_NBT_002_L3_Q3",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Find 306 \u00f7 6.",
+          "prompt": "Find 306 ÷ 6.",
           "answer": "51",
           "correct_answer": "51",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 6 fit in 306.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 6, add the remainder, and confirm the result is 306."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 51.",
+          "explanation": "306 = 6 × 51. Multiplication reverses the division and confirms the quotient 51.",
           "read_aloud_text": "Find 306 divided by 6.",
           "question_audio": {
             "text": "Find 306 divided by 6.",
@@ -1461,8 +1486,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "51",
-            "51",
             "51"
           ],
           "dividend": 306,
@@ -1474,27 +1497,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 306 divided by 6, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 306 divided by 6, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q4",
           "question_id": "G5M_NBT_002_L3_Q4",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Find 378 \u00f7 7.",
+          "prompt": "Find 378 ÷ 7.",
           "answer": "54",
           "correct_answer": "54",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 7 fit in 378.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 7, add the remainder, and confirm the result is 378."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 54.",
+          "explanation": "378 = 7 × 54. Multiplication reverses the division and confirms the quotient 54.",
           "read_aloud_text": "Find 378 divided by 7.",
           "question_audio": {
             "text": "Find 378 divided by 7.",
@@ -1506,9 +1532,9 @@
           },
           "choices": [
             "54",
-            "64",
-            "53",
-            "7"
+            "7",
+            "55",
+            "0"
           ],
           "dividend": 378,
           "divisor": 7,
@@ -1519,27 +1545,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 378 divided by 7, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 378 divided by 7, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q5",
           "question_id": "G5M_NBT_002_L3_Q5",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Find 456 \u00f7 8.",
+          "prompt": "Find 456 ÷ 8.",
           "answer": "57",
           "correct_answer": "57",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 8 fit in 456.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 8, add the remainder, and confirm the result is 456."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 57.",
+          "explanation": "456 = 8 × 57. Multiplication reverses the division and confirms the quotient 57.",
           "read_aloud_text": "Find 456 divided by 8.",
           "question_audio": {
             "text": "Find 456 divided by 8.",
@@ -1550,8 +1579,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "57",
-            "57",
             "57"
           ],
           "dividend": 456,
@@ -1563,27 +1590,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 456 divided by 8, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 456 divided by 8, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q6",
           "question_id": "G5M_NBT_002_L3_Q6",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Find 540 \u00f7 9.",
+          "prompt": "Find 540 ÷ 9.",
           "answer": "60",
           "correct_answer": "60",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 9 fit in 540.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 9, add the remainder, and confirm the result is 540."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 60.",
+          "explanation": "540 = 9 × 60. Multiplication reverses the division and confirms the quotient 60.",
           "read_aloud_text": "Find 540 divided by 9.",
           "question_audio": {
             "text": "Find 540 divided by 9.",
@@ -1595,9 +1625,9 @@
           },
           "choices": [
             "60",
-            "70",
-            "59",
-            "9"
+            "9",
+            "61",
+            "0"
           ],
           "dividend": 540,
           "divisor": 9,
@@ -1608,27 +1638,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 540 divided by 9, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 540 divided by 9, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q7",
           "question_id": "G5M_NBT_002_L3_Q7",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Find 189 \u00f7 3.",
+          "prompt": "Find 189 ÷ 3.",
           "answer": "63",
           "correct_answer": "63",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 3 fit in 189.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 3, add the remainder, and confirm the result is 189."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 63.",
+          "explanation": "189 = 3 × 63. Multiplication reverses the division and confirms the quotient 63.",
           "read_aloud_text": "Find 189 divided by 3.",
           "question_audio": {
             "text": "Find 189 divided by 3.",
@@ -1639,8 +1672,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "63",
-            "63",
             "63"
           ],
           "dividend": 189,
@@ -1652,27 +1683,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 189 divided by 3, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 189 divided by 3, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q8",
           "question_id": "G5M_NBT_002_L3_Q8",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Find 264 \u00f7 4.",
+          "prompt": "Find 264 ÷ 4.",
           "answer": "66",
           "correct_answer": "66",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 4 fit in 264.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 4, add the remainder, and confirm the result is 264."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 66.",
+          "explanation": "264 = 4 × 66. Multiplication reverses the division and confirms the quotient 66.",
           "read_aloud_text": "Find 264 divided by 4.",
           "question_audio": {
             "text": "Find 264 divided by 4.",
@@ -1684,9 +1718,9 @@
           },
           "choices": [
             "66",
-            "76",
-            "65",
-            "4"
+            "4",
+            "67",
+            "0"
           ],
           "dividend": 264,
           "divisor": 4,
@@ -1697,27 +1731,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 264 divided by 4, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 264 divided by 4, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q9",
           "question_id": "G5M_NBT_002_L3_Q9",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Find 345 \u00f7 5.",
+          "prompt": "Find 345 ÷ 5.",
           "answer": "69",
           "correct_answer": "69",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 5 fit in 345.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 5, add the remainder, and confirm the result is 345."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 69.",
+          "explanation": "345 = 5 × 69. Multiplication reverses the division and confirms the quotient 69.",
           "read_aloud_text": "Find 345 divided by 5.",
           "question_audio": {
             "text": "Find 345 divided by 5.",
@@ -1728,8 +1765,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "69",
-            "69",
             "69"
           ],
           "dividend": 345,
@@ -1741,27 +1776,30 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 345 divided by 5, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 345 divided by 5, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_L3_Q10",
           "question_id": "G5M_NBT_002_L3_Q10",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Find 432 \u00f7 6.",
+          "prompt": "Find 432 ÷ 6.",
           "answer": "72",
           "correct_answer": "72",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 6 fit in 432.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 6, add the remainder, and confirm the result is 432."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 72.",
+          "explanation": "432 = 6 × 72. Multiplication reverses the division and confirms the quotient 72.",
           "read_aloud_text": "Find 432 divided by 6.",
           "question_audio": {
             "text": "Find 432 divided by 6.",
@@ -1773,9 +1811,9 @@
           },
           "choices": [
             "72",
-            "82",
-            "71",
-            "6"
+            "6",
+            "73",
+            "0"
           ],
           "dividend": 432,
           "divisor": 6,
@@ -1786,7 +1824,10 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 432 divided by 6, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 432 divided by 6, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         }
       ]
     },
@@ -1808,18 +1849,18 @@
           "correct_answer": "20",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 5 fit in 96.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 5, add the remainder, and confirm the result is 96."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 20.",
-          "read_aloud_text": "96 students ride in vans with 5 students per van. Decide what the remainder means.",
+          "explanation": "96 = 5 × 19 + 1. The context determines whether the 1 leftover students require rounding, reporting the remainder, or forming another group, so 20 is the contextual response.",
+          "read_aloud_text": "96 students ride in vans with 5 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "96 students ride in vans with 5 students per van. Decide what the remainder means.",
+            "text": "96 students ride in vans with 5 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1827,8 +1868,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "20",
-            "20",
             "20"
           ],
           "dividend": 96,
@@ -1836,7 +1875,9 @@
           "quotient": 19,
           "remainder": 1,
           "object": "students",
-          "remainder_interpretation": "need one more bus"
+          "remainder_interpretation": "need one more bus",
+          "visual_description": "An accessible remainder model for 96 divided by 5, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 96 divided by 5, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q2",
@@ -1848,18 +1889,18 @@
           "correct_answer": "2",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 6 fit in 122.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 6, add the remainder, and confirm the result is 122."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 2.",
-          "read_aloud_text": "122 students ride in vans with 6 students per van. Decide what the remainder means.",
+          "explanation": "122 = 6 × 20 + 2. The context determines whether the 2 leftover students require rounding, reporting the remainder, or forming another group, so 2 is the contextual response.",
+          "read_aloud_text": "122 students ride in vans with 6 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "122 students ride in vans with 6 students per van. Decide what the remainder means.",
+            "text": "122 students ride in vans with 6 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1869,15 +1910,17 @@
           "choices": [
             "2",
             "20",
-            "2",
-            "6"
+            "6",
+            "21"
           ],
           "dividend": 122,
           "divisor": 6,
           "quotient": 20,
           "remainder": 2,
           "object": "students",
-          "remainder_interpretation": "left over"
+          "remainder_interpretation": "left over",
+          "visual_description": "An accessible remainder model for 122 divided by 6, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 122 divided by 6, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q3",
@@ -1889,18 +1932,18 @@
           "correct_answer": "22",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 7 fit in 150.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 7, add the remainder, and confirm the result is 150."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 22.",
-          "read_aloud_text": "150 students ride in vans with 7 students per van. Decide what the remainder means.",
+          "explanation": "150 = 7 × 21 + 3. The context determines whether the 3 leftover students require rounding, reporting the remainder, or forming another group, so 22 is the contextual response.",
+          "read_aloud_text": "150 students ride in vans with 7 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "150 students ride in vans with 7 students per van. Decide what the remainder means.",
+            "text": "150 students ride in vans with 7 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1908,8 +1951,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "22",
-            "22",
             "22"
           ],
           "dividend": 150,
@@ -1917,7 +1958,9 @@
           "quotient": 21,
           "remainder": 3,
           "object": "students",
-          "remainder_interpretation": "need one more bus"
+          "remainder_interpretation": "need one more bus",
+          "visual_description": "An accessible remainder model for 150 divided by 7, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 150 divided by 7, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q4",
@@ -1929,18 +1972,18 @@
           "correct_answer": "4",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 8 fit in 180.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 8, add the remainder, and confirm the result is 180."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 4.",
-          "read_aloud_text": "180 students ride in vans with 8 students per van. Decide what the remainder means.",
+          "explanation": "180 = 8 × 22 + 4. The context determines whether the 4 leftover students require rounding, reporting the remainder, or forming another group, so 4 is the contextual response.",
+          "read_aloud_text": "180 students ride in vans with 8 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "180 students ride in vans with 8 students per van. Decide what the remainder means.",
+            "text": "180 students ride in vans with 8 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1950,15 +1993,17 @@
           "choices": [
             "4",
             "22",
-            "4",
-            "8"
+            "8",
+            "23"
           ],
           "dividend": 180,
           "divisor": 8,
           "quotient": 22,
           "remainder": 4,
           "object": "students",
-          "remainder_interpretation": "left over"
+          "remainder_interpretation": "left over",
+          "visual_description": "An accessible remainder model for 180 divided by 8, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 180 divided by 8, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q5",
@@ -1970,18 +2015,18 @@
           "correct_answer": "24",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 4 fit in 93.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 4, add the remainder, and confirm the result is 93."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 24.",
-          "read_aloud_text": "93 students ride in vans with 4 students per van. Decide what the remainder means.",
+          "explanation": "93 = 4 × 23 + 1. The context determines whether the 1 leftover students require rounding, reporting the remainder, or forming another group, so 24 is the contextual response.",
+          "read_aloud_text": "93 students ride in vans with 4 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "93 students ride in vans with 4 students per van. Decide what the remainder means.",
+            "text": "93 students ride in vans with 4 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1989,8 +2034,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "24",
-            "24",
             "24"
           ],
           "dividend": 93,
@@ -1998,7 +2041,9 @@
           "quotient": 23,
           "remainder": 1,
           "object": "students",
-          "remainder_interpretation": "need one more bus"
+          "remainder_interpretation": "need one more bus",
+          "visual_description": "An accessible remainder model for 93 divided by 4, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 93 divided by 4, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q6",
@@ -2010,18 +2055,18 @@
           "correct_answer": "1",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 5 fit in 121.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 5, add the remainder, and confirm the result is 121."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.",
-          "read_aloud_text": "121 students ride in vans with 5 students per van. Decide what the remainder means.",
+          "explanation": "121 = 5 × 24 + 1. The context determines whether the 1 leftover students require rounding, reporting the remainder, or forming another group, so 1 is the contextual response.",
+          "read_aloud_text": "121 students ride in vans with 5 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "121 students ride in vans with 5 students per van. Decide what the remainder means.",
+            "text": "121 students ride in vans with 5 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2031,15 +2076,17 @@
           "choices": [
             "1",
             "24",
-            "1",
-            "5"
+            "5",
+            "25"
           ],
           "dividend": 121,
           "divisor": 5,
           "quotient": 24,
           "remainder": 1,
           "object": "students",
-          "remainder_interpretation": "left over"
+          "remainder_interpretation": "left over",
+          "visual_description": "An accessible remainder model for 121 divided by 5, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 121 divided by 5, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q7",
@@ -2051,18 +2098,18 @@
           "correct_answer": "26",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 6 fit in 151.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 6, add the remainder, and confirm the result is 151."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 26.",
-          "read_aloud_text": "151 students ride in vans with 6 students per van. Decide what the remainder means.",
+          "explanation": "151 = 6 × 25 + 1. The context determines whether the 1 leftover students require rounding, reporting the remainder, or forming another group, so 26 is the contextual response.",
+          "read_aloud_text": "151 students ride in vans with 6 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "151 students ride in vans with 6 students per van. Decide what the remainder means.",
+            "text": "151 students ride in vans with 6 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2070,8 +2117,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "26",
-            "26",
             "26"
           ],
           "dividend": 151,
@@ -2079,7 +2124,9 @@
           "quotient": 25,
           "remainder": 1,
           "object": "students",
-          "remainder_interpretation": "need one more bus"
+          "remainder_interpretation": "need one more bus",
+          "visual_description": "An accessible remainder model for 151 divided by 6, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 151 divided by 6, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q8",
@@ -2091,18 +2138,18 @@
           "correct_answer": "1",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 7 fit in 183.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 7, add the remainder, and confirm the result is 183."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.",
-          "read_aloud_text": "183 students ride in vans with 7 students per van. Decide what the remainder means.",
+          "explanation": "183 = 7 × 26 + 1. The context determines whether the 1 leftover students require rounding, reporting the remainder, or forming another group, so 1 is the contextual response.",
+          "read_aloud_text": "183 students ride in vans with 7 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "183 students ride in vans with 7 students per van. Decide what the remainder means.",
+            "text": "183 students ride in vans with 7 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2112,15 +2159,17 @@
           "choices": [
             "1",
             "26",
-            "1",
-            "7"
+            "7",
+            "27"
           ],
           "dividend": 183,
           "divisor": 7,
           "quotient": 26,
           "remainder": 1,
           "object": "students",
-          "remainder_interpretation": "left over"
+          "remainder_interpretation": "left over",
+          "visual_description": "An accessible remainder model for 183 divided by 7, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 183 divided by 7, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q9",
@@ -2132,18 +2181,18 @@
           "correct_answer": "28",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 8 fit in 217.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 8, add the remainder, and confirm the result is 217."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 28.",
-          "read_aloud_text": "217 students ride in vans with 8 students per van. Decide what the remainder means.",
+          "explanation": "217 = 8 × 27 + 1. The context determines whether the 1 leftover students require rounding, reporting the remainder, or forming another group, so 28 is the contextual response.",
+          "read_aloud_text": "217 students ride in vans with 8 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "217 students ride in vans with 8 students per van. Decide what the remainder means.",
+            "text": "217 students ride in vans with 8 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2151,8 +2200,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "28",
-            "28",
             "28"
           ],
           "dividend": 217,
@@ -2160,7 +2207,9 @@
           "quotient": 27,
           "remainder": 1,
           "object": "students",
-          "remainder_interpretation": "need one more bus"
+          "remainder_interpretation": "need one more bus",
+          "visual_description": "An accessible remainder model for 217 divided by 8, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 217 divided by 8, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_L4_Q10",
@@ -2172,18 +2221,18 @@
           "correct_answer": "2",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 4 fit in 114.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 4, add the remainder, and confirm the result is 114."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 2.",
-          "read_aloud_text": "114 students ride in vans with 4 students per van. Decide what the remainder means.",
+          "explanation": "114 = 4 × 28 + 2. The context determines whether the 2 leftover students require rounding, reporting the remainder, or forming another group, so 2 is the contextual response.",
+          "read_aloud_text": "114 students ride in vans with 4 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "114 students ride in vans with 4 students per van. Decide what the remainder means.",
+            "text": "114 students ride in vans with 4 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2193,15 +2242,17 @@
           "choices": [
             "2",
             "28",
-            "2",
-            "4"
+            "4",
+            "29"
           ],
           "dividend": 114,
           "divisor": 4,
           "quotient": 28,
           "remainder": 2,
           "object": "students",
-          "remainder_interpretation": "left over"
+          "remainder_interpretation": "left over",
+          "visual_description": "An accessible remainder model for 114 divided by 4, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 114 divided by 4, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         }
       ]
     },
@@ -2218,23 +2269,23 @@
           "question_id": "G5M_NBT_002_MIXED_Q1",
           "question_type": "multiplication_equation",
           "visual_model": "area_model",
-          "prompt": "Find 27 \u00d7 13.",
+          "prompt": "A garden team arranges 27 rows with 13 seedlings in each row. How many items are there in all?",
           "answer": "351",
           "correct_answer": "351",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 27 and 13 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 351 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 351.",
-          "read_aloud_text": "Find 27 times 13.",
+          "explanation": "The distributive property partitions 27 × 13 into the authored partial products. Their sum is 351, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "A garden team arranges 27 rows with 13 seedlings in each row. How many items are there in all?",
           "question_audio": {
-            "text": "Find 27 times 13.",
+            "text": "A garden team arranges 27 rows with 13 seedlings in each row. How many items are there in all?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2242,15 +2293,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "351",
-            "351",
             "351"
           ],
           "operands": [
             27,
             13
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             270,
             81
@@ -2261,30 +2310,32 @@
           "algorithm_steps": [
             "Multiply 27 by each place-value part of 13.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible area model for 27 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible area model for 27 times 13, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_MIXED_Q2",
           "question_id": "G5M_NBT_002_MIXED_Q2",
           "question_type": "multiple_choice",
           "visual_model": "algorithm_steps",
-          "prompt": "Find 31 \u00d7 14.",
+          "prompt": "A library packs 31 shelves with 14 books on each shelf. How many items are there in all?",
           "answer": "434",
           "correct_answer": "434",
           "misconception_tag": "digit_alignment_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 31 and 14 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 434 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 434.",
-          "read_aloud_text": "Find 31 times 14.",
+          "explanation": "The distributive property partitions 31 × 14 into the authored partial products. Their sum is 434, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "A library packs 31 shelves with 14 books on each shelf. How many items are there in all?",
           "question_audio": {
-            "text": "Find 31 times 14.",
+            "text": "A library packs 31 shelves with 14 books on each shelf. How many items are there in all?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2301,7 +2352,7 @@
             31,
             14
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             310,
             124
@@ -2312,30 +2363,32 @@
           "algorithm_steps": [
             "Multiply 31 by each place-value part of 14.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible algorithm steps for 31 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible algorithm steps for 31 times 14, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_MIXED_Q3",
           "question_id": "G5M_NBT_002_MIXED_Q3",
           "question_type": "multiplication_equation",
           "visual_model": "partial_products_model",
-          "prompt": "Find 35 \u00d7 15.",
+          "prompt": "A mural uses 35 rows of 15 tiles. How many items are there in all?",
           "answer": "525",
           "correct_answer": "525",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 35 and 15 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 525 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 525.",
-          "read_aloud_text": "Find 35 times 15.",
+          "explanation": "The distributive property partitions 35 × 15 into the authored partial products. Their sum is 525, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "A mural uses 35 rows of 15 tiles. How many items are there in all?",
           "question_audio": {
-            "text": "Find 35 times 15.",
+            "text": "A mural uses 35 rows of 15 tiles. How many items are there in all?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2343,15 +2396,13 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "525",
-            "525",
             "525"
           ],
           "operands": [
             35,
             15
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             350,
             175
@@ -2362,30 +2413,32 @@
           "algorithm_steps": [
             "Multiply 35 by each place-value part of 15.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible partial products model for 35 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible partial products model for 35 times 15, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_MIXED_Q4",
           "question_id": "G5M_NBT_002_MIXED_Q4",
           "question_type": "multiple_choice",
           "visual_model": "area_model",
-          "prompt": "Find 39 \u00d7 16.",
+          "prompt": "A food pantry fills 39 crates with 16 cans each. How many items are there in all?",
           "answer": "624",
           "correct_answer": "624",
           "misconception_tag": "partial_products_confusion",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decompose 39 and 16 by place value before multiplying.",
+            "Strategy: multiply each place-value part, record every partial product, and add the partial products.",
+            "Verify: estimate the product and divide 624 by one factor to recover the other."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 624.",
-          "read_aloud_text": "Find 39 times 16.",
+          "explanation": "The distributive property partitions 39 × 16 into the authored partial products. Their sum is 624, which also agrees with the area and standard-algorithm metadata.",
+          "read_aloud_text": "A food pantry fills 39 crates with 16 cans each. How many items are there in all?",
           "question_audio": {
-            "text": "Find 39 times 16.",
+            "text": "A food pantry fills 39 crates with 16 cans each. How many items are there in all?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2402,41 +2455,43 @@
             39,
             16
           ],
-          "operation": "\u00d7",
+          "operation": "×",
           "partial_products": [
             390,
             234
           ],
           "rows": 39,
-          "columns": 12,
+          "columns": 16,
           "area": 624,
           "algorithm_steps": [
             "Multiply 39 by each place-value part of 16.",
             "Add the partial products."
-          ]
+          ],
+          "visual_description": "An accessible area model for 39 times 16, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer.",
+          "accessible_description": "An accessible area model for 39 times 16, partitioning factors by place value. Regions or steps are labeled with dimensions and partial products but no region is labeled as the final answer."
         },
         {
           "id": "G5M_NBT_002_MIXED_Q5",
           "question_id": "G5M_NBT_002_MIXED_Q5",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Find 456 \u00f7 8.",
+          "prompt": "During a mixed-operations review, find 456 ÷ 8.",
           "answer": "57",
           "correct_answer": "57",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 8 fit in 456.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 8, add the remainder, and confirm the result is 456."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 57.",
-          "read_aloud_text": "Find 456 divided by 8.",
+          "explanation": "456 = 8 × 57. Multiplication reverses the division and confirms the quotient 57.",
+          "read_aloud_text": "During a mixed-operations review, find 456 divided by 8.",
           "question_audio": {
-            "text": "Find 456 divided by 8.",
+            "text": "During a mixed-operations review, find 456 divided by 8.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2444,8 +2499,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "57",
-            "57",
             "57"
           ],
           "dividend": 456,
@@ -2457,30 +2510,33 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 456 divided by 8, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 456 divided by 8, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_MIXED_Q6",
           "question_id": "G5M_NBT_002_MIXED_Q6",
           "question_type": "multiple_choice",
           "visual_model": "division_model",
-          "prompt": "Find 540 \u00f7 9.",
+          "prompt": "During a mixed-operations review, find 540 ÷ 9.",
           "answer": "60",
           "correct_answer": "60",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 9 fit in 540.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 9, add the remainder, and confirm the result is 540."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 60.",
-          "read_aloud_text": "Find 540 divided by 9.",
+          "explanation": "540 = 9 × 60. Multiplication reverses the division and confirms the quotient 60.",
+          "read_aloud_text": "During a mixed-operations review, find 540 divided by 9.",
           "question_audio": {
-            "text": "Find 540 divided by 9.",
+            "text": "During a mixed-operations review, find 540 divided by 9.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2489,9 +2545,9 @@
           },
           "choices": [
             "60",
-            "70",
-            "59",
-            "9"
+            "9",
+            "61",
+            "0"
           ],
           "dividend": 540,
           "divisor": 9,
@@ -2502,30 +2558,33 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 540 divided by 9, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 540 divided by 9, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_MIXED_Q7",
           "question_id": "G5M_NBT_002_MIXED_Q7",
           "question_type": "division_equation",
           "visual_model": "division_model",
-          "prompt": "Find 189 \u00f7 3.",
+          "prompt": "During a mixed-operations review, find 189 ÷ 3.",
           "answer": "63",
           "correct_answer": "63",
           "misconception_tag": "quotient_place_value_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 3 fit in 189.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 3, add the remainder, and confirm the result is 189."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 63.",
-          "read_aloud_text": "Find 189 divided by 3.",
+          "explanation": "189 = 3 × 63. Multiplication reverses the division and confirms the quotient 63.",
+          "read_aloud_text": "During a mixed-operations review, find 189 divided by 3.",
           "question_audio": {
-            "text": "Find 189 divided by 3.",
+            "text": "During a mixed-operations review, find 189 divided by 3.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2533,8 +2592,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "63",
-            "63",
             "63"
           ],
           "dividend": 189,
@@ -2546,30 +2603,33 @@
           "algorithm_steps": [
             "Estimate the quotient place value.",
             "Divide, multiply, subtract, and bring down."
-          ]
+          ],
+          "visual_description": "An accessible division model for 189 divided by 3, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "accessible_description": "An accessible division model for 189 divided by 3, showing equal-group or quotient-place structure and any leftover items. The final response is not highlighted.",
+          "remainder": 0
         },
         {
           "id": "G5M_NBT_002_MIXED_Q8",
           "question_id": "G5M_NBT_002_MIXED_Q8",
           "question_type": "multiple_choice",
           "visual_model": "remainder_model",
-          "prompt": "183 students ride in vans with 7 students per van. How should the remainder be interpreted?",
+          "prompt": "During a mixed-operations review, 183 students ride in vans with 7 students per van. How should the remainder be interpreted?",
           "answer": "1",
           "correct_answer": "1",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 7 fit in 183.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 7, add the remainder, and confirm the result is 183."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 1.",
-          "read_aloud_text": "183 students ride in vans with 7 students per van. Decide what the remainder means.",
+          "explanation": "183 = 7 × 26 + 1. The context determines whether the 1 leftover students require rounding, reporting the remainder, or forming another group, so 1 is the contextual response.",
+          "read_aloud_text": "During a mixed-operations review, 183 students ride in vans with 7 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "183 students ride in vans with 7 students per van. Decide what the remainder means.",
+            "text": "During a mixed-operations review, 183 students ride in vans with 7 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2579,38 +2639,40 @@
           "choices": [
             "1",
             "26",
-            "1",
-            "7"
+            "7",
+            "27"
           ],
           "dividend": 183,
           "divisor": 7,
           "quotient": 26,
           "remainder": 1,
           "object": "students",
-          "remainder_interpretation": "left over"
+          "remainder_interpretation": "left over",
+          "visual_description": "An accessible remainder model for 183 divided by 7, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 183 divided by 7, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_MIXED_Q9",
           "question_id": "G5M_NBT_002_MIXED_Q9",
           "question_type": "short_response",
           "visual_model": "remainder_model",
-          "prompt": "217 students ride in vans with 8 students per van. How should the remainder be interpreted?",
+          "prompt": "During a mixed-operations review, 217 students ride in vans with 8 students per van. How should the remainder be interpreted?",
           "answer": "28",
           "correct_answer": "28",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 8 fit in 217.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 8, add the remainder, and confirm the result is 217."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 28.",
-          "read_aloud_text": "217 students ride in vans with 8 students per van. Decide what the remainder means.",
+          "explanation": "217 = 8 × 27 + 1. The context determines whether the 1 leftover students require rounding, reporting the remainder, or forming another group, so 28 is the contextual response.",
+          "read_aloud_text": "During a mixed-operations review, 217 students ride in vans with 8 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "217 students ride in vans with 8 students per van. Decide what the remainder means.",
+            "text": "During a mixed-operations review, 217 students ride in vans with 8 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2618,8 +2680,6 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "28",
-            "28",
             "28"
           ],
           "dividend": 217,
@@ -2627,30 +2687,32 @@
           "quotient": 27,
           "remainder": 1,
           "object": "students",
-          "remainder_interpretation": "need one more bus"
+          "remainder_interpretation": "need one more bus",
+          "visual_description": "An accessible remainder model for 217 divided by 8, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 217 divided by 8, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         },
         {
           "id": "G5M_NBT_002_MIXED_Q10",
           "question_id": "G5M_NBT_002_MIXED_Q10",
           "question_type": "multiple_choice",
           "visual_model": "remainder_model",
-          "prompt": "114 students ride in vans with 4 students per van. How should the remainder be interpreted?",
+          "prompt": "During a mixed-operations review, 114 students ride in vans with 4 students per van. How should the remainder be interpreted?",
           "answer": "2",
           "correct_answer": "2",
           "misconception_tag": "remainder_interpretation_error",
           "hints": [
-            "Read the question and name the model first.",
-            "Underline the numbers and operation words.",
-            "Check your answer against the visual model."
+            "Focus: decide how many complete groups of 4 fit in 114.",
+            "Strategy: divide from the greatest place, regroup as needed, and record any remainder smaller than the divisor.",
+            "Verify: multiply the quotient by 4, add the remainder, and confirm the result is 114."
           ],
           "feedback": {
             "correct": "Correct. Your reasoning matches the model.",
             "incorrect": "Try again. Rebuild the model and check each place or step."
           },
-          "explanation": "The answer is 2.",
-          "read_aloud_text": "114 students ride in vans with 4 students per van. Decide what the remainder means.",
+          "explanation": "114 = 4 × 28 + 2. The context determines whether the 2 leftover students require rounding, reporting the remainder, or forming another group, so 2 is the contextual response.",
+          "read_aloud_text": "During a mixed-operations review, 114 students ride in vans with 4 students per van. How should the remainder be interpreted?",
           "question_audio": {
-            "text": "114 students ride in vans with 4 students per van. Decide what the remainder means.",
+            "text": "During a mixed-operations review, 114 students ride in vans with 4 students per van. How should the remainder be interpreted?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2660,15 +2722,17 @@
           "choices": [
             "2",
             "28",
-            "2",
-            "4"
+            "4",
+            "29"
           ],
           "dividend": 114,
           "divisor": 4,
           "quotient": 28,
           "remainder": 2,
           "object": "students",
-          "remainder_interpretation": "left over"
+          "remainder_interpretation": "left over",
+          "visual_description": "An accessible remainder model for 114 divided by 4, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted.",
+          "accessible_description": "An accessible remainder model for 114 divided by 4, showing equal-group or quotient-place structure and any leftover students. The final response is not highlighted."
         }
       ]
     }
