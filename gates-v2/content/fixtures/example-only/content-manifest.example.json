@@ -1,0 +1,48 @@
+{
+  "schema_version": "gates-content-manifest.v1",
+  "content_notice": "EXAMPLE ONLY — NOT CANONICAL OR PUBLISHED CONTENT",
+  "release_id": "gates_example_release_2026_08_03",
+  "release_version": "0.0.1-example",
+  "status": "draft",
+  "created_at": "2026-08-03T00:00:00Z",
+  "definitions": [
+    {
+      "id": "gate_emotion",
+      "version": "0.0.1-example",
+      "path": "gates-v2/content/fixtures/example-only/emotion-gate-definition.example.json",
+      "sha256": "d9f909064a898992a6e2490cac56a9b8f99e8aa514e2bb0f19a6e0742d8c832b",
+      "gate_id": "gate_emotion",
+      "locale": "en-US"
+    }
+  ],
+  "experiences": [
+    {
+      "id": "example_emotion_block_tower_k1",
+      "version": "0.0.1-example",
+      "path": "gates-v2/content/fixtures/example-only/emotion-block-tower.example.json",
+      "sha256": "bac5d99c3c81e8e252d2da07e2e1da233e6ac7e116767178ae69a2f325818b05",
+      "gate_id": "gate_emotion",
+      "locale": "en-US",
+      "age_band": "k1"
+    }
+  ],
+  "media": [],
+  "schemas": [
+    {
+      "schema_version": "gate-definition.v1",
+      "path": "gates-v2/content/schemas/gate-definition.schema.json",
+      "sha256": "6e719ddf8864c568a437576a53a93c7c47370aff4e49a5797b2e5f5387a0ea59"
+    },
+    {
+      "schema_version": "development-experience.v1",
+      "path": "gates-v2/content/schemas/development-experience.schema.json",
+      "sha256": "54bf7b38c7463b475c5c3ac9ddbb270a9a71961509280ccd0bc91278f7e4451d"
+    },
+    {
+      "schema_version": "gates-content-manifest.v1",
+      "path": "gates-v2/content/schemas/content-manifest.schema.json",
+      "sha256": "ccc7873373d5ac1a02f0cbd0976e4752f69cb4a02da56efca62ed1221bf9ded5"
+    }
+  ],
+  "approval_bundle_hash": "0000000000000000000000000000000000000000000000000000000000000000"
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": "gate-definition.v1",
+  "content_notice": "EXAMPLE ONLY \u2014 NOT CANONICAL OR PUBLISHED CONTENT",
+  "gate_id": "gate_emotion",
+  "order": 2,
+  "slug": "emotion",
+  "definition_version": "0.0.1-example",
+  "locale": "en-US",
+  "lifecycle": "draft",
+  "language": {
+    "title": "The Emotion Gate (Example)",
+    "core_statement": "Feelings can be noticed.",
+    "philosophy": "Placeholder example language for contract validation.",
+    "developmental_purpose": "Demonstrates noticing without grading feelings.",
+    "child": "You can notice what you feel.",
+    "parent": "This example models noticing and pausing."
+  },
+  "symbolism": [
+    {
+      "symbol_id": "weather_example",
+      "label": "Weather",
+      "meaning": "An example symbol for changing feelings."
+    }
+  ],
+  "identity_statements": [
+    {
+      "ref_id": "example_identity_notice"
+    }
+  ],
+  "reflections": [
+    {
+      "ref_id": "example_reflection_notice"
+    }
+  ],
+  "journals": [
+    {
+      "ref_id": "example_journal_notice"
+    }
+  ],
+  "observation_markers": [
+    {
+      "marker_id": "notice_feeling",
+      "description": "Notices or names a feeling."
+    }
+  ],
+  "habit_markers": [
+    {
+      "marker_id": "pause",
+      "description": "Practices a pause."
+    }
+  ],
+  "growth_signals": [
+    {
+      "marker_id": "try_tool",
+      "description": "Tries a support tool."
+    }
+  ],
+  "integration_signals": [
+    {
+      "marker_id": "connect_clues",
+      "description": "Connects body and feeling clues."
+    }
+  ],
+  "self_correction_signals": [
+    {
+      "marker_id": "repair",
+      "description": "Returns to try repair."
+    }
+  ],
+  "family_practice_refs": [
+    "example_family_emotional_weather"
+  ],
+  "developmental_tool_refs": [
+    "example_slow_breath"
+  ],
+  "ceremony_refs": [],
+  "age_band_variants": {
+    "k1": {
+      "ref_id": "example_emotion_k1"
+    },
+    "g2_3": {
+      "ref_id": "example_emotion_g2_3"
+    },
+    "g4": {
+      "ref_id": "example_emotion_g4"
+    }
+  },
+  "media_refs": [
+    "example_emotion_symbol"
+  ],
+  "source_provenance": [
+    {
+      "source_id": "example_new_emotion_content",
+      "source_type": "new_child_content",
+      "source_version": "0.0.1-example",
+      "relationship": "echoes",
+      "canonicality": "non_canonical",
+      "verification_status": "unverified"
+    }
+  ],
+  "approvals": []
+}

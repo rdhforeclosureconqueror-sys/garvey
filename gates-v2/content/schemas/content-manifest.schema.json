@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "content-manifest.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "content_notice",
+    "release_id",
+    "release_version",
+    "status",
+    "created_at",
+    "definitions",
+    "experiences",
+    "media",
+    "schemas",
+    "approval_bundle_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "gates-content-manifest.v1"
+    },
+    "content_notice": {
+      "type": "string"
+    },
+    "release_id": {
+      "type": "string"
+    },
+    "release_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[A-Za-z0-9.-]+)?$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "published",
+        "retired"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "definitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "gate_id": {
+            "enum": [
+              "gate_attention",
+              "gate_emotion",
+              "gate_choice",
+              "gate_body",
+              "gate_discipline",
+              "gate_truth",
+              "gate_repair",
+              "gate_creation",
+              "gate_community",
+              "gate_legacy"
+            ]
+          },
+          "locale": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "experiences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "gate_id": {
+            "enum": [
+              "gate_attention",
+              "gate_emotion",
+              "gate_choice",
+              "gate_body",
+              "gate_discipline",
+              "gate_truth",
+              "gate_repair",
+              "gate_creation",
+              "gate_community",
+              "gate_legacy"
+            ]
+          },
+          "locale": {
+            "type": "string"
+          },
+          "age_band": {
+            "enum": [
+              "k1",
+              "g2_3",
+              "g4"
+            ]
+          }
+        }
+      }
+    },
+    "media": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "asset_id",
+          "version",
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "asset_id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "schemas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "schema_version",
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "schema_version": {
+            "enum": [
+              "gate-definition.v1",
+              "development-experience.v1",
+              "gates-content-manifest.v1"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "approval_bundle_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "retirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "retired_at",
+        "reason"
+      ],
+      "properties": {
+        "retired_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "published"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "published_at"
+        ],
+        "properties": {
+          "definitions": {
+            "minItems": 1
+          },
+          "experiences": {
+            "minItems": 1
+          },
+          "approval_bundle_hash": {
+            "pattern": "^(?!0{64}$)[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  ]
+}
