@@ -1,7 +1,9 @@
 {
   "metadata": {
     "schema_version": "skill-package.v1",
-    "status": "active"
+    "status": "active",
+    "production_status": "publication_certified",
+    "audit_date": "2026-08-03"
   },
   "skill_id": "G5M_MD_001",
   "grade": 5,
@@ -294,15 +296,15 @@
           "read_aloud_text": "Convert 4 yards to feet.",
           "question_id": "G5M_MD_001_LVL1_Q1",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 4 yards to feet using 3 feet per yard. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 12 feet.",
+          "explanation": "The table relates 4 yards to feet using 3 feet per yard. Following the model gives 12 feet. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 4 yards to feet.",
             "label": "Read Question",
@@ -312,10 +314,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "12 feet",
-            "12 feet",
             "12 feet."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 4 yards to feet.” displays the authored givens and their labels. The table relates 4 yards to feet using 3 feet per yard. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 feet as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 4 yards to feet.” displays the authored givens and their labels. The table relates 4 yards to feet using 3 feet per yard. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 feet as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q2",
@@ -328,7 +330,7 @@
             "60 inches",
             "17 inches",
             "5 inches",
-            "5 inches"
+            "63 inches"
           ],
           "misconception_tag": "unit_conversion_direction_error",
           "from_unit": "feet",
@@ -339,15 +341,15 @@
           "read_aloud_text": "Convert 5 feet to inches.",
           "question_id": "G5M_MD_001_LVL1_Q2",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 5 feet to inches using 12 inches per feet. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 60 inches.",
+          "explanation": "The table relates 5 feet to inches using 12 inches per feet. Following the model gives 60 inches. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 5 feet to inches.",
             "label": "Read Question",
@@ -355,7 +357,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 5 feet to inches.” displays the authored givens and their labels. The table relates 5 feet to inches using 12 inches per feet. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 60 inches as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 5 feet to inches.” displays the authored givens and their labels. The table relates 5 feet to inches using 12 inches per feet. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 60 inches as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q3",
@@ -373,15 +377,15 @@
           "read_aloud_text": "Convert 3 meters to centimeters.",
           "question_id": "G5M_MD_001_LVL1_Q3",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 3 meters to centimeters using 100 centimeters per meter. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 300 centimeters.",
+          "explanation": "The table relates 3 meters to centimeters using 100 centimeters per meter. Following the model gives 300 centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 3 meters to centimeters.",
             "label": "Read Question",
@@ -391,10 +395,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "300 centimeters",
-            "300 centimeters",
             "300 centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 3 meters to centimeters.” displays the authored givens and their labels. The table relates 3 meters to centimeters using 100 centimeters per meter. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 300 centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 3 meters to centimeters.” displays the authored givens and their labels. The table relates 3 meters to centimeters using 100 centimeters per meter. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 300 centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q4",
@@ -412,15 +416,15 @@
           "read_aloud_text": "Convert 2 kilograms to grams.",
           "question_id": "G5M_MD_001_LVL1_Q4",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 2 kilograms to grams using 1000 grams per kilogram. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 2000 grams.",
+          "explanation": "The table relates 2 kilograms to grams using 1000 grams per kilogram. Following the model gives 2000 grams. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 2 kilograms to grams.",
             "label": "Read Question",
@@ -430,10 +434,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "2000 grams",
-            "2000 grams",
             "2000 grams."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 2 kilograms to grams.” displays the authored givens and their labels. The table relates 2 kilograms to grams using 1000 grams per kilogram. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 2000 grams as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 2 kilograms to grams.” displays the authored givens and their labels. The table relates 2 kilograms to grams using 1000 grams per kilogram. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 2000 grams as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q5",
@@ -446,7 +450,7 @@
             "6000 milliliters",
             "1006 milliliters",
             "6 milliliters",
-            "6 milliliters"
+            "6003 milliliters"
           ],
           "misconception_tag": "unit_conversion_direction_error",
           "from_unit": "liters",
@@ -457,15 +461,15 @@
           "read_aloud_text": "Convert 6 liters to milliliters.",
           "question_id": "G5M_MD_001_LVL1_Q5",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 6 liters to milliliters using 1000 milliliters per liter. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 6000 milliliters.",
+          "explanation": "The table relates 6 liters to milliliters using 1000 milliliters per liter. Following the model gives 6000 milliliters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 6 liters to milliliters.",
             "label": "Read Question",
@@ -473,7 +477,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 6 liters to milliliters.” displays the authored givens and their labels. The table relates 6 liters to milliliters using 1000 milliliters per liter. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 6000 milliliters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 6 liters to milliliters.” displays the authored givens and their labels. The table relates 6 liters to milliliters using 1000 milliliters per liter. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 6000 milliliters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q6",
@@ -491,15 +497,15 @@
           "read_aloud_text": "Convert 2 miles to feet.",
           "question_id": "G5M_MD_001_LVL1_Q6",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 2 miles to feet using 5280 feet per mile. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 10560 feet.",
+          "explanation": "The table relates 2 miles to feet using 5280 feet per mile. Following the model gives 10560 feet. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 2 miles to feet.",
             "label": "Read Question",
@@ -509,10 +515,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "10560 feet",
-            "10560 feet",
             "10560 feet."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 2 miles to feet.” displays the authored givens and their labels. The table relates 2 miles to feet using 5280 feet per mile. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 10560 feet as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 2 miles to feet.” displays the authored givens and their labels. The table relates 2 miles to feet using 5280 feet per mile. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 10560 feet as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q7",
@@ -530,15 +536,15 @@
           "read_aloud_text": "Convert 3 hours to minutes.",
           "question_id": "G5M_MD_001_LVL1_Q7",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 3 hours to minutes using 60 minutes per hour. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 180 minutes.",
+          "explanation": "The table relates 3 hours to minutes using 60 minutes per hour. Following the model gives 180 minutes. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 3 hours to minutes.",
             "label": "Read Question",
@@ -548,10 +554,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "180 minutes",
-            "180 minutes",
             "180 minutes."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 3 hours to minutes.” displays the authored givens and their labels. The table relates 3 hours to minutes using 60 minutes per hour. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 180 minutes as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 3 hours to minutes.” displays the authored givens and their labels. The table relates 3 hours to minutes using 60 minutes per hour. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 180 minutes as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q8",
@@ -564,7 +570,7 @@
             "28 quarts",
             "11 quarts",
             "7 quarts",
-            "7 quarts"
+            "31 quarts"
           ],
           "misconception_tag": "unit_conversion_direction_error",
           "from_unit": "gallons",
@@ -575,15 +581,15 @@
           "read_aloud_text": "Convert 7 gallons to quarts.",
           "question_id": "G5M_MD_001_LVL1_Q8",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 7 gallons to quarts using 4 quarts per gallon. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 28 quarts.",
+          "explanation": "The table relates 7 gallons to quarts using 4 quarts per gallon. Following the model gives 28 quarts. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 7 gallons to quarts.",
             "label": "Read Question",
@@ -591,7 +597,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 7 gallons to quarts.” displays the authored givens and their labels. The table relates 7 gallons to quarts using 4 quarts per gallon. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 28 quarts as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 7 gallons to quarts.” displays the authored givens and their labels. The table relates 7 gallons to quarts using 4 quarts per gallon. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 28 quarts as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q9",
@@ -609,15 +617,15 @@
           "read_aloud_text": "Convert 4 pounds to ounces.",
           "question_id": "G5M_MD_001_LVL1_Q9",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 4 pounds to ounces using 16 ounces per pound. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 64 ounces.",
+          "explanation": "The table relates 4 pounds to ounces using 16 ounces per pound. Following the model gives 64 ounces. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 4 pounds to ounces.",
             "label": "Read Question",
@@ -627,10 +635,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "64 ounces",
-            "64 ounces",
             "64 ounces."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 4 pounds to ounces.” displays the authored givens and their labels. The table relates 4 pounds to ounces using 16 ounces per pound. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 64 ounces as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 4 pounds to ounces.” displays the authored givens and their labels. The table relates 4 pounds to ounces using 16 ounces per pound. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 64 ounces as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL1_Q10",
@@ -648,15 +656,15 @@
           "read_aloud_text": "Convert 8 meters to centimeters.",
           "question_id": "G5M_MD_001_LVL1_Q10",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 8 meters to centimeters using 100 centimeters per meter. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 800 centimeters.",
+          "explanation": "The table relates 8 meters to centimeters using 100 centimeters per meter. Following the model gives 800 centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
             "text": "Convert 8 meters to centimeters.",
             "label": "Read Question",
@@ -666,10 +674,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "800 centimeters",
-            "800 centimeters",
             "800 centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Convert 8 meters to centimeters.” displays the authored givens and their labels. The table relates 8 meters to centimeters using 100 centimeters per meter. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 800 centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Convert 8 meters to centimeters.” displays the authored givens and their labels. The table relates 8 meters to centimeters using 100 centimeters per meter. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 800 centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         }
       ]
     },
@@ -702,15 +710,15 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q1",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 3 by 2 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 12 cubic units.",
+          "explanation": "The prism has dimensions 3 by 2 by 2, so each layer and the number of layers must both be counted. Following the model gives 12 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?",
           "question_audio": {
             "text": "A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?",
@@ -719,13 +727,15 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe volume model for the question “A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 3 by 2 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 3 columns, 2 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 3 by 2 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q2",
           "question_type": "volume_response",
           "visual_model": "volume_model",
-          "prompt": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+          "prompt": "A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?",
           "correct_answer": "8 cubic units",
           "answer": "8 cubic units",
           "misconception_tag": "cube_unit_count_error",
@@ -735,18 +745,18 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q2",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 4 by 2 by 1, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 8 cubic units.",
-          "read_aloud_text": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+          "explanation": "The prism has dimensions 4 by 2 by 1, so each layer and the number of layers must both be counted. Following the model gives 8 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?",
           "question_audio": {
-            "text": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+            "text": "A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -754,10 +764,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "8 cubic units",
-            "8 cubic units",
             "8 cubic units."
-          ]
+          ],
+          "visual_description": "An answer-safe volume model for the question “A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 2 by 1, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 8 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 2 by 1, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 8 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q3",
@@ -779,15 +789,15 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q3",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 2 by 2 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 8 cubic units.",
+          "explanation": "The prism has dimensions 2 by 2 by 2, so each layer and the number of layers must both be counted. Following the model gives 8 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "A cube model has 2 columns, 2 rows, and 2 layers. What is the volume?",
           "question_audio": {
             "text": "A cube model has 2 columns, 2 rows, and 2 layers. What is the volume?",
@@ -796,7 +806,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe volume model for the question “A cube model has 2 columns, 2 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 2 by 2 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 8 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 2 columns, 2 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 2 by 2 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 8 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q4",
@@ -812,15 +824,15 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q4",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 5 by 2 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 20 cubic units.",
+          "explanation": "The prism has dimensions 5 by 2 by 2, so each layer and the number of layers must both be counted. Following the model gives 20 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "A cube model has 5 columns, 2 rows, and 2 layers. What is the volume?",
           "question_audio": {
             "text": "A cube model has 5 columns, 2 rows, and 2 layers. What is the volume?",
@@ -831,10 +843,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "20 cubic units",
-            "20 cubic units",
             "20 cubic units."
-          ]
+          ],
+          "visual_description": "An answer-safe volume model for the question “A cube model has 5 columns, 2 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 5 by 2 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 20 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 5 columns, 2 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 5 by 2 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 20 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q5",
@@ -856,15 +868,15 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q5",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 3 by 3 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 18 cubic units.",
+          "explanation": "The prism has dimensions 3 by 3 by 2, so each layer and the number of layers must both be counted. Following the model gives 18 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "A cube model has 3 columns, 3 rows, and 2 layers. What is the volume?",
           "question_audio": {
             "text": "A cube model has 3 columns, 3 rows, and 2 layers. What is the volume?",
@@ -873,13 +885,15 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe volume model for the question “A cube model has 3 columns, 3 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 3 by 3 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 18 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 3 columns, 3 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 3 by 3 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 18 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q6",
           "question_type": "volume_response",
           "visual_model": "volume_model",
-          "prompt": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+          "prompt": "A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?",
           "correct_answer": "12 cubic units",
           "answer": "12 cubic units",
           "misconception_tag": "cube_unit_count_error",
@@ -889,18 +903,18 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q6",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 4 by 3 by 1, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 12 cubic units.",
-          "read_aloud_text": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+          "explanation": "The prism has dimensions 4 by 3 by 1, so each layer and the number of layers must both be counted. Following the model gives 12 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?",
           "question_audio": {
-            "text": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+            "text": "A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -908,10 +922,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "12 cubic units",
-            "12 cubic units",
             "12 cubic units."
-          ]
+          ],
+          "visual_description": "An answer-safe volume model for the question “A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 3 by 1, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 3 by 1, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q7",
@@ -933,15 +947,15 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q7",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 2 by 3 by 3, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 18 cubic units.",
+          "explanation": "The prism has dimensions 2 by 3 by 3, so each layer and the number of layers must both be counted. Following the model gives 18 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "A cube model has 2 columns, 3 rows, and 3 layers. What is the volume?",
           "question_audio": {
             "text": "A cube model has 2 columns, 3 rows, and 3 layers. What is the volume?",
@@ -950,7 +964,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe volume model for the question “A cube model has 2 columns, 3 rows, and 3 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 2 by 3 by 3, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 18 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 2 columns, 3 rows, and 3 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 2 by 3 by 3, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 18 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q8",
@@ -966,15 +982,15 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q8",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 5 by 1 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 10 cubic units.",
+          "explanation": "The prism has dimensions 5 by 1 by 2, so each layer and the number of layers must both be counted. Following the model gives 10 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "A cube model has 5 columns, 1 rows, and 2 layers. What is the volume?",
           "question_audio": {
             "text": "A cube model has 5 columns, 1 rows, and 2 layers. What is the volume?",
@@ -985,10 +1001,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "10 cubic units",
-            "10 cubic units",
             "10 cubic units."
-          ]
+          ],
+          "visual_description": "An answer-safe volume model for the question “A cube model has 5 columns, 1 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 5 by 1 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 10 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 5 columns, 1 rows, and 2 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 5 by 1 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 10 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q9",
@@ -1010,15 +1026,15 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q9",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 4 by 2 by 3, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 24 cubic units.",
+          "explanation": "The prism has dimensions 4 by 2 by 3, so each layer and the number of layers must both be counted. Following the model gives 24 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "A cube model has 4 columns, 2 rows, and 3 layers. What is the volume?",
           "question_audio": {
             "text": "A cube model has 4 columns, 2 rows, and 3 layers. What is the volume?",
@@ -1027,7 +1043,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe volume model for the question “A cube model has 4 columns, 2 rows, and 3 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 2 by 3, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 24 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 4 columns, 2 rows, and 3 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 2 by 3, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 24 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL2_Q10",
@@ -1043,15 +1061,15 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_LVL2_Q10",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 3 by 2 by 4, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 24 cubic units.",
+          "explanation": "The prism has dimensions 3 by 2 by 4, so each layer and the number of layers must both be counted. Following the model gives 24 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "A cube model has 3 columns, 2 rows, and 4 layers. What is the volume?",
           "question_audio": {
             "text": "A cube model has 3 columns, 2 rows, and 4 layers. What is the volume?",
@@ -1062,10 +1080,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "24 cubic units",
-            "24 cubic units",
             "24 cubic units."
-          ]
+          ],
+          "visual_description": "An answer-safe volume model for the question “A cube model has 3 columns, 2 rows, and 4 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 3 by 2 by 4, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 24 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “A cube model has 3 columns, 2 rows, and 4 layers. What is the volume?” displays the authored givens and their labels. The prism has dimensions 3 by 2 by 4, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 24 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         }
       ]
     },
@@ -1092,15 +1110,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q1",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 6 by 4 by 3, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 72 cubic centimeters.",
+          "explanation": "The prism has dimensions 6 by 4 by 3, so each layer and the number of layers must both be counted. Following the model gives 72 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.",
@@ -1111,10 +1129,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "72 cubic centimeters",
-            "72 cubic centimeters",
             "72 cubic centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.” displays the authored givens and their labels. The prism has dimensions 6 by 4 by 3, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 72 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 6 cm, width 4 cm, and height 3 cm.” displays the authored givens and their labels. The prism has dimensions 6 by 4 by 3, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 72 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q2",
@@ -1130,15 +1148,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q2",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 5 by 5 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 50 cubic centimeters.",
+          "explanation": "The prism has dimensions 5 by 5 by 2, so each layer and the number of layers must both be counted. Following the model gives 50 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 5 cm, width 5 cm, and height 2 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 5 cm, width 5 cm, and height 2 cm.",
@@ -1149,10 +1167,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "50 cubic centimeters",
-            "50 cubic centimeters",
             "50 cubic centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 5 cm, width 5 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 5 by 5 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 50 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 5 cm, width 5 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 5 by 5 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 50 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q3",
@@ -1174,15 +1192,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q3",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 8 by 3 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 48 cubic centimeters.",
+          "explanation": "The prism has dimensions 8 by 3 by 2, so each layer and the number of layers must both be counted. Following the model gives 48 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
@@ -1191,7 +1209,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 8 by 3 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 48 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 8 by 3 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 48 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q4",
@@ -1207,15 +1227,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q4",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 7 by 2 by 4, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 56 cubic centimeters.",
+          "explanation": "The prism has dimensions 7 by 2 by 4, so each layer and the number of layers must both be counted. Following the model gives 56 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 7 cm, width 2 cm, and height 4 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 7 cm, width 2 cm, and height 4 cm.",
@@ -1226,10 +1246,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "56 cubic centimeters",
-            "56 cubic centimeters",
             "56 cubic centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 7 cm, width 2 cm, and height 4 cm.” displays the authored givens and their labels. The prism has dimensions 7 by 2 by 4, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 56 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 7 cm, width 2 cm, and height 4 cm.” displays the authored givens and their labels. The prism has dimensions 7 by 2 by 4, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 56 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q5",
@@ -1245,15 +1265,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q5",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 10 by 3 by 3, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 90 cubic centimeters.",
+          "explanation": "The prism has dimensions 10 by 3 by 3, so each layer and the number of layers must both be counted. Following the model gives 90 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 10 cm, width 3 cm, and height 3 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 10 cm, width 3 cm, and height 3 cm.",
@@ -1264,10 +1284,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "90 cubic centimeters",
-            "90 cubic centimeters",
             "90 cubic centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 10 cm, width 3 cm, and height 3 cm.” displays the authored givens and their labels. The prism has dimensions 10 by 3 by 3, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 90 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 10 cm, width 3 cm, and height 3 cm.” displays the authored givens and their labels. The prism has dimensions 10 by 3 by 3, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 90 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q6",
@@ -1289,15 +1309,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q6",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 9 by 4 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 72 cubic centimeters.",
+          "explanation": "The prism has dimensions 9 by 4 by 2, so each layer and the number of layers must both be counted. Following the model gives 72 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 9 cm, width 4 cm, and height 2 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 9 cm, width 4 cm, and height 2 cm.",
@@ -1306,7 +1326,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 9 cm, width 4 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 9 by 4 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 72 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 9 cm, width 4 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 9 by 4 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 72 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q7",
@@ -1322,15 +1344,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q7",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 6 by 6 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 72 cubic centimeters.",
+          "explanation": "The prism has dimensions 6 by 6 by 2, so each layer and the number of layers must both be counted. Following the model gives 72 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
@@ -1341,10 +1363,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "72 cubic centimeters",
-            "72 cubic centimeters",
             "72 cubic centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 6 by 6 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 72 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 6 by 6 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 72 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q8",
@@ -1360,15 +1382,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q8",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 12 by 2 by 5, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 120 cubic centimeters.",
+          "explanation": "The prism has dimensions 12 by 2 by 5, so each layer and the number of layers must both be counted. Following the model gives 120 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 12 cm, width 2 cm, and height 5 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 12 cm, width 2 cm, and height 5 cm.",
@@ -1379,10 +1401,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "120 cubic centimeters",
-            "120 cubic centimeters",
             "120 cubic centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 12 cm, width 2 cm, and height 5 cm.” displays the authored givens and their labels. The prism has dimensions 12 by 2 by 5, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 120 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 12 cm, width 2 cm, and height 5 cm.” displays the authored givens and their labels. The prism has dimensions 12 by 2 by 5, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 120 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q9",
@@ -1404,15 +1426,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q9",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 4 by 4 by 4, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 64 cubic centimeters.",
+          "explanation": "The prism has dimensions 4 by 4 by 4, so each layer and the number of layers must both be counted. Following the model gives 64 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 4 cm, width 4 cm, and height 4 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 4 cm, width 4 cm, and height 4 cm.",
@@ -1421,7 +1443,9 @@
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 4 cm, width 4 cm, and height 4 cm.” displays the authored givens and their labels. The prism has dimensions 4 by 4 by 4, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 64 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 4 cm, width 4 cm, and height 4 cm.” displays the authored givens and their labels. The prism has dimensions 4 by 4 by 4, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 64 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL3_Q10",
@@ -1437,15 +1461,15 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_LVL3_Q10",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 11 by 3 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 66 cubic centimeters.",
+          "explanation": "The prism has dimensions 11 by 3 by 2, so each layer and the number of layers must both be counted. Following the model gives 66 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Find the volume of a rectangular prism with length 11 cm, width 3 cm, and height 2 cm.",
           "question_audio": {
             "text": "Find the volume of a rectangular prism with length 11 cm, width 3 cm, and height 2 cm.",
@@ -1456,10 +1480,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "66 cubic centimeters",
-            "66 cubic centimeters",
             "66 cubic centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 11 cm, width 3 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 11 by 3 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 66 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Find the volume of a rectangular prism with length 11 cm, width 3 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 11 by 3 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 66 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         }
       ]
     },
@@ -1502,18 +1526,18 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q1",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 3.",
-          "read_aloud_text": "Use the fractional line plot. How many measurements are at 1 1 over 4 inches?",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 3. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Use the fractional line plot. How many measurements are at 1 1/4 inches?",
           "question_audio": {
-            "text": "Use the fractional line plot. How many measurements are at 1 1 over 4 inches?",
+            "text": "Use the fractional line plot. How many measurements are at 1 1/4 inches?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1521,10 +1545,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3",
-            "3",
             "3."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are at 1 1/4 inches?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 3 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are at 1 1/4 inches?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 3 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q2",
@@ -1556,15 +1580,15 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q2",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 10.",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 10. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Use the fractional line plot. How many total measurements are shown on the line plot?",
           "question_audio": {
             "text": "Use the fractional line plot. How many total measurements are shown on the line plot?",
@@ -1575,10 +1599,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "10",
-            "10",
             "10."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. How many total measurements are shown on the line plot?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 10 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. How many total measurements are shown on the line plot?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 10 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q3",
@@ -1610,15 +1634,15 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q3",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 1/2.",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 1/2. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Use the fractional line plot. Which fraction has exactly two X marks?",
           "question_audio": {
             "text": "Use the fractional line plot. Which fraction has exactly two X marks?",
@@ -1629,10 +1653,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "1/2",
-            "1/2",
             "1/2."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. Which fraction has exactly two X marks?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 1/2 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. Which fraction has exactly two X marks?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 1/2 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q4",
@@ -1664,15 +1688,15 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q4",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 5.",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 5. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Use the fractional line plot. How many measurements are greater than 1 inch?",
           "question_audio": {
             "text": "Use the fractional line plot. How many measurements are greater than 1 inch?",
@@ -1683,10 +1707,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "5",
-            "5",
             "5."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are greater than 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 5 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are greater than 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 5 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q5",
@@ -1718,15 +1742,15 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q5",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 2.",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 2. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Use the fractional line plot. How many measurements are at 1 inch?",
           "question_audio": {
             "text": "Use the fractional line plot. How many measurements are at 1 inch?",
@@ -1737,10 +1761,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "2",
-            "2",
             "2."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are at 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 2 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are at 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 2 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q6",
@@ -1772,15 +1796,15 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q6",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 1 1/4.",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 1 1/4. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Use the fractional line plot. Which measurement appears most often?",
           "question_audio": {
             "text": "Use the fractional line plot. Which measurement appears most often?",
@@ -1791,10 +1815,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "1 1/4",
-            "1 1/4",
             "1 1/4."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. Which measurement appears most often?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 1 1/4 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. Which measurement appears most often?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 1 1/4 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q7",
@@ -1826,15 +1850,15 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q7",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 3.",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 3. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Use the fractional line plot. How many measurements are less than 1 inch?",
           "question_audio": {
             "text": "Use the fractional line plot. How many measurements are less than 1 inch?",
@@ -1845,16 +1869,16 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3",
-            "3",
             "3."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are less than 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 3 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are less than 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 3 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q8",
           "question_type": "data_interpretation",
           "visual_model": "line_plot",
-          "prompt": "Use the fractional line plot. Which label has no X marks?",
+          "prompt": "Use the fractional line plot. Which label has exactly one X mark?",
           "correct_answer": "3/4",
           "answer": "3/4",
           "misconception_tag": "line_plot_fraction_error",
@@ -1880,18 +1904,18 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q8",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 3/4.",
-          "read_aloud_text": "Use the fractional line plot. Which label has no X marks?",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 3/4. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Use the fractional line plot. Which label has exactly one X mark?",
           "question_audio": {
-            "text": "Use the fractional line plot. Which label has no X marks?",
+            "text": "Use the fractional line plot. Which label has exactly one X mark?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1899,10 +1923,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3/4",
-            "3/4",
             "3/4."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. Which label has exactly one X mark?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 3/4 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. Which label has exactly one X mark?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 3/4 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q9",
@@ -1934,18 +1958,18 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q9",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 2.",
-          "read_aloud_text": "Use the fractional line plot. How many X marks are at 1 1 over 2 inches?",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 2. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Use the fractional line plot. How many X marks are at 1 1/2 inches?",
           "question_audio": {
-            "text": "Use the fractional line plot. How many X marks are at 1 1 over 2 inches?",
+            "text": "Use the fractional line plot. How many X marks are at 1 1/2 inches?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -1953,10 +1977,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "2",
-            "2",
             "2."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. How many X marks are at 1 1/2 inches?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 2 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. How many X marks are at 1 1/2 inches?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 2 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_LVL4_Q10",
@@ -1988,15 +2012,15 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_LVL4_Q10",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 7.",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 7. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "read_aloud_text": "Use the fractional line plot. How many measurements are at least 1 inch?",
           "question_audio": {
             "text": "Use the fractional line plot. How many measurements are at least 1 inch?",
@@ -2007,10 +2031,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "7",
-            "7",
             "7."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are at least 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 7 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Use the fractional line plot. How many measurements are at least 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 7 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         }
       ]
     },
@@ -2027,7 +2051,7 @@
           "id": "G5M_MD_001_MIXED_Q1",
           "question_type": "measurement",
           "visual_model": "measurement_conversion_table",
-          "prompt": "Convert 4 yards to feet.",
+          "prompt": "Mixed review: Convert 4 yards to feet.",
           "correct_answer": "12 feet",
           "answer": "12 feet",
           "misconception_tag": "unit_conversion_direction_error",
@@ -2036,20 +2060,20 @@
           "factor": 3,
           "amount": 4,
           "converted": 12,
-          "read_aloud_text": "Convert 4 yards to feet.",
+          "read_aloud_text": "Mixed review: Convert 4 yards to feet.",
           "question_id": "G5M_MD_001_MIXED_Q1",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 4 yards to feet using 3 feet per yard. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 12 feet.",
+          "explanation": "The table relates 4 yards to feet using 3 feet per yard. Following the model gives 12 feet. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
-            "text": "Convert 4 yards to feet.",
+            "text": "Mixed review: Convert 4 yards to feet.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2057,16 +2081,16 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "12 feet",
-            "12 feet",
             "12 feet."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Mixed review: Convert 4 yards to feet.” displays the authored givens and their labels. The table relates 4 yards to feet using 3 feet per yard. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 feet as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Mixed review: Convert 4 yards to feet.” displays the authored givens and their labels. The table relates 4 yards to feet using 3 feet per yard. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 feet as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q2",
           "question_type": "volume_response",
           "visual_model": "volume_model",
-          "prompt": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+          "prompt": "Mixed review: A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?",
           "correct_answer": "8 cubic units",
           "answer": "8 cubic units",
           "misconception_tag": "cube_unit_count_error",
@@ -2076,18 +2100,18 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_MIXED_Q2",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 4 by 2 by 1, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 8 cubic units.",
-          "read_aloud_text": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+          "explanation": "The prism has dimensions 4 by 2 by 1, so each layer and the number of layers must both be counted. Following the model gives 8 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Mixed review: A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?",
           "question_audio": {
-            "text": "A cube model has 4 columns, 2 rows, and 1 layers. What is the volume?",
+            "text": "Mixed review: A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2095,16 +2119,16 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "8 cubic units",
-            "8 cubic units",
             "8 cubic units."
-          ]
+          ],
+          "visual_description": "An answer-safe volume model for the question “Mixed review: A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 2 by 1, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 8 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “Mixed review: A cube model has 4 columns, 2 rows, and 1 layer. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 2 by 1, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 8 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q3",
           "question_type": "multiple_choice",
           "visual_model": "rectangular_prism_model",
-          "prompt": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+          "prompt": "Mixed review: Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
           "correct_answer": "48 cubic centimeters",
           "answer": "48 cubic centimeters",
           "choices": [
@@ -2120,30 +2144,32 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_MIXED_Q3",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 8 by 3 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 48 cubic centimeters.",
-          "read_aloud_text": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+          "explanation": "The prism has dimensions 8 by 3 by 2, so each layer and the number of layers must both be counted. Following the model gives 48 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Mixed review: Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
           "question_audio": {
-            "text": "Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
+            "text": "Mixed review: Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe rectangular prism model for the question “Mixed review: Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 8 by 3 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 48 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Mixed review: Find the volume of a rectangular prism with length 8 cm, width 3 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 8 by 3 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 48 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q4",
           "question_type": "data_interpretation",
           "visual_model": "line_plot",
-          "prompt": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+          "prompt": "Mixed review: Use the fractional line plot. How many measurements are greater than 1 inch?",
           "correct_answer": "5",
           "answer": "5",
           "misconception_tag": "line_plot_fraction_error",
@@ -2169,18 +2195,18 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_MIXED_Q4",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 5.",
-          "read_aloud_text": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 5. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Mixed review: Use the fractional line plot. How many measurements are greater than 1 inch?",
           "question_audio": {
-            "text": "Use the fractional line plot. How many measurements are greater than 1 inch?",
+            "text": "Mixed review: Use the fractional line plot. How many measurements are greater than 1 inch?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2188,23 +2214,23 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "5",
-            "5",
             "5."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Mixed review: Use the fractional line plot. How many measurements are greater than 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 5 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Mixed review: Use the fractional line plot. How many measurements are greater than 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 5 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q5",
           "question_type": "multiple_choice",
           "visual_model": "measurement_conversion_table",
-          "prompt": "Convert 6 liters to milliliters.",
+          "prompt": "Mixed review: Convert 6 liters to milliliters.",
           "correct_answer": "6000 milliliters",
           "answer": "6000 milliliters",
           "choices": [
             "6000 milliliters",
             "1006 milliliters",
             "6 milliliters",
-            "6 milliliters"
+            "6003 milliliters"
           ],
           "misconception_tag": "unit_conversion_direction_error",
           "from_unit": "liters",
@@ -2212,32 +2238,34 @@
           "factor": 1000,
           "amount": 6,
           "converted": 6000,
-          "read_aloud_text": "Convert 6 liters to milliliters.",
+          "read_aloud_text": "Mixed review: Convert 6 liters to milliliters.",
           "question_id": "G5M_MD_001_MIXED_Q5",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 6 liters to milliliters using 1000 milliliters per liter. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 6000 milliliters.",
+          "explanation": "The table relates 6 liters to milliliters using 1000 milliliters per liter. Following the model gives 6000 milliliters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
-            "text": "Convert 6 liters to milliliters.",
+            "text": "Mixed review: Convert 6 liters to milliliters.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
             "voice": "alloy",
             "playback_preference": "cached_audio_first"
-          }
+          },
+          "visual_description": "An answer-safe measurement conversion table for the question “Mixed review: Convert 6 liters to milliliters.” displays the authored givens and their labels. The table relates 6 liters to milliliters using 1000 milliliters per liter. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 6000 milliliters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Mixed review: Convert 6 liters to milliliters.” displays the authored givens and their labels. The table relates 6 liters to milliliters using 1000 milliliters per liter. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 6000 milliliters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q6",
           "question_type": "volume_response",
           "visual_model": "volume_model",
-          "prompt": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+          "prompt": "Mixed review: A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?",
           "correct_answer": "12 cubic units",
           "answer": "12 cubic units",
           "misconception_tag": "cube_unit_count_error",
@@ -2247,18 +2275,18 @@
           "unit": "unit",
           "question_id": "G5M_MD_001_MIXED_Q6",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 4 by 3 by 1, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 12 cubic units.",
-          "read_aloud_text": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+          "explanation": "The prism has dimensions 4 by 3 by 1, so each layer and the number of layers must both be counted. Following the model gives 12 cubic units. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Mixed review: A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?",
           "question_audio": {
-            "text": "A cube model has 4 columns, 3 rows, and 1 layers. What is the volume?",
+            "text": "Mixed review: A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2266,16 +2294,16 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "12 cubic units",
-            "12 cubic units",
             "12 cubic units."
-          ]
+          ],
+          "visual_description": "An answer-safe volume model for the question “Mixed review: A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 3 by 1, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe volume model for the question “Mixed review: A cube model has 4 columns, 3 rows, and 1 layer. What is the volume?” displays the authored givens and their labels. The prism has dimensions 4 by 3 by 1, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 12 cubic units as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q7",
           "question_type": "short_response",
           "visual_model": "rectangular_prism_model",
-          "prompt": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+          "prompt": "Mixed review: Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
           "correct_answer": "72 cubic centimeters",
           "answer": "72 cubic centimeters",
           "misconception_tag": "volume_area_confusion",
@@ -2285,18 +2313,18 @@
           "unit": "cm",
           "question_id": "G5M_MD_001_MIXED_Q7",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The prism has dimensions 6 by 6 by 2, so each layer and the number of layers must both be counted. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 72 cubic centimeters.",
-          "read_aloud_text": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+          "explanation": "The prism has dimensions 6 by 6 by 2, so each layer and the number of layers must both be counted. Following the model gives 72 cubic centimeters. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Mixed review: Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
           "question_audio": {
-            "text": "Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
+            "text": "Mixed review: Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2304,16 +2332,16 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "72 cubic centimeters",
-            "72 cubic centimeters",
             "72 cubic centimeters."
-          ]
+          ],
+          "visual_description": "An answer-safe rectangular prism model for the question “Mixed review: Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 6 by 6 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 72 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe rectangular prism model for the question “Mixed review: Find the volume of a rectangular prism with length 6 cm, width 6 cm, and height 2 cm.” displays the authored givens and their labels. The prism has dimensions 6 by 6 by 2, so each layer and the number of layers must both be counted. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 72 cubic centimeters as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q8",
           "question_type": "data_interpretation",
           "visual_model": "line_plot",
-          "prompt": "Use the fractional line plot. Which label has no X marks?",
+          "prompt": "Mixed review: Use the fractional line plot. Which label has exactly one X mark?",
           "correct_answer": "3/4",
           "answer": "3/4",
           "misconception_tag": "line_plot_fraction_error",
@@ -2339,18 +2367,18 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_MIXED_Q8",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 3/4.",
-          "read_aloud_text": "Use the fractional line plot. Which label has no X marks?",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 3/4. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Mixed review: Use the fractional line plot. Which label has exactly one X mark?",
           "question_audio": {
-            "text": "Use the fractional line plot. Which label has no X marks?",
+            "text": "Mixed review: Use the fractional line plot. Which label has exactly one X mark?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2358,16 +2386,16 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "3/4",
-            "3/4",
             "3/4."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Mixed review: Use the fractional line plot. Which label has exactly one X mark?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 3/4 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Mixed review: Use the fractional line plot. Which label has exactly one X mark?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 3/4 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q9",
           "question_type": "short_response",
           "visual_model": "measurement_conversion_table",
-          "prompt": "Convert 4 pounds to ounces.",
+          "prompt": "Mixed review: Convert 4 pounds to ounces.",
           "correct_answer": "64 ounces",
           "answer": "64 ounces",
           "misconception_tag": "unit_conversion_direction_error",
@@ -2376,20 +2404,20 @@
           "factor": 16,
           "amount": 4,
           "converted": 64,
-          "read_aloud_text": "Convert 4 pounds to ounces.",
+          "read_aloud_text": "Mixed review: Convert 4 pounds to ounces.",
           "question_id": "G5M_MD_001_MIXED_Q9",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The table relates 4 pounds to ounces using 16 ounces per pound. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 64 ounces.",
+          "explanation": "The table relates 4 pounds to ounces using 16 ounces per pound. Following the model gives 64 ounces. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
           "question_audio": {
-            "text": "Convert 4 pounds to ounces.",
+            "text": "Mixed review: Convert 4 pounds to ounces.",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2397,16 +2425,16 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "64 ounces",
-            "64 ounces",
             "64 ounces."
-          ]
+          ],
+          "visual_description": "An answer-safe measurement conversion table for the question “Mixed review: Convert 4 pounds to ounces.” displays the authored givens and their labels. The table relates 4 pounds to ounces using 16 ounces per pound. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 64 ounces as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe measurement conversion table for the question “Mixed review: Convert 4 pounds to ounces.” displays the authored givens and their labels. The table relates 4 pounds to ounces using 16 ounces per pound. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 64 ounces as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         },
         {
           "id": "G5M_MD_001_MIXED_Q10",
           "question_type": "data_interpretation",
           "visual_model": "line_plot",
-          "prompt": "Use the fractional line plot. How many measurements are at least 1 inch?",
+          "prompt": "Mixed review: Use the fractional line plot. How many measurements are at least 1 inch?",
           "correct_answer": "7",
           "answer": "7",
           "misconception_tag": "line_plot_fraction_error",
@@ -2432,18 +2460,18 @@
           "graph_title": "Ribbon Lengths in Inches",
           "question_id": "G5M_MD_001_MIXED_Q10",
           "hints": [
-            "Read the question carefully and name the math idea.",
-            "Use the visual model to check each part before answering.",
-            "Explain why the answer matches the units, graph, or attributes."
+            "Focus: Identify the given measurements and keep the requested unit or line-plot category in view.",
+            "Strategy: The line plot records 10 measurements with one X for each observation at its fractional tick. Use that structure to calculate or count rather than guessing from the picture.",
+            "Verify: Check the operation, recount visual marks or unit cubes, and confirm that the response uses the requested units."
           ],
           "feedback": {
             "correct": "Yes! Your answer matches the model and the math relationship.",
             "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
           },
-          "explanation": "The answer is 7.",
-          "read_aloud_text": "Use the fractional line plot. How many measurements are at least 1 inch?",
+          "explanation": "The line plot records 10 measurements with one X for each observation at its fractional tick. Following the model gives 7. This is not only a calculation: the unit label shows whether the result measures length, capacity, mass, time, or three-dimensional volume. A second calculation or a direct recount of the table, cubes, or X marks confirms the result.",
+          "read_aloud_text": "Mixed review: Use the fractional line plot. How many measurements are at least 1 inch?",
           "question_audio": {
-            "text": "Use the fractional line plot. How many measurements are at least 1 inch?",
+            "text": "Mixed review: Use the fractional line plot. How many measurements are at least 1 inch?",
             "label": "Read Question",
             "type": "question",
             "repeat_count": 1,
@@ -2451,10 +2479,10 @@
             "playback_preference": "cached_audio_first"
           },
           "acceptable_answers": [
-            "7",
-            "7",
             "7."
-          ]
+          ],
+          "visual_description": "An answer-safe line plot for the question “Mixed review: Use the fractional line plot. How many measurements are at least 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 7 as the answer. Learners can use the same labels described in the prompt without relying on color alone.",
+          "accessible_description": "An answer-safe line plot for the question “Mixed review: Use the fractional line plot. How many measurements are at least 1 inch?” displays the authored givens and their labels. The line plot records 10 measurements with one X for each observation at its fractional tick. The model preserves the quantities needed to reason, compare, multiply, or count, but it does not label 7 as the answer. Learners can use the same labels described in the prompt without relying on color alone."
         }
       ]
     }
