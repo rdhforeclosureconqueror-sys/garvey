@@ -1,0 +1,1 @@
+'use strict';const test=require('node:test'),assert=require('node:assert/strict');const {setup,apply}=require('./persistence-helpers');test('stale revision conflicts without increment',()=>{const p=setup();assert.throws(()=>apply(p,{expected_revision:9}),e=>e.code==='SESSION_REVISION_CONFLICT');assert.equal(p.sessions.getSessionById('session-1').revision,0);});
