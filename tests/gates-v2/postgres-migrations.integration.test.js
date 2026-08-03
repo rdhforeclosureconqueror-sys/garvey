@@ -1,0 +1,4 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict');const {Pool}=require('pg');const {applyGatesV2Migrations}=require('../../server/gatesV2Db');
+const url=process.env.GATES_V2_TEST_DATABASE_URL;
+test('V2 migrations apply once to PostgreSQL and expose required relations', {skip:!url&&'GATES_V2_TEST_DATABASE_URL is not configured'},async()=>{const pool=new Pool({connectionString:url});try{const first=await applyGatesV2Migrations(pool),second=await applyGatesV2Migrations(pool);assert.ok(first.totalMigrations>=4);assert.equal(second.appliedCount,0);const names=(await pool.query(`SELECT tablename FROM pg_tables WHERE schemaname=current_schema() AND tablename LIKE 'gates_v2_%'`)).rows.map(x=>x.tablename);for(const name of ['gates_v2_content_releases','gates_v2_experience_sessions','gates_v2_experience_events','gates_v2_idempotency_records'])assert.ok(names.includes(name));}finally{await pool.end();}});

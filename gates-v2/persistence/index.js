@@ -1,4 +1,4 @@
 'use strict';
 const ContentReleaseRepository=require('./contentReleaseRepository'),SessionRepository=require('./sessionRepository'),EventRepository=require('./eventRepository'),TransactionalExperienceRepository=require('./transactionalExperienceRepository');
 function createPersistence(options={}){const store=options.store||{releases:new Map(),sessions:new Map(),events:[],idempotency:new Map()};const releases=new ContentReleaseRepository(store),events=new EventRepository(store),sessions=new SessionRepository(store,releases),transactions=new TransactionalExperienceRepository({store,sessions,events,releases,...options});return{store,releases,events,sessions,transactions};}
-module.exports={createPersistence,ContentReleaseRepository,SessionRepository,EventRepository,TransactionalExperienceRepository,...require('./persistenceTypes')};
+module.exports={createPersistence,ContentReleaseRepository,SessionRepository,EventRepository,TransactionalExperienceRepository,...require('./persistenceTypes'),...require('./postgres')};

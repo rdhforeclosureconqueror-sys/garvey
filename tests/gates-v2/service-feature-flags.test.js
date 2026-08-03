@@ -1,0 +1,3 @@
+'use strict';const test=require('node:test'),assert=require('node:assert/strict');const {evaluateFeaturePolicy,KNOWN_FLAGS}=require('../../gates-v2/service/gatesV2FeaturePolicy');
+test('feature policy defaults every flag off and fails closed',()=>{const p=evaluateFeaturePolicy({},'gates_emotion_k1_content_v1');assert.equal(p.enabled,false);assert.deepEqual(Object.keys(p.variants),[...KNOWN_FLAGS]);});
+test('feature policy requires foundations and content',()=>{const flags=Object.fromEntries(KNOWN_FLAGS.map(x=>[x,true]));assert.equal(evaluateFeaturePolicy(flags,'gates_emotion_k1_content_v1').enabled,true);delete flags.gates_development_engine_v2;assert.equal(evaluateFeaturePolicy(flags,'gates_emotion_k1_content_v1').enabled,false);});
