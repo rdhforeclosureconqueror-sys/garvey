@@ -1,0 +1,3 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),reduce=require('../../gates-v2/engine/reducer');const {experience,startInput}=require('./reducer-engine-helpers');
+test('identical inputs produce deeply equal output and inputs remain unchanged',()=>{const x=experience(),s=startInput(),a={type:'START_EXPERIENCE'},inputs=structuredClone({x,s,a});const one=reduce({experience:x,session:s,action:a}),two=reduce({experience:x,session:s,action:a});assert.deepEqual(one,two);assert.deepEqual({x,s,a},inputs);assert.equal(JSON.stringify(one).includes('timestamp'),false)});
