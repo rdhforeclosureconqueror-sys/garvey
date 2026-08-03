@@ -330,6 +330,13 @@
       package_ids: Array.isArray(payload && payload.package_ids) ? payload.package_ids.map(text) : [],
       skill_evidence: Array.isArray(payload && payload.skill_evidence) ? payload.skill_evidence.map(publicEvidenceOnly) : [],
       recommendations: Array.isArray(payload && payload.recommendations) ? payload.recommendations.slice(0, 3).map(publicRecommendationOnly) : [],
+      score_summary: payload && payload.score_summary ? {
+        raw_score: Math.max(0, Number(payload.score_summary.raw_score) || 0),
+        maximum_score: Math.max(0, Number(payload.score_summary.maximum_score) || 0),
+        percentage: Math.max(0, Math.min(100, Number(payload.score_summary.percentage) || 0)),
+        answered_items: Math.max(0, Number(payload.score_summary.answered_items) || 0),
+        skipped_items: Math.max(0, Number(payload.score_summary.skipped_items) || 0),
+      } : null,
       exposure: publicExposureOnly(payload && payload.exposure),
       limitations: Array.isArray(payload && payload.limitations) ? payload.limitations.map(publicLimitationText) : DEFAULT_LIMITATIONS,
     };
@@ -380,6 +387,13 @@
       package_ids: Array.isArray(entry && entry.package_ids) ? entry.package_ids.map(text) : [],
       evidence_summary: Array.isArray(entry && entry.evidence_summary) ? entry.evidence_summary.map(publicEvidenceOnly) : [],
       recommendation_count: Math.max(0, Number(entry && entry.recommendation_count) || 0),
+      score_summary: entry && entry.score_summary ? {
+        raw_score: Math.max(0, Number(entry.score_summary.raw_score) || 0),
+        maximum_score: Math.max(0, Number(entry.score_summary.maximum_score) || 0),
+        percentage: Math.max(0, Math.min(100, Number(entry.score_summary.percentage) || 0)),
+        answered_items: Math.max(0, Number(entry.score_summary.answered_items) || 0),
+        skipped_items: Math.max(0, Number(entry.score_summary.skipped_items) || 0),
+      } : null,
     };
   }
 
@@ -1083,7 +1097,8 @@
     if (entry.status === 'in_progress') action = '<button class="primary compact" data-action="open-session" data-session-id="' + escapeHtml(entry.session_id) + '">Resume</button>';
     else if (entry.status === 'completed') action = '<button class="secondary compact" data-action="open-session" data-session-id="' + escapeHtml(entry.session_id) + '">View Results</button>';
     else action = '<button class="secondary compact" data-action="start">Start Reassessment</button>';
-    return '<article class="history-entry"><h3>' + escapeHtml(roleLabel(entry.assessment_role)) + '</h3><p>Grade ' + escapeHtml(entry.grade) + ' · ' + escapeHtml(entry.subject) + ' · ' + escapeHtml(statusLabel(entry.status)) + '</p><p class="helper">' + escapeHtml(formatDate(date)) + ' · Packages: ' + entry.package_ids.length + ' · Evidence summaries: ' + evidenceCount + ' · Recommendations: ' + entry.recommendation_count + '</p><div class="actions">' + action + '</div></article>';
+    const score = entry.status === 'completed' && entry.score_summary ? ' · Score: ' + entry.score_summary.raw_score + '/' + entry.score_summary.maximum_score + ' (' + entry.score_summary.percentage + '%)' : '';
+    return '<article class="history-entry"><h3>' + escapeHtml(roleLabel(entry.assessment_role)) + '</h3><p>Grade ' + escapeHtml(entry.grade) + ' · ' + escapeHtml(entry.subject) + ' · ' + escapeHtml(statusLabel(entry.status)) + '</p><p class="helper">' + escapeHtml(formatDate(date) + score) + ' · Packages: ' + entry.package_ids.length + ' · Evidence summaries: ' + evidenceCount + ' · Recommendations: ' + entry.recommendation_count + '</p><div class="actions">' + action + '</div></article>';
   }
 
   function renderResults() {
@@ -1091,8 +1106,11 @@
     const limitations = result.limitations && result.limitations.length ? result.limitations : DEFAULT_LIMITATIONS;
     const clearEvidence = (result.skill_evidence || []).filter(function(item) { return item.provisional_label !== 'Not Enough Evidence'; });
     const needsMore = (result.skill_evidence || []).filter(function(item) { return item.provisional_label === 'Not Enough Evidence'; });
+    const score = result.score_summary;
+    const scoreSummary = score ? '<div class="notice score-summary" aria-label="Assessment score"><strong>' + escapeHtml(score.raw_score + '/' + score.maximum_score) + ' · ' + escapeHtml(score.percentage + '%') + '</strong><p class="helper">' + escapeHtml(score.answered_items + ' answered · ' + score.skipped_items + ' skipped') + '</p></div>' : '';
     return '<section aria-labelledby="results-title">' +
       '<h2 id="results-title">Supportive skill results</h2>' +
+      scoreSummary +
       '<div class="notice"><strong>Important note</strong><ul class="limitations">' + limitations.map((item) => '<li>' + escapeHtml(item) + '</li>').join('') + '</ul></div>' +
       '<section aria-labelledby="clear-evidence-title"><h2 id="clear-evidence-title">Skills with clear evidence</h2><div class="result-grid">' + (clearEvidence.length ? clearEvidence.map(renderEvidence).join('') : '<p class="helper">No skill has three valid answers yet.</p>') + '</div></section>' +
       renderNotEnoughEvidenceGroup(needsMore) +

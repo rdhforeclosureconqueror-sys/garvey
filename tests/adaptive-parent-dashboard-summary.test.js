@@ -63,3 +63,22 @@ test('empty progress displays a safe empty state', async () => {
   assert.equal(out.empty_state, true);
   assert.equal(out.overall_status_label, 'No adaptive learning progress yet');
 });
+
+test('Grade 5 Math dashboard reports the latest completed assessment score and preserves attempt history', async () => {
+  const pool = poolWithRows({
+    assessment_sessions: [
+      { session_id: 'in-progress', child_id: '101', parent_profile_id: '55', subject: 'Math', grade: 5, status: 'in_progress', updated_at: '2026-08-03T12:00:00Z', raw_score: 0, maximum_score: 10, score_percent: 0 },
+      { session_id: 'retake', child_id: '101', parent_profile_id: '55', assessment_role: 'reassessment', subject: 'Math', grade: 5, status: 'completed', completed_at: '2026-08-03T11:00:00Z', raw_score: 10, maximum_score: 10, answered_count: 10, skipped_count: 0, score_percent: 100 },
+      { session_id: 'baseline', child_id: '101', parent_profile_id: '55', assessment_role: 'baseline', subject: 'Math', grade: 5, status: 'completed', completed_at: '2026-08-02T11:00:00Z', raw_score: 8, maximum_score: 10, answered_count: 10, skipped_count: 0, score_percent: 80 },
+    ],
+  });
+  const out = await buildAdaptiveParentDashboardSummary(pool, { childId: '101', parentProfileId: '55', childName: 'Princess Nia' });
+  assert.equal(out.assessments_completed, 2);
+  assert.equal(out.attempts, 3);
+  assert.equal(out.latest_assessment_raw_score, 10);
+  assert.equal(out.latest_assessment_maximum_score, 10);
+  assert.equal(out.latest_assessment_score, 100);
+  assert.equal(out.latest_assessment_completed_at, '2026-08-03T11:00:00.000Z');
+  assert.deepEqual(out.assessments.map((row) => row.session_id), ['in-progress', 'retake', 'baseline']);
+  assert.equal(out.recent_activity.filter((row) => row.event_type === 'assessment_completed').length, 2);
+});

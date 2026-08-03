@@ -127,18 +127,18 @@ test('numeric strings, numeric values, comma-formatted numbers, and equivalent f
   assert.equal(results.every((result) => !Object.prototype.hasOwnProperty.call(result, 'normalized_response')), true);
 });
 
-test('malformed fractions, ambiguous mixed numbers, units, and multiple values return not_scorable', () => {
+test('malformed fractions, malformed mixed numbers, units, and multiple values return not_scorable', () => {
   const item = record({ question_type: 'fraction_response', answer: '1/2' });
   const results = score([item], [
     submit(item.item_identity, '1/0'),
-    submit(item.item_identity, '1 1/2'),
+    submit(item.item_identity, '1 2/2'),
     submit(item.item_identity, '1/2 cup'),
     submit(item.item_identity, '1/2 2/3'),
   ]);
   assert.deepEqual(results.map((result) => result.status), ['not_scorable', 'not_scorable', 'not_scorable', 'not_scorable']);
   assert.deepEqual(results.map((result) => result.reason_code), [
     'malformed_fraction_response',
-    'ambiguous_mixed_number',
+    'malformed_fraction_response',
     'units_unsupported',
     'multiple_numeric_values',
   ]);

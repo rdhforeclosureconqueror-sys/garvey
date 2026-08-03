@@ -3,7 +3,7 @@ const { loadSkillPackages, packageIdOf } = require('./loadSkillPackages');
 const { PROVISIONAL_EVIDENCE_POLICY } = require('./evidencePolicy');
 const { selectAssessmentItems, stableStringify } = require('./selectAssessmentItems');
 
-const SESSION_VERSION = 'assessment-mvp-session-v3-grade1-math-complete';
+const SESSION_VERSION = 'assessment-mvp-session-v4-grade5-math-audited';
 const DEFAULT_ITEMS_PER_PACKAGE = PROVISIONAL_EVIDENCE_POLICY.minimumValidResponses;
 
 function requireSingle(name, value, moduleName = 'createAssessmentSession') {
@@ -133,7 +133,7 @@ function createAssessmentSession(options = {}) {
     evidence_policy: {
       version: PROVISIONAL_EVIDENCE_POLICY.version,
       minimum_valid_responses: PROVISIONAL_EVIDENCE_POLICY.minimumValidResponses,
-      provisional_note: 'Three valid responses are enough for provisional Grade 1 Math evidence labels; fewer than three remains Not Enough Evidence.',
+      provisional_note: `Three valid responses are enough for provisional Grade ${grade} ${subject} evidence labels; fewer than three remains Not Enough Evidence.`,
     },
     assessment_role: 'baseline',
     grade,
