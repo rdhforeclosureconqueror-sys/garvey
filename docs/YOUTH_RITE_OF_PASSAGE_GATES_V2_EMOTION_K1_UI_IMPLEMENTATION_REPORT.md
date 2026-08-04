@@ -2,7 +2,7 @@
 
 ## 1. Executive Result
 
-The first complete child-facing Gates V2 vertical slice is implemented as a default-off, owner-only Emotion Gate pilot. The example-only block-tower journey is driven by the existing pure reducer, rendered exclusively from its child-safe projection, and supports noticing, breathing, neutral action choices, authored natural consequences, non-shaming repair, optional reflection, calm completion, replay, and a temporary parent summary. PostgreSQL is neither used nor claimed as verified. **Decision: CONDITIONAL GO** pending direct visual/browser acceptance because this environment had no installed browser executable.
+The first complete child-facing Gates V2 vertical slice is implemented as a default-off, owner-only Emotion Gate experience. The example-only block-tower journey is driven by the existing pure reducer, rendered exclusively from its child-safe projection, and supports noticing, breathing, neutral action choices, authored natural consequences, non-shaming repair, optional reflection, calm completion, replay, and a temporary parent summary. PostgreSQL is neither used nor claimed as verified. **Decision: CONDITIONAL GO** pending direct visual/browser acceptance because this environment had no installed browser executable.
 
 ## 2. Repository Identity
 
@@ -26,14 +26,14 @@ The adapter imports the existing `reduceExperience` and `ACTION_TYPES` exports, 
 
 ## 6. Files Created
 
-- `gates-v2/ui/emotionK1PilotAdapter.js`
+- `gates-v2/ui/emotionK1ExperienceAdapter.js`
 - `gates-v2/ui/experienceUiController.js`
 - `gates-v2/ui/childProjectionViewModel.js`
 - `public/gates-v2-child/emotion-k1.html`
 - `public/gates-v2-child/emotion-k1.css`
 - `public/gates-v2-child/emotion-k1.js`
 - `public/gates-v2-child/assets/README.md`
-- `server/gatesV2PilotUiRoute.js`
+- `server/gatesV2ChildUiRoute.js`
 - `tests/gates-v2/emotion-k1-ui-contract.test.js`
 - `tests/gates-v2/emotion-k1-ui-feature-flag.test.js`
 - `docs/YOUTH_RITE_OF_PASSAGE_GATES_V2_EMOTION_K1_UI_IMPLEMENTATION_REPORT.md`
@@ -50,7 +50,7 @@ The server adapter returns the existing reducer projection plus only a display-s
 
 ## 9. Pilot Adapter Architecture
 
-`EmotionK1PilotAdapter` implements `startExperience`, `getCurrentProjection`, `submitAction`, `replay`, `restart`, and `exit`. Sessions, path counts, and repair participation live only in a process-local `Map`; refresh or server restart can reset them. The adapter invokes the reducer for every transition and contains no parallel transition table or authored consequence text.
+`EmotionK1ExperienceAdapter` implements `startExperience`, `getCurrentProjection`, `submitAction`, `replay`, `restart`, and `exit`. Sessions, path counts, and repair participation live only in a process-local `Map`; refresh or server restart can reset them. The adapter invokes the reducer for every transition and contains no parallel transition table or authored consequence text.
 
 ## 10. Reducer Integration
 
@@ -110,7 +110,7 @@ Princess/unicorn/Gate/weather art is presentation-only placeholder styling and e
 
 ## 24. Feature and Access Boundary
 
-`GATES_EMOTION_K1_UI_PILOT_V1=true` is required; absent, false, or malformed values return 404. Access additionally requires an authenticated business owner/admin or `GATES_EMOTION_K1_UI_PILOT_OWNER_TOKEN`. A valid one-time query token establishes a four-hour HttpOnly, SameSite=Strict route-scoped cookie and redirects to a clean URL. The route returns 404 to unauthorized callers, sets no-store and noindex headers, mounts before static serving, and has no public navigation link. This isolated pilot token is an owner-test alternative, not a child identity mechanism.
+This report describes the earlier protected implementation. It has been superseded by the launch-ready public route report; the current route requires no token, no cookie, and no environment flag.
 
 ## 25. Child Projection Safety
 
@@ -181,7 +181,7 @@ None. No migrations, queries, PostgreSQL repositories, persistence claims, V1 pr
 - The process-local map has no expiry cleanup because this is a tightly allowlisted pilot.
 - Placeholder emoji/CSS artwork is not production illustration.
 - Browser speech quality and voice vary by operating system and browser.
-- Pilot token access should only be used over HTTPS and rotated after testing.
+- Superseded: the current launch-ready route no longer uses temporary token access.
 - No PostgreSQL or future private-service adapter verification was attempted.
 
 ## 40. Risks
@@ -190,12 +190,7 @@ Primary remaining risk is visual/accessibility behavior that source tests cannot
 
 ## 41. Owner Live-Test Instructions
 
-1. Set strong temporary `GATES_EMOTION_K1_UI_PILOT_OWNER_TOKEN` and `GATES_EMOTION_K1_UI_PILOT_V1=true` values in a non-production or explicitly approved owner-test environment.
-2. Start the existing service; do not expose the token publicly.
-3. Visit `/gates-v2-child/?pilot_token=<temporary-token>` over HTTPS. The server removes the token from the URL by redirect and sets a protected route cookie.
-4. Traverse all three first choices; use replay to cover both healthy follow-ups and both repair choices (multiple sessions may be used because the existing maximum is three replays).
-5. Test reflection and Skip for now, completion, Return to Gate, Exit to Parent, Calm view, keyboard-only navigation, 200% zoom, reduced motion, and manual narration.
-6. Repeat at 1280×800, 768×1024, 390×844, and 320 pixels, capture and inspect the 15 required screenshots, then unset/rotate the token and disable the flag.
+This historical report has been superseded by the launch-ready report. Current owner testing uses `/gates-v2-child/` directly, with no temporary access variables, query secrets, or route cookies. Traverse all three first choices; use replay to cover both healthy follow-ups and both repair choices. Test reflection and Skip for now, completion, Return to Gate, Exit to Parent, Calm view, keyboard-only navigation, 200% zoom, reduced motion, and manual narration. Repeat at 1280×800, 768×1024, 390×844, and 320 pixels.
 
 ## 42. Recommended Next Phase
 

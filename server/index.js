@@ -100,7 +100,7 @@ const youthProfileRegistry = require("./youthDevelopmentProfiles");
 const { createSimbaWajumaRouter, buildAssessmentCompletionPayload, verifyTransferToken } = require("./simbawajumaBridge");
 const { queueExternalEvent, retryQueuedExternalEvents } = require("./simbawajumaEvents");
 const { createLeaderWithinRouter } = require("./leaderWithinRoutes");
-const { createGatesV2PilotUiRouter } = require("./gatesV2PilotUiRoute");
+const { createGatesV2ChildRouter } = require("./gatesV2ChildUiRoute");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -298,8 +298,8 @@ app.get("/skill-world/:skillId", (req, res) => {
 
 app.use("/generated-audio/skill-world", express.static(path.join(__dirname, "..", "public", "generated-audio", "skill-world")));
 app.use(createLeaderWithinRouter(pool));
-// Default-off and owner-only. This must precede public static serving so the pilot files fail closed.
-app.use('/gates-v2-child', createGatesV2PilotUiRouter());
+// Public launch-ready child route remains explicitly scoped before general static serving.
+app.use('/gates-v2-child', createGatesV2ChildRouter());
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());

@@ -3,18 +3,18 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { EmotionK1PilotAdapter, SAFE_PROJECTION_KEYS } = require('../../gates-v2/ui/emotionK1PilotAdapter');
+const { EmotionK1ExperienceAdapter, SAFE_PROJECTION_KEYS } = require('../../gates-v2/ui/emotionK1ExperienceAdapter');
 
 const root = path.join(__dirname, '..', '..');
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
-const start = () => { const adapter = new EmotionK1PilotAdapter({ id: () => 'pilot-test' }); const result = adapter.startExperience(); return { adapter, id: result.session_id, result }; };
+const start = () => { const adapter = new EmotionK1ExperienceAdapter({ id: () => 'experience-test' }); const result = adapter.startExperience(); return { adapter, id: result.session_id, result }; };
 const advance = (adapter, id, option_id) => adapter.submitAction(id, option_id ? { option_id } : {});
 
-test('pilot starts through the existing reducer and exposes only child-safe projection keys', () => {
+test('experience starts through the existing reducer and exposes only child-safe projection keys', () => {
   const { result } = start();
   assert.equal(result.ok, true);
   assert.equal(result.projection.current_node.node_id, 'opening');
-  assert.deepEqual(Object.keys(result.projection).filter((key) => key !== 'pilot_notice').sort(), [...SAFE_PROJECTION_KEYS].filter((key) => key !== 'gate_title' || result.projection.gate_title).sort());
+  assert.deepEqual(Object.keys(result.projection).filter((key) => key !== 'experience_notice').sort(), [...SAFE_PROJECTION_KEYS].filter((key) => key !== 'gate_title' || result.projection.gate_title).sort());
   const serialized = JSON.stringify(result);
   for (const hidden of ['authoring_tags', 'effect_refs', 'source_provenance', 'approvals', 'parent_summary_template', 'hidden branches', 'assessment']) assert.equal(serialized.includes(hidden), false);
 });
@@ -71,7 +71,7 @@ test('child language, semantic controls, accessibility, motion, and responsive c
   assert.match(js, /speechSynthesis/); assert.match(html, /Calm view/); assert.match(html, /Exit to Parent/);
 });
 
-test('pilot assets are not linked by existing public navigation', () => {
+test('child assets are not linked by existing public navigation', () => {
   const candidates = ['public/index.html', 'public/gates.html', 'public/gates.js'];
   for (const file of candidates) assert.equal(read(file).includes('gates-v2-child'), false, file);
 });
