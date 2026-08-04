@@ -6,6 +6,7 @@
   const summaryDialog = document.querySelector('#parent-summary');
   let sessionId = null;
   let current = null;
+  const approvedReturnFallback = '/gates/children';
   const progressWidths = { Beginning: '12%', Noticing: '38%', Choosing: '65%', Reflecting: '84%', Complete: '100%' };
 
   async function request(path, options = {}) {
@@ -47,13 +48,23 @@
     bindCommon();
     task.querySelector('#continue')?.addEventListener('click', () => act({}));
     task.querySelector('#replay')?.addEventListener('click', replay);
-    task.querySelector('#return')?.addEventListener('click', welcome);
+    task.querySelector('#return')?.addEventListener('click', returnToGate);
     task.querySelectorAll('[data-option]').forEach((button) => button.addEventListener('click', () => act({ option_id: button.dataset.option })));
     task.focus({ preventScroll: true });
   }
 
   async function act(action) { try { render(await request(`/session/${sessionId}/action`, { method: 'POST', body: JSON.stringify(action) })); } catch (error) { showError(error); } }
   async function replay() { try { render(await request(`/session/${sessionId}/replay`, { method: 'POST', body: '{}' })); } catch (error) { showError(error); } }
+  function safeReturnPath() {
+    const value = new URLSearchParams(window.location.search).get('return_to') || '';
+    try {
+      const decoded = decodeURIComponent(value);
+      if (!decoded || decoded.startsWith('//') || /^[a-z][a-z0-9+.-]*:/i.test(decoded)) return approvedReturnFallback;
+      if (/^\/gates\/(results|child|children|assessment|signup)?/.test(decoded)) return decoded;
+      return approvedReturnFallback;
+    } catch { return approvedReturnFallback; }
+  }
+  function returnToGate() { window.location.assign(safeReturnPath()); }
 
   function viewModel(node) {
     const titles = { opening: 'The Tower Tumbles', notice_feeling: 'Notice a Feeling', notice_body: 'Notice a Body Clue', pause: 'Pause Together', first_action: 'Choose Maya’s Next Step', ask_result: 'Leo Explains', space_result: 'Maya Takes Space', healthy_followup: 'Choose What Comes Next', push_result: 'The Problem Gets Bigger', repair_choice: 'A Chance to Repair', repair_result: 'Repair Begins', reflection: 'Think Together', complete: 'Adventure Complete' };
@@ -83,6 +94,6 @@
     summaryDialog.showModal();
   });
   document.querySelector('#keep-going').addEventListener('click', () => summaryDialog.close());
-  document.querySelector('#leave-summary').addEventListener('click', () => { summaryDialog.close(); sessionId = null; welcome(); });
+  document.querySelector('#leave-summary').addEventListener('click', () => { summaryDialog.close(); returnToGate(); });
   welcome();
 })();

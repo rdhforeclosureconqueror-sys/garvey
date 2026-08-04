@@ -71,7 +71,8 @@ test('child language, semantic controls, accessibility, motion, and responsive c
   assert.match(js, /speechSynthesis/); assert.match(html, /Calm view/); assert.match(html, /Exit to Parent/);
 });
 
-test('child assets are not linked by existing public navigation', () => {
-  const candidates = ['public/index.html', 'public/gates.html', 'public/gates.js'];
-  for (const file of candidates) assert.equal(read(file).includes('gates-v2-child'), false, file);
+test('child assets are linked only from the Gates profile integration', () => {
+  assert.equal(read('public/index.html').includes('gates-v2-child'), false);
+  assert.equal(read('public/gates.html').includes('gates-v2-child'), false);
+  assert.match(read('public/gates.js'), /Begin the Emotion Gate Adventure/);
 });

@@ -290,7 +290,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     const children = [];
     for (const row of rows.rows) {
       const latest = await pool.query(
-        "SELECT id, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1",
+        "SELECT id, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY a.created_at DESC LIMIT 1",
         [sessionState.parentProfile.id, row.id]
       );
       children.push({
@@ -349,7 +349,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     const profile = formatChildProfileRow(row);
     console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_child_profile_loaded", parent_id: sessionState.parentProfile.id, child_id: profile.child_id }));
     const latest = await pool.query(
-      "SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1",
+      "SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY a.created_at DESC LIMIT 1",
       [sessionState.parentProfile.id, req.params.childId]
     );
     const latestAssessment = latest.rows[0] || null;
@@ -552,10 +552,11 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
       const assessmentId = String(req.params.assessmentId || "").trim();
       const found = await pool.query(
-        `SELECT id, parent_id, child_id, payload, created_at
-         FROM gates_assessments
-         WHERE CAST(id AS text) = $1 OR (payload->>'assessment_id') = $1
-         ORDER BY created_at DESC
+        `SELECT a.id, a.parent_id, a.child_id, a.payload, a.created_at, c.first_name AS child_profile_payload
+         FROM gates_assessments a
+         LEFT JOIN gates_child_profiles c ON c.id = a.child_id
+         WHERE CAST(a.id AS text) = $1 OR (a.payload->>'assessment_id') = $1
+         ORDER BY a.created_at DESC
          LIMIT 1`,
         [assessmentId]
       );
@@ -563,6 +564,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       if (!row) return res.status(404).json({ error: "assessment_not_found" });
       if (Number(row.parent_id) !== Number(sessionState.parentProfile.id)) return res.status(403).json({ error: "forbidden" });
       const payload = row.payload && typeof row.payload === "object" ? row.payload : {};
+      const childProfile = formatChildProfileRow({ first_name: row.child_profile_payload });
       const recommendations = generateGatesRecommendations({
         child_id: String(row.child_id || ""),
         gates_profile: payload.gates_profile || {},
@@ -575,6 +577,9 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         ok: true,
         assessment_id: String(row.id),
         child_id: String(row.child_id),
+        child_name: childProfile.child_name || "",
+        child_age_band: childProfile.child_age_band || "",
+        child_grade_band: childProfile.child_grade_band || "",
         gates_profile: payload.gates_profile || null,
         gate_map: payload.gate_map || payload.gates_profile?.gate_map || [],
         confidence_summary: payload.confidence_summary || null,
@@ -673,7 +678,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       }
 
       const latest = await pool.query(
-        "SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1",
+        "SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY a.created_at DESC LIMIT 1",
         [sessionState.parentProfile.id, req.params.childId]
       );
       const latestAssessment = latest.rows[0];
@@ -760,7 +765,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       const child = await pool.query("SELECT id, parent_id FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
       const childRow = child.rows[0];
       if (!childRow || Number(childRow.parent_id) !== Number(sessionState.parentProfile.id)) return res.status(403).json({ error: "forbidden" });
-      const latest = await pool.query("SELECT payload FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1", [sessionState.parentProfile.id, req.params.childId]);
+      const latest = await pool.query("SELECT payload FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY a.created_at DESC LIMIT 1", [sessionState.parentProfile.id, req.params.childId]);
       const payload = latest.rows[0]?.payload || {};
       const gatesProfile = payload.gates_profile || {};
       const growthGateKey = gatesProfile?.growth_gate?.gate_key || gatesProfile?.current_growth_gate?.gate_key || payload.current_growth_gate || null;
@@ -790,7 +795,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       const blueprint = FIRST_GENERATION_BLUEPRINT.find((g) => Number(g.gate_number) === gateNumber);
       if (!blueprint) return res.status(404).json({ error: "gate_not_found" });
 
-      const latest = await pool.query("SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1", [sessionState.parentProfile.id, req.params.childId]);
+      const latest = await pool.query("SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY a.created_at DESC LIMIT 1", [sessionState.parentProfile.id, req.params.childId]);
       const payload = latest.rows[0]?.payload || {};
       const gateStage = (payload.gate_map || payload.gates_profile?.gate_map || []).find((g) => Number(g.gate_number) === gateNumber) || null;
       const progRows = await pool.query("SELECT progress_key, progress_value, updated_at FROM gates_progress WHERE parent_id = $1 AND child_id = $2", [sessionState.parentProfile.id, req.params.childId]);

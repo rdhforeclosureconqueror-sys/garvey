@@ -6,6 +6,49 @@
   const GATE_KEY_BY_NUMBER = ["attention", "emotion", "choice", "body", "discipline", "truth", "repair", "creation", "community", "legacy"];
   const GATE_PRACTICE_GAME_DISCLAIMER = "These games are optional developmental practices. They are not tests, grades, or diagnoses.";
   const GATEQUEST_PROTOTYPE_DISCLAIMER = "GateQuest is a standalone developmental practice prototype. Prototype play does not change official Gates assessments, stage profiles, or progress outcomes.";
+
+  const CHILD_GATE_EXPERIENCES = {
+    emotion: { experienceId: 'example_emotion_block_tower_k1', gateName: 'Emotion', ageBands: ['k1'], path: '/gates-v2-child/', status: 'available', label: 'Begin the Emotion Gate Adventure', description: 'Help your child practice noticing feelings, body clues, calming, choices, consequences, and repair through a short interactive story.' }
+  };
+  const KNOWN_GATE_KEYS = ['attention', 'emotion', 'choice', 'body', 'discipline', 'truth', 'repair', 'creation', 'community', 'legacy'];
+  const GATE_NAMES = { attention: 'Attention', emotion: 'Emotion', choice: 'Choice', body: 'Body', discipline: 'Discipline', truth: 'Truth', repair: 'Repair', creation: 'Creation', community: 'Community', legacy: 'Legacy' };
+
+  function normalizeGate(value) { return String(value?.gate_key || value?.key || value?.name || value || '').trim().toLowerCase().replace(/[^a-z]/g, '') || null; }
+  function resolveAgeBand(profile = {}) {
+    const grade = String(profile.child_grade_band || '').trim().toLowerCase();
+    const age = String(profile.child_age_band || '').trim().toLowerCase();
+    if (!grade && !age) return { status: 'missing', ageBand: null };
+    if (/\b(k|kindergarten)\b/.test(grade) || /grade\s*1\b|\b1st\b|\bfirst\b/.test(grade)) return { status: 'supported', ageBand: 'k1' };
+    if (/\b(5|6|7)\b/.test(age) || /5\s*-\s*7/.test(age)) return { status: 'supported', ageBand: 'k1' };
+    return { status: 'unsupported', ageBand: 'unknown' };
+  }
+  function resolveGateExperienceLaunch({ growthGate, childAgeBand = '', childGradeBand = '' } = {}) {
+    const gateKey = normalizeGate(growthGate);
+    const age = resolveAgeBand({ child_age_band: childAgeBand, child_grade_band: childGradeBand });
+    if (!gateKey || !KNOWN_GATE_KEYS.includes(gateKey)) return { status: 'invalid_gate', gateName: 'Unknown Gate', age };
+    const gateName = GATE_NAMES[gateKey];
+    const experience = CHILD_GATE_EXPERIENCES[gateKey];
+    if (!experience || experience.status !== 'available') return { status: 'coming_soon', gateKey, gateName, age };
+    if (age.status === 'unsupported') return { status: 'unsupported_age_band', gateKey, gateName, age, experience };
+    return { status: 'available', gateKey, gateName, age, experience, launch: experience };
+  }
+  function buildSafeGateReturnPath() {
+    const path = `${window.location.pathname}${window.location.search || ''}`;
+    if (/^\/gates\/(results|child|children|assessment|signup)?/.test(path) && !path.startsWith('//')) return path;
+    return '/gates/children';
+  }
+  function renderGateAdventureCard(result, growthGate) {
+    const resolution = resolveGateExperienceLaunch({ growthGate, childAgeBand: result.child_age_band, childGradeBand: result.child_grade_band });
+    const gateName = resolution.gateName || growthGate?.name || 'this';
+    const ageNote = resolution.age?.status === 'missing' ? 'This first adventure is designed for children in approximately Kindergarten through Grade 1.' : resolution.age?.status === 'unsupported' ? 'This child profile appears outside the Kindergarten–Grade 1 band for this first adventure.' : 'Designed for approximately Kindergarten–Grade 1.';
+    if (resolution.status === 'available') {
+      const href = `${resolution.launch.path}?return_to=${encodeURIComponent(buildSafeGateReturnPath())}`;
+      return `<section class="panel child-adventure-card" aria-labelledby="child-adventure-title"><p class="status">Available now</p><h4 id="child-adventure-title">Explore the ${gateName} Gate</h4><p>${resolution.launch.description}</p><p>${ageNote}</p><p><a class="btn child-adventure-primary" data-gates-v2-child-launch="${resolution.launch.experienceId}" href="${href}">${resolution.launch.label}</a></p><p class="disclaimer">This is a gentle developmental practice. It is not a test, grade, or diagnosis. Completion does not change assessment scores, Gate stage, Growth Gate, or Practice Progress.</p></section>`;
+    }
+    const message = resolution.status === 'unsupported_age_band' ? `A future ${gateName} Gate adventure for this age band is being prepared.` : `An interactive adventure for the ${gateName} Gate is being prepared.`;
+    return `<section class="panel child-adventure-card" aria-labelledby="child-adventure-title"><p class="status">Coming soon</p><h4 id="child-adventure-title">Explore the ${gateName} Gate</h4><p>${message}</p><p>${ageNote}</p><p class="disclaimer">Keep using the reflection, journal prompt, family practice, ceremony, and Practice Progress options below.</p></section>`;
+  }
+
   const GATE_PRACTICE_GAMES = [
     { title: "Rhythm Race", what_it_practices: "sustained attention, timing control, and self-regulation under pace", supported_gates: ["attention", "body", "discipline"], suggested_duration: "6-10 minutes", observation_signals: ["Returns attention to the beat after a miss.", "Keeps movements coordinated with rhythm changes."], parent_reflection_prompt: "What helped your child return to focus when rhythm changed?" },
     { title: "Visual Memory", what_it_practices: "working memory, visual recall, and pattern tracking", supported_gates: ["attention", "truth", "creation"], suggested_duration: "8-12 minutes", observation_signals: ["Describes a memory strategy aloud.", "Stays engaged after an incorrect attempt."], parent_reflection_prompt: "What memory strategy seemed to help today?" },
@@ -355,7 +398,7 @@
       const habitBank = await api(`/api/gates/children/${childId}/habit-bank`, { method: 'GET' }).catch(() => null);
       const growthHabit = (habitBank?.recommended_habits || [])[0] || null;
       const growthGate = (result.gate_map || []).find((g) => g.gate_key === result.gates_profile?.growth_gate?.gate_key) || (result.gate_map || [])[0] || { gate_number: 1, name: 'Attention' };
-      shell('Current Gates Profile', `${renderAdaptiveLearningCard()}<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderGrowthSignalsPanel(growthHabit, "results")}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p>${renderChildReflectionCta(childId, growthGate.gate_number)}<p><a class="btn" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Begin This Gate</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul>${renderGameHubPracticeSection({ childId })}${renderDevelopmentJourney(integratedProfile?.development_patterns)}${renderDevelopmentTimeline(timeline)}${renderIntegratedProfilePreview(integratedProfile)}<p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
+      shell('Current Gates Profile', `${renderAdaptiveLearningCard()}<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderGrowthSignalsPanel(growthHabit, "results")}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p>${renderChildReflectionCta(childId, growthGate.gate_number)}${renderGateAdventureCard(result, growthGate)}<p><a class="btn secondary" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Open Gate Details</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul>${renderGameHubPracticeSection({ childId })}${renderDevelopmentJourney(integratedProfile?.development_patterns)}${renderDevelopmentTimeline(timeline)}${renderIntegratedProfilePreview(integratedProfile)}<p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
       console.info(JSON.stringify({ event: 'gates_stage_profile_rendered', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_generic_recommendations_removed', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_walking_gate_rendered', assessment_id: assessmentId, child_id: childId }));
@@ -490,6 +533,7 @@
     if (p === '/gates/assessment') return renderAssessment();
     if (p.startsWith('/gates/results/')) return renderResults(p.split('/').pop());
     if (/^\/gates\/child\/[^/]+\/reflection\/\d+$/.test(p)) { const parts = p.split('/'); return renderReflectionPrototype(parts[3], parts[5]); }
+    // child GateQuest route contract retained: `/gates/child/${childId}/prototypes/gatequest`
     if (/^\/gates\/child\/[^/]+\/prototypes\/gatequest$/.test(p)) { const parts = p.split('/'); return renderGateQuestLaunch(parts[3]); }
     if (p === '/gates/prototypes/gatequest') return renderGateQuestLaunch();
     if (/^\/gates\/child\/[^/]+\/gates\/\d+$/.test(p)) { const parts = p.split('/'); return renderGateDetail(parts[3], parts[5]); }
