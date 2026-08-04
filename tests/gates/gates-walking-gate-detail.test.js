@@ -29,7 +29,9 @@ test("walking the gate content fields are present in blueprint", () => {
 
 test("results CTAs route to different destinations", () => {
   const js = fs.readFileSync("public/gates.js", "utf8");
-  assert.ok(js.includes('Begin This Gate'));
+  assert.ok(js.includes('Begin the Emotion Gate Adventure'));
+  assert.ok(js.includes('/gates-v2-child/'));
+  assert.ok(js.includes('Open Gate Details'));
   assert.ok(js.includes('/gates/child/${childId}/gates/${growthGate.gate_number || 1}'));
   assert.ok(js.includes('View Practice Progress'));
   assert.ok(js.includes('/gates/child/${childId}/gates'));
