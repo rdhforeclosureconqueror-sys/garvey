@@ -43,3 +43,11 @@ label { margin-right: 0.5rem; }
   .gates-shell { margin: 1rem auto; }
   .gates-card { padding: 1rem; }
 }
+.child-adventure-card {
+  border-color: rgba(255, 213, 125, 0.72);
+  background: linear-gradient(145deg, rgba(73, 49, 113, 0.72), rgba(24, 57, 88, 0.72));
+  margin: 1rem 0;
+}
+.child-adventure-card h4 { font-size: 1.35rem; margin: 0.25rem 0 0.5rem; }
+.child-adventure-primary { font-size: 1.05rem; padding: 0.95rem 1.15rem; box-shadow: 0 0 0 2px rgba(255,255,255,0.16), 0 10px 22px rgba(0,0,0,0.25); }
+a:focus-visible, button:focus-visible { outline: 3px solid #ffd57d; outline-offset: 3px; }

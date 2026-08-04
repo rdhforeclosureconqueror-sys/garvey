@@ -32,3 +32,11 @@ test('unknown Gates V2 child paths and malformed requests fail safely', async ()
   assert.equal(bad.status, 400);
   assert.deepEqual(await bad.json(), { ok: false, error: 'That request could not be used. Please try again.' });
 });
+
+test('static frontend directory has an index entrypoint for /gates-v2-child/', () => {
+  const fs = require('node:fs');
+  const index = fs.readFileSync('public/gates-v2-child/index.html', 'utf8');
+  assert.match(index, /Emotion Gate Adventure/);
+  assert.match(index, /\/gates-v2-child\/emotion-k1.css/);
+  assert.match(index, /\/gates-v2-child\/emotion-k1.js/);
+});

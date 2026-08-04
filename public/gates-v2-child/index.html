@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Emotion Gate Adventure</title>
+  <link rel="stylesheet" href="/gates-v2-child/emotion-k1.css">
+</head>
+<body>
+  <a class="skip-link" href="#task">Skip to the adventure</a>
+  <main class="shell" id="app">
+    <header class="topbar">
+      <div class="brand" aria-label="Emotion Gate experience"><span aria-hidden="true">✦</span> Emotion Gate</div>
+      <div class="tools">
+        <button class="quiet" id="calm-toggle" type="button" aria-pressed="false">Calm view</button>
+        <button class="quiet" id="exit-button" type="button">Exit to Parent</button>
+      </div>
+    </header>
+    <div class="progress" aria-label="Adventure progress"><span id="progress-label">Beginning</span><div class="progress-track" aria-hidden="true"><i id="progress-bar"></i></div></div>
+    <section class="card" id="task" aria-live="polite" aria-atomic="true" tabindex="-1"></section>
+    <p class="experience-label">Early Gates learning experience · example-only and not official curriculum</p>
+  </main>
+  <dialog id="parent-summary" aria-labelledby="summary-title">
+    <div class="summary-art" aria-hidden="true">☁️ ✦ 🦄</div>
+    <h2 id="summary-title">Grown-up summary</h2>
+    <div id="summary-content"></div>
+    <div class="dialog-actions"><button id="keep-going" type="button">Keep Exploring</button><button class="quiet" id="leave-summary" type="button">Close Summary</button></div>
+  </dialog>
+  <script src="/gates-v2-child/emotion-k1.js" defer></script>
+</body>
+</html>
