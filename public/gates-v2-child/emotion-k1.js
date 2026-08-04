@@ -11,8 +11,14 @@
 
   async function request(path, options = {}) {
     const response = await fetch(`/gates-v2-child/api${path}`, { headers: { 'Content-Type': 'application/json' }, ...options });
-    const result = await response.json();
-    if (!response.ok || !result.ok) throw new Error(result.error || 'The path is resting. Please try again.');
+    const text = await response.text();
+    const contentType = response.headers.get('content-type') || '';
+    let result = text && contentType.includes('application/json') ? null : { ok: false, error: 'The Emotion Gate did not send a usable answer. Please try again.', message: text ? 'Non-JSON response received.' : 'Empty response body received.' };
+    if (result === null) {
+      try { result = JSON.parse(text); }
+      catch (_) { result = { ok: false, error: 'The Emotion Gate sent an answer we could not read. Please try again.', message: 'Malformed JSON response received.' }; }
+    }
+    if (!response.ok || !result.ok) throw new Error(result.error || result.message || 'The path is resting. Please try again.');
     return result;
   }
 
