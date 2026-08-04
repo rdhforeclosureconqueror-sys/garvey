@@ -533,6 +533,43 @@ function publicGrade2EnglishStimulusFor(question, packageId) {
   return null;
 }
 
+const UPPER_ELEMENTARY_WRITING_PACKAGE_RE = /^G(?:3|4|5|6)E_WR_/;
+const UPPER_ELEMENTARY_WRITING_MODELS = new Set([
+  'opinion_reason_chart',
+  'topic_detail_chart',
+  'fact_cards',
+  'paragraph_builder',
+  'writing_checklist',
+  'sentence_builder',
+  'story_sequence',
+  'event_cards',
+  'dialogue_builder',
+]);
+
+function publicUpperElementaryWritingStimulusFor(question, packageId) {
+  if (!UPPER_ELEMENTARY_WRITING_PACKAGE_RE.test(String(packageId || ''))) return null;
+  const model = compactTextValue(question.visual_model || question.support_type);
+  if (!UPPER_ELEMENTARY_WRITING_MODELS.has(model)) return null;
+
+  const topic = compactTextValue(question.topic || inferTargetTextFromPrompt(question.prompt));
+  const checks = safeTextArray(question.validation_checks)
+    .filter((check) => !/answer|sample|solution|correct/i.test(check))
+    .slice(0, 6);
+  const context = topic ? `Topic or context: ${topic}.` : 'Use the task context in the question.';
+  const checklist = checks.length ? ` Planning checklist: ${checks.join(', ')}.` : '';
+  const text = `${context}${checklist}`;
+
+  return {
+    type: 'ela_text_stimulus',
+    content: { text },
+    accessibility_text: text,
+    presentation: {
+      renderer: model,
+      label: 'Use this writing organizer with the question.',
+    },
+  };
+}
+
 function inferTargetTextFromPrompt(prompt) {
   const value = compactTextValue(prompt);
   if (!value) return null;
@@ -550,6 +587,8 @@ function inferTargetTextFromPrompt(prompt) {
 }
 
 function publicStimulusFor(question, packageId) {
+  const upperElementaryWritingStimulus = publicUpperElementaryWritingStimulusFor(question, packageId);
+  if (upperElementaryWritingStimulus) return upperElementaryWritingStimulus;
   const grade2EnglishStimulus = publicGrade2EnglishStimulusFor(question, packageId);
   if (grade2EnglishStimulus) return grade2EnglishStimulus;
   const model = compactTextValue(question.visual_model || question.support_type);
@@ -831,6 +870,7 @@ module.exports = {
   containsProtectedField,
   publicQuestionPayload,
   publicStimulusFor,
+  publicUpperElementaryWritingStimulusFor,
   GRADE_1_ENGLISH_VISUAL_RESTORATION_PACKAGE_IDS,
   requiresStimulus,
   isAssessmentItemDeliverable,
