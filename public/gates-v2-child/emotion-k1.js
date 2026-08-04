@@ -65,7 +65,13 @@
   function layout(icon, title, content, label) { return `<div class="scene" role="img" aria-label="${escapeHtml(label)}"><div class="gate"><span class="scene-icon" aria-hidden="true">${icon}</span></div><div class="companions" aria-hidden="true">👸🏾 ✦ 🦄</div></div><div class="copy"><h1>${escapeHtml(title)}</h1>${content}</div>`; }
   function iconFor(id) { return /adult/.test(id) ? '🧑‍🤝‍🧑' : /space/.test(id) ? '🌿' : /push/.test(id) ? '🧱' : /breath|pause/.test(id) ? '🌬️' : /face|hand|heart|body/.test(id) ? '🫶' : '✦'; }
   function escapeHtml(value) { const span = document.createElement('span'); span.textContent = String(value); return span.innerHTML.replace(/"/g, '&quot;'); }
-  function showError(error) { task.querySelector('.error')?.remove(); task.querySelector('.copy')?.insertAdjacentHTML('beforeend', `<p class="error" role="alert">${escapeHtml(error.message)}</p>`); }
+  function showError(error) {
+    task.querySelector('.error')?.remove();
+    const message = error && error.message ? error.message : 'This path needs a fresh start.';
+    const restart = '<button type="button" id="restart-after-error">Start again</button>';
+    task.querySelector('.copy')?.insertAdjacentHTML('beforeend', `<div class="error" role="alert"><p>${escapeHtml(message)}</p><div class="actions">${restart}</div></div>`);
+    task.querySelector('#restart-after-error')?.addEventListener('click', () => { sessionId = null; welcome(); });
+  }
   function bindCommon() { task.querySelectorAll('[data-speak]').forEach((button) => button.addEventListener('click', () => speak(button.dataset.speak))); }
   function speak(text) { if (!('speechSynthesis' in window)) return showError(new Error('Read to Me is not available in this browser. The words are here to read together.')); window.speechSynthesis.cancel(); window.speechSynthesis.speak(new SpeechSynthesisUtterance(text)); }
 
@@ -73,10 +79,10 @@
   document.querySelector('#exit-button').addEventListener('click', async () => {
     const result = sessionId ? await request(`/session/${sessionId}/exit`, { method: 'POST', body: '{}' }).catch(() => null) : null;
     const summary = result?.summary || { gate_practiced: 'Emotion Gate', experience_status: 'not started', tools_introduced: ['Notice, pause, and choose'], paths_explored: 0, repair_practiced: false, family_practice: 'Name emotional weather together.' };
-    document.querySelector('#summary-content').innerHTML = `<ul class="summary-list"><li><strong>Practiced:</strong> ${escapeHtml(summary.gate_practiced)}</li><li><strong>Experience:</strong> ${escapeHtml(summary.experience_status)}</li><li><strong>Tools:</strong> ${summary.tools_introduced.map(escapeHtml).join(', ')}</li><li><strong>Paths explored:</strong> ${summary.paths_explored}</li><li><strong>Repair practiced:</strong> ${summary.repair_practiced ? 'Yes' : 'Not yet'}</li></ul><p><strong>Try together:</strong> ${escapeHtml(summary.family_practice)}</p><p>This is temporary in-memory pilot information. It is not saved.</p>`;
+    document.querySelector('#summary-content').innerHTML = `<ul class="summary-list"><li><strong>Practiced:</strong> ${escapeHtml(summary.gate_practiced)}</li><li><strong>Experience:</strong> ${escapeHtml(summary.experience_status)}</li><li><strong>Tools:</strong> ${summary.tools_introduced.map(escapeHtml).join(', ')}</li><li><strong>Paths explored:</strong> ${summary.paths_explored}</li><li><strong>Repair practiced:</strong> ${summary.repair_practiced ? 'Yes' : 'Not yet'}</li></ul><p><strong>Try together:</strong> ${escapeHtml(summary.family_practice)}</p><p>This early Gates learning summary stays local to this temporary session and is not saved.</p>`;
     summaryDialog.showModal();
   });
   document.querySelector('#keep-going').addEventListener('click', () => summaryDialog.close());
-  document.querySelector('#leave-pilot').addEventListener('click', () => { summaryDialog.close(); sessionId = null; welcome(); });
+  document.querySelector('#leave-summary').addEventListener('click', () => { summaryDialog.close(); sessionId = null; welcome(); });
   welcome();
 })();

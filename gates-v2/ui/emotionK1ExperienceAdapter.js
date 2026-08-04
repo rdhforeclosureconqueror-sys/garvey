@@ -6,7 +6,7 @@ const { reduceExperience, ACTION_TYPES } = require('../engine');
 
 const SAFE_PROJECTION_KEYS = Object.freeze(['fixture_id', 'revision', 'status', 'gate_title', 'current_node', 'permitted_controls']);
 
-class EmotionK1PilotAdapter {
+class EmotionK1ExperienceAdapter {
   constructor({ id = () => crypto.randomUUID() } = {}) {
     this.id = id;
     this.sessions = new Map();
@@ -22,16 +22,16 @@ class EmotionK1PilotAdapter {
 
   getCurrentProjection(sessionId) {
     const record = this.sessions.get(sessionId);
-    if (!record) return { ok: false, status: 404, error: 'Pilot session was not found. Please start again.' };
+    if (!record) return { ok: false, status: 404, error: 'Experience session was not found. Please start again.' };
     const projected = reduceExperience({ experience, session: record.state, action: { type: 'NOT_A_TRANSITION' } }).projection;
     return { ok: true, session_id: sessionId, projection: this.#decorate(projected), summary: this.#summary(record) };
   }
 
-  submitAction(sessionId, action) {
+  submitAction(sessionId, action, internal = false) {
     const record = this.sessions.get(sessionId);
-    if (!record) return { ok: false, status: 404, error: 'Pilot session was not found. Please start again.' };
+    if (!record) return { ok: false, status: 404, error: 'Experience session was not found. Please start again.' };
     const node = record.state.current_node_id;
-    const normalized = this.#normalizeAction(node, action);
+    const normalized = this.#normalizeAction(node, action, internal);
     const result = reduceExperience({ experience, session: record.state, action: normalized });
     if (!result.valid) return this.#failure(result);
     record.state = result.nextSession;
@@ -41,21 +41,25 @@ class EmotionK1PilotAdapter {
   }
 
   replay(sessionId) {
-    return this.submitAction(sessionId, { type: ACTION_TYPES.REPLAY, origin_node_id: 'first_action' });
+    return this.submitAction(sessionId, { type: ACTION_TYPES.REPLAY, origin_node_id: 'first_action' }, true);
   }
 
   restart(sessionId) {
-    return this.submitAction(sessionId, { type: ACTION_TYPES.RESTART });
+    return this.submitAction(sessionId, { type: ACTION_TYPES.RESTART }, true);
   }
 
   exit(sessionId) {
     const record = this.sessions.get(sessionId);
-    if (!record) return { ok: false, status: 404, error: 'Pilot session was not found.' };
+    if (!record) return { ok: false, status: 404, error: 'Experience session was not found.' };
     return { ok: true, summary: this.#summary(record) };
   }
 
-  #normalizeAction(nodeId, action = {}) {
-    if (action.type) return { type: action.type, option_id: action.option_id, node_id: nodeId, origin_node_id: action.origin_node_id };
+  #normalizeAction(nodeId, action = {}, internal = false) {
+    if (!action || typeof action !== 'object' || Array.isArray(action)) return { type: 'UNSUPPORTED_ACTION', node_id: nodeId };
+    if (internal && action.type) return { type: action.type, option_id: action.option_id, node_id: nodeId, origin_node_id: action.origin_node_id };
+    const allowedKeys = new Set(['option_id']);
+    if (Object.keys(action).some((key) => !allowedKeys.has(key))) return { type: 'UNSUPPORTED_ACTION', node_id: nodeId };
+    if (action.option_id !== undefined && typeof action.option_id !== 'string') return { type: 'UNSUPPORTED_ACTION', node_id: nodeId };
     const node = experience.nodes.find((candidate) => candidate.node_id === nodeId);
     const types = { content: ACTION_TYPES.VIEW_NODE, notice: ACTION_TYPES.SELECT_CHOICE, choice: ACTION_TYPES.SELECT_CHOICE, practice: ACTION_TYPES.COMPLETE_PRACTICE, reflection: ACTION_TYPES.COMPLETE_REFLECTION };
     return { type: types[node?.node_type], option_id: action.option_id, node_id: nodeId };
@@ -65,7 +69,7 @@ class EmotionK1PilotAdapter {
     if (!projection) return null;
     const safe = Object.fromEntries(SAFE_PROJECTION_KEYS.filter((key) => projection[key] !== undefined).map((key) => [key, projection[key]]));
     safe.gate_title = 'Emotion Gate';
-    safe.pilot_notice = 'Example-only pilot — not canonical or published content';
+    safe.experience_notice = 'Early Gates learning experience — example-only and not official curriculum';
     return safe;
   }
 
@@ -89,4 +93,4 @@ class EmotionK1PilotAdapter {
   }
 }
 
-module.exports = { EmotionK1PilotAdapter, SAFE_PROJECTION_KEYS };
+module.exports = { EmotionK1ExperienceAdapter, SAFE_PROJECTION_KEYS };
