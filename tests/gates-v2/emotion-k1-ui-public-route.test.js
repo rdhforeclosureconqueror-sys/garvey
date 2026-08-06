@@ -55,3 +55,11 @@ test('static frontend directory has an index entrypoint for /gates-v2-child/', (
   assert.match(index, /\/gates-v2-child\/emotion-k1.css/);
   assert.match(index, /\/gates-v2-child\/emotion-k1.js/);
 });
+
+test('static frontend directory has an index entrypoint for /gates-v2-child/', () => {
+  const fs = require('node:fs');
+  const index = fs.readFileSync('public/gates-v2-child/index.html', 'utf8');
+  assert.match(index, /Emotion Gate Adventure/);
+  assert.match(index, /\/gates-v2-child\/emotion-k1.css/);
+  assert.match(index, /\/gates-v2-child\/emotion-k1.js/);
+});
