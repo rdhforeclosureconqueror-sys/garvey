@@ -52,3 +52,24 @@ test('safe diagnostic returns booleans/counts only and route availability flags'
   const diag = routes.slice(routes.indexOf("facilitator-control-center/diagnostic"), routes.indexOf("r.post('/api/admin/the-leader-within/recovery"));
   assert.doesNotMatch(diag, /email|token|reflection_text|response_text|leader_id/);
 });
+
+test('participant profile consumes the same completed-result-aware curriculum state as cohort and youth views', () => {
+  assert.match(service, /const canonicalProfile=await resolveFacilitatorParticipantCurriculumState/);
+  assert.match(service, /profile:canonicalProfile/);
+  assert.match(service, /assessment_result:canonicalProfile\.assessment/);
+  assert.match(service, /assessment:\{status:assessmentResult\.assessment_state,\.\.\.assessmentResult\}/);
+  assert.match(routes, /pr\.assessment\?\.status\|\|'not_available'/);
+  assert.match(routes, /pr\.assessment\?\.primary_archetype\|\|'Not available'/);
+  assert.match(routes, /pr\.assessment\?\.secondary_archetype\|\|'Not available'/);
+});
+
+test('profile story, mission, practice, activity, and dates render canonical safe state', () => {
+  assert.match(service, /completed_count:state\.weekly_stories\.filter\(x=>x\.completed\)\.length,assigned_count:state\.weekly_stories\.length/);
+  assert.match(service, /completed_count:state\.progress\.completed_count,required_count:state\.progress\.required_count/);
+  assert.match(service, /safeActivities=.*Assessment completed/s);
+  assert.match(routes, /Mission Progress:.*completed_count.*required_count.*percent_complete/);
+  assert.match(routes, /pr\.practice\?\.selected\?\.practice_source/);
+  assert.match(routes, /formatLeaderWithinDate\(p\.assessment_result\?\.completed_at\)/);
+  assert.match(routes, /timeZone:"UTC",timeZoneName:"short"/);
+  assert.doesNotMatch(routes, /esc\(p\.assessment_result\?\.completed_at\|\|'Not completed'\)/);
+});
