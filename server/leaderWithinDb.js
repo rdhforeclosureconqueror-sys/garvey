@@ -407,6 +407,11 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS reviewed_by_facilitator_account_id INTEGER REFERENCES leader_within_facilitator_accounts(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_assessment_snapshots ADD COLUMN IF NOT EXISTS retake_allowed BOOLEAN NOT NULL DEFAULT FALSE;
     ALTER TABLE leader_within_assessment_snapshots ADD COLUMN IF NOT EXISTS retake_reason TEXT;
+    -- participant_id is a legacy users(id) relationship. Canonical youth accounts live
+    -- in leader_within_participants, so preserve the legacy column and add the correct FK.
+    ALTER TABLE leader_within_assessment_snapshots ADD COLUMN IF NOT EXISTS leader_within_participant_id INTEGER REFERENCES leader_within_participants(id) ON DELETE CASCADE;
+    CREATE INDEX IF NOT EXISTS leader_within_assessment_snapshots_lw_participant_idx
+      ON leader_within_assessment_snapshots(leader_within_participant_id);
 
     DO $$ BEGIN
       -- legacy test marker: leader_within_cohorts_status_check CHECK (status IN ('active','ready','archived','completed')) NOT VALID
