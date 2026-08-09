@@ -552,6 +552,10 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS cohort_id INTEGER REFERENCES leader_within_cohorts(id) ON DELETE SET NULL;
     ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS session_code TEXT NOT NULL DEFAULT 'A';
     ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS completed_at TIMESTAMP;
+    ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS practice_source TEXT NOT NULL DEFAULT 'manual';
+    ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS source_result_id INTEGER REFERENCES leader_within_assessment_snapshots(id) ON DELETE SET NULL;
+    ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS source_archetype TEXT;
+    ALTER TABLE leader_within_practice_selections ADD COLUMN IF NOT EXISTS source_label TEXT;
     ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS mission_id TEXT;
     ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS story_id TEXT;
     ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS selected_practice_id TEXT;
