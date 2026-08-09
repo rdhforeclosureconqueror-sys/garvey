@@ -31,6 +31,29 @@ test('all five neutral engagement checkpoints are present',()=>{
  assert.match(ui,/direction and goals/);assert.match(ui,/structure or support/);assert.match(ui,/people and changing situations/);assert.match(ui,/pressure rises or plans change/);assert.match(ui,/ready to be discovered/);
  assert.doesNotMatch(ui,/your score is|your archetype is|right answer/i);
 });
+test('assessment contrast and control states remain accessible',()=>{
+ assert.match(css,/--assessment-primary:#17213b/);
+ assert.match(css,/\.question-card legend\{color:var\(--assessment-primary\)/);
+ assert.match(css,/\.choice\{[^}]*color:var\(--assessment-primary\)/);
+ assert.match(css,/\.progress-copy\{[^}]*color:var\(--assessment-secondary\)/);
+ assert.match(css,/\.choice\.selected::after\{content:'✓'/);
+ assert.match(css,/\.assessment-actions \.btn:disabled\{/);
+ assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
+ assert.match(routes,/id="continueButton" type="button" disabled/);
+ assert.match(routes,/id="saveExitButton"[^>]*>Save and Exit/);
+ assert.match(routes,/Your progress will be saved\./);
+ assert.match(routes,/role="progressbar"[^>]*aria-valuemin="1"[^>]*aria-valuemax="\$\{d\.question_count\}"[^>]*aria-valuenow="1"/);
+});
+test('radio cards and navigation update without changing assessment answers',()=>{
+ assert.match(ui,/<label class="choice/);
+ assert.match(ui,/type="radio" name="answer"/);
+ assert.match(ui,/class="choice-text"/);
+ assert.match(ui,/next\.disabled=!answers\[q\.question_id\]/);
+ assert.match(ui,/back\.disabled=index===0/);
+ assert.match(ui,/next\.disabled=false/);
+ assert.match(ui,/classList\.toggle\('selected'/);
+ assert.match(ui,/if\(index>0\)\{index--;renderQuestion\(\);\}/);
+});
 test('canonical youth bank and existing scoring engine remain selected',()=>{
  assert.match(service,/leadership\.youth\.bank1\.js/);assert.match(service,/bankId:"AUTHORED_BANK_1"/);assert.match(service,/scoreEngineAssessment\("leadership",answers/);
  assert.match(service,/content_variant:"youth"/);assert.match(service,/audience:"youth"/);
