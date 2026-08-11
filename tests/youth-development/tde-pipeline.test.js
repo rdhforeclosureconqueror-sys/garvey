@@ -93,3 +93,85 @@ test('end-to-end pipeline determinism and persistence calls', async () => {
   assert.ok(first.extracted_signals.length > 0);
   assert.ok(calls.some((entry) => entry[0] === 'audit'));
 });
+
+test('pipeline integrates intervention session evidence deterministically via contracts', async () => {
+  const repository = {
+    async persistSignals() {},
+    async persistTraitScores() {},
+    async persistStatements() {},
+    async persistCalibrationRef() {},
+    async persistAuditLog() {},
+  };
+
+  const input = {
+    schema_version: '2.0',
+    child_id: 'child-p8-pipeline',
+    session_id: 'sess-p8-pipeline',
+    evidence: sampleEvidence().evidence,
+    intervention_session_evidence: {
+      child_id: 'child-p8-pipeline',
+      session_id: 'sess-p8-intervention',
+      completed_at: '2026-04-12T10:00:00.000Z',
+      selected_activity_ids: ['rbr_breathe_count_01', 'attn_body_scan_01', 'chal_focus_ladder_01', 'refl_coach_prompt_01'],
+      component_completion_flags: {
+        RULE_BASED_REGULATION: true,
+        ATTENTION_MINDFULNESS: true,
+        CHALLENGE_SUSTAINED_FOCUS: true,
+        REFLECTION_COACHING: true,
+      },
+      duration_minutes: 30,
+      challenge_level: 'moderate',
+      parent_coaching_style: 'supportive',
+      child_effort_rating: 4,
+      frustration_recovery_level: 'recovered_with_prompt',
+      focus_duration_minutes: 20,
+      prompting_needed: 'low',
+      child_choice_count: 2,
+      reflection_response: 'I can do this',
+      notes: 'steady',
+    },
+  };
+
+  const first = await runTdePipeline(input, repository);
+  const second = await runTdePipeline(input, repository);
+
+  assert.equal(first.ok, true);
+  assert.deepEqual(first, second);
+  assert.equal(first.intervention_signal_evidence.length, 3);
+  const interventionSignals = first.extracted_signals.filter((entry) => entry.evidence_status_tag === 'INTERVENTION_SESSION_LOG');
+  assert.equal(interventionSignals.length, 3);
+});
+
+test('pipeline rejects invalid intervention evidence through session contract', async () => {
+  const repository = {
+    async persistSignals() { throw new Error('should_not_persist'); },
+    async persistTraitScores() { throw new Error('should_not_persist'); },
+    async persistStatements() { throw new Error('should_not_persist'); },
+    async persistCalibrationRef() { throw new Error('should_not_persist'); },
+    async persistAuditLog() { throw new Error('should_not_persist'); },
+  };
+
+  const result = await runTdePipeline({
+    child_id: 'child-p8-pipeline-invalid',
+    intervention_session_evidence: {
+      child_id: 'child-p8-pipeline-invalid',
+      session_id: 'sess-bad',
+      selected_activity_ids: ['rbr_breathe_count_01'],
+      component_completion_flags: { RULE_BASED_REGULATION: true },
+      duration_minutes: 20,
+      challenge_level: 'moderate',
+      parent_coaching_style: 'supportive',
+      child_effort_rating: 2,
+      frustration_recovery_level: 'needed_help',
+      focus_duration_minutes: 10,
+      prompting_needed: 'high',
+      child_choice_count: 0,
+      reflection_response: '',
+      notes: 'bad',
+    },
+  }, repository);
+
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'intervention_session_evidence_invalid');
+  assert.equal(result.contract_id, 'phase8_session_evidence_contract_v1');
+});
