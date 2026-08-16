@@ -4,7 +4,12 @@ const assert = require('node:assert/strict');
 const svc = require('../server/leaderWithinService');
 
 function req(overrides = {}) { return { headers: {}, query: {}, body: {}, params: {}, ...overrides }; }
-function actor(role = 'youth_participant', extra = {}) { return { authActor: { userId: 7, email: 'youth@example.com', role, tenantSlug: 'tenant-a', isAdmin: false, ...extra } }; }
+function actor(role = 'youth_participant', extra = {}) {
+  if (role === 'youth_participant') {
+    return { leaderWithinYouthActor: { authenticated: true, actor_type: role, user_id: 7, participant_id: 7, email: 'youth@example.com', active_tenant_slug: 'tenant-a', role, ...extra } };
+  }
+  return { authActor: { userId: 7, email: 'youth@example.com', role, tenantSlug: 'tenant-a', isAdmin: false, ...extra } };
+}
 function poolWithEnrollment(row) {
   const queries = [];
   return { queries, async query(sql, params) { queries.push({ sql, params }); if (/FROM leader_within_program_enrollments e JOIN users u/.test(sql) && /e.participant_id=\$1/.test(sql)) return { rows: row ? [row] : [] }; if (/leader_within_practice_selections/.test(sql) || /leader_within_session_progress/.test(sql) || /leader_within_assessment_snapshots/.test(sql)) return { rows: [] }; return { rows: [] }; } };
