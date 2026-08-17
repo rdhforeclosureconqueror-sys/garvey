@@ -1,15 +1,16 @@
 # Pocket PT Integration Phase Status
 
-CURRENT PHASE: G4.5 — Cross-Repository Contract Reconciliation
+CURRENT PHASE: G5 — Youth Leader Within Movement UI
 CURRENT SUBPHASE: None
 STATUS: COMPLETE
-COMMIT: pending (replace with the G4.5 implementation commit)
-TESTS: 15/15 contract-focused; 175/175 combined Leader Within/integration regression; 8/8 migration idempotency
+IMPLEMENTED: YES
 AUTOMATED VERIFIED: YES
 STAGING VERIFIED: NO
 LIVE USER VERIFIED: NO
-BLOCKERS: None
-NEXT PHASE: G5 — Youth Leader Within Movement UI
+COMMIT: assigned by the G5 repository commit; see final delivery record
+TESTS: focused and full-suite counts recorded in the G5 final delivery
+BLOCKERS: Staging, live-user, and physical mobile verification were not performed; these are not repository-level G5 blockers and remain owned by later verification phases.
+NEXT PHASE: G6 — Facilitator Pocket PT Visibility
 
 ## Canonical roadmap
 
@@ -21,8 +22,8 @@ NEXT PHASE: G5 — Youth Leader Within Movement UI
 | G3 — Pocket PT Event Receiver | COMPLETE |
 | G4 — Movement Completion Adapter | COMPLETE |
 | G4.5 — Cross-Repository Contract Reconciliation | COMPLETE |
-| G5 — Youth Leader Within Movement UI | NOT STARTED / NEXT |
-| G6 — Facilitator Pocket PT Visibility | NOT STARTED |
+| G5 — Youth Leader Within Movement UI | COMPLETE |
+| G6 — Facilitator Pocket PT Visibility | NOT STARTED / NEXT |
 | G7 — Cross-System Synthetic Staging Verification | NOT STARTED |
 | G8 — Production Service Authentication & Environment Hardening | NOT STARTED |
 | G9 — Operational Recovery, Diagnostics & Observability | NOT STARTED |
@@ -30,4 +31,4 @@ NEXT PHASE: G5 — Youth Leader Within Movement UI
 
 ## Verification meaning
 
-`AUTOMATED VERIFIED` covers local contract, security, Leader Within regression, and migration-idempotency tests. It does not imply deployed Pocket PT interoperability. G7 owns synthetic staging verification; G10 owns production verification. Debugging must change status to `BLOCKED_BY_DEBUGGING` without removing this roadmap, then to `RESUMED` when work continues.
+`AUTOMATED VERIFIED` covers repository tests only. It does not claim deployed Pocket PT interoperability, staging, a live user, or physical-device checks. G7 owns synthetic staging verification and G10 owns production verification.

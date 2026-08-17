@@ -7,3 +7,5 @@
 * **G9:** safe operational diagnostics, structured request IDs, replay counters, and recovery tooling.
 * **G10:** final staging/mobile/security/outage/data-preservation production verification.
 * Authorized facilitator override policy remains deferred. Local movement completion remains development-only migration support.
+* **Post-G5 return refresh:** bounded automatic refresh was not necessary for repository-level G5; return currently rereads durable state on page load. Cross-system timing verification remains G7.
+* **G5 manual verification:** browser/device, staging, and live-user checklist execution remains pending because no deployed staging youth/Pocket PT test path was used in this phase.
