@@ -11,3 +11,7 @@
 9. **Bounded V1 events.** V1 accepts only NOT_STARTED, IN_PROGRESS, COMPLETED, SAFETY_HOLD, TEMPORARILY_UNAVAILABLE, and CANCELLED provider events. Broader bridge display states remain mapping outputs, not raw provider inputs.
 10. **Minimum-data allowlist.** Provider event bodies reject unknown fields, including Pocket PT program/session identifiers and all health, readiness, safety-reason, and exercise detail.
 11. **Fixture pinning.** Compact JSON fixtures and their SHA-256 manifest are the cross-repository compatibility artifact. Event signing uses the documented compact JSON field order and a timestamp prefix.
+12. **G5 source resolution.** A current Pocket PT assignment, or explicit `LEADER_WITHIN_MOVEMENT_SOURCE=POCKETPT` configuration, selects the Pocket PT card; otherwise the established LOCAL flow remains authoritative.
+13. **One youth projection.** `resolveLeaderWithinPocketPtMovementState` is the only youth-facing mapping; templates consume its allowlisted fields and never provider internals.
+14. **Launch is progress, not completion.** Launch may set `IN_PROGRESS`, returns only the navigation URL plus provider/status, and cannot write MOVE completion.
+15. **No bypass.** Pocket PT-backed cards never render or accept local manual completion, including during safety hold or outage.

@@ -9,6 +9,8 @@ const EVENT_STATUSES = new Set(["NOT_STARTED", "IN_PROGRESS", "COMPLETED", "SAFE
 const EVENT_TYPES = new Set(["fitness_assignment.not_started", "fitness_assignment.in_progress", "fitness_assignment.completed", "fitness_assignment.safety_hold", "fitness_assignment.temporarily_unavailable", "fitness_assignment.cancelled"]);
 const ASSIGNMENT_STATUS = Object.fromEntries([...EVENT_STATUSES].map(status => [status, status]));
 const EVENT_FIELDS = new Set(["contract", "contract_version", "event_id", "event_type", "provider", "source_application", "assignment_ref", "status", "completed_at"]);
+const YOUTH_STATUSES = new Set(["NOT_CONNECTED","CONNECTED_NO_PROFILE","PROFILE_READY","PROGRAM_READY","NOT_ASSIGNED","NOT_STARTED","IN_PROGRESS","COMPLETED","SAFETY_HOLD","TEMPORARILY_UNAVAILABLE","COACH_REVIEW","CANCELLED"]);
+const STATUS_COPY = Object.freeze({NOT_CONNECTED:"Pocket PT is not connected yet.",CONNECTED_NO_PROFILE:"Your fitness profile is still being prepared.",PROFILE_READY:"Your fitness program is being prepared.",PROGRAM_READY:"Your next movement mission is being prepared.",NOT_ASSIGNED:"Your next movement mission is being prepared.",NOT_STARTED:"Your Pocket PT movement mission is ready.",IN_PROGRESS:"Your Pocket PT movement mission is in progress.",COMPLETED:"Movement Mission Complete",SAFETY_HOLD:"Check with your coach or supervising adult before continuing this movement mission.",TEMPORARILY_UNAVAILABLE:"Pocket PT is temporarily unavailable. Your progress is safe. Try again later.",COACH_REVIEW:"Your movement mission needs coach review before continuing.",CANCELLED:"This movement mission is no longer active."});
 
 function integrationError(status, code, message) { const error=new Error(message); error.status=status; error.code=code; error.stage="pocketpt_integration"; return error; }
 function base64url(value) { return Buffer.from(value).toString("base64url"); }
@@ -42,6 +44,16 @@ function buildLaunchClaims({assignmentRef, subjectRef, week, session, now=Math.f
   return {contract:CONTRACT,contract_version:VERSION,iss:"GARVEY",aud:"POCKET_PT",assignment_ref:assignmentRef,subject_ref:subjectRef,provider:PROVIDER,source_application:"leader_within",requirement_type:"POCKET_PT_SESSION",leader_within_context:{week:Number(week),session:String(session).toUpperCase()},return_url:returnUrl,iat:now,exp:now+300,jti};
 }
 
+function boundedStatus(raw) { const status=String(raw||"").toUpperCase(); if(status==="CREATED") return "NOT_STARTED"; if(status==="LAUNCHED") return "IN_PROGRESS"; return YOUTH_STATUSES.has(status)?status:"TEMPORARILY_UNAVAILABLE"; }
+async function resolveLeaderWithinPocketPtMovementState(pool,{enrollmentId,weekNumber,sessionCode,localMovement,completed=false}={}) {
+  let assignment; try { assignment=(await pool.query(`SELECT status,completed_at FROM leader_within_external_fitness_assignments WHERE enrollment_id=$1 AND week_number=$2 AND session_code=$3 AND provider='POCKET_PT' ORDER BY id DESC LIMIT 1`,[enrollmentId,Number(weekNumber),String(sessionCode||"A").toUpperCase()])).rows[0]; } catch(error) { if(!String(error?.message||"").includes("unexpected SQL")) throw error; }
+  const configured=String(process.env.LEADER_WITHIN_MOVEMENT_SOURCE||"LOCAL").toUpperCase()==="POCKETPT";
+  if(!assignment&&!configured) return {movement_source:"LOCAL",required:true,provider:null,status:completed?"COMPLETED":"NOT_STARTED",status_text:completed?"Movement Mission Complete":"Ready",launch_available:false,display_name:String(localMovement||"Movement mission"),completed_at:null};
+  let status=boundedStatus(assignment?.status||"NOT_STARTED");
+  if(String(process.env.POCKETPT_ENABLED||"false").toLowerCase()!=="true" && status!=="COMPLETED" && status!=="SAFETY_HOLD") status="TEMPORARILY_UNAVAILABLE";
+  return {movement_source:"POCKETPT",required:true,provider:"Pocket PT",status,status_text:STATUS_COPY[status],launch_available:["NOT_STARTED","IN_PROGRESS"].includes(status),display_name:"Complete today's Pocket PT movement mission.",completed_at:assignment?.completed_at||null};
+}
+
 async function launch(pool, req) {
   const actor=req.leaderWithinYouthActor;
   if(!actor?.authenticated || !actor.participant_id || !actor.active_enrollment_id) throw integrationError(401,"session_missing","A valid youth session is required.");
@@ -51,14 +63,15 @@ async function launch(pool, req) {
   const subject=(await pool.query(`INSERT INTO leader_within_integration_subjects (subject_ref,participant_id) VALUES ($1,$2) ON CONFLICT (participant_id,source_application) DO UPDATE SET participant_id=EXCLUDED.participant_id RETURNING subject_ref`,[opaqueRef("LWIS"),row.participant_id])).rows[0];
   const missionKey=`week-${row.week_number}-movement`;
   const assignment=(await pool.query(`INSERT INTO leader_within_external_fitness_assignments (assignment_ref,participant_id,enrollment_id,cohort_id,pathway_id,week_number,session_code,mission_key) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT (enrollment_id,week_number,session_code,mission_key,provider) DO UPDATE SET updated_at=NOW() RETURNING *`,[opaqueRef("LWFA"),row.participant_id,row.enrollment_id,row.cohort_id,row.program_id,row.week_number,String(row.session_code).toUpperCase(),missionKey])).rows[0];
+  if(!["CREATED","NOT_STARTED","IN_PROGRESS","LAUNCHED"].includes(String(assignment.status))) { const code=assignment.status==="SAFETY_HOLD"?"pocketpt_safety_hold":"pocketpt_launch_unavailable"; throw integrationError(409,code,assignment.status==="SAFETY_HOLD"?STATUS_COPY.SAFETY_HOLD:"This Pocket PT movement mission cannot be opened right now."); }
   const payload=buildLaunchClaims({assignmentRef:assignment.assignment_ref,subjectRef:subject.subject_ref,week:row.week_number,session:row.session_code});
   const {jti}=payload;
-  await pool.query(`UPDATE leader_within_external_fitness_assignments SET status=CASE WHEN status='CREATED' THEN 'LAUNCHED' ELSE status END,launched_at=COALESCE(launched_at,NOW()),updated_at=NOW() WHERE id=$1`,[assignment.id]);
+  await pool.query(`UPDATE leader_within_external_fitness_assignments SET status=CASE WHEN status IN ('CREATED','NOT_STARTED') THEN 'IN_PROGRESS' ELSE status END,launched_at=COALESCE(launched_at,NOW()),started_at=COALESCE(started_at,NOW()),updated_at=NOW() WHERE id=$1`,[assignment.id]);
   await pool.query(`INSERT INTO leader_within_audit_events (tenant_id,participant_id,cohort_id,event_type,metadata) SELECT tenant_id,$1,$2,'pocketpt_launch_issued',$3::jsonb FROM leader_within_program_enrollments WHERE id=$4`,[row.participant_id,row.cohort_id,JSON.stringify({assignment_ref:assignment.assignment_ref,jti}),row.enrollment_id]);
   const base=String(process.env.POCKETPT_BASE_URL||"").replace(/\/$/,"");
   if(!/^https:\/\//.test(base) && process.env.NODE_ENV==="production") throw integrationError(503,"pocketpt_integration_unavailable","Pocket PT integration is not configured securely.");
   const token=signLaunchToken(payload);
-  return {ok:true,assignment_ref:assignment.assignment_ref,status:assignment.status==="CREATED"?"LAUNCHED":assignment.status,expires_in_seconds:300,launch_url:`${base}/integrations/garvey/launch?context=${encodeURIComponent(token)}`};
+  return {ok:true,movement:{status:assignment.status==="COMPLETED"?"COMPLETED":"IN_PROGRESS",provider:"POCKETPT"},launch_url:`${base}/integrations/garvey/launch?context=${encodeURIComponent(token)}`};
 }
 
 function authenticateEvent(req) {
@@ -93,4 +106,4 @@ async function receiveEvent(pool, req) {
   } catch(error) { if(tx)await client.query("ROLLBACK").catch(()=>{}); throw error; } finally { if(client!==pool&&client.release)client.release(); }
 }
 
-module.exports={CONTRACT,VERSION,PROVIDER,EVENT_STATUSES,EVENT_FIELDS,buildLaunchClaims,canonicalEventBody,validateEvent,signLaunchToken,expectedEventSignature,authenticateEvent,launch,receiveEvent};
+module.exports={CONTRACT,VERSION,PROVIDER,EVENT_STATUSES,EVENT_FIELDS,YOUTH_STATUSES,STATUS_COPY,boundedStatus,resolveLeaderWithinPocketPtMovementState,buildLaunchClaims,canonicalEventBody,validateEvent,signLaunchToken,expectedEventSignature,authenticateEvent,launch,receiveEvent};
