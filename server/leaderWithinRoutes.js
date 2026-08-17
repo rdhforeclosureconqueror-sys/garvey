@@ -1,6 +1,7 @@
 "use strict";
 const express = require("express");
 const svc = require("./leaderWithinService");
+const pocketPt = require("./pocketPtIntegrationService");
 const { OWNER_SESSION_COOKIE, buildOwnerSessionCookie, sha256 } = require("./authService");
 const BUILD_COMMIT = process.env.RENDER_GIT_COMMIT || process.env.GIT_COMMIT || process.env.SOURCE_VERSION || "unknown";
 const BUILD_TIME = process.env.RENDER_DEPLOY_CREATED_AT || process.env.BUILD_TIME || process.env.RENDER_BUILD_TIMESTAMP || "unknown";
@@ -94,6 +95,8 @@ function createLeaderWithinRouter(pool){
  r.post('/api/the-leader-within/my-program/practice', asyncRoute(async(req,res)=>res.json(await svc.selectPractice(pool,req))));
  r.post('/api/the-leader-within/my-program/practice/complete', asyncRoute(async(req,res)=>res.json(await svc.completePractice(pool,req))));
  r.post('/api/the-leader-within/my-program/movement/complete', asyncRoute(async(req,res)=>res.json(await svc.completeMovement(pool,req))));
+ r.post('/api/the-leader-within/my-program/movement/launch', asyncRoute(async(req,res)=>res.json(await pocketPt.launch(pool,req))));
+ r.post('/api/integrations/pocketpt/events', asyncRoute(async(req,res)=>res.status(202).json(await pocketPt.receiveEvent(pool,req))));
  r.post('/api/the-leader-within/my-program/reflections', asyncRoute(async(req,res)=>res.json(await svc.submitReflection(pool,req))));
  r.post('/api/the-leader-within/my-program/shared-perspective', asyncRoute(async(req,res)=>res.json(await svc.submitSharedPerspective(pool,req))));
 

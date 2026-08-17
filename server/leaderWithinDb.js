@@ -562,6 +562,63 @@ async function applyLeaderWithinMigrations(pool) {
     ALTER TABLE leader_within_reflections ADD COLUMN IF NOT EXISTS facilitator_review_status TEXT NOT NULL DEFAULT 'pending_review';
   `);
 
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS leader_within_integration_subjects (
+      id BIGSERIAL PRIMARY KEY,
+      subject_ref TEXT NOT NULL UNIQUE,
+      participant_id INTEGER NOT NULL REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      source_application TEXT NOT NULL DEFAULT 'leader_within',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (participant_id, source_application)
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_external_fitness_assignments (
+      id BIGSERIAL PRIMARY KEY,
+      assignment_ref TEXT NOT NULL UNIQUE,
+      participant_id INTEGER NOT NULL REFERENCES leader_within_participants(id) ON DELETE CASCADE,
+      enrollment_id INTEGER NOT NULL REFERENCES leader_within_program_enrollments(id) ON DELETE CASCADE,
+      cohort_id INTEGER NOT NULL REFERENCES leader_within_cohorts(id) ON DELETE CASCADE,
+      pathway_id INTEGER REFERENCES leader_within_programs(id) ON DELETE SET NULL,
+      week_number INTEGER NOT NULL,
+      session_code TEXT NOT NULL,
+      mission_key TEXT NOT NULL,
+      provider TEXT NOT NULL DEFAULT 'POCKET_PT',
+      provider_assignment_ref TEXT,
+      provider_program_ref TEXT,
+      provider_session_ref TEXT,
+      status TEXT NOT NULL DEFAULT 'CREATED',
+      required_completion_type TEXT NOT NULL DEFAULT 'ONE_ASSIGNED_SESSION',
+      completion_source TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      launched_at TIMESTAMPTZ,
+      started_at TIMESTAMPTZ,
+      completed_at TIMESTAMPTZ,
+      cancelled_at TIMESTAMPTZ,
+      last_provider_sync_at TIMESTAMPTZ,
+      provider_event_id TEXT,
+      source_application TEXT NOT NULL DEFAULT 'leader_within',
+      metadata_json JSONB NOT NULL DEFAULT '{}'::jsonb,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (enrollment_id, week_number, session_code, mission_key, provider)
+    );
+    CREATE TABLE IF NOT EXISTS leader_within_integration_events (
+      id BIGSERIAL PRIMARY KEY,
+      event_id TEXT NOT NULL,
+      event_type TEXT NOT NULL,
+      provider TEXT NOT NULL,
+      assignment_ref TEXT,
+      status TEXT,
+      integration_version INTEGER NOT NULL,
+      occurred_at TIMESTAMPTZ,
+      received_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      processed_at TIMESTAMPTZ,
+      processing_result TEXT NOT NULL DEFAULT 'RECEIVED',
+      safe_error_code TEXT,
+      UNIQUE (provider, event_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_lw_fitness_assignment_owner ON leader_within_external_fitness_assignments (enrollment_id, week_number, session_code);
+    CREATE INDEX IF NOT EXISTS idx_lw_integration_event_assignment ON leader_within_integration_events (provider, assignment_ref);
+  `);
+
   await pool.query(`INSERT INTO leader_within_programs (slug,title,duration_weeks,version,status)
     VALUES ('the-leader-within-12-week','The Leader Within — 12-Week Program',12,'2026.07','active'),
            ('the-leader-within-8-week','The Leader Within — 8-Week Program',8,'2026.07','active'),
