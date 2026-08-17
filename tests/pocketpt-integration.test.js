@@ -6,9 +6,8 @@ const crypto = require("crypto");
 const pocketPt = require("../server/pocketPtIntegrationService");
 
 const validEvent = () => ({
-  event_id:"ppt_evt_synthetic_001", event_type:"fitness_assignment.completed", provider:"POCKET_PT",
-  assignment_ref:"LWFA-synthetic-assignment", provider_assignment_ref:"PPT-synthetic", status:"COMPLETED",
-  completed_at:"2026-08-16T20:00:00-05:00", program_ref:"ppt-program", session_ref:"ppt-session", integration_version:1
+  contract:"leader_within_pocketpt_bridge_v1", contract_version:1, event_id:"ppt_evt_synthetic_001", event_type:"fitness_assignment.completed", provider:"POCKET_PT", source_application:"pocketpt",
+  assignment_ref:"LWFA-synthetic-assignment", status:"COMPLETED", completed_at:"2026-08-17T01:00:00.000Z"
 });
 
 test("launch JWT carries only the documented signed context", () => {
@@ -25,7 +24,7 @@ test("event schema accepts the minimal V1 completion contract", () => {
 });
 
 test("event schema rejects unsupported versions, statuses, and identity-shaped references", () => {
-  assert.throws(()=>pocketPt.validateEvent({...validEvent(),integration_version:2}),{code:"pocketpt_event_version_unsupported"});
+  assert.throws(()=>pocketPt.validateEvent({...validEvent(),contract_version:2}),{code:"pocketpt_event_version_unsupported"});
   assert.throws(()=>pocketPt.validateEvent({...validEvent(),status:"SUCCESS"}),{code:"pocketpt_status_invalid"});
   assert.throws(()=>pocketPt.validateEvent({...validEvent(),assignment_ref:"42"}),{code:"pocketpt_event_invalid"});
 });
@@ -33,7 +32,7 @@ test("event schema rejects unsupported versions, statuses, and identity-shaped r
 test("event authentication binds issuer, audience, timestamp, and body signature", () => {
   process.env.POCKETPT_EVENT_SIGNING_SECRET="event-secret";
   const body=validEvent(), timestamp=new Date().toISOString();
-  const req={body,headers:{"x-pocketpt-timestamp":timestamp,"x-pocketpt-issuer":"POCKET_PT","x-pocketpt-audience":"GARVEY","x-pocketpt-signature":`sha256=${pocketPt.expectedEventSignature(body,timestamp)}`}};
+  const req={body,headers:{"content-type":"application/json","x-pocketpt-timestamp":timestamp,"x-pocketpt-issuer":"POCKET_PT","x-pocketpt-audience":"GARVEY","x-pocketpt-signature":`sha256=${pocketPt.expectedEventSignature(body,timestamp)}`}};
   assert.doesNotThrow(()=>pocketPt.authenticateEvent(req));
   assert.throws(()=>pocketPt.authenticateEvent({...req,headers:{...req.headers,"x-pocketpt-audience":"BROWSER"}}),{code:"pocketpt_auth_failed"});
   assert.throws(()=>pocketPt.authenticateEvent({...req,body:{...body,status:"ERROR"}}),{code:"pocketpt_signature_invalid"});
@@ -42,6 +41,6 @@ test("event authentication binds issuer, audience, timestamp, and body signature
 test("events outside the replay window are rejected", () => {
   process.env.POCKETPT_EVENT_SIGNING_SECRET="event-secret";
   const body=validEvent(), timestamp=new Date(Date.now()-6*60*1000).toISOString();
-  const req={body,headers:{"x-pocketpt-timestamp":timestamp,"x-pocketpt-issuer":"POCKET_PT","x-pocketpt-audience":"GARVEY","x-pocketpt-signature":pocketPt.expectedEventSignature(body,timestamp)}};
+  const req={body,headers:{"content-type":"application/json","x-pocketpt-timestamp":timestamp,"x-pocketpt-issuer":"POCKET_PT","x-pocketpt-audience":"GARVEY","x-pocketpt-signature":pocketPt.expectedEventSignature(body,timestamp)}};
   assert.throws(()=>pocketPt.authenticateEvent(req),{code:"pocketpt_event_replayed"});
 });
