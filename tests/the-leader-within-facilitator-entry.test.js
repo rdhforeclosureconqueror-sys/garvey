@@ -408,6 +408,21 @@ test('deployment version marker returns safe commit and TLW cookie schema data',
   assert.equal(res.body.tlw_cookie_version, 'v2-root-path');
   assert.ok('commit' in res.body);
   assert.ok('build_time' in res.body);
+  assert.deepEqual(res.body.pocketpt_integration, {
+    contract_name: 'leader_within_pocketpt_bridge_v1',
+    contract_version: 1,
+    provider: 'POCKETPT',
+    routes: {
+      launch: 'POST /api/the-leader-within/my-program/movement/launch',
+      provider_event_receiver: 'POST /api/integrations/pocketpt/events',
+    },
+    handler_versions: {
+      integration: 'garvey-pocketpt-integration-v1',
+      launch: 'garvey-pocketpt-launch-v1',
+      provider_event_receiver: 'garvey-pocketpt-event-receiver-v1',
+      movement_adapter: 'garvey-pocketpt-movement-adapter-v1',
+    },
+  });
   assert.equal(res.headers['x-tlw-cookie-version'], 'v2-root-path');
 });
 
@@ -640,4 +655,3 @@ test('deployment version reports add participant and participant post handler ve
   assert.equal(res.body.leader_within_add_participant_get_version, 'add-participant-form-v2');
   assert.equal(res.body.leader_within_participant_post_version, 'participant-create-v2');
 });
-

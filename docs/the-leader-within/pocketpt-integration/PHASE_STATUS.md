@@ -1,16 +1,17 @@
 # Pocket PT Integration Phase Status
 
-CURRENT PHASE: G6 — Facilitator Pocket PT Visibility
-CURRENT SUBPHASE: None
-STATUS: COMPLETE
+CURRENT PHASE: G7 — Cross-System Synthetic Staging Verification
+CURRENT SUBPHASE: Synthetic staging access gate
+STATUS: BLOCKED_BY_STAGING_ACCESS
 IMPLEMENTED: YES
 AUTOMATED VERIFIED: YES
 STAGING VERIFIED: NO
 LIVE USER VERIFIED: NO
-COMMIT: recorded by the G6 implementation commit; see final delivery record
-TESTS: focused 75/75 passed; full suite reached 722 tests (689 passed, 33 failed) before a 120-second timeout prevented the runner summary
-BLOCKERS: Staging, live-user, and physical mobile verification were not performed. The full suite has 33 pre-existing unrelated GameHub/content failures and a test-harness timeout after test 722; no G6-focused failures remain.
-NEXT PHASE: G7 — Cross-System Synthetic Staging Verification
+GARVEY COMMIT: G7 verification commit (see Git history); deployed commit not observable
+POCKET PT COMMIT: not observable
+TESTS: G7 repository regression results are recorded in STAGING_VERIFICATION.md and the delivery record
+BLOCKERS: No Garvey/Pocket PT staging URLs, deployment configuration access, synthetic credentials, Pocket PT repository/runtime, event signing access, or physical mobile device were available. No staging claim was inferred.
+NEXT PHASE: REMAIN G7
 
 ## Canonical roadmap
 
@@ -24,7 +25,7 @@ NEXT PHASE: G7 — Cross-System Synthetic Staging Verification
 | G4.5 — Cross-Repository Contract Reconciliation | COMPLETE |
 | G5 — Youth Leader Within Movement UI | COMPLETE |
 | G6 — Facilitator Pocket PT Visibility | COMPLETE |
-| G7 — Cross-System Synthetic Staging Verification | NOT STARTED |
+| G7 — Cross-System Synthetic Staging Verification | BLOCKED_BY_STAGING_ACCESS |
 | G8 — Production Service Authentication & Environment Hardening | NOT STARTED |
 | G9 — Operational Recovery, Diagnostics & Observability | NOT STARTED |
 | G10 — Launch Readiness / Production Verification | NOT STARTED |
