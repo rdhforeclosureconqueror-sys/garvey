@@ -15,3 +15,6 @@
 13. **One youth projection.** `resolveLeaderWithinPocketPtMovementState` is the only youth-facing mapping; templates consume its allowlisted fields and never provider internals.
 14. **Launch is progress, not completion.** Launch may set `IN_PROGRESS`, returns only the navigation URL plus provider/status, and cannot write MOVE completion.
 15. **No bypass.** Pocket PT-backed cards never render or accept local manual completion, including during safety hold or outage.
+16. **G6 facilitator projection.** `resolveFacilitatorPocketPtMovementState` wraps the G5 resolver and emits only ten allowlisted display/workflow fields; participant detail no longer serializes broad activity-summary rows.
+17. **G6 status-only authority.** Facilitators see source, bounded status, verified source/time, and generic safety-hold follow-up guidance. G6 adds no Pocket PT mutation, health detail, automatic case, note, or flag.
+18. **Shared progress and authorization.** Facilitator surfaces retain `resolveParticipantCurriculumState` and `assertFacilitatorForCohortAsync`; dedicated facilitator actor selection and existing Super Admin policy remain unchanged.

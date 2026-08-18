@@ -11,6 +11,7 @@ const ASSIGNMENT_STATUS = Object.fromEntries([...EVENT_STATUSES].map(status => [
 const EVENT_FIELDS = new Set(["contract", "contract_version", "event_id", "event_type", "provider", "source_application", "assignment_ref", "status", "completed_at"]);
 const YOUTH_STATUSES = new Set(["NOT_CONNECTED","CONNECTED_NO_PROFILE","PROFILE_READY","PROGRAM_READY","NOT_ASSIGNED","NOT_STARTED","IN_PROGRESS","COMPLETED","SAFETY_HOLD","TEMPORARILY_UNAVAILABLE","COACH_REVIEW","CANCELLED"]);
 const STATUS_COPY = Object.freeze({NOT_CONNECTED:"Pocket PT is not connected yet.",CONNECTED_NO_PROFILE:"Your fitness profile is still being prepared.",PROFILE_READY:"Your fitness program is being prepared.",PROGRAM_READY:"Your next movement mission is being prepared.",NOT_ASSIGNED:"Your next movement mission is being prepared.",NOT_STARTED:"Your Pocket PT movement mission is ready.",IN_PROGRESS:"Your Pocket PT movement mission is in progress.",COMPLETED:"Movement Mission Complete",SAFETY_HOLD:"Check with your coach or supervising adult before continuing this movement mission.",TEMPORARILY_UNAVAILABLE:"Pocket PT is temporarily unavailable. Your progress is safe. Try again later.",COACH_REVIEW:"Your movement mission needs coach review before continuing.",CANCELLED:"This movement mission is no longer active."});
+const FACILITATOR_STATUS_COPY = Object.freeze({NOT_CONNECTED:"Not connected",CONNECTED_NO_PROFILE:"Fitness profile not ready",PROFILE_READY:"Fitness program being prepared",PROGRAM_READY:"Ready for assignment",NOT_ASSIGNED:"Not assigned",NOT_STARTED:"Not started",IN_PROGRESS:"In progress",COMPLETED:"Completed",SAFETY_HOLD:"Safety hold",TEMPORARILY_UNAVAILABLE:"Temporarily unavailable",COACH_REVIEW:"Coach review",CANCELLED:"Cancelled"});
 
 function integrationError(status, code, message) { const error=new Error(message); error.status=status; error.code=code; error.stage="pocketpt_integration"; return error; }
 function base64url(value) { return Buffer.from(value).toString("base64url"); }
@@ -52,6 +53,13 @@ async function resolveLeaderWithinPocketPtMovementState(pool,{enrollmentId,weekN
   let status=boundedStatus(assignment?.status||"NOT_STARTED");
   if(String(process.env.POCKETPT_ENABLED||"false").toLowerCase()!=="true" && status!=="COMPLETED" && status!=="SAFETY_HOLD") status="TEMPORARILY_UNAVAILABLE";
   return {movement_source:"POCKETPT",required:true,provider:"Pocket PT",status,status_text:STATUS_COPY[status],launch_available:["NOT_STARTED","IN_PROGRESS"].includes(status),display_name:"Complete today's Pocket PT movement mission.",completed_at:assignment?.completed_at||null};
+}
+
+async function resolveFacilitatorPocketPtMovementState(pool, options={}) {
+  const state=await resolveLeaderWithinPocketPtMovementState(pool,options);
+  const pocketPt=state.movement_source==="POCKETPT";
+  const verified=pocketPt&&state.status==="COMPLETED";
+  return {movement_source:state.movement_source,required:state.required===true,provider:pocketPt?"Pocket PT":null,status:state.status,status_text:pocketPt?FACILITATOR_STATUS_COPY[state.status]||FACILITATOR_STATUS_COPY.TEMPORARILY_UNAVAILABLE:(state.status==="COMPLETED"?"Complete":"Not complete"),verified,completed_at:verified?state.completed_at:null,source_label:pocketPt?(verified?"Verified Pocket PT session":"Pocket PT"):"Leader Within",mission:pocketPt?null:String(options.localMovement||"Movement mission"),follow_up_recommended:state.status==="SAFETY_HOLD"};
 }
 
 async function launch(pool, req) {
@@ -106,4 +114,4 @@ async function receiveEvent(pool, req) {
   } catch(error) { if(tx)await client.query("ROLLBACK").catch(()=>{}); throw error; } finally { if(client!==pool&&client.release)client.release(); }
 }
 
-module.exports={CONTRACT,VERSION,PROVIDER,EVENT_STATUSES,EVENT_FIELDS,YOUTH_STATUSES,STATUS_COPY,boundedStatus,resolveLeaderWithinPocketPtMovementState,buildLaunchClaims,canonicalEventBody,validateEvent,signLaunchToken,expectedEventSignature,authenticateEvent,launch,receiveEvent};
+module.exports={CONTRACT,VERSION,PROVIDER,EVENT_STATUSES,EVENT_FIELDS,YOUTH_STATUSES,STATUS_COPY,FACILITATOR_STATUS_COPY,boundedStatus,resolveLeaderWithinPocketPtMovementState,resolveFacilitatorPocketPtMovementState,buildLaunchClaims,canonicalEventBody,validateEvent,signLaunchToken,expectedEventSignature,authenticateEvent,launch,receiveEvent};

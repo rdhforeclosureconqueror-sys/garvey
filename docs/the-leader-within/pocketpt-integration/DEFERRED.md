@@ -9,3 +9,5 @@
 * Authorized facilitator override policy remains deferred. Local movement completion remains development-only migration support.
 * **Post-G5 return refresh:** bounded automatic refresh was not necessary for repository-level G5; return currently rereads durable state on page load. Cross-system timing verification remains G7.
 * **G5 manual verification:** browser/device, staging, and live-user checklist execution remains pending because no deployed staging youth/Pocket PT test path was used in this phase.
+* **Post-G6 activity feed:** safe Pocket PT activity summaries remain deferred because the current cohort feed is a placeholder; G6 did not expose raw audit/provider events or overbuild a feed subsystem.
+* **G6 manual verification:** staging, live-user, iPhone Safari, and cross-system checks were prepared but not executed. They remain verification work for G7 rather than repository-level G6 claims.
