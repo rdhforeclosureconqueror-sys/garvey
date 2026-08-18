@@ -10,6 +10,18 @@ const validEvent = () => ({
   assignment_ref:"LWFA-synthetic-assignment", status:"COMPLETED", completed_at:"2026-08-17T01:00:00.000Z"
 });
 
+test("G7 deployment markers identify the canonical bridge handlers without secrets", () => {
+  assert.equal(pocketPt.CONTRACT,"leader_within_pocketpt_bridge_v1");
+  assert.equal(pocketPt.VERSION,1);
+  assert.deepEqual(pocketPt.HANDLER_VERSIONS,{
+    integration:"garvey-pocketpt-integration-v1",
+    launch:"garvey-pocketpt-launch-v1",
+    provider_event_receiver:"garvey-pocketpt-event-receiver-v1",
+    movement_adapter:"garvey-pocketpt-movement-adapter-v1",
+  });
+  assert.equal(JSON.stringify(pocketPt.HANDLER_VERSIONS).includes("secret"),false);
+});
+
 test("launch JWT carries only the documented signed context", () => {
   const token=pocketPt.signLaunchToken({iss:"GARVEY",aud:"POCKET_PT",assignment_ref:"LWFA-test",subject_ref:"LWIS-test",exp:10,jti:"one"},"test-secret");
   const [header,body,signature]=token.split(".");

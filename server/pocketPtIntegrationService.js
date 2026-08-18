@@ -5,6 +5,12 @@ const crypto = require("crypto");
 const PROVIDER = "POCKET_PT";
 const CONTRACT = "leader_within_pocketpt_bridge_v1";
 const VERSION = 1;
+const HANDLER_VERSIONS = Object.freeze({
+  integration: "garvey-pocketpt-integration-v1",
+  launch: "garvey-pocketpt-launch-v1",
+  provider_event_receiver: "garvey-pocketpt-event-receiver-v1",
+  movement_adapter: "garvey-pocketpt-movement-adapter-v1",
+});
 const EVENT_STATUSES = new Set(["NOT_STARTED", "IN_PROGRESS", "COMPLETED", "SAFETY_HOLD", "TEMPORARILY_UNAVAILABLE", "CANCELLED"]);
 const EVENT_TYPES = new Set(["fitness_assignment.not_started", "fitness_assignment.in_progress", "fitness_assignment.completed", "fitness_assignment.safety_hold", "fitness_assignment.temporarily_unavailable", "fitness_assignment.cancelled"]);
 const ASSIGNMENT_STATUS = Object.fromEntries([...EVENT_STATUSES].map(status => [status, status]));
@@ -114,4 +120,4 @@ async function receiveEvent(pool, req) {
   } catch(error) { if(tx)await client.query("ROLLBACK").catch(()=>{}); throw error; } finally { if(client!==pool&&client.release)client.release(); }
 }
 
-module.exports={CONTRACT,VERSION,PROVIDER,EVENT_STATUSES,EVENT_FIELDS,YOUTH_STATUSES,STATUS_COPY,FACILITATOR_STATUS_COPY,boundedStatus,resolveLeaderWithinPocketPtMovementState,resolveFacilitatorPocketPtMovementState,buildLaunchClaims,canonicalEventBody,validateEvent,signLaunchToken,expectedEventSignature,authenticateEvent,launch,receiveEvent};
+module.exports={CONTRACT,VERSION,PROVIDER,HANDLER_VERSIONS,EVENT_STATUSES,EVENT_FIELDS,YOUTH_STATUSES,STATUS_COPY,FACILITATOR_STATUS_COPY,boundedStatus,resolveLeaderWithinPocketPtMovementState,resolveFacilitatorPocketPtMovementState,buildLaunchClaims,canonicalEventBody,validateEvent,signLaunchToken,expectedEventSignature,authenticateEvent,launch,receiveEvent};
