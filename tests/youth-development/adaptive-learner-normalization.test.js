@@ -8,8 +8,39 @@ test('Youth Development learner context with canonical ID normalizes without pro
   assert.equal(learner.program_context, 'youth_development');
   assert.equal(learner.source_registry, 'youth_development');
   assert.equal(learner.display_name, 'Princess Nia');
-  assert.equal(learner.ownership_verified, true);
+  assert.equal(learner.ownership_verified, false);
+  assert.equal(learner.parent_profile_id, null);
+  assert.equal(learner.auth_user_id, null);
   assert.doesNotMatch(learner.child_id, /youth_development/);
+});
+
+test('caller-supplied ownership fields cannot self-verify a learner', async () => {
+  const learner = await normalizeAdaptiveLearnerContext({
+    child_id: '101',
+    ownership_verified: true,
+    ownership: { ok: true, parent_profile_id: 'spoofed-parent', auth_user_id: 'spoofed-user' },
+    parent_profile_id: 'spoofed-parent',
+    auth_user_id: 'spoofed-user',
+  });
+  assert.equal(learner.ownership_verified, false);
+  assert.equal(learner.parent_profile_id, null);
+  assert.equal(learner.auth_user_id, null);
+});
+
+test('only the owned-child resolver can establish ownership authority', async () => {
+  const learner = await normalizeAdaptiveLearnerContext({ child_id: '101', ownership_verified: true }, {
+    resolveOwnedChild: async ({ childId }) => ({ ok: true, parent_profile_id: 'parent-7', auth_user_id: 'user-9', row: { id: childId } }),
+  });
+  assert.equal(learner.ownership_verified, true);
+  assert.equal(learner.parent_profile_id, 'parent-7');
+  assert.equal(learner.auth_user_id, 'user-9');
+});
+
+test('failed ownership resolution fails closed', async () => {
+  await assert.rejects(
+    () => normalizeAdaptiveLearnerContext({ child_id: '101', ownership_verified: true }, { resolveOwnedChild: async () => ({ ok: false, error: 'child_not_owned' }) }),
+    (error) => error && error.code === 'child_not_owned'
+  );
 });
 
 test('numeric database IDs are accepted as string or integer', async () => {
