@@ -23,16 +23,18 @@ async function normalizeAdaptiveLearnerContext(input = {}, options = {}) {
     throw err;
   }
 
-  let ownership = input.ownership || null;
+  let ownership = null;
+  let ownershipVerified = false;
   if (typeof options.resolveOwnedChild === "function") {
     ownership = await options.resolveOwnedChild({ childId: parsed.child_id, input });
-    if (!ownership || ownership.ok === false) {
+    if (!ownership || ownership.ok !== true) {
       const err = new Error(`We could not verify ${displayName}'s learning profile. Please return to the Parent Dashboard and try again.`);
       err.code = ownership?.error || "ownership_not_verified";
       err.raw_child_id = parsed.raw;
       err.display_name = displayName;
       throw err;
     }
+    ownershipVerified = true;
   }
 
   return {
@@ -40,9 +42,9 @@ async function normalizeAdaptiveLearnerContext(input = {}, options = {}) {
     program_context: text(input.program_context) || "youth_development",
     source_registry: text(input.source_registry) || "youth_development",
     display_name: displayName,
-    parent_profile_id: text(input.parent_profile_id || ownership?.parent_profile_id || ownership?.row?.parent_id) || null,
-    auth_user_id: text(input.auth_user_id || ownership?.auth_user_id) || null,
-    ownership_verified: Boolean(input.ownership_verified || ownership?.ok || ownership?.ownership_verified),
+    parent_profile_id: text(ownership?.parent_profile_id || ownership?.row?.parent_id) || null,
+    auth_user_id: text(ownership?.auth_user_id) || null,
+    ownership_verified: ownershipVerified,
   };
 }
 
