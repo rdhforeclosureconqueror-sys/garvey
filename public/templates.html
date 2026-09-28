@@ -1,35 +1,4 @@
-<!-- FILE: public/templates.html -->
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Website Templates</title>
-  <link rel="stylesheet" href="/templates.css" />
-</head>
-<body>
-  <div class="wrap">
-    <div class="card header">
-      <div class="row">
-        <a class="btn" id="backToTenantSite" href="#">← Back to Tenant Site</a>
-        <span class="pill" id="tenantPill"></span>
-      </div>
-      <h1>Choose Your Website Template</h1>
-      <div class="muted">
-        Preview templates instantly. When you click “Select”, we’ll store it for this tenant.
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="row">
-        <button class="btn" id="reload">Reload Templates</button>
-        <span class="muted" id="status"></span>
-      </div>
-    </div>
-
-    <div id="grid" class="grid"></div>
-  </div>
-
-  <script src="/templates.js"></script>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Choose your layout — GARVEY Websites</title><link rel="stylesheet" href="/website.css"><script src="/js/api-contract.js" defer></script><script src="/templates.js" defer></script></head>
+<body><header class="site-nav"><a class="brand" href="/websites.html">GARVEY / WEBSITES</a><nav aria-label="Main navigation"><a href="/index.html">Owner home</a><a class="button button-small" href="/site_intake.html">Build your page ↗</a></nav></header>
+<main class="builder-wrap"><div class="builder-heading"><span class="eyebrow">CHOOSE YOUR STARTING POINT</span><h1>Make it feel like you.</h1><p>Five layouts for your business, services, or personal brand. Preview a design, then add your own details.</p></div><p id="status" class="status" role="status" aria-live="polite">Loading layouts…</p><div id="grid" class="template-grid"></div><button id="reload" class="button button-secondary" type="button" hidden>Try again</button><details class="references"><summary>Original imported designs and Garvey screens</summary><p class="small">These are reference previews. The five layouts above are connected to the website builder.</p><div id="references" class="reference-links"></div></details></main></body></html>

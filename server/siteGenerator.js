@@ -1,5 +1,8 @@
 "use strict";
 
+const { getWebsiteTemplate } = require("./websiteCatalog");
+const { renderWebsite } = require("./websiteRenderer");
+
 function esc(str) {
   return String(str ?? "")
     .replaceAll("&", "&amp;")
@@ -228,11 +231,13 @@ body {
 `;
 }
 
-function generateTenantSite({ tenantSlug, config }) {
+function generateTenantSite({ tenantSlug, config, websiteService = false }) {
   return {
-    version: 3,
+    version: 4,
     pages: {
-      landing: landingHtml({ tenantSlug, config })
+      landing: getWebsiteTemplate(config?.site?.template_id)
+        ? renderWebsite({ tenantSlug, site: config.site, websiteService })
+        : landingHtml({ tenantSlug, config })
     }
   };
 }

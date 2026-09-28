@@ -1,34 +1,86 @@
-{ 
+{
   "templates": [
+    {
+      "id": "clean",
+      "name": "Clean",
+      "category": "landing",
+      "generator": "native",
+      "description": "A clear, centered introduction for a focused offer.",
+      "accent": "#d9f0da",
+      "preview_path": "/website-previews/clean.html"
+    },
+    {
+      "id": "modern",
+      "name": "Modern",
+      "category": "landing",
+      "generator": "native",
+      "description": "Bold type and a strong first impression.",
+      "accent": "#c4f57a",
+      "preview_path": "/website-previews/modern.html"
+    },
+    {
+      "id": "service",
+      "name": "Service",
+      "category": "landing",
+      "generator": "native",
+      "description": "Put your services and customer action up front.",
+      "accent": "#97d8ed",
+      "preview_path": "/website-previews/service.html"
+    },
+    {
+      "id": "local",
+      "name": "Local",
+      "category": "landing",
+      "generator": "native",
+      "description": "A warm welcome with hours and location in focus.",
+      "accent": "#eed49d",
+      "preview_path": "/website-previews/local.html"
+    },
+    {
+      "id": "personal",
+      "name": "Personal",
+      "category": "landing",
+      "generator": "native",
+      "description": "An editorial home for your expertise and story.",
+      "accent": "#e5bcde",
+      "preview_path": "/website-previews/personal.html"
+    }
+  ],
+  "references": [
     {
       "id": "metropolis",
       "name": "Metropolis",
       "category": "business",
-      "preview_path": "/templates/metropolis/index.html"
+      "preview_path": "/templates/metropolis/index.html",
+      "selectable": false
     },
     {
       "id": "aroma-spa",
       "name": "Aroma Spa",
       "category": "beauty",
-      "preview_path": "/templates/aroma-spa/index.html"
+      "preview_path": "/templates/aroma-spa/index.html",
+      "selectable": false
     },
     {
       "id": "mobilefriendly",
       "name": "Mobile App Landing",
       "category": "landing",
-      "preview_path": "/templates/mobilefriendly/index.html"
+      "preview_path": "/templates/mobilefriendly/index.html",
+      "selectable": false
     },
     {
       "id": "rewards-premium-shell",
       "name": "Rewards Premium Shell",
       "category": "premium",
-      "preview_path": "/rewards_premium.html"
+      "preview_path": "/rewards_premium.html",
+      "selectable": false
     },
     {
       "id": "garvey-premium-shell",
       "name": "GARVEY Premium Shell",
       "category": "premium",
-      "preview_path": "/garvey_premium.html"
+      "preview_path": "/garvey_premium.html",
+      "selectable": false
     }
   ]
 }
