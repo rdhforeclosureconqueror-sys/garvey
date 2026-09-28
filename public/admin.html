@@ -63,6 +63,7 @@ h1 { color:gold; }
 <a class="btn" id="garveyBtn">🚀 GARVEY Premium</a>
 <a class="btn" id="garveyFallbackBtn">🚀 GARVEY Fallback</a>
 <a class="btn" id="dashboardBtn">📊 Dashboard</a>
+<a class="btn" id="websiteBuilderBtn">🌐 Website Builder</a>
 
 </div>
 
@@ -114,6 +115,9 @@ function init() {
 
   document.getElementById("dashboardBtn").href =
     `/dashboard.html?tenant=${enc}`;
+
+  document.getElementById("websiteBuilderBtn").href =
+    `/site_intake.html?tenant=${enc}`;
 }
 
 init();

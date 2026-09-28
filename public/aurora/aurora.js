@@ -131,6 +131,8 @@
     setHref("ownerDashboardBtn", "/dashboard.html");
     setHref("ownerHubBtn", "/garvey.html");
     setHref("ownerTapInBtn", "/tap-crm");
+    setHref("ownerWebsiteBtn", "/site_intake.html");
+    setHref("websiteMiniLink", "/site_intake.html");
     setHref("ownerGrowthTestBtn", "/garvey_premium.html");
 
     // Mini cards / core links

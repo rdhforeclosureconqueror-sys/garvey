@@ -1,99 +1,38 @@
-// FILE: public/templates.js
 (function () {
-  const params = new URLSearchParams(location.search);
-  const tenant = (params.get("tenant") || "").trim();
-
+  "use strict";
   const grid = document.getElementById("grid");
   const status = document.getElementById("status");
-  const tenantPill = document.getElementById("tenantPill");
-  const backToTenantSite = document.getElementById("backToTenantSite");
-
-  tenantPill.textContent = `Tenant: ${tenant || "(missing)"}`;
-  backToTenantSite.href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "/";
-
-  async function loadRegistry() {
-    status.textContent = "Loading registry...";
-    grid.innerHTML = "";
-
-    const r = await fetch("/templates/registry.json", { cache: "no-store" });
-    if (!r.ok) {
-      status.textContent = `Failed to load registry.json (${r.status})`;
-      return [];
-    }
-    const data = await r.json();
-    const templates = Array.isArray(data.templates) ? data.templates : [];
-    status.textContent = `Loaded ${templates.length} templates.`;
-    return templates;
+  const retry = document.getElementById("reload");
+  const params = new URLSearchParams(location.search);
+  const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  async function load() {
+    retry.hidden = true;
+    status.textContent = "Loading layouts…";
+    try {
+      const response = await fetch("/templates/registry.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("The layouts could not be loaded.");
+      const data = await response.json();
+      grid.innerHTML = "";
+      for (const [index, template] of data.templates.entries()) {
+        if (!/^[a-z-]+$/.test(template.id)) continue;
+        const linkParams = new URLSearchParams({ template: template.id });
+        if (params.get("tenant")) linkParams.set("tenant", params.get("tenant"));
+        const article = document.createElement("article");
+        article.className = "template-card";
+        article.innerHTML = `<a class="mini-site mini-${esc(template.id)}" href="/website-previews/${esc(template.id)}.html" target="_blank" rel="noopener" aria-label="Preview ${esc(template.name)}"><span class="mini-nav">YOUR BUSINESS <span>↗</span></span><span class="mini-head">A place for<br>your next<br>big thing.</span><span class="mini-line"></span><span class="mini-button">Let’s get started ↗</span><span class="mini-grid"><i></i><i></i><i></i></span></a><div class="template-heading"><h3>${esc(template.name)}</h3><span class="tag">0${index + 1}</span></div><p>${esc(template.description)}</p><a class="text-link" href="/site_intake.html?${esc(linkParams)}">Use ${esc(template.name)} ↗</a>`;
+        grid.appendChild(article);
+      }
+      const references = document.getElementById("references");
+      references.replaceChildren();
+      for (const reference of data.references || []) {
+        if (!/^\/(?!\/)/.test(reference.preview_path)) continue;
+        const link = document.createElement("a");
+        link.href = reference.preview_path; link.textContent = `${reference.name} ↗`;
+        link.target = "_blank"; link.rel = "noopener"; references.appendChild(link);
+      }
+      status.textContent = "";
+    } catch (err) { status.textContent = `${err.message} Try again.`; retry.hidden = false; }
   }
-
-  function renderTemplates(templates) {
-    grid.innerHTML = "";
-    for (const t of templates) {
-      const id = String(t.id || "").trim();
-      const name = String(t.name || id);
-      const category = String(t.category || "general");
-      const previewPath = String(t.preview_path || "").trim(); // e.g. /templates/metropolis/index.html
-
-      const el = document.createElement("div");
-      el.className = "tpl";
-      el.innerHTML = `
-        <h3>${escapeHtml(name)}</h3>
-        <div class="meta">ID: <code>${escapeHtml(id)}</code> • Category: ${escapeHtml(category)}</div>
-        <div class="actions">
-          <a class="btn" target="_blank" rel="noreferrer" href="${escapeAttr(previewPath)}">Preview</a>
-          <button class="btn" data-select="${escapeAttr(id)}">Select</button>
-        </div>
-        <div class="muted" style="margin-top:10px;">
-          Select stores <code>tenant_config.site.template_id</code> for this tenant.
-        </div>
-      `;
-      grid.appendChild(el);
-    }
-
-    grid.querySelectorAll("button[data-select]").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const templateId = btn.getAttribute("data-select");
-        if (!tenant) {
-          alert("Missing tenant. Use /templates.html?tenant=YOURSLUG");
-          return;
-        }
-        status.textContent = `Selecting ${templateId}...`;
-
-        // This POST will work after you add the server/index.js snippet I’ll send next.
-        const resp = await fetch("/api/templates/select", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tenant, template_id: templateId }),
-        });
-
-        const text = await resp.text();
-        if (!resp.ok) {
-          status.textContent = `Select failed (${resp.status}): ${text}`;
-          return;
-        }
-        status.textContent = `Selected template: ${templateId}.`;
-        alert(`Selected template: ${templateId}\n\nNow go back to Tenant Site.`);
-      });
-    });
-  }
-
-  function escapeHtml(s) {
-    return String(s ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-  function escapeAttr(s) {
-    return escapeHtml(s);
-  }
-
-  async function init() {
-    const templates = await loadRegistry();
-    renderTemplates(templates);
-  }
-
-  document.getElementById("reload").addEventListener("click", init);
-  init();
+  retry.addEventListener("click", load);
+  load();
 })();

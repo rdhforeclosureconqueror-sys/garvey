@@ -26,6 +26,7 @@
         <a href="#" id="navRewardsLink">Return Engine</a>
         <a href="#" id="navGarveyLink">GARVEY Pathway</a>
         <a href="#" id="navDashboardLink">Dashboard</a>
+        <a href="/websites.html">Websites</a>
       </nav>
 
       <button class="au-nav__burger" type="button" data-au-burger aria-label="Open menu" aria-expanded="false">
@@ -39,6 +40,7 @@
         <a href="#" data-au-close id="drawerRewardsLink">Return Engine</a>
         <a href="#" data-au-close id="drawerGarveyLink">GARVEY Pathway</a>
         <a href="#" data-au-close id="drawerDashboardLink">Dashboard</a>
+        <a href="/websites.html" data-au-close>Websites</a>
       </div>
     </div>
   </header>
@@ -83,6 +85,7 @@
             <a class="au-btn au-btn--primary" href="#" id="ownerAssessmentBtn">Business Assessment</a>
             <a class="au-btn" href="#" id="ownerDashboardBtn">Owner Dashboard</a>
             <a class="au-btn" href="#" id="ownerHubBtn">GARVEY Business Hub</a>
+            <a class="au-btn" href="/site_intake.html" id="ownerWebsiteBtn">Create a Website</a>
             <a class="au-btn" href="#" id="ownerTapInBtn">Garvey Tap In Business Hub</a>
             <a class="au-btn" href="/youth-development.html" id="ownerYouthDevBtn">Youth Development</a>
             <a class="au-btn au-btn--ghost" href="#" id="ownerGrowthTestBtn">30-Day Growth Test</a>
@@ -102,6 +105,7 @@
               </div>
 
               <div class="au-mini-grid">
+                <a class="au-mini" href="/site_intake.html" id="websiteMiniLink"><div class="au-mini__k">Website Builder</div><div class="au-mini__v">Choose a layout and publish your page</div></a>
                 <a class="au-mini" href="#" id="businessAssessmentMiniLink">
                   <div class="au-mini__k">Business Assessment</div>
                   <div class="au-mini__v">Start assessment</div>
@@ -513,7 +517,8 @@
           const business_name = trim(document.getElementById("businessNameInput")?.value);
           const email = trim(document.getElementById("ownerEmailInput")?.value).toLowerCase();
           const password = trim(document.getElementById("ownerPasswordInput")?.value);
-          const data = await postJson(ownerApiUrl("/api/owner/signup"), { business_name, email, password });
+          const next = new URL(window.location.href).searchParams.get("next") || "";
+          const data = await postJson(ownerApiUrl("/api/owner/signup"), { business_name, email, password, next });
           const tenant = cleanCtxValue(data.tenant);
           if (!tenant) throw new Error("Sign up succeeded but tenant context was missing. Please sign in again.");
           if (window.GARVEY && window.GARVEY.setLoginCtx) {

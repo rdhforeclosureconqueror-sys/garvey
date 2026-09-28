@@ -4,6 +4,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 
 const routerMounts = [
+  { file: "server/websiteRoutes.js", base: "" },
   { file: "server/kanbanRoutes.js", base: "/api/kanban" },
   { file: "server/foundationRoutes.js", base: "/api/foundation" },
   { file: "server/structureRoutes.js", base: "/api/structure" },
@@ -19,6 +20,7 @@ const frontendScanFiles = [
   "public/voc.html",
   "public/rewards.html",
   "public/site_intake.html",
+  "public/website-builder.js",
   "public/templates.js",
   "public/garvey-kanban.js",
   "dashboardnew/app.js",
@@ -84,6 +86,8 @@ const documentedRoutes = [
   "GET /t/:slug/analytics",
   "GET /t/:slug/site",
   "POST /api/site/generate",
+  "POST /api/site/preview",
+  "GET /api/site/config",
   "POST /api/system/activate-full",
   "GET /api/questions",
   "POST /api/intake",
