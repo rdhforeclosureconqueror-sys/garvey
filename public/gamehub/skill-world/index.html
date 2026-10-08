@@ -40,7 +40,48 @@
  function progressPercent(){const total=8; if(state.mode==='drill'){const d=state.drill||{}; return Math.max(0,Math.min(99,Number(d.completedLevels?.length||0)*25));} return Math.max(0,Math.min(100,Math.round(((Number(state.stepIndex||0)+1)/total)*100)));}
  function savePersistedSkillWorld(status){if(!learnerCtx.child_id)return;const attempts=Number(state.attempts||0);const correct=Number(state.correct||0);const score=attempts?Math.round((correct/attempts)*100):0;fetch('/api/skill-world/progress',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({program_context:learnerCtx.program_context||'',source_registry:learnerCtx.source_registry||'',tenant:learnerCtx.tenant||'',email:learnerCtx.parent_email||learnerCtx.email||'',return_url:learnerCtx.return_url||'',child_id:learnerCtx.child_id,skill_id:id,mode:state.mode||'mission',status:status||((progressPercent()>=100)?'completed':'in_progress'),progress_percent:progressPercent(),attempts,correct,score_percent:score,hints_used:Number(state.hintsUsed||0),last_step:String(state.stepIndex||''),profile:state.profile||{},state_snapshot:state})}).catch(()=>{});}
  render();
-	 app.addEventListener('click',(e)=>{
+	 let selectedDivisionCounter=null;
+ function divisionProgress(model){
+  const groups=[...model.querySelectorAll('[data-division-group]')];
+  const counts=groups.map(g=>g.querySelectorAll('.division-counter').length);
+  const remaining=model.querySelectorAll('[data-counter-bank] .division-counter').length;
+  const progress=model.querySelector('.division-progress');
+  if(progress)progress.textContent=remaining===0?(counts.every(n=>n===counts[0])?'All counters shared equally! Enter your answer.':'Not equal yet. Move counters until every group matches.'):`${remaining} counters left. Groups: ${counts.join(', ')}.`;
+ }
+ function moveDivisionCounter(counter,destination){
+  if(!counter||!destination)return;
+  const model=counter.closest('[data-renderer="division_model"]');
+  if(!model||destination.closest('[data-renderer="division_model"]')!==model)return;
+  const target=destination.matches('[data-counter-bank]')?destination.querySelector('div'):destination.querySelector('.division-group-counters');
+  if(!target)return;
+  target.appendChild(counter); selectedDivisionCounter=null;divisionProgress(model);
+ }
+ app.addEventListener('dragstart',e=>{
+  const counter=e.target.closest('.division-counter[draggable="true"]');
+  if(!counter)return;
+  selectedDivisionCounter=counter;
+  if(e.dataTransfer){e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','division-counter');}
+ });
+ app.addEventListener('dragover',e=>{
+  if(e.target.closest('[data-division-group],[data-counter-bank]')&&selectedDivisionCounter)e.preventDefault();
+ });
+ app.addEventListener('drop',e=>{
+  const zone=e.target.closest('[data-division-group],[data-counter-bank]');
+  if(zone&&selectedDivisionCounter){e.preventDefault();moveDivisionCounter(selectedDivisionCounter,zone);}
+ });
+ app.addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-division-group]')&&selectedDivisionCounter){
+   e.preventDefault();moveDivisionCounter(selectedDivisionCounter,e.target);
+  }
+ });
+ app.addEventListener('click',(e)=>{
+   const counter=e.target.closest('.division-counter[draggable="true"]');
+   if(counter){selectedDivisionCounter=counter;counter.focus();return;}
+   const group=e.target.closest('[data-division-group]');
+   if(group&&selectedDivisionCounter){moveDivisionCounter(selectedDivisionCounter,group);return;}
+   const reset=e.target.closest('.division-reset');
+   if(reset){const model=reset.closest('[data-renderer="division_model"]');const bank=model?.querySelector('[data-counter-bank]');if(bank){model.querySelectorAll('[data-division-group] .division-counter').forEach(c=>moveDivisionCounter(c,bank));divisionProgress(model);}return;}
+
    const listen=e.target.closest('.audio-listen-button,.question-read-button,.page-read-button');
    if(listen){speakAudio(listen); return;}
    const step=e.target.closest('.mission-step');
