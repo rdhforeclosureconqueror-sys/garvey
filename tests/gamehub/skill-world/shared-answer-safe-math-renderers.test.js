@@ -115,3 +115,18 @@ test('every manifested use of an affected renderer defaults to answer-safe quest
     'G6M_GM_001', 'G6M_NS_002',
   ]);
 });
+
+test('fact family checkpoint and Skill Practice visuals hide completed equations', () => {
+  const q = {visual_model:'fact_family_model',factor_a:8,factor_b:9,product:72,show_answer:true,visual_mode:'solution',prompt:'What is 72 divided by 8?'};
+  const practice = Registry.render(q,{mode:'question'});
+  assert.match(practice,/data-answer-visibility="question"/);
+  assert.match(practice,/72 ÷ 8 = \?/);
+  assert.doesNotMatch(practice,/72 ÷ 8 = 9/);
+  assert.doesNotMatch(practice,/8 × 9 = 72/);
+  assert.match(practice,/grid-template-columns/);
+  const teaching = Registry.render(q,{mode:'solution'});
+  assert.match(teaching,/72 ÷ 8 = 9/);
+  const pkg = {skill_id:'TEST_FACT',skill:'Fact Family',subject:'Math',grade:3,lesson:{},guided_practice:[q],adaptive_question_bank:[q],checkpoint:[q],level_banks:[{id:'level-1',label:'Level 1',focus:'Fact Family',questions:[q]}]};
+  const output = Renderer.renderQuestionCard(q,'practice',Renderer.createState(),pkg);
+  assert.doesNotMatch(output,/72 ÷ 8 = 9/);
+});
