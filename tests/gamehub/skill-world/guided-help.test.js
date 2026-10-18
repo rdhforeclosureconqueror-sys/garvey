@@ -10,7 +10,7 @@ assert.equal(addition.problem,'2/8 + 2/4');
 assert.match(addition.steps.join(' '),/6\/8 = 3\/4/);
 assert.doesNotMatch(help.render({prompt:'3/8 + 1/4 = ?'}),/3\/8 \+ 1\/4/);
 const subtraction=help.example({prompt:'5/8 - 1/4 = ?'});
-assert.equal(subtraction.problem,'2/8 − 1/4');
+assert.equal(subtraction.problem,'5/8 − 1/4');
 assert.match(subtraction.steps.join(' '),/0\/8/);
 assert.match(help.render({prompt:'Find an equivalent fraction for 1/2'}),/2\/3 = 4\/6/);
 assert.match(help.render({prompt:'Compare 1/3 and 2/5'}),/8\/12/);
