@@ -21,4 +21,6 @@ assert.equal(help.example({prompt:'7/8 - 1/4'}).problem,'9/12 − 1/6');
 assert.match(help.render({prompt:'3/8 + 1/4 = ?'}),/Reveal step/);
 assert.equal(help.example({prompt:'1/12 + 1/6'}).problem,'3/16 + 1/8');
 assert.equal(help.example({prompt:'9/12 - 1/6'}).problem,'11/16 − 1/8');
+assert.match(help.render({prompt:'What common denominator can rename 1/2 and 3/6?'}),/List multiples of 3/);
+assert.doesNotMatch(help.render({prompt:'What common denominator can rename 1/2 and 3/6?'}),/What common denominator can rename 1\/2 and 3\/6/);
 console.log('Guided help basic regression checks passed');
