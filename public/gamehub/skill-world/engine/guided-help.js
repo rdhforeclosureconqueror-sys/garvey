@@ -7,7 +7,7 @@
     const prompt=String(question?.prompt||question?.question||'');
     const frac=prompt.match(/(\d+)\s*\/\s*(\d+)\s*([+−-])\s*(\d+)\s*\/\s*(\d+)/);
     if(frac){
-      const add=frac[3]==='+', a=add?2:5,b=8,c=add?2:1,d=4;
+      const add=frac[3]==='+', a=add?2:7,b=8,c=add?2:1,d=4;
       const lcd=b*d/gcd(b,d),x=a*(lcd/b),y=c*(lcd/d),z=add?x+y:x-y;
       const divisor=gcd(Math.abs(z),lcd);
       return {title:'Try a different fraction problem',problem:`${a}/${b} ${add?'+':'−'} ${c}/${d}`,steps:[
