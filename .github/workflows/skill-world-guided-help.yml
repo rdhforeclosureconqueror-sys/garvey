@@ -1,0 +1,26 @@
+name: Skill World Guided Help
+on:
+  pull_request:
+    paths:
+      - 'public/gamehub/skill-world/**'
+      - 'tests/gamehub/skill-world/**'
+      - '.github/workflows/skill-world-guided-help.yml'
+  push:
+    branches:
+      - 'feature/grade4-guided-math-hints'
+    paths:
+      - 'public/gamehub/skill-world/**'
+      - 'tests/gamehub/skill-world/**'
+      - '.github/workflows/skill-world-guided-help.yml'
+jobs:
+  guided-help:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Guided help regression
+        run: node tests/gamehub/skill-world/guided-help.test.js
+      - name: Skill World generator regression
+        run: node tests/gamehub/skill-world/skill-world-generator.test.js
