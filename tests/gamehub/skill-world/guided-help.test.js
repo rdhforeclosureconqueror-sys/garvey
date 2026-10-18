@@ -1,0 +1,18 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const path=require('node:path');
+const context={};context.globalThis=context;
+vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../../../public/gamehub/skill-world/engine/guided-help.js'),'utf8'),context);
+const help=context.SkillWorldGuidedHelp;
+const addition=help.example({prompt:'3/8 + 1/4 = ?'});
+assert.equal(addition.problem,'2/8 + 2/4');
+assert.match(addition.steps.join(' '),/6\/8 = 3\/4/);
+assert.doesNotMatch(help.render({prompt:'3/8 + 1/4 = ?'}),/3\/8 \+ 1\/4/);
+const subtraction=help.example({prompt:'5/8 - 1/4 = ?'});
+assert.equal(subtraction.problem,'2/8 − 1/4');
+assert.match(subtraction.steps.join(' '),/0\/8/);
+assert.match(help.render({prompt:'Find an equivalent fraction for 1/2'}),/2\/3 = 4\/6/);
+assert.match(help.render({prompt:'Compare 1/3 and 2/5'}),/8\/12/);
+assert.doesNotMatch(help.render({prompt:'<script>alert(1)</script>'}),/<script>/);
+console.log('Guided help basic regression checks passed');
