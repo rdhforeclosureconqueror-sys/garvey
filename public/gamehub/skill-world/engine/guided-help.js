@@ -10,7 +10,8 @@
       const add=frac[3]==='+';
       const same=(a,b,c,d)=>Number(frac[1])===a&&Number(frac[2])===b&&Number(frac[4])===c&&Number(frac[5])===d;
       const alternate=same(add?2:7,8,add?2:1,4);
-      const a=alternate?(add?1:9):(add?2:7),b=alternate?12:8,c=alternate?(add?1:1):(add?2:1),d=alternate?6:4;
+      const secondAlternate=same(add?1:9,12,1,6);
+      const a=secondAlternate?(add?3:11):(alternate?(add?1:9):(add?2:7)),b=secondAlternate?16:(alternate?12:8),c=secondAlternate?1:(alternate?1:(add?2:1)),d=secondAlternate?8:(alternate?6:4);
       const lcd=b*d/gcd(b,d),x=a*(lcd/b),y=c*(lcd/d),z=add?x+y:x-y;
       const divisor=gcd(Math.abs(z),lcd);
       return {title:'Try a different fraction problem',problem:`${a}/${b} ${add?'+':'−'} ${c}/${d}`,steps:[
