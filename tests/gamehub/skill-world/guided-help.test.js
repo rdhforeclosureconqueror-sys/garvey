@@ -19,4 +19,6 @@ assert.doesNotMatch(help.render({prompt:'<script>alert(1)</script>'}),/<script>/
 assert.equal(help.example({prompt:'2/8 + 2/4'}).problem,'1/12 + 1/6');
 assert.equal(help.example({prompt:'7/8 - 1/4'}).problem,'9/12 − 1/6');
 assert.match(help.render({prompt:'3/8 + 1/4 = ?'}),/Reveal step/);
+assert.equal(help.example({prompt:'1/12 + 1/6'}).problem,'3/16 + 1/8');
+assert.equal(help.example({prompt:'9/12 - 1/6'}).problem,'11/16 − 1/8');
 console.log('Guided help basic regression checks passed');
