@@ -1520,7 +1520,7 @@ assert.ok(g3MultiplicationQuestions.filter((q)=>q.question_type==='short_respons
 const g3MissionHtml=Renderer.renderSkillWorld(g3MultiplicationFoundations,{failClosed:true}).html;
 ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g3MissionHtml,new RegExp(label),`G3M_MUL_001 mission renders ${label}`));
 assert.match(g3MissionHtml,/Continue to Skill Practice/,'G3M_MUL_001 profile links to Skill Practice Center');
-assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='equal_groups')),/data-renderer="equal_groups"/,'equal_groups renderer output exists');
+assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='equal_groups')),/data-skill-model="equal_groups"/,'equal_groups visual model output exists');
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='array_model')),/rows.*columns|columns.*rows/i,'array_model renderer supports rows/columns');
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='repeated_addition')),/data-renderer="repeated_addition"/,'repeated_addition renderer output exists');
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='multiplication_model')),/data-renderer="multiplication_model"/,'multiplication_model renderer output exists');
