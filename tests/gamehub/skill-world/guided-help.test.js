@@ -16,4 +16,7 @@ assert.match(help.render({prompt:'Find an equivalent fraction for 1/2'}),/2\/3 =
 assert.match(help.render({prompt:'Compare 1/3 and 2/5'}),/8\/12/);
 assert.match(help.render({prompt:'3/8 + 1/4 = ?'}),/<details>/);
 assert.doesNotMatch(help.render({prompt:'<script>alert(1)</script>'}),/<script>/);
+assert.equal(help.example({prompt:'2/8 + 2/4'}).problem,'1/12 + 1/6');
+assert.equal(help.example({prompt:'7/8 - 1/4'}).problem,'9/12 − 1/6');
+assert.match(help.render({prompt:'3/8 + 1/4 = ?'}),/Reveal step/);
 console.log('Guided help basic regression checks passed');
