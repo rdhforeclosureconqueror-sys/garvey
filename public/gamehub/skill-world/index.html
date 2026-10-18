@@ -5,6 +5,7 @@
 <script src='/gamehub/skill-world/engine/skill-package-schema.js'></script>
 <script src='/gamehub/skill-world/renderers/visual-model-registry.js'></script>
 <script src='/gamehub/skill-world/screens/story-mission-screen.js'></script><script src='/gamehub/skill-world/screens/mini-lesson-screen.js'></script><script src='/gamehub/skill-world/screens/worked-example-screen.js'></script><script src='/gamehub/skill-world/screens/guided-demo-screen.js'></script><script src='/gamehub/skill-world/screens/question-zone-screen.js'></script><script src='/gamehub/skill-world/screens/checkpoint-screen.js'></script><script src='/gamehub/skill-world/screens/badge-screen.js'></script><script src='/gamehub/skill-world/screens/growth-profile-screen.js'></script>
+<script src='/gamehub/skill-world/engine/guided-help.js'></script>
 <script src='/gamehub/skill-world/engine/skill-world-renderer.js'></script>
 <script>
 (async function(){
@@ -12,11 +13,11 @@
  try{const p=await (await fetch(`/gamehub/skill-world/content/${id}.skill-package.v1.json`)).json(); const learnerCtx=await resolveSkillWorldLearner(); const state=SkillWorldRenderer.createState(); if(drillPath)state.mode='drill'; await loadPersistedSkillWorld(state,id,learnerCtx);
  function render(){const rendered=SkillWorldRenderer.renderSkillWorld(p,{state,mode:state.mode,failClosed:true,profile:state.profile}); app.innerHTML=rendered.html; app.querySelectorAll('.exit-hub').forEach((link)=>{link.href=learnerCtx.return_url||'/gamehub/adaptive-grade1-v2.html';}); window.scrollTo({top:0,behavior:'smooth'});}
  function activeQuestion(section){const step=Number(section?.dataset?.stepIndex||state.stepIndex||0); return SkillWorldRenderer.zoneQuestion(p,step);}
- function answerFeedback(section,result){const fb=section.querySelector('.feedback-area'); if(!fb)return; fb.className=`feedback-card feedback-area ${result.correct?'correct':'wrong'}`; fb.textContent=result.correct?'Correct! Great model work.':`Not yet. Correct answer: ${result.correctAnswer}.`;}
+ function answerFeedback(section,result){const fb=section.querySelector('.feedback-area'); if(!fb)return; fb.className=`feedback-card feedback-area ${result.correct?'correct':'wrong'}`; fb.textContent=result.correct?'Correct! Great model work.':'Not yet. Review the worked example in Help, then try again.';}
  function updateQuestionNext(section){const next=section.querySelector('#next'); if(next)next.disabled=!SkillWorldRenderer.canAdvance(state,p);}
  function activeDrillLevel(){return SkillWorldRenderer.activeLevel(p,state);}
  function activeDrillQuestion(){return SkillWorldRenderer.activeLevelQuestion(p,state);}
-	 function drillFeedback(section,result){const fb=section.querySelector('.drill-feedback'); if(!fb)return; fb.className=`feedback-card feedback-area drill-feedback ${result.correct?'correct':'wrong'}`; fb.textContent=result.correct?'Correct! You are building mastery.':`Not yet. Correct answer: ${result.correctAnswer}.`; const next=section.querySelector('#drill-next'); if(next)next.disabled=false;}
+	 function drillFeedback(section,result){const fb=section.querySelector('.drill-feedback'); if(!fb)return; fb.className=`feedback-card feedback-area drill-feedback ${result.correct?'correct':'wrong'}`; fb.textContent=result.correct?'Correct! You are building mastery.':'Not yet. Open Help to see a different worked example, then try again.'; const next=section.querySelector('#drill-next'); if(next)next.disabled=!SkillWorldRenderer.levelQuestionAnswered(state,activeDrillLevel(),activeDrillQuestion());}
 	 function sequenceValues(control){return [...control.querySelectorAll('[data-sequence-item]')].map((item)=>item.dataset.value);}
 	 function refreshSequence(control,focusIndex){const items=[...control.querySelectorAll('[data-sequence-item]')]; items.forEach((item,index)=>{item.querySelector('.sequence-position').textContent=index+1; item.querySelector('.sequence-move-up').disabled=index===0; item.querySelector('.sequence-move-down').disabled=index===items.length-1; item.setAttribute('aria-label',`Position ${index+1} of ${items.length}: ${item.dataset.value}`);}); if(Number.isInteger(focusIndex))items[focusIndex]?.querySelector(focusIndex===0?'.sequence-move-down':'.sequence-move-up')?.focus();}
 	 function moveSequence(button,direction){const item=button.closest('[data-sequence-item]'); const list=item.parentElement; const items=[...list.children]; const index=items.indexOf(item); const next=index+direction; if(next<0||next>=items.length)return; if(direction<0)list.insertBefore(item,items[next]); else list.insertBefore(items[next],item); refreshSequence(button.closest('[data-sequence-order]'),next);}
@@ -91,9 +92,9 @@
 	   const startLevel=e.target.closest('.start-level');
 	   if(startLevel){SkillWorldRenderer.selectLevel(state,Number(startLevel.dataset.levelIndex)); render(); return;}
 	   const drillHint=e.target.closest('#drill-hint');
-	   if(drillHint){SkillWorldRenderer.useHint(state); const fb=drillHint.closest('.drill-question-card').querySelector('.drill-feedback'); fb.textContent=drillHint.nextElementSibling.textContent; return;}
+	   if(drillHint){SkillWorldRenderer.useHint(state); const fb=drillHint.closest('.drill-question-card').querySelector('.drill-feedback'); fb.innerHTML=SkillWorldGuidedHelp.render(activeDrillQuestion()); return;}
 	   const drillShow=e.target.closest('#drill-show');
-	   if(drillShow){const section=drillShow.closest('section'); const r=SkillWorldRenderer.showLevelAnswer(state,activeDrillLevel(),activeDrillQuestion()); drillFeedback(section,r); savePersistedSkillWorld(); return;}
+	   if(drillShow){const section=drillShow.closest('section'); const r=SkillWorldRenderer.showLevelAnswer(state,activeDrillLevel(),activeDrillQuestion()); drillFeedback(section,r); const fb=section.querySelector('.drill-feedback'); if(fb)fb.textContent=`Answer: ${r.correctAnswer}. Review the method before continuing.`; savePersistedSkillWorld(); return;}
 		   const sequenceMove=e.target.closest('.sequence-move-up,.sequence-move-down');
 		   if(sequenceMove){moveSequence(sequenceMove,sequenceMove.classList.contains('sequence-move-up')?-1:1); return;}
 		   const sequenceRetry=e.target.closest('.sequence-retry');
@@ -115,7 +116,7 @@
 	   const backDrill=e.target.closest('.back-to-drill-center');
 	   if(backDrill){SkillWorldRenderer.backToDrillCenter(state); render(); return;}
    const hint=e.target.closest('#hint');
-   if(hint){SkillWorldRenderer.useHint(state); const fb=hint.closest('.question-card').querySelector('.feedback-area'); fb.textContent=hint.nextElementSibling.textContent; const statTemp=document.createElement('div'); statTemp.innerHTML=SkillWorldRenderer.renderStats(state,p); app.querySelector('.sw-stats').innerHTML=statTemp.querySelector('.sw-stats').innerHTML; return;}
+   if(hint){SkillWorldRenderer.useHint(state); const fb=hint.closest('.question-card').querySelector('.feedback-area'); fb.innerHTML=SkillWorldGuidedHelp.render(activeQuestion(hint.closest('.screen')).q); const statTemp=document.createElement('div'); statTemp.innerHTML=SkillWorldRenderer.renderStats(state,p); app.querySelector('.sw-stats').innerHTML=statTemp.querySelector('.sw-stats').innerHTML; return;}
    const show=e.target.closest('#show');
    if(show){const section=show.closest('.screen'); const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.showAnswerAndContinue(state,zone,q); const fb=section.querySelector('.feedback-area'); fb.className='feedback-card feedback-area wrong'; fb.textContent=`Answer: ${r.correctAnswer}. Press Next when you are ready!`; updateQuestionNext(section); return;}
    const ans=e.target.closest('.ans');
