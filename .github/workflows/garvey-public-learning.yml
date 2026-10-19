@@ -1,0 +1,28 @@
+name: Garvey Public Learning Entrance
+on:
+  pull_request:
+    paths:
+      - 'public/tutoring.html'
+      - 'public/gamehub/adaptive-v2-hub.html'
+      - 'tests/gamehub/tutoring-public-grades.test.js'
+      - '.github/workflows/garvey-public-learning.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'public/tutoring.html'
+      - 'public/gamehub/adaptive-v2-hub.html'
+      - 'tests/gamehub/tutoring-public-grades.test.js'
+      - '.github/workflows/garvey-public-learning.yml'
+jobs:
+  public-learning:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Public grade and route regression
+        run: node --test tests/gamehub/tutoring-public-grades.test.js
+      - name: Existing adaptive hub regression
+        run: node --test tests/gamehub/adaptive-v2-hub-and-entrypoints.test.js
