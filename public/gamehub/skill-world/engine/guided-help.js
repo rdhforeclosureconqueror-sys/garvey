@@ -5,6 +5,28 @@
   const gcd=(a,b)=>b?gcd(b,a%b):a;
   function example(question){
     const prompt=String(question?.prompt||question?.question||'');
+    if(String(question?.id||question?.question_id||'').startsWith('G4M_FR_002')){
+      const mixed=prompt.match(/(\d+)\s+(\d+)\s*\/\s*(\d+)\s*([+−-])\s*(\d+)\s*\/\s*(\d+)/);
+      if(mixed && Number(mixed[3])===Number(mixed[6])){
+        const add=mixed[4]==='+';const d=[4,5,6,8].find(n=>n!==Number(mixed[3]))||10;
+        return {title:'Four steps: mixed numbers',problem:`2 1/${d} ${add?'+':'−'} 1/${d}`,steps:[
+          'Step 1 — Identify the whole-number part and the fraction part. A mixed number contains both.',
+          `Step 2 — Rule: with equal denominators, combine the numerators and keep the denominator. For subtraction, take away the numerator; regroup a whole if needed.`,
+          `Step 3 — Different example: 2 1/${d} ${add?'+':'−'} 1/${d} = ${add?'2 2/'+d:'2'}. Keep the whole-number part and check whether regrouping is needed.`,
+          'Step 4 — Draw whole bars and fraction pieces; check the size and simplify before returning to your question.'
+        ]};
+      }
+      const pieces=[...prompt.matchAll(/(\d+)\s*\/\s*(\d+)/g)];
+      if(pieces.length>=2 && Number(pieces[0][2])===Number(pieces[1][2]) && !/[+−-]\s*\d+\s*\/\s*\d+/.test(prompt)){
+        const subtract=/subtract|left|remain|difference|gave away|how much more|how many more|how much less|than/i.test(prompt);const d=[4,5,6,8].find(n=>n!==Number(pieces[0][2]))||10;
+        return {title:'Four steps: fraction word problems',problem:subtract?`A ribbon is 3/${d} meter long. Cut off 1/${d} meter. How much remains?`:`A runner travels 1/${d} mile and then 2/${d} mile. How far in all?`,steps:[
+          `Step 1 — Find what the story asks. Words like “in all” suggest addition; “left” or “gave away” suggest subtraction. This example uses ${subtract?'subtraction':'addition'}.`,
+          `Step 2 — Write the formula: ${subtract?'a/c − b/c = (a − b)/c':'a/c + b/c = (a + b)/c'}. Keep the equal denominator.`,
+          `Step 3 — Solve this DIFFERENT story: ${subtract?`3/${d} − 1/${d} = 2/${d}`:`1/${d} + 2/${d} = 3/${d}`}.`,
+          'Step 4 — Label the answer with the story unit, check the fraction model, and apply the same method to your question.'
+        ]};
+      }
+    }
     if(/common denominator/i.test(prompt))return {title:'Find a common denominator in a different example',problem:'What common denominator works for 2/3 and 1/4?',steps:['Identify the task: find a denominator that both fractions can use.','List multiples of 3: 3, 6, 9, 12. List multiples of 4: 4, 8, 12.','Choose 12, the least common multiple of 3 and 4.','Rename 2/3 as 8/12 and 1/4 as 3/12.','Check that the renamed fractions keep their original values, then return to your question.']};
     const frac=prompt.match(/(\d+)\s*\/\s*(\d+)\s*([+−-])\s*(\d+)\s*\/\s*(\d+)/);
     if(frac && Number(frac[2])===Number(frac[5])){
