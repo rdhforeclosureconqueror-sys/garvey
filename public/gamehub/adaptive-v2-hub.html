@@ -151,6 +151,8 @@
     }
     gradeGrid.innerHTML=grades.map((grade)=>`<button class="btn" data-grade="${grade}" aria-pressed="false">Grade ${grade}</button>`).join('');
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>selectGrade(Number(btn.dataset.grade))));
+    const requestedGrade=Number(launchParams.get('grade'));
+    if(grades.includes(requestedGrade))selectGrade(requestedGrade);
     const notice=document.getElementById("learnerContextNotice"); if(notice&&routeContext.program_context==="youth_development") notice.textContent=`Youth Development learner selected: ${routeContext.child_display_name||"Learner"}. Return path: ${routeContext.return_url}.`;
     loadSkillWorldPackages();
   </script>
