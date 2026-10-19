@@ -24,3 +24,6 @@ assert.equal(help.example({prompt:'9/12 - 1/6'}).problem,'11/16 − 1/8');
 assert.match(help.render({prompt:'What common denominator can rename 1/2 and 3/6?'}),/List multiples of 3/);
 assert.doesNotMatch(help.render({prompt:'What common denominator can rename 1/2 and 3/6?'}),/What common denominator can rename 1\/2 and 3\/6/);
 console.log('Guided help basic regression checks passed');
+
+// Include Fraction Lab regression coverage in the existing CI guided-help job.
+require('./g5-fraction-lab.test.js');
