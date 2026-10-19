@@ -61,7 +61,7 @@
  function fractionBar(q){
   // For fraction-operation questions, show the given operands, never the computed result.
   const prompt=String(q.prompt||q.question||'');
-  const operands=prompt.match(/(\\d+)\\s*\\/\\s*(\\d+)\\s*([+−-])\\s*(\\d+)\\s*\\/\\s*(\\d+)/);
+  const operands=prompt.match(/(\d+)\s*\/\s*(\d+)\s*([+−-])\s*(\d+)\s*\/\s*(\d+)/);
   if(operands && Number(operands[2])===Number(operands[5])){
    const denominator=Number(operands[2]);
    if(denominator>=1 && denominator<=12){
