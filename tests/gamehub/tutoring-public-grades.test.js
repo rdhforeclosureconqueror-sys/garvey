@@ -2,4 +2,4 @@ const test=require('node:test');const assert=require('node:assert/strict');const
 
 test('public route context does not inherit youth-development return paths',()=>{assert.match(hub,/source_registry:\(launchParams\.get\('source_registry'\)\|\|\(launchParams\.get\('program_context'\)==='youth_development'\?'youth_development':'public_learning'\)\)/);assert.match(hub,/return_url:\(launchParams\.get\('return_url'\)\|\|\(launchParams\.get\('program_context'\)==='youth_development'\?'\/youth-development\/parent-dashboard':'\/tutoring.html'\)\)/);});
 
-test('public entrance uses existing Gates parent auth and dashboard, not a duplicate account flow',()=>{assert.match(home,/href="\/gates\/signup"/);assert.match(home,/href="\/gates\/dashboard"/);assert.match(home,/href="\/gamehub\/adaptive-v2-hub\.html"/);assert.doesNotMatch(home,/\/api\/owner\/signup/);});
+test('public entrance uses existing Gates parent auth and dashboard, not a duplicate account flow',()=>{assert.match(home,/href="\/gates\/signup"/);assert.match(home,/href="\/gates\/children"/);assert.match(home,/href="\/gamehub\/adaptive-v2-hub\.html"/);assert.doesNotMatch(home,/\/api\/owner\/signup/);});
