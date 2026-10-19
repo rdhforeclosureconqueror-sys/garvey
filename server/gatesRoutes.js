@@ -290,7 +290,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     const children = [];
     for (const row of rows.rows) {
       const latest = await pool.query(
-        "SELECT id, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY a.created_at DESC LIMIT 1",
+        "SELECT id, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1",
         [sessionState.parentProfile.id, row.id]
       );
       children.push({
