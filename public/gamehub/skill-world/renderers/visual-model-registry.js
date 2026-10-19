@@ -430,5 +430,57 @@ const renderers={polygon_area_model:polygonAreaModel, net_model:netModel, dot_pl
   shape_identification:shapeIdentification,
   measurement_comparison:(q)=>`<div class="visual-model skill-visual-inner measurement-visual" data-renderer="measurement_comparison" role="img" aria-label="Measurement comparison: ${esc(q.left||'A')} is ${esc(q.left_length||q.a||'the first length')}; ${esc(q.right||'B')} is ${esc(q.right_length||q.b||'the second length')}; unit ${esc(q.unit||q.units||'units')}"><div class="measure-bar tall">${esc(q.left||'A')}</div><div class="measure-bar short">${esc(q.right||'B')}</div><p class="sw-visual-caption">Compare both endpoints using the same ${esc(q.unit||q.units||'unit')}.</p></div>`
  };
+
+ // Delegated events survive re-rendering of each question and require no inline script.
+ if(typeof document!=='undefined'&&!globalThis.__garveyFractionLabBound){
+  globalThis.__garveyFractionLabBound=true;
+  document.addEventListener('click',event=>{
+   const button=event.target.closest?.('[data-lab-piece],[data-lab-action],[data-lab-remove]');
+   if(!button)return;
+   const lab=button.closest('.fraction-lab');if(!lab)return;
+   const operands=[...lab.querySelectorAll('[data-lab-operand]')];
+   const feedback=lab.querySelector('.fraction-lab-feedback');
+   const ready=()=>operands.every(op=>op.querySelectorAll('.fraction-lab-cell.is-filled').length===Number(op.dataset.target));
+   if(button.dataset.labPiece){
+    if(lab.dataset.stage==='compare'||lab.dataset.stage==='take')return;
+    const op=button.closest('[data-lab-operand]');const target=Number(op.dataset.target);
+    if(button.classList.contains('is-filled')){button.classList.remove('is-filled');button.setAttribute('aria-pressed','false');}
+    else if(op.querySelectorAll('.is-filled').length<target){button.classList.add('is-filled');button.setAttribute('aria-pressed','true');}
+    const filled=op.querySelectorAll('.is-filled').length;
+    op.querySelector('.fraction-lab-count').textContent=filled+' / '+target+' filled';
+    lab.querySelector('[data-lab-action="compare"]').disabled=!ready();
+    feedback.textContent=ready()?'Both quantities are built. Compare their equal-sized pieces.':'Tap the pieces to match each starting fraction.';
+   }
+   if(button.dataset.labAction==='reset'){
+    lab.dataset.stage='build';lab.querySelectorAll('.fraction-lab-cell.is-filled').forEach(el=>{el.classList.remove('is-filled');el.setAttribute('aria-pressed','false');});
+    operands.forEach(op=>op.querySelector('.fraction-lab-count').textContent='0 / '+op.dataset.target+' filled');
+    lab.querySelectorAll('.fraction-lab-common').forEach(el=>el.remove());
+    lab.querySelector('[data-lab-action="compare"]').disabled=true;lab.querySelector('[data-lab-action="take"]').hidden=true;
+    feedback.textContent='Build the starting fractions by tapping the empty pieces.';
+   }
+   if(button.dataset.labAction==='compare'&&ready()){
+    const [a,b]=operands.map(op=>({den:Number(op.dataset.den),count:Number(op.dataset.target)}));
+    const gcd=(x,y)=>y?gcd(y,x%y):x;const den=a.den*b.den/gcd(a.den,b.den);
+    const countA=a.count*(den/a.den),countB=b.count*(den/b.den);
+    if(countA>120||countB>120){feedback.textContent='Use the matching denominators to work out this problem.';return;}
+    lab.querySelectorAll('.fraction-lab-common').forEach(el=>el.remove());
+    const common=document.createElement('div');common.className='fraction-lab-common';
+    const row=(count,color)=>{const whole=Math.ceil(count/den);return '<div class="fraction-lab-common-stack">'+Array.from({length:whole},(_,j)=>'<div class="fraction-lab-bar" style="--fraction-parts:'+den+'">'+Array.from({length:den},(_,k)=>{const i=j*den+k;return '<button type="button" class="fraction-lab-cell '+(i<count?'is-filled':'')+'" '+(color==='first'&&i<count?'data-lab-remove="'+i+'"':'disabled')+' aria-label="Equivalent piece '+(i+1)+'"></button>';}).join('')+'</div>').join('')+'</div>';};
+    common.innerHTML='<p>Same-size pieces: '+den+' pieces per whole</p>'+row(countA,'first')+'<p class="fraction-lab-common-note">'+(lab.dataset.labOperation==='−'?'Tap the blue pieces to remove the amount shown in orange.':'Compare the pieces before working out the result.')+'</p>'+row(countB,'second');
+    lab.querySelector('.fraction-lab-controls').before(common);
+    lab.dataset.stage='compare';lab.dataset.removeCount=String(countB);lab.dataset.removed='0';
+    lab.querySelector('[data-lab-action="take"]').hidden=lab.dataset.labOperation!=='−';
+    feedback.textContent='Both models now use '+den+' equal pieces per whole. Work out the operation yourself.';
+   }
+   if(button.dataset.labAction==='take'){lab.dataset.stage='take';feedback.textContent='Tap '+lab.dataset.removeCount+' filled blue pieces to subtract the orange amount.';}
+   if(button.dataset.labRemove!==undefined&&lab.dataset.stage==='take'&&button.classList.contains('is-filled')){
+    button.classList.remove('is-filled');button.classList.add('is-removed');button.disabled=true;
+    const removed=Number(lab.dataset.removed)+1;lab.dataset.removed=String(removed);
+    const target=Number(lab.dataset.removeCount);
+    feedback.textContent=removed===target?'You removed the correct amount! Count what remains, then enter your answer below.':removed+' / '+target+' pieces removed. Keep going.';
+    if(removed===target)lab.dataset.stage='done';
+   }
+  });
+ }
  return {render(question,options={}){if(!question){return '<div class="visual-model skill-visual-inner missing-visual" data-renderer="missing">Missing visual data</div>';} const k=question.visual_model||question.support_type||question.question_type; const answerModeRenderers=['fact_family_model','algorithm_steps','partial_products_model','division_model','remainder_model','decimal_grid','rounding_model','area_model']; const html=renderers[k]?(answerModeRenderers.includes(k)?renderers[k](question,options):renderers[k](question)):renderers.visual_objects(question); return html;},hasRenderer(key){return Boolean(renderers[key]);},getContract(key){if(key==='shape_identification')return SHAPE_IDENTIFICATION_CONTRACT; if(['algorithm_steps','partial_products_model','division_model','remainder_model','decimal_grid','rounding_model','area_model'].includes(key))return {defaultMode:'question',modes:['question','solution'],solutionOptIn:['render options: {mode="solution"}','render options: {showAnswer:true}','question.visual_mode="solution"','question.show_answer=true']}; return null;}};
 });
