@@ -256,22 +256,67 @@
   }
 
   function renderSignup(authRequired = false) {
-    shell('Parent account access', `
-      ${authRequired ? '<p class="status">Please sign in to continue.</p>' : ''}
-      <div class="card-grid"><form class="panel" id="signup-form"><h3>Create account</h3><input name="parent_name" placeholder="Parent name" required/><input name="email" type="email" placeholder="Email" required/><input name="password" type="password" placeholder="Password" required minlength="8"/><button type="submit">Create Parent Account</button></form>
-      <form class="panel" id="signin-form"><h3>Sign in</h3><input name="email" type="email" placeholder="Email" required/><input name="password" type="password" placeholder="Password" required/><button type="submit">Parent Sign In</button></form></div>
-      <p><a href="/gates">Back to Gates</a></p>
+    shell('Parent portal', `
+      <div class="auth-experience">
+        <section class="auth-story" aria-label="Garvey Learning introduction">
+          <a class="auth-back" href="/tutoring.html">← Garvey Learning</a>
+          <span class="auth-eyebrow">GARVEY LEARNING · FAMILY ACCESS</span>
+          <div class="auth-orbit" aria-hidden="true"><span class="auth-orbit-core">G</span><span class="auth-orbit-ring"></span></div>
+          <h2>Every great future starts with <em>curiosity.</em></h2>
+          <p>One parent portal. A world of Math, English, discovery, and progress designed around your learner.</p>
+          <div class="auth-benefits"><span>✦ Personalized learning</span><span>✦ Family progress hub</span><span>✦ Explore at your pace</span></div>
+        </section>
+        <section class="auth-access" aria-label="Parent account access">
+          <div class="auth-access-top"><span class="auth-online"><span></span> FAMILY PORTAL</span><a href="/tutoring.html">Explore learning ↗</a></div>
+          <h2 id="auth-title">Welcome back</h2>
+          <p id="auth-subtitle" class="auth-subtitle">Sign in to continue your family's journey.</p>
+          ${authRequired ? '<p class="status" role="status">Please sign in to continue.</p>' : ''}
+          <div class="auth-tabs" role="tablist" aria-label="Account access"><button type="button" role="tab" id="auth-signin-tab" aria-controls="signin-form" aria-selected="true">Sign in</button><button type="button" role="tab" id="auth-signup-tab" aria-controls="signup-form" aria-selected="false">Create account</button></div>
+          <form class="auth-form" id="signin-form" aria-labelledby="auth-signin-tab">
+            <label>Email address<input name="email" type="email" placeholder="you@example.com" autocomplete="email" required/></label>
+            <label>Password<input name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required/></label>
+            <button class="auth-submit" type="submit">Enter parent portal <span aria-hidden="true">→</span></button>
+          </form>
+          <form class="auth-form" id="signup-form" aria-labelledby="auth-signup-tab" hidden>
+            <label>Parent name<input name="parent_name" placeholder="Your name" autocomplete="name" required/></label>
+            <label>Email address<input name="email" type="email" placeholder="you@example.com" autocomplete="email" required/></label>
+            <label>Create password<input name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required/></label>
+            <button class="auth-submit" type="submit">Create parent account <span aria-hidden="true">→</span></button>
+          </form>
+          <p class="auth-error status-message" id="auth-error" role="alert" aria-live="polite"></p>
+          <p class="auth-footer">Your family learning journey starts here.</p>
+        </section>
+      </div>
     `);
-    document.querySelector('#signup-form').addEventListener('submit', async (e) => {
-      e.preventDefault(); const fd = new FormData(e.target);
-      await api('/api/gates/auth/signup', { method: 'POST', body: JSON.stringify(Object.fromEntries(fd.entries())) });
-      nav('/gates/children');
-    });
-    document.querySelector('#signin-form').addEventListener('submit', async (e) => {
-      e.preventDefault(); const fd = new FormData(e.target);
-      await api('/api/gates/auth/signin', { method: 'POST', body: JSON.stringify(Object.fromEntries(fd.entries())) });
-      nav('/gates/children');
-    });
+    const signIn = document.querySelector('#signin-form');
+    const signUp = document.querySelector('#signup-form');
+    const signInTab = document.querySelector('#auth-signin-tab');
+    const signUpTab = document.querySelector('#auth-signup-tab');
+    const error = document.querySelector('#auth-error');
+    function choose(mode) {
+      const creating = mode === 'signup';
+      signIn.hidden = creating; signUp.hidden = !creating;
+      signInTab.setAttribute('aria-selected', String(!creating));
+      signUpTab.setAttribute('aria-selected', String(creating));
+      document.querySelector('#auth-title').textContent = creating ? 'Build their future' : 'Welcome back';
+      document.querySelector('#auth-subtitle').textContent = creating ? 'Create your free parent portal to get started.' : 'Sign in to continue your family\'s journey.';
+      error.textContent = '';
+    }
+    signInTab.addEventListener('click', () => choose('signin'));
+    signUpTab.addEventListener('click', () => choose('signup'));
+    async function submit(form, endpoint) {
+      const button = form.querySelector('[type="submit"]');
+      button.disabled = true; error.textContent = '';
+      try {
+        const fd = new FormData(form);
+        await api(endpoint, { method: 'POST', body: JSON.stringify(Object.fromEntries(fd.entries())) });
+        nav('/gates/children');
+      } catch (err) {
+        error.textContent = err?.message || 'Unable to access your account. Please try again.';
+      } finally { button.disabled = false; }
+    }
+    signUp.addEventListener('submit', (e) => { e.preventDefault(); submit(signUp, '/api/gates/auth/signup'); });
+    signIn.addEventListener('submit', (e) => { e.preventDefault(); submit(signIn, '/api/gates/auth/signin'); });
   }
 
   async function renderChildren() {
