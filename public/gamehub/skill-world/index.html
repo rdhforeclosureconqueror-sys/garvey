@@ -115,6 +115,8 @@
 	   if(nextLevel){SkillWorldRenderer.nextLevel(state,p); render(); return;}
 	   const backDrill=e.target.closest('.back-to-drill-center');
 	   if(backDrill){SkillWorldRenderer.backToDrillCenter(state); render(); return;}
+   const lessonNav=e.target.closest('.g5-fraction-next,.g5-fraction-prev');
+   if(lessonNav){const pages=[...app.querySelectorAll('[data-fraction-lesson-page]')];const active=pages.findIndex(el=>!el.hidden);if(active<0)return;const next=lessonNav.classList.contains('g5-fraction-prev')?Math.max(0,active-1):Math.min(pages.length-1,active+1);pages.forEach((el,i)=>el.hidden=i!==next);pages[next]?.querySelector('h4')?.setAttribute('tabindex','-1');pages[next]?.querySelector('h4')?.focus();return;}
    const hint=e.target.closest('#hint');
    if(hint){SkillWorldRenderer.useHint(state); const fb=hint.closest('.question-card').querySelector('.feedback-area'); fb.innerHTML=SkillWorldGuidedHelp.render(activeQuestion(hint.closest('.screen')).q); const statTemp=document.createElement('div'); statTemp.innerHTML=SkillWorldRenderer.renderStats(state,p); app.querySelector('.sw-stats').innerHTML=statTemp.querySelector('.sw-stats').innerHTML; return;}
    const show=e.target.closest('#show');

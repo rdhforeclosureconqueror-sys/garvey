@@ -734,3 +734,5 @@ button,input,select,textarea{font:inherit;max-width:100%}
 .fraction-lab-common{border:2px dashed #94b8eb;border-radius:14px;padding:14px;margin:12px 0;display:grid;gap:10px}
 .fraction-lab-common-note,.fraction-lab-feedback{font-size:.92rem;color:#38527d;line-height:1.5}
 @media(max-width:480px){.fraction-lab-operand{flex-basis:100%;max-width:none}.fraction-lab-equation{flex-direction:column}.fraction-lab-operation{line-height:1}.fraction-lab-bar{min-height:44px}}
+
+.g5-fraction-page[hidden]{display:none!important}.g5-fraction-lessons{grid-column:1/-1}.g5-fraction-page{padding:1rem;border:2px solid #bdd8ff;border-radius:1rem;margin:1rem 0}.g5-fraction-page li{margin:.8rem 0;line-height:1.6}.g5-fraction-page-nav{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:space-between}.g5-fraction-page-nav button{min-height:48px;padding:.7rem;border:2px solid #86b5f0;border-radius:.8rem;background:#fff;color:#173c71}.g5-fraction-page-nav button:disabled{opacity:.4}
