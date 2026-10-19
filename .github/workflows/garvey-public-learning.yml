@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - 'public/tutoring.html'
+      - 'public/learning-login.html'
+      - 'public/learning-dashboard.html'
+      - 'tests/gamehub/learning-parent-portal.test.js'
       - 'public/gamehub/adaptive-v2-hub.html'
       - 'tests/gamehub/tutoring-public-grades.test.js'
       - '.github/workflows/garvey-public-learning.yml'
@@ -11,6 +14,9 @@ on:
       - main
     paths:
       - 'public/tutoring.html'
+      - 'public/learning-login.html'
+      - 'public/learning-dashboard.html'
+      - 'tests/gamehub/learning-parent-portal.test.js'
       - 'public/gamehub/adaptive-v2-hub.html'
       - 'tests/gamehub/tutoring-public-grades.test.js'
       - '.github/workflows/garvey-public-learning.yml'
@@ -24,5 +30,7 @@ jobs:
           node-version: '22'
       - name: Public grade and route regression
         run: node --test tests/gamehub/tutoring-public-grades.test.js
+      - name: Educational portal regression
+        run: node --test tests/gamehub/learning-parent-portal.test.js
       - name: Existing adaptive hub regression
         run: node --test tests/gamehub/adaptive-v2-hub-and-entrypoints.test.js
