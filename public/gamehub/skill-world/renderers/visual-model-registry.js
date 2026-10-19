@@ -156,12 +156,17 @@
  function grade5FractionLab(q){
   const id=String(q.id||q.question_id||'');if(!id.startsWith('G5M_FR_'))return null;
   const prompt=String(q.prompt||q.question||'');
-  const found=[...prompt.matchAll(/(?:(\d+)\s+)?(\d+)\s*\/\s*(\d+)/g)];if(found.length<2)return null;
-  const fractions=found.slice(0,2).map(m=>({whole:Number(m[1]||0),num:Number(m[2]),den:Number(m[3])}));
-  if(fractions.some(f=>f.den<1||f.den>12||f.num<0||f.num>f.den))return null;
+  const found=[...prompt.matchAll(/(?:(\d+)\s+)?(\d+)\s*\/\s*(\d+)/g)];
+  if(found.length<2)return null;
+  const fs=found.slice(0,2).map(m=>({whole:Number(m[1]||0),num:Number(m[2]),den:Number(m[3])}));
+  if(fs.some(f=>f.den<1||f.den>12||f.num<0||f.num>f.den||f.whole>5))return null;
   const operation=/subtract|minus|difference|left|remain|gave away|how much more/i.test(prompt)||/\d\s*\/\s*\d\s*[-−]\s*\d/.test(prompt)?'−':(/add|plus|total|together|in all/i.test(prompt)||/\d\s*\/\s*\d\s*\+\s*\d/.test(prompt)?'+':'↔');
-  const pieces=(f,idx)=>{const cells=Array.from({length:f.den},(_,i)=>`<span class="fraction-lab-cell ${i<f.num?'is-filled':''}" aria-hidden="true"></span>`).join('');const whole=Array.from({length:Math.min(f.whole,5)},()=>'<div class="fraction-lab-whole" aria-label="one whole"></div>').join('');return `<div class="fraction-lab-operand fraction-lab-operand-${idx}"><strong>${f.whole?f.whole+' ':''}${f.num}/${f.den}</strong><div class="fraction-lab-wholes">${whole}</div><div class="fraction-lab-bar" style="--fraction-parts:${f.den}" role="img" aria-label="${f.whole?f.whole+' whole and ':''}${f.num} of ${f.den} equal parts shaded">${cells}</div></div>`;};
-  return `<div class="visual-model skill-visual-inner fraction-lab" data-renderer="fraction_lab" aria-label="Fraction Lab starting quantities"><p class="sw-visual-caption">FRACTION LAB · Explore the starting pieces</p><div class="fraction-lab-equation">${pieces(fractions[0],1)}<span class="fraction-lab-operation" aria-label="${operation==='+'?'plus':operation==='−'?'minus':'compare'}">${operation}</span>${pieces(fractions[1],2)}<span class="fraction-lab-operation">= ?</span></div><p class="sw-visual-caption">Each bar shows equal-sized parts. Find the result yourself.</p></div>`;
+  const operand=(f,index)=>{
+    const count=f.whole*f.den+f.num;
+    const bars=Array.from({length:f.whole+1},(_,bar)=>'<div class="fraction-lab-bar" style="--fraction-parts:'+f.den+'">'+Array.from({length:f.den},(_,part)=>{const n=bar*f.den+part;return '<button type="button" class="fraction-lab-cell" data-lab-piece="'+index+'" data-piece-index="'+n+'" aria-label="Piece '+(n+1)+' of '+count+'" aria-pressed="false"></button>';}).join('')+'</div>').join('');
+    return '<div class="fraction-lab-operand" data-lab-operand="'+index+'" data-target="'+count+'" data-den="'+f.den+'"><strong>'+(f.whole?f.whole+' ':'')+(f.num+'/'+f.den)+'</strong><p class="fraction-lab-instruction">Tap '+count+' pieces ('+f.den+' per whole)</p><div class="fraction-lab-stack">'+bars+'</div><span class="fraction-lab-count" aria-live="polite">0 / '+count+' filled</span></div>';
+  };
+  return '<div class="visual-model skill-visual-inner fraction-lab" data-renderer="fraction_lab" data-lab-operation="'+operation+'" aria-label="Interactive Fraction Lab"><p class="sw-visual-caption">FRACTION LAB · Build both fractions by tapping the empty pieces</p><div class="fraction-lab-equation">'+operand(fs[0],1)+'<span class="fraction-lab-operation">'+operation+'</span>'+operand(fs[1],2)+'</div><div class="fraction-lab-controls"><button type="button" class="fraction-lab-action" data-lab-action="compare" disabled>Compare equal-sized pieces</button><button type="button" class="fraction-lab-action" data-lab-action="take" hidden>Take away the pieces</button><button type="button" class="fraction-lab-action" data-lab-action="reset">Start again</button></div><p class="fraction-lab-feedback" aria-live="polite">Fill the outlined bars to match the fractions. The answer stays hidden until you work it out.</p></div>';
  }
  function equationBuilder(q){const lab=grade5FractionLab(q);if(lab)return lab;const eq=q.equation||`${safe(q.a,'?')} ${q.operator||(/subtract|left|fewer|less|take/i.test(q.prompt||'')?'-':'+')} ${safe(q.b,'?')} = ?`; const tokens=String(eq).split(/\s+/).filter(Boolean); return `<div class="visual-model skill-visual-inner equation-builder-visual" data-renderer="equation_builder"><div class="pattern-row equation-row">${tokens.map((t)=>`<span class="pattern-token ${t==='?'?'missing':''}"><b>${esc(t)}</b></span>`).join('')}</div><p class="sw-visual-caption">Build an equation that matches the words, then solve for the missing number.</p></div>`;}
  function ruler(q){
@@ -425,5 +430,57 @@ const renderers={polygon_area_model:polygonAreaModel, net_model:netModel, dot_pl
   shape_identification:shapeIdentification,
   measurement_comparison:(q)=>`<div class="visual-model skill-visual-inner measurement-visual" data-renderer="measurement_comparison" role="img" aria-label="Measurement comparison: ${esc(q.left||'A')} is ${esc(q.left_length||q.a||'the first length')}; ${esc(q.right||'B')} is ${esc(q.right_length||q.b||'the second length')}; unit ${esc(q.unit||q.units||'units')}"><div class="measure-bar tall">${esc(q.left||'A')}</div><div class="measure-bar short">${esc(q.right||'B')}</div><p class="sw-visual-caption">Compare both endpoints using the same ${esc(q.unit||q.units||'unit')}.</p></div>`
  };
+
+ // Delegated events survive re-rendering of each question and require no inline script.
+ if(typeof document!=='undefined'&&!globalThis.__garveyFractionLabBound){
+  globalThis.__garveyFractionLabBound=true;
+  document.addEventListener('click',event=>{
+   const button=event.target.closest?.('[data-lab-piece],[data-lab-action],[data-lab-remove]');
+   if(!button)return;
+   const lab=button.closest('.fraction-lab');if(!lab)return;
+   const operands=[...lab.querySelectorAll('[data-lab-operand]')];
+   const feedback=lab.querySelector('.fraction-lab-feedback');
+   const ready=()=>operands.every(op=>op.querySelectorAll('.fraction-lab-cell.is-filled').length===Number(op.dataset.target));
+   if(button.dataset.labPiece){
+    if(lab.dataset.stage==='compare'||lab.dataset.stage==='take')return;
+    const op=button.closest('[data-lab-operand]');const target=Number(op.dataset.target);
+    if(button.classList.contains('is-filled')){button.classList.remove('is-filled');button.setAttribute('aria-pressed','false');}
+    else if(op.querySelectorAll('.is-filled').length<target){button.classList.add('is-filled');button.setAttribute('aria-pressed','true');}
+    const filled=op.querySelectorAll('.is-filled').length;
+    op.querySelector('.fraction-lab-count').textContent=filled+' / '+target+' filled';
+    lab.querySelector('[data-lab-action="compare"]').disabled=!ready();
+    feedback.textContent=ready()?'Both quantities are built. Compare their equal-sized pieces.':'Tap the pieces to match each starting fraction.';
+   }
+   if(button.dataset.labAction==='reset'){
+    lab.dataset.stage='build';lab.querySelectorAll('.fraction-lab-cell.is-filled').forEach(el=>{el.classList.remove('is-filled');el.setAttribute('aria-pressed','false');});
+    operands.forEach(op=>op.querySelector('.fraction-lab-count').textContent='0 / '+op.dataset.target+' filled');
+    lab.querySelectorAll('.fraction-lab-common').forEach(el=>el.remove());
+    lab.querySelector('[data-lab-action="compare"]').disabled=true;lab.querySelector('[data-lab-action="take"]').hidden=true;lab.querySelector('[data-lab-action="take"]').disabled=false;
+    feedback.textContent='Build the starting fractions by tapping the empty pieces.';
+   }
+   if(button.dataset.labAction==='compare'&&ready()){
+    const [a,b]=operands.map(op=>({den:Number(op.dataset.den),count:Number(op.dataset.target)}));
+    const gcd=(x,y)=>y?gcd(y,x%y):x;const den=a.den*b.den/gcd(a.den,b.den);
+    const countA=a.count*(den/a.den),countB=b.count*(den/b.den);
+    if(countA>120||countB>120){feedback.textContent='Use the matching denominators to work out this problem.';return;}
+    lab.querySelectorAll('.fraction-lab-common').forEach(el=>el.remove());
+    const common=document.createElement('div');common.className='fraction-lab-common';
+    const row=(count,color)=>{const whole=Math.ceil(count/den);return '<div class="fraction-lab-common-stack">'+Array.from({length:whole},(_,j)=>'<div class="fraction-lab-bar" style="--fraction-parts:'+den+'">'+Array.from({length:den},(_,k)=>{const i=j*den+k;return '<button type="button" class="fraction-lab-cell '+(i<count?'is-filled':'')+'" '+(color==='first'&&i<count?'data-lab-remove="'+i+'"':'disabled')+' aria-label="Equivalent piece '+(i+1)+'"></button>';}).join('')+'</div>').join('')+'</div>';};
+    common.innerHTML='<p>Same-size pieces: '+den+' pieces per whole</p>'+row(countA,'first')+'<p class="fraction-lab-common-note">'+(lab.dataset.labOperation==='−'?'Tap the blue pieces to remove the amount shown in orange.':'Compare the pieces before working out the result.')+'</p>'+row(countB,'second');
+    lab.querySelector('.fraction-lab-controls').before(common);
+    lab.dataset.stage='compare';lab.dataset.removeCount=String(countB);lab.dataset.removed='0';
+    lab.querySelector('[data-lab-action="take"]').hidden=lab.dataset.labOperation!=='−';
+    feedback.textContent='Both models now use '+den+' equal pieces per whole. Work out the operation yourself.';
+   }
+   if(button.dataset.labAction==='take'&&lab.dataset.stage==='compare'){lab.dataset.stage='take';feedback.textContent='Tap '+lab.dataset.removeCount+' filled blue pieces to subtract the orange amount.';}
+   if(button.dataset.labRemove!==undefined&&lab.dataset.stage==='take'&&button.classList.contains('is-filled')){
+    button.classList.remove('is-filled');button.classList.add('is-removed');button.disabled=true;
+    const removed=Number(lab.dataset.removed)+1;lab.dataset.removed=String(removed);
+    const target=Number(lab.dataset.removeCount);
+    feedback.textContent=removed===target?'You removed the correct amount! Count what remains, then enter your answer below.':removed+' / '+target+' pieces removed. Keep going.';
+    if(removed===target){lab.dataset.stage='done';lab.querySelector('[data-lab-action="take"]').disabled=true;}
+   }
+  });
+ }
  return {render(question,options={}){if(!question){return '<div class="visual-model skill-visual-inner missing-visual" data-renderer="missing">Missing visual data</div>';} const k=question.visual_model||question.support_type||question.question_type; const answerModeRenderers=['fact_family_model','algorithm_steps','partial_products_model','division_model','remainder_model','decimal_grid','rounding_model','area_model']; const html=renderers[k]?(answerModeRenderers.includes(k)?renderers[k](question,options):renderers[k](question)):renderers.visual_objects(question); return html;},hasRenderer(key){return Boolean(renderers[key]);},getContract(key){if(key==='shape_identification')return SHAPE_IDENTIFICATION_CONTRACT; if(['algorithm_steps','partial_products_model','division_model','remainder_model','decimal_grid','rounding_model','area_model'].includes(key))return {defaultMode:'question',modes:['question','solution'],solutionOptIn:['render options: {mode="solution"}','render options: {showAnswer:true}','question.visual_mode="solution"','question.show_answer=true']}; return null;}};
 });

@@ -717,3 +717,20 @@ button,input,select,textarea{font:inherit;max-width:100%}
 .fraction-lab-cell{background:#e7effa;min-width:0}.fraction-lab-operand-1 .fraction-lab-cell.is-filled{background:#31a6d4}.fraction-lab-operand-2 .fraction-lab-cell.is-filled{background:#f7a646}
 .fraction-lab-wholes{display:grid;gap:4px}.fraction-lab-whole{height:24px;border-radius:7px;background:#31a6d4;border:1px solid #2083b3}
 @media(max-width:480px){.fraction-lab-equation{gap:8px}.fraction-lab-operand{flex-basis:110px}.fraction-lab-bar{min-height:44px}}
+
+/* Fraction Lab hands-on controls: clear targets, accessible tap zones, visible removals. */
+.fraction-lab-stack,.fraction-lab-common-stack{display:grid;gap:7px;width:100%}
+.fraction-lab-operand{min-width:125px}
+.fraction-lab-instruction,.fraction-lab-count{font-size:.82rem;color:#435c83}
+.fraction-lab-cell{border:0;border-right:1px solid white;min-height:42px;cursor:pointer;touch-action:manipulation;transition:background .18s,transform .15s}
+.fraction-lab-cell:focus-visible,.fraction-lab-action:focus-visible{outline:3px solid #5e4ce0;outline-offset:2px}
+.fraction-lab-cell:active{transform:scale(.96)}
+.fraction-lab-cell.is-filled{background:#31a6d4}
+.fraction-lab-common-stack:last-child .fraction-lab-cell.is-filled{background:#f7a646}
+.fraction-lab-cell.is-removed{background:repeating-linear-gradient(45deg,#ffddd3,#ffddd3 6px,#f58c79 6px,#f58c79 12px)}
+.fraction-lab-controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.fraction-lab-action{padding:12px 15px;border-radius:12px;border:2px solid #94b8eb;background:#fff;color:#20304f;font-weight:700;min-height:44px}
+.fraction-lab-action:disabled{opacity:.45}
+.fraction-lab-common{border:2px dashed #94b8eb;border-radius:14px;padding:14px;margin:12px 0;display:grid;gap:10px}
+.fraction-lab-common-note,.fraction-lab-feedback{font-size:.92rem;color:#38527d;line-height:1.5}
+@media(max-width:480px){.fraction-lab-operand{flex-basis:100%;max-width:none}.fraction-lab-equation{flex-direction:column}.fraction-lab-operation{line-height:1}.fraction-lab-bar{min-height:44px}}
