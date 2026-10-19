@@ -455,7 +455,7 @@ const renderers={polygon_area_model:polygonAreaModel, net_model:netModel, dot_pl
     lab.dataset.stage='build';lab.querySelectorAll('.fraction-lab-cell.is-filled').forEach(el=>{el.classList.remove('is-filled');el.setAttribute('aria-pressed','false');});
     operands.forEach(op=>op.querySelector('.fraction-lab-count').textContent='0 / '+op.dataset.target+' filled');
     lab.querySelectorAll('.fraction-lab-common').forEach(el=>el.remove());
-    lab.querySelector('[data-lab-action="compare"]').disabled=true;lab.querySelector('[data-lab-action="take"]').hidden=true;
+    lab.querySelector('[data-lab-action="compare"]').disabled=true;lab.querySelector('[data-lab-action="take"]').hidden=true;lab.querySelector('[data-lab-action="take"]').disabled=false;
     feedback.textContent='Build the starting fractions by tapping the empty pieces.';
    }
    if(button.dataset.labAction==='compare'&&ready()){
@@ -472,13 +472,13 @@ const renderers={polygon_area_model:polygonAreaModel, net_model:netModel, dot_pl
     lab.querySelector('[data-lab-action="take"]').hidden=lab.dataset.labOperation!=='−';
     feedback.textContent='Both models now use '+den+' equal pieces per whole. Work out the operation yourself.';
    }
-   if(button.dataset.labAction==='take'){lab.dataset.stage='take';feedback.textContent='Tap '+lab.dataset.removeCount+' filled blue pieces to subtract the orange amount.';}
+   if(button.dataset.labAction==='take'&&lab.dataset.stage==='compare'){lab.dataset.stage='take';feedback.textContent='Tap '+lab.dataset.removeCount+' filled blue pieces to subtract the orange amount.';}
    if(button.dataset.labRemove!==undefined&&lab.dataset.stage==='take'&&button.classList.contains('is-filled')){
     button.classList.remove('is-filled');button.classList.add('is-removed');button.disabled=true;
     const removed=Number(lab.dataset.removed)+1;lab.dataset.removed=String(removed);
     const target=Number(lab.dataset.removeCount);
     feedback.textContent=removed===target?'You removed the correct amount! Count what remains, then enter your answer below.':removed+' / '+target+' pieces removed. Keep going.';
-    if(removed===target)lab.dataset.stage='done';
+    if(removed===target){lab.dataset.stage='done';lab.querySelector('[data-lab-action="take"]').disabled=true;}
    }
   });
  }
