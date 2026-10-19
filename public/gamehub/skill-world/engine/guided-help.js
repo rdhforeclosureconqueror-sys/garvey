@@ -7,6 +7,20 @@
     const prompt=String(question?.prompt||question?.question||'');
     if(/common denominator/i.test(prompt))return {title:'Find a common denominator in a different example',problem:'What common denominator works for 2/3 and 1/4?',steps:['Identify the task: find a denominator that both fractions can use.','List multiples of 3: 3, 6, 9, 12. List multiples of 4: 4, 8, 12.','Choose 12, the least common multiple of 3 and 4.','Rename 2/3 as 8/12 and 1/4 as 3/12.','Check that the renamed fractions keep their original values, then return to your question.']};
     const frac=prompt.match(/(\d+)\s*\/\s*(\d+)\s*([+−-])\s*(\d+)\s*\/\s*(\d+)/);
+    if(frac && Number(frac[2])===Number(frac[5])){
+      const add=frac[3]==='+';
+      const originalDenominator=Number(frac[2]);
+      const originalA=Number(frac[1]),originalB=Number(frac[4]);
+      const denominator=[5,6,8,10,12].find(d=>d!==originalDenominator)||7;
+      const a=add?2:4,b=add?1:2;
+      const result=add?a+b:a-b;
+      return {title:'Four steps: fractions with like denominators',problem:`${a}/${denominator} ${add?'+':'−'} ${b}/${denominator}`,steps:[
+        `Step 1 — Identify the operation: ${add?'addition':'subtraction'}. Both denominators are ${denominator}, so the pieces are the same size.`,
+        `Step 2 — Learn the rule: ${add?'a/c + b/c = (a + b)/c':'a/c − b/c = (a − b)/c'}. Keep the denominator; never ${add?'add':'subtract'} the denominators.`,
+        `Step 3 — Work this DIFFERENT example: ${a} ${add?'+':'−'} ${b} = ${result}, so the example becomes ${result}/${denominator}.`,
+        'Step 4 — Check: shade the parts in a fraction bar, simplify if possible, then use the same four steps on your own question.'
+      ]};
+    }
     if(frac){
       const add=frac[3]==='+';
       const same=(a,b,c,d)=>Number(frac[1])===a&&Number(frac[2])===b&&Number(frac[4])===c&&Number(frac[5])===d;
