@@ -706,3 +706,14 @@ button,input,select,textarea{font:inherit;max-width:100%}
 .histogram-bars{display:flex;align-items:flex-end;gap:.2rem;height:140px;border-left:2px solid #334155;border-bottom:2px solid #334155;padding:.35rem;overflow-x:auto}.histogram-bar-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:44px}.histogram-bar{width:100%;background:#0ea5e9;border-radius:8px 8px 0 0;display:flex;align-items:flex-start;justify-content:center;color:#082f49}
 .box-plot-line{position:relative;height:82px;margin:.5rem;border-bottom:4px solid #334155}.box-plot-line .whisker,.box-edge,.median-line{position:absolute;bottom:-16px;width:4px;height:34px;background:#334155}.box-fill{position:absolute;bottom:-10px;height:24px;border:3px solid #2563eb;background:#dbeafe;border-radius:8px}.median-line{background:#dc2626;height:44px}.five-number-row{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:space-around;font-size:.82rem}.statistics-summary-grid{grid-template-columns:repeat(auto-fit,minmax(82px,1fr))}.stat-card strong{display:block;text-transform:capitalize}.data-comparison-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mini-dot-plot{border:0;padding:0}.comparison-stats{display:flex;gap:.35rem;justify-content:center;flex-wrap:wrap}
 @media (max-width:520px){.polygon-area-model-visual .composite-polygon,.data-comparison-grid{grid-template-columns:1fr}.net-model-visual .net-grid{grid-template-columns:repeat(3,minmax(48px,1fr));font-size:.78rem}.histogram-bars{height:120px}.dot-col{min-width:24px}}
+
+/* Grade 5 Fraction Lab: mature, mobile-first visual operands, never answer tiles. */
+.fraction-lab{background:linear-gradient(145deg,#eff7ff,#f8f4ff);border:2px solid #a9d3fb;border-radius:22px;padding:clamp(12px,3vw,24px);color:#20304f}
+.fraction-lab-equation{display:flex;align-items:center;justify-content:center;gap:clamp(6px,2vw,18px);flex-wrap:wrap;margin:18px auto}
+.fraction-lab-operand{flex:1 1 130px;min-width:105px;max-width:300px;display:grid;gap:10px;text-align:center}
+.fraction-lab-operand strong{font-size:clamp(19px,4vw,27px)}
+.fraction-lab-operation{font-size:clamp(22px,5vw,35px);font-weight:800;color:#5c4bc4}
+.fraction-lab-bar{display:grid;grid-template-columns:repeat(var(--fraction-parts),minmax(0,1fr));gap:2px;min-height:55px;border:2px solid #78a7d5;border-radius:12px;overflow:hidden;background:white}
+.fraction-lab-cell{background:#e7effa;min-width:0}.fraction-lab-operand-1 .fraction-lab-cell.is-filled{background:#31a6d4}.fraction-lab-operand-2 .fraction-lab-cell.is-filled{background:#f7a646}
+.fraction-lab-wholes{display:grid;gap:4px}.fraction-lab-whole{height:24px;border-radius:7px;background:#31a6d4;border:1px solid #2083b3}
+@media(max-width:480px){.fraction-lab-equation{gap:8px}.fraction-lab-operand{flex-basis:110px}.fraction-lab-bar{min-height:44px}}
