@@ -58,12 +58,14 @@
       const a=secondAlternate?(add?3:11):(alternate?(add?1:9):(add?2:7)),b=secondAlternate?16:(alternate?12:8),c=secondAlternate?1:(alternate?1:(add?2:1)),d=secondAlternate?8:(alternate?6:4);
       const lcd=b*d/gcd(b,d),x=a*(lcd/b),y=c*(lcd/d),z=add?x+y:x-y;
       const divisor=gcd(Math.abs(z),lcd);
+      const multiples=(n)=>Array.from({length:Math.max(2,Math.min(5,lcd/n))},(_,i)=>n*(i+1)).join(', ');
+      const factorA=lcd/b,factorB=lcd/d;
       return {title:'Try a different fraction problem',problem:`${a}/${b} ${add?'+':'−'} ${c}/${d}`,steps:[
-        `Identify the operation: ${add?'addition':'subtraction'}. The denominators tell us the sizes of the pieces.`,
-        `Find a common denominator: ${b} and ${d} both divide evenly into ${lcd}.`,
-        `Rename the fractions without changing their values: ${a}/${b} = ${x}/${lcd} and ${c}/${d} = ${y}/${lcd}.`,
-        `Now ${add?'add':'subtract'} the numerators: ${x} ${add?'+':'−'} ${y} = ${z}. Keep the denominator ${lcd}.`,
-        `Check and simplify: ${z}/${lcd}${divisor>1?` = ${z/divisor}/${lcd/divisor}`:''}. Return to your question and repeat these steps.`
+        `Step 1 — Identify ${add?'addition':'subtraction'}. Different-sized fraction pieces must be renamed to equal-sized pieces before calculating.`,
+        `Step 2 — Find the least common denominator (LCD) by listing multiples. Multiples of ${b}: ${multiples(b)}${lcd/b>5?', …, '+lcd:''}. Multiples of ${d}: ${multiples(d)}${lcd/d>5?', …, '+lcd:''}. The first shared multiple is ${lcd}.`,
+        `Step 3 — Find each conversion factor by dividing the LCD by the original denominator: ${lcd} ÷ ${b} = ${factorA} and ${lcd} ÷ ${d} = ${factorB}. Multiply the numerator AND denominator by the same factor: ${a}/${b} × ${factorA}/${factorA} = ${x}/${lcd}; ${c}/${d} × ${factorB}/${factorB} = ${y}/${lcd}. Each factor/factor equals 1, so the amounts do not change.`,
+        `Step 4 — Now the pieces are equal-sized. ${add?'Add':'Subtract'} the numerators: ${x} ${add?'+':'−'} ${y} = ${z}; keep denominator ${lcd}, giving ${z}/${lcd}.`,
+        `Step 5 — Check the fraction-bar model and simplify when possible: ${z}/${lcd}${divisor>1?` = ${z/divisor}/${lcd/divisor}`:''}. Apply the same formula to your own question.`
       ]};
     }
     const compare=/compar|greater|less than|order|<|>/.test(prompt.toLowerCase());
