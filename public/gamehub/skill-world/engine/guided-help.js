@@ -5,6 +5,23 @@
   const gcd=(a,b)=>b?gcd(b,a%b):a;
   function example(question){
     const prompt=String(question?.prompt||question?.question||'');
+    if(String(question?.id||question?.question_id||'').startsWith('G5M_OA_001')){
+      const id=String(question.id||question.question_id||'');
+      const level=Number((id.match(/_L([1-5])_/)||[])[1])||(/MIXED/.test(id)?5:1);
+      const examples={
+        1:{title:'🟣 Write a numerical expression',problem:'Four teams each collect 2 red and 5 blue tokens. Write the total as an expression.',steps:['🟣 Find the groups: each team has 2 + 5 tokens, and there are 4 teams.','🔵 Put the amount for ONE team in parentheses: (2 + 5). Parentheses mean do this part first.','🟢 Multiply by the number of teams: (2 + 5) × 4. This describes the situation without mixing up the order.','🎯 Now use the numbers and grouping from YOUR question; do not copy the example.']},
+        2:{title:'🔵 Evaluate an expression',problem:'Evaluate (3 + 2) × 4.',steps:['🟣 Find the parentheses: 3 + 2 = 5.','🔵 Replace the grouped part with its value: 5 × 4.','🟢 Multiply: 5 × 4 = 20. If there were no parentheses, multiplication would come before addition.','🎯 In your problem, solve parentheses first, then multiplication or division, then addition or subtraction.']},
+        3:{title:'🟣 Discover the pattern rule',problem:'A machine adds 4 to every input: 1 → 5, 2 → 6, 3 → 7.',steps:['🟣 Compare each input and output: 5 − 1 = 4, 6 − 2 = 4, 7 − 3 = 4.','🔵 Write a rule: output = input + 4.','🟢 Test the rule on another input: 6 + 4 = 10. It must work on EVERY row.','🎯 Find a rule that works for all rows of your own pattern.']},
+        4:{title:'📍 Read coordinates (x, y)',problem:'Plot the point (4, 2) on a coordinate grid.',steps:['🟣 Start at the origin (0, 0). The first number is x: move 4 units RIGHT.','🔵 The second number is y: move 2 units UP.','🟢 Mark the intersection. Say it aloud: x first, y second — (4, 2).','🎯 On your graph, count across for x and then up for y. The example point is different from your question.']},
+        5:{title:'🌟 Choose the correct strategy',problem:'A pattern starts at 3 and adds 5 each time. Find the next terms.',steps:['🟣 Identify the task: this is a pattern, not an ordered pair or expression to evaluate.','🔵 Apply the same rule each time: 3 → 8 → 13 → 18.','🟢 Check consecutive differences: 8 − 3 = 5 and 13 − 8 = 5.','🎯 For your question, first choose expression, calculation, pattern, or coordinates; then use its matching rule.']}
+      };
+      const result=examples[level];
+      if(level===1 && /evaluate/i.test(prompt))return examples[2];
+      if(/ordered pair|coordinate|plott?ed point|x\\s*=|y\\s*=/i.test(prompt))return examples[4];
+      if(/pattern|sequence|input|output|rule table/i.test(prompt))return examples[3];
+      if(/equivalent expression/i.test(prompt))return {title:'🔵 Equivalent expressions',problem:'Compare 3 × (2 + 4) and 3 × 2 + 3 × 4.',steps:['🟣 Find the grouping: 2 + 4 = 6.','🔵 First expression: 3 × 6 = 18.','🟢 Second expression: 6 + 12 = 18. They are equivalent because they always have the same value. This is the distributive property: a × (b + c) = a × b + a × c.','🎯 Check your own expressions with a different example before deciding.']};
+      return result;
+    }
     if(String(question?.id||question?.question_id||'').startsWith('G4M_FR_002')){
       const mixed=prompt.match(/(\d+)\s+(\d+)\s*\/\s*(\d+)\s*([+−-])\s*(\d+)\s*\/\s*(\d+)/);
       if(mixed && Number(mixed[3])===Number(mixed[6])){
