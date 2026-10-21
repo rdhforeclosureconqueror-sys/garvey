@@ -1,0 +1,28 @@
+name: Ten Gates Adinkra pilot checks
+on:
+  pull_request:
+    paths:
+      - 'gates-v2/content/adinkra/**'
+      - 'public/gamehub/content/adinkra-lesson-adapter.js'
+      - 'public/gamehub/content/gate-attention.pilot.json'
+      - 'public/gamehub/content/game.js'
+      - 'public/gamehub/content/index.html'
+      - 'tests/gates/adinkra-lesson-adapter.test.js'
+      - '.github/workflows/ten-gates-adinkra.yml'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate curriculum and adapter
+        run: node --test tests/gates/adinkra-lesson-adapter.test.js
+      - name: Check browser game syntax
+        run: |
+          node --check public/gamehub/content/game.js
+          node --check public/gamehub/content/adinkra-lesson-adapter.js
+      - name: Check browser copy matches source
+        run: cmp gates-v2/content/adinkra/gate-attention.pilot.json public/gamehub/content/gate-attention.pilot.json
