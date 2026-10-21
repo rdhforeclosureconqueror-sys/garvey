@@ -111,6 +111,13 @@ const bugSpawns = [
 
 let keys = {};
 let game = null;
+let adinkraSunday = null;
+if (window.TenGatesAdinkra) {
+  window.TenGatesAdinkra.loadGateOne()
+    .then(release => { adinkraSunday = window.TenGatesAdinkra.lessonForDay(release, 1); })
+    .catch(() => { adinkraSunday = null; }); // Preserve existing adventure offline.
+}
+
 
 window.addEventListener('keydown', (e)=>{
   if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' ','Enter'].includes(e.key)) e.preventDefault();
@@ -149,7 +156,7 @@ function resetState(){
     recovered: 0,
     nearPathTicks: 0,
   };
-  npcData.forEach(n=>n.met=false);
+  npcData.forEach(n=>{ n.met=false; n.adinkraIntroduced=false; });
   updateMissionUI();
   emitEvent('lesson_started', { lessonId:'attention_signal_path_v2', gate:'gate_attention' });
   showDialogue('Mother', 'Guide', 'Your first mission is simple. Deliver this parcel to Mara near the South Bridge before time runs out. Stay on mission, Orin.', './mother.png', [
@@ -289,6 +296,13 @@ function handleNpc(npc){
     showDialogue('Mara', 'Near the South Bridge', inTime ? 'You found me in time. Strong attention! But scatterbugs are still causing confusion in the city. Catch 3 of them.' : 'You found me. The timer ended, but you still stayed with the mission. Now catch 3 scatterbugs causing confusion in the city.', './mara.png', [
       { label:'I will catch them.', primary:true, action(){ hideDialogue(); emitEvent('lesson_step_completed',{step:'delivery_complete', completedWithinTime: inTime}); toastMsg('Mission 2 started: catch 3 scatterbugs.'); } }
     ]);
+    return;
+  }
+  if(npc.id==='keeper' && adinkraSunday && !npc.adinkraIntroduced){
+    npc.adinkraIntroduced = true;
+    showDialogue('The Keeper', 'Mate Masie · The Art of Listening',
+      window.TenGatesAdinkra.keeperIntroduction(adinkraSunday),
+      './keeper.png', [{ label:'I will listen for meaning.', primary:true, action(){ hideDialogue(); } }]);
     return;
   }
   if(npc.id==='keeper'){
