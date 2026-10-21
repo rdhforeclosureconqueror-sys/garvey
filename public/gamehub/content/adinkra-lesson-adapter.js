@@ -7,7 +7,7 @@
   else root.TenGatesAdinkra = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const LESSON_URL = '/gates-v2/content/adinkra/gate-attention.pilot.json';
+  const LESSON_URL = '/gamehub/content/gate-attention.pilot.json';
   const REQUIRED = ['day', 'weekday', 'symbol_id', 'symbol_name', 'traditional_theme', 'skill', 'challenge_id'];
   function validateRelease(release) {
     if (!release || release.schema_version !== 'ten-gates-adinkra-day.v1' ||
