@@ -112,11 +112,20 @@ const bugSpawns = [
 let keys = {};
 let game = null;
 let adinkraSunday = null;
-if (window.TenGatesAdinkra) {
-  window.TenGatesAdinkra.loadGateOne()
-    .then(release => { adinkraSunday = window.TenGatesAdinkra.lessonForDay(release, 1); })
-    .catch(() => { adinkraSunday = null; }); // Preserve existing adventure offline.
+let adinkraLessonRequest = null;
+function ensureAdinkraLesson() {
+  if (!window.TenGatesAdinkra) return Promise.resolve(null);
+  if (!adinkraLessonRequest) {
+    adinkraLessonRequest = window.TenGatesAdinkra.loadGateOne()
+      .then(release => {
+        adinkraSunday = window.TenGatesAdinkra.lessonForDay(release, 1);
+        return adinkraSunday;
+      })
+      .catch(() => null); // Preserve the existing adventure when offline.
+  }
+  return adinkraLessonRequest;
 }
+ensureAdinkraLesson();
 
 
 window.addEventListener('keydown', (e)=>{
@@ -128,6 +137,7 @@ window.addEventListener('keydown', (e)=>{
 window.addEventListener('keyup', (e)=>{ keys[e.key.toLowerCase()] = false; });
 
 function startGame(){
+  ensureAdinkraLesson();
   setScreen('game');
   hideDialogue();
   if(!IMAGES){
