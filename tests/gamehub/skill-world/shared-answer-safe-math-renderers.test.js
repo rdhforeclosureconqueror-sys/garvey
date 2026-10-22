@@ -82,6 +82,16 @@ test('production question cards use answer-safe question mode before interaction
   });
 });
 
+test('student question cards override solution metadata and keep answers hidden', () => {
+  affected.forEach((key) => {
+    const q = { id: 'guard-' + key, question_id: 'guard-' + key, ...fixtures[key], visual_mode: 'solution', show_answer: true };
+    const card = Renderer.renderQuestionCard(q, 'practice', Renderer.createState(), { skill_id: 'FIXTURE', lesson: {} });
+    const visual = card.match(/<div class="kid-visual-area skill-visual">([\s\S]*?)<\/div><div class="answer-panel">/)?.[1] || '';
+    assertQuestionSafe(key, visual);
+    assertQuestionSafe(key, Registry.render(q, { mode: 'question' }));
+  });
+});
+
 test('solution mode remains available through render options and backwards-compatible metadata aliases', () => {
   affected.forEach((key) => {
     assertSolutionVisible(key, Registry.render(fixtures[key], { mode: 'solution' }));
