@@ -70,6 +70,7 @@ function loadImages(paths){
   return Promise.all(jobs).then(()=>images);
 }
 let IMAGES = null;
+function isDrawableImage(img){ return Boolean(img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0); }
 
 const tileSize = 64;
 const cols = 20;
@@ -414,7 +415,7 @@ function draw(dt, t){
       const img = IMAGES[bug.img];
       const bx = bug.x*tileSize + Math.sin(t*2 + bug.id)*6;
       const by = bug.y*tileSize - 10 + Math.sin(t*3 + bug.id)*8;
-      if(img) ctx.drawImage(img, bx-28, by-28, 56, 56);
+      if(isDrawableImage(img)) ctx.drawImage(img, bx-28, by-28, 56, 56);
       else drawCircle(bx,by,16,'#f3c567');
     }
   }
@@ -426,7 +427,7 @@ function draw(dt, t){
     const img = IMAGES[n.img];
     const x = n.x*tileSize - 12, y = n.y*tileSize - 26;
     drawCharacterShadow(n.x * tileSize + 30, n.y * tileSize + 62);
-    if(img) drawCharacterSprite(img, x, y, 84, 94); else drawCircle(x+32,y+40,22,'#fff');
+    if(isDrawableImage(img)) drawCharacterSprite(img, x, y, 84, 94); else drawCircle(x+32,y+40,22,'#fff');
     drawNameLabel(n.name, n.x*tileSize + 32, y, 94);
   });
 
@@ -445,7 +446,7 @@ function draw(dt, t){
     'chars.right';
   const pimg = IMAGES[charKey];
   drawCharacterShadow(game.player.px + 30, game.player.py + 66, 46, 15);
-  if(pimg) drawCharacterSprite(pimg, game.player.px-16, game.player.py-30, 92, 104, { hero: true, glow: game.quietActive > 0 });
+  if(isDrawableImage(pimg)) drawCharacterSprite(pimg, game.player.px-16, game.player.py-30, 92, 104, { hero: true, glow: game.quietActive > 0 });
   else drawCircle(game.player.px+32, game.player.py+32, 24, '#6ff0ea');
 
   // HUD marker over Mara during delivery
@@ -460,7 +461,7 @@ function draw(dt, t){
 function drawTile(key, x, y, alpha=1){
   const img = IMAGES[key];
   ctx.save(); ctx.globalAlpha = alpha;
-  if(img) ctx.drawImage(img, x*tileSize, y*tileSize, tileSize, tileSize);
+  if(isDrawableImage(img)) ctx.drawImage(img, x*tileSize, y*tileSize, tileSize, tileSize);
   else {
     ctx.fillStyle = key.includes('path') ? '#a17a46' : '#234f39';
     ctx.fillRect(x*tileSize, y*tileSize, tileSize, tileSize);
@@ -477,6 +478,7 @@ function drawCharacterShadow(x, y, width = 44, height = 14){
   ctx.restore();
 }
 function drawCharacterSprite(img, x, y, width, height, options = {}){
+  if(!isDrawableImage(img)) { drawCircle(x+width/2,y+height/2,Math.min(width,height)/3,'#e7c57e'); return; }
   const hero = Boolean(options.hero);
   const glow = Boolean(options.glow);
   ctx.save();
@@ -505,7 +507,7 @@ function drawProp(type,x,y,w,h){
   const mapType = { tree:'props.tree', stallBlue:'props.stallBlue', stallPurple:'props.stallPurple', gate:'props.gate', bridge:'props.bridge' };
   const img = IMAGES[mapType[type]];
   const px = x*tileSize, py = y*tileSize;
-  if(img) {
+  if(isDrawableImage(img)) {
     const drawH = h*tileSize + (type==='tree'?60: type==='gate'?70:20);
     const drawY = py - (type==='tree'?60: type==='gate'?70:10);
     ctx.drawImage(img, px, drawY, w*tileSize, drawH);
