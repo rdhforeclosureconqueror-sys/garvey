@@ -8,6 +8,7 @@ on:
       - 'public/gamehub/content/game.js'
       - 'public/gamehub/content/mate-masie-challenge.js'
       - 'tests/gates/mate-masie-challenge.test.js'
+      - 'tests/gates/adinkra-browser-wiring.test.js'
       - 'public/gamehub/content/index.html'
       - 'tests/gates/adinkra-lesson-adapter.test.js'
       - '.github/workflows/ten-gates-adinkra.yml'
@@ -21,7 +22,7 @@ jobs:
         with:
           node-version: '22'
       - name: Validate curriculum and adapter
-        run: node --test tests/gates/adinkra-lesson-adapter.test.js tests/gates/mate-masie-challenge.test.js
+        run: node --test tests/gates/adinkra-lesson-adapter.test.js tests/gates/mate-masie-challenge.test.js tests/gates/adinkra-browser-wiring.test.js
       - name: Check browser game syntax
         run: |
           node --check public/gamehub/content/game.js
