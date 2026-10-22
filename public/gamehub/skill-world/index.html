@@ -75,6 +75,7 @@
    e.preventDefault();moveDivisionCounter(selectedDivisionCounter,e.target);
   }
  });
+ app.addEventListener('input',(e)=>{if(e.target.matches('[data-oa-pattern-input]')){const area=e.target.closest('[data-oa-pattern]');const feedback=area?.querySelector('.g5-oa-feedback');if(feedback)feedback.textContent='Answer changed. Press Check my pattern to check again.';}});
  app.addEventListener('click',(e)=>{
    const counter=e.target.closest('.division-counter[draggable="true"]');
    if(counter){selectedDivisionCounter=counter;counter.focus();return;}
