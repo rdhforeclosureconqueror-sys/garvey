@@ -308,11 +308,35 @@ function handleNpc(npc){
     ]);
     return;
   }
-  if(npc.id==='keeper' && adinkraSunday && !npc.adinkraIntroduced){
+  if(npc.id==='keeper' && adinkraSunday && !npc.adinkraIntroduced && window.MateMasieChallenge){
+    const activity = window.MateMasieChallenge;
     npc.adinkraIntroduced = true;
-    showDialogue('The Keeper', 'Mate Masie · The Art of Listening',
-      window.TenGatesAdinkra.keeperIntroduction(adinkraSunday),
-      './keeper.png', [{ label:'I will listen for meaning.', primary:true, action(){ hideDialogue(); } }]);
+    function askClue(){
+      showDialogue('The Keeper', 'Mate Masie · Remember the Clue', activity.QUESTION,
+        './keeper.png', activity.OPTIONS.map(option => ({
+          label:option.label, primary:option.id==='blue-basket',
+          action(){
+            const result = activity.checkAnswer(option.id);
+            emitEvent('skill_practiced', { skill:'mate_masie_listening', challenge_id:'keeper-listen-and-retell', correct:result.correct });
+            if(result.correct){
+              showDialogue('The Keeper', 'Listening with Understanding', result.feedback,
+                './keeper.png', [{ label:'Continue the journey', primary:true, action(){ hideDialogue(); } }]);
+            } else {
+              showDialogue('The Keeper', 'Gently Try Again', result.feedback,
+                './keeper.png', [
+                  { label:'Hear the clue again', primary:true, action(){ tellClue(); } },
+                  { label:'Try answering again', action(){ askClue(); } }
+                ]);
+            }
+          }
+        })));
+    }
+    function tellClue(){
+      showDialogue('The Keeper', 'Mate Masie · The Art of Listening',
+        window.TenGatesAdinkra.keeperIntroduction(adinkraSunday) + ' ' + activity.CLUE,
+        './keeper.png', [{ label:'I am ready to recall the clue', primary:true, action(){ askClue(); } }]);
+    }
+    tellClue();
     return;
   }
   if(npc.id==='keeper'){
