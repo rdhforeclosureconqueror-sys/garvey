@@ -75,6 +75,7 @@
    e.preventDefault();moveDivisionCounter(selectedDivisionCounter,e.target);
   }
  });
+ app.addEventListener('input',(e)=>{if(e.target.matches('[data-oa-pattern-input]')){const area=e.target.closest('[data-oa-pattern]');const feedback=area?.querySelector('.g5-oa-feedback');if(feedback)feedback.textContent='Answer changed. Press Check my pattern to check again.';}});
  app.addEventListener('click',(e)=>{
    const counter=e.target.closest('.division-counter[draggable="true"]');
    if(counter){selectedDivisionCounter=counter;counter.focus();return;}
@@ -115,6 +116,12 @@
 	   if(nextLevel){SkillWorldRenderer.nextLevel(state,p); render(); return;}
 	   const backDrill=e.target.closest('.back-to-drill-center');
 	   if(backDrill){SkillWorldRenderer.backToDrillCenter(state); render(); return;}
+   const patternCheck=e.target.closest('.g5-oa-check-pattern');
+   if(patternCheck){const area=patternCheck.closest('[data-oa-pattern]');const inputs=[...area.querySelectorAll('[data-oa-pattern-input]')];const feedback=area.querySelector('.g5-oa-feedback');if(inputs.some(input=>input.value.trim()==='')){feedback.textContent='Fill in all three outputs, then check your rule.';return;}const correct=inputs.every(input=>Number(input.value)===Number(input.dataset.oaPatternInput)*3+2);feedback.textContent=correct?'🌟 Great work! You applied the same rule to every input.':'Try again: multiply each input by 3 first, then add 2. Check every row.';return;}
+   const gridPoint=e.target.closest('.g5-oa-grid-point');
+   if(gridPoint){const area=gridPoint.closest('[data-oa-coordinate]');area.querySelectorAll('.g5-oa-grid-point').forEach(button=>{const selected=button===gridPoint;button.setAttribute('aria-pressed',String(selected));button.style.background=selected?'#bbf7d0':'#eff6ff';button.style.borderColor=selected?'#15803d':'#93c5fd';});area.querySelector('.g5-oa-feedback').textContent='Point selected. Press Check my point to test it.';return;}
+   const coordinateCheck=e.target.closest('.g5-oa-check-coordinate');
+   if(coordinateCheck){const area=coordinateCheck.closest('[data-oa-coordinate]');const selected=area.querySelector('.g5-oa-grid-point[aria-pressed="true"]');const feedback=area.querySelector('.g5-oa-feedback');if(!selected){feedback.textContent='Tap a point on the grid first.';return;}feedback.textContent=Number(selected.dataset.oaX)===4&&Number(selected.dataset.oaY)===1?'🌟 Correct! Four spaces right and one space up.':'Not quite. Start at (0, 0), move four spaces right along x, then one space up along y. Try another point.';return;}
    const lessonNav=e.target.closest('.g5-fraction-next,.g5-fraction-prev');
    if(lessonNav){const pages=[...app.querySelectorAll('[data-fraction-lesson-page]')];const active=pages.findIndex(el=>!el.hidden);if(active<0)return;const next=lessonNav.classList.contains('g5-fraction-prev')?Math.max(0,active-1):Math.min(pages.length-1,active+1);pages.forEach((el,i)=>el.hidden=i!==next);pages[next]?.querySelector('h4')?.setAttribute('tabindex','-1');pages[next]?.querySelector('h4')?.focus();return;}
    const hint=e.target.closest('#hint');
