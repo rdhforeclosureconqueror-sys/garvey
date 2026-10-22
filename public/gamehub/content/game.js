@@ -70,6 +70,7 @@ function loadImages(paths){
   return Promise.all(jobs).then(()=>images);
 }
 let IMAGES = null;
+function isDrawableImage(img){ return Boolean(img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0); }
 
 const tileSize = 64;
 const cols = 20;
@@ -111,6 +112,22 @@ const bugSpawns = [
 
 let keys = {};
 let game = null;
+let adinkraSunday = null;
+let adinkraLessonRequest = null;
+function ensureAdinkraLesson() {
+  if (!window.TenGatesAdinkra) return Promise.resolve(null);
+  if (!adinkraLessonRequest) {
+    adinkraLessonRequest = window.TenGatesAdinkra.loadGateOne()
+      .then(release => {
+        adinkraSunday = window.TenGatesAdinkra.lessonForDay(release, 1);
+        return adinkraSunday;
+      })
+      .catch(() => null); // Preserve the existing adventure when offline.
+  }
+  return adinkraLessonRequest;
+}
+ensureAdinkraLesson();
+
 
 window.addEventListener('keydown', (e)=>{
   if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' ','Enter'].includes(e.key)) e.preventDefault();
@@ -121,6 +138,7 @@ window.addEventListener('keydown', (e)=>{
 window.addEventListener('keyup', (e)=>{ keys[e.key.toLowerCase()] = false; });
 
 function startGame(){
+  ensureAdinkraLesson();
   setScreen('game');
   hideDialogue();
   if(!IMAGES){
@@ -149,7 +167,7 @@ function resetState(){
     recovered: 0,
     nearPathTicks: 0,
   };
-  npcData.forEach(n=>n.met=false);
+  npcData.forEach(n=>{ n.met=false; n.adinkraIntroduced=false; });
   updateMissionUI();
   emitEvent('lesson_started', { lessonId:'attention_signal_path_v2', gate:'gate_attention' });
   showDialogue('Mother', 'Guide', 'Your first mission is simple. Deliver this parcel to Mara near the South Bridge before time runs out. Stay on mission, Orin.', './mother.png', [
@@ -291,6 +309,37 @@ function handleNpc(npc){
     ]);
     return;
   }
+  if(npc.id==='keeper' && adinkraSunday && !npc.adinkraIntroduced && window.MateMasieChallenge){
+    const activity = window.MateMasieChallenge;
+    npc.adinkraIntroduced = true;
+    function askClue(){
+      showDialogue('The Keeper', 'Mate Masie · Remember the Clue', activity.QUESTION,
+        './keeper.png', activity.OPTIONS.map(option => ({
+          label:option.label, primary:option.id==='blue-basket',
+          action(){
+            const result = activity.checkAnswer(option.id);
+            emitEvent('skill_practiced', { skill:'mate_masie_listening', challenge_id:'keeper-listen-and-retell', correct:result.correct });
+            if(result.correct){
+              showDialogue('The Keeper', 'Listening with Understanding', result.feedback,
+                './keeper.png', [{ label:'Continue the journey', primary:true, action(){ hideDialogue(); } }]);
+            } else {
+              showDialogue('The Keeper', 'Gently Try Again', result.feedback,
+                './keeper.png', [
+                  { label:'Hear the clue again', primary:true, action(){ tellClue(); } },
+                  { label:'Try answering again', action(){ askClue(); } }
+                ]);
+            }
+          }
+        })));
+    }
+    function tellClue(){
+      showDialogue('The Keeper', 'Mate Masie · The Art of Listening',
+        window.TenGatesAdinkra.keeperIntroduction(adinkraSunday) + ' ' + activity.CLUE,
+        './keeper.png', [{ label:'I am ready to recall the clue', primary:true, action(){ askClue(); } }]);
+    }
+    tellClue();
+    return;
+  }
   if(npc.id==='keeper'){
     if(game.phase<3){
       showDialogue('The Keeper', 'Guardian of the First Gate', 'The Gate opens when your attention steadies. First finish what is in front of you.', './keeper.png', [{ label:'Understood.', primary:true, action(){ hideDialogue(); } }]);
@@ -366,7 +415,7 @@ function draw(dt, t){
       const img = IMAGES[bug.img];
       const bx = bug.x*tileSize + Math.sin(t*2 + bug.id)*6;
       const by = bug.y*tileSize - 10 + Math.sin(t*3 + bug.id)*8;
-      if(img) ctx.drawImage(img, bx-28, by-28, 56, 56);
+      if(isDrawableImage(img)) ctx.drawImage(img, bx-28, by-28, 56, 56);
       else drawCircle(bx,by,16,'#f3c567');
     }
   }
@@ -378,7 +427,7 @@ function draw(dt, t){
     const img = IMAGES[n.img];
     const x = n.x*tileSize - 12, y = n.y*tileSize - 26;
     drawCharacterShadow(n.x * tileSize + 30, n.y * tileSize + 62);
-    if(img) drawCharacterSprite(img, x, y, 84, 94); else drawCircle(x+32,y+40,22,'#fff');
+    if(isDrawableImage(img)) drawCharacterSprite(img, x, y, 84, 94); else drawCircle(x+32,y+40,22,'#fff');
     drawNameLabel(n.name, n.x*tileSize + 32, y, 94);
   });
 
@@ -397,7 +446,7 @@ function draw(dt, t){
     'chars.right';
   const pimg = IMAGES[charKey];
   drawCharacterShadow(game.player.px + 30, game.player.py + 66, 46, 15);
-  if(pimg) drawCharacterSprite(pimg, game.player.px-16, game.player.py-30, 92, 104, { hero: true, glow: game.quietActive > 0 });
+  if(isDrawableImage(pimg)) drawCharacterSprite(pimg, game.player.px-16, game.player.py-30, 92, 104, { hero: true, glow: game.quietActive > 0 });
   else drawCircle(game.player.px+32, game.player.py+32, 24, '#6ff0ea');
 
   // HUD marker over Mara during delivery
@@ -412,7 +461,7 @@ function draw(dt, t){
 function drawTile(key, x, y, alpha=1){
   const img = IMAGES[key];
   ctx.save(); ctx.globalAlpha = alpha;
-  if(img) ctx.drawImage(img, x*tileSize, y*tileSize, tileSize, tileSize);
+  if(isDrawableImage(img)) ctx.drawImage(img, x*tileSize, y*tileSize, tileSize, tileSize);
   else {
     ctx.fillStyle = key.includes('path') ? '#a17a46' : '#234f39';
     ctx.fillRect(x*tileSize, y*tileSize, tileSize, tileSize);
@@ -429,6 +478,7 @@ function drawCharacterShadow(x, y, width = 44, height = 14){
   ctx.restore();
 }
 function drawCharacterSprite(img, x, y, width, height, options = {}){
+  if(!isDrawableImage(img)) { drawCircle(x+width/2,y+height/2,Math.min(width,height)/3,'#e7c57e'); return; }
   const hero = Boolean(options.hero);
   const glow = Boolean(options.glow);
   ctx.save();
@@ -457,7 +507,7 @@ function drawProp(type,x,y,w,h){
   const mapType = { tree:'props.tree', stallBlue:'props.stallBlue', stallPurple:'props.stallPurple', gate:'props.gate', bridge:'props.bridge' };
   const img = IMAGES[mapType[type]];
   const px = x*tileSize, py = y*tileSize;
-  if(img) {
+  if(isDrawableImage(img)) {
     const drawH = h*tileSize + (type==='tree'?60: type==='gate'?70:20);
     const drawY = py - (type==='tree'?60: type==='gate'?70:10);
     ctx.drawImage(img, px, drawY, w*tileSize, drawH);
