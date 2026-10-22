@@ -9,6 +9,7 @@ on:
       - 'public/gamehub/content/mate-masie-challenge.js'
       - 'tests/gates/mate-masie-challenge.test.js'
       - 'tests/gates/adinkra-browser-wiring.test.js'
+      - 'tests/gates/adinkra-browser-smoke.cjs'
       - 'public/gamehub/content/index.html'
       - 'tests/gates/adinkra-lesson-adapter.test.js'
       - '.github/workflows/ten-gates-adinkra.yml'
@@ -30,3 +31,25 @@ jobs:
           node --check public/gamehub/content/mate-masie-challenge.js
       - name: Check browser copy matches source
         run: cmp gates-v2/content/adinkra/gate-attention.pilot.json public/gamehub/content/gate-attention.pilot.json
+  browser-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser runner
+        run: |
+          npm install --no-save --ignore-scripts playwright
+          npx playwright install --with-deps chromium
+      - name: Start static server
+        run: |
+          python3 -m http.server 8765 --directory public > /tmp/gates-server.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8765/gamehub/content/index.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/gates-server.log
+          exit 1
+      - name: Exercise Keeper in Chromium
+        run: node tests/gates/adinkra-browser-smoke.cjs
