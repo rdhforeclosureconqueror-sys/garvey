@@ -6,6 +6,8 @@ on:
       - 'public/gamehub/content/adinkra-lesson-adapter.js'
       - 'public/gamehub/content/gate-attention.pilot.json'
       - 'public/gamehub/content/game.js'
+      - 'public/gamehub/content/mate-masie-challenge.js'
+      - 'tests/gates/mate-masie-challenge.test.js'
       - 'public/gamehub/content/index.html'
       - 'tests/gates/adinkra-lesson-adapter.test.js'
       - '.github/workflows/ten-gates-adinkra.yml'
@@ -19,10 +21,11 @@ jobs:
         with:
           node-version: '22'
       - name: Validate curriculum and adapter
-        run: node --test tests/gates/adinkra-lesson-adapter.test.js
+        run: node --test tests/gates/adinkra-lesson-adapter.test.js tests/gates/mate-masie-challenge.test.js
       - name: Check browser game syntax
         run: |
           node --check public/gamehub/content/game.js
           node --check public/gamehub/content/adinkra-lesson-adapter.js
+          node --check public/gamehub/content/mate-masie-challenge.js
       - name: Check browser copy matches source
         run: cmp gates-v2/content/adinkra/gate-attention.pilot.json public/gamehub/content/gate-attention.pilot.json
