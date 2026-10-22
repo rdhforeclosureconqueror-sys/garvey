@@ -63,3 +63,26 @@ a:focus-visible, button:focus-visible { outline: 3px solid #ffd57d; outline-offs
 @media(max-width:900px){.portal-hero{grid-template-columns:1fr;min-height:auto;padding-block:60px}.portal-art{max-width:360px}.portal-gate-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.portal-feature{grid-template-columns:1fr}.portal-section-heading{display:block}}
 @media(max-width:600px){.portal-header{padding-block:18px}.portal-logo{font-size:.65rem}.portal-header-link{font-size:.63rem}.portal-hero{padding-block:44px}.portal-hero h1{font-size:clamp(2.7rem,11vw,4.3rem)}.portal-art{max-width:280px}.portal-stats{gap:18px}.portal-gate-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.portal-worlds{grid-template-columns:1fr}.portal-footer{flex-direction:column}.portal-section{padding-block:34px}}
 @media(prefers-reduced-motion:no-preference){.portal-art .ring-outer{animation:portal-spin 60s linear infinite}.portal-art .ring-middle{animation:portal-spin 85s linear infinite reverse}@keyframes portal-spin{to{transform:rotate(360deg)}}}
+
+
+/* Gate One discovery console: futuristic but legible, with no invented Adinkra glyphs. */
+.portal-seven{position:relative}
+.portal-seven:before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,#d8bd73,transparent)}
+.portal-day-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
+.portal-day-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.portal-day{cursor:pointer;min-height:110px;padding:17px;text-align:left;color:#e9f4ec;background:linear-gradient(145deg,#163a31,#0b201c);border:1px solid #3e6858;border-radius:12px;transition:border-color .2s,background .2s,transform .2s}
+.portal-day:hover,.portal-day:focus-visible{border-color:#e7cb86;transform:translateY(-2px)}
+.portal-day.is-selected{border-color:#f0ca7c;background:linear-gradient(145deg,#365746,#1b3c31);box-shadow:inset 0 0 0 1px #d7c07c55,0 0 24px #dbb96520}
+.portal-day small{display:block;color:#b8d9c5;font-size:.68rem;letter-spacing:.14em;margin-bottom:9px}
+.portal-day strong{display:block;font-size:1rem;margin-bottom:6px}
+.portal-day span{display:block;color:#b5ccc1;font-size:.76rem}
+.portal-day-detail{position:relative;overflow:hidden;border-radius:20px;border:1px solid #a48c56;padding:clamp(22px,4vw,38px);background:radial-gradient(circle at 80% 10%,#38664d,#17372d 45%,#0a211d 90%);min-height:410px}
+.portal-day-orbit{height:120px;width:120px;border:1px solid #e7c78288;border-radius:50%;display:grid;place-items:center;margin-bottom:22px;box-shadow:0 0 0 13px #d5b56d15,0 0 0 27px #d5b56d0b}
+.portal-day-orbit span{font-size:3.6rem;color:#f0ca7c;font-weight:700}
+.portal-day-detail h3{font-size:clamp(1.7rem,3vw,2.5rem);margin:10px 0}
+.portal-day-detail p:not(.portal-eyebrow){color:#d0e0d6;line-height:1.7}
+.portal-source-note{font-size:.75rem;border-top:1px solid #547568;padding-top:12px}
+.portal-day-detail .btn{margin-top:10px}
+@media(max-width:800px){.portal-day-layout{grid-template-columns:1fr}.portal-day-detail{min-height:0}}
+@media(max-width:460px){.portal-day-grid{grid-template-columns:1fr}.portal-day{min-height:85px}}
+@media(prefers-reduced-motion:reduce){.portal-day{transition:none}.portal-day:hover{transform:none}}
