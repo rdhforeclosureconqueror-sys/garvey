@@ -16,6 +16,9 @@ on:
       - 'public/gates.css'
       - 'public/gates-landing.js'
       - 'public/ten-gates-journey.html'
+      - 'public/gate-one-experience.html'
+      - 'public/gates-data/gate-attention.recurring.json'
+      - 'tests/gates/gate-one-recurring-smoke.cjs'
       - 'tests/gates/adinkra-homepage.test.js'
       - 'tests/gates/adinkra-lesson-adapter.test.js'
       - '.github/workflows/ten-gates-adinkra.yml'
@@ -37,6 +40,9 @@ jobs:
           node --check public/gamehub/content/mate-masie-challenge.js
           node --check public/gates-landing.js
           node --check public/gates.js
+      - name: Validate recurring curriculum and browser script
+        run: |
+          node -e "const fs=require('fs');const vm=require('vm');const html=fs.readFileSync('public/gate-one-experience.html','utf8');const script=html.match(/<script>([\\s\\S]*?)<\\/script>/);if(!script)throw Error('missing script');new vm.Script(script[1]);const j=JSON.parse(fs.readFileSync('public/gates-data/gate-attention.recurring.json'));if(j.lessons.length!==7)throw Error('expected seven lessons')"
       - name: Check browser copy matches source
         run: cmp gates-v2/content/adinkra/gate-attention.pilot.json public/gamehub/content/gate-attention.pilot.json
   browser-smoke:
@@ -61,3 +67,5 @@ jobs:
           exit 1
       - name: Exercise Keeper in Chromium
         run: node tests/gates/adinkra-browser-smoke.cjs
+      - name: Exercise recurring Gate One in Chromium
+        run: node tests/gates/gate-one-recurring-smoke.cjs
