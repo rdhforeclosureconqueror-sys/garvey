@@ -18,11 +18,29 @@ const chapters=[
 {day:'Friday',symbol:'Sesa Wo Suban',meaning:'Transformation of character',icon:'🌱',story:'You keep rushing past the forest clues. The Keeper invites you to notice the habit and choose a new way of moving.',question:'What shows a change in habit?',choices:['Blame the forest','Slow down, observe, and try again','Quit whenever a clue is hard'],answer:1,reflection:'What small habit did you practice changing?'},
 {day:'Saturday',symbol:'Sankofa',meaning:'Learning from the past',icon:'🕊️',story:'At the final clearing, the Keeper asks you to look back at the week. Every mistake and discovery can teach you something for the next gate.',question:'What is the purpose of looking back?',choices:['To shame yourself for mistakes','To repeat everything unchanged','To recover a lesson and use it'],answer:2,reflection:'What lesson from this week will you carry forward?'}
 ];
+// The canonical Gate One curriculum is served from /gates-data/. The local
+// story bank is an original-fiction fallback; symbol/practice metadata comes
+// from the reviewed curriculum when available.
+async function loadCurriculum(){
+ try {
+  const response=await fetch('/gates-data/gate-attention.recurring.json',{cache:'no-store'});
+  if(!response.ok)throw Error('curriculum unavailable');
+  const data=await response.json();
+  if(data.program!=='garvey-ten-gates-rite-of-passage'||data.gate?.id!=='attention'||!Array.isArray(data.lessons)||data.lessons.length!==7)throw Error('invalid curriculum');
+  for(let i=0;i<7;i++){
+   const lesson=data.lessons[i];
+   if(lesson.order!==i+1||lesson.day!==chapters[i].day.toLowerCase()||!lesson.symbol||!lesson.traditionalMeaning)throw Error('curriculum order mismatch');
+  }
+  data.lessons.forEach((lesson,i)=>{chapters[i].symbol=lesson.symbol;chapters[i].meaning=lesson.traditionalMeaning;chapters[i].practice=lesson.practice;});
+  document.querySelector('.scene .eyebrow').textContent='Gate 01 · '+data.gate.title+' · Primary symbol: '+data.gate.primarySymbol;
+  render();
+ }catch(error){console.warn('Using bundled Gate One story metadata:',error.message)}
+}
 const $=id=>document.getElementById(id);const key='garvey-gate-one-week-prototype-v1';let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch{};let day=0,phase=0,passed=false;
 function persist(){try{localStorage.setItem(key,JSON.stringify(saved))}catch{}}
 function render(){const c=chapters[day];$('days').innerHTML=chapters.map((x,i)=>'<button class="day" aria-pressed="'+(day===i)+'" data-day="'+i+'"><span class="num">'+(i+1)+'</span><span><strong>'+x.day+'</strong><small>'+x.symbol+(saved[i]?' ✓':'')+'</small></span></button>').join('');document.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{day=Number(b.dataset.day);phase=0;passed=false;render()});$('progress').style.width=(Object.keys(saved).filter(k=>saved[k]).length/7*100)+'%';$('progressText').textContent=Object.keys(saved).filter(k=>saved[k]).length+' of 7 chapters reflected on in this browser';$('step').textContent=c.day+' · '+c.symbol+' · '+['The story','The decision','The reflection'][phase];$('heading').textContent=phase===0?'Listen to the Keeper':phase===1?'Make your choice':'Carry it into life';$('visual').textContent=c.icon;$('feedback').textContent='';$('next').classList.remove('hidden');$('back').classList.toggle('hidden',phase===0);$('next').textContent=phase===2?'Complete chapter':'Continue →';$('stage').innerHTML='';$('narration').textContent=phase===0?c.story:phase===1?'The story has disappeared. Answer from what you remember.':c.reflection;
 if(phase===1){const q=document.createElement('strong');q.textContent=c.question;$('stage').append(q);c.choices.forEach((ch,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=ch;b.onclick=()=>{if(i===c.answer){passed=true;$('feedback').textContent='Well observed. You may continue to reflect.'}else{$('feedback').textContent='Not quite. Notice what you missed, then try again.'}};$('stage').append(b)});$('next').classList.toggle('hidden',!passed)}
 if(phase===2){const ta=document.createElement('textarea');ta.className='journal';ta.id='journal';ta.placeholder='Write or discuss your reflection…';ta.setAttribute('aria-label','Your reflection');ta.value=saved[day]?.reflection||'';$('stage').append(ta);const note=document.createElement('p');note.className='hint';note.textContent='Try the teaching in real life. A parent or mentor can discuss the answer with you.';$('stage').append(note)}
 }
-$('begin').onclick=()=>$('play').scrollIntoView({behavior:'smooth'});$('back').onclick=()=>{if(phase>0){phase--;render()}};$('next').onclick=()=>{if(phase===1&&!passed)return;if(phase<2){phase++;render()}else{const reflection=$('journal').value.trim();if(!reflection){$('feedback').textContent='Add a reflection before completing this chapter.';return}saved[day]={reflection};persist();if(day<6){day++;phase=0;passed=false;render()}else{$('feedback').textContent='Gate One week complete! Return to your mentor to discuss what you learned.';render();$('feedback').textContent='Week One completed in this browser. Share your reflections with your mentor.'}}};render();
+$('begin').onclick=()=>$('play').scrollIntoView({behavior:'smooth'});$('back').onclick=()=>{if(phase>0){phase--;render()}};$('next').onclick=()=>{if(phase===1&&!passed)return;if(phase<2){phase++;render()}else{const reflection=$('journal').value.trim();if(!reflection){$('feedback').textContent='Add a reflection before completing this chapter.';return}saved[day]={reflection};persist();if(day<6){day++;phase=0;passed=false;render()}else{$('feedback').textContent='Gate One week complete! Return to your mentor to discuss what you learned.';render();$('feedback').textContent='Week One completed in this browser. Share your reflections with your mentor.'}}};render();loadCurriculum();
 </script></body></html>
