@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "program": "garvey-ten-gates-rite-of-passage",
+  "scope": "gate",
+  "gate": {
+    "id": "attention",
+    "number": 1,
+    "title": "Attention",
+    "primarySymbol": "Mate Masie",
+    "primarySymbolSelectionStatus": "proposed-pending-cultural-review"
+  },
+  "schedule": {
+    "cycle": "weekly",
+    "days": [
+      "sunday",
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday"
+    ],
+    "repeatUntil": "mentor-approved-demonstration-of-growth",
+    "repeatRule": "Repeat the seven practices; vary challenge difficulty and stories. Never automatically advance on calendar time.",
+    "timezone": "learner-local",
+    "allowMissedDayRecovery": true
+  },
+  "lessons": [
+    {
+      "day": "sunday",
+      "order": 1,
+      "symbol": "Mate Masie",
+      "traditionalMeaning": "I have heard and kept it; wisdom, knowledge, prudence",
+      "practice": "listen",
+      "source": {
+        "url": "https://www.adinkrasymbols.org/symbols/mate-masie/",
+        "uploadedPdfEntry": null,
+        "uploadedPdfContainsSymbol": false
+      },
+      "culturalReview": "pending",
+      "artwork": {
+        "path": null,
+        "rights": "unverified",
+        "status": "do-not-display"
+      },
+      "storyPolicy": "original-fiction-not-traditional-folktale"
+    },
+    {
+      "day": "monday",
+      "order": 2,
+      "symbol": "Akoben",
+      "traditionalMeaning": "War horn; readiness, call to action, voluntarism",
+      "practice": "notice",
+      "source": {
+        "url": "https://www.adinkrasymbols.org/symbols/akoben/",
+        "uploadedPdfEntry": 16,
+        "uploadedPdfContainsSymbol": true
+      },
+      "culturalReview": "pending",
+      "artwork": {
+        "path": null,
+        "rights": "unverified",
+        "status": "do-not-display"
+      },
+      "storyPolicy": "original-fiction-not-traditional-folktale"
+    },
+    {
+      "day": "tuesday",
+      "order": 3,
+      "symbol": "Hwehwemudua",
+      "traditionalMeaning": "Measuring rod; knowledge and critical examination",
+      "practice": "examine",
+      "source": {
+        "url": "https://www.adinkrasymbols.org/symbols/hwehwemudua/",
+        "uploadedPdfEntry": 38,
+        "uploadedPdfContainsSymbol": true
+      },
+      "culturalReview": "pending",
+      "artwork": {
+        "path": null,
+        "rights": "unverified",
+        "status": "do-not-display"
+      },
+      "storyPolicy": "original-fiction-not-traditional-folktale"
+    },
+    {
+      "day": "wednesday",
+      "order": 4,
+      "symbol": "Nyansapo",
+      "traditionalMeaning": "Wisdom knot; wisdom, ingenuity, intelligence, patience",
+      "practice": "focus",
+      "source": {
+        "url": "https://www.adinkrasymbols.org/symbols/nyansapo/",
+        "uploadedPdfEntry": null,
+        "uploadedPdfContainsSymbol": false
+      },
+      "culturalReview": "pending",
+      "artwork": {
+        "path": null,
+        "rights": "unverified",
+        "status": "do-not-display"
+      },
+      "storyPolicy": "original-fiction-not-traditional-folktale"
+    },
+    {
+      "day": "thursday",
+      "order": 5,
+      "symbol": "Ani Bere A Enso Gya",
+      "traditionalMeaning": "Patience, self-containment, self-discipline and self-control",
+      "practice": "pause",
+      "source": {
+        "url": "https://www.adinkrasymbols.org/symbols/ani-bere-a-enso-gya/",
+        "uploadedPdfEntry": 22,
+        "uploadedPdfContainsSymbol": true
+      },
+      "culturalReview": "pending",
+      "artwork": {
+        "path": null,
+        "rights": "unverified",
+        "status": "do-not-display"
+      },
+      "storyPolicy": "original-fiction-not-traditional-folktale"
+    },
+    {
+      "day": "friday",
+      "order": 6,
+      "symbol": "Sesa Wo Suban",
+      "traditionalMeaning": "Change your character; warning against arrogance and dishonorable behavior",
+      "practice": "return-and-improve",
+      "source": {
+        "url": "https://www.adinkrasymbols.org/symbols/sesa-wo-suban/",
+        "uploadedPdfEntry": null,
+        "uploadedPdfContainsSymbol": false
+      },
+      "culturalReview": "pending",
+      "artwork": {
+        "path": null,
+        "rights": "unverified",
+        "status": "do-not-display"
+      },
+      "storyPolicy": "original-fiction-not-traditional-folktale"
+    },
+    {
+      "day": "saturday",
+      "order": 7,
+      "symbol": "Sankofa",
+      "traditionalMeaning": "Learn from the past to build for the future",
+      "practice": "reflect",
+      "source": {
+        "url": "https://www.adinkrasymbols.org/symbols/sankofa/",
+        "uploadedPdfEntry": 2,
+        "uploadedPdfContainsSymbol": true
+      },
+      "culturalReview": "pending",
+      "artwork": {
+        "path": null,
+        "rights": "unverified",
+        "status": "do-not-display"
+      },
+      "storyPolicy": "original-fiction-not-traditional-folktale"
+    }
+  ],
+  "progressPolicy": {
+    "perLearner": true,
+    "practiceHistory": "append-by-date",
+    "reflectionHistory": "append-by-date",
+    "mastery": "mentor-review-not-quiz-score",
+    "accountPersistence": "not-implemented",
+    "note": "This is a content schema, not a deployed learner-progress feature."
+  },
+  "separation": {
+    "yogaEightWeekProgram": "different-program-no-import",
+    "sharedSymbolRegistryAllowed": true,
+    "sharedLessonOrProgressRecords": false
+  },
+  "sources": {
+    "uploadedPdf": "adinkra-symbols-and-meanings.pdf",
+    "pdfSource": "https://www.adinkrasymbols.org/assets/resources/adinkra-symbols-and-meanings.pdf",
+    "site": "https://www.adinkrasymbols.org/",
+    "note": "Published meanings are not proof of pedagogy efficacy, image licensing, or historic day-of-week correspondence."
+  }
+}
