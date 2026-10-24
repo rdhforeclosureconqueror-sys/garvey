@@ -19,7 +19,7 @@ const assert = require('node:assert/strict');
   await page.route('**/api/skill-world/audio',async route=>{voiceRequest=route.request().postDataJSON();await route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'test_upstream_unavailable'})})});
   await page.getByRole('button',{name:'🔊 Read this page aloud'}).click();
   await page.getByRole('button',{name:/Retry AI narration/}).waitFor();
-  assert.match(await page.getByRole('status').textContent(),/server_response.*HTTP 503/);
+  assert.match(await page.getByRole('status',{name:''}).first().textContent(),/server_response.*HTTP 503/);
   assert.equal(voiceRequest.voice,'alloy');
   assert.match(voiceRequest.text,/morning mist/);
   assert.equal(await page.getByRole('progressbar',{name:'Story reading progress'}).getAttribute('aria-valuenow'),'1');
