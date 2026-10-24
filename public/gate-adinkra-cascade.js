@@ -22,7 +22,7 @@ async function loadApprovedSymbols(){
   if(!Array.isArray(catalog.symbols))return;
   const candidates=catalog.symbols.filter(x=>x.enabledForPublicGame===true&&x.artworkRights==='approved'&&typeof x.name==='string'&&typeof x.image==='string'&&x.image.startsWith('/adinkra-library/')&&x.image.endsWith('.png')&&x.image.length<100);
   const checked=await Promise.all(candidates.map(async x=>{
-   try{const r=await fetch(x.image,{method:'HEAD'});return r.ok?x:null}catch(_){return null}
+   try{const image=new Image();image.src=x.image;await image.decode();return x}catch(_){return null}
   }));
   const ready=checked.filter(Boolean);
   if(ready.length<7)return;
