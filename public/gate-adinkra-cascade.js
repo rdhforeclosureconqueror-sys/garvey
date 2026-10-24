@@ -78,6 +78,6 @@ function startGame(){if(over){newGame()}if(empty())seedTank()playing=!playing;st
 function newGame(){clearInterval(timer);timer=null;board=Array(W*H).fill(null);fresh.clear();selected=-1;seconds=0;score=0;matches=0;level=1;playing=false;over=false;round++;start.textContent='Start game';status.textContent='Ready to play?';draw()}
 function syncVisibility(){const story=document.getElementById('step')?.textContent.includes('The story')===true;panel.hidden=!story;if(!story){clearInterval(timer);timer=null}else if(playing)setTimer()}
 start.addEventListener('click',startGame);el('cascadeReset').addEventListener('click',newGame);document.addEventListener('visibilitychange',setTimer);
-const heading=document.getElementById('heading');if(heading)new MutationObserver(syncVisibility).observe(heading,{childList:true,characterData:true,subtree:true});
+const step=document.getElementById('step');if(step)new MutationObserver(syncVisibility).observe(step,{childList:true,characterData:true,subtree:true});
 newGame();syncVisibility();
 })();
