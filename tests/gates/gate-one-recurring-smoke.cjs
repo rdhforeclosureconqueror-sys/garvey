@@ -13,6 +13,8 @@ const assert = require('node:assert/strict');
   await image.waitFor();
   assert.match(await image.getAttribute('src'),/Mate%20Masie.png/);
   assert.equal(await image.evaluate(x=>x.complete&&x.naturalWidth>0),true,'uploaded symbol image loads');
+  await page.getByRole('heading',{name:'Mara and the Message Beneath the Bridge'}).waitFor();
+  for(let i=0;i<3;i++)await page.getByRole('button',{name:'Read next page →'}).click();
   await page.getByRole('button',{name:'Continue →'}).click();
   await page.getByRole('button',{name:'A blue scarf and a woven basket'}).click();
   await page.getByRole('button',{name:'Continue →'}).click();
