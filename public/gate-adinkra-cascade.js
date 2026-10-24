@@ -19,7 +19,7 @@ function draw(){
  tank.replaceChildren();
  board.forEach((symbol,i)=>{
   const cell=document.createElement('button');cell.type='button';cell.className='cascade-cell';cell.disabled=over||!playing||symbol===null;cell.setAttribute('aria-label',symbol===null?'Empty position':names[symbol]+', row '+(Math.floor(i/W)+1)+', column '+(i%W+1));cell.setAttribute('aria-pressed',String(selected===i));
-  if(symbol!==null){if(fresh.has(i))cell.classList.add('cascade-falling');const img=document.createElement('img');img.src='/'+encodeURIComponent(files[symbol]);img.alt='';img.loading='lazy';cell.append(img)}
+  if(symbol!==null){if(fresh.has(i)){cell.classList.add('cascade-falling');cell.style.setProperty('--cascade-fall',Math.max(120,(Math.floor(i/W)+1)*38)+'px')}const img=document.createElement('img');img.src='/'+encodeURIComponent(files[symbol]);img.alt='';img.loading='lazy';cell.append(img)}
   cell.onclick=()=>swap(i);tank.append(cell)
  });
  fresh.clear();
