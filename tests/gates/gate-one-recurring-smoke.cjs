@@ -35,6 +35,7 @@ const assert = require('node:assert/strict');
   await page.getByRole('heading',{name:'Mate Masie'}).waitFor();
   await page.getByRole('button',{name:'Enter the story →'}).click();
   await page.getByRole('heading',{name:'Mara and the Message at the Accra Bridge'}).waitFor();
+  console.log('Cascade diagnostic',await page.evaluate(()=>({heading:document.querySelector('#heading')?.textContent,panel:!!document.querySelector('#symbolCascade'),hidden:document.querySelector('#symbolCascade')?.hidden,errors:[]})));
   await page.locator('#symbolCascade').waitFor({state:'visible'});
   assert.equal(await page.locator('.cascade-cell').count(),84,'six columns and fourteen rows');
   await page.getByRole('button',{name:'Start game'}).click();
