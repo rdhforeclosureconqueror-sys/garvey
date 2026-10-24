@@ -49,17 +49,21 @@ function createSkillWorldAudioRouter(options = {}) {
   }
 
   router.post("/audio", async (req, res) => {
+    const requestId = crypto.randomUUID();
+    const diagnose = (stage, detail = {}) => console.info(JSON.stringify({ event: "skill_world_audio_diagnostic", request_id: requestId, stage, ...detail }));
+    const fail = (status, stage, error, extra = {}) => { diagnose(stage, { status, error }); return res.status(status).json({ ok: false, error, failure_stage: stage, request_id: requestId, ...extra }); };
+    diagnose("request_received", { route: "/api/skill-world/audio" });
     const text = String(req.body?.text || "").trim();
     if (!text) {
-      return res.status(400).json({ ok: false, error: "text_required" });
+      return fail(400, "input_validation", "text_required");
     }
     if (text.length > MAX_SKILL_WORLD_TEXT_LENGTH) {
-      return res.status(400).json({ ok: false, error: "text_too_long", max_length: MAX_SKILL_WORLD_TEXT_LENGTH });
+      return fail(400, "input_validation", "text_too_long", { max_length: MAX_SKILL_WORLD_TEXT_LENGTH });
     }
 
     const format = normalizeFormat(req.body?.format);
     if (!ALLOWED_AUDIO_FORMATS.has(format)) {
-      return res.status(400).json({ ok: false, error: "invalid_format", allowed_formats: Array.from(ALLOWED_AUDIO_FORMATS) });
+      return fail(400, "input_validation", "invalid_format", { allowed_formats: Array.from(ALLOWED_AUDIO_FORMATS) });
     }
 
     const voice = normalizeVoice(req.body?.voice);
@@ -70,15 +74,16 @@ function createSkillWorldAudioRouter(options = {}) {
     const filePath = path.join(cacheRoot, fileName);
     const audioUrl = `${publicUrlPrefix}/${fileName}`;
 
-    await ensureCacheRoot();
+    try { await ensureCacheRoot(); } catch (error) { return fail(503, "cache_directory", "audio_cache_unavailable"); }
 
     try {
       const stat = await fs.stat(filePath);
       if (stat.isFile() && stat.size > 0) {
-        return res.status(200).json({ audio_url: audioUrl, cached: true });
+        diagnose("cache_hit", { cached: true });
+        return res.status(200).json({ audio_url: audioUrl, cached: true, request_id: requestId });
       }
     } catch (err) {
-      if (err?.code !== "ENOENT") throw err;
+      if (err?.code !== "ENOENT") return fail(503, "cache_read", "audio_cache_read_failed");
     }
 
     const headers = { "content-type": "application/json" };
@@ -87,32 +92,34 @@ function createSkillWorldAudioRouter(options = {}) {
       headers["x-internal-token"] = ttsToken;
     }
 
-    const upstreamResponse = await fetchImpl(ttsUrl, {
+    diagnose("upstream_request", { token_configured: Boolean(ttsToken) });
+    let upstreamResponse;
+    try { upstreamResponse = await fetchImpl(ttsUrl, {
       method: "POST",
       headers,
       body: JSON.stringify({ text, voice, format, speed, pitch }),
-    });
+      signal: AbortSignal.timeout(20000),
+    }); } catch (error) { return fail(502, "upstream_connection", "tts_upstream_connection_failed", { upstream_error_type: error?.name === "TimeoutError" ? "timeout" : "connection" }); }
 
     if (upstreamResponse?.status === 401) {
-      return res.status(401).json({
-        ok: false,
-        error: "tts_upstream_auth_failed",
-        status: 401,
-        fallback: "browser_speech",
-      });
+      diagnose("upstream_auth", { status: 401, error: "tts_upstream_auth_failed" });
+      if (req.get("x-garvey-voice-diagnostics") === "1") return res.status(502).json({ ok: false, error: "tts_upstream_auth_failed", failure_stage: "upstream_auth", request_id: requestId, upstream_status: 401 });
+      return res.status(401).json({ ok: false, error: "tts_upstream_auth_failed", status: 401, fallback: "browser_speech" });
     }
 
     if (!upstreamResponse?.ok) {
-      return res.status(502).json({ ok: false, error: "tts_upstream_failed", status: upstreamResponse?.status || 0 });
+      return fail(502, "upstream_response", "tts_upstream_failed", { upstream_status: upstreamResponse?.status || 0 });
     }
 
-    const audioBytes = Buffer.from(await upstreamResponse.arrayBuffer());
+    let audioBytes;
+    try { audioBytes = Buffer.from(await upstreamResponse.arrayBuffer()); } catch (error) { return fail(502, "upstream_audio_read", "tts_upstream_audio_read_failed"); }
     if (!audioBytes.length) {
-      return res.status(502).json({ ok: false, error: "tts_upstream_empty_audio" });
+      return fail(502, "upstream_audio_empty", "tts_upstream_empty_audio");
     }
 
-    await fs.writeFile(filePath, audioBytes);
-    return res.status(200).json({ audio_url: audioUrl, cached: false });
+    try { await fs.writeFile(filePath, audioBytes); } catch (error) { return fail(503, "cache_write", "audio_cache_write_failed"); }
+    diagnose("audio_ready", { cached: false, bytes: audioBytes.length });
+    return res.status(200).json({ audio_url: audioUrl, cached: false, request_id: requestId });
   });
 
   return router;
