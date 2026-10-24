@@ -19,7 +19,6 @@ const assert = require('node:assert/strict');
   await page.getByRole('heading',{name:'Take a mental picture'}).waitFor();
   await page.getByRole('heading',{name:'Rebuild the symbol'}).waitFor({timeout:10000});
   assert.equal(await page.locator('.puzzle-piece').count(),4);
-  assert.equal(await page.locator('.puzzle-piece').count(),4);
   assert.equal(await page.getByRole('button',{name:'Enter the story →'}).isVisible(),false,'story is gated by symbol reveal');
   await page.evaluate(()=>{
     for(let attempt=0;attempt<8;attempt++){
@@ -34,7 +33,7 @@ const assert = require('node:assert/strict');
     }
   });
   await page.getByRole('heading',{name:'Mate Masie'}).waitFor();
-  await page.getByRole('button',{name:'Meet the Keeper →'}).click();
+  await page.getByRole('button',{name:'Enter the story →'}).click();
   await page.getByRole('heading',{name:'Mara and the Message at the Accra Bridge'}).waitFor();
   await page.getByRole('button',{name:'🔊 Read this page aloud'}).waitFor();
   let voiceRequest=null;
