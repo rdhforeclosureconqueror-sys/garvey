@@ -10,9 +10,28 @@ const assert = require('node:assert/strict');
   await page.waitForFunction(()=>document.querySelector('.scene .eyebrow').textContent.includes('Primary symbol: Mate Masie'));
   assert.equal(await page.locator('.day').count(),7);
   const image=page.locator('#visual img');
-  await image.waitFor();
+  await image.waitFor({state:'attached'});
   assert.match(await image.getAttribute('src'),/Mate%20Masie.png/);
   assert.equal(await image.evaluate(x=>x.complete&&x.naturalWidth>0),true,'uploaded symbol image loads');
+  await page.getByRole('heading',{name:'Take a mental picture'}).waitFor();
+  await page.getByRole('heading',{name:'Rebuild the symbol'}).waitFor({timeout:10000});
+  assert.equal(await page.locator('.puzzle-piece').count(),4);
+  assert.equal(await page.locator('.puzzle-piece').count(),4);
+  assert.equal(await page.getByRole('button',{name:'Meet the Keeper →'}).isVisible(),false,'story is gated by symbol reveal');
+  await page.evaluate(()=>{
+    for(let attempt=0;attempt<8;attempt++){
+      const tiles=[...document.querySelectorAll('.puzzle-piece')];
+      const positions=tiles.map(b=>b.style.backgroundPosition);
+      const targets=['0% 0%','100% 0%','0% 100%','100% 100%'];
+      const wrong=positions.findIndex((p,i)=>p!==targets[i]);
+      if(wrong<0)break;
+      const match=positions.findIndex((p,i)=>p===targets[wrong]&&i!==wrong);
+      tiles[wrong].click();
+      document.querySelectorAll('.puzzle-piece')[match].click();
+    }
+  });
+  await page.getByRole('heading',{name:'Mate Masie'}).waitFor();
+  await page.getByRole('button',{name:'Meet the Keeper →'}).click();
   await page.getByRole('heading',{name:'Mara and the Message Beneath the Bridge'}).waitFor();
   await page.getByRole('button',{name:'🔊 Read this page aloud'}).waitFor();
   let voiceRequest=null;
@@ -26,6 +45,17 @@ const assert = require('node:assert/strict');
   await page.setViewportSize({width:390,height:844});
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true,'no horizontal overflow on phone');
   for(let i=0;i<3;i++)await page.getByRole('button',{name:'Read next page →'}).click();
+  await page.getByRole('button',{name:'Continue →'}).click();
+  await page.getByRole('heading',{name:'Match the symbols'}).waitFor();
+  assert.equal(await page.locator('.match-card').count(),6);
+  await page.evaluate(()=>{
+    const cards=matchCards.map((c,i)=>({...c,i}));
+    for(const a of cards.filter(c=>c.type==='image')){
+      const b=cards.find(c=>c.id===a.id&&c.type==='meaning');
+      document.querySelectorAll('.match-card')[a.i].click();
+      document.querySelectorAll('.match-card')[b.i].click();
+    }
+  });
   await page.getByRole('button',{name:'Continue →'}).click();
   await page.getByRole('button',{name:'A blue scarf and a woven basket'}).click();
   await page.getByRole('button',{name:'Continue →'}).click();
