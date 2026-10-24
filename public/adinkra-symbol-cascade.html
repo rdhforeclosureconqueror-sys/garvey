@@ -36,7 +36,7 @@ function hide(){$('overlay').classList.add('hidden')}
 function stop(){if(timer)clearInterval(timer);timer=null}
 function begin(){stop();board=Array(N).fill(-1);selected=-1;score=0;cleared=0;ticks=0;ended=false;paused=false;running=true;for(let i=0;i<10;i++)spawn();resolve();hide();render();note('Tap two symbols to swap. Matching neighbors burst!');timer=setInterval(()=>{if(running&&!paused&&!ended)spawn()},2500)}
 function endGame(){ended=true;running=false;stop();render();show('The tank is full!','You cleared '+cleared+' symbols and earned '+score+' points. Ready for another round?','Play again →')}
-$('start').onclick=begin;$('restart').onclick=begin;
+$('start').onclick=()=>{if(paused&&running){paused=false;hide();render();return}begin()};$('restart').onclick=begin;
 $('pause').onclick=()=>{if(!running)return;paused=!paused;if(paused)show('Game paused','Take your time. The symbols will wait.','Resume →');else hide();render()};
 $('help').onclick=()=>{$('helpText').hidden=!$('helpText').hidden};
 const legend=$('legend');files.forEach((f,i)=>{const d=document.createElement('div');d.className='legend-item';d.append(cellImg(i));const n=document.createElement('strong');n.textContent=names[i];const p=document.createElement('div');p.textContent=principles[i];d.append(n,p);legend.append(d)});
