@@ -20,7 +20,7 @@ async function loadApprovedSymbols(){
   if(!response.ok)return;
   const catalog=await response.json();
   if(!Array.isArray(catalog.symbols))return;
-  const candidates=catalog.symbols.filter(x=>x.enabledForPublicGame===true&&x.artworkRights==='approved'&&typeof x.name==='string'&&typeof x.image==='string'&&/^\\/adinkra-library\\/[0-9]{2}\\.png$/.test(x.image));
+  const candidates=catalog.symbols.filter(x=>x.enabledForPublicGame===true&&x.artworkRights==='approved'&&typeof x.name==='string'&&typeof x.image==='string'&&x.image.startsWith('/adinkra-library/')&&x.image.endsWith('.png')&&x.image.length<100);
   const checked=await Promise.all(candidates.map(async x=>{
    try{const r=await fetch(x.image,{method:'HEAD'});return r.ok?x:null}catch(_){return null}
   }));
