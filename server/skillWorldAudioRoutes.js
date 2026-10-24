@@ -102,7 +102,9 @@ function createSkillWorldAudioRouter(options = {}) {
     }); } catch (error) { return fail(502, "upstream_connection", "tts_upstream_connection_failed", { upstream_error_type: error?.name === "TimeoutError" ? "timeout" : "connection" }); }
 
     if (upstreamResponse?.status === 401) {
-      return fail(502, "upstream_auth", "tts_upstream_auth_failed", { upstream_status: 401 });
+      diagnose("upstream_auth", { status: 401, error: "tts_upstream_auth_failed" });
+      if (req.get("x-garvey-voice-diagnostics") === "1") return res.status(502).json({ ok: false, error: "tts_upstream_auth_failed", failure_stage: "upstream_auth", request_id: requestId, upstream_status: 401 });
+      return res.status(401).json({ ok: false, error: "tts_upstream_auth_failed", status: 401, fallback: "browser_speech" });
     }
 
     if (!upstreamResponse?.ok) {
