@@ -1,3 +1,4 @@
+require('./adinkra-catalog.test.cjs');
 const { chromium } = require('playwright');
 const assert = require('node:assert/strict');
 (async()=>{
@@ -37,6 +38,7 @@ const assert = require('node:assert/strict');
   await page.getByRole('heading',{name:'Mara and the Message at the Accra Bridge'}).waitFor();
   console.log('CASCADE_DIAGNOSTIC',JSON.stringify(await page.evaluate(()=>({step:document.querySelector('#step')?.textContent,heading:document.querySelector('#heading')?.textContent,panel:!!document.querySelector('#symbolCascade'),hidden:document.querySelector('#symbolCascade')?.hidden,display:document.querySelector('#symbolCascade')?getComputedStyle(document.querySelector('#symbolCascade')).display:null}))),errors);
   await page.locator('#symbolCascade').waitFor({state:'visible'});
+  assert.equal(await page.locator('.cascade-cell img').count(),24,'four rows are visible before Start');
   assert.equal(await page.locator('.cascade-cell').count(),84,'six columns and fourteen rows');
   await page.getByRole('button',{name:'Start game'}).click();
   assert.equal(await page.locator('.cascade-cell img').count()>=24,true,'four rows seeded before first drop');
