@@ -1,0 +1,56 @@
+/* Garvey Gate of Attention — Adinkra Symbol Cascade. Standalone, no voice interference. */
+(()=>{
+'use strict';
+const host=document.getElementById('stage');
+if(!host)return;
+const names=['Mate Masie','Akoben','Hwehwemudua','Nyansapo','Ani Bere A Enso Gya','Sesa Wo Suban','Sankofa'];
+const files=['Mate Masie.png','Akoben.png','Hwehwemudua.png','Nyansapo.png','Ani Bere A Enso Gya.png','Sesa Wo Suban.png','Sankofa.webp'];
+const W=6,H=9,storage='garvey-adinkra-cascade-best-v1';
+let board=Array(W*H).fill(null),selected=-1,seconds=0,score=0,matches=0,level=1,playing=false,over=false,timer=null,best=0,round=0;
+try{best=Math.max(0,Number(localStorage.getItem(storage))||0)}catch(_){}
+const panel=document.createElement('section');panel.className='cascade';panel.id='symbolCascade';panel.setAttribute('aria-label','Adinkra Symbol Cascade game');
+panel.innerHTML='<div class="cascade-head"><div><div class="eyebrow">Play while you listen</div><h3>Adinkra Symbol Cascade</h3></div><div class="cascade-score"><strong id="cascadeScore">0</strong><small>Coins</small></div></div><p class="cascade-help">Tap two symbols to swap them. Matching neighbors burst into coins! Swaps stay in place even when they do not match. Keep the tank from filling while you listen to the Keeper.</p><div class="cascade-stats"><span id="cascadeTime">Time 0s</span><span id="cascadeLevel">Level 1 · 1 drop/sec</span><span id="cascadeBest">Best 0s</span></div><div class="cascade-tank-wrap"><div class="cascade-tank" id="cascadeTank" role="group" aria-label="Symbol tank"></div><div id="cascadeBurst" class="cascade-burst" aria-hidden="true"></div></div><div id="cascadeStatus" class="cascade-status" role="status" aria-live="polite">Ready to play?</div><div class="cascade-controls"><button type="button" id="cascadeStart" class="gold">Start game</button><button type="button" id="cascadeReset" class="outline">New game</button></div><p class="cascade-help">Every 20 seconds you survive, the level rises: 1, then 2, then 3 symbols per second. Your longest survival time is saved in this browser. This practice game does not determine gate advancement.</p>';
+host.insertAdjacentElement('afterend',panel);
+const el=id=>document.getElementById(id),tank=el('cascadeTank'),status=el('cascadeStatus'),start=el('cascadeStart');
+function index(x,y){return y*W+x}
+function empty(){return board.every(v=>v===null)}
+function persistBest(){if(seconds>best){best=seconds;try{localStorage.setItem(storage,String(best))}catch(_){}}el('cascadeBest').textContent='Best '+best+'s'}
+function draw(){
+ tank.replaceChildren();
+ board.forEach((symbol,i)=>{
+  const cell=document.createElement('button');cell.type='button';cell.className='cascade-cell';cell.disabled=over||!playing||symbol===null;cell.setAttribute('aria-label',symbol===null?'Empty position':names[symbol]+', row '+(Math.floor(i/W)+1)+', column '+(i%W+1));cell.setAttribute('aria-pressed',String(selected===i));
+  if(symbol!==null){const img=document.createElement('img');img.src='/'+encodeURIComponent(files[symbol]);img.alt='';img.loading='lazy';cell.append(img)}
+  cell.onclick=()=>swap(i);tank.append(cell)
+ });
+ el('cascadeScore').textContent=score;el('cascadeTime').textContent='Time '+seconds+'s';el('cascadeLevel').textContent='Level '+level+' · '+level+' drop'+(level===1?'':'s')+'/sec';persistBest();
+}
+function gravity(){
+ for(let x=0;x<W;x++){const pieces=[];for(let y=H-1;y>=0;y--){const v=board[index(x,y)];if(v!==null)pieces.push(v)}for(let y=H-1;y>=0;y--)board[index(x,y)]=pieces[H-1-y]??null}
+}
+function groups(){
+ const visited=new Set(),result=[];
+ for(let i=0;i<board.length;i++){if(board[i]===null||visited.has(i))continue;const symbol=board[i],queue=[i],group=[];visited.add(i);
+  while(queue.length){const at=queue.pop(),x=at%W,y=Math.floor(at/W);group.push(at);
+   for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy;if(nx<0||nx>=W||ny<0||ny>=H)continue;const next=index(nx,ny);if(!visited.has(next)&&board[next]===symbol){visited.add(next);queue.push(next)}}}
+  if(group.length>=2)result.push(group)
+ }
+ return result
+}
+function burst(){
+ let total=0,chain=0;
+ while(chain++<W*H){const matched=groups();if(!matched.length)break;for(const group of matched){for(const i of group){board[i]=null;total++}}gravity()}
+ if(total){score+=total*10;matches+=total;status.textContent='✨ '+total+' symbols matched! +'+(total*10)+' coins';const effect=el('cascadeBurst');effect.textContent='✦ 🪙 ✨ +'+(total*10);effect.classList.remove('pop');void effect.offsetWidth;effect.classList.add('pop');}
+ return total
+}
+function swap(i){if(!playing||over||board[i]===null)return;if(selected<0){selected=i;draw();return}if(selected===i){selected=-1;draw();return}const a=selected;[board[a],board[i]]=[board[i],board[a]];selected=-1;burst();draw()}
+function drop(){const available=[];for(let x=0;x<W;x++)if(board[index(x,0)]===null)available.push(x);if(!available.length){finish();return false}const x=available[Math.floor(Math.random()*available.length)];let y=H-1;while(y>=0&&board[index(x,y)]!==null)y--;if(y<0){finish();return false}board[index(x,y)]=Math.floor(Math.random()*names.length);return true}
+function tick(){if(!playing||over||document.hidden)return;seconds++;level=Math.min(3,1+Math.floor(seconds/20));for(let n=0;n<level;n++){if(!drop())break}if(!over){burst();if(board.slice(0,W).every(v=>v!==null))finish()}draw()}
+function finish(){over=true;playing=false;clearInterval(timer);timer=null;persistBest();status.textContent='Tank full! You lasted '+seconds+' seconds and earned '+score+' coins. Try again to beat your record.';start.textContent='Play again'}
+function setTimer(){clearInterval(timer);timer=null;if(playing&&!document.hidden&&panel.hidden===false)timer=setInterval(tick,1000)}
+function startGame(){if(over){newGame()}if(empty()){for(let i=0;i<7;i++)drop();burst()}playing=!playing;start.textContent=playing?'Pause game':'Resume game';status.textContent=playing?'Keep the tank clear. Swap any two symbols!':'Paused — your board is safe.';setTimer();draw()}
+function newGame(){clearInterval(timer);timer=null;board=Array(W*H).fill(null);selected=-1;seconds=0;score=0;matches=0;level=1;playing=false;over=false;round++;start.textContent='Start game';status.textContent='Ready to play?';draw()}
+function syncVisibility(){const story=document.getElementById('heading')?.textContent==='Enter the story';panel.hidden=!story;if(!story){clearInterval(timer);timer=null}else if(playing)setTimer()}
+start.addEventListener('click',startGame);el('cascadeReset').addEventListener('click',newGame);document.addEventListener('visibilitychange',setTimer);
+const heading=document.getElementById('heading');if(heading)new MutationObserver(syncVisibility).observe(heading,{childList:true,characterData:true,subtree:true});
+newGame();syncVisibility();
+})();
