@@ -4,6 +4,11 @@ const assert = require('node:assert/strict');
  const browser=await chromium.launch({headless:true});
  try{
   const page=await browser.newPage();
+  const fs=require('node:fs');
+  const html=fs.readFileSync('public/gate-one-experience.html','utf8');
+  assert.match(html,/location\.hostname==='garveyfrontend\.onrender\.com'/);
+  assert.match(html,/location\.replace\('https:\/\/garveybackend\.onrender\.com'/);
+  assert.match(html,/fetch\('\/api\/skill-world\/audio'/);
   const errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8765/gate-one-experience.html');
