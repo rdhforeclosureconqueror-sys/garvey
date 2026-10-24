@@ -13,6 +13,27 @@ const assert = require('node:assert/strict');
   await image.waitFor();
   assert.match(await image.getAttribute('src'),/Mate%20Masie.png/);
   assert.equal(await image.evaluate(x=>x.complete&&x.naturalWidth>0),true,'uploaded symbol image loads');
+  await page.getByRole('heading',{name:'Rebuild the symbol'}).waitFor();
+  assert.equal(await page.locator('.puzzle-piece').count(),4);
+  await page.getByRole('button',{name:'Challenge · 9 pieces'}).click();
+  assert.equal(await page.locator('.puzzle-piece').count(),9);
+  await page.getByRole('button',{name:'Explorer · 4 pieces'}).click();
+  assert.equal(await page.locator('.puzzle-piece').count(),4);
+  assert.equal(await page.getByRole('button',{name:'Meet the Keeper →'}).isVisible(),false,'story is gated by symbol reveal');
+  await page.evaluate(()=>{
+    for(let attempt=0;attempt<8;attempt++){
+      const tiles=[...document.querySelectorAll('.puzzle-piece')];
+      const positions=tiles.map(b=>b.style.backgroundPosition);
+      const targets=['0% 0%','100% 0%','0% 100%','100% 100%'];
+      const wrong=positions.findIndex((p,i)=>p!==targets[i]);
+      if(wrong<0)break;
+      const match=positions.findIndex((p,i)=>p===targets[wrong]&&i!==wrong);
+      tiles[wrong].click();
+      document.querySelectorAll('.puzzle-piece')[match].click();
+    }
+  });
+  await page.getByRole('heading',{name:'Mate Masie'}).waitFor();
+  await page.getByRole('button',{name:'Meet the Keeper →'}).click();
   await page.getByRole('heading',{name:'Mara and the Message Beneath the Bridge'}).waitFor();
   await page.getByRole('button',{name:'🔊 Read this page aloud'}).waitFor();
   let voiceRequest=null;
