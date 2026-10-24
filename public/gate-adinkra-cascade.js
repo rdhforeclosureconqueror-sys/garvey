@@ -76,7 +76,7 @@ function finish(){over=true;playing=false;clearInterval(timer);timer=null;persis
 function setTimer(){clearInterval(timer);timer=null;if(playing&&!document.hidden&&panel.hidden===false)timer=setInterval(tick,1000)}
 function startGame(){if(over){newGame()}if(empty())seedTank()playing=!playing;start.textContent=playing?'Pause game':'Resume game';status.textContent=playing?'Keep the tank clear. Swap any two symbols!':'Paused — your board is safe.';setTimer();draw()}
 function newGame(){clearInterval(timer);timer=null;board=Array(W*H).fill(null);fresh.clear();selected=-1;seconds=0;score=0;matches=0;level=1;playing=false;over=false;round++;start.textContent='Start game';status.textContent='Ready to play?';draw()}
-function syncVisibility(){const story=document.getElementById('heading')?.textContent==='Enter the story';panel.hidden=!story;if(!story){clearInterval(timer);timer=null}else if(playing)setTimer()}
+function syncVisibility(){const story=document.getElementById('step')?.textContent.includes('The story')===true;panel.hidden=!story;if(!story){clearInterval(timer);timer=null}else if(playing)setTimer()}
 start.addEventListener('click',startGame);el('cascadeReset').addEventListener('click',newGame);document.addEventListener('visibilitychange',setTimer);
 const heading=document.getElementById('heading');if(heading)new MutationObserver(syncVisibility).observe(heading,{childList:true,characterData:true,subtree:true});
 newGame();syncVisibility();
