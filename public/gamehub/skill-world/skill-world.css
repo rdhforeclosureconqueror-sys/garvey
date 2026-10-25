@@ -756,3 +756,31 @@ button,input,select,textarea{font:inherit;max-width:100%}
 .g5-step-regroup{background:#fff0df;border-color:#efb27a;color:#783e17}
 .g5-fraction-page .g5-lesson-visual{margin-top:1rem}
 @media(max-width:420px){.g5-color-step{padding:.75rem;gap:.6rem}.g5-step-emoji{font-size:1.25rem;flex-basis:1.4rem}}
+
+/* Responsive Skill World: fit coordinate boards and question controls within their cards. */
+.skill-world-shell,.skill-world-app-container,.skill-screen-card,.screen,.kid-visual-area,.skill-visual,.visual-model,.skill-visual-inner{box-sizing:border-box;min-width:0;}
+.skill-world-shell .screen,.skill-world-shell .question-prompt-card,.skill-world-shell .sw-visual-caption{overflow-wrap:anywhere;}
+.skill-world-shell .coordinate-plane-visual{width:100%;max-width:100%;overflow:visible;}
+.skill-world-shell .coordinate-plane-grid,.skill-world-shell .coordinate-plane-four-quadrant{
+  box-sizing:border-box;width:100%;min-width:0;max-width:520px;
+  aspect-ratio:1 / 1;min-height:0;
+  grid-template-columns:repeat(var(--coord-cols),minmax(0,1fr));
+  grid-template-rows:repeat(var(--coord-rows),minmax(0,1fr));
+  padding:clamp(8px,2vw,18px);background-size:calc((100% - 2 * clamp(8px,2vw,18px)) / var(--coord-cols)) calc((100% - 2 * clamp(8px,2vw,18px)) / var(--coord-rows));
+  background-position:clamp(8px,2vw,18px) clamp(8px,2vw,18px);
+}
+.skill-world-shell .coordinate-axis-label{font-size:clamp(.52rem,1.7vw,.78rem);min-width:0;}
+.skill-world-shell .coordinate-point b{font-size:clamp(.5rem,1.6vw,.78rem);max-width:100%;padding:.1rem .2rem;}
+@media(max-width:600px){
+  .skill-world-shell{padding:6px;}
+  .skill-world-app-container{padding:6px;border-width:2px;border-radius:18px;}
+  .skill-screen-card{padding:6px;border-width:2px;border-radius:18px;}
+  .skill-world-shell .screen{padding:8px;border-width:2px;border-radius:14px;}
+  .skill-world-shell .kid-visual-area,.skill-world-shell .skill-visual{padding:6px;border-width:2px;border-radius:14px;}
+  .skill-world-shell .coordinate-plane-grid{padding:8px;border-width:2px;border-radius:12px;}
+  .skill-world-shell .coordinate-axis-name{font-size:.65rem;}
+  .skill-world-shell .coordinate-point{font-size:.9rem;}
+}
+
+/* Keep graph-paper line pitch synchronized with the actual grid content box. */
+@media(max-width:600px){.skill-world-shell .coordinate-plane-grid{background-size:calc((100% - 16px) / var(--coord-cols)) calc((100% - 16px) / var(--coord-rows));background-position:8px 8px;}}
