@@ -48,3 +48,12 @@ Ten published Grade 5 skill packages exist in `public/gamehub/skill-world/conten
 
 ## Tracking
 Audit initiated; **not** a claim that all Grade 5 questions have been converted. Record actual interaction implementation and CI evidence separately for each skill.
+
+## 2026-10-24 iPhone coordinate follow-up and whole-grade audit checkpoint
+- User-supplied iPhone screenshots confirm the graph, x/y axes, question prompt, and answer controls are now contained in the visible card after responsive PR #840. This is a **single-device visual smoke check**, not certification of 320px, tablet, desktop, keyboard, or every graph type.
+- The coordinate visual still displayed an unsolicited x/y movement procedure before Hint/Help. Remove that automatic caption; retain the different-number four-step coordinate worked example inside Help.
+- Guided Help is educationally useful but visually long on phones; audit progressive disclosure, repeated \"Reveal step\" headings, spacing, and accessibility without shortening the actual mathematical explanation.
+- Grade 5 has **10 published math skill packages** (inventory above). OA_001 received the five-lesson work, interactive pattern/coordinate activities, and layout fixes. This does **not** certify OA_001's entire question bank or the remaining nine skills.
+- Next audit order: OA_001 all five levels plus Mixed and checkpoint; GM_001 coordinate geometry and pattern table; NBT_001/002/003; FR_001/002/003; MD_001; GM_002. Record pass/fail per level for model accuracy, no answer leaks, different-number hints, scoring, reset, audio, responsive 320/375/390/tablet/desktop, and 44px touch targets.
+- Open concern: pattern-table renderer may reveal `q.rule` in the question visual. Determine whether the rule is already given in the prompt before suppressing it; do not blindly hide necessary data.
+- No whole-grade certification claim until each package's representative questions and mobile interactions have passed regression and real-device checks.
