@@ -177,6 +177,19 @@ test('Expected Grade 4 and Grade 5 Math packages use audited visual models only 
 });
 
 
+test('Grade 5 coordinate graph interpretation hides the requested y in both table and plotted points', () => {
+  const pkg = readPackage('G5M_GM_001');
+  const questions = pkg.level_banks.flatMap((bank) => bank.questions).filter((q) => q.visual_model === 'graph_interpretation');
+  assert.equal(questions.length, 14);
+  for (const q of questions) {
+    const html = VisualRegistry.render(q);
+    assert.match(html, new RegExp('<td>' + q.x + '<\\/td><td>\\?<\\/td>'), q.question_id);
+    assert.doesNotMatch(html, new RegExp('aria-label="point \\(' + q.x + ', ' + q.y + '\\)"'), q.question_id);
+    assert.equal(q.pattern_rows.find((r) => Number(r.input) === Number(q.x)).output, Number(q.correct_answer), q.question_id);
+    assert.ok(q.pattern_rows.some((r) => Number(r.input) !== Number(q.x)), q.question_id);
+  }
+});
+
 test('Grade 5 power-of-ten question charts display the operand, never the precomputed answer', () => {
   const pkg = readPackage('G5M_NBT_001');
   const questions = pkg.level_banks[2].questions.filter((q) => /What is [\d,.]+\s*[×÷]/i.test(q.prompt));
