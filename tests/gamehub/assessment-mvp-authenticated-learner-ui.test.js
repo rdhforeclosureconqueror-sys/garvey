@@ -234,6 +234,26 @@ test('query parameters preselect valid grade and subject, ignore invalid values,
   uninstallDom();
 });
 
+test('a Family Dashboard launch preselects an owned learner and that learner’s grade without auto-starting', async () => {
+  installDom('?child_id=101&child_display_name=Maya&grade=4&program_context=public_learning');
+  const app = freshApp();
+  let posted = false;
+  global.fetch = async (url) => {
+    if (url === '/api/gates/auth/session') return { ok: true, json: async () => ({ authenticated: true }) };
+    if (url === '/api/gates/canonical-learners') return { ok: true, json: async () => ({ children: [childA, childB] }) };
+    if (String(url).includes('/current-session')) return { ok: false, status: 404, json: async () => ({}) };
+    if (String(url).includes('/history')) return { ok: true, json: async () => ({ sessions: [] }) };
+    posted = true; return { ok: true, json: async () => session };
+  };
+  await app.initializeAuthenticatedFlow();
+  assert.equal(app.state.selectedChildId, '101');
+  assert.equal(app.state.grade, '4');
+  assert.equal(app.state.subject, 'Math');
+  assert.equal(posted, false);
+  assert.match(document.getElementById('assessment-app').innerHTML, /Your learner and grade are ready/);
+  uninstallDom();
+});
+
 test('adaptive learning page exposes assessment button and grade/subject lesson practice browsing links', () => {
   const html = fs.readFileSync(adaptivePath, 'utf8');
   assert.match(html, /Take an Adaptive Assessment/);

@@ -63,6 +63,7 @@
     sourceRegistry: '',
     tenant: '',
     email: '',
+    requestedChildId: '',
   };
 
   const state = { ...initialState, historyFilters: { ...initialState.historyFilters } };
@@ -108,6 +109,7 @@
     const subject = params.get('subject');
     const programContext = text(params.get('program_context')).trim();
     const routeChildId = text(params.get('child_id')).trim();
+    state.requestedChildId = /^[1-9]\d*$/.test(routeChildId) ? routeChildId : '';
     if (programContext === 'youth_development') {
       state.programContext = 'youth_development';
       state.sourceRegistry = text(params.get('source_registry')).trim() || 'youth_development';
@@ -485,7 +487,9 @@
         setView('no children', 'No learner profiles are available yet.');
         return;
       }
-      if (state.children.length === 1) selectChild(state.children[0].child_id, { renderAfter: false });
+      const requestedChild = state.requestedChildId && state.children.find((child) => child.child_id === state.requestedChildId);
+      if (requestedChild) selectChild(requestedChild.child_id, { renderAfter: false });
+      else if (state.children.length === 1) selectChild(state.children[0].child_id, { renderAfter: false });
       setView('setup', 'Choose a learner, grade, and subject.');
       if (state.selectedChildId) await afterChildSelectionChanged();
     } catch (err) {
@@ -865,7 +869,7 @@
     const current = selectedCurrentSessionMatches() ? state.currentSession : null;
     return '<section class="panel" aria-labelledby="setup-title">' +
       '<h2 id="setup-title">Assessment setup</h2>' +
-      '<p class="helper">' + (state.programContext === 'youth_development' ? 'Youth Development learner is already selected. Choose grade and subject. Nothing starts until you press Start or Resume.' : 'Choose an existing learner, then choose the grade and subject. Nothing starts until you press Start or Resume.') + '</p>' +
+      '<p class="helper">' + (state.programContext === 'youth_development' ? 'Youth Development learner is already selected. Choose grade and subject. Nothing starts until you press Start or Resume.' : (state.requestedChildId && selectedChild() ? 'Your learner and grade are ready. Choose a subject, then begin the adaptive assessment.' : 'Choose an existing learner, then choose the grade and subject. Nothing starts until you press Start or Resume.')) + '</p>' +
       (state.queryGrade || state.querySubject ? '<div class="notice"><strong>Browsing choice applied</strong><p>Valid page choices were preselected, but the assessment will not auto-start.</p></div>' : '') +
       renderSelectorGrid() +
       gradeMismatchNote() +
