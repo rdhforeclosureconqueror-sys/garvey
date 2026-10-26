@@ -17,6 +17,7 @@ test('every Grade 4 Math activity has a four-step, non-spoiling worked-help path
     assert.ok(example, question.question_id);
     assert.ok(example.steps.length >= 4, question.question_id);
     assert.notEqual(example.problem, question.prompt, question.question_id);
+    if (example.example_answer) assert.notEqual(String(example.example_answer).toLowerCase(), String(question.correct_answer ?? question.answer).toLowerCase(), question.question_id);
   }
 });
 
