@@ -8,7 +8,10 @@ const { loadSkillPackages, packageIdOf } = require("../assessment-mvp/loadSkillP
 const { recommendSkillPackages } = require("../assessment-mvp/recommendSkillPackages");
 const { scoreResponses } = require("../assessment-mvp/scoreResponses");
 const { selectAssessmentItems, stableStringify, isAssessmentItemDeliverable } = require("../assessment-mvp/selectAssessmentItems");
-const { pool: defaultPool } = require("./db");
+
+function defaultPool() {
+  return require("./db").pool;
+}
 
 function sha256(value) {
   return crypto.createHash("sha256").update(String(value)).digest("hex");
@@ -278,7 +281,7 @@ async function withTransaction(pool, fn) {
 
 class AssessmentMvpPostgresStore {
   constructor(options = {}) {
-    this.pool = options.pool || defaultPool;
+    this.pool = options.pool || defaultPool();
     this.createSessionId = options.createSessionId;
   }
 
@@ -339,7 +342,15 @@ class AssessmentMvpPostgresStore {
             await client.query(`UPDATE assessment_sessions SET status = 'expired', updated_at = NOW(), lock_version = lock_version + 1 WHERE id = $1 AND status = 'in_progress'`, [existing.id]);
           } else {
             const itemRows = await this.loadSessionItems(existing.id, client);
-            return sessionFromRows(existing, itemRows, { resumed: true, childProfile: ownedChild.childProfile });
+            const resumable = sessionFromRows(existing, itemRows, { resumed: true, childProfile: ownedChild.childProfile });
+            // A prior content release may have saved items that the current learner
+            // renderer correctly rejects. Never resume an empty assessment: retire it
+            // and create a clean baseline from the current deliverable question bank.
+            if (resumable.public_items.length > 0) return resumable;
+            await client.query(
+              "UPDATE assessment_sessions SET status = 'expired', updated_at = NOW(), lock_version = lock_version + 1 WHERE id = $1 AND status = 'in_progress'",
+              [existing.id]
+            );
           }
         }
 
