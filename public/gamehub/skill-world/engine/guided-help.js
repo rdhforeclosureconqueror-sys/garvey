@@ -3,6 +3,21 @@
   'use strict';
   const escapeHtml=(s)=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const gcd=(a,b)=>b?gcd(b,a%b):a;
+  function grade4MathExample(question){
+    const id=String(question?.id||question?.question_id||'');
+    const examples={
+      G4M_OA_001:{title:'Four steps: multiplicative comparison',problem:'18 is how many times as many as 6?',steps:['Step 1 — Find the comparison: “how many times as many” asks for multiplication or division, not subtraction.','Step 2 — Write the relationship: 18 ÷ 6 = __.','Step 3 — Different example: 18 ÷ 6 = 3, because 6 × 3 = 18.','Step 4 — Use the same relationship on your question, then multiply back to check.']},
+      G4M_NBT_001:{title:'Four steps: place value',problem:'In 572,406, what digit is in the thousands place?',steps:['Step 1 — Use the commas to separate the periods: 572 | 406.','Step 2 — Name the places from right to left: ones, tens, hundreds, thousands.','Step 3 — Different example: in 572,406 the thousands digit is 2.','Step 4 — Point to the requested place in your number, then say the digit and place aloud.']},
+      G4M_NBT_002:{title:'Four steps: line up place values',problem:'Add 2,468 + 1,325.',steps:['Step 1 — Find the operation: this example uses addition.','Step 2 — Line up ones under ones, tens under tens, hundreds under hundreds, and thousands under thousands.','Step 3 — Different example: 2,468 + 1,325 = 3,793. Regroup only when a column makes ten or more.','Step 4 — Solve your columns from right to left and estimate to check that the size makes sense.']},
+      G4M_NBT_003:{title:'Four steps: multiply with place value',problem:'Multiply 132 × 3.',steps:['Step 1 — Break 132 into 100 + 30 + 2.','Step 2 — Multiply each place by 3: 300, 90, and 6.','Step 3 — Different example: 132 × 3 = 300 + 90 + 6 = 396.','Step 4 — Use the same parts for your number, then add the partial products to check.']},
+      G4M_NBT_004:{title:'Four steps: division',problem:'Divide 84 ÷ 4.',steps:['Step 1 — Read division as equal groups: share 84 into 4 equal groups.','Step 2 — Use multiplication to help: ask what number times 4 makes 84.','Step 3 — Different example: 84 ÷ 4 = 21 because 4 × 21 = 84.','Step 4 — Divide your number, then multiply quotient × divisor to check the total.']},
+      G4M_FR_001:{title:'Four steps: equivalent fractions',problem:'Write an equivalent fraction for 2/3.',steps:['Step 1 — Keep the fraction’s value the same by changing the top and bottom together.','Step 2 — Choose one multiplier for both numbers.','Step 3 — Different example: 2/3 × 2/2 = 4/6.','Step 4 — Apply the same multiplier to your fraction and check that both parts changed together.']},
+      G4M_FR_003:{title:'Four steps: a whole number times a fraction',problem:'What is 3 copies of 1/6?',steps:['Step 1 — Read “copies of” as multiplication.','Step 2 — Keep the denominator because the pieces stay sixths.','Step 3 — Different example: 3 × 1/6 = 3/6.','Step 4 — Multiply the numerator by the whole number in your question and check the denominator stays the same.']},
+      G4M_MD_001:{title:'Four steps: measurement conversion',problem:'Convert 4 feet to inches.',steps:['Step 1 — Find the unit relationship: 1 foot = 12 inches.','Step 2 — Write a multiplication equation for the number of feet.','Step 3 — Different example: 4 × 12 = 48, so 4 feet = 48 inches.','Step 4 — Use the correct conversion factor for your units and label the final measurement.']},
+      G4M_GM_001:{title:'Four steps: geometry attributes',problem:'Which angle is 45 degrees: acute, right, or obtuse?',steps:['Step 1 — Identify the attribute the question gives you, such as sides, rays, or angle size.','Step 2 — Recall the rule: acute angles are less than 90 degrees; a right angle is exactly 90 degrees.','Step 3 — Different example: 45 degrees is acute because 45 is less than 90.','Step 4 — Compare the attribute in your question with the rule, then choose the matching geometry word.']}
+    };
+    return examples[Object.keys(examples).find((prefix)=>id.startsWith(prefix))]||null;
+  }
   function example(question){
     const prompt=String(question?.prompt||question?.question||'');
     if(String(question?.id||question?.question_id||'').startsWith('G5M_OA_001')){
@@ -89,12 +104,12 @@
     const equivalent=/equivalent|same value|equal fraction/.test(prompt.toLowerCase());
     if(compare)return {title:'Practice comparing different fractions',problem:'Compare 2/3 and 3/4',steps:['Identify the task: compare the size of two fractions.','Choose a common denominator: 12 works for 3 and 4.','Rename: 2/3 = 8/12 and 3/4 = 9/12.','Compare the numerators: 8 is less than 9, so 2/3 < 3/4.','Use the same method on your own question.']};
     if(equivalent)return {title:'Practice with a different equivalent fraction',problem:'Find an equivalent fraction for 2/3',steps:['Identify the task: make a fraction with the same value.','Choose the same multiplier for the top and bottom, such as 2.','Multiply the numerator: 2 × 2 = 4.','Multiply the denominator: 3 × 2 = 6.','So 2/3 = 4/6. Try this method on your question.']};
-    return null;
+    return grade4MathExample(question);
   }
   function render(question){
     const ex=example(question);
     if(!ex)return '<div class="guided-help" role="region" aria-label="Guided help"><h3>How to work it out</h3><p>Read the question, identify the operation or relationship, and draw or label a model. Try a simpler, different problem using the same method. Then return to your question.</p></div>';
     return `<div class="guided-help" role="region" aria-label="Guided worked example"><h3>${escapeHtml(ex.title)}</h3><p><strong>Example:</strong> ${escapeHtml(ex.problem)}</p><ol>${ex.steps.map(step=>`<li><details><summary>Reveal step</summary><p>${escapeHtml(step)}</p></details></li>`).join('')}</ol><p><strong>Your turn:</strong> Apply the steps to the original question. The answer has not been revealed.</p></div>`;
   }
-  root.SkillWorldGuidedHelp={example,render};
+  root.SkillWorldGuidedHelp={example,render,grade4MathExample};
 })(typeof window!=='undefined'?window:globalThis);
