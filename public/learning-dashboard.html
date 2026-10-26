@@ -18,9 +18,9 @@
     <section class="grid">
       <article class="card">
         <h2>Math & English</h2>
-        <p>Begin with a grade-level adaptive assessment. The results identify the skills to start next.</p>
+        <p>New learners begin with a recorded grade-level adaptive assessment. Existing learners can go straight to their grade's learning area.</p>
         <label>Select learner<select id="learner-select" required><option value="">Choose a learner</option></select></label>
-        <p><button class="btn" type="button" id="launch-learning" disabled>Start learner assessment →</button></p>
+        <p><button class="btn" type="button" id="launch-learning" disabled>Choose a learner to continue →</button></p>
       </article>
       <article class="card">
         <h2>Your learners</h2><div id="learners">Loading learner profiles…</div>
@@ -42,21 +42,43 @@
         const holder=document.querySelector('#learners');
         const select=document.querySelector('#learner-select');
         const launch=document.querySelector('#launch-learning');
-        holder.textContent='';
-        select.onchange=()=>{launch.disabled=!select.value};
-        launch.onclick=()=>{
+        let selectedEntry=null;
+        let selectionRequest=0;
+        function assessmentUrl(learner,grade){return '/assessment-mvp?'+new URLSearchParams({child_id:String(learner.child_id),child_display_name:learner.child_name,grade,program_context:'public_learning',source_registry:'public_learning',return_url:'/learning-dashboard.html'})}
+        function learningUrl(learner,grade){return '/gamehub/adaptive-v2-hub.html?'+new URLSearchParams({grade,child_id:String(learner.child_id),child_display_name:learner.child_name,source_registry:'public_learning',return_url:'/learning-dashboard.html'})}
+        async function chooseLearner(){
+          const request=++selectionRequest;
           const learner=(data.children||[]).find(x=>String(x.child_id)===select.value);
-          if(!learner)return;
+          selectedEntry=null;
+          launch.disabled=true;
+          if(!learner){launch.textContent='Choose a learner to continue →';return}
           const grade=gradeFor(learner);
-          if(!grade){status.textContent='Add a Grade 1–6 grade band for this learner before starting their adaptive assessment.';return}
-          const params=new URLSearchParams({child_id:String(learner.child_id),child_display_name:learner.child_name,grade,program_context:'public_learning',source_registry:'public_learning',return_url:'/learning-dashboard.html'});
-          location.assign('/assessment-mvp?'+params);
+          if(!grade){status.textContent='Add a Grade 1–6 grade band for this learner before continuing.';return}
+          status.textContent='Checking this learner’s saved assessment…';
+          try{
+            const history=await api('/api/assessment-mvp/children/'+encodeURIComponent(learner.child_id)+'/history?'+new URLSearchParams({grade,assessment_role:'baseline',limit:'50'}));
+            if(request!==selectionRequest)return;
+            const sessions=Array.isArray(history.sessions)?history.sessions:[];
+            const hasCompletedBaseline=sessions.some(session=>session.status==='completed');
+            const hasInProgressBaseline=sessions.some(session=>session.status==='in_progress');
+            const initialAssessmentRequired=learner.metadata&&learner.metadata.education_initial_assessment_required===true;
+            selectedEntry={learner,grade,mode:hasInProgressBaseline||initialAssessmentRequired&&!hasCompletedBaseline?'assessment':'learning'};
+            launch.textContent=selectedEntry.mode==='assessment'?(hasInProgressBaseline?'Resume saved learner assessment →':'Start initial learner assessment →'):'Open Grade '+grade+' learning →';
+            launch.disabled=false;
+            status.textContent=selectedEntry.mode==='assessment'?'The initial assessment is saved to this learner’s profile and can be resumed safely.':'This learner can continue directly to grade-level Math and English.';
+          }catch(error){if(request!==selectionRequest)return;status.textContent='We could not verify this learner’s saved assessment. Please try again.'}
+        }
+        holder.textContent='';
+        select.onchange=chooseLearner;
+        launch.onclick=()=>{
+          if(!selectedEntry)return;
+          location.assign(selectedEntry.mode==='assessment'?assessmentUrl(selectedEntry.learner,selectedEntry.grade):learningUrl(selectedEntry.learner,selectedEntry.grade));
         };
         if(!data.children?.length)holder.textContent='No learners added yet.';
         for(const child of data.children||[]){const p=document.createElement('p');p.textContent=child.child_name+' · '+(child.child_grade_band||'Grade not set');holder.appendChild(p);const option=document.createElement('option');option.value=String(child.child_id);option.textContent=child.child_name;select.appendChild(option)}
         document.querySelector('#progress').textContent=(data.children||[]).length+' learner profile(s) connected.';
       }catch(error){status.textContent=error.message}
-      document.querySelector('#add').onsubmit=async event=>{event.preventDefault();const button=event.target.querySelector('button');button.disabled=true;try{await api('/api/gates/children',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...Object.fromEntries(new FormData(event.target)),metadata:{source:'garvey_learning'}})});location.reload()}catch(error){status.textContent=error.message}finally{button.disabled=false}};
+      document.querySelector('#add').onsubmit=async event=>{event.preventDefault();const button=event.target.querySelector('button');button.disabled=true;try{await api('/api/gates/children',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...Object.fromEntries(new FormData(event.target)),metadata:{source:'garvey_learning',education_initial_assessment_required:true}})});location.reload()}catch(error){status.textContent=error.message}finally{button.disabled=false}};
       document.querySelector('#logout').onclick=async()=>{try{await api('/api/gates/auth/signout')}finally{location.replace('/learning-login.html')}};
     })();
   </script>

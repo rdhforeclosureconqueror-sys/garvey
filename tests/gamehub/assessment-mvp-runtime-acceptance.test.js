@@ -262,6 +262,20 @@ test('assessment MVP runtime acceptance covers the focused learner flow, privacy
 
     resetApp(app);
     app.state.session = app.publicSessionOnly({
+      session_id: 'amvp_12121212121212121212121212121212',
+      assessment_role: 'baseline',
+      status: 'in_progress',
+      public_items: [{ assessment_item_id: 'pub-fraction', item_identity: 'PKG::F1', source_package_id: 'PKG', question_type: 'fraction_response', payload: { prompt: 'Write one half.', question_type: 'fraction_response' } }],
+      package_ids: ['PKG'],
+    });
+    app.state.view = 'question';
+    app.render();
+    assert.match(rootEl.innerHTML, /Type your answer/);
+    assert.match(rootEl.innerHTML, /type it with a slash, like 3\/4/);
+    assert.doesNotMatch(rootEl.innerHTML, /This question type is not ready/);
+
+    resetApp(app);
+    app.state.session = app.publicSessionOnly({
       session_id: 'amvp_22222222222222222222222222222222',
       assessment_role: 'baseline',
       status: 'in_progress',
