@@ -179,10 +179,10 @@ test('Expected Grade 4 and Grade 5 Math packages use audited visual models only 
 
 test('Grade 5 power-of-ten question charts display the operand, never the precomputed answer', () => {
   const pkg = readPackage('G5M_NBT_001');
-  const questions = pkg.level_banks[2].questions.filter((q) => /What is [\\d,.]+\\s*[×÷]/i.test(q.prompt));
+  const questions = pkg.level_banks[2].questions.filter((q) => /What is [\d,.]+\s*[×÷]/i.test(q.prompt));
   assert.equal(questions.length, 9);
   for (const question of questions) {
-    const operand = Number(question.prompt.match(/What is ([\\d,.]+)\\s*[×÷]/i)[1].replace(/,/g, ''));
+    const operand = Number(question.prompt.match(/What is ([\d,.]+)\s*[×÷]/i)[1].replace(/,/g, ''));
     const html = VisualRegistry.render(question);
     assert.match(html, /place-value-chart-visual/, question.question_id);
     assert.ok(html.includes(String(operand) + ' is organized'), question.question_id + ': expected operand caption');
