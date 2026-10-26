@@ -17,7 +17,10 @@
     'Needs Support': 'needs-support',
     'Not Enough Evidence': 'not-enough-evidence',
   };
-  const SUPPORTED_ITEM_TYPES = ['multiple_choice', 'short_response'];
+  // These are rendered as either choice buttons or a typed response. Keep this
+  // in sync with the assessment selector so a saved learner session never
+  // contains a type the learner screen refuses to display.
+  const SUPPORTED_ITEM_TYPES = ['multiple_choice', 'numeric', 'number_response', 'integer_response', 'decimal_response', 'fraction_response', 'short_response', 'short_answer'];
   const INVALID_DELIVERY_RESPONSE = { invalid_delivery: true };
   const SUPPORT_TEXT = {
     Ready: 'You look ready to keep building with this skill.',
@@ -1073,7 +1076,8 @@
         return '<label class="choice-option" for="' + id + '"><input id="' + id + '" type="radio" name="response-' + state.index + '" value="' + escapeHtml(option) + '" data-response-for="' + escapeHtml(item.item_identity) + '"' + (saved === option ? ' checked' : '') + ' /> <span>' + escapeHtml(option) + '</span></label>';
       }).join('') + '</fieldset>';
     }
-    return '<div class="field"><label for="short-response">Type your answer</label><input id="short-response" type="text" autocomplete="off" data-response-for="' + escapeHtml(item.item_identity) + '" value="' + escapeHtml(saved) + '" /></div>';
+    const fractionHelp = type === 'fraction_response' ? '<p class="helper">For a fraction, type it with a slash, like 3/4.</p>' : '';
+    return '<div class="field"><label for="short-response">Type your answer</label><input id="short-response" type="text" autocomplete="off" data-response-for="' + escapeHtml(item.item_identity) + '" value="' + escapeHtml(saved) + '" />' + fractionHelp + '</div>';
   }
 
   function renderHistorySection() {
