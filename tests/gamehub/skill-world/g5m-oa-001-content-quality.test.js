@@ -48,9 +48,18 @@ test('authored expressions, evaluations, patterns, and coordinates are mathemati
     }
     if (q.pattern_rows) {
       const [m, a] = q.rule.match(/\d+/g).map(Number);
-      q.pattern_rows.forEach((r) => assert.equal(r.output, r.input * m + a, q.question_id));
       const input = Number(q.prompt.match(/input (?:of )?(\d+)/i)?.[1]);
       assert.equal(Number(q.correct_answer), input * m + a, q.question_id);
+      q.pattern_rows.forEach((row) => {
+        const expected = row.input * m + a;
+        if (row.output === '?') {
+          assert.equal(Number(row.input), input, `${q.question_id}: only the target output may be hidden`);
+          assert.equal(expected, Number(q.correct_answer), `${q.question_id}: hidden cell must match the answer`);
+        } else {
+          assert.equal(row.output, expected, q.question_id);
+          assert.notEqual(Number(row.input), input, `${q.question_id}: visible target output leaks the answer`);
+        }
+      });
     }
     if (Number.isInteger(q.x)) assert.equal(q.correct_answer, `(${q.x}, ${q.y})`, q.question_id);
   });
