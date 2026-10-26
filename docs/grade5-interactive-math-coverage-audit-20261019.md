@@ -57,3 +57,9 @@ Audit initiated; **not** a claim that all Grade 5 questions have been converted.
 - Next audit order: OA_001 all five levels plus Mixed and checkpoint; GM_001 coordinate geometry and pattern table; NBT_001/002/003; FR_001/002/003; MD_001; GM_002. Record pass/fail per level for model accuracy, no answer leaks, different-number hints, scoring, reset, audio, responsive 320/375/390/tablet/desktop, and 44px touch targets.
 - Open concern: pattern-table renderer may reveal `q.rule` in the question visual. Determine whether the rule is already given in the prompt before suppressing it; do not blindly hide necessary data.
 - No whole-grade certification claim until each package's representative questions and mobile interactions have passed regression and real-device checks.
+
+## 2026-10-25 — OA pattern-table answer-leak audit
+- Inspected 13 `pattern_table` questions in `G5M_OA_001` Level 3: three requested inputs already had their final output shown in `pattern_rows` (questions 3, 6, 7). Replaced those three output cells with `?` while preserving each question's `correct_answer`, rule, other examples, and scoring.
+- Inspected `G5M_GM_001` pattern-table level-bank references: one mixed-level question uses the renderer; no input-target output leak of this type was found in that item.
+- Showing a rule in the visual is legitimate where it is already stated in the prompt; this audit therefore did not remove those rule labels.
+- Scope limited to this verified defect. Remaining Grade 5 skills/levels, browser interactions, and responsive checks are NOT certified by this fix.
