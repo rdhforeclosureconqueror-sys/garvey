@@ -189,3 +189,17 @@ test('Grade 5 coordinate graph interpretation hides the requested y in both tabl
     assert.ok(q.pattern_rows.some((r) => Number(r.input) !== Number(q.x)), q.question_id);
   }
 });
+
+test('Grade 5 power-of-ten question charts display the operand, never the precomputed answer', () => {
+  const pkg = readPackage('G5M_NBT_001');
+  const questions = pkg.level_banks[2].questions.filter((q) => /What is [\d,.]+\s*[×÷]/i.test(q.prompt));
+  assert.equal(questions.length, 9);
+  for (const question of questions) {
+    const operand = Number(question.prompt.match(/What is ([\d,.]+)\s*[×÷]/i)[1].replace(/,/g, ''));
+    const html = VisualRegistry.render(question);
+    assert.match(html, /place-value-chart-visual/, question.question_id);
+    assert.ok(html.includes(String(operand) + ' is organized'), question.question_id + ': expected operand caption');
+    assert.notEqual(Number(question.correct_answer), operand, question.question_id);
+    assert.ok(!html.includes(String(Number(question.correct_answer)) + ' is organized'), question.question_id + ': answer must not be displayed as source chart');
+  }
+});
