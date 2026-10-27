@@ -14,6 +14,14 @@ button,a{font:inherit}button{cursor:pointer}header{padding:20px max(20px,calc((1
 .cascade-preview .cascade-symbol-art{width:76px;height:76px;flex-shrink:0}
 .cascade-falling .cascade-symbol-art{position:relative;z-index:4;animation:cascadeSandfall 1.05s cubic-bezier(.27,.7,.28,1) both}
 .cascade-matching .cascade-symbol-art{animation:none!important}
+
+/* Pan-African red, black and green; golden Adinkra patterns. */
+body{background:linear-gradient(180deg,#652028 0%,#3d171b 24%,#0b1917 48%,#12432d 100%);background-attachment:fixed}
+body::before{background-image:linear-gradient(180deg,#45151bc0,#081b17d9 48%,#0a2d20c7),url('/adinkra-library/newadksymbols.jpg');background-size:cover,520px auto;background-repeat:no-repeat,repeat;opacity:.8;animation:gateGoldPulse 13s ease-in-out infinite}
+.scene{background:radial-gradient(circle at 70% 15%,#e1ac5130,transparent 45%),linear-gradient(135deg,#52272a,#153f2d 60%,#071a16)}
+.scene:before,.scene:after{border-color:#e9bc75}
+@keyframes gateGoldPulse{0%,100%{opacity:.72}50%{opacity:.89}}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}
 </style></head><body>
 <header><strong>GARVEY <span style="color:#e3bd73">/ TEN GATES</span></strong><a href="/ten-gates-journey.html">← Journey map</a></header>
 <main class="wrap"><div class="scene"><div class="eyebrow">Gate 01 · Week One · Interactive prototype</div><h1>Gate of Attention</h1><p>Seven principles. Seven Adinkra symbols. Rebuild each symbol, discover its teaching, then carry that lesson into the world.</p><button class="gold" id="begin">Begin the Gate ↓</button></div>
