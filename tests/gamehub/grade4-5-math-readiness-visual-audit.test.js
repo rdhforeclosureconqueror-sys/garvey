@@ -213,7 +213,11 @@ test('every Grade 4 Math Skill World lesson teaches its five practice levels bef
     }
     assert.equal((html.match(/Worked example:/g) || []).length, 5, `${skillId} includes a worked example for every lesson page`);
     assert.ok((html.match(/Your turn:/g) || []).length >= 5, `${skillId} provides a next problem before practice`);
+    assert.equal((html.match(/data-g4-lesson-check=/g) || []).length, 5, `${skillId} has five interactive lesson checks`);
   }
+  assert.match(skillWorldIndex, /g4-lesson-choice/);
+  assert.match(skillWorldIndex, /g4-lesson-submit/);
+  assert.match(skillWorldIndex, /Correct! You are ready for the next lesson/);
 });
 
 
