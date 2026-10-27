@@ -13,7 +13,7 @@ const W=6,H=14,START_ROWS=4,storage='garvey-adinkra-cascade-best-v1';
 let resolving=false,epoch=0;let fresh=new Set(),board=Array(W*H).fill(null),selected=-1,seconds=0,score=0,matches=0,level=1,playing=false,over=false,timer=null,best=0,round=0;
 try{best=Math.max(0,Number(localStorage.getItem(storage))||0)}catch(_){}
 const panel=document.createElement('section');panel.className='cascade';panel.id='symbolCascade';panel.setAttribute('aria-label','Adinkra Symbol Cascade game');
-panel.innerHTML='<div class="cascade-head"><div><div class="eyebrow">Play while you listen</div><h3>Adinkra Symbol Cascade</h3></div><div class="cascade-score"><strong id="cascadeScore">0</strong><small>Points</small></div></div><p class="cascade-help">Four rows are already filled, with ten empty rows above. Watch new symbols tumble into the lowest open spaces like colorful sand. Tap two symbols to swap them. Matches from your swaps or natural falls burst and reveal the symbol name. Falling symbols match about once in ten drops; each matched group is shown separately. Swaps stay in place even when they do not match. Keep the tank from filling while you listen to the Keeper.</p><div class="cascade-stats"><span id="cascadeTime">Time 0s</span><span id="cascadeLevel">Level 1 · gentle pace</span><span id="cascadeBest">Best 0s</span></div><div class="cascade-tank-wrap"><div class="cascade-tank" id="cascadeTank" role="group" aria-label="Symbol tank"></div><div id="cascadeBurst" class="cascade-burst" aria-hidden="true"></div></div><div id="cascadeStatus" class="cascade-status" role="status" aria-live="polite">Ready to play?</div><div class="cascade-controls"><button type="button" id="cascadeStart" class="gold">Start game</button><button type="button" id="cascadeReset" class="outline">New game</button></div><p class="cascade-help">The pace increases gradually as you survive. Matches pause briefly so you can recognize each symbol. Your longest survival time is saved in this browser. This practice game does not determine gate advancement.</p>';
+panel.innerHTML='<div class="cascade-head"><div><div class="eyebrow">Play while you listen</div><h3>Adinkra Symbol Cascade</h3></div><div class="cascade-score"><strong id="cascadeScore">0</strong><small>Points</small></div></div><p class="cascade-help">Four rows are already filled, with ten empty rows above. Watch new symbols tumble into the lowest open spaces like colorful sand. Tap two symbols to swap them. Matches from your swaps or natural falls burst and reveal the symbol name. New symbols favor nearby playable pairs, with occasional natural matches; each matched group is shown separately. Swaps stay in place even when they do not match. Keep the tank from filling while you listen to the Keeper.</p><div class="cascade-stats"><span id="cascadeTime">Time 0s</span><span id="cascadeLevel">Level 1 · gentle pace</span><span id="cascadeBest">Best 0s</span></div><div class="cascade-tank-wrap"><div class="cascade-tank" id="cascadeTank" role="group" aria-label="Symbol tank"></div><div id="cascadeBurst" class="cascade-burst" aria-hidden="true"></div></div><div id="cascadeStatus" class="cascade-status" role="status" aria-live="polite">Ready to play?</div><div class="cascade-controls"><button type="button" id="cascadeStart" class="gold">Start game</button><button type="button" id="cascadeReset" class="outline">New game</button></div><p class="cascade-help">The pace increases gradually as you survive. Matches pause briefly so you can recognize each symbol. Your longest survival time is saved in this browser. This practice game does not determine gate advancement.</p>';
 host.insertAdjacentElement('afterend',panel);
 const el=id=>document.getElementById(id),tank=el('cascadeTank'),status=el('cascadeStatus'),start=el('cascadeStart');
 /* Poster is user-uploaded. The 62 tile positions are indexed left-to-right, top-to-bottom. */
@@ -74,15 +74,30 @@ function drop(){
  const x=candidates[Math.floor(Math.random()*candidates.length)].x;
  let y=H-1;while(y>=0&&board[index(x,y)]!==null)y--;
  if(y<0){finish();return false}
- // Ten percent of drops intentionally form a pair; otherwise avoid all adjacent duplicates.
+ // Adaptive difficulty: preserve randomness, but offer swap opportunities before the tank fills.
  const neighbors=[];
  for(const [dx,dy] of [[0,1],[-1,0],[1,0]]){
   const nx=x+dx,ny=y+dy;
   if(nx>=0&&nx<W&&ny<H){const v=board[index(nx,ny)];if(v!==null)neighbors.push(v)}
  }
- const makePair=neighbors.length>0&&Math.random()<0.10;
+ const occupied=board.filter(v=>v!==null).length;
+ const fill=occupied/(W*H);
+ // Natural matches grow modestly as the tank fills, without creating giant clusters.
+ const pairChance=fill<0.45?0.16:fill<0.70?0.23:0.32;
+ const makePair=neighbors.length>0&&Math.random()<pairChance;
  const options=names.map((_,i)=>i).filter(i=>!neighbors.includes(i));
- board[index(x,y)]=makePair?neighbors[Math.floor(Math.random()*neighbors.length)]:options[Math.floor(Math.random()*options.length)];
+ // Reuse a symbol within two cells of the landing spot: a single swap can connect it.
+ // This makes the board solvable rather than drawing independently from 62 symbols.
+ const near=[];
+ for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){
+  if(Math.abs(dx)+Math.abs(dy)<2||Math.abs(dx)+Math.abs(dy)>3)continue;
+  const nx=x+dx,ny=y+dy;
+  if(nx<0||nx>=W||ny<0||ny>=H)continue;
+  const v=board[index(nx,ny)];
+  if(v!==null&&!neighbors.includes(v))near.push(v);
+ }
+ const reuseNearby=near.length>0&&Math.random()<0.72;
+ board[index(x,y)]=makePair?neighbors[Math.floor(Math.random()*neighbors.length)]:reuseNearby?near[Math.floor(Math.random()*near.length)]:options[Math.floor(Math.random()*options.length)];
 
  fresh.add(index(x,y));
  return true
