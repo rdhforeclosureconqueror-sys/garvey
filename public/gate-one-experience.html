@@ -22,6 +22,20 @@ body::before{background-image:linear-gradient(180deg,#45151bc0,#081b17d9 48%,#0a
 .scene:before,.scene:after{border-color:#e9bc75}
 @keyframes gateGoldPulse{0%,100%{opacity:.72}50%{opacity:.89}}
 @media(prefers-reduced-motion:reduce){body::before{animation:none}}
+
+/* Luminous Pan-African background: black ink from the uploaded sheet becomes gold,
+   while the original game sprites remain untouched. */
+body{background:linear-gradient(110deg,#751013 0%,#420c13 24%,#10100f 49%,#073f25 76%,#075a32 100%);background-attachment:fixed}
+body::before{background-image:linear-gradient(100deg,#870d1660,#070c0ba8 48%,#07452755);background-size:cover;background-repeat:no-repeat;opacity:1;animation:none}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url('/adinkra-library/newadksymbols.jpg?v=gold-symbols-862');background-size:640px auto;background-repeat:repeat;background-position:center top;filter:invert(1) sepia(1) saturate(4) hue-rotate(350deg) drop-shadow(0 0 3px #ffd76c);mix-blend-mode:screen;opacity:.37;animation:gateSymbolGlow 11s ease-in-out infinite}
+body>header,body>.wrap{position:relative;z-index:1}
+.scene{background:radial-gradient(circle at 80% 12%,#e3b65c29,transparent 45%),linear-gradient(115deg,#411315 0%,#17211a 46%,#06442b 100%);border-color:#efc76e;box-shadow:0 20px 70px #0009,0 0 22px #e5ac3224}
+.card{border-color:#ad8c4d;background:linear-gradient(140deg,#0b251e,#102e24)}
+.day{border-color:#a98948}.day[aria-pressed=true]{border-color:#ffd46f}
+.gold{background:linear-gradient(135deg,#ffe49b,#e6b44f);box-shadow:0 0 15px #e9b64b45}
+@keyframes gateSymbolGlow{0%,100%{opacity:.28}47%{opacity:.43}54%{opacity:.47}72%{opacity:.34}}
+@media(max-width:760px){body::after{background-size:410px auto;opacity:.31}}
+@media(prefers-reduced-motion:reduce){body::after{animation:none!important;opacity:.32}}
 </style></head><body>
 <header><strong>GARVEY <span style="color:#e3bd73">/ TEN GATES</span></strong><a href="/ten-gates-journey.html">← Journey map</a></header>
 <main class="wrap"><div class="scene"><div class="eyebrow">Gate 01 · Week One · Interactive prototype</div><h1>Gate of Attention</h1><p>Seven principles. Seven Adinkra symbols. Rebuild each symbol, discover its teaching, then carry that lesson into the world.</p><button class="gold" id="begin">Begin the Gate ↓</button></div>
