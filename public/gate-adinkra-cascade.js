@@ -4,8 +4,9 @@
 const host=document.getElementById('stage');
 if(!host)return;
 /* Name mapping from the earlier color poster is NOT verified for this differently ordered black-and-white sheet. Do not use it for learning labels until audited. */
+/* Internal numeric identities only; this artwork is game-only and never teaches names. */
 const names=["Sankofa","Adinkrahene","Fihankra","Mate Masie","Mmusuyidee","Nsaa","Dwennimmen","Nyame Dua","Akoben","Akoma","Akoma Ntoso","Besa","Bi Nka Bi","Funtunfunefu","Gye Nyame","Hwe Mu Dua","Kokroko","Mpaebuo","Nea Onnim No Sua A","Nea Ope Se Obedi Hene","Nkonsonkonson","Nti Nktinko","Nyame Nnwu Na Mawu","Nyame Ye Ohene","Ohene Anwa","Okodee Mmowere","Odo Nyera Fie Kwan","Ohene Ye","Owo Foro Adwemma","Sesa Wo Suban","Tabono","Tamfo Bebre","Tantsiyie","Wofa","Aban","Adwuma","Afehyia Pa","Ahenemmowa","Ananse Ntotan","Asase Ye Duru","Denkyem","Eban","Ese Ne Tekrema","Fa Wo Ho Ben","Gnankonwa","Hinka Asem","Kete Pa","Kramo Bone","Kua Fie","Mme Nt uatum","Nesa","Oforo","Sankofa (return)","Sepow","Sikadwa Kofi","Tumi","Wawa Aba","Wosane No Ne","Yie","Nyame Bekyere","Nyame Kye","Boa Me Na Me Mmoa Wo"];
-const POSTER='/adinkra-library/newadksymbols.jpg';
+const POSTER='/adinkra-library/newadksymbols.jpg?v=black62-20261027b';
 function symbolArt(symbol){const el=document.createElement('span');el.className='cascade-symbol-art';el.style.backgroundPosition=((symbol%8)/7*100)+'% '+(Math.floor(symbol/8)/7*100)+'%';el.setAttribute('aria-hidden','true');return el}
 const W=6,H=14,START_ROWS=4,storage='garvey-adinkra-cascade-best-v1';
 let resolving=false,epoch=0;let fresh=new Set(),board=Array(W*H).fill(null),selected=-1,seconds=0,score=0,matches=0,level=1,playing=false,over=false,timer=null,best=0,round=0;
