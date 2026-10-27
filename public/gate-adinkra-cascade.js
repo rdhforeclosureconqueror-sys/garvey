@@ -3,9 +3,10 @@
 'use strict';
 const host=document.getElementById('stage');
 if(!host)return;
+/* Name mapping from the earlier color poster is NOT verified for this differently ordered black-and-white sheet. Do not use it for learning labels until audited. */
 const names=["Sankofa","Adinkrahene","Fihankra","Mate Masie","Mmusuyidee","Nsaa","Dwennimmen","Nyame Dua","Akoben","Akoma","Akoma Ntoso","Besa","Bi Nka Bi","Funtunfunefu","Gye Nyame","Hwe Mu Dua","Kokroko","Mpaebuo","Nea Onnim No Sua A","Nea Ope Se Obedi Hene","Nkonsonkonson","Nti Nktinko","Nyame Nnwu Na Mawu","Nyame Ye Ohene","Ohene Anwa","Okodee Mmowere","Odo Nyera Fie Kwan","Ohene Ye","Owo Foro Adwemma","Sesa Wo Suban","Tabono","Tamfo Bebre","Tantsiyie","Wofa","Aban","Adwuma","Afehyia Pa","Ahenemmowa","Ananse Ntotan","Asase Ye Duru","Denkyem","Eban","Ese Ne Tekrema","Fa Wo Ho Ben","Gnankonwa","Hinka Asem","Kete Pa","Kramo Bone","Kua Fie","Mme Nt uatum","Nesa","Oforo","Sankofa (return)","Sepow","Sikadwa Kofi","Tumi","Wawa Aba","Wosane No Ne","Yie","Nyame Bekyere","Nyame Kye","Boa Me Na Me Mmoa Wo"];
-const POSTER='/adinkra-library/B3374DA0-0EFE-4E3A-82AA-AF0BC1349B20.png';
-function symbolArt(symbol){const el=document.createElement('span');el.className='cascade-symbol-art';el.style.backgroundPosition=(symbol%10/9*100)+'% '+(Math.floor(symbol/10)/5.6666667*100)+'%';el.setAttribute('aria-hidden','true');return el}
+const POSTER='/adinkra-library/newadksymbols.jpg';
+function symbolArt(symbol){const el=document.createElement('span');el.className='cascade-symbol-art';el.style.backgroundPosition=((symbol%8)/7*100)+'% '+(Math.floor(symbol/8)/7*100)+'%';el.setAttribute('aria-hidden','true');return el}
 const W=6,H=14,START_ROWS=4,storage='garvey-adinkra-cascade-best-v1';
 let resolving=false,epoch=0;let fresh=new Set(),board=Array(W*H).fill(null),selected=-1,seconds=0,score=0,matches=0,level=1,playing=false,over=false,timer=null,best=0,round=0;
 try{best=Math.max(0,Number(localStorage.getItem(storage))||0)}catch(_){}
@@ -14,7 +15,7 @@ panel.innerHTML='<div class="cascade-head"><div><div class="eyebrow">Play while 
 host.insertAdjacentElement('afterend',panel);
 const el=id=>document.getElementById(id),tank=el('cascadeTank'),status=el('cascadeStatus'),start=el('cascadeStart');
 /* Poster is user-uploaded. The 62 tile positions are indexed left-to-right, top-to-bottom. */
-const posterCheck=new Image();posterCheck.src=POSTER;posterCheck.onload=()=>{status.textContent='62 colorful Adinkra symbols ready. Start when you are ready!'};
+const posterCheck=new Image();posterCheck.src=POSTER;posterCheck.onload=()=>{status.textContent='62 Adinkra designs ready. Start when you are ready!'};
 posterCheck.onerror=()=>{status.textContent='Adinkra artwork could not load. Please refresh.';start.disabled=true};
 function index(x,y){return y*W+x}
 function empty(){return board.every(v=>v===null)}
@@ -22,7 +23,7 @@ function persistBest(){if(seconds>best){best=seconds;try{localStorage.setItem(st
 function draw(){
  tank.replaceChildren();
  board.forEach((symbol,i)=>{
-  const cell=document.createElement('button');cell.type='button';cell.className='cascade-cell';cell.disabled=over||!playing||symbol===null;cell.setAttribute('aria-label',symbol===null?'Empty position':names[symbol]+', row '+(Math.floor(i/W)+1)+', column '+(i%W+1));cell.setAttribute('aria-pressed',String(selected===i));
+  const cell=document.createElement('button');cell.type='button';cell.className='cascade-cell';cell.disabled=over||!playing||symbol===null;cell.setAttribute('aria-label',symbol===null?'Empty position':'Adinkra symbol '+(symbol+1)+', row '+(Math.floor(i/W)+1)+', column '+(i%W+1));cell.setAttribute('aria-pressed',String(selected===i));
   if(symbol!==null){if(fresh.has(i)){cell.classList.add('cascade-falling');cell.style.setProperty('--cascade-fall',Math.max(350,(Math.floor(i/W)+1)*64)+'px')}cell.append(symbolArt(symbol))}
   cell.onclick=()=>swap(i);tank.append(cell)
  });
@@ -82,16 +83,16 @@ function resolveMatches(){
  const indices=matched.flat();const symbol=board[indices[0]];
  for(const i of indices){const cell=tank.children[i];if(cell)cell.classList.add('cascade-matching')}
  const effect=el('cascadeBurst');effect.replaceChildren();
- const preview=symbolArt(symbol);preview.setAttribute('aria-label',names[symbol]);
- const label=document.createElement('strong');label.textContent=names[symbol]+' · +'+(indices.length*10)+' coins';
+ const preview=symbolArt(symbol);preview.setAttribute('aria-label',('Adinkra symbol '+(symbol+1)));
+ const label=document.createElement('strong');label.textContent=('Adinkra symbol '+(symbol+1))+' · +'+(indices.length*10)+' coins';
  effect.append(preview,label);effect.classList.add('cascade-preview');
- status.textContent='Match found: '+names[symbol]+'! Watch the symbols grow.';
+ status.textContent='Match found: '+('Adinkra symbol '+(symbol+1))+'! Watch the symbols grow.';
  setTimeout(()=>{
   if(version!==epoch)return;
   for(const i of indices)board[i]=null;
   score+=indices.length*10;matches+=indices.length;gravity();draw();
   effect.classList.remove('cascade-preview');effect.replaceChildren();
-  status.textContent='✨ '+names[symbol]+' matched! +'+(indices.length*10)+' coins';
+  status.textContent='✨ '+('Adinkra symbol '+(symbol+1))+' matched! +'+(indices.length*10)+' coins';
   resolving=false;
   if(groups().length)resolveMatches();
   else if(board.slice(0,W).every(v=>v!==null))finish();
