@@ -8,6 +8,7 @@ const root = path.join(__dirname, '..', '..');
 const contentDir = path.join(root, 'public/gamehub/skill-world/content');
 const manifest = JSON.parse(fs.readFileSync(path.join(contentDir, 'manifest.json'), 'utf8'));
 const hub = fs.readFileSync(path.join(root, 'public/gamehub/adaptive-v2-hub.html'), 'utf8');
+const skillWorldIndex = fs.readFileSync(path.join(root, 'public/gamehub/skill-world/index.html'), 'utf8');
 const VisualRegistry = require(path.join(root, 'public/gamehub/skill-world/renderers/visual-model-registry.js'));
 const helpContext = { globalThis: {} };
 vm.createContext(helpContext);
@@ -84,8 +85,10 @@ test('Grade 4 and Grade 5 Math packages exist, are manifested, and have producti
 
   assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
-  assert.match(hub, /function skillWorldHref\(packageId\)/);
-  assert.match(hub, /function skillWorldDrillHref\(packageId\)/);
+  assert.match(hub, /gamehub\/skill-world\/\?skill=/);
+  assert.match(hub, /&mode=drill/);
+  assert.match(skillWorldIndex, /params\.get\('skill'\)\|\|pathSkill/);
+  assert.match(skillWorldIndex, /params\.get\('mode'\)==='drill'/);
 });
 
 test('Grade 4 and Grade 5 Math visual models render structural visuals instead of placeholder labels', () => {
