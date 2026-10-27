@@ -98,8 +98,9 @@ test('Adaptive Assessment appears before Lessons and builds a safe assessment UR
 
 test('lesson cards use compact parent-facing actions and hide internal package IDs', () => {
   assert.match(hub, /function skillWorldHref\(packageId\)/);
-  assert.match(hub, /withRouteContext\(`\/skill-world\/\$\{encodeURIComponent\(packageId\)\}`\)/);
+  assert.match(hub, /withRouteContext\(`\/gamehub\/skill-world\/\?skill=\$\{encodeURIComponent\(packageId\)\}`\)/);
   assert.match(hub, /function skillWorldDrillHref\(packageId\)/);
+  assert.match(hub, /&mode=drill/);
   assert.match(hub, /<h3>\$\{escapeHtml\(pkg\.title\)\}<\/h3>/);
   assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
