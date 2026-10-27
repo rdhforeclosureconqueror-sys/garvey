@@ -64,8 +64,10 @@
       return String(value ?? '').replace(/[&<>"']/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     }
     function withRouteContext(path){const url=new URL(path,window.location.origin);['program_context','source_registry','tenant','email','child_id','return_url'].forEach(k=>{if(routeContext[k])url.searchParams.set(k,routeContext[k]);});if(routeContext.child_display_name)url.searchParams.set('child_display_name',routeContext.child_display_name);return url.pathname+url.search;}
-    function skillWorldHref(packageId){ return withRouteContext(`/skill-world/${encodeURIComponent(packageId)}`); }
-    function skillWorldDrillHref(packageId){ return withRouteContext(`/skill-world/${encodeURIComponent(packageId)}/drill`); }
+    // The public Lesson Hub is served by a static site, so lesson state must
+    // travel in the query string rather than rely on backend-only rewrites.
+    function skillWorldHref(packageId){ return withRouteContext(`/gamehub/skill-world/?skill=${encodeURIComponent(packageId)}`); }
+    function skillWorldDrillHref(packageId){ return withRouteContext(`/gamehub/skill-world/?skill=${encodeURIComponent(packageId)}&mode=drill`); }
     function assessmentHref(grade,subject){ return withRouteContext(`/assessment-mvp?grade=${encodeURIComponent(String(grade))}&subject=${encodeURIComponent(subject)}`); }
     function getLaunchContext(){
       const params=new URLSearchParams(window.location.search);
