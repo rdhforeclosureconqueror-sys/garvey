@@ -65,21 +65,23 @@
     if(Number(pkg?.grade)!==4||String(pkg?.subject||'').toLowerCase()!=='math')return '';
     const levels=levelBanks(pkg);
     if(levels.length!==5)return '';
-    const help=globalThis.SkillWorldGuidedHelp;
     const colorNames=['Find','Model','Solve','Check'];
     const colorEmoji=['🟣','🔵','🟢','🟠'];
     return `<section class="lesson-card g5-fraction-lessons grade4-learning-path" aria-label="Five ${esc(pkg.skill)} lessons"><h3>🚀 Five Math Lessons</h3><p>Learn one skill at a time before you practice. Read the steps, study the model, then try the next level. 🌟</p><div class="g5-color-legend"><span>🟣 Find</span><span>🔵 Model</span><span>🟢 Solve</span><span>🟠 Check</span></div>${levels.map((level,index)=>{
       const sample=(level.questions||[])[0]||{};
       const next=(level.questions||[])[1]||sample;
-      const example=help?.example?.(sample);
-      const steps=(example?.steps||[
-        'Step 1 — Read the question and name what it asks you to find.',
-        `Step 2 — Use the model to organize the ${level.focus||'math'}.`,
-        'Step 3 — Solve carefully, keeping each number in the correct place or part.',
-        'Step 4 — Check that your answer matches the model and makes sense.'
+      const answer=getCorrectAnswer(sample);
+      const authoredSteps=(sample.algorithm_steps||sample.solution_steps||sample.steps||[]).filter(Boolean);
+      // A Skill World helper can use a different example from the level.  These
+      // pages must always explain the exact problem and visual the learner sees.
+      const steps=(authoredSteps.length>=4?authoredSteps:[
+        `Read the exact problem: ${sample.prompt||'study the worked example'}.`,
+        `Use the model for this level's focus: ${level.focus||'the math skill'}.`,
+        'Work through the quantities shown in the model, one part at a time.',
+        answer===undefined||answer===null?'Check that the model and your solution agree.':`Check the model: the worked-example answer is ${answer}.`
       ]).slice(0,4);
       const title=String(level.label||`Lesson ${index+1}`).replace(/^Level\s*\d+\s*:\s*/i,'');
-      return `<article class="g5-fraction-page" data-fraction-lesson-page="${index}" ${index?'hidden':''}><p class="eyebrow">Lesson ${index+1} of 5</p><h4>${esc(title)}</h4><div class="g5-rule-card"><span aria-hidden="true">💡</span><div><strong>Remember!</strong><p>${esc(level.focus||'Use the model and explain each step.')}</p></div></div><p class="g5-example-heading">🧩 Worked example: <strong>${esc(sample.prompt||example?.problem||'Study the model.')}</strong></p><ol class="g5-color-steps">${steps.map((step,stepIndex)=>`<li class="g5-color-step g5-step-${['find','convert','operate','regroup'][stepIndex]}"><span class="g5-step-emoji" aria-hidden="true">${colorEmoji[stepIndex]}</span><div><strong>${colorNames[stepIndex]}</strong><p>${esc(String(step).replace(/^Step\s*\d+\s*[—-]\s*/i,''))}</p></div></li>`).join('')}</ol><div class="g5-lesson-visual"><h5>🎨 See the math</h5><div class="kid-visual-area skill-visual">${VisualRegistry.render(sample,{mode:'solution'})}</div></div><p class="thinking-note"><strong>🎯 Your turn:</strong> ${esc(next.prompt||'Use the same steps on the next practice problem.')}</p><div class="g5-fraction-page-nav"><button type="button" class="g5-fraction-prev" ${index===0?'disabled':''}>Previous lesson</button><button type="button" class="g5-fraction-next">${index===4?'Review all lessons':'Next lesson'}</button></div></article>`;
+      return `<article class="g5-fraction-page" data-fraction-lesson-page="${index}" ${index?'hidden':''}><p class="eyebrow">Lesson ${index+1} of 5</p><h4>${esc(title)}</h4><div class="g5-rule-card"><span aria-hidden="true">💡</span><div><strong>Remember!</strong><p>${esc(level.focus||'Use the model and explain each step.')}</p></div></div><p class="g5-example-heading">🧩 Worked example: <strong>${esc(sample.prompt||'Study the model.')}</strong></p><ol class="g5-color-steps">${steps.map((step,stepIndex)=>`<li class="g5-color-step g5-step-${['find','convert','operate','regroup'][stepIndex]}"><span class="g5-step-emoji" aria-hidden="true">${colorEmoji[stepIndex]}</span><div><strong>${colorNames[stepIndex]}</strong><p>${esc(String(step).replace(/^Step\s*\d+\s*[—-]\s*/i,''))}</p></div></li>`).join('')}</ol><div class="g5-lesson-visual"><h5>🎨 See the math</h5><div class="kid-visual-area skill-visual">${VisualRegistry.render(sample,{mode:'solution'})}</div></div><p class="thinking-note"><strong>🎯 Your turn:</strong> ${esc(next.prompt||'Use the same steps on the next practice problem.')}</p><div class="g5-fraction-page-nav"><button type="button" class="g5-fraction-prev" ${index===0?'disabled':''}>Previous lesson</button><button type="button" class="g5-fraction-next">${index===4?'Review all lessons':'Next lesson'}</button></div></article>`;
     }).join('')}</section>`;
   }
   function sequenceControls(q,ansCls){const items=q.sequence_items||[]; return `<div class="sequence-order" data-sequence-order role="group" aria-label="Arrange the events in story order"><p class="sequence-instructions">Use Move up and Move down to place every event from beginning to end.</p><ol class="sequence-list">${items.map((item,index)=>`<li class="sequence-item" data-sequence-item data-value="${esc(item)}"><span class="sequence-position" aria-hidden="true">${index+1}</span><span class="sequence-event">${esc(item)}</span><span class="sequence-actions"><button type="button" class="sequence-move-up" aria-label="Move ${esc(item)} up" ${index===0?'disabled':''}>Move up</button><button type="button" class="sequence-move-down" aria-label="Move ${esc(item)} down" ${index===items.length-1?'disabled':''}>Move down</button></span></li>`).join('')}</ol><div class="sequence-submit-row"><button type="button" class="answer-button sequence-submit ${ansCls}">Submit complete order</button><button type="button" class="continue-button sequence-reset">Reset order</button><button type="button" class="continue-button sequence-retry ${ansCls}">Try again</button></div></div>`;}
