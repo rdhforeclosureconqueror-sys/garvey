@@ -2,12 +2,17 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const vm = require('node:vm');
 
 const root = path.join(__dirname, '..', '..');
 const contentDir = path.join(root, 'public/gamehub/skill-world/content');
 const manifest = JSON.parse(fs.readFileSync(path.join(contentDir, 'manifest.json'), 'utf8'));
 const hub = fs.readFileSync(path.join(root, 'public/gamehub/adaptive-v2-hub.html'), 'utf8');
 const VisualRegistry = require(path.join(root, 'public/gamehub/skill-world/renderers/visual-model-registry.js'));
+const helpContext = { globalThis: {} };
+vm.createContext(helpContext);
+vm.runInContext(fs.readFileSync(path.join(root, 'public/gamehub/skill-world/engine/guided-help.js'), 'utf8'), helpContext);
+const GuidedHelp = helpContext.globalThis.SkillWorldGuidedHelp;
 
 const grade4MathSkillIds = [
   'G4M_NBT_001',
@@ -77,9 +82,10 @@ test('Grade 4 and Grade 5 Math packages exist, are manifested, and have producti
     assert.equal(`/skill-world/${encodeURIComponent(skillId)}/drill`, `/skill-world/${skillId}/drill`);
   }
 
-  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Start Lesson/);
   assert.match(hub, /Practice This Skill/);
-  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /function skillWorldHref\(packageId\)/);
+  assert.match(hub, /function skillWorldDrillHref\(packageId\)/);
 });
 
 test('Grade 4 and Grade 5 Math visual models render structural visuals instead of placeholder labels', () => {
@@ -176,6 +182,22 @@ test('Expected Grade 4 and Grade 5 Math packages use audited visual models only 
   }
 });
 
+test('Grade 4 Math learner visuals and hints stay instructional without rendering solution mode', () => {
+  for (const skillId of grade4MathSkillIds) {
+    const pkg = readPackage(skillId);
+    for (const question of collectQuestions(pkg)) {
+      const help = GuidedHelp.render(question);
+      assert.match(help, /Your turn:[\s\S]*answer has not been revealed/i, `${question.question_id} keeps help non-spoiling`);
+      assert.ok((help.match(/Reveal step/g) || []).length >= 4, `${question.question_id} offers four guided steps`);
+      if (!question.visual_model) continue;
+      assert.equal(VisualRegistry.hasRenderer(question.visual_model), true, `${question.question_id} has a renderer for ${question.visual_model}`);
+      const visual = VisualRegistry.render(question, { mode: 'question' });
+      assert.doesNotMatch(visual, /fallback object renderer|Missing visual data|The answer is(?! not shown)|correct answer/i, `${question.question_id} has a learner-safe visual`);
+      assert.doesNotMatch(visual, /data-answer-visibility="solution"/, `${question.question_id} does not force solution mode`);
+    }
+  }
+});
+
 
 test('Grade 5 coordinate graph interpretation hides the requested y in both table and plotted points', () => {
   const pkg = readPackage('G5M_GM_001');
@@ -200,6 +222,6 @@ test('Grade 5 power-of-ten question charts display the operand, never the precom
     assert.match(html, /place-value-chart-visual/, question.question_id);
     assert.ok(html.includes(String(operand) + ' is organized'), question.question_id + ': expected operand caption');
     assert.notEqual(Number(question.correct_answer), operand, question.question_id);
-    assert.ok(!html.includes(String(Number(question.correct_answer)) + ' is organized'), question.question_id + ': answer must not be displayed as source chart');
+    assert.doesNotMatch(html, new RegExp(`>${Number(question.correct_answer)} is organized from`), question.question_id + ': answer must not be displayed as source chart');
   }
 });

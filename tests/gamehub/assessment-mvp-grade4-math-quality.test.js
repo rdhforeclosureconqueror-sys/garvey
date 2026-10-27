@@ -2,8 +2,10 @@ const assert = require('assert');
 const test = require('node:test');
 
 const { createAssessmentSession } = require('../../assessment-mvp/createAssessmentSession');
+const { createReassessmentSession } = require('../../assessment-mvp/createReassessmentSession');
 const { loadSkillPackages, packageIdOf } = require('../../assessment-mvp/loadSkillPackages');
 const { selectAssessmentItems } = require('../../assessment-mvp/selectAssessmentItems');
+const { scoreResponses } = require('../../assessment-mvp/scoreResponses');
 const { submitAssessmentResponses } = require('../../assessment-mvp/submitAssessmentResponses');
 const app = require('../../public/assessment-mvp/app.js');
 
@@ -89,4 +91,58 @@ test('Grade 4 baseline scoring correctly distinguishes zero, partial, and perfec
   assert.deepEqual(submitAssessmentResponses(session, answers).score_summary, { raw_score: 30, maximum_score: 30, percentage: 100, answered_items: 30, skipped_items: 0 });
   const partial = Object.fromEntries(Object.entries(answers).slice(0, 8));
   assert.deepEqual(submitAssessmentResponses(session, partial).score_summary, { raw_score: 8, maximum_score: 30, percentage: 27, answered_items: 8, skipped_items: 22 });
+});
+
+test('Grade 4 retakes preserve prior exposure and never repeat an item or duplicate stimulus', () => {
+  const baseline = createAssessmentSession({ grade: 4, subject: 'Math' });
+  const completed = submitAssessmentResponses(baseline, {});
+  const retake = createReassessmentSession(completed, {
+    grade: 4,
+    subject: 'Math',
+    packageIds: EXPECTED,
+    itemsPerPackage: 1,
+    all_prior_exposed_item_ids: completed.exposure.item_ids,
+    all_prior_exposed_duplicate_keys: completed.exposure.duplicate_keys
+  });
+  assert.equal(retake.public_items.length, 10);
+  assert.equal(retake.public_items.some((item) => completed.exposure.item_ids.includes(item.item_identity)), false);
+  assert.equal(retake.public_items.some((item) => completed.exposure.duplicate_keys.includes(item.duplicate_key)), false);
+});
+
+test('Grade 4 accepts equivalent numeric and fraction responses but rejects unrelated answers', () => {
+  const records = [
+    { item_identity: 'decimal', source_package_id: 'G4M_NBT_001', source_question_id: 'decimal', question_type: 'decimal_response', answer: ['0.5', '0.50'] },
+    { item_identity: 'fraction', source_package_id: 'G4M_FR_001', source_question_id: 'fraction', question_type: 'fraction_response', answer: ['1/2', '2/4'] }
+  ];
+  assert.deepEqual(scoreResponses(records, [{ item_identity: 'decimal', response: '0.50' }, { item_identity: 'fraction', response: '3/6' }]).responses.map((item) => item.status), ['correct', 'correct']);
+  assert.deepEqual(scoreResponses(records, [{ item_identity: 'decimal', response: '5' }, { item_identity: 'fraction', response: '2/3' }]).responses.map((item) => item.status), ['incorrect', 'incorrect']);
+});
+
+test('Grade 4 public result summary renders exact accessible scores without private scoring data', () => {
+  for (const [raw, percentage] of [[8, 80], [10, 100]]) {
+    app.state.result = app.publicResultOnly({ status: 'completed', skill_evidence: [], recommendations: [], score_summary: { raw_score: raw, maximum_score: 10, percentage, answered_items: 10, skipped_items: 0 } });
+    const html = app.renderResults();
+    assert.match(html, /aria-label="Assessment score"/);
+    assert.match(html, new RegExp(`${raw}\\/10[^<]*·[^<]*${percentage}%`));
+    assert.match(html, /10 answered · 0 skipped/);
+    assert.doesNotMatch(html, /correct_answer|acceptable_answers|internal_scoring|correct_option/i);
+  }
+});
+
+test('ten-item Grade 4 form produces exact required score scenarios', () => {
+  const session = createAssessmentSession({ grade: 4, subject: 'Math', itemsPerPackage: 1 });
+  const records = session.internal_scoring_records;
+  const correct = records.map((record) => ({ item_identity: record.item_identity, response: Array.isArray(record.answer) ? record.answer[0] : record.answer }));
+  const wrongFor = (record) => {
+    const answer = Array.isArray(record.answer) ? record.answer[0] : record.answer;
+    if (record.question_type === 'multiple_choice') return (record.choices || record.options).find((choice) => normalized(choice) !== normalized(answer));
+    if (/numeric|number|integer|decimal|fraction/.test(record.question_type)) return '999999';
+    return '__wrong__';
+  };
+  for (const expectedCorrect of [0, 1, 8, 9, 10]) {
+    const submissions = records.map((record, index) => ({ item_identity: record.item_identity, response: index < expectedCorrect ? correct[index].response : wrongFor(record) }));
+    assert.deepEqual(scoreResponses(records, submissions).scoreSummary, { raw_score: expectedCorrect, maximum_score: 10, percentage: expectedCorrect * 10, answered_items: 10, skipped_items: 0 });
+  }
+  assert.deepEqual(scoreResponses(records, correct.slice(0, 8)).scoreSummary, { raw_score: 8, maximum_score: 10, percentage: 80, answered_items: 8, skipped_items: 2 });
+  assert.deepEqual(scoreResponses(records, records.map((record) => ({ item_identity: record.item_identity, response: '1/0' }))).scoreSummary, { raw_score: 0, maximum_score: 10, percentage: 0, answered_items: 8, skipped_items: 0 });
 });
