@@ -9,12 +9,15 @@ const names=["Gye Nyame","Sankofa (bird)","Sankofa (heart)","Adinkrahene","Dwenn
 /* Poster cells are ordered exactly like the numbered 62-entry PDF catalog. */
 const POSTER='/adinkra-library/newadksymbols.jpg?v=black62-20261027b';
 function symbolArt(symbol){const el=document.createElement('span');el.className='cascade-symbol-art';el.style.backgroundPosition=((symbol%8)/7*100)+'% '+(Math.floor(symbol/8)/7*100)+'%';el.setAttribute('aria-hidden','true');return el}
+const SPEEDS=[{name:'Gentle',ms:1550},{name:'Steady',ms:1000},{name:'Rapid',ms:650}];
 const W=6,H=14,START_ROWS=4,storage='garvey-adinkra-cascade-best-v1';
+let speedIndex=0,lastDropAt=0;
 let resolving=false,epoch=0;let fresh=new Set(),board=Array(W*H).fill(null),selected=-1,seconds=0,score=0,matches=0,level=1,playing=false,over=false,timer=null,best=0,round=0;
 try{best=Math.max(0,Number(localStorage.getItem(storage))||0)}catch(_){}
 const panel=document.createElement('section');panel.className='cascade';panel.id='symbolCascade';panel.setAttribute('aria-label','Adinkra Symbol Cascade game');
-panel.innerHTML='<div class="cascade-head"><div><div class="eyebrow">Play while you listen</div><h3>Adinkra Symbol Cascade</h3></div><div class="cascade-score"><strong id="cascadeScore">0</strong><small>Points</small></div></div><p class="cascade-help">Four rows are already filled, with ten empty rows above. Watch new symbols tumble into the lowest open spaces like colorful sand. Tap two symbols to swap them. Matches from your swaps or natural falls burst and reveal the symbol name. New symbols favor nearby playable pairs, with occasional natural matches; each matched group is shown separately. Swaps stay in place even when they do not match. Keep the tank from filling while you listen to the Keeper.</p><div class="cascade-stats"><span id="cascadeTime">Time 0s</span><span id="cascadeLevel">Level 1 · gentle pace</span><span id="cascadeBest">Best 0s</span></div><div class="cascade-tank-wrap"><div class="cascade-tank" id="cascadeTank" role="group" aria-label="Symbol tank"></div><div id="cascadeBurst" class="cascade-burst" aria-hidden="true"></div></div><div id="cascadeStatus" class="cascade-status" role="status" aria-live="polite">Ready to play?</div><div class="cascade-controls"><button type="button" id="cascadeStart" class="gold">Start game</button><button type="button" id="cascadeReset" class="outline">New game</button></div><p class="cascade-help">The pace increases gradually as you survive. Matches pause briefly so you can recognize each symbol. Your longest survival time is saved in this browser. This practice game does not determine gate advancement.</p>';
+panel.innerHTML='<div class="cascade-head"><div><div class="eyebrow">Play while you listen</div><h3>Adinkra Symbol Cascade</h3></div><div class="cascade-score"><strong id="cascadeScore">0</strong><small>Points</small></div></div><p class="cascade-help">Four rows are already filled, with ten empty rows above. Watch new symbols tumble into the lowest open spaces like colorful sand. Tap two symbols to swap them. Matches from your swaps or natural falls burst and reveal the symbol name. New symbols favor nearby playable pairs, with occasional natural matches; each matched group is shown separately. Swaps stay in place even when they do not match. Keep the tank from filling while you listen to the Keeper.</p><div class="cascade-stats"><span id="cascadeTime">Time 0s</span><span id="cascadeLevel">Level 1 · gentle pace</span><span id="cascadeBest">Best 0s</span></div><div class="cascade-tank-wrap"><div class="cascade-tank" id="cascadeTank" role="group" aria-label="Symbol tank"></div><div id="cascadeBurst" class="cascade-burst" aria-hidden="true"></div></div><div id="cascadeStatus" class="cascade-status" role="status" aria-live="polite">Ready to play?</div><div class="cascade-controls"><button type="button" id="cascadeStart" class="gold">Start game</button><button type="button" id="cascadeReset" class="outline">New game</button></div><p class="cascade-help">Choose Gentle, Steady, or Rapid speed at any time. Matches pause briefly so you can recognize each symbol. Your longest survival time is saved in this browser. This practice game does not determine gate advancement.</p>';
 host.insertAdjacentElement('afterend',panel);
+const speedControl=document.createElement('div');speedControl.className='cascade-speed-control';speedControl.style.cssText='display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0;color:#f5d78b';speedControl.innerHTML='<label for="cascadeSpeed">Drop speed</label><select id="cascadeSpeed" aria-label="Choose falling symbol speed" style="font:inherit;padding:9px 12px;border:2px solid #d5ac60;border-radius:10px;background:#fff;color:#173e32"><option value="0">1 · Gentle (1.55s)</option><option value="1">2 · Steady (1.0s)</option><option value="2">3 · Rapid (0.65s)</option></select>';panel.querySelector('.cascade-controls').before(speedControl);
 const el=id=>document.getElementById(id),tank=el('cascadeTank'),status=el('cascadeStatus'),start=el('cascadeStart');
 /* Poster is user-uploaded. The 62 tile positions are indexed left-to-right, top-to-bottom. */
 const posterCheck=new Image();posterCheck.src=POSTER;posterCheck.onload=()=>{status.textContent='62 Adinkra designs ready. Start when you are ready!'};
@@ -30,7 +33,7 @@ function draw(){
   cell.onclick=()=>swap(i);tank.append(cell)
  });
  fresh.clear();
- el('cascadeScore').textContent=score;el('cascadeTime').textContent='Time '+seconds+'s';el('cascadeLevel').textContent='Level '+level+' · one drop every 1.55s';persistBest();
+ el('cascadeScore').textContent=score;el('cascadeTime').textContent='Time '+Math.floor(seconds)+'s';el('cascadeLevel').textContent='Level '+level+' · '+SPEEDS[speedIndex].name+' · '+(SPEEDS[speedIndex].ms/1000)+'s/drop';persistBest();
 }
 function gravity(){
  for(let x=0;x<W;x++){const pieces=[];for(let y=H-1;y>=0;y--){const v=board[index(x,y)];if(v!==null)pieces.push(v)}for(let y=H-1;y>=0;y--)board[index(x,y)]=pieces[H-1-y]??null}
@@ -135,15 +138,16 @@ function resolveMatches(){
 }
 function tick(){
  if(!playing||over||resolving||document.hidden)return;
- seconds++;level=Math.min(3,1+Math.floor(seconds/35));
+ seconds+=(SPEEDS[speedIndex].ms/1000);level=Math.min(3,1+Math.floor(seconds/35));
  if(drop()){draw();resolveMatches()}
  else draw();
 }
 function finish(){over=true;playing=false;clearInterval(timer);timer=null;persistBest();status.textContent='Tank full! You lasted '+seconds+' seconds and earned '+score+' points. Try again to beat your record.';start.textContent='Play again'}
-function setTimer(){clearInterval(timer);timer=null;if(playing&&!document.hidden&&panel.hidden===false)timer=setInterval(tick,1550)}
+function setTimer(){clearInterval(timer);timer=null;if(playing&&!document.hidden&&panel.hidden===false)timer=setInterval(tick,SPEEDS[speedIndex].ms)}
 function startGame(){if(over){newGame()}playing=!playing;start.textContent=playing?'Pause game':'Resume game';status.textContent=playing?'Keep the tank clear. Swap any two symbols!':'Paused — your board is safe.';setTimer();draw()}
 function newGame(){clearInterval(timer);timer=null;epoch++;resolving=false;el('cascadeBurst').classList.remove('cascade-preview');el('cascadeBurst').replaceChildren();board=Array(W*H).fill(null);fresh.clear();selected=-1;seconds=0;score=0;matches=0;level=1;playing=false;over=false;round++;seedTank();start.textContent='Start game';status.textContent='Four rows ready. Start when you are ready!';draw()}
 function syncVisibility(){const story=document.getElementById('step')?.textContent.includes('The story')===true;panel.hidden=!story;if(!story){clearInterval(timer);timer=null}else if(playing)setTimer()}
+el('cascadeSpeed').addEventListener('change',event=>{speedIndex=Number(event.target.value);setTimer();draw();status.textContent='Speed set to '+SPEEDS[speedIndex].name+' — '+(SPEEDS[speedIndex].ms/1000)+' seconds per drop.'});
 start.addEventListener('click',startGame);el('cascadeReset').addEventListener('click',newGame);document.addEventListener('visibilitychange',setTimer);
 const step=document.getElementById('step');if(step)new MutationObserver(syncVisibility).observe(step,{childList:true,characterData:true,subtree:true});
 newGame();syncVisibility();
