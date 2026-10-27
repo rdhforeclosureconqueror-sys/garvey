@@ -10,6 +10,7 @@ const manifest = JSON.parse(fs.readFileSync(path.join(contentDir, 'manifest.json
 const hub = fs.readFileSync(path.join(root, 'public/gamehub/adaptive-v2-hub.html'), 'utf8');
 const skillWorldIndex = fs.readFileSync(path.join(root, 'public/gamehub/skill-world/index.html'), 'utf8');
 const VisualRegistry = require(path.join(root, 'public/gamehub/skill-world/renderers/visual-model-registry.js'));
+const SkillWorldRenderer = require(path.join(root, 'public/gamehub/skill-world/engine/skill-world-renderer.js'));
 const helpContext = { globalThis: {} };
 vm.createContext(helpContext);
 vm.runInContext(fs.readFileSync(path.join(root, 'public/gamehub/skill-world/engine/guided-help.js'), 'utf8'), helpContext);
@@ -199,6 +200,24 @@ test('Grade 4 Math learner visuals and hints stay instructional without renderin
       assert.doesNotMatch(visual, /data-answer-visibility="solution"/, `${question.question_id} does not force solution mode`);
     }
   }
+});
+
+test('every Grade 4 Math Skill World lesson teaches its five practice levels before independent work', () => {
+  for (const skillId of grade4MathSkillIds) {
+    const pkg = readPackage(skillId);
+    const html = SkillWorldRenderer.renderSkillWorld(pkg, { state: SkillWorldRenderer.createState(), failClosed: true }).html;
+    assert.match(html, /Five Math Lessons/, `${skillId} has its Grade 5-style learning path`);
+    assert.equal((html.match(/data-fraction-lesson-page=/g) || []).length, 5, `${skillId} has five lesson pages`);
+    for (const level of pkg.level_banks) {
+      assert.match(html, new RegExp(level.focus.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${skillId} teaches ${level.level_id}`);
+    }
+    assert.equal((html.match(/Worked example:/g) || []).length, 5, `${skillId} includes a worked example for every lesson page`);
+    assert.ok((html.match(/Your turn:/g) || []).length >= 5, `${skillId} provides a next problem before practice`);
+    assert.equal((html.match(/data-g4-lesson-check=/g) || []).length, 5, `${skillId} has five interactive lesson checks`);
+  }
+  assert.match(skillWorldIndex, /g4-lesson-choice/);
+  assert.match(skillWorldIndex, /g4-lesson-submit/);
+  assert.match(skillWorldIndex, /Correct! You are ready for the next lesson/);
 });
 
 
