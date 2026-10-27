@@ -13,7 +13,7 @@ const W=6,H=14,START_ROWS=4,storage='garvey-adinkra-cascade-best-v1';
 let resolving=false,epoch=0;let fresh=new Set(),board=Array(W*H).fill(null),selected=-1,seconds=0,score=0,matches=0,level=1,playing=false,over=false,timer=null,best=0,round=0;
 try{best=Math.max(0,Number(localStorage.getItem(storage))||0)}catch(_){}
 const panel=document.createElement('section');panel.className='cascade';panel.id='symbolCascade';panel.setAttribute('aria-label','Adinkra Symbol Cascade game');
-panel.innerHTML='<div class="cascade-head"><div><div class="eyebrow">Play while you listen</div><h3>Adinkra Symbol Cascade</h3></div><div class="cascade-score"><strong id="cascadeScore">0</strong><small>Points</small></div></div><p class="cascade-help">Four rows are already filled, with ten empty rows above. Watch new symbols tumble into the lowest open spaces like colorful sand. Tap two symbols to swap them. Only matches you create by swapping earn points; falling symbols never score automatically. Swaps stay in place even when they do not match. Keep the tank from filling while you listen to the Keeper.</p><div class="cascade-stats"><span id="cascadeTime">Time 0s</span><span id="cascadeLevel">Level 1 · gentle pace</span><span id="cascadeBest">Best 0s</span></div><div class="cascade-tank-wrap"><div class="cascade-tank" id="cascadeTank" role="group" aria-label="Symbol tank"></div><div id="cascadeBurst" class="cascade-burst" aria-hidden="true"></div></div><div id="cascadeStatus" class="cascade-status" role="status" aria-live="polite">Ready to play?</div><div class="cascade-controls"><button type="button" id="cascadeStart" class="gold">Start game</button><button type="button" id="cascadeReset" class="outline">New game</button></div><p class="cascade-help">The pace increases gradually as you survive. Matches pause briefly so you can recognize each symbol. Your longest survival time is saved in this browser. This practice game does not determine gate advancement.</p>';
+panel.innerHTML='<div class="cascade-head"><div><div class="eyebrow">Play while you listen</div><h3>Adinkra Symbol Cascade</h3></div><div class="cascade-score"><strong id="cascadeScore">0</strong><small>Points</small></div></div><p class="cascade-help">Four rows are already filled, with ten empty rows above. Watch new symbols tumble into the lowest open spaces like colorful sand. Tap two symbols to swap them. Matches from your swaps or natural falls burst and reveal the symbol name. Falling symbols match about once in ten drops; each matched group is shown separately. Swaps stay in place even when they do not match. Keep the tank from filling while you listen to the Keeper.</p><div class="cascade-stats"><span id="cascadeTime">Time 0s</span><span id="cascadeLevel">Level 1 · gentle pace</span><span id="cascadeBest">Best 0s</span></div><div class="cascade-tank-wrap"><div class="cascade-tank" id="cascadeTank" role="group" aria-label="Symbol tank"></div><div id="cascadeBurst" class="cascade-burst" aria-hidden="true"></div></div><div id="cascadeStatus" class="cascade-status" role="status" aria-live="polite">Ready to play?</div><div class="cascade-controls"><button type="button" id="cascadeStart" class="gold">Start game</button><button type="button" id="cascadeReset" class="outline">New game</button></div><p class="cascade-help">The pace increases gradually as you survive. Matches pause briefly so you can recognize each symbol. Your longest survival time is saved in this browser. This practice game does not determine gate advancement.</p>';
 host.insertAdjacentElement('afterend',panel);
 const el=id=>document.getElementById(id),tank=el('cascadeTank'),status=el('cascadeStatus'),start=el('cascadeStart');
 /* Poster is user-uploaded. The 62 tile positions are indexed left-to-right, top-to-bottom. */
@@ -50,7 +50,7 @@ function burst(){
  if(total){score+=total*20;matches+=total;status.textContent='✨ '+total+' symbols matched! +'+(total*20)+' points';const effect=el('cascadeBurst');effect.textContent='✦ 🪙 ✨ +'+(total*10);effect.classList.remove('pop');void effect.offsetWidth;effect.classList.add('pop');}
  return total
 }
-function swap(i){if(!playing||over||resolving||board[i]===null)return;if(selected<0){selected=i;draw();return}if(selected===i){selected=-1;draw();return}const a=selected;[board[a],board[i]]=[board[i],board[a]];selected=-1;draw();resolveMatches(true)}
+function swap(i){if(!playing||over||resolving||board[i]===null)return;if(selected<0){selected=i;draw();return}if(selected===i){selected=-1;draw();return}const a=selected;[board[a],board[i]]=[board[i],board[a]];selected=-1;draw();resolveMatches()}
 function seedTank(){
  // Four complete bottom rows; avoid automatic neighboring matches on the starting board.
  for(let y=H-START_ROWS;y<H;y++)for(let x=0;x<W;x++){
@@ -74,35 +74,54 @@ function drop(){
  const x=candidates[Math.floor(Math.random()*candidates.length)].x;
  let y=H-1;while(y>=0&&board[index(x,y)]!==null)y--;
  if(y<0){finish();return false}
- const nearby=[];for(let dy=y+1;dy<H;dy++){const v=board[index(x,dy)];if(v!==null)nearby.push(v);if(nearby.length>=3)break}for(const dx of [-1,1]){if(x+dx>=0&&x+dx<W){const v=board[index(x+dx,y)];if(v!==null)nearby.push(v)}}const useNearby=nearby.length>0&&Math.random()<0.72;board[index(x,y)]=useNearby?nearby[Math.floor(Math.random()*nearby.length)]:Math.floor(Math.random()*names.length);
+ // Ten percent of drops intentionally form a pair; otherwise avoid all adjacent duplicates.
+ const neighbors=[];
+ for(const [dx,dy] of [[0,1],[-1,0],[1,0]]){
+  const nx=x+dx,ny=y+dy;
+  if(nx>=0&&nx<W&&ny<H){const v=board[index(nx,ny)];if(v!==null)neighbors.push(v)}
+ }
+ const makePair=neighbors.length>0&&Math.random()<0.10;
+ const options=names.map((_,i)=>i).filter(i=>!neighbors.includes(i));
+ board[index(x,y)]=makePair?neighbors[Math.floor(Math.random()*neighbors.length)]:options[Math.floor(Math.random()*options.length)];
+
  fresh.add(index(x,y));
  return true
 }
-function resolveMatches(playerMove=false){
- if(!playerMove||resolving||over)return;
- const matched=groups();if(!matched.length)return;
- resolving=true;const version=epoch;
- const indices=matched.flat();const symbol=board[indices[0]];
- for(const i of indices){const cell=tank.children[i];if(cell)cell.classList.add('cascade-matching')}
- const effect=el('cascadeBurst');effect.replaceChildren();
- const preview=symbolArt(symbol);preview.setAttribute('aria-label',names[symbol]);
- const label=document.createElement('strong');label.textContent=names[symbol]+' · +20 points';
- effect.append(preview,label);effect.classList.add('cascade-preview');
- status.textContent='Match found: '+names[symbol]+'! +20 points.';
- setTimeout(()=>{
-  if(version!==epoch)return;
-  for(const i of indices)board[i]=null;
-  score+=20;matches+=indices.length;gravity();draw();
-  effect.classList.remove('cascade-preview');effect.replaceChildren();
-  status.textContent='✨ '+names[symbol]+' matched! +20 points';
-  resolving=false;
-  if(board.slice(0,W).every(v=>v!==null))finish();
- },1250);
+function resolveMatches(){
+ if(resolving||over)return;
+ const matched=groups();
+ if(!matched.length)return;
+ resolving=true;
+ const version=epoch;
+ // Show and score one connected group at a time, never erase unrelated matches silently.
+ function nextGroup(){
+  if(version!==epoch||over)return;
+  const group=groups()[0];
+  if(!group){resolving=false;draw();if(board.slice(0,W).every(v=>v!==null))finish();return}
+  const symbol=board[group[0]];
+  draw();
+  for(const i of group){const cell=tank.children[i];if(cell)cell.classList.add('cascade-matching')}
+  const effect=el('cascadeBurst');effect.replaceChildren();
+  const preview=symbolArt(symbol);preview.setAttribute('aria-label',names[symbol]);
+  const label=document.createElement('strong');label.textContent=names[symbol]+' · +20 points';
+  effect.append(preview,label);effect.classList.add('cascade-preview');
+  status.textContent='Match found: '+names[symbol]+'! +20 points.';
+  setTimeout(()=>{
+   if(version!==epoch||over)return;
+   for(const i of group)board[i]=null;
+   score+=20;matches++;gravity();draw();
+   effect.classList.remove('cascade-preview');effect.replaceChildren();
+   status.textContent='✨ '+names[symbol]+' matched! +20 points';
+   // Give each different symbol its own readable reveal.
+   setTimeout(nextGroup,350);
+  },1250);
+ }
+ nextGroup();
 }
 function tick(){
  if(!playing||over||resolving||document.hidden)return;
  seconds++;level=Math.min(3,1+Math.floor(seconds/35));
- if(drop()){draw()}
+ if(drop()){draw();resolveMatches()}
  else draw();
 }
 function finish(){over=true;playing=false;clearInterval(timer);timer=null;persistBest();status.textContent='Tank full! You lasted '+seconds+' seconds and earned '+score+' points. Try again to beat your record.';start.textContent='Play again'}
