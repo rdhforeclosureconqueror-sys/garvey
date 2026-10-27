@@ -9,7 +9,7 @@
 <script src='/gamehub/skill-world/engine/skill-world-renderer.js'></script>
 <script>
 (async function(){
- const parts=location.pathname.split('/').filter(Boolean); const drillPath=parts[parts.length-1]==='drill'; const id=((drillPath?parts[parts.length-2]:parts[parts.length-1])||'G1M_DP_001').toUpperCase(); const app=document.getElementById('app');
+ const params=new URLSearchParams(location.search); const parts=location.pathname.split('/').filter(Boolean); const drillPath=params.get('mode')==='drill'||parts[parts.length-1]==='drill'; const pathSkill=drillPath?parts[parts.length-2]:parts[parts.length-1]; const id=(params.get('skill')||pathSkill||'G1M_DP_001').toUpperCase(); const app=document.getElementById('app');
  try{const p=await (await fetch(`/gamehub/skill-world/content/${id}.skill-package.v1.json`)).json(); const learnerCtx=await resolveSkillWorldLearner(); const state=SkillWorldRenderer.createState(); if(drillPath)state.mode='drill'; await loadPersistedSkillWorld(state,id,learnerCtx);
  function render(){const rendered=SkillWorldRenderer.renderSkillWorld(p,{state,mode:state.mode,failClosed:true,profile:state.profile}); app.innerHTML=rendered.html; app.querySelectorAll('.exit-hub').forEach((link)=>{link.href=learnerCtx.return_url||'/gamehub/adaptive-grade1-v2.html';}); window.scrollTo({top:0,behavior:'smooth'});}
  function activeQuestion(section){const step=Number(section?.dataset?.stepIndex||state.stepIndex||0); return SkillWorldRenderer.zoneQuestion(p,step);}
