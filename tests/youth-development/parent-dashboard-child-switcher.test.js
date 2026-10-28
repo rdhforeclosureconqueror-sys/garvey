@@ -19,3 +19,13 @@ test('a child switch keeps Genius and adaptive learning in the same child scope'
   assert.match(dashboard, /window\.location\.assign\(dashboardUrlForChild\(childId\)\)/);
   assert.match(dashboard, /Each child has a separate Genius snapshot, parent guidance, and adaptive-learning history/);
 });
+
+test('parent dashboard uses one focused Genius insight and hides developer-facing learning details', () => {
+  assert.match(dashboard, /function selectedGeniusCode\(\)/);
+  assert.match(dashboard, /data-genius-nav="previous"/);
+  assert.match(dashboard, /data-genius-nav="next"/);
+  assert.match(dashboard, /function parentFriendlyLearningArea\(value\)/);
+  assert.match(dashboard, /function parentFriendlyActivity\(eventType\)/);
+  assert.match(dashboard, /developer-diagnostics/);
+  assert.doesNotMatch(dashboard, /Profile ID ' \+ esc\(summary\.child_id/);
+});
