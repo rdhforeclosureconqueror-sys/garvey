@@ -1472,17 +1472,17 @@ function renderLiveYouthParentDashboardPage() {
       .hero-title { margin: 0 0 8px; font-size: clamp(1.55rem, 4vw, 2.25rem); letter-spacing: -0.04em; }
       .hero-vision {
         min-height: 420px;
+        position: relative;
         display: flex;
         align-items: flex-end;
         overflow: hidden;
         border: 1px solid rgba(241, 196, 83, 0.78);
         border-radius: 24px;
-        background:
-          linear-gradient(0deg, rgba(5, 6, 4, 0.96) 0%, rgba(5, 6, 4, 0.48) 45%, rgba(5, 6, 4, 0.05) 100%),
-          url('/adinkra-library/arp1.jpg') center 28% / cover no-repeat;
         box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
       }
-      .hero-vision-content { width: 100%; padding: 24px; background: linear-gradient(90deg, rgba(8, 8, 7, 0.82), rgba(8, 8, 7, 0.20)); }
+      .hero-vision-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 24%; }
+      .hero-vision::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(5, 6, 4, 0.94) 0%, rgba(5, 6, 4, 0.44) 48%, rgba(5, 6, 4, 0.04) 100%); pointer-events: none; }
+      .hero-vision-content { position: relative; z-index: 1; width: 100%; padding: 24px; background: linear-gradient(90deg, rgba(8, 8, 7, 0.72), rgba(8, 8, 7, 0.05)); }
       .hero-kicker { margin: 0 0 8px; color: var(--gold); font-size: .78rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
       .muted { color: var(--muted); }
       .tiny { font-size: 12px; color: var(--muted); }
@@ -1618,6 +1618,7 @@ function renderLiveYouthParentDashboardPage() {
   <body>
     <main>
       <section class="hero-vision">
+        <img class="hero-vision-image" src="/adinkra-library/arp1.jpg" alt="A future-focused African family looking toward a bright city" />
         <div class="hero-vision-content">
         <p class="hero-kicker">Garvey Learning · Genius Path</p>
         <h1 id="heroTitle" class="hero-title">🌍 Youth Development Parent Dashboard</h1>
