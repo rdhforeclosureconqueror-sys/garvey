@@ -219,7 +219,19 @@
 
 
 
-  function renderAdaptiveLearningCard() {
+  function riteAdaptiveLearningHref(child) {
+    const childId = String(child?.child_id || '').trim();
+    if (!childId) return '';
+    const url = new URL('/gamehub/adaptive-v2-hub.html', window.location.origin);
+    url.searchParams.set('program_context', 'rite_of_passage');
+    url.searchParams.set('source_registry', 'rite_of_passage');
+    url.searchParams.set('child_id', childId);
+    url.searchParams.set('child_display_name', String(child?.child_name || 'Learner'));
+    url.searchParams.set('return_url', '/gates/children');
+    return url.pathname + url.search;
+  }
+
+  function renderAdaptiveLearningCard(child = null) {
     const pilotLaunches = [
       { domain: 'ELA', label: 'Letter Recognition and Letter Sounds', skillId: 'G1E_RF_001' },
       { domain: 'ELA', label: 'Beginning Sounds', skillId: 'G1E_RF_002' },
@@ -232,7 +244,11 @@
       const href = `/gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(entry.skillId)}`;
       return `<li><a class="btn secondary" data-pilot-skill="${entry.skillId}" href="${href}">${entry.domain}: ${entry.label}</a></li>`;
     }).join('');
-    return `<section class="panel"><h3>Adaptive Learning</h3><p>Grade 1–6 school-skill lessons, practice, and growth snapshots.</p><p><a class="btn secondary" href="/gamehub/adaptive-v2-hub.html">Open Adaptive V2 Lesson Hub</a></p><section class="panel" aria-label="grade-1-pilot-games-internal-testing"><h4>Grade 1 Pilot Games (Internal Testing)</h4><p class="status">Internal pilot access only. Not part of public learner rollout.</p><ul class="gate-overview">${pilotLinks}</ul></section></section>`;
+    const adaptiveHref = riteAdaptiveLearningHref(child);
+    const launch = adaptiveHref
+      ? `<p><a class="btn secondary" href="${adaptiveHref}">Open Adaptive Learning for ${child.child_name || 'this child'}</a></p>`
+      : '<p class="status">Select a child profile to open that child’s separate Adaptive Learning path.</p>';
+    return `<section class="panel"><h3>Adaptive Learning</h3><p>Grade 1–6 school-skill lessons, practice, and growth snapshots are available alongside the Rite of Passage journey. Academic learning progress stays separate from Gate assessment and practice progress.</p>${launch}<section class="panel" aria-label="grade-1-pilot-games-internal-testing"><h4>Grade 1 Pilot Games (Internal Testing)</h4><p class="status">Internal pilot access only. Not part of public learner rollout.</p><ul class="gate-overview">${pilotLinks}</ul></section></section>`;
   }
 
   async function loadSession() {
@@ -277,8 +293,9 @@
     if (!state.session?.authenticated) return renderSignup(true);
     const data = await api('/api/gates/children', { method: 'GET' });
     state.children = data.children || [];
+    const selectedChild = state.children.find((child) => String(child.child_id) === String(localStorage.getItem('gatesSelectedChildId') || '')) || null;
     shell('Child profiles', `
-      ${renderAdaptiveLearningCard()}
+      ${renderAdaptiveLearningCard(selectedChild)}
       <form class="panel" id="child-form"><input name="child_name" placeholder="Child name" required/><input name="child_age_band" placeholder="Age band" required/><input name="child_grade_band" placeholder="Grade band" required/><button type="submit">Create Child Profile</button></form>
       <section class="card-grid">${state.children.map((c) => `<article class="panel gate-card"><h3>${c.child_name}</h3><p>${c.child_age_band} · ${c.child_grade_band}</p><button data-child-id="${c.child_id}">Select Child</button></article>`).join('') || '<p>No child profiles yet.</p>'}</section>
       <p><a href="/gates/assessment">Continue to Assessment</a></p>`);
@@ -397,7 +414,7 @@
       const habitBank = await api(`/api/gates/children/${childId}/habit-bank`, { method: 'GET' }).catch(() => null);
       const growthHabit = (habitBank?.recommended_habits || [])[0] || null;
       const growthGate = (result.gate_map || []).find((g) => g.gate_key === result.gates_profile?.growth_gate?.gate_key) || (result.gate_map || [])[0] || { gate_number: 1, name: 'Attention' };
-      shell('Current Gates Profile', `${renderAdaptiveLearningCard()}<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderGrowthSignalsPanel(growthHabit, "results")}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p>${renderChildReflectionCta(childId, growthGate.gate_number)}${renderGateAdventureCard(result, growthGate)}<p><a class="btn secondary" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Open Gate Details</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul>${renderGameHubPracticeSection({ childId })}${renderDevelopmentJourney(integratedProfile?.development_patterns)}${renderDevelopmentTimeline(timeline)}${renderIntegratedProfilePreview(integratedProfile)}<p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
+      shell('Current Gates Profile', `${renderAdaptiveLearningCard({ child_id: childId, child_name: result.child_name || 'Selected child' })}<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderGrowthSignalsPanel(growthHabit, "results")}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p>${renderChildReflectionCta(childId, growthGate.gate_number)}${renderGateAdventureCard(result, growthGate)}<p><a class="btn secondary" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Open Gate Details</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul>${renderGameHubPracticeSection({ childId })}${renderDevelopmentJourney(integratedProfile?.development_patterns)}${renderDevelopmentTimeline(timeline)}${renderIntegratedProfilePreview(integratedProfile)}<p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
       console.info(JSON.stringify({ event: 'gates_stage_profile_rendered', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_generic_recommendations_removed', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_walking_gate_rendered', assessment_id: assessmentId, child_id: childId }));

@@ -96,13 +96,22 @@
     return SUBJECTS.includes(text(value));
   }
 
-  function normalizeAdaptiveLearnerContext(input) {
+  function normalizeAdaptiveLearnerContext(input, programContext) {
+    const context = programContext === 'rite_of_passage' ? 'rite_of_passage' : 'youth_development';
     const displayName = text(input && (input.display_name || input.child_display_name || input.child_name)) || 'Learner';
     const rawChildId = text(input && (input.child_id || input.childId || input.profile_id)).trim();
     if (!/^[1-9]\d*$/.test(rawChildId)) {
       return { ok: false, error: 'malformed_child_id', raw_child_id: rawChildId, message: 'We could not verify ' + displayName + '’s learning profile. Please return to the Parent Dashboard and try again.' };
     }
-    return { ok: true, learner: { child_id: rawChildId, program_context: 'youth_development', source_registry: text(input && input.source_registry).trim() || 'youth_development', display_name: displayName, child_name: displayName, child_grade_band: text(input && input.child_grade_band), ownership_verified: Boolean(input && input.ownership_verified) } };
+    return { ok: true, learner: { child_id: rawChildId, program_context: context, source_registry: text(input && input.source_registry).trim() || context, display_name: displayName, child_name: displayName, child_grade_band: text(input && input.child_grade_band), ownership_verified: Boolean(input && input.ownership_verified) } };
+  }
+
+  function isScopedAdaptiveContext() {
+    return state.programContext === 'youth_development' || state.programContext === 'rite_of_passage';
+  }
+
+  function scopedContextLabel() {
+    return state.programContext === 'rite_of_passage' ? 'Rite of Passage' : 'Youth Development';
   }
 
   function parseQuery() {
@@ -113,13 +122,13 @@
     const programContext = text(params.get('program_context')).trim();
     const routeChildId = text(params.get('child_id')).trim();
     state.requestedChildId = /^[1-9]\d*$/.test(routeChildId) ? routeChildId : '';
-    if (programContext === 'youth_development') {
-      state.programContext = 'youth_development';
-      state.sourceRegistry = text(params.get('source_registry')).trim() || 'youth_development';
-      state.returnUrl = text(params.get('return_url')).trim() || '/youth-development/parent-dashboard';
+    if (programContext === 'youth_development' || programContext === 'rite_of_passage') {
+      state.programContext = programContext;
+      state.sourceRegistry = text(params.get('source_registry')).trim() || programContext;
+      state.returnUrl = text(params.get('return_url')).trim() || (programContext === 'rite_of_passage' ? '/gates/children' : '/youth-development/parent-dashboard');
       state.tenant = text(params.get('tenant')).trim();
       state.email = text(params.get('email')).trim();
-      const normalized = normalizeAdaptiveLearnerContext({ child_id: routeChildId, child_display_name: params.get('child_display_name') || params.get('child_name') || 'Princess Nia', child_grade_band: params.get('child_grade_band') || '', source_registry: state.sourceRegistry, ownership_verified: true });
+      const normalized = normalizeAdaptiveLearnerContext({ child_id: routeChildId, child_display_name: params.get('child_display_name') || params.get('child_name') || 'Learner', child_grade_band: params.get('child_grade_band') || '', source_registry: state.sourceRegistry, ownership_verified: true }, programContext);
       if (normalized.ok) state.routeChild = publicChildOnly({ child_id: normalized.learner.child_id, child_name: normalized.learner.display_name, child_grade_band: normalized.learner.child_grade_band });
       else { state.routeChild = null; state.childRequiredMessage = normalized.message; }
     }
@@ -437,20 +446,20 @@
 
   async function initializeAuthenticatedFlow() {
     parseQuery();
-    if (state.programContext === 'youth_development' && state.childRequiredMessage) {
+    if (isScopedAdaptiveContext() && state.childRequiredMessage) {
       state.authChecked = true;
       state.authenticated = true;
       state.authOptional = false;
       setError(state.childRequiredMessage);
       return;
     }
-    if (state.programContext === 'youth_development' && state.routeChild && state.routeChild.child_id) {
+    if (isScopedAdaptiveContext() && state.routeChild && state.routeChild.child_id) {
       state.authChecked = true;
       state.authenticated = true;
       state.authOptional = false;
       state.children = [state.routeChild];
       selectChild(state.routeChild.child_id, { renderAfter: false });
-      setView('setup', 'Youth Development learner is selected.');
+      setView('setup', scopedContextLabel() + ' learner is selected.');
       return;
     }
     parseQuery();
@@ -524,9 +533,9 @@
   }
 
   function youthContextParams(params) {
-    if (state.programContext === 'youth_development') {
-      params.set('program_context', 'youth_development');
-      params.set('source_registry', state.sourceRegistry || 'youth_development');
+    if (isScopedAdaptiveContext()) {
+      params.set('program_context', state.programContext);
+      params.set('source_registry', state.sourceRegistry || state.programContext);
       if (state.tenant) params.set('tenant', state.tenant);
       if (state.email) params.set('email', state.email);
     }
@@ -534,9 +543,9 @@
   }
 
   function youthContextBody(body) {
-    if (state.programContext === 'youth_development') {
-      body.program_context = 'youth_development';
-      body.source_registry = state.sourceRegistry || 'youth_development';
+    if (isScopedAdaptiveContext()) {
+      body.program_context = state.programContext;
+      body.source_registry = state.sourceRegistry || state.programContext;
       if (state.tenant) body.tenant = state.tenant;
       if (state.email) body.email = state.email;
     }
@@ -641,9 +650,9 @@
       const body = { grade: Number(state.grade), subject: state.subject, itemsPerPackage: ITEMS_PER_PACKAGE };
       if (!state.authOptional && state.authChecked) {
         body.child_id = child.child_id;
-        if (state.programContext === 'youth_development') {
-          body.program_context = 'youth_development';
-          body.source_registry = state.sourceRegistry || 'youth_development';
+        if (isScopedAdaptiveContext()) {
+          body.program_context = state.programContext;
+          body.source_registry = state.sourceRegistry || state.programContext;
           if (state.tenant) body.tenant = state.tenant;
           if (state.email) body.email = state.email;
           body.display_name = child.child_name || 'Princess Nia';
@@ -872,7 +881,7 @@
     const current = selectedCurrentSessionMatches() ? state.currentSession : null;
     return '<section class="panel" aria-labelledby="setup-title">' +
       '<h2 id="setup-title">Assessment setup</h2>' +
-      '<p class="helper">' + (state.programContext === 'youth_development' ? 'Youth Development learner is already selected. Choose grade and subject. Nothing starts until you press Start or Resume.' : (state.requestedChildId && selectedChild() ? 'Your learner and grade are ready. Choose a subject, then begin the adaptive assessment.' : 'Choose an existing learner, then choose the grade and subject. Nothing starts until you press Start or Resume.')) + '</p>' +
+      '<p class="helper">' + (isScopedAdaptiveContext() ? scopedContextLabel() + ' learner is already selected. Choose grade and subject. Nothing starts until you press Start or Resume.' : (state.requestedChildId && selectedChild() ? 'Your learner and grade are ready. Choose a subject, then begin the adaptive assessment.' : 'Choose an existing learner, then choose the grade and subject. Nothing starts until you press Start or Resume.')) + '</p>' +
       (state.queryGrade || state.querySubject ? '<div class="notice"><strong>Browsing choice applied</strong><p>Valid page choices were preselected, but the assessment will not auto-start.</p></div>' : '') +
       renderSelectorGrid() +
       gradeMismatchNote() +
@@ -884,8 +893,8 @@
   }
 
   function renderSelectorGrid() {
-    const childSelect = state.programContext === 'youth_development'
-      ? '<div class="field"><label>Learner</label><div class="notice"><strong>' + escapeHtml((selectedChild() || {}).child_name || 'Learner') + '</strong><p>Youth Development learner selected automatically.</p></div></div>'
+    const childSelect = isScopedAdaptiveContext()
+      ? '<div class="field"><label>Learner</label><div class="notice"><strong>' + escapeHtml((selectedChild() || {}).child_name || 'Learner') + '</strong><p>' + escapeHtml(scopedContextLabel()) + ' learner selected automatically.</p></div></div>'
       : (state.authOptional
         ? '<div class="notice"><strong>Development mode</strong><p>Authentication was not available in this harness.</p></div>'
         : '<div class="field"><label for="child-select">Learner</label><select id="child-select"><option value="">Choose a learner</option>' + state.children.map((child) => '<option value="' + escapeHtml(child.child_id) + '"' + (state.selectedChildId === child.child_id ? ' selected' : '') + '>' + escapeHtml(child.child_name) + (child.child_grade_band ? ' — ' + escapeHtml(child.child_grade_band) : '') + '</option>').join('') + '</select></div>');

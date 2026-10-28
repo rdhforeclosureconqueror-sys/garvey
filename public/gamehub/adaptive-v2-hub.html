@@ -54,8 +54,11 @@
     const subjects=['Math','English'];
     const skillWorldManifestUrl='/gamehub/skill-world/content/manifest.json';
     const launchParams=new URLSearchParams(window.location.search);
-    const routeContext={program_context:(launchParams.get('program_context')||'').trim(),source_registry:(launchParams.get('source_registry')||(launchParams.get('program_context')==='youth_development'?'youth_development':'public_learning')).trim(),tenant:(launchParams.get('tenant')||'').trim(),email:(launchParams.get('email')||'').trim(),child_id:(launchParams.get('child_id')||'').trim(),child_display_name:(launchParams.get('child_name')||launchParams.get('child_display_name')||'Princess Nia').trim(),return_url:(launchParams.get('return_url')||(launchParams.get('program_context')==='youth_development'?'/youth-development/parent-dashboard':'/tutoring.html')).trim()};
-    if(routeContext.program_context==='youth_development'&&routeContext.child_id){window.__GAME_RUNTIME_CONTEXT__={program_context:'youth_development',source_registry:'youth_development',child_id:routeContext.child_id,profile_id:routeContext.child_id,child_display_name:routeContext.child_display_name,tenant:routeContext.tenant,parent_email:routeContext.email,return_url:routeContext.return_url,ownership_verified:true};}
+    const requestedProgramContext=(launchParams.get('program_context')||'').trim();
+    const sharedLearningContexts=['youth_development','rite_of_passage'];
+    const isSharedLearningContext=sharedLearningContexts.includes(requestedProgramContext);
+    const routeContext={program_context:requestedProgramContext,source_registry:(launchParams.get('source_registry')||(isSharedLearningContext?requestedProgramContext:'public_learning')).trim(),tenant:(launchParams.get('tenant')||'').trim(),email:(launchParams.get('email')||'').trim(),child_id:(launchParams.get('child_id')||'').trim(),child_display_name:(launchParams.get('child_name')||launchParams.get('child_display_name')||'Learner').trim(),return_url:(launchParams.get('return_url')||(requestedProgramContext==='youth_development'?'/youth-development/parent-dashboard':requestedProgramContext==='rite_of_passage'?'/gates/children':'/tutoring.html')).trim()};
+    if(isSharedLearningContext&&routeContext.child_id){window.__GAME_RUNTIME_CONTEXT__={program_context:routeContext.program_context,source_registry:routeContext.source_registry,child_id:routeContext.child_id,profile_id:routeContext.child_id,child_display_name:routeContext.child_display_name,tenant:routeContext.tenant,parent_email:routeContext.email,return_url:routeContext.return_url,ownership_verified:true};}
     const state={grade:null,subject:null,packages:[],loaded:false};
     const gradeGrid=document.getElementById('gradeGrid');
     const hubMount=document.getElementById('hubMount');
@@ -69,17 +72,6 @@
     function skillWorldHref(packageId){ return withRouteContext(`/gamehub/skill-world/?skill=${encodeURIComponent(packageId)}`); }
     function skillWorldDrillHref(packageId){ return withRouteContext(`/gamehub/skill-world/?skill=${encodeURIComponent(packageId)}&mode=drill`); }
     function assessmentHref(grade,subject){ return withRouteContext(`/assessment-mvp?grade=${encodeURIComponent(String(grade))}&subject=${encodeURIComponent(subject)}`); }
-    function getLaunchContext(){
-      const params=new URLSearchParams(window.location.search);
-      return {
-        childId:(params.get('child_id')||'').trim()||'demo_child',
-        sessionId:(params.get('sessionId')||'').trim()||'demo_session'
-      };
-    }
-    function buildSignalPathUrl(){
-      const {childId,sessionId}=getLaunchContext();
-      return `/gamehub/content/index.html?child_id=${encodeURIComponent(childId)}&sessionId=${encodeURIComponent(sessionId)}&gradeBand=grades_1_3`;
-    }
     async function loadSkillWorldPackages(){
       try{
         const manifest=await (await fetch(skillWorldManifestUrl)).json();
@@ -129,8 +121,6 @@
         setPressed(subjectGrid,'data-subject',state.subject);
         renderSubjectPanel();
       }));
-      const launchSignalPathBtn=document.getElementById('launchSignalPath');
-      if(launchSignalPathBtn) launchSignalPathBtn.addEventListener('click',()=>{ window.location.href=buildSignalPathUrl(); });
     }
     function renderLearningMarkup(){
       if(!state.grade||!state.subject) return '';
@@ -139,8 +129,7 @@
       const lessonsContent=state.loaded
         ? (rows||'<p class="muted">No manifest-listed packages are available for this grade and subject yet.</p>')
         : '<p class="muted">Loading filtered curriculum packages…</p>';
-      const riteMarkup=routeContext.program_context==='youth_development'?'':`<section class="panel rite-adventures" id="otherAdventures" aria-labelledby="otherAdventuresTitle"><h2 id="otherAdventuresTitle">Other Learning Adventures</h2><div class="lesson-card"><h3>The Signal Path</h3><p class="lesson-meta">Rite of Passage Adventure · Gate 1 — Attention · Grades 1–3</p><p>Help Orin deliver a parcel, avoid distractions, catch Scatterbugs, and follow the glowing path.</p><button id="launchSignalPath" class="btn primary">Start Adventure</button></div></section>`;
-      return `<section class="panel" id="learningPanel"><section aria-labelledby="assessmentTitle"><p class="section-label">Adaptive Assessment</p><h2 id="assessmentTitle">Adaptive Assessment</h2><p class="muted">Start only when your learner is ready. The assessment will not auto-start.</p><a class="btn primary assessment" href="${escapeHtml(assessmentUrl)}">Start Grade ${escapeHtml(state.grade)} ${escapeHtml(state.subject)} Adaptive Assessment</a></section><section aria-labelledby="lessonsTitle"><p class="section-label">Lessons</p><h2 id="lessonsTitle">Lessons</h2><ul class="lesson-list">${lessonsContent}</ul></section></section>${riteMarkup}`;
+      return `<section class="panel" id="learningPanel"><section aria-labelledby="assessmentTitle"><p class="section-label">Adaptive Assessment</p><h2 id="assessmentTitle">Adaptive Assessment</h2><p class="muted">Start only when your learner is ready. The assessment will not auto-start.</p><a class="btn primary assessment" href="${escapeHtml(assessmentUrl)}">Start Grade ${escapeHtml(state.grade)} ${escapeHtml(state.subject)} Adaptive Assessment</a></section><section aria-labelledby="lessonsTitle"><p class="section-label">Lessons</p><h2 id="lessonsTitle">Lessons</h2><ul class="lesson-list">${lessonsContent}</ul></section></section>`;
     }
     function renderLearningPanel(){
       if(state.grade) renderSubjectPanel();
@@ -155,7 +144,7 @@
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>selectGrade(Number(btn.dataset.grade))));
     const requestedGrade=Number(launchParams.get('grade'));
     if(grades.includes(requestedGrade))selectGrade(requestedGrade);
-    const notice=document.getElementById("learnerContextNotice"); if(notice&&routeContext.program_context==="youth_development") notice.textContent=`Youth Development learner selected: ${routeContext.child_display_name||"Learner"}. Return path: ${routeContext.return_url}.`;
+    const notice=document.getElementById("learnerContextNotice"); if(notice&&isSharedLearningContext) notice.textContent=`${routeContext.program_context==='rite_of_passage'?'Rite of Passage':'Youth Development'} learner selected: ${routeContext.child_display_name||"Learner"}. Return path: ${routeContext.return_url}.`;
     loadSkillWorldPackages();
   </script>
 </body>

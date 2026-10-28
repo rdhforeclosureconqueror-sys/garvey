@@ -16,24 +16,33 @@ test('Youth Development dashboard opens a Youth Development-scoped adaptive rout
 });
 
 test('Youth Development adaptive hub preserves selected learner and hides Gates adventures', () => {
-  assert.match(hub, /program_context:'youth_development'/);
-  assert.match(hub, /source_registry:'youth_development'/);
+  assert.match(hub, /sharedLearningContexts=\['youth_development','rite_of_passage'\]/);
+  assert.match(hub, /requestedProgramContext==='youth_development'\?'\/youth-development\/parent-dashboard'/);
   assert.match(hub, /ownership_verified:true/);
-  assert.match(hub, /routeContext\.program_context==='youth_development'\?'':`<section class="panel rite-adventures"/);
+  assert.doesNotMatch(hub, /rite-adventures/);
   assert.match(hub, /withRouteContext\(`\/assessment-mvp\?grade=/);
-  assert.match(hub, /withRouteContext\(`\/skill-world\//);
+  assert.match(hub, /withRouteContext\(`\/gamehub\/skill-world/);
 });
 
-test('assessment and game runtimes do not fall through to Gates learner selection for Youth Development', () => {
-  assert.match(assessment, /state\.programContext === 'youth_development'/);
-  assert.match(assessment, /Youth Development learner selected automatically/);
-  assert.match(adaptive, /if\(ctx\.program_context==='youth_development'\)return ctx/);
+test('assessment and game runtimes preserve the selected child for each scoped pathway', () => {
+  assert.match(assessment, /function isScopedAdaptiveContext\(\)/);
+  assert.match(assessment, /state\.programContext === 'youth_development' \|\| state\.programContext === 'rite_of_passage'/);
+  assert.match(assessment, /scopedContextLabel\(\) \+ ' learner is already selected/);
+  assert.match(adaptive, /ctx\.program_context==='youth_development'\|\|ctx\.program_context==='rite_of_passage'/);
   assert.match(adaptive, /program_context:getRuntimeContext\(\)\.program_context/);
   assert.match(skillWorld, /program_context:learnerCtx\.program_context/);
 });
 
-test('Gates path remains available when no Youth Development route context is supplied', () => {
-  assert.match(hub, /Rite of Passage Adventure/);
+test('Rite of Passage gets the same adaptive engine through an explicit Rite context', () => {
+  assert.match(hub, /rite_of_passage/);
+  assert.match(hub, /sharedLearningContexts/);
+  assert.match(hub, /requestedProgramContext==='rite_of_passage'\?'\/gates\/children'/);
+  const gates = fs.readFileSync('public/gates.js', 'utf8');
+  assert.match(gates, /program_context', 'rite_of_passage'/);
+  assert.match(gates, /Academic learning progress stays separate from Gate assessment and practice progress/);
+});
+
+test('unscoped adaptive access remains separate from the Rite dashboard', () => {
   assert.match(adaptive, /fetch\('\/api\/gates\/canonical-learners'/);
   assert.match(skillWorld, /fetch\('\/api\/gates\/canonical-learners'/);
 });
