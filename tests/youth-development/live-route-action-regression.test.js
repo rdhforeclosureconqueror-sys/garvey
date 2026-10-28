@@ -95,17 +95,16 @@ test('voice speak endpoint is mounted and returns provider synthesis payload wit
   }
 });
 
-test('dashboard and program pages call canonical non-TDE voice endpoint', async () => {
+test('dashboard retains voice route while Growth Plan uses the saved-assessment route', async () => {
   const app = mountApp();
   try {
     const dashboardHtml = await (await fetch(`${app.baseUrl}/youth-development/parent-dashboard`)).text();
     const programHtml = await (await fetch(`${app.baseUrl}/youth-development/program`)).text();
     assert.match(dashboardHtml, /\/api\/youth-development\/voice\/sections\//);
-    assert.match(programHtml, /\/api\/youth-development\/voice\/sections\//);
+    assert.match(programHtml, /\/api\/youth-development\/parent-dashboard\/latest/);
     assert.doesNotMatch(dashboardHtml, /\/api\/youth-development\/tde\/voice\/sections\//);
     assert.doesNotMatch(programHtml, /\/api\/youth-development\/tde\/voice\/sections\//);
-    assert.match(programHtml, /Program launch failed:/);
-    assert.match(programHtml, /\[program-launch-debug\] response/);
+    assert.doesNotMatch(programHtml, /Program launch failed:/);
   } finally {
     await app.close();
   }
