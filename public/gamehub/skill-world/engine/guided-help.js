@@ -142,7 +142,8 @@
   function render(question){
     const ex=example(question);
     if(!ex)return '<div class="guided-help" role="region" aria-label="Guided help"><h3>How to work it out</h3><p>Read the question, identify the operation or relationship, and draw or label a model. Try a simpler, different problem using the same method. Then return to your question.</p></div>';
-    return `<div class="guided-help" role="region" aria-label="Guided worked example"><h3>${escapeHtml(ex.title)}</h3><p><strong>Example:</strong> ${escapeHtml(ex.problem)}</p><ol>${ex.steps.map(step=>`<li><details><summary>Reveal step</summary><p>${escapeHtml(step)}</p></details></li>`).join('')}</ol><p><strong>Your turn:</strong> Apply the steps to the original question. The answer has not been revealed.</p></div>`;
+    const fractionRule=String(question?.id||question?.question_id||'').startsWith('G4M_FR_')?['Final fraction rule — Simplify the answer to lowest terms. Find the greatest common factor of the numerator and denominator, then divide both by it. Example: 3/6 ÷ 3/3 = 1/2.']:[];
+    return `<div class="guided-help" role="region" aria-label="Guided worked example"><h3>${escapeHtml(ex.title)}</h3><p><strong>Example:</strong> ${escapeHtml(ex.problem)}</p><ol>${[...ex.steps,...fractionRule].map(step=>`<li><details><summary>Reveal step</summary><p>${escapeHtml(step)}</p></details></li>`).join('')}</ol><p><strong>Your turn:</strong> Apply the steps to the original question. The answer has not been revealed.</p></div>`;
   }
   root.SkillWorldGuidedHelp={example,render,grade4MathExample};
 })(typeof window!=='undefined'?window:globalThis);
