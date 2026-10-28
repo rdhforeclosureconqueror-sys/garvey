@@ -1505,6 +1505,22 @@ function renderLiveYouthParentDashboardPage() {
       .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
       .metric-card { border: 1px solid var(--line); border-radius: 12px; background: rgba(2, 6, 23, 0.52); padding: 10px; }
       .metric-card strong { display: block; font-size: 20px; color: #f8fafc; }
+      .child-switcher { display: flex; flex-wrap: wrap; gap: 8px; }
+      .child-switcher-button {
+        appearance: none;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(2, 6, 23, 0.52);
+        color: var(--text);
+        cursor: pointer;
+        min-width: 150px;
+        padding: 10px 12px;
+        text-align: left;
+      }
+      .child-switcher-button:hover, .child-switcher-button:focus-visible { border-color: var(--accent); outline: none; }
+      .child-switcher-button[aria-pressed="true"] { background: rgba(8, 145, 178, 0.28); border-color: var(--accent); }
+      .child-switcher-button strong, .child-switcher-button span { display: block; }
+      .child-switcher-button span { color: var(--muted); font-size: 12px; margin-top: 3px; }
       .adaptive-table-wrap { overflow-x: auto; }
       .adaptive-table { width: 100%; border-collapse: collapse; min-width: 680px; }
       .adaptive-table th, .adaptive-table td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px; vertical-align: top; }
@@ -1576,6 +1592,12 @@ function renderLiveYouthParentDashboardPage() {
         <p id="heroSummary">Complete a youth assessment to see what your child currently shows and what helps next.</p>
         <p class="tiny">Designed for ages 6–11. Developmental snapshot only: this dashboard is provisional and should be reviewed as patterns over time.</p>
         <p class="tiny" id="completionDateLabel">Previous completion date: Not available yet.</p>
+      </section>
+
+      <section class="panel" id="childSwitcherPanel" hidden>
+        <h2 style="margin-top:0;">Choose a child</h2>
+        <p class="muted">Each child has a separate Genius snapshot, parent guidance, and adaptive-learning history.</p>
+        <div id="childSwitcher" class="child-switcher" aria-label="Choose a child dashboard"></div>
       </section>
 
       <section class="panel" id="adaptiveLearningPanel">
@@ -1714,6 +1736,8 @@ function renderLiveYouthParentDashboardPage() {
         const retakeAssessmentBtn = document.getElementById("retakeAssessmentBtn");
         const openIntakeBtn = document.getElementById("openIntakeBtn");
         const openAdaptiveV2HubBtn = document.getElementById("openAdaptiveV2HubBtn");
+        const childSwitcherPanel = document.getElementById("childSwitcherPanel");
+        const childSwitcher = document.getElementById("childSwitcher");
 
         function withAccountScope(pathname) {
           const url = new URL(pathname, window.location.origin);
@@ -1755,6 +1779,37 @@ function renderLiveYouthParentDashboardPage() {
             adopted_child_id: accountCtx.child_id,
           });
         }
+
+        function dashboardUrlForChild(childId) {
+          const url = new URL('/youth-development/parent-dashboard', window.location.origin);
+          if (accountCtx.tenant) url.searchParams.set('tenant', accountCtx.tenant);
+          if (accountCtx.email) url.searchParams.set('email', accountCtx.email);
+          url.searchParams.set('child_id', String(childId || ''));
+          return url.pathname + url.search;
+        }
+
+        function renderChildSwitcher(children, selectedChildId) {
+          const entries = Array.isArray(children) ? children.filter((entry) => entry && entry.child_id) : [];
+          if (!childSwitcherPanel || !childSwitcher) return;
+          childSwitcherPanel.hidden = entries.length < 2;
+          if (entries.length < 2) {
+            childSwitcher.innerHTML = '';
+            return;
+          }
+          childSwitcher.innerHTML = entries.map((entry) => {
+            const selected = String(entry.child_id) === String(selectedChildId || '');
+            const label = String(entry.child_name || 'Child profile');
+            const grade = String(entry.child_grade_band || entry.grade || 'Grade not set');
+            return '<button class="child-switcher-button" type="button" data-child-dashboard-id="' + esc(entry.child_id) + '" aria-pressed="' + String(selected) + '"><strong>' + esc(label) + '</strong><span>' + esc(grade) + (selected ? ' · Viewing dashboard' : '') + '</span></button>';
+          }).join('');
+        }
+
+        childSwitcher?.addEventListener('click', function (event) {
+          const button = event.target.closest('[data-child-dashboard-id]');
+          if (!button) return;
+          const childId = String(button.getAttribute('data-child-dashboard-id') || '').trim();
+          if (childId) window.location.assign(dashboardUrlForChild(childId));
+        });
         function logDashboardContinuity(eventName, details) {
           const payload = {
             event: String(eventName || "unknown"),
@@ -2615,11 +2670,10 @@ function renderLiveYouthParentDashboardPage() {
             response_ok: Boolean(childrenResponse && childrenResponse.ok),
             children_count: childProfiles.length,
           });
-          const preferredChild = childProfiles.find((entry) => String(entry.child_name || '').trim().toLowerCase() === 'princess nia')
-            || childProfiles.find((entry) => !['guest','nsi','mar'].some((name) => String(entry.child_name || '').trim().toLowerCase().startsWith(name)));
           const scopedChild = requestedChildId
             ? childProfiles.find((entry) => String(entry.child_id || '') === requestedChildId)
-            : (childProfiles.length === 1 ? childProfiles[0] : (preferredChild || null));
+            : (childProfiles.length === 1 ? childProfiles[0] : null);
+          renderChildSwitcher(childProfiles, scopedChild?.child_id || requestedChildId);
           if (scopedChild && scopedChild.child_id) {
             applyScopedChildContext(scopedChild.child_id, "children_scope_resolution");
             logDashboardContinuity("child_scope_adopted", {
@@ -2628,25 +2682,12 @@ function renderLiveYouthParentDashboardPage() {
             });
           }
           if (!scopedChild && childProfiles.length > 1) {
-            const fallbackChild = preferredChild || null;
-            if (fallbackChild && fallbackChild.child_id) {
-              applyScopedChildContext(fallbackChild.child_id, "multi_child_latest_fallback");
-              logDashboardContinuity("child_scope_adopted", {
-                source: "multi_child_latest_fallback",
-                selected_child_id: fallbackChild.child_id,
-                children_count: childProfiles.length,
-              });
-            }
-            document.getElementById('weeklySupport').innerHTML = childProfiles.map((entry) => {
-              const dash = new URL('/youth-development/parent-dashboard', window.location.origin);
-              dash.searchParams.set('tenant', accountCtx.tenant);
-              dash.searchParams.set('email', accountCtx.email);
-              dash.searchParams.set('child_id', String(entry.child_id || ''));
-              return '<li><a href="' + esc(dash.pathname + dash.search) + '">' + esc(entry.child_name || entry.child_id || 'Child profile') + '</a></li>';
-            }).join('');
-            document.getElementById('heroSummary').textContent = fallbackChild
-              ? ('Multiple child profiles found. Showing latest saved child scope for now: ' + String(fallbackChild.child_name || fallbackChild.child_id || 'Child profile') + '.')
-              : 'Multiple child profiles found. Select a child scope to continue.';
+            document.getElementById('heroSummary').textContent = 'Choose a child above to view that child’s Genius snapshot, parent guidance, and adaptive-learning history.';
+            document.getElementById('weeklySupport').innerHTML = '<li class="muted">Choose a child to view that child’s weekly support suggestions.</li>';
+            document.getElementById('assessmentHistory').innerHTML = '<li class="muted">Choose a child to view that child’s assessment history.</li>';
+            document.getElementById('adaptiveLearningSummary').innerHTML = '<p class="muted">Choose a child to view saved adaptive-learning progress.</p>';
+            logDashboardContinuity("child_selection_required", { children_count: childProfiles.length });
+            return false;
           }
           const endpoint = new URL('/api/youth-development/parent-dashboard/latest', window.location.origin);
           endpoint.searchParams.set('tenant', accountCtx.tenant);
