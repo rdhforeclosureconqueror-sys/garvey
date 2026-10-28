@@ -1454,6 +1454,8 @@ function renderLiveYouthParentDashboardPage() {
         font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
         color: var(--text);
         background:
+          linear-gradient(rgba(2, 6, 23, 0.84), rgba(2, 6, 23, 0.94)),
+          url('/assets/genius-dashboard-sky-v1.svg') center top / cover fixed,
           radial-gradient(circle at 10% -10%, rgba(34, 211, 238, 0.15), transparent 38%),
           radial-gradient(circle at 90% 0%, rgba(99, 102, 241, 0.2), transparent 42%),
           var(--bg);
@@ -1482,6 +1484,11 @@ function renderLiveYouthParentDashboardPage() {
       }
       .grid { display: grid; gap: 10px; }
       .category-strip { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
+      .genius-focus { background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(125, 211, 252, 0.42); border-radius: 16px; padding: 16px; }
+      .genius-focus h3 { margin: 0; font-size: 1.25rem; }
+      .genius-focus .score { margin: 8px 0; font-size: 1.1rem; color: #dbeafe; }
+      .genius-navigation { display: flex; justify-content: space-between; gap: 8px; margin-top: 14px; }
+      .genius-navigation button { cursor: pointer; }
       .category-pill {
         border: 1px solid var(--line);
         border-radius: 12px;
@@ -1526,6 +1533,8 @@ function renderLiveYouthParentDashboardPage() {
       .adaptive-table th, .adaptive-table td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px; vertical-align: top; }
       .adaptive-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
       .activity-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+      .learning-summary { display: grid; gap: 12px; }
+      .learning-summary h3 { margin: 0; }
       .snapshot-card {
         border: 1px solid var(--line);
         border-radius: 14px;
@@ -1534,6 +1543,9 @@ function renderLiveYouthParentDashboardPage() {
         display: grid;
         gap: 8px;
       }
+      .snapshot-card p { line-height: 1.55; margin: 4px 0; }
+      .snapshot-card .parent-next-step { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 12px; }
+      .developer-diagnostics { display: none; }
       .meter {
         height: 8px;
         border-radius: 999px;
@@ -1627,7 +1639,7 @@ function renderLiveYouthParentDashboardPage() {
           <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="snapshotCards">Forward 10s</button>
         </div>
         <p id="snapshotVoiceStatus" class="tiny muted">AI voice status checking…</p>
-        <p id="dashboardVoiceDiagnostics" class="tiny muted">voice_mode: pending · provider_status: unknown · fallback_reason: none · audio_source: unknown</p>
+        <p id="dashboardVoiceDiagnostics" class="developer-diagnostics" aria-hidden="true"></p>
         <div id="snapshotCards" class="grid cards"></div>
       </section>
 
@@ -1938,38 +1950,43 @@ function renderLiveYouthParentDashboardPage() {
           return map;
         }
 
+        let activeGeniusIndex = 0;
+
+        function selectedGeniusCode() {
+          return categoryOrder[activeGeniusIndex] || categoryOrder[0];
+        }
+
         function renderCategoryStrip(cardsMap) {
           const host = document.getElementById("categoryStrip");
-          host.innerHTML = categoryOrder.map((code) => {
-            const meta = getMeta(code);
-            const score = asPercent(cardsMap[code] && cardsMap[code].current_score);
-            return [
-              '<article class="category-pill">',
-                '<div class="pill-head">',
-                  '<div>',
-                    '<h3>' + esc(meta.icon + ' ' + meta.parentLabel) + '</h3>',
-                    '<p class="tech-tag">' + esc(meta.technicalLabel) + '</p>',
-                  '</div>',
-                  '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button>',
-                '</div>',
-                '<div class="chip">Score: ' + score + '%</div>',
-              '</article>'
-            ].join('');
-          }).join('');
+          const code = selectedGeniusCode();
+          const meta = getMeta(code);
+          const card = cardsMap[code] || {};
+          const score = asPercent(card.current_score);
+          const tone = statusTone(score);
+          host.innerHTML = [
+            '<article class="genius-focus">',
+              '<div class="pill-head"><div><p class="tiny">Genius area ' + String(activeGeniusIndex + 1) + ' of ' + String(categoryOrder.length) + '</p><h3>' + esc(meta.icon + ' ' + meta.parentLabel) + '</h3></div>',
+              '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button></div>',
+              '<p class="score"><span class="status-badge ' + tone.klass + '">' + esc(tone.label) + '</span> ' + score + '%</p>',
+              '<div class="meter" aria-label="' + esc(meta.parentLabel) + ' score meter"><span style="width:' + score + '%"></span></div>',
+              '<p class="muted">' + esc(meta.helpText) + '</p>',
+              '<div class="genius-navigation"><button class="btn btn-ghost" type="button" data-genius-nav="previous">← Previous</button><button class="btn btn-primary" type="button" data-genius-nav="next">Next area →</button></div>',
+            '</article>'
+          ].join('');
         }
 
         function renderSnapshotCards(cardsMap) {
           const host = document.getElementById("snapshotCards");
-          host.innerHTML = categoryOrder.map((code) => {
-            const meta = getMeta(code);
-            const card = cardsMap[code] || {};
+          const code = selectedGeniusCode();
+          const meta = getMeta(code);
+          const card = cardsMap[code] || {};
             const score = asPercent(card.current_score);
             const tone = statusTone(score);
             const oneLine = card.what_this_means || "More observations will make this snapshot more specific.";
             const whatItLooksLike = card.behavior_look_fors || "Look for this across home, schoolwork, and transitions.";
             const whyItMatters = card.why_it_matters || "This pattern can affect confidence, consistency, and learning momentum.";
             const whatHelpsNext = card.progress_look_fors || card.emotional_context || "Keep routines predictable and practice in short repeatable blocks.";
-            return [
+          host.innerHTML = [
               '<article class="snapshot-card" data-snapshot-card="' + esc(code) + '">',
                 '<div class="pill-head">',
                   '<div>',
@@ -1978,23 +1995,14 @@ function renderLiveYouthParentDashboardPage() {
                   '</div>',
                   '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button>',
                 '</div>',
-                '<div class="voice-controls">'
-                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-card="' + esc(code) + '">Read this card</button>'
-                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="card:' + esc(code) + '">Play</button>'
-                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="card:' + esc(code) + '">Pause</button>'
-                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="card:' + esc(code) + '">Back 10s</button>'
-                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="card:' + esc(code) + '">Forward 10s</button>'
-                  + '</div>',
+                '<div class="voice-controls"><button class="btn btn-ghost voice-btn" type="button" data-voice-card="' + esc(code) + '">Listen to this insight</button></div>',
                 '<div><span class="status-badge ' + tone.klass + '">' + esc(tone.label) + '</span> <span class="tiny">Score: ' + score + '%</span></div>',
                 '<div class="meter" aria-label="' + esc(meta.parentLabel) + ' score meter"><span style="width:' + score + '%"></span></div>',
                 '<p><strong>What your child currently shows:</strong> ' + esc(oneLine) + '</p>',
-                '<p><strong>What this means:</strong> ' + esc(card.what_this_means || oneLine) + '</p>',
-                '<p><strong>What it looks like:</strong> ' + esc(whatItLooksLike) + '</p>',
-                '<p><strong>Why it matters:</strong> ' + esc(whyItMatters) + '</p>',
-                '<p><strong>What helps next:</strong> ' + esc(whatHelpsNext) + '</p>',
+                '<p><strong>What you may notice:</strong> ' + esc(whatItLooksLike) + '</p>',
+                '<div class="parent-next-step"><p><strong>What helps next:</strong> ' + esc(whatHelpsNext) + '</p><p class="tiny"><strong>Why this matters:</strong> ' + esc(whyItMatters) + '</p></div>',
               '</article>'
             ].join('');
-          }).join('');
         }
 
         function renderStrengths(data) {
@@ -2069,6 +2077,20 @@ function renderLiveYouthParentDashboardPage() {
           Array.from(document.querySelectorAll('[data-help-code]')).forEach((button) => {
             button.addEventListener('click', function () {
               openHelp(button.getAttribute('data-help-code'));
+            });
+          });
+        }
+        function bindGeniusNavigation(cardsMap) {
+          Array.from(document.querySelectorAll('[data-genius-nav]')).forEach((button) => {
+            button.addEventListener('click', function () {
+              const direction = button.getAttribute('data-genius-nav');
+              activeGeniusIndex = direction === 'previous'
+                ? (activeGeniusIndex + categoryOrder.length - 1) % categoryOrder.length
+                : (activeGeniusIndex + 1) % categoryOrder.length;
+              renderCategoryStrip(cardsMap);
+              renderSnapshotCards(cardsMap);
+              bindHelpButtons();
+              bindGeniusNavigation(cardsMap);
             });
           });
         }
@@ -2574,6 +2596,7 @@ function renderLiveYouthParentDashboardPage() {
           renderWeeklySupport(data);
           renderAssessmentHistory(data);
           bindHelpButtons();
+          bindGeniusNavigation(cardsMap);
           return true;
         }
 
@@ -2598,6 +2621,21 @@ function renderLiveYouthParentDashboardPage() {
           return status.charAt(0).toUpperCase() + status.slice(1);
         }
 
+        function parentFriendlyLearningArea(value) {
+          const code = String(value || "").toUpperCase();
+          if (/^G\dM_/.test(code)) return "Math learning";
+          if (/^G\dE_/.test(code)) return "English learning";
+          return "Learning activity";
+        }
+
+        function parentFriendlyActivity(eventType) {
+          const type = String(eventType || "").toLowerCase();
+          if (type.includes("completed")) return "Completed a learning activity";
+          if (type.includes("started")) return "Started a learning activity";
+          if (type.includes("progress")) return "Updated learning progress";
+          return "Learning activity recorded";
+        }
+
         function renderAdaptiveSummary(summary, scopedChild) {
           const host = document.getElementById("adaptiveLearningSummary");
           const status = document.getElementById("adaptiveLearningStatus");
@@ -2613,31 +2651,24 @@ function renderLiveYouthParentDashboardPage() {
             return;
           }
           const metric = (label, value) => '<div class="metric-card"><span class="tiny">' + esc(label) + '</span><strong>' + esc(value) + '</strong></div>';
-          const skillRows = (summary.skill_worlds || []).map(function (item) {
-            return '<tr><td>' + esc(item.skill_id || 'Skill World') + '</td><td><span class="status-badge">' + esc(formatAdaptiveStatus(item.status)) + '</span></td><td>' + esc(item.current_lesson_or_step || 'Not started') + '</td><td>' + esc(item.progress_percent || 0) + '%</td><td>' + esc(item.score_percent || 0) + '%</td><td>' + esc(item.attempts || 0) + '</td><td>' + esc(formatDate(item.last_activity_at)) + '</td></tr>';
+          const activityRows = (summary.recent_activity || []).slice(0, 3).map(function (item) {
+            return '<li><strong>' + esc(parentFriendlyActivity(item.event_type)) + '</strong><span class="tiny"> · ' + esc(formatDate(item.occurred_at)) + '</span></li>';
           }).join('');
-          const activityRows = (summary.recent_activity || []).map(function (item) {
-            return '<li><strong>' + esc(String(item.event_type || '').replace(/_/g, ' ')) + ':</strong> ' + esc(item.label || 'Adaptive activity') + ' <span class="tiny">' + esc(formatDate(item.occurred_at)) + ' · profile ' + esc(item.child_id || summary.child_id || '') + '</span></li>';
-          }).join('');
+          const completed = Number(summary.lessons_completed || 0);
+          const total = Number(summary.lessons_total || 0);
+          const learningProgress = Number(summary.progress_percent || 0);
           host.innerHTML = [
-            '<p><strong>Active learner:</strong> ' + esc(childName) + ' <span class="tiny">Profile ID ' + esc(summary.child_id || '') + '</span></p>',
+            '<div class="learning-summary">',
+            '<p><strong>' + esc(childName) + '’s learning progress</strong></p>',
             '<div class="metric-grid">',
-            metric('Assessments completed', summary.assessments_completed || 0),
-            metric('Latest assessment score', summary.latest_assessment_score == null ? 'Not available' : String(summary.latest_assessment_score) + '%'),
-            metric('Latest assessment date', formatDate(summary.latest_assessment_completed_at)),
-            metric('Lessons completed', String(summary.lessons_completed || 0) + '/' + String(summary.lessons_total || 0)),
-            metric('Checkpoints completed', summary.checkpoints_completed || 0),
-            metric('Skill Worlds completed', String(summary.skill_worlds_completed || 0) + '/' + String(summary.skill_worlds_total || 0)),
-            metric('Current Skill World', summary.current_skill_world || 'Not started'),
-            metric('Current lesson / step', summary.current_lesson_or_step || 'Not started'),
-            metric('Progress', String(summary.progress_percent || 0) + '%'),
-            metric('Score', summary.score_percent == null ? 'Not available' : String(summary.score_percent) + '%'),
-            metric('Attempts', summary.attempts || 0),
-            metric('Last activity', formatDate(summary.last_activity_at)),
+            metric('Lessons completed', total ? String(completed) + ' of ' + String(total) : String(completed)),
+            metric('Current progress', String(learningProgress) + '%'),
+            metric('Current focus', parentFriendlyLearningArea(summary.current_skill_world)),
+            metric('Last learning day', formatDate(summary.last_activity_at)),
             '</div>',
-            '<p><strong>Next recommended learning activity:</strong> ' + esc(summary.next_recommended_learning_activity || 'Continue the next recommended Adaptive Learning activity.') + '</p>',
-            '<div class="adaptive-table-wrap"><table class="adaptive-table"><thead><tr><th>Skill World</th><th>Status</th><th>Current lesson / step</th><th>Progress</th><th>Score</th><th>Attempts</th><th>Last activity</th></tr></thead><tbody>' + (skillRows || '<tr><td colspan="7">No Skill World activity saved yet.</td></tr>') + '</tbody></table></div>',
-            '<h3>Recent adaptive activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No recent adaptive activity saved yet.</li>') + '</ul>'
+            '<p><strong>What to do next:</strong> Open the learning hub and continue the next recommended ' + esc(parentFriendlyLearningArea(summary.next_recommended_learning_activity || summary.current_skill_world)).toLowerCase() + ' activity.</p>',
+            '<h3>Recent learning activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No saved learning activity yet.</li>') + '</ul>',
+            '</div>'
           ].join('');
         }
 
