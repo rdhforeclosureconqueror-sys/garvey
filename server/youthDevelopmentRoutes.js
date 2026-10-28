@@ -1455,10 +1455,8 @@ function renderLiveYouthParentDashboardPage() {
         font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
         color: var(--text);
         background:
-          linear-gradient(115deg, rgba(7, 7, 6, 0.55), rgba(15, 15, 10, 0.38) 48%, rgba(5, 17, 11, 0.62)),
-          url('/adinkra-library/arp1.jpg') center top / cover fixed,
-          radial-gradient(circle at 10% -10%, rgba(214, 40, 40, 0.28), transparent 38%),
-          radial-gradient(circle at 90% 0%, rgba(20, 150, 75, 0.24), transparent 42%),
+          radial-gradient(circle at 5% 0%, rgba(214, 40, 40, 0.18), transparent 32%),
+          radial-gradient(circle at 95% 12%, rgba(20, 150, 75, 0.18), transparent 35%),
           var(--bg);
         padding: 16px;
       }
@@ -1472,6 +1470,20 @@ function renderLiveYouthParentDashboardPage() {
         padding: 18px;
       }
       .hero-title { margin: 0 0 8px; font-size: clamp(1.55rem, 4vw, 2.25rem); letter-spacing: -0.04em; }
+      .hero-vision {
+        min-height: 420px;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+        border: 1px solid rgba(241, 196, 83, 0.78);
+        border-radius: 24px;
+        background:
+          linear-gradient(0deg, rgba(5, 6, 4, 0.96) 0%, rgba(5, 6, 4, 0.48) 45%, rgba(5, 6, 4, 0.05) 100%),
+          url('/adinkra-library/arp1.jpg') center 28% / cover no-repeat;
+        box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
+      }
+      .hero-vision-content { width: 100%; padding: 24px; background: linear-gradient(90deg, rgba(8, 8, 7, 0.82), rgba(8, 8, 7, 0.20)); }
+      .hero-kicker { margin: 0 0 8px; color: var(--gold); font-size: .78rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
       .muted { color: var(--muted); }
       .tiny { font-size: 12px; color: var(--muted); }
       .chip {
@@ -1596,6 +1608,8 @@ function renderLiveYouthParentDashboardPage() {
       @media (max-width: 640px) {
         body { padding: 12px; }
         .panel { padding: 16px; }
+        .hero-vision { min-height: 330px; border-radius: 20px; background-position: center top; }
+        .hero-vision-content { padding: 18px; }
         .cards { grid-template-columns: 1fr; }
         .category-strip { grid-template-columns: 1fr 1fr; }
       }
@@ -1603,11 +1617,14 @@ function renderLiveYouthParentDashboardPage() {
   </head>
   <body>
     <main>
-      <section class="panel">
+      <section class="hero-vision">
+        <div class="hero-vision-content">
+        <p class="hero-kicker">Garvey Learning · Genius Path</p>
         <h1 id="heroTitle" class="hero-title">🌍 Youth Development Parent Dashboard</h1>
         <p id="heroSummary">Complete a youth assessment to see what your child currently shows and what helps next.</p>
         <p class="tiny">Designed for ages 6–11. Developmental snapshot only: this dashboard is provisional and should be reviewed as patterns over time.</p>
         <p class="tiny" id="completionDateLabel">Previous completion date: Not available yet.</p>
+        </div>
       </section>
 
       <section class="panel" id="childSwitcherPanel" hidden>
