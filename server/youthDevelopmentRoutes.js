@@ -1437,16 +1437,17 @@ function renderLiveYouthParentDashboardPage() {
     <title>Youth Development Parent Dashboard</title>
     <style>
       :root {
-        --bg: #020617;
-        --panel: linear-gradient(145deg, rgba(5, 12, 30, 0.92), rgba(12, 29, 54, 0.86));
-        --line: rgba(186, 230, 253, 0.28);
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-        --accent: #22d3ee;
-        --accent-2: #6366f1;
-        --good: #34d399;
-        --watch: #f59e0b;
-        --grow: #fb7185;
+        --bg: #080707;
+        --panel: linear-gradient(145deg, rgba(8, 8, 7, 0.64), rgba(9, 34, 23, 0.55));
+        --line: rgba(241, 196, 83, 0.62);
+        --text: #fff8e8;
+        --muted: #eadbc0;
+        --accent: #e03131;
+        --accent-2: #14964b;
+        --gold: #f1c453;
+        --good: #64d58a;
+        --watch: #f1c453;
+        --grow: #ff7a67;
       }
       * { box-sizing: border-box; }
       body {
@@ -1454,10 +1455,10 @@ function renderLiveYouthParentDashboardPage() {
         font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
         color: var(--text);
         background:
-          linear-gradient(115deg, rgba(1, 6, 20, 0.92), rgba(2, 10, 28, 0.82) 48%, rgba(2, 6, 23, 0.94)),
+          linear-gradient(115deg, rgba(7, 7, 6, 0.55), rgba(15, 15, 10, 0.38) 48%, rgba(5, 17, 11, 0.62)),
           url('/adinkra-library/arp1.jpg') center top / cover fixed,
-          radial-gradient(circle at 10% -10%, rgba(34, 211, 238, 0.15), transparent 38%),
-          radial-gradient(circle at 90% 0%, rgba(99, 102, 241, 0.2), transparent 42%),
+          radial-gradient(circle at 10% -10%, rgba(214, 40, 40, 0.28), transparent 38%),
+          radial-gradient(circle at 90% 0%, rgba(20, 150, 75, 0.24), transparent 42%),
           var(--bg);
         padding: 16px;
       }
@@ -1466,8 +1467,8 @@ function renderLiveYouthParentDashboardPage() {
         background: var(--panel);
         border: 1px solid var(--line);
         border-radius: 20px;
-        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
-        backdrop-filter: blur(14px);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.32);
+        backdrop-filter: blur(4px);
         padding: 18px;
       }
       .hero-title { margin: 0 0 8px; font-size: clamp(1.55rem, 4vw, 2.25rem); letter-spacing: -0.04em; }
@@ -1485,15 +1486,15 @@ function renderLiveYouthParentDashboardPage() {
       }
       .grid { display: grid; gap: 10px; }
       .category-strip { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
-      .genius-focus { background: rgba(2, 6, 23, 0.6); border: 1px solid rgba(125, 211, 252, 0.42); border-radius: 16px; padding: 16px; }
+      .genius-focus { background: rgba(5, 8, 5, 0.46); border: 1px solid rgba(241, 196, 83, 0.72); border-radius: 16px; padding: 16px; }
       .genius-focus h3 { margin: 0; font-size: 1.25rem; }
-      .genius-focus .score { margin: 8px 0; font-size: 1.1rem; color: #dbeafe; }
+      .genius-focus .score { margin: 8px 0; font-size: 1.1rem; color: #fff2c2; }
       .genius-navigation { display: flex; justify-content: space-between; gap: 8px; margin-top: 14px; }
       .genius-navigation button { cursor: pointer; }
       .category-pill {
         border: 1px solid var(--line);
         border-radius: 12px;
-        background: rgba(15, 23, 42, 0.65);
+        background: rgba(5, 8, 5, 0.44);
         padding: 10px;
       }
       .category-pill h3 { margin: 0 0 6px; font-size: 14px; line-height: 1.25; }
@@ -1502,17 +1503,17 @@ function renderLiveYouthParentDashboardPage() {
         width: 24px;
         height: 24px;
         border-radius: 999px;
-        border: 1px solid rgba(125, 211, 252, 0.5);
-        background: rgba(14, 116, 144, 0.25);
-        color: #cffafe;
+        border: 1px solid rgba(241, 196, 83, 0.7);
+        background: rgba(20, 150, 75, 0.48);
+        color: #fff8e8;
         font-weight: 700;
         cursor: pointer;
       }
       .pill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
       .cards { grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); }
       .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
-      .metric-card { border: 1px solid var(--line); border-radius: 12px; background: rgba(2, 6, 23, 0.52); padding: 10px; }
-      .metric-card strong { display: block; font-size: 20px; color: #f8fafc; }
+      .metric-card { border: 1px solid var(--line); border-radius: 12px; background: rgba(5, 8, 5, 0.44); padding: 10px; }
+      .metric-card strong { display: block; font-size: 20px; color: #fff8e8; }
       .child-switcher { display: grid; gap: 8px; }
       .child-switcher-button {
         appearance: none;
@@ -1529,7 +1530,7 @@ function renderLiveYouthParentDashboardPage() {
       .child-switcher-button[aria-pressed="true"] { background: rgba(8, 145, 178, 0.28); border-color: var(--accent); }
       .child-switcher-button strong, .child-switcher-button span { display: block; }
       .child-switcher-button span { color: var(--muted); font-size: 12px; margin-top: 3px; }
-      .child-select { width: 100%; border: 1px solid rgba(125,211,252,.45); border-radius: 14px; background: rgba(3,12,29,.78); color: var(--text); padding: 12px; font: inherit; }
+      .child-select { width: 100%; border: 1px solid var(--gold); border-radius: 14px; background: rgba(5,8,5,.54); color: var(--text); padding: 12px; font: inherit; }
       .adaptive-table-wrap { overflow-x: auto; }
       .adaptive-table { width: 100%; border-collapse: collapse; min-width: 680px; }
       .adaptive-table th, .adaptive-table td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px; vertical-align: top; }
@@ -1540,7 +1541,7 @@ function renderLiveYouthParentDashboardPage() {
       .snapshot-card {
         border: 1px solid var(--line);
         border-radius: 14px;
-        background: rgba(2, 6, 23, 0.56);
+        background: rgba(5, 8, 5, 0.42);
         padding: 16px;
         display: grid;
         gap: 8px;
@@ -1551,13 +1552,13 @@ function renderLiveYouthParentDashboardPage() {
       .meter {
         height: 8px;
         border-radius: 999px;
-        background: rgba(148, 163, 184, 0.25);
+        background: rgba(255, 248, 232, 0.22);
         overflow: hidden;
       }
       .meter > span {
         display: block;
         height: 100%;
-        background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399);
+        background: linear-gradient(90deg, #d62828, #f1c453, #14964b);
       }
       .status-badge {
         display: inline-block;
@@ -1566,9 +1567,9 @@ function renderLiveYouthParentDashboardPage() {
         padding: 3px 8px;
         font-size: 11px;
       }
-      .status-strong { border-color: rgba(52, 211, 153, 0.6); color: #a7f3d0; }
-      .status-watch { border-color: rgba(245, 158, 11, 0.7); color: #fde68a; }
-      .status-grow { border-color: rgba(251, 113, 133, 0.7); color: #fecdd3; }
+      .status-strong { border-color: rgba(20, 150, 75, 0.9); color: #b9f5c9; }
+      .status-watch { border-color: rgba(241, 196, 83, 0.9); color: #fff0ab; }
+      .status-grow { border-color: rgba(214, 40, 40, 0.9); color: #ffd0c9; }
       .list { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
       .actions { display: flex; flex-wrap: wrap; gap: 8px; }
       .btn {
@@ -1578,20 +1579,20 @@ function renderLiveYouthParentDashboardPage() {
         padding: 8px 12px;
         font-size: 14px;
       }
-      .btn-primary { background: #0891b2; color: #ecfeff; border-color: rgba(6, 182, 212, 0.55); }
-      .btn-secondary { background: rgba(30, 64, 175, 0.35); color: #dbeafe; border-color: rgba(96, 165, 250, 0.5); }
-      .btn-ghost { background: transparent; color: #bae6fd; border-color: rgba(56, 189, 248, 0.45); }
+      .btn-primary { background: #c92424; color: #fff8e8; border-color: #f1c453; }
+      .btn-secondary { background: rgba(20, 150, 75, 0.72); color: #fff8e8; border-color: rgba(241, 196, 83, 0.72); }
+      .btn-ghost { background: rgba(5, 8, 5, 0.22); color: #fff0ab; border-color: rgba(241, 196, 83, 0.7); }
       .voice-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0 10px; }
       .voice-controls [data-voice-action] { display: none; }
       .voice-btn { font-size: 12px; padding: 6px 10px; }
       dialog {
         border: 1px solid var(--line);
         border-radius: 14px;
-        background: #0f172a;
+        background: #10120c;
         color: var(--text);
         max-width: 480px;
       }
-      dialog::backdrop { background: rgba(2, 6, 23, 0.7); }
+      dialog::backdrop { background: rgba(8, 7, 7, 0.72); }
       @media (max-width: 640px) {
         body { padding: 12px; }
         .panel { padding: 16px; }
@@ -1603,20 +1604,20 @@ function renderLiveYouthParentDashboardPage() {
   <body>
     <main>
       <section class="panel">
-        <h1 id="heroTitle" class="hero-title">Youth Development Parent Dashboard</h1>
+        <h1 id="heroTitle" class="hero-title">🌍 Youth Development Parent Dashboard</h1>
         <p id="heroSummary">Complete a youth assessment to see what your child currently shows and what helps next.</p>
         <p class="tiny">Designed for ages 6–11. Developmental snapshot only: this dashboard is provisional and should be reviewed as patterns over time.</p>
         <p class="tiny" id="completionDateLabel">Previous completion date: Not available yet.</p>
       </section>
 
       <section class="panel" id="childSwitcherPanel" hidden>
-        <h2 style="margin-top:0;">Choose a child</h2>
+        <h2 style="margin-top:0;">👧🏾 Choose a child</h2>
         <p class="muted">Each child has a separate Genius snapshot, parent guidance, and adaptive-learning history.</p>
         <div id="childSwitcher" class="child-switcher" aria-label="Choose a child dashboard"></div>
       </section>
 
       <section class="panel" id="adaptiveLearningPanel">
-        <h2>Adaptive Learning</h2>
+        <h2>📚 Adaptive Learning</h2>
         <p id="adaptiveLearningStatus">Grade 1–6 school-skill lessons, practice, and growth snapshots.</p>
         <div class="actions">
           <a class="btn btn-secondary" id="openAdaptiveV2HubBtn" href="/youth-development/adaptive-learning">Open Adaptive V2 Lesson Hub</a>
@@ -1627,13 +1628,13 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
-        <h2>What we look at</h2>
+        <h2>✨ What we look at</h2>
         <p class="muted">Seven developmental categories are shown below. Tap <strong>?</strong> for plain-language definitions.</p>
         <div id="categoryStrip" class="grid category-strip"></div>
       </section>
 
       <section class="panel">
-        <h2>Snapshot cards</h2>
+        <h2>🔎 Current Genius Insight</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="snapshotCards" data-voice-label="Snapshot cards">Read snapshot summary</button>
           <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="snapshotCards">Play</button>
@@ -1647,7 +1648,7 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
-        <h2>Top strengths</h2>
+        <h2>🌟 Top strengths</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="topStrengths" data-voice-label="Top strengths">Read this section</button>
           <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="topStrengths">Play</button>
@@ -1660,7 +1661,7 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
-        <h2>Areas to strengthen</h2>
+        <h2>🌱 Areas to strengthen</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="areasToStrengthen" data-voice-label="Areas to strengthen">Read this section</button>
           <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="areasToStrengthen">Play</button>
@@ -1673,7 +1674,7 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
-        <h2>How to support this week</h2>
+        <h2>🤝 How to support this week</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="weeklySupport" data-voice-label="How to support this week">Read this section</button>
           <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="weeklySupport">Play</button>
@@ -1686,12 +1687,12 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
-        <h2>Assessment history</h2>
+        <h2>🗓️ Assessment history</h2>
         <ul id="assessmentHistory" class="list"><li class="muted">Complete an assessment to build history continuity.</li></ul>
       </section>
 
       <section class="panel">
-        <h2>Development program</h2>
+        <h2>🌍 Development program</h2>
         <p id="programStatusSummary" class="muted">Complete an assessment to unlock your child-specific development program.</p>
         <ul id="programStatusList" class="list"><li class="muted">No program status yet.</li></ul>
         <div class="actions">
@@ -1700,7 +1701,7 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
-        <h2>Actions</h2>
+        <h2>🧭 Actions</h2>
         <div class="actions">
           <a class="btn btn-primary" id="viewSavedDashboardBtn" href="/youth-development/parent-dashboard">View Saved Dashboard</a>
           <a class="btn btn-secondary" id="retakeAssessmentBtn" href="/youth-development/intake">Retake Assessment</a>
@@ -1931,6 +1932,15 @@ function renderLiveYouthParentDashboardPage() {
           return String(value == null ? "" : value).replace(/_/g, " ").replace(/\s{2,}/g, " ").trim();
         }
 
+        function cleanCopy(value) {
+          const copy = plain(value)
+            .replace(/^(What to keep doing|What to do next|What to support next|Progress can look like):\s*/i, "")
+            .replace(/^([A-Z][A-Z ]{2,})(?=\s+(is|are|was|were)\b)/, function (match) {
+              return match.toLowerCase();
+            });
+          return copy ? copy.charAt(0).toUpperCase() + copy.slice(1) : copy;
+        }
+
         function statusTone(score) {
           if (score >= 70) return { klass: "status-strong", label: "Current strength" };
           if (score <= 40) return { klass: "status-grow", label: "Growth area" };
@@ -1991,10 +2001,10 @@ function renderLiveYouthParentDashboardPage() {
           const card = cardsMap[code] || {};
             const score = asPercent(card.current_score);
             const tone = statusTone(score);
-            const oneLine = plain(card.what_this_means || "More observations will make this snapshot more specific.");
-            const whatItLooksLike = plain(card.behavior_look_fors || "Look for this across home, schoolwork, and transitions.");
-            const whyItMatters = plain(card.why_it_matters || "This pattern can affect confidence, consistency, and learning momentum.");
-            const whatHelpsNext = plain(card.progress_look_fors || card.emotional_context || "Keep routines predictable and practice in short repeatable blocks.");
+            const oneLine = cleanCopy(card.what_this_means || "More observations will make this snapshot more specific.");
+            const whatItLooksLike = cleanCopy(card.behavior_look_fors || "Look for this across home, schoolwork, and transitions.");
+            const whyItMatters = cleanCopy(card.why_it_matters || "This pattern can affect confidence, consistency, and learning momentum.");
+            const whatHelpsNext = cleanCopy(card.progress_look_fors || card.emotional_context || "Keep routines predictable and practice in short repeatable blocks.");
           host.innerHTML = [
               '<article class="snapshot-card" data-snapshot-card="' + esc(code) + '">',
                 '<div class="pill-head">',
@@ -2021,7 +2031,7 @@ function renderLiveYouthParentDashboardPage() {
           host.innerHTML = items.length
             ? items.map((item) => {
                 const meta = getMeta(item.trait_code);
-                return '<li><strong>' + esc(meta.parentLabel) + ':</strong> ' + esc(item.keep_doing_copy || "Keep giving practice opportunities in this area.") + ' <span class="tiny">What to keep doing: ' + esc(item.actionable_next_step || "Keep a predictable routine and gently raise challenge.") + '</span></li>';
+                return '<li><strong>' + esc(meta.parentLabel) + ':</strong> ' + esc(cleanCopy(item.keep_doing_copy || "Keep giving practice opportunities in this area.")) + ' <span class="tiny">Keep building: ' + esc(cleanCopy(item.actionable_next_step || "Keep a predictable routine and gently raise challenge.")) + '</span></li>';
               }).join("")
             : '<li class="muted">No strengths are available yet.</li>';
         }
@@ -2033,7 +2043,7 @@ function renderLiveYouthParentDashboardPage() {
           host.innerHTML = items.length
             ? items.map((item) => {
                 const meta = getMeta(item.trait_code);
-                return '<li><strong>' + esc(meta.parentLabel) + ':</strong> ' + esc(item.support_next_copy || "Choose one small skill practice this week.") + '<br><span class="tiny"><strong>What helps next:</strong> ' + esc(item.actionable_next_step || "Repeat one scaffolded task 2-3 times this week.") + '</span><br><span class="tiny"><strong>Progress can look like:</strong> ' + esc(item.progress_signal || "Fewer prompts and more independent attempts.") + '</span></li>';
+                return '<li><strong>' + esc(meta.parentLabel) + ':</strong> ' + esc(cleanCopy(item.support_next_copy || "Choose one small skill practice this week.")) + '<br><span class="tiny"><strong>Try next:</strong> ' + esc(cleanCopy(item.actionable_next_step || "Repeat one scaffolded task 2-3 times this week.")) + '</span><br><span class="tiny"><strong>Look for:</strong> ' + esc(cleanCopy(item.progress_signal || "Fewer prompts and more independent attempts.")) + '</span></li>';
               }).join("")
             : '<li class="muted">No areas to strengthen are currently flagged.</li>';
         }
