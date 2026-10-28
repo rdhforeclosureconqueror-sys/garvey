@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#080f23" />
+    <title>Garvey Learning | Open saved Genius results</title>
+    <style>
+      :root {
+        font-family: Inter, system-ui, sans-serif;
+        color: #f4f7ff;
+        background: #080f23;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(ellipse at 85% 8%, #173c67 0, transparent 38%),
+          radial-gradient(ellipse at 0 72%, #24164c 0, transparent 37%), #080f23;
+      }
+      main {
+        width: min(720px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 8vh 0;
+      }
+      .brand {
+        color: #f4f7ff;
+        font-weight: 900;
+        letter-spacing: 0.11em;
+        text-decoration: none;
+      }
+      .brand span,
+      .eyebrow {
+        color: #75eee0;
+      }
+      .card {
+        margin-top: 36px;
+        border: 1px solid #426489;
+        border-radius: 28px;
+        padding: clamp(24px, 6vw, 48px);
+        background: linear-gradient(145deg, #14294b, #0d152b);
+        box-shadow: 0 30px 95px #0009;
+      }
+      .eyebrow {
+        font-size: 0.78rem;
+        letter-spacing: 0.15em;
+        font-weight: 800;
+      }
+      h1 {
+        font-size: clamp(2.2rem, 7vw, 4rem);
+        line-height: 1.06;
+        letter-spacing: -0.05em;
+        margin: 0.7rem 0 1rem;
+      }
+      p {
+        color: #c0d0e5;
+        line-height: 1.7;
+      }
+      form {
+        display: grid;
+        gap: 16px;
+        margin-top: 28px;
+      }
+      label {
+        display: grid;
+        gap: 7px;
+        color: #e7f5ff;
+        font-weight: 700;
+      }
+      input {
+        width: 100%;
+        padding: 0.95rem 1rem;
+        border: 1px solid #527296;
+        border-radius: 11px;
+        background: #0a1730;
+        color: white;
+        font: inherit;
+      }
+      input:focus {
+        outline: 3px solid #7aebdb;
+        outline-offset: 2px;
+      }
+      button,
+      .secondary {
+        border: 0;
+        border-radius: 13px;
+        padding: 1rem 1.15rem;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+      }
+      button {
+        background: linear-gradient(110deg, #74efdf, #81d9ff);
+        color: #092339;
+      }
+      .secondary {
+        display: block;
+        border: 1px solid #527296;
+        background: #1c2c4a;
+        color: white;
+      }
+      .note {
+        font-size: 0.9rem;
+        color: #a9bdd8;
+      }
+      #status {
+        min-height: 1.5rem;
+        color: #ffbfca;
+      }
+      .actions {
+        display: grid;
+        gap: 10px;
+        margin-top: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="brand" href="/tutoring.html">GARVEY <span>LEARNING</span></a>
+      <section class="card">
+        <span class="eyebrow">RETURNING PARENT ACCESS</span>
+        <h1>Open your child’s Genius results.</h1>
+        <p>
+          Use the same parent email and tenant slug from the assessment. You
+          will then choose the child whose Genius snapshot, guidance, and
+          adaptive-learning history you want to view.
+        </p>
+        <form id="results-form">
+          <label
+            >Tenant slug<input
+              id="tenant"
+              name="tenant"
+              autocomplete="organization"
+              required
+              placeholder="your-tenant"
+          /></label>
+          <label
+            >Parent email<input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+          /></label>
+          <button type="submit">Open saved results →</button>
+        </form>
+        <p id="status" role="alert" aria-live="polite"></p>
+        <div class="actions">
+          <a class="secondary" href="/youth-development/intake"
+            >I’m new — start the Genius assessment</a
+          >
+          <a class="secondary" href="/tutoring.html"
+            >← Back to Garvey Learning</a
+          >
+        </div>
+        <p class="note">
+          The Genius Map is informational and developmental. It is not a
+          diagnostic or clinical tool.
+        </p>
+      </section>
+    </main>
+    <script>
+      (() => {
+        const form = document.querySelector("#results-form");
+        const status = document.querySelector("#status");
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const tenant = document
+            .querySelector("#tenant")
+            .value.trim()
+            .toLowerCase();
+          const email = document
+            .querySelector("#email")
+            .value.trim()
+            .toLowerCase();
+          if (!tenant || !email) {
+            status.textContent =
+              "Enter the tenant slug and parent email used for the assessment.";
+            return;
+          }
+          const url = new URL(
+            "/youth-development/parent-dashboard",
+            window.location.origin,
+          );
+          url.searchParams.set("tenant", tenant);
+          url.searchParams.set("email", email);
+          window.location.assign(url.pathname + url.search);
+        });
+      })();
+    </script>
+  </body>
+</html>
