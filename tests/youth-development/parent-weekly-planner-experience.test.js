@@ -6,366 +6,43 @@ const { createYouthDevelopmentRouter } = require('../../server/youthDevelopmentR
 
 function withServer(app) {
   const server = http.createServer(app);
-  return new Promise((resolve) => {
-    server.listen(0, () => {
-      const addr = server.address();
-      resolve({ server, baseUrl: `http://127.0.0.1:${addr.port}` });
-    });
-  });
+  return new Promise((resolve) => server.listen(0, () => resolve({ server, baseUrl: `http://127.0.0.1:${server.address().port}` })));
 }
 
-test('program page renders parent planner, calendar, and lesson-plan surfaces', async () => {
+test('program route is a parent-friendly Genius Growth Plan, not a scheduler', async () => {
   const app = express();
   app.use(express.json());
   app.use(createYouthDevelopmentRouter({}));
   const { server, baseUrl } = await withServer(app);
   try {
     const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
-    assert.match(html, /Today’s Session/);
-    assert.match(html, /Next Scheduled Session/);
-    assert.match(html, /This Week at a Glance/);
-    assert.match(html, /Parent Progress \+ Adherence Dashboard/);
-    assert.match(html, /Multi-week trends\/history/);
-    assert.match(html, /Current week completion/);
-    assert.match(html, /Last week completion/);
-    assert.match(html, /Week-over-week delta/);
-    assert.match(html, /Week-over-week view loading/);
-    assert.match(html, /Loading last 4 weeks completion bars/);
-    assert.match(html, /Consistency trend loading/);
-    assert.match(html, /Phase progress marker loading/);
-    assert.match(html, /Loading weekly momentum summary/);
-    assert.match(html, /Adherence progress \(planned vs completed sessions\)/);
-    assert.match(html, /Next-best-action/);
-    assert.match(html, /Determining next best action/);
-    assert.match(html, /Run Next Best Action/);
-    assert.match(html, /Weekly Planner Calendar \+ adherence/);
-    assert.match(html, /id="commitPreferredDaysGroup"/);
-    assert.match(html, /data-day-checkbox="monday"/);
-    assert.match(html, /data-day-checkbox="sunday"/);
-    assert.match(html, /id="commitTimeError"/);
-    assert.match(html, /id="commitPreferredDaysError"/);
-    assert.match(html, /id="commitTimeHourInput"/);
-    assert.match(html, /id="commitTimeMinuteInput"/);
-    assert.match(html, /id="commitTimeMeridiemInput"/);
-    assert.match(html, /id="commitPreferredTimeCanonicalInput"/);
-    assert.match(html, /name="preferred_time"/);
-    assert.match(html, /id="commitTimeBindingDiagnostics"/);
-    assert.match(html, /preferred_days: validation\.preferredDays/);
-    assert.match(html, /Select at least one preferred day before saving\./);
-    assert.match(html, /syncPreferredTimePickerFromValue/);
-    assert.match(html, /updatePreferredTimeDiagnostics/);
-    assert.match(html, /Preferred time diagnostics: displayed/);
-    assert.match(html, /preferredTimeValidation: preferredTime \? \(parse12HourTime\(preferredTime\) \? preferredTime : "invalid"\) : "optional_blank"/);
-    assert.match(html, /preferredTimeSubmitted: requestBody\.preferred_time/);
-    assert.match(html, /commitTimeHourInput\.addEventListener\("input"/);
-    assert.match(html, /commitTimeMinuteInput\.addEventListener\("input"/);
-    assert.match(html, /commitTimeMeridiemInput\.addEventListener\("input"/);
-    assert.match(html, /commitTimeHourInput\.addEventListener\("change"/);
-    assert.match(html, /Preferred time is optional; if provided, use a valid time like 5:30 PM\./);
-    assert.match(html, /syncPreferredTimeState/);
-    assert.match(html, /Unable to save yet\. Check the highlighted fields and retry\./);
-    assert.match(html, /\[planner-commitment-debug\] validateCommitmentFormInputs/);
-    assert.match(html, /preferred_time_ui_raw/);
-    assert.match(html, /preferred_time_submitted/);
-    assert.match(html, /id="readWeeklyGoalsBtn"/);
-    assert.match(html, /id="readProgramSupportBtn"/);
-    assert.match(html, /id="readProgressSummaryBtn"/);
-    assert.match(html, /\/api\/youth-development\/voice\/sections\//);
-    assert.match(html, /id="programVoiceDiagnostics"/);
-    assert.match(html, /voice_mode: pending/);
-    assert.match(html, /updateProgramVoiceDiagnostics/);
-    assert.match(html, /playback_mode: "provider_audio"/);
-    assert.match(html, /playback_mode: "fallback_browser_speech"/);
-    assert.doesNotMatch(html, /HH:MM format/);
-    assert.match(html, /Teacher-Style Lesson Plan/);
-    assert.match(html, /Open Scheduled Session/);
-    assert.match(html, /View Lesson Plan/);
-    assert.match(html, /Resume Session/);
-    assert.match(html, /Return to Weekly Overview/);
+    assert.match(html, /Genius Growth Plan/);
+    assert.match(html, /Strength to build from/);
+    assert.match(html, /Growth focus/);
+    assert.match(html, /Try this at home/);
+    assert.match(html, /Parent reflection/);
+    assert.match(html, /Open adaptive learning/);
+    assert.doesNotMatch(html, /Today’s Session/);
+    assert.doesNotMatch(html, /Weekly Planner Calendar/);
+    assert.doesNotMatch(html, /Preferred time/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
 });
 
-test('program page keeps parent weekly sections in intended visual priority order', async () => {
+test('Growth Plan keeps account and child scope when linking to dashboard and learning', async () => {
   const app = express();
   app.use(express.json());
   app.use(createYouthDevelopmentRouter({}));
   const { server, baseUrl } = await withServer(app);
   try {
-    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
-    const todayIndex = html.indexOf('<section class="panel" id="todaySessionPanel">');
-    const currentWeekIndex = html.indexOf('<section class="panel" id="currentWeekPanel">');
-    const progressIndex = html.indexOf('<section class="panel" id="parentProgressPanel">');
-    const plannerIndex = html.indexOf('<section class="panel" id="weeklyCalendarPanel">');
-    assert.ok(todayIndex > 0);
-    assert.ok(plannerIndex > 0);
-    assert.ok(currentWeekIndex > 0);
-    assert.ok(progressIndex > 0);
-    assert.ok(todayIndex < plannerIndex);
-    assert.ok(plannerIndex < currentWeekIndex);
-    assert.ok(currentWeekIndex < progressIndex);
-  } finally {
-    await new Promise((resolve) => server.close(resolve));
-  }
-});
-
-test('program page renders interaction feedback markers and semantic trend visuals', async () => {
-  const app = express();
-  app.use(express.json());
-  app.use(createYouthDevelopmentRouter({}));
-  const { server, baseUrl } = await withServer(app);
-  try {
-    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
-    assert.match(html, /btn\[aria-busy="true"\]/);
-    assert.match(html, /withButtonBusy/);
-    assert.match(html, /data-selected-session/);
-    assert.match(html, /data-selected-day/);
-    assert.match(html, /trend-bar-track/);
-    assert.match(html, /trend-bar-fill-label/);
-    assert.doesNotMatch(html, /"█"\.repeat/);
-  } finally {
-    await new Promise((resolve) => server.close(resolve));
-  }
-});
-
-test('program page renders motivation chips and step-state classes for readability', async () => {
-  const app = express();
-  app.use(express.json());
-  app.use(createYouthDevelopmentRouter({}));
-  const { server, baseUrl } = await withServer(app);
-  try {
-    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
-    assert.match(html, /id="motivationChips"/);
-    assert.match(html, /motivation-chip/);
-    assert.match(html, /Completed sessions:/);
-    assert.match(html, /Remaining sessions:/);
-    assert.match(html, /step-active/);
-    assert.match(html, /step-complete/);
-  } finally {
-    await new Promise((resolve) => server.close(resolve));
-  }
-});
-
-test('week-content payload includes planner schedule, lesson-plan blocks, and accountability context', async () => {
-  const app = express();
-  app.use(express.json());
-  app.use(createYouthDevelopmentRouter({
-    getProgramBridgeState: async () => ({
-      ok: true,
-      child_id: 'child-1',
-      launch_allowed: true,
-      setup_needed: false,
-      has_enrollment: true,
-      current_week: 4,
-      current_phase_name: 'Foundation',
-      next_recommended_action: 'Continue Week 4',
-      cta: { label: 'Continue Program', href: '/youth-development/program?child_id=child-1' },
-      parent_program_state: { child_scope: { selected_child_id: 'child-1' }, cta: { label: 'Continue Program', href: '/youth-development/program?child_id=child-1' } },
-    }),
-    getProgramWeekExecution: async () => ({
-      week_number: 4,
-      week_status: 'in_progress',
-      active_step_key: 'stretch_challenge',
-      completed_step_keys: ['core_activity'],
-      reflection_note: '',
-      observation_note: '',
-      reflection_saved: false,
-      observation_saved: false,
-      resume_ready: true,
-      next_week_available: false,
-    }),
-    getProgramWeekPlanning: async () => ({
-      commitment_plan: {
-        days_per_week: 3,
-        preferred_days: ['monday', 'wednesday', 'friday'],
-        preferred_time: '17:30',
-        session_duration_minutes: 30,
-        energy_type: 'balanced',
-        start_date: '2026-04-13',
-      },
-      scheduled_sessions: [
-        { session_id: 'wk4-mon', day: 'monday', day_label: 'Monday', time: '17:30', status: 'completed', core_activity_title: 'Guided skill practice' },
-        { session_id: 'wk4-wed', day: 'wednesday', day_label: 'Wednesday', time: '17:30', status: 'planned', core_activity_title: 'Scenario decision lab' },
-        { session_id: 'wk4-fri', day: 'friday', day_label: 'Friday', time: '17:30', status: 'planned', core_activity_title: 'Project build cycle' },
-      ],
-      accountability: {
-        planned_this_week: 3,
-        completed_this_week: 1,
-        consistency_ratio: 0.33,
-        consistency_label: 'early',
-        last_week_completion_percent: 66.7,
-        current_streak_weeks: 2,
-        week_over_week: {
-          comparison_available: true,
-          current_week_completion_percent: 33.3,
-          prior_week_completion_percent: 66.7,
-          delta_points: -33.4,
-          direction: 'down',
-        },
-        streak_contract: {
-          contract_version: 'program_streak_contract_v1',
-          threshold_percent: 80,
-          current_streak_weeks: 2,
-        },
-        trend_history: {
-          schema_version: 'multi_week_progress_history_v1',
-          window_weeks: 4,
-          weeks: [
-            { week_number: 1, completion_percent: 100, consistency_marker: 'strong', planned_sessions: 3, completed_sessions: 3, week_status: 'complete' },
-            { week_number: 2, completion_percent: 66.7, consistency_marker: 'building', planned_sessions: 3, completed_sessions: 2, week_status: 'in_progress' },
-            { week_number: 3, completion_percent: 66.7, consistency_marker: 'building', planned_sessions: 3, completed_sessions: 2, week_status: 'in_progress' },
-            { week_number: 4, completion_percent: 33.3, consistency_marker: 'early', planned_sessions: 3, completed_sessions: 1, week_status: 'in_progress' },
-          ],
-        },
-        phase_progress_marker: {
-          current_phase_number: 1,
-          current_phase_week_index: 4,
-          phase_span_weeks: 12,
-          interpretation: 'Week 4 of 12 in the active phase.',
-        },
-      },
-    }),
-  }));
-
-  const { server, baseUrl } = await withServer(app);
-  try {
-    const response = await fetch(`${baseUrl}/api/youth-development/program/week-content?tenant=demo&email=parent@example.com&child_id=child-1`);
-    const payload = await response.json();
-    assert.equal(response.status, 200);
-    assert.equal(payload.ok, true);
-    assert.equal(payload.state, 'content_ready');
-    assert.equal(Array.isArray(payload.week_content.scheduled_sessions), true);
-    assert.equal(payload.week_content.scheduled_sessions.length, 3);
-    assert.equal(Array.isArray(payload.week_content.lesson_plan_template.blocks), true);
-    assert.match(JSON.stringify(payload.week_content.lesson_plan_template.blocks), /opening_routine/);
-    assert.match(JSON.stringify(payload.week_content.lesson_plan_template.blocks), /stretch_challenge/);
-    assert.match(JSON.stringify(payload.week_content.lesson_plan_template.blocks), /observation_close/);
-    assert.equal(payload.week_content.accountability.planned_this_week, 3);
-    assert.equal(payload.week_content.accountability.completed_this_week, 1);
-    assert.equal(payload.week_content.accountability.last_week_completion_percent, 66.7);
-    assert.equal(payload.week_content.accountability.current_streak_weeks, 2);
-    assert.equal(payload.week_content.accountability.week_over_week.comparison_available, true);
-    assert.equal(payload.week_content.accountability.streak_contract.contract_version, 'program_streak_contract_v1');
-    assert.equal(payload.week_content.accountability.trend_history.weeks.length, 4);
-    assert.equal(payload.week_content.accountability.phase_progress_marker.current_phase_week_index, 4);
-    assert.equal(payload.week_content.planner_surface_state.state, 'setup_complete_with_sessions');
-  } finally {
-    await new Promise((resolve) => server.close(resolve));
-  }
-});
-
-test('week-content payload marks setup_required when commitment and schedule are missing despite active week progression', async () => {
-  const app = express();
-  app.use(express.json());
-  app.use(createYouthDevelopmentRouter({
-    getProgramBridgeState: async () => ({
-      ok: true,
-      child_id: 'child-2',
-      launch_allowed: true,
-      setup_needed: false,
-      has_enrollment: true,
-      current_week: 2,
-      current_phase_name: 'Foundation',
-      next_recommended_action: 'Continue Week 2',
-      cta: { label: 'Continue Program', href: '/youth-development/program?child_id=child-2' },
-      parent_program_state: { child_scope: { selected_child_id: 'child-2' }, cta: { label: 'Continue Program', href: '/youth-development/program?child_id=child-2' } },
-    }),
-    getProgramWeekPlanning: async () => ({
-      commitment_plan: null,
-      scheduled_sessions: [],
-      accountability: null,
-    }),
-  }));
-
-  const { server, baseUrl } = await withServer(app);
-  try {
-    const response = await fetch(`${baseUrl}/api/youth-development/program/week-content?tenant=demo&email=parent@example.com&child_id=child-2`);
-    const payload = await response.json();
-    assert.equal(response.status, 200);
-    assert.equal(payload.ok, true);
-    assert.equal(payload.state, 'content_ready');
-    assert.equal(payload.current_week, 2);
-    assert.equal(payload.week_content.planner_surface_state.state, 'setup_required');
-    assert.equal(payload.week_content.planner_setup_required, true);
-    assert.equal(payload.week_content.scheduled_sessions.length, 0);
-  } finally {
-    await new Promise((resolve) => server.close(resolve));
-  }
-});
-
-test('program page script contains canonical planner gating states and suppresses schedule-dependent surfaces until sessions exist', async () => {
-  const app = express();
-  app.use(express.json());
-  app.use(createYouthDevelopmentRouter({}));
-  const { server, baseUrl } = await withServer(app);
-  try {
-    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
-    assert.match(html, /id="plannerStateMessage"/);
-    assert.match(html, /id="progressStateMessage"/);
-    assert.match(html, /setup_required/);
-    assert.match(html, /setup_complete_generating_sessions/);
-    assert.match(html, /no_sessions_yet/);
-    assert.match(html, /setup_complete_with_sessions/);
-    assert.match(html, /execution_in_progress/);
-    assert.match(html, /id="commitmentSaveFeedback"/);
-    assert.match(html, /id="commitmentActionTrace"/);
-    assert.match(html, /id="commitmentSchedulePreview"/);
-    assert.match(html, /Your weekly plan is set\./);
-    assert.match(html, /Weekly plan save failed:/);
-    assert.match(html, /Weekly plan save blocked: week content is not loaded yet/);
-    assert.match(html, /planner action trace: blocked_before_validation \(week_content_missing\)/);
-    assert.match(html, /\[planner-commitment-debug\] click/);
-    assert.match(html, /\[planner-commitment-debug\] validation_state/);
-    assert.match(html, /\[planner-commitment-debug\] response/);
-    assert.match(html, /progressDataSurface\.classList\.toggle\("is-hidden", !hasSessions\)/);
-    assert.match(html, /todaySessionPanel\.classList\.toggle\("is-hidden", !hasSessions\)/);
-    assert.match(html, /Complete your weekly plan to generate sessions\./);
-    assert.match(html, /Your lesson plan will appear after sessions are scheduled\./);
-    assert.match(html, /Progress tracking begins after your first scheduled session\./);
-  } finally {
-    await new Promise((resolve) => server.close(resolve));
-  }
-});
-
-test('program page includes canonical next-best-action guidance labels', async () => {
-  const app = express();
-  app.use(express.json());
-  app.use(createYouthDevelopmentRouter({}));
-  const { server, baseUrl } = await withServer(app);
-  try {
-    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
-    assert.match(html, /Start Today’s Session/);
-    assert.match(html, /Resume Session/);
-    assert.match(html, /Complete Reflection/);
-    assert.match(html, /Finish this week to unlock Next Week/);
-    assert.match(html, /id="nextBestActionBtn"/);
-    assert.match(html, /nextBestActionBtn\.addEventListener\("click"/);
-    assert.match(html, /dataset\.actionType/);
-  } finally {
-    await new Promise((resolve) => server.close(resolve));
-  }
-});
-
-test('program page script parses and keeps provider audio helper placement valid', async () => {
-  const app = express();
-  app.use(express.json());
-  app.use(createYouthDevelopmentRouter({}));
-  const { server, baseUrl } = await withServer(app);
-  try {
-    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
-    const scriptMatch = html.match(/<script>([\s\S]*?)<\/script>/);
-    assert.ok(scriptMatch, 'Expected inlined program page script block.');
-    const script = scriptMatch[1];
-    assert.doesNotThrow(() => new Function(script), 'Program page script must parse without syntax errors.');
-    assert.match(script, /async function resolveProgramProviderAudioUrl\(providerAudio\)/);
-    assert.ok(
-      script.includes('if (assetRef.toLowerCase().startsWith("http://") || assetRef.toLowerCase().startsWith("https://")) return assetRef;'),
-      'Program provider audio URL resolver must keep direct absolute URL handling in the emitted script.'
-    );
-    const resolverIdx = script.indexOf('async function resolveProgramProviderAudioUrl(providerAudio)');
-    const playerIdx = script.indexOf('async function safePlayProviderAudio(providerAudio)');
-    assert.ok(resolverIdx >= 0 && playerIdx > resolverIdx, 'Provider URL resolver must be declared before provider playback helper.');
+    const html = await (await fetch(`${baseUrl}/youth-development/program?tenant=demo&email=parent%40example.com&child_id=child-1`)).text();
+    assert.match(html, /parent-dashboard\/latest/);
+    assert.match(html, /program_context','youth_development/);
+    assert.match(html, /return_url/);
+    assert.match(html, /child_id/);
+    const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+    assert.doesNotThrow(() => new Function(script));
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
