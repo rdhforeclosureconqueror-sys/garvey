@@ -235,6 +235,13 @@ test('Grade 4 fraction lessons teach simplification as the required final answer
   }
 });
 
+test('Grade 4 fraction-circle builders use touchable pie slices, not stretched bars', () => {
+  const pkg = readPackage('G4M_FR_002');
+  const html = SkillWorldRenderer.renderSkillWorld(pkg, { state: SkillWorldRenderer.createState(), failClosed: true }).html;
+  assert.match(html, /class="g4-fraction-circle"/, 'fraction-circle lessons render a circle model');
+  assert.match(html, /<path class="g4-model-piece"/, 'every circle model uses touchable pie-slice paths');
+});
+
 
 test('Grade 5 coordinate graph interpretation hides the requested y in both table and plotted points', () => {
   const pkg = readPackage('G5M_GM_001');
