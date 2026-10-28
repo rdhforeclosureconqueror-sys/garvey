@@ -88,28 +88,14 @@ test('parent-facing youth pages use canonical CTA taxonomy and remove drift labe
     assert.doesNotMatch(dashboardHtml, /Continue Development Plan/);
 
     const programHtml = await (await fetch(`${baseUrl}/youth-development/program`)).text();
-    assert.match(programHtml, /Return to Dashboard/);
-    assert.match(programHtml, /Save Reflection/);
-    assert.match(programHtml, /Save Observation/);
-    assert.match(programHtml, /Today’s Session/);
-    assert.match(programHtml, /Next Scheduled Session/);
-    assert.match(programHtml, /This Week at a Glance/);
-    assert.match(programHtml, /id="readWeeklyGoalsBtn"/);
-    assert.match(programHtml, /id="readProgramSupportBtn"/);
-    assert.match(programHtml, /id="readProgressSummaryBtn"/);
-    assert.match(programHtml, /AI voice status checking…/);
-    assert.match(programHtml, /data-program-voice-action="play"/);
-    assert.match(programHtml, /data-program-voice-action="pause"/);
-    assert.match(programHtml, /data-program-voice-action="back10"/);
-    assert.match(programHtml, /data-program-voice-action="forward10"/);
-    assert.match(programHtml, /getProgramVoiceSelection\(keys, fallbackText\)/);
-    assert.match(programHtml, /playProgramVoiceSelection\(selection, fallbackFailureMessage\)/);
-    assert.match(programHtml, /id="commitTimeHourInput"/);
-    assert.match(programHtml, /id="commitTimeMinuteInput"/);
-    assert.match(programHtml, /id="commitTimeMeridiemInput"/);
-    assert.match(programHtml, /syncPreferredTimePickerFromValue/);
-    assert.doesNotMatch(programHtml, /Back to Parent Dashboard/);
-    assert.doesNotMatch(programHtml, /Next week preview/);
+    assert.match(programHtml, /Genius Growth Plan/);
+    assert.match(programHtml, /Genius dashboard/);
+    assert.match(programHtml, /Open adaptive learning/);
+    assert.match(programHtml, /Strength to build from/);
+    assert.match(programHtml, /Growth focus/);
+    assert.match(programHtml, /Parent reflection/);
+    assert.doesNotMatch(programHtml, /Today’s Session/);
+    assert.doesNotMatch(programHtml, /Preferred time/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
