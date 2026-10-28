@@ -1471,7 +1471,7 @@ function renderLiveYouthParentDashboardPage() {
       }
       .hero-title { margin: 0 0 8px; font-size: clamp(1.55rem, 4vw, 2.25rem); letter-spacing: -0.04em; }
       .hero-vision {
-        min-height: 420px;
+        min-height: min(78svh, 740px);
         position: relative;
         display: flex;
         align-items: flex-end;
@@ -1481,8 +1481,9 @@ function renderLiveYouthParentDashboardPage() {
         box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
       }
       .hero-vision-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 24%; }
-      .hero-vision::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(5, 6, 4, 0.94) 0%, rgba(5, 6, 4, 0.44) 48%, rgba(5, 6, 4, 0.04) 100%); pointer-events: none; }
-      .hero-vision-content { position: relative; z-index: 1; width: 100%; padding: 24px; background: linear-gradient(90deg, rgba(8, 8, 7, 0.72), rgba(8, 8, 7, 0.05)); }
+      .hero-vision::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(5, 6, 4, 0.22) 0%, transparent 38%, rgba(5, 6, 4, 0.08) 100%); pointer-events: none; }
+      .hero-vision-content { position: relative; z-index: 1; width: 100%; padding: 24px; background: none; } 
+      .hero-date { display: inline-block; margin: 0; padding: 10px 16px; border: 1px solid rgba(241,196,83,.65); border-radius: 999px; background: rgba(5,8,5,.22); backdrop-filter: blur(3px); color: #fff8e8; font-size: clamp(1rem, 3vw, 1.25rem); font-weight: 700; text-shadow: 0 2px 7px rgba(0,0,0,.7); }
       .hero-kicker { margin: 0 0 8px; color: var(--gold); font-size: .78rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
       .muted { color: var(--muted); }
       .tiny { font-size: 12px; color: var(--muted); }
@@ -1608,7 +1609,7 @@ function renderLiveYouthParentDashboardPage() {
       @media (max-width: 640px) {
         body { padding: 12px; }
         .panel { padding: 16px; }
-        .hero-vision { min-height: 330px; border-radius: 20px; background-position: center top; }
+        .hero-vision { min-height: min(76svh, 650px); border-radius: 20px; }
         .hero-vision-content { padding: 18px; }
         .cards { grid-template-columns: 1fr; }
         .category-strip { grid-template-columns: 1fr 1fr; }
@@ -1617,16 +1618,22 @@ function renderLiveYouthParentDashboardPage() {
   </head>
   <body>
     <main>
-      <section class="hero-vision">
+      <section class="hero-vision" aria-label="Garvey Genius family artwork">
         <img class="hero-vision-image" src="/adinkra-library/arp1.jpg" alt="A future-focused African family looking toward a bright city" />
         <div class="hero-vision-content">
+          <p class="hero-date" id="heroTodayDate" aria-label="Today's date"></p>
+        </div>
+      </section>
+      <section class="panel" id="dashboardOverview">
         <p class="hero-kicker">Garvey Learning · Genius Path</p>
         <h1 id="heroTitle" class="hero-title">🌍 Youth Development Parent Dashboard</h1>
         <p id="heroSummary">Complete a youth assessment to see what your child currently shows and what helps next.</p>
         <p class="tiny">Designed for ages 6–11. Developmental snapshot only: this dashboard is provisional and should be reviewed as patterns over time.</p>
         <p class="tiny" id="completionDateLabel">Previous completion date: Not available yet.</p>
-        </div>
       </section>
+      <script>
+        document.getElementById('heroTodayDate').textContent = new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date());
+      </script>
 
       <section class="panel" id="childSwitcherPanel" hidden>
         <h2 style="margin-top:0;">👧🏾 Choose a child</h2>
