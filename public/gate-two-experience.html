@@ -13,7 +13,7 @@ function render(){const l=lessons[day];$('days').replaceChildren();lessons.forEa
 function renderReflection(){const l=lessons[day];$('reflection').classList.toggle('hidden',!answered);$('reflectionQuestion').textContent=l.reflection;$('practice').textContent='Family practice: '+l.practice;$('journal').value=getSaved()[day]?.reflection||'';$('saved').textContent=getSaved()[day]?'Previous reflection saved on this device.':''}
 $('previous').onclick=()=>{if(page>0){if('speechSynthesis'in window)speechSynthesis.cancel();page--;answered=false;render()}};$('next').onclick=()=>{if(page<lessons[day].pages.length-1){if('speechSynthesis'in window)speechSynthesis.cancel();page++;answered=false;render()}else $('decision').scrollIntoView({behavior:'smooth',block:'nearest'})};
 $('speak').onclick=()=>{if(!('speechSynthesis'in window)){alert('Read-aloud is not available in this browser.');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(lessons[day].pages[page]);u.rate=.88;speechSynthesis.speak(u)};$('stop').onclick=()=>{if('speechSynthesis'in window)speechSynthesis.cancel()};
-$('save').onclick=()=>{const reflection=$('journal').value.trim();if(!reflection){$('saved').textContent='Write or discuss a reflection before saving.';return}const data=getSaved();data[day]={reflection,updatedAt:new Date().toISOString()};try{localStorage.setItem(key,JSON.stringify(data));$('saved').textContent='Reflection saved on this device. Discuss your learning with your Keeper.'}catch{$('saved').textContent='Unable to save on this device. You can still discuss your reflection with your Keeper.'}};render();
+$('save').onclick=()=>{const reflection=$('journal').value.trim();if(!reflection){$('saved').textContent='Write or discuss a reflection before saving.';return}const data=getSaved();data[day]={reflection,updatedAt:new Date().toISOString()};try{localStorage.setItem(key,JSON.stringify(data));$('saved').textContent='Reflection saved on this device. Discuss your learning with your Keeper.'}catch{$('saved').textContent='Unable to save on this device. You can still discuss your reflection with your Keeper.'}};
 
 // Gate One's poster-sprite matching and memory-puzzle mechanics, isolated from Gate Two progression.
 // Library identities are not Gate Two day-to-symbol assignments.
@@ -28,4 +28,5 @@ function renderPractice(){const board=$('practiceBoard');board.replaceChildren()
 $('practiceReset').onclick=()=>{if(practiceMode==='match')newPractice();else newPuzzle();$('practiceStatus').textContent=''};
 $('practicePuzzle').onclick=()=>{if(practiceMode==='match'){newPuzzle()}else{practiceMode='match';newPractice()}$('practiceStatus').textContent=''};
 newPractice();
+render();
 </script></body></html>
