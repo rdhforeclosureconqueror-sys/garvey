@@ -224,6 +224,17 @@ test('every Grade 4 Math Skill World lesson teaches its five practice levels bef
   assert.match(skillWorldIndex, /Correct! You are ready for the next lesson/);
 });
 
+test('Grade 4 fraction lessons teach simplification as the required final answer step', () => {
+  for (const skillId of grade4MathSkillIds.filter((id) => id.startsWith('G4M_FR_'))) {
+    const pkg = readPackage(skillId);
+    const html = SkillWorldRenderer.renderSkillWorld(pkg, { state: SkillWorldRenderer.createState(), failClosed: true }).html;
+    assert.match(html, /Fraction finish line: simplify/, `${skillId} teaches lowest terms before practice`);
+    assert.match(html, /3\/6 ÷ 3\/3 = 1\/2/, `${skillId} shows the simplification formula`);
+    const help = GuidedHelp.render(pkg.level_banks[0].questions[0]);
+    assert.match(help, /Final fraction rule — Simplify the answer to lowest terms/, `${skillId} ends hints with the lowest-terms rule`);
+  }
+});
+
 
 test('Grade 5 coordinate graph interpretation hides the requested y in both table and plotted points', () => {
   const pkg = readPackage('G5M_GM_001');
