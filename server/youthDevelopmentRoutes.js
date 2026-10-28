@@ -1438,8 +1438,8 @@ function renderLiveYouthParentDashboardPage() {
     <style>
       :root {
         --bg: #020617;
-        --panel: linear-gradient(145deg, rgba(15, 23, 42, 0.88), rgba(30, 41, 59, 0.78));
-        --line: rgba(148, 163, 184, 0.30);
+        --panel: linear-gradient(145deg, rgba(5, 12, 30, 0.92), rgba(12, 29, 54, 0.86));
+        --line: rgba(186, 230, 253, 0.28);
         --text: #e2e8f0;
         --muted: #94a3b8;
         --accent: #22d3ee;
@@ -1454,22 +1454,23 @@ function renderLiveYouthParentDashboardPage() {
         font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
         color: var(--text);
         background:
-          linear-gradient(rgba(2, 6, 23, 0.84), rgba(2, 6, 23, 0.94)),
-          url('/assets/genius-dashboard-sky-v1.svg') center top / cover fixed,
+          linear-gradient(115deg, rgba(1, 6, 20, 0.92), rgba(2, 10, 28, 0.82) 48%, rgba(2, 6, 23, 0.94)),
+          url('/adinkra-library/arp1.jpg') center top / cover fixed,
           radial-gradient(circle at 10% -10%, rgba(34, 211, 238, 0.15), transparent 38%),
           radial-gradient(circle at 90% 0%, rgba(99, 102, 241, 0.2), transparent 42%),
           var(--bg);
         padding: 16px;
       }
-      main { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+      main { max-width: 880px; margin: 0 auto; display: grid; gap: 12px; }
       .panel {
         background: var(--panel);
         border: 1px solid var(--line);
-        border-radius: 16px;
-        backdrop-filter: blur(10px);
-        padding: 14px;
+        border-radius: 20px;
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(14px);
+        padding: 18px;
       }
-      .hero-title { margin: 0 0 8px; font-size: clamp(1.2rem, 2.6vw, 1.8rem); }
+      .hero-title { margin: 0 0 8px; font-size: clamp(1.55rem, 4vw, 2.25rem); letter-spacing: -0.04em; }
       .muted { color: var(--muted); }
       .tiny { font-size: 12px; color: var(--muted); }
       .chip {
@@ -1512,7 +1513,7 @@ function renderLiveYouthParentDashboardPage() {
       .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
       .metric-card { border: 1px solid var(--line); border-radius: 12px; background: rgba(2, 6, 23, 0.52); padding: 10px; }
       .metric-card strong { display: block; font-size: 20px; color: #f8fafc; }
-      .child-switcher { display: flex; flex-wrap: wrap; gap: 8px; }
+      .child-switcher { display: grid; gap: 8px; }
       .child-switcher-button {
         appearance: none;
         border: 1px solid var(--line);
@@ -1528,6 +1529,7 @@ function renderLiveYouthParentDashboardPage() {
       .child-switcher-button[aria-pressed="true"] { background: rgba(8, 145, 178, 0.28); border-color: var(--accent); }
       .child-switcher-button strong, .child-switcher-button span { display: block; }
       .child-switcher-button span { color: var(--muted); font-size: 12px; margin-top: 3px; }
+      .child-select { width: 100%; border: 1px solid rgba(125,211,252,.45); border-radius: 14px; background: rgba(3,12,29,.78); color: var(--text); padding: 12px; font: inherit; }
       .adaptive-table-wrap { overflow-x: auto; }
       .adaptive-table { width: 100%; border-collapse: collapse; min-width: 680px; }
       .adaptive-table th, .adaptive-table td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px; vertical-align: top; }
@@ -1539,7 +1541,7 @@ function renderLiveYouthParentDashboardPage() {
         border: 1px solid var(--line);
         border-radius: 14px;
         background: rgba(2, 6, 23, 0.56);
-        padding: 12px;
+        padding: 16px;
         display: grid;
         gap: 8px;
       }
@@ -1580,6 +1582,7 @@ function renderLiveYouthParentDashboardPage() {
       .btn-secondary { background: rgba(30, 64, 175, 0.35); color: #dbeafe; border-color: rgba(96, 165, 250, 0.5); }
       .btn-ghost { background: transparent; color: #bae6fd; border-color: rgba(56, 189, 248, 0.45); }
       .voice-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0 10px; }
+      .voice-controls [data-voice-action] { display: none; }
       .voice-btn { font-size: 12px; padding: 6px 10px; }
       dialog {
         border: 1px solid var(--line);
@@ -1591,7 +1594,7 @@ function renderLiveYouthParentDashboardPage() {
       dialog::backdrop { background: rgba(2, 6, 23, 0.7); }
       @media (max-width: 640px) {
         body { padding: 12px; }
-        .panel { padding: 12px; }
+        .panel { padding: 16px; }
         .cards { grid-template-columns: 1fr; }
         .category-strip { grid-template-columns: 1fr 1fr; }
       }
@@ -1808,18 +1811,20 @@ function renderLiveYouthParentDashboardPage() {
             childSwitcher.innerHTML = '';
             return;
           }
-          childSwitcher.innerHTML = entries.map((entry) => {
-            const selected = String(entry.child_id) === String(selectedChildId || '');
-            const label = String(entry.child_name || 'Child profile');
-            const grade = String(entry.child_grade_band || entry.grade || 'Grade not set');
-            return '<button class="child-switcher-button" type="button" data-child-dashboard-id="' + esc(entry.child_id) + '" aria-pressed="' + String(selected) + '"><strong>' + esc(label) + '</strong><span>' + esc(grade) + (selected ? ' · Viewing dashboard' : '') + '</span></button>';
-          }).join('');
+          childSwitcher.innerHTML = '<label class="tiny" for="childDashboardSelect">Viewing a child dashboard</label><select class="child-select" id="childDashboardSelect" aria-label="Choose a child dashboard">'
+            + entries.map((entry) => {
+              const selected = String(entry.child_id) === String(selectedChildId || '');
+              const label = String(entry.child_name || 'Child profile');
+              const grade = String(entry.child_grade_band || entry.grade || 'Grade not set');
+              return '<option value="' + esc(entry.child_id) + '"' + (selected ? ' selected' : '') + '>' + esc(label + ' · ' + grade) + '</option>';
+            }).join('')
+            + '</select>';
         }
 
-        childSwitcher?.addEventListener('click', function (event) {
-          const button = event.target.closest('[data-child-dashboard-id]');
-          if (!button) return;
-          const childId = String(button.getAttribute('data-child-dashboard-id') || '').trim();
+        childSwitcher?.addEventListener('change', function (event) {
+          const select = event.target.closest('#childDashboardSelect');
+          if (!select) return;
+          const childId = String(select.value || select.getAttribute('data-child-dashboard-id') || '').trim();
           if (childId) window.location.assign(dashboardUrlForChild(childId));
         });
         function logDashboardContinuity(eventName, details) {
@@ -1922,6 +1927,10 @@ function renderLiveYouthParentDashboardPage() {
           };
         }
 
+        function plain(value) {
+          return String(value == null ? "" : value).replace(/_/g, " ").replace(/\s{2,}/g, " ").trim();
+        }
+
         function statusTone(score) {
           if (score >= 70) return { klass: "status-strong", label: "Current strength" };
           if (score <= 40) return { klass: "status-grow", label: "Growth area" };
@@ -1982,10 +1991,10 @@ function renderLiveYouthParentDashboardPage() {
           const card = cardsMap[code] || {};
             const score = asPercent(card.current_score);
             const tone = statusTone(score);
-            const oneLine = card.what_this_means || "More observations will make this snapshot more specific.";
-            const whatItLooksLike = card.behavior_look_fors || "Look for this across home, schoolwork, and transitions.";
-            const whyItMatters = card.why_it_matters || "This pattern can affect confidence, consistency, and learning momentum.";
-            const whatHelpsNext = card.progress_look_fors || card.emotional_context || "Keep routines predictable and practice in short repeatable blocks.";
+            const oneLine = plain(card.what_this_means || "More observations will make this snapshot more specific.");
+            const whatItLooksLike = plain(card.behavior_look_fors || "Look for this across home, schoolwork, and transitions.");
+            const whyItMatters = plain(card.why_it_matters || "This pattern can affect confidence, consistency, and learning momentum.");
+            const whatHelpsNext = plain(card.progress_look_fors || card.emotional_context || "Keep routines predictable and practice in short repeatable blocks.");
           host.innerHTML = [
               '<article class="snapshot-card" data-snapshot-card="' + esc(code) + '">',
                 '<div class="pill-head">',
