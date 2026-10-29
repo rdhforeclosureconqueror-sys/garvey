@@ -1635,7 +1635,7 @@ function renderLiveYouthParentDashboardPage() {
         document.getElementById('heroTodayDate').textContent = new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date());
       </script>
 
-      <section class="panel" id="childSwitcherPanel" hidden>
+      <section class="panel" id="childSwitcherPanel">
         <h2 style="margin-top:0;">👧🏾 Choose a child</h2>
         <p class="muted">Each child has a separate Genius snapshot, parent guidance, and adaptive-learning history.</p>
         <div id="childSwitcher" class="child-switcher" aria-label="Choose a child dashboard"></div>
@@ -1832,9 +1832,10 @@ function renderLiveYouthParentDashboardPage() {
         function renderChildSwitcher(children, selectedChildId) {
           const entries = Array.isArray(children) ? children.filter((entry) => entry && entry.child_id) : [];
           if (!childSwitcherPanel || !childSwitcher) return;
-          childSwitcherPanel.hidden = entries.length < 2;
-          if (entries.length < 2) {
-            childSwitcher.innerHTML = '';
+          // Keep child management visible even when profile lookup is empty or only one child exists.
+          childSwitcherPanel.hidden = false;
+          if (!entries.length) {
+            childSwitcher.innerHTML = '<p class="muted" role="status">No child profiles were returned for this account. Existing records have not been changed. Please verify the signed-in parent account before starting a new intake.</p>';
             return;
           }
           childSwitcher.innerHTML = '<label class="tiny" for="childDashboardSelect">Viewing a child dashboard</label><select class="child-select" id="childDashboardSelect" aria-label="Choose a child dashboard">'
