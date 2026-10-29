@@ -1635,7 +1635,7 @@ function renderLiveYouthParentDashboardPage() {
         document.getElementById('heroTodayDate').textContent = new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date());
       </script>
 
-      <section class="panel" id="childSwitcherPanel" hidden>
+      <section class="panel" id="childSwitcherPanel">
         <h2 style="margin-top:0;">👧🏾 Choose a child</h2>
         <p class="muted">Each child has a separate Genius snapshot, parent guidance, and adaptive-learning history.</p>
         <div id="childSwitcher" class="child-switcher" aria-label="Choose a child dashboard"></div>
@@ -1832,9 +1832,10 @@ function renderLiveYouthParentDashboardPage() {
         function renderChildSwitcher(children, selectedChildId) {
           const entries = Array.isArray(children) ? children.filter((entry) => entry && entry.child_id) : [];
           if (!childSwitcherPanel || !childSwitcher) return;
-          childSwitcherPanel.hidden = entries.length < 2;
-          if (entries.length < 2) {
-            childSwitcher.innerHTML = '';
+          // Keep child management visible even when profile lookup is empty or only one child exists.
+          childSwitcherPanel.hidden = false;
+          if (!entries.length) {
+            childSwitcher.innerHTML = '<p class="muted" role="status">No child profiles were returned for this account. Existing records have not been changed. Please verify the signed-in parent account before starting a new intake.</p>';
             return;
           }
           childSwitcher.innerHTML = '<label class="tiny" for="childDashboardSelect">Viewing a child dashboard</label><select class="child-select" id="childDashboardSelect" aria-label="Choose a child dashboard">'
@@ -2728,7 +2729,11 @@ function renderLiveYouthParentDashboardPage() {
         }
 
         async function hydrateFromAccount() {
-          if (!accountCtx.tenant || !accountCtx.email) return false;
+          if (!accountCtx.tenant || !accountCtx.email) {
+            childSwitcherPanel.hidden = false;
+            childSwitcher.innerHTML = '<p class="muted" role="status">Your parent account context was not passed to this dashboard. Return through the Garvey Learning sign-in flow; no child records have been changed.</p>';
+            return false;
+          }
           const requestedChildId = String(accountCtx.child_id || query.get('child_id') || query.get('childId') || '').trim();
           logDashboardContinuity("hydrate_start", {
             tenant_present: Boolean(accountCtx.tenant),
@@ -2741,6 +2746,12 @@ function renderLiveYouthParentDashboardPage() {
           const childrenResponse = await fetch(childrenEndpoint.pathname + childrenEndpoint.search).catch(() => null);
           const childrenPayload = childrenResponse && childrenResponse.ok ? await childrenResponse.json().catch(() => null) : null;
           const childProfiles = Array.isArray(childrenPayload && childrenPayload.children) ? childrenPayload.children : [];
+          if (!childrenResponse || !childrenResponse.ok || !childrenPayload || childrenPayload.ok !== true) {
+            childSwitcherPanel.hidden = false;
+            childSwitcher.innerHTML = '<p class="muted" role="alert">Child profiles could not be loaded. Please retry from your signed-in dashboard. Do not create a duplicate child profile.</p>';
+            logDashboardContinuity("children_lookup_failed", { response_status: childrenResponse ? childrenResponse.status : null });
+            return false;
+          }
           logDashboardContinuity("children_lookup_complete", {
             response_ok: Boolean(childrenResponse && childrenResponse.ok),
             children_count: childProfiles.length,
