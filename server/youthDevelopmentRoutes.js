@@ -2729,7 +2729,11 @@ function renderLiveYouthParentDashboardPage() {
         }
 
         async function hydrateFromAccount() {
-          if (!accountCtx.tenant || !accountCtx.email) return false;
+          if (!accountCtx.tenant || !accountCtx.email) {
+            childSwitcherPanel.hidden = false;
+            childSwitcher.innerHTML = '<p class="muted" role="status">Your parent account context was not passed to this dashboard. Return through the Garvey Learning sign-in flow; no child records have been changed.</p>';
+            return false;
+          }
           const requestedChildId = String(accountCtx.child_id || query.get('child_id') || query.get('childId') || '').trim();
           logDashboardContinuity("hydrate_start", {
             tenant_present: Boolean(accountCtx.tenant),
@@ -2742,6 +2746,12 @@ function renderLiveYouthParentDashboardPage() {
           const childrenResponse = await fetch(childrenEndpoint.pathname + childrenEndpoint.search).catch(() => null);
           const childrenPayload = childrenResponse && childrenResponse.ok ? await childrenResponse.json().catch(() => null) : null;
           const childProfiles = Array.isArray(childrenPayload && childrenPayload.children) ? childrenPayload.children : [];
+          if (!childrenResponse || !childrenResponse.ok || !childrenPayload || childrenPayload.ok !== true) {
+            childSwitcherPanel.hidden = false;
+            childSwitcher.innerHTML = '<p class="muted" role="alert">Child profiles could not be loaded. Please retry from your signed-in dashboard. Do not create a duplicate child profile.</p>';
+            logDashboardContinuity("children_lookup_failed", { response_status: childrenResponse ? childrenResponse.status : null });
+            return false;
+          }
           logDashboardContinuity("children_lookup_complete", {
             response_ok: Boolean(childrenResponse && childrenResponse.ok),
             children_count: childProfiles.length,
