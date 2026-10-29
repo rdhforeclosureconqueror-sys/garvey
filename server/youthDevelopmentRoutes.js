@@ -1627,6 +1627,24 @@ function renderLiveYouthParentDashboardPage() {
           <p class="hero-date" id="heroTodayDate" aria-label="Today's date"></p>
         </div>
       </section>
+      <nav aria-label="Account" style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin:12px 0;">
+        <a class="btn btn-secondary" href="/tutoring.html">Learning home</a>
+        <button class="btn btn-secondary" id="parentDashboardSignOut" type="button">Sign out</button>
+      </nav>
+      <script>
+        document.getElementById('parentDashboardSignOut').addEventListener('click', async function () {
+          this.disabled = true;
+          try {
+            const response = await fetch('/api/gates/auth/signout', { method: 'POST', credentials: 'same-origin' });
+            if (!response.ok) throw new Error('Sign out failed');
+            sessionStorage.removeItem('youthDevelopmentLatestAssessment');
+            location.assign('/tutoring.html');
+          } catch (error) {
+            this.disabled = false;
+            alert('Sign out could not be confirmed. Please try again.');
+          }
+        });
+      </script>
       <section class="panel" id="dashboardOverview">
         <p class="hero-kicker">Garvey Learning · Genius Path</p>
         <h1 id="heroTitle" class="hero-title">🌍 Youth Development Parent Dashboard</h1>
