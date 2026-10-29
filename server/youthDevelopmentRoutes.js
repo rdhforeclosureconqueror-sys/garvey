@@ -2686,7 +2686,7 @@ function renderLiveYouthParentDashboardPage() {
 
         const parentSkillTitles = new Map();
         async function resolveParentSkillTitles(summary) {
-          const ids = [...new Set([summary.current_skill_world, summary.next_recommended_learning_activity, ...(summary.recent_activity || []).slice(0, 12).map(item => String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\\d{3}/i)?.[0])].filter(id => /^G[1-6][ME]_[A-Z]+_\\d{3}$/i.test(String(id || ''))))].slice(0, 14);
+          const ids = [...new Set([summary.current_skill_world, summary.next_recommended_learning_activity, ...(summary.recent_activity || []).slice(0, 12).map(item => String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\d{3}/i)?.[0])].filter(id => /^G[1-6][ME]_[A-Z]+_\d{3}$/i.test(String(id || ''))))].slice(0, 14);
           await Promise.all(ids.map(async id => {
             if (parentSkillTitles.has(id)) return;
             try {
@@ -2698,7 +2698,7 @@ function renderLiveYouthParentDashboardPage() {
           }));
         }
         function parentActivityTitle(item) {
-          const id = String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\\d{3}/i)?.[0];
+          const id = String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\d{3}/i)?.[0];
           return id && parentSkillTitles.has(id) ? parentSkillTitles.get(id) : parentFriendlyActivity(item.event_type);
         }
 
