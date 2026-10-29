@@ -1619,7 +1619,7 @@ function renderLiveYouthParentDashboardPage() {
   <body>
     <main>
       <section class="hero-vision" aria-label="Garvey Genius family artwork">
-        <img class="hero-vision-image" src="/adinkra-library/arp1.jpg" alt="A future-focused African family looking toward a bright city" />
+        <img class="hero-vision-image" src="/adinkra-library/arpmessage.jpg" alt="Pan-African family renaissance artwork and its message" />
         <div class="hero-vision-content">
           <p class="hero-date" id="heroTodayDate" aria-label="Today's date"></p>
         </div>
@@ -2796,6 +2796,11 @@ function renderLiveYouthParentDashboardPage() {
             selected_child_id: data?.child_id || null,
           });
           if (!data || !data.ok || !data.has_result || !data.payload) {
+            // Voice availability is independent of whether an assessment result exists.
+            if (scopedChild?.child_id) {
+              voiceState.childId = String(scopedChild.child_id);
+              await loadVoiceSectionsForChild(voiceState.childId);
+            }
             if (!childProfiles.length && !requestedChildId) {
               document.getElementById('heroSummary').textContent = 'No child profile is linked to this account yet. Complete intake with child name to create child scope.';
               document.getElementById('weeklySupport').innerHTML = '<li class="muted">Child profile setup needed before child-scoped TDE loading is available.</li>';
@@ -2864,7 +2869,8 @@ function renderLiveYouthParentDashboardPage() {
             hydrateAdaptiveLearning(sessionScopedChild).catch(() => null);
           }
           updateVoiceStatusCopy();
-          return;
+          // Session cache is only an immediate preview; always reconcile against
+          // the server for the selected parent and child before showing saved history.
         }
         updateVoiceStatusCopy();
         hydrateFromAccount().catch(() => null);
