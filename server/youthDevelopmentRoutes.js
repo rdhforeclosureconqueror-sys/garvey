@@ -2238,7 +2238,7 @@ function renderLiveYouthParentDashboardPage() {
           if (voiceState.displayStatus === "voice_unavailable" || voiceState.displayStatus === "voice_temporarily_unavailable" || voiceState.displayStatus === "voice_fallback_active") {
             return "AI voice unavailable, using fallback browser speech when supported.";
           }
-          return "AI voice status pending. Text remains readable.";
+          return voiceState.childId ? "AI audio is not ready yet. Tap Read to try browser speech." : "Choose a child to enable read-aloud.";
         }
         function updateVoiceStatusCopy() {
           const summary = parentVoiceStatusMessage();
