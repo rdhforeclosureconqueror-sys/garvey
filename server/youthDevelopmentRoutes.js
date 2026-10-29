@@ -1480,7 +1480,10 @@ function renderLiveYouthParentDashboardPage() {
         border-radius: 24px;
         box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
       }
-      .hero-vision-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 24%; }
+      .hero-vision-image { display: block; width: 100%; height: auto; object-fit: contain; }
+      .hero-vision { display: block; min-height: 0; padding: 10px; background: #080c0a; }
+      .hero-vision-content { position: absolute; inset: auto 10px 10px; text-align: center; }
+      .hero-vision::after { inset: 10px; border-radius: 12px; }
       .hero-vision::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(5, 6, 4, 0.22) 0%, transparent 38%, rgba(5, 6, 4, 0.08) 100%); pointer-events: none; }
       .hero-vision-content { position: relative; z-index: 1; width: 100%; padding: 24px; background: none; } 
       .hero-date { display: inline-block; margin: 0; padding: 10px 16px; border: 1px solid rgba(241,196,83,.65); border-radius: 999px; background: rgba(5,8,5,.22); backdrop-filter: blur(3px); color: #fff8e8; font-size: clamp(1rem, 3vw, 1.25rem); font-weight: 700; text-shadow: 0 2px 7px rgba(0,0,0,.7); }
@@ -1609,7 +1612,7 @@ function renderLiveYouthParentDashboardPage() {
       @media (max-width: 640px) {
         body { padding: 12px; }
         .panel { padding: 16px; }
-        .hero-vision { min-height: min(76svh, 650px); border-radius: 20px; }
+        .hero-vision { min-height: 0; border-radius: 20px; }
         .hero-vision-content { padding: 18px; }
         .cards { grid-template-columns: 1fr; }
         .category-strip { grid-template-columns: 1fr 1fr; }
