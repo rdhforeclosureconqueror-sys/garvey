@@ -1619,7 +1619,7 @@ function renderLiveYouthParentDashboardPage() {
   <body>
     <main>
       <section class="hero-vision" aria-label="Garvey Genius family artwork">
-        <img class="hero-vision-image" src="/adinkra-library/arp1.jpg" alt="A future-focused African family looking toward a bright city" />
+        <img class="hero-vision-image" src="/adinkra-library/arpmessage.jpg" alt="A future-focused African family looking toward a bright city" />
         <div class="hero-vision-content">
           <p class="hero-date" id="heroTodayDate" aria-label="Today's date"></p>
         </div>
@@ -2864,10 +2864,13 @@ function renderLiveYouthParentDashboardPage() {
             hydrateAdaptiveLearning(sessionScopedChild).catch(() => null);
           }
           updateVoiceStatusCopy();
-          return;
+          // Session storage is only a fast preview; always reconcile against saved,
+          // child-scoped server records so stale assessments cannot mask the latest result.
+          hydrateFromAccount().catch(() => null);
+        } else {
+          updateVoiceStatusCopy();
+          hydrateFromAccount().catch(() => null);
         }
-        updateVoiceStatusCopy();
-        hydrateFromAccount().catch(() => null);
       }());
     </script>
   </body>
