@@ -2684,6 +2684,24 @@ function renderLiveYouthParentDashboardPage() {
           return "Learning activity recorded";
         }
 
+        const parentSkillTitles = new Map();
+        async function resolveParentSkillTitles(summary) {
+          const ids = [...new Set([summary.current_skill_world, summary.next_recommended_learning_activity, ...(summary.recent_activity || []).slice(0, 12).map(item => String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\\d{3}/i)?.[0])].filter(id => /^G[1-6][ME]_[A-Z]+_\\d{3}$/i.test(String(id || ''))))].slice(0, 14);
+          await Promise.all(ids.map(async id => {
+            if (parentSkillTitles.has(id)) return;
+            try {
+              const response = await fetch('/gamehub/skill-world/content/' + encodeURIComponent(id) + '.skill-package.v1.json');
+              if (!response.ok) return;
+              const item = await response.json();
+              if (item.skill_id === id && item.skill) parentSkillTitles.set(id, 'Grade ' + item.grade + ' ' + item.subject + ' · ' + item.skill);
+            } catch (_) {}
+          }));
+        }
+        function parentActivityTitle(item) {
+          const id = String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\\d{3}/i)?.[0];
+          return id && parentSkillTitles.has(id) ? parentSkillTitles.get(id) : parentFriendlyActivity(item.event_type);
+        }
+
         function renderAdaptiveSummary(summary, scopedChild) {
           const host = document.getElementById("adaptiveLearningSummary");
           const status = document.getElementById("adaptiveLearningStatus");
@@ -2700,7 +2718,7 @@ function renderLiveYouthParentDashboardPage() {
           }
           const metric = (label, value) => '<div class="metric-card"><span class="tiny">' + esc(label) + '</span><strong>' + esc(value) + '</strong></div>';
           const activityRows = (summary.recent_activity || []).slice(0, 3).map(function (item) {
-            return '<li><strong>' + esc(parentFriendlyActivity(item.event_type)) + '</strong><span class="tiny"> · ' + esc(formatDate(item.occurred_at)) + '</span></li>';
+            return '<li><strong>' + esc(parentActivityTitle(item)) + '</strong><span class="tiny"> · ' + esc(formatAdaptiveStatus(item.status || item.event_type)) + ' · ' + esc(formatDate(item.occurred_at)) + '</span></li>';
           }).join('');
           const completed = Number(summary.lessons_completed || 0);
           const total = Number(summary.lessons_total || 0);
@@ -2716,6 +2734,7 @@ function renderLiveYouthParentDashboardPage() {
             '</div>',
             '<p><strong>What to do next:</strong> Open the learning hub and continue the next recommended ' + esc(parentFriendlyLearningArea(summary.next_recommended_learning_activity || summary.current_skill_world)).toLowerCase() + ' activity.</p>',
             '<h3>Recent learning activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No saved learning activity yet.</li>') + '</ul>',
+            '<details><summary style="cursor:pointer;font-weight:700;padding:12px 0;">View more saved learning activity</summary><ul class="activity-list">' + ((summary.recent_activity || []).slice(3, 12).map(item => '<li><strong>' + esc(parentActivityTitle(item)) + '</strong><span class="tiny"> · ' + esc(formatAdaptiveStatus(item.status || item.event_type)) + ' · ' + esc(formatDate(item.occurred_at)) + '</span></li>').join('') || '<li class="muted">No additional activity recorded.</li>') + '</ul></details>',
             '</div>'
           ].join('');
         }
@@ -2728,6 +2747,7 @@ function renderLiveYouthParentDashboardPage() {
           endpoint.searchParams.set('child_id', String(scopedChild.child_id));
           const response = await fetch(endpoint.pathname + endpoint.search).catch(() => null);
           const summary = response && response.ok ? await response.json().catch(() => null) : null;
+          if (summary && summary.ok === true) await resolveParentSkillTitles(summary);
           renderAdaptiveSummary(summary, scopedChild);
         }
 
