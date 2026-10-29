@@ -1622,7 +1622,7 @@ function renderLiveYouthParentDashboardPage() {
   <body>
     <main>
       <section class="hero-vision" aria-label="Garvey Genius family artwork">
-        <img class="hero-vision-image" src="/adinkra-library/arpmessage.jpg" alt="A future-focused African family looking toward a bright city" />
+        <img class="hero-vision-image" src="/adinkra-library/51E31336-88D7-4ED1-8458-DD8E8949494A.png" alt="A future-focused African family looking toward a bright city" />
         <div class="hero-vision-content">
           <p class="hero-date" id="heroTodayDate" aria-label="Today's date"></p>
         </div>
