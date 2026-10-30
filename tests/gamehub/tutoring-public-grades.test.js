@@ -36,3 +36,16 @@ test('restored Sight Memory is linked from the public homepage', () => {
   assert.match(sight, /mountSightGame\(document\.getElementById\('sight-game'\)\)/);
   assert.match(sight, /successfulRounds >= 4/);
 });
+
+test('Sight Memory shuffles questions each round and offers parent skill explanations', () => {
+  const sight = fs.readFileSync(path.join(root, 'public/gamehub/sight-memory.html'), 'utf8');
+  assert.match(sight, /return shuffle\(questions\)\.slice\(0, 5\)/);
+  assert.match(sight, /for \(let i = copy\.length - 1; i > 0; i--\)/);
+  assert.match(sight, /const unique = \[\.\.\.new Set\(\[question\.answer/);
+  assert.match(sight, /class="parent-insights"/);
+  assert.match(sight, /Visual memory/);
+  assert.match(sight, /Working memory/);
+  assert.match(sight, /Selective attention/);
+  assert.match(sight, /Cognitive flexibility/);
+  assert.match(sight, /adinkra-library\/0DFE3FAC-312A-4FC0-BD75-A74D75470324\.png/);
+});
