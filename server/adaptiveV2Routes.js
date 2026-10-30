@@ -111,6 +111,28 @@ function isYouthDevelopmentRequest(req, input = {}) {
   return programContext === "youth_development" || sourceRegistry === "youth_development";
 }
 
+function safeActivityList(value, limit = 12) {
+  return (Array.isArray(value) ? value : [])
+    .map((item) => String(item || "").trim())
+    .filter(Boolean)
+    .slice(0, limit);
+}
+
+function normalizeLearningActivityObservation(value, fallback = {}) {
+  const observation = value && typeof value === "object" ? value : {};
+  const durationSeconds = Math.max(0, Math.min(1800, Math.round(Number(observation.duration_seconds || fallback.duration_seconds || 0))));
+  return {
+    event_key: String(observation.event_key || fallback.event_key || "").trim().slice(0, 160),
+    session_id: String(observation.session_id || fallback.session_id || "").trim().slice(0, 160),
+    activity_id: String(observation.activity_id || fallback.activity_id || "").trim().slice(0, 160),
+    skill_id: String(observation.skill_id || fallback.skill_id || "").trim().slice(0, 160).toUpperCase(),
+    duration_seconds: durationSeconds,
+    practice_tags: safeActivityList(observation.practice_tags),
+    genius_dimension_codes: safeActivityList(observation.genius_dimension_codes, 7),
+    observation: observation && typeof observation === "object" ? observation : {},
+  };
+}
+
 function youthOwnedChildPayload({ child, accountCtx, authUserId = null }) {
   return {
     session: {
@@ -259,7 +281,36 @@ function createAdaptiveV2Router({ pool, listYouthChildProfiles = null }) {
       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb)
       ON CONFLICT (child_id, skill_id, mode) DO UPDATE SET status=EXCLUDED.status, progress_percent=EXCLUDED.progress_percent, attempts=EXCLUDED.attempts, correct=EXCLUDED.correct, score_percent=EXCLUDED.score_percent, hints_used=EXCLUDED.hints_used, last_step=EXCLUDED.last_step, profile=EXCLUDED.profile, state_snapshot=EXCLUDED.state_snapshot, parent_profile_id=EXCLUDED.parent_profile_id, auth_user_id=EXCLUDED.auth_user_id, learner_display_name=EXCLUDED.learner_display_name, updated_at=NOW()`,
       [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, identity.ownedChild?.childProfile?.child_name || null, skillId, mode, status, Number(b.progress_percent||0), Number(b.attempts||0), Number(b.correct||0), Number(b.score_percent||0), Number(b.hints_used||0), String(b.last_step||''), JSON.stringify(b.profile||{}), JSON.stringify(b.state_snapshot||{})]);
-    return res.json({ ok: true });
+    const observation = normalizeLearningActivityObservation(b.activity_observation, { skill_id: skillId, activity_id: b.profile?.content_id });
+    let eventSaved = false;
+    if (observation.event_key && observation.activity_id) {
+      await pool.query(`INSERT INTO garvey_learning_activity_events
+        (child_id,parent_profile_id,auth_user_id,event_key,event_type,session_id,activity_id,skill_id,duration_seconds,practice_tags,genius_dimension_codes,observation)
+        VALUES ($1,$2,$3,$4,'learning_activity',$5,$6,$7,$8,$9::jsonb,$10::jsonb,$11::jsonb)
+        ON CONFLICT (child_id,event_key) DO NOTHING`,
+        [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, observation.event_key, observation.session_id || null, observation.activity_id, observation.skill_id || skillId, observation.duration_seconds, JSON.stringify(observation.practice_tags), JSON.stringify(observation.genius_dimension_codes), JSON.stringify(observation.observation)]);
+      eventSaved = true;
+    }
+    return res.json({ ok: true, activity_event_saved: eventSaved });
+  });
+
+  router.post("/api/skill-world/parent-checkin", async (req, res) => {
+    const b = req.body || {};
+    const childId = String(b.child_id || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    let identity;
+    try { identity = await resolveRequiredOwnedChild(req, childId, pool, listYouthChildProfiles); } catch (err) {
+      return res.status(err.status || 403).json({ ok: false, error: err.error || "forbidden" });
+    }
+    const eventKey = String(b.event_key || "").trim().slice(0, 160);
+    if (!eventKey) return res.status(400).json({ ok: false, error: "event_key_required" });
+    const note = String(b.note || "").trim().slice(0, 1200);
+    await pool.query(`INSERT INTO garvey_learning_activity_events
+      (child_id,parent_profile_id,auth_user_id,event_key,event_type,activity_id,skill_id,observation)
+      VALUES ($1,$2,$3,$4,'parent_checkin','parent_checkin','PARENT_CHECKIN',$5::jsonb)
+      ON CONFLICT (child_id,event_key) DO NOTHING`,
+      [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, eventKey, JSON.stringify({ note })]);
+    return res.json({ ok: true, parent_checkin_saved: true });
   });
 
   router.get("/api/skill-world/progress/:childId/:skillId", async (req, res) => {
