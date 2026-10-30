@@ -2800,6 +2800,49 @@ function renderLiveYouthParentDashboardPage() {
           return url.pathname + url.search;
         }
 
+        function learningRhythmMarkup(rhythm) {
+          const data = rhythm || {};
+          const metrics = data.consistency || {};
+          const reviewReady = data.review_status === 'ready';
+          const metric = (label, value) => '<div class="metric-card"><span class="tiny">' + esc(label) + '</span><strong>' + esc(value) + '</strong></div>';
+          const reviewedSkills = reviewReady ? Object.entries(data.skill_activity || {}).map(([skill, count]) => '<li><strong>' + esc(skill === 'GAMEHUB_SIGHT_MEMORY' ? 'Sight Memory' : skill) + '</strong><span class="tiny"> · ' + esc(String(count)) + ' learning moments this week</span></li>').join('') : '';
+          return [
+            '<section class="learning-rhythm" aria-label="Seven-day learning rhythm">',
+            '<h3>🗓️ Seven-Day Learning Rhythm</h3>',
+            '<p>' + esc(data.parent_message || 'Garvey is collecting consistency first.') + '</p>',
+            '<div class="metric-grid">',
+            metric('Days active', String(Number(metrics.active_days || 0))),
+            metric('Learning moments', String(Number(metrics.learning_moments || 0))),
+            metric('Active minutes', String(Number(metrics.active_minutes || 0))),
+            metric('Parent check-ins', String(Number(metrics.parent_checkins || 0))),
+            '</div>',
+            data.review_available_at ? '<p class="tiny"><strong>First weekly review:</strong> ' + esc(formatDate(data.review_available_at)) + '</p>' : '',
+            reviewReady ? '<h4>What Garvey observed this week</h4><ul class="activity-list">' + (reviewedSkills || '<li class="muted">No completed learning moments were recorded in this review window.</li>') + '</ul>' : '',
+            '<label class="tiny" for="garveyParentCheckin">Parent check-in (optional)</label>',
+            '<textarea id="garveyParentCheckin" maxlength="1200" placeholder="What did you notice while your child practiced?"></textarea>',
+            '<p><button class="btn btn-secondary" type="button" id="saveGarveyParentCheckin">Save today’s check-in</button> <span class="tiny" id="garveyParentCheckinStatus" aria-live="polite"></span></p>',
+            '</section>'
+          ].join('');
+        }
+
+        function bindLearningRhythmCheckin(scopedChild) {
+          const button = document.getElementById('saveGarveyParentCheckin');
+          if (!button || !scopedChild?.child_id) return;
+          button.addEventListener('click', async function () {
+            const note = String(document.getElementById('garveyParentCheckin')?.value || '').trim();
+            const status = document.getElementById('garveyParentCheckinStatus');
+            button.disabled = true;
+            if (status) status.textContent = 'Saving…';
+            const response = await fetch('/api/skill-world/parent-checkin', {
+              method: 'POST', credentials: 'same-origin', headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ child_id: String(scopedChild.child_id), tenant: accountCtx.tenant, email: accountCtx.email, program_context: 'youth_development', source_registry: 'youth_development', event_key: 'parent-checkin:' + String(scopedChild.child_id) + ':' + new Date().toISOString().slice(0, 10), note })
+            }).catch(() => null);
+            if (response && response.ok) { if (status) status.textContent = 'Today’s check-in is saved.'; await hydrateAdaptiveLearning(scopedChild); return; }
+            if (status) status.textContent = 'Your check-in could not be saved. Please try again.';
+            button.disabled = false;
+          });
+        }
+
         function renderAdaptiveSummary(summary, scopedChild) {
           const host = document.getElementById("adaptiveLearningSummary");
           const status = document.getElementById("adaptiveLearningStatus");
@@ -2811,7 +2854,8 @@ function renderLiveYouthParentDashboardPage() {
           const childName = String(scopedChild?.child_name || summary.child_name || "Selected child");
           if (status) status.textContent = String(summary.overall_status_label || "Adaptive learning progress") + " for " + childName + ".";
           if (summary.empty_state) {
-            host.innerHTML = '<p class="muted">No saved adaptive learning progress yet for ' + esc(childName) + '. Start in the Adaptive V2 Lesson Hub; progress will appear here after the first saved activity.</p>';
+            host.innerHTML = '<p class="muted">No saved adaptive learning progress yet for ' + esc(childName) + '. Start with one learning activity and focus on building the weekly rhythm.</p>' + learningRhythmMarkup(summary.learning_rhythm) + '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">🧠 Open Sight Memory practice →</a></p>';
+            bindLearningRhythmCheckin(scopedChild);
             return;
           }
           const metric = (label, value) => '<div class="metric-card"><span class="tiny">' + esc(label) + '</span><strong>' + esc(value) + '</strong></div>';
@@ -2832,10 +2876,12 @@ function renderLiveYouthParentDashboardPage() {
             '</div>',
             '<p><strong>What to do next:</strong> Open the learning hub and continue the next recommended ' + esc(parentFriendlyLearningArea(summary.next_recommended_learning_activity || summary.current_skill_world)).toLowerCase() + ' activity.</p>',
             '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">🧠 Open Sight Memory practice →</a></p>',
+            learningRhythmMarkup(summary.learning_rhythm),
             '<h3>Recent learning activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No saved learning activity yet.</li>') + '</ul>',
             '<details><summary style="cursor:pointer;font-weight:700;padding:12px 0;">View more saved learning activity</summary><ul class="activity-list">' + ((summary.recent_activity || []).slice(3, 12).map(item => '<li><strong>' + esc(parentActivityTitle(item)) + '</strong><span class="tiny"> · ' + esc(formatAdaptiveStatus(item.status || item.event_type)) + ' · ' + esc(formatDate(item.occurred_at)) + '</span></li>').join('') || '<li class="muted">No additional activity recorded.</li>') + '</ul></details>',
             '</div>'
           ].join('');
+          bindLearningRhythmCheckin(scopedChild);
         }
 
         async function hydrateAdaptiveLearning(scopedChild) {
