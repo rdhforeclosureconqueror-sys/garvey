@@ -2803,6 +2803,7 @@ function renderLiveYouthParentDashboardPage() {
         function learningRhythmMarkup(rhythm) {
           const data = rhythm || {};
           const metrics = data.consistency || {};
+          const review = data.parent_review || {};
           const reviewReady = data.review_status === 'ready';
           const metric = (label, value) => '<div class="metric-card"><span class="tiny">' + esc(label) + '</span><strong>' + esc(value) + '</strong></div>';
           const reviewedSkills = reviewReady ? Object.entries(data.skill_activity || {}).map(([skill, count]) => '<li><strong>' + esc(skill === 'GAMEHUB_SIGHT_MEMORY' ? 'Sight Memory' : skill) + '</strong><span class="tiny"> · ' + esc(String(count)) + ' learning moments this week</span></li>').join('') : '';
@@ -2817,6 +2818,7 @@ function renderLiveYouthParentDashboardPage() {
             metric('Parent check-ins', String(Number(metrics.parent_checkins || 0))),
             '</div>',
             data.review_available_at ? '<p class="tiny"><strong>First weekly review:</strong> ' + esc(formatDate(data.review_available_at)) + '</p>' : '',
+            reviewReady && review.observation ? '<div class="callout"><h4>What this week’s rhythm means</h4><p>' + esc(review.observation) + '</p><p><strong>Next consistency action:</strong> ' + esc(review.next_action || '') + '</p></div>' : '',
             reviewReady ? '<h4>What Garvey observed this week</h4><ul class="activity-list">' + (reviewedSkills || '<li class="muted">No completed learning moments were recorded in this review window.</li>') + '</ul>' : '',
             '<label class="tiny" for="garveyParentCheckin">Parent check-in (optional)</label>',
             '<textarea id="garveyParentCheckin" maxlength="1200" placeholder="What did you notice while your child practiced?"></textarea>',
