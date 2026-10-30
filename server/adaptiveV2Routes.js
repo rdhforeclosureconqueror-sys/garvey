@@ -5,6 +5,7 @@ const { resolveCanonicalLearnerForRequest } = require("./gatesAuth");
 const { buildAdaptiveParentDashboardSummary } = require("./adaptiveParentDashboardSummary");
 const { buildLearningJourney } = require("./learningJourneyService");
 const { getCurriculumGeniusMapping } = require("../youth-development/content/curriculumGeniusMap");
+const { getGrade4SkillWorldGeniusOutline } = require("./grade4QuestionGeniusOutlineService");
 
 const ALLOWED_MASTERY_BANDS = new Set(["emerging", "developing", "consistent"]);
 
@@ -202,6 +203,14 @@ async function resolveYouthDevelopmentOwnedChild(req, childId, listYouthChildPro
 
 function createAdaptiveV2Router({ pool, listYouthChildProfiles = null }) {
   const router = express.Router();
+
+  // Curriculum metadata only. This route never reads or writes child progress,
+  // and deliberately sits outside the adaptive-assessment flow.
+  router.get("/api/grade4-skill-world/genius-outline/:skillId", (req, res) => {
+    const outline = getGrade4SkillWorldGeniusOutline(req.params.skillId);
+    if (!outline) return res.status(404).json({ ok: false, error: "grade4_skill_outline_not_found" });
+    return res.json({ ok: true, contract_version: "grade4_question_genius_outline_v1", outline });
+  });
 
   router.post("/api/adaptive-v2/progress/checkpoint-attempt", async (req, res) => {
     const b = req.body || {};
