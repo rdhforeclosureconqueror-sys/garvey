@@ -15,6 +15,7 @@ const COLOR_POOL = [
 ];
 const SIGHT_MEMORY_CONTENT_ID = "gamehub/sight-memory";
 const SIGHT_MEMORY_PROGRESS_SKILL_ID = "GAMEHUB_SIGHT_MEMORY";
+const SIGHT_MEMORY_SESSION_ID = globalThis.crypto?.randomUUID?.() || `sight-memory-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
 function launchContext() {
   const query = new URLSearchParams(window.location.search);
@@ -49,6 +50,7 @@ function saveSightMemoryObservation(observation) {
       last_step: "round_complete",
       profile: { content_id: SIGHT_MEMORY_CONTENT_ID, mapping_id: observation.mapping_id },
       state_snapshot: observation,
+      activity_observation: observation,
     }),
   }).catch(() => {});
 }
@@ -199,27 +201,27 @@ function mountSightGame(container) {
   let currentRoundId = 0;
   let revealTimeout = null;
   let activeLine = null;
+  let roundStartedAt = null;
 
   function emitRoundObservation(correctCount, questionCount) {
     const strongRound = correctCount >= Math.ceil(questionCount * 0.7);
-    window.dispatchEvent(new CustomEvent("garvey:activity-observation", {
-      detail: Object.freeze({
-        content_id: SIGHT_MEMORY_CONTENT_ID,
-        mapping_id: "sight_memory_kids",
-        content_version: "2026-10-30",
-        mode,
-        difficulty: Object.freeze({ sequence_length: activeLine?.length || 0, reveal_seconds: revealSeconds, level }),
-        evidence: Object.freeze({ correct: correctCount, attempts: questionCount, accuracy: questionCount ? correctCount / questionCount : 0, strong_round: strongRound, completed_rounds: completedRounds }),
-      }),
-    }));
-    saveSightMemoryObservation({
+    const observation = Object.freeze({
       content_id: SIGHT_MEMORY_CONTENT_ID,
       mapping_id: "sight_memory_kids",
       content_version: "2026-10-30",
+      event_key: `${SIGHT_MEMORY_SESSION_ID}:round:${currentRoundId}`,
+      session_id: SIGHT_MEMORY_SESSION_ID,
+      activity_id: SIGHT_MEMORY_CONTENT_ID,
+      skill_id: SIGHT_MEMORY_PROGRESS_SKILL_ID,
+      duration_seconds: Math.max(1, Math.min(1800, Math.round((Date.now() - Number(roundStartedAt || Date.now())) / 1000))),
+      practice_tags: ["visual_recall", "ordered_recall", "working_hold", "selective_attention", "rule_switching"],
+      genius_dimension_codes: ["SR", "RS", "PS"],
       mode,
       difficulty: { sequence_length: activeLine?.length || 0, reveal_seconds: revealSeconds, level },
       evidence: { correct: correctCount, attempts: questionCount, accuracy: questionCount ? correctCount / questionCount : 0, strong_round: strongRound, completed_rounds: completedRounds },
     });
+    window.dispatchEvent(new CustomEvent("garvey:activity-observation", { detail: observation }));
+    saveSightMemoryObservation(observation);
   }
 
   const section = text("section", "brain-game-module sight-memory-screen");
@@ -391,6 +393,9 @@ function mountSightGame(container) {
 
   function startRound() {
     invalidateRound();
+    roundComplete = false;
+    nextBtn.hidden = true;
+    roundStartedAt = Date.now();
     activeLine = buildCharacterLine(level, mode);
     questionPanel.replaceChildren();
     renderCard(activeLine);
