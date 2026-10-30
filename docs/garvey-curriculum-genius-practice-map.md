@@ -21,7 +21,19 @@ The map is not an American-school-standard dependency. School subjects provide f
 - A game score is evidence about performance in that game at that difficulty; it is not an IQ score or a label.
 - Map activity demands, not a child's fixed identity.
 - Keep academic mastery, game performance, and parent observations as separate evidence streams.
-- Use the exact existing seven-genius labels and definitions from Garvey as the source of truth. This document therefore uses `genius_dimension_ids` until those names are imported from the current repository.
+- Use the exact existing seven-genius labels and definitions from Garvey as the source of truth.
+
+## Garvey's authoritative seven dimensions
+
+| Code | Parent-facing dimension | Existing technical label |
+|---|---|---|
+| SR | Focus & Self-Control | Self-Regulation |
+| CQ | Curiosity & Love of Learning | Curiosity / Exploratory Drive |
+| CR | Creativity & Idea Thinking | Creativity / Problem Finding |
+| RS | Thinking & Problem Solving | Reasoning / Pattern Recognition |
+| PS | Effort & Resilience | Persistence / Challenge Tolerance |
+| FB | Learning From Feedback | Feedback Responsiveness |
+| DE | Interests & Passion Areas | Domain Engagement |
 
 ## Shared practice vocabulary
 
@@ -44,14 +56,14 @@ The map is not an American-school-standard dependency. School subjects provide f
 
 | Garvey activity | Academic skill / game goal | Task demands | Practice tags | Seven-genius mapping status | Parent extension |
 |---|---|---|---|---|---|
-| Sight Memory — Kids | Recall an emoji sequence and answer varied position questions | encode, hold, retrieve, distinguish position, adapt to question type | visual_recall, ordered_recall, working_hold, selective_attention, rule_switching | Attach approved dimension IDs after repository audit | Place 3–5 familiar objects in a row, cover them, ask about a randomized position |
-| Sight Memory — Adult | Recall symbols, colors, letters, and numbers | encode multiple attributes, retrieve a requested attribute/position | visual_recall, ordered_recall, working_hold, selective_attention, rule_switching | Attach approved dimension IDs after repository audit | Use cards with letters/numbers/colors; change the question each turn |
-| Equivalent fractions | Recognize equal quantities represented differently | compare part-whole relationships, use a visual model, connect it to notation | spatial_reasoning, quantitative_reasoning, symbolic_translation, sequencing | Attach approved dimension IDs after repository audit | Fold paper into halves and quarters; show why 2/4 equals 1/2 |
-| Fraction comparison | Decide which fraction represents more, less, or the same | represent quantities, compare, justify | spatial_reasoning, quantitative_reasoning, language_explanation | Attach approved dimension IDs after repository audit | Compare two food portions or fraction strips and explain the choice |
-| Coordinate plotting | Locate and describe points on a grid | hold ordered pair, move horizontal then vertical, orient spatially | spatial_reasoning, sequencing, working_hold, symbolic_translation | Attach approved dimension IDs after repository audit | Tape a floor grid and walk ordered pairs |
-| Multiplication arrays | Connect groups, arrays, repeated addition, and facts | group, count, notice pattern, translate visual to equation | quantitative_reasoning, spatial_reasoning, symbolic_translation | Attach approved dimension IDs after repository audit | Build arrays with coins, snacks, or blocks |
-| Reading comprehension | Build meaning from text and answer from evidence | attend, retain details, infer, explain | working_hold, selective_attention, language_explanation, sequencing | Attach approved dimension IDs after repository audit | Pause during a short story: “What happened first? What detail supports that?” |
-| Phonics / word building | Connect sounds, letters, and words | discriminate sound, retain sequence, blend/segment | ordered_recall, selective_attention, symbolic_translation | Attach approved dimension IDs after repository audit | Say a three-sound word; have the child tap each sound then blend it |
+| Sight Memory — Kids | Recall an emoji sequence and answer varied position questions | encode, hold, retrieve, distinguish position, adapt to question type | visual_recall, ordered_recall, working_hold, selective_attention, rule_switching | SR, RS, PS | Place 3–5 familiar objects in a row, cover them, ask about a randomized position |
+| Sight Memory — Adult | Recall symbols, colors, letters, and numbers | encode multiple attributes, retrieve a requested attribute/position | visual_recall, ordered_recall, working_hold, selective_attention, rule_switching | SR, RS, PS | Use cards with letters/numbers/colors; change the question each turn |
+| Equivalent fractions | Recognize equal quantities represented differently | compare part-whole relationships, use a visual model, connect it to notation | spatial_reasoning, quantitative_reasoning, symbolic_translation, sequencing | RS, SR, FB | Fold paper into halves and quarters; show why 2/4 equals 1/2 |
+| Fraction comparison | Decide which fraction represents more, less, or the same | represent quantities, compare, justify | spatial_reasoning, quantitative_reasoning, language_explanation | RS, SR, FB | Compare two food portions or fraction strips and explain the choice |
+| Coordinate plotting | Locate and describe points on a grid | hold ordered pair, move horizontal then vertical, orient spatially | spatial_reasoning, sequencing, working_hold, symbolic_translation | RS, SR, FB | Tape a floor grid and walk ordered pairs |
+| Multiplication arrays | Connect groups, arrays, repeated addition, and facts | group, count, notice pattern, translate visual to equation | quantitative_reasoning, spatial_reasoning, symbolic_translation | RS, CQ, CR | Build arrays with coins, snacks, or blocks |
+| Reading comprehension | Build meaning from text and answer from evidence | attend, retain details, infer, explain | working_hold, selective_attention, language_explanation, sequencing | SR, RS, CQ | Pause during a short story: “What happened first? What detail supports that?” |
+| Phonics / word building | Connect sounds, letters, and words | discriminate sound, retain sequence, blend/segment | ordered_recall, selective_attention, symbolic_translation | SR, RS, FB | Say a three-sound word; have the child tap each sound then blend it |
 
 ## Testable response model
 
@@ -100,9 +112,8 @@ Suggested parent response choices:
 
 ## Implementation order
 
-1. Audit and import the authoritative seven-genius labels/definitions from the Garvey codebase.
-2. Create a machine-readable map with stable IDs for academic skills, practice tags, genius dimensions, activities, and parent extensions.
-3. Tag the existing Sight Memory and current Grade 4/5 math lessons.
+1. Tag the existing Sight Memory and current Grade 4/5 math lessons.
+2. Connect the machine-readable map in `youth-development/content/curriculumGeniusMap.js` to lesson and game rendering.
 4. Save session events with content version and difficulty.
 5. Add parent-facing descriptions that report observations only.
 6. Pilot the mapping with fresh/unseen academic items and refine only from recorded Garvey data.
