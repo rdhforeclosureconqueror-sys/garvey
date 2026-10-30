@@ -4,6 +4,7 @@ const { mapAdaptiveV2Grade1ToGatesSignals } = require("./adaptiveV2Grade1GatesSi
 const { resolveCanonicalLearnerForRequest } = require("./gatesAuth");
 const { buildAdaptiveParentDashboardSummary } = require("./adaptiveParentDashboardSummary");
 const { buildLearningJourney } = require("./learningJourneyService");
+const { getCurriculumGeniusMapping } = require("../youth-development/content/curriculumGeniusMap");
 
 const ALLOWED_MASTERY_BANDS = new Set(["emerging", "developing", "consistent"]);
 
@@ -121,15 +122,30 @@ function safeActivityList(value, limit = 12) {
 function normalizeLearningActivityObservation(value, fallback = {}) {
   const observation = value && typeof value === "object" ? value : {};
   const durationSeconds = Math.max(0, Math.min(1800, Math.round(Number(observation.duration_seconds || fallback.duration_seconds || 0))));
+  const activityId = String(observation.activity_id || fallback.activity_id || "").trim().slice(0, 160);
+  const mapping = getCurriculumGeniusMapping(activityId);
+  const submittedSkillId = String(fallback.skill_id || "").trim().slice(0, 160).toUpperCase();
+  // Browser telemetry is useful evidence, but it is not an authority for what
+  // was practiced. The registry is the authority for activity, skill, tags,
+  // and Garvey dimension codes.
+  const expectedSkillId = mapping
+    ? String(mapping.progress_skill_id || mapping.content_id || "").toUpperCase()
+    : "";
+  const eventError = !mapping
+    ? "activity_not_registered"
+    : submittedSkillId !== expectedSkillId
+      ? "activity_skill_mismatch"
+      : null;
   return {
     event_key: String(observation.event_key || fallback.event_key || "").trim().slice(0, 160),
     session_id: String(observation.session_id || fallback.session_id || "").trim().slice(0, 160),
-    activity_id: String(observation.activity_id || fallback.activity_id || "").trim().slice(0, 160),
-    skill_id: String(observation.skill_id || fallback.skill_id || "").trim().slice(0, 160).toUpperCase(),
+    activity_id: activityId,
+    skill_id: expectedSkillId || submittedSkillId,
     duration_seconds: durationSeconds,
-    practice_tags: safeActivityList(observation.practice_tags),
-    genius_dimension_codes: safeActivityList(observation.genius_dimension_codes, 7),
+    practice_tags: mapping ? [...mapping.activity.practice_tags] : [],
+    genius_dimension_codes: mapping ? [...mapping.activity.genius_dimension_codes] : [],
     observation: observation && typeof observation === "object" ? observation : {},
+    event_error: eventError,
   };
 }
 
@@ -283,15 +299,19 @@ function createAdaptiveV2Router({ pool, listYouthChildProfiles = null }) {
       [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, identity.ownedChild?.childProfile?.child_name || null, skillId, mode, status, Number(b.progress_percent||0), Number(b.attempts||0), Number(b.correct||0), Number(b.score_percent||0), Number(b.hints_used||0), String(b.last_step||''), JSON.stringify(b.profile||{}), JSON.stringify(b.state_snapshot||{})]);
     const observation = normalizeLearningActivityObservation(b.activity_observation, { skill_id: skillId, activity_id: b.profile?.content_id });
     let eventSaved = false;
-    if (observation.event_key && observation.activity_id) {
-      await pool.query(`INSERT INTO garvey_learning_activity_events
+    let eventRejected = null;
+    if (observation.event_key && observation.activity_id && !observation.event_error) {
+      const eventInsert = await pool.query(`INSERT INTO garvey_learning_activity_events
         (child_id,parent_profile_id,auth_user_id,event_key,event_type,session_id,activity_id,skill_id,duration_seconds,practice_tags,genius_dimension_codes,observation)
         VALUES ($1,$2,$3,$4,'learning_activity',$5,$6,$7,$8,$9::jsonb,$10::jsonb,$11::jsonb)
-        ON CONFLICT (child_id,event_key) DO NOTHING`,
+        ON CONFLICT (child_id,event_key) DO NOTHING
+        RETURNING event_key`,
         [childId, identity.session.authenticated ? identity.session.parentProfile.id : null, identity.session.authenticated ? identity.session.authUserId : null, observation.event_key, observation.session_id || null, observation.activity_id, observation.skill_id || skillId, observation.duration_seconds, JSON.stringify(observation.practice_tags), JSON.stringify(observation.genius_dimension_codes), JSON.stringify(observation.observation)]);
-      eventSaved = true;
+      eventSaved = Number(eventInsert.rowCount || eventInsert.rows?.length || 0) > 0;
+    } else if (observation.event_error) {
+      eventRejected = observation.event_error;
     }
-    return res.json({ ok: true, activity_event_saved: eventSaved });
+    return res.json({ ok: true, activity_event_saved: eventSaved, activity_event_rejected: eventRejected });
   });
 
   router.post("/api/skill-world/parent-checkin", async (req, res) => {
