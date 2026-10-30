@@ -13,6 +13,45 @@ const COLOR_POOL = [
   { name: "Green", value: "#1d8a4a" },
   { name: "Purple", value: "#7a3fd1" },
 ];
+const SIGHT_MEMORY_CONTENT_ID = "gamehub/sight-memory";
+const SIGHT_MEMORY_PROGRESS_SKILL_ID = "GAMEHUB_SIGHT_MEMORY";
+
+function launchContext() {
+  const query = new URLSearchParams(window.location.search);
+  return {
+    child_id: String(query.get("child_id") || query.get("childId") || "").trim(),
+    tenant: String(query.get("tenant") || "").trim(),
+    email: String(query.get("email") || "").trim(),
+    program_context: String(query.get("program_context") || "").trim(),
+    source_registry: String(query.get("source_registry") || "").trim(),
+  };
+}
+
+function saveSightMemoryObservation(observation) {
+  const context = launchContext();
+  if (!context.child_id || context.program_context !== "youth_development") return;
+  const evidence = observation.evidence || {};
+  fetch("/api/skill-world/progress", {
+    method: "POST",
+    credentials: "same-origin",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      ...context,
+      child_id: context.child_id,
+      skill_id: SIGHT_MEMORY_PROGRESS_SKILL_ID,
+      mode: observation.mode || "child",
+      status: "completed",
+      progress_percent: 100,
+      attempts: Number(evidence.attempts || 0),
+      correct: Number(evidence.correct || 0),
+      score_percent: Math.round(Number(evidence.accuracy || 0) * 100),
+      hints_used: 0,
+      last_step: "round_complete",
+      profile: { content_id: SIGHT_MEMORY_CONTENT_ID, mapping_id: observation.mapping_id },
+      state_snapshot: observation,
+    }),
+  }).catch(() => {});
+}
 
 function text(tag, className, value) {
   const node = document.createElement(tag);
@@ -159,7 +198,7 @@ function mountSightGame(container) {
     const strongRound = correctCount >= Math.ceil(questionCount * 0.7);
     window.dispatchEvent(new CustomEvent("garvey:activity-observation", {
       detail: Object.freeze({
-        content_id: "gamehub/sight-memory",
+        content_id: SIGHT_MEMORY_CONTENT_ID,
         mapping_id: "sight_memory_kids",
         content_version: "2026-10-30",
         mode,
@@ -167,6 +206,14 @@ function mountSightGame(container) {
         evidence: Object.freeze({ correct: correctCount, attempts: questionCount, accuracy: questionCount ? correctCount / questionCount : 0, strong_round: strongRound, completed_rounds: completedRounds }),
       }),
     }));
+    saveSightMemoryObservation({
+      content_id: SIGHT_MEMORY_CONTENT_ID,
+      mapping_id: "sight_memory_kids",
+      content_version: "2026-10-30",
+      mode,
+      difficulty: { sequence_length: activeLine?.length || 0, reveal_seconds: revealSeconds, level },
+      evidence: { correct: correctCount, attempts: questionCount, accuracy: questionCount ? correctCount / questionCount : 0, strong_round: strongRound, completed_rounds: completedRounds },
+    });
   }
 
   const section = text("section", "brain-game-module sight-memory-screen");
