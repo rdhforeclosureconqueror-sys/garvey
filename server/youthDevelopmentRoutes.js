@@ -2785,8 +2785,19 @@ function renderLiveYouthParentDashboardPage() {
           }));
         }
         function parentActivityTitle(item) {
+          if (/GAMEHUB_SIGHT_MEMORY/i.test(String(item.label || ''))) return 'Sight Memory · visual recall practice';
           const id = String(item.label || '').match(/G[1-6][ME]_[A-Z]+_\d{3}/i)?.[0];
           return id && parentSkillTitles.has(id) ? parentSkillTitles.get(id) : parentFriendlyActivity(item.event_type);
+        }
+
+        function sightMemoryHref(scopedChild) {
+          const url = new URL('/gamehub/sight-memory.html', window.location.origin);
+          url.searchParams.set('child_id', String(scopedChild?.child_id || ''));
+          url.searchParams.set('tenant', accountCtx.tenant);
+          url.searchParams.set('email', accountCtx.email);
+          url.searchParams.set('program_context', 'youth_development');
+          url.searchParams.set('source_registry', 'youth_development');
+          return url.pathname + url.search;
         }
 
         function renderAdaptiveSummary(summary, scopedChild) {
@@ -2820,6 +2831,7 @@ function renderLiveYouthParentDashboardPage() {
             metric('Last learning day', formatDate(summary.last_activity_at)),
             '</div>',
             '<p><strong>What to do next:</strong> Open the learning hub and continue the next recommended ' + esc(parentFriendlyLearningArea(summary.next_recommended_learning_activity || summary.current_skill_world)).toLowerCase() + ' activity.</p>',
+            '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">🧠 Open Sight Memory practice →</a></p>',
             '<h3>Recent learning activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No saved learning activity yet.</li>') + '</ul>',
             '<details><summary style="cursor:pointer;font-weight:700;padding:12px 0;">View more saved learning activity</summary><ul class="activity-list">' + ((summary.recent_activity || []).slice(3, 12).map(item => '<li><strong>' + esc(parentActivityTitle(item)) + '</strong><span class="tiny"> · ' + esc(formatAdaptiveStatus(item.status || item.event_type)) + ' · ' + esc(formatDate(item.occurred_at)) + '</span></li>').join('') || '<li class="muted">No additional activity recorded.</li>') + '</ul></details>',
             '</div>'
