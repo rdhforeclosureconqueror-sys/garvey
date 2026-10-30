@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
+const vm = require("node:vm");
 const {
   CONTENT_BINDINGS,
   CURRICULUM_GENIUS_MAP,
@@ -36,6 +37,9 @@ test("Sight Memory exposes a stable content ID and observation event", () => {
   assert.match(html, /SIGHT_MEMORY_PROGRESS_SKILL_ID = "GAMEHUB_SIGHT_MEMORY"/);
   assert.match(html, /fetch\("\/api\/skill-world\/progress"/);
   assert.match(html, /context\.program_context !== "youth_development"/);
+  const moduleScript = html.match(/<script type="module">([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(moduleScript, "Sight Memory module script is present");
+  assert.doesNotThrow(() => new vm.Script(moduleScript));
 });
 
 test("parent dashboard has a child-scoped Sight Memory launch path", () => {
