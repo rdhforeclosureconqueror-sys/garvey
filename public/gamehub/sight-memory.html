@@ -90,7 +90,11 @@ function ordinal(position) {
   return `${position}th`;
 }
 
-function buildCharacterLine(level, mode = "adult") {\n  if (mode === "child") {\n    const count = Math.min(7, 3 + Math.floor((level - 1) / 2));\n    return shuffle(EMOJI_POOL).slice(0, count).map((value, index) => ({value,kind:"emoji",position:index+1,colorName:"",colorValue:""}));\n  }
+function buildCharacterLine(level, mode = "adult") {
+  if (mode === "child") {
+    const count = Math.min(7, 3 + Math.floor((level - 1) / 2));
+    return shuffle(EMOJI_POOL).slice(0, count).map((value, index) => ({value,kind:"emoji",position:index+1,colorName:"",colorValue:""}));
+  }
   const totalCount = Math.max(3, Math.min(9, 3 + Math.floor((level - 1) / 2)));
   const lettersCount = Math.max(1, Math.floor(totalCount / 2));
   const digitsCount = totalCount - lettersCount;
@@ -184,7 +188,9 @@ function buildQuestions(memoryLine, mode = "adult") {
 }
 
 function mountSightGame(container) {
-  let level = 1;\n  let mode = "child";\n  let roundComplete = false;
+  let level = 1;
+  let mode = "child";
+  let roundComplete = false;
   let score = 0;
   let attempts = 0;
   let completedRounds = 0;
@@ -331,7 +337,10 @@ function mountSightGame(container) {
           updateStats();
 
           if (questionList.querySelectorAll("button:not([disabled])").length === 0) {
-            completedRounds += 1;\n            roundComplete = true;\n            nextBtn.hidden = false;\n            startBtn.disabled = false;
+            completedRounds += 1;
+            roundComplete = true;
+            nextBtn.hidden = false;
+            startBtn.disabled = false;
             emitRoundObservation(correctCount, questions.length);
             if (correctCount >= Math.ceil(questions.length * 0.7)) {
               successfulRounds += 1;
