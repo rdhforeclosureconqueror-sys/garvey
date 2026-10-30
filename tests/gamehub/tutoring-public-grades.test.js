@@ -49,3 +49,16 @@ test('Sight Memory shuffles questions each round and offers parent skill explana
   assert.match(sight, /Cognitive flexibility/);
   assert.match(sight, /adinkra-library\/0DFE3FAC-312A-4FC0-BD75-A74D75470324\.png/);
 });
+
+test('Sight Memory kids emoji mode, slider selection and next round are wired', () => {
+  const sight = fs.readFileSync(path.join(root, 'public/gamehub/sight-memory.html'), 'utf8');
+  assert.match(sight, /const EMOJI_POOL =/);
+  assert.match(sight, /if \(mode === "child"\)/);
+  assert.match(sight, /return shuffle\(selected\)\.map/);
+  assert.match(sight, /slider\.type = "range"/);
+  assert.match(sight, /selected\.click\(\)/);
+  assert.match(sight, /nextBtn\.hidden = false/);
+  assert.match(sight, /nextBtn\.addEventListener\("click"/);
+  assert.match(sight, /childMode\.addEventListener\("click"/);
+  assert.match(sight, /adultMode\.addEventListener\("click"/);
+});
