@@ -1,7 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sight Memory | Garvey Learning</title><style>
 :root{font-family:system-ui,sans-serif;color:#f5f7ff;background:#080f23}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,rgba(4,9,26,.58),rgba(7,12,36,.9) 55%,#080f23),url("/adinkra-library/0DFE3FAC-312A-4FC0-BD75-A74D75470324.png") center top / cover fixed}main{max-width:960px;margin:auto;padding:24px}a{color:#b5f3ce}h1{font-size:clamp(2rem,6vw,3.5rem);margin:18px 0 8px}p{line-height:1.5}.intro{color:#cbd5e1}.brain-game-module{background:rgba(9,20,49,.88);border:2px solid #8757ed;box-shadow:0 0 32px rgba(108,67,239,.26);border-radius:24px;padding:clamp(16px,4vw,32px)}.brain-game-module__header h3{font-size:1.6rem;margin:0}.sight-memory-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:20px 0}button,select{font:inherit;border-radius:12px;border:1px solid #7c9cbd;padding:12px 16px}button{background:linear-gradient(135deg,#ffd869,#f5b83d);color:#182039;font-weight:700;cursor:pointer}button:disabled{opacity:.65;cursor:default}select{background:#182e50;color:white}.memory-card-stage{display:grid;place-items:center;min-height:175px;background:linear-gradient(135deg,#13234c,#1b315a);color:#fff;border:1px solid #477ee0;border-radius:18px;margin:20px 0}.memory-card__character-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,3vw,25px);font-size:clamp(2rem,7vw,4rem);font-weight:900;letter-spacing:.04em;padding:12px}.memory-card-placeholder{color:#374151;font-size:1.3rem}.question-panel__list{display:grid;gap:14px}.question-panel__item{background:rgba(24,47,91,.93);padding:18px;border:1px solid #4165ad;border-radius:18px}.question-panel__item p{margin:0 0 10px;font-weight:700}.question-panel__options{display:flex;flex-wrap:wrap;gap:10px}.question-panel__options button{min-width:65px}.is-correct{background:#8ee3aa!important}.is-wrong{background:#f4a1a1!important}.brain-game-module__stats{display:flex;flex-wrap:wrap;gap:12px}.brain-game-module__stats p{background:#223f62;padding:10px 15px;border-radius:10px}.brain-game-module__feedback{font-weight:700;color:#f3d982}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #8ee3aa;outline-offset:3px}
 .skill-strip{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}.skill-strip span{background:rgba(8,23,54,.85);border:1px solid #32c4e2;padding:12px 16px;border-radius:14px;font-weight:700}.parent-insights{margin:22px 0 40px;padding:20px;border-radius:22px;border:1px solid #8b5cf6;background:rgba(11,22,51,.93)}.parent-insights summary{cursor:pointer;font-weight:800;font-size:1.2rem}.parent-insights summary span{font-size:.85rem;color:#88e6fc}.insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px}.insight-grid article{background:#172c54;border-radius:14px;padding:14px}.insight-grid h3{margin:0}.memory-card__character{background:rgba(255,255,255,.94);border-radius:14px;padding:8px 12px;text-shadow:none;box-shadow:0 0 16px #3f87ff55}.question-panel__options button{min-height:52px;min-width:72px}.question-panel__item p{font-size:1.13rem}.brain-game-module__stats p{flex:1;min-width:130px}.memory-card-placeholder{padding:20px;text-align:center;color:#d5eaff}@media(max-width:560px){main{padding:14px}.brain-game-module{padding:16px}.question-panel__options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.question-panel__options button{min-width:0;padding:12px 4px}.skill-strip span{flex:1 1 40%;text-align:center}.memory-card-stage{min-height:145px}} 
-</style></head><body><main><a href="/tutoring.html#brain-games">← Garvey Learning Brain Games</a><h1>🧠 Sight Memory</h1><p class="intro">👀 Look closely at the characters, their order, and colors. 🧠 When they disappear, answer from memory. 🌟 Four consecutive strong rounds unlock a longer sequence.</p><div class="skill-strip" aria-label="Skills practiced"><span>👁️ Visual recall</span><span>🎯 Attention</span><span>🧠 Working memory</span><span>🔎 Detail recognition</span></div><div id="sight-game"></div><details class="parent-insights"><summary>👨‍👩‍👧 For Parents — What does Sight Memory practice? <span>Tap to explore ↗</span></summary><div class="insight-grid"><article><h3>👁️ Visual memory</h3><p>Remembering letters, numbers, positions, and colors after they disappear.</p></article><article><h3>🧠 Working memory</h3><p>Holding a short sequence in mind while choosing an answer.</p></article><article><h3>🎯 Selective attention</h3><p>Noticing relevant details during a brief viewing window.</p></article><article><h3>🔄 Cognitive flexibility</h3><p>Switching between questions about position, identity, and color.</p></article></div><p><strong>How progress works:</strong> Each round asks five questions in a shuffled order. At least four correct answers make a strong round. Four strong rounds in a row unlock the next level. Longer sequences increase difficulty.</p><p><strong>Parent observation:</strong> Notice whether your child remembers the beginning, middle, colors, or numbers more easily. Try a longer reveal timer when needed. Accuracy and streaks describe performance in this game, not a diagnosis or a standardized measure of intelligence.</p></details></main><script type="module">
+.mode-picker{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.mode-choice{background:#1b315a;color:#fff;border:2px solid #528be8}.mode-choice.active{background:linear-gradient(120deg,#f9d36c,#ffaf48);color:#101a35;border-color:#ffe18e}.mode-hint{color:#d5eaff}.next-round-btn{width:100%;font-size:1.2rem;margin-top:18px;background:linear-gradient(90deg,#70e5ca,#ffe07b)}.next-round-btn[hidden]{display:none}.answer-slider{width:100%;accent-color:#ffd76c;min-height:46px;cursor:pointer}.slider-label{display:block;margin-top:14px;font-weight:800}.slider-selection{font-size:1.2rem;font-weight:800;margin:8px 0}.confirm-choice{width:100%;background:#78e1bf}.question-panel__options button.is-selected{outline:4px solid #fff5ac;outline-offset:2px}.memory-card__character-row:has([data-kind="emoji"]){font-size:clamp(2.5rem,9vw,5rem)}.memory-card__character[data-kind="emoji"]{background:transparent;box-shadow:none;padding:2px}@media(max-width:560px){.mode-choice{flex:1 1 100%}} 
+</style></head><body><main><a href="/tutoring.html#brain-games">← Garvey Learning Brain Games</a><h1>🧠 Sight Memory</h1><p class="intro">👀 Look closely at the characters, their order, and colors. 🧠 When they disappear, answer from memory. 🌟 Four consecutive strong rounds unlock a longer sequence. Use Kids mode for emoji memory or Adults mode for letters and numbers.</p><div class="skill-strip" aria-label="Skills practiced"><span>👁️ Visual recall</span><span>🎯 Attention</span><span>🧠 Working memory</span><span>🔎 Detail recognition</span></div><div id="sight-game"></div><details class="parent-insights"><summary>👨‍👩‍👧 For Parents — What does Sight Memory practice? <span>Tap to explore ↗</span></summary><div class="insight-grid"><article><h3>👁️ Visual memory</h3><p>Remembering letters, numbers, positions, and colors after they disappear.</p></article><article><h3>🧠 Working memory</h3><p>Holding a short sequence in mind while choosing an answer.</p></article><article><h3>🎯 Selective attention</h3><p>Noticing relevant details during a brief viewing window.</p></article><article><h3>🔄 Cognitive flexibility</h3><p>Switching between questions about position, identity, and color.</p></article></div><p><strong>How progress works:</strong> Each round asks five questions in a shuffled order. Kids mode uses emoji positions and a sliding answer marker; Adults mode uses characters and colors. At least four correct answers make a strong round. Four strong rounds in a row unlock the next level. Longer sequences increase difficulty.</p><p><strong>Parent observation:</strong> Notice whether your child remembers the beginning, middle, colors, or numbers more easily. Try a longer reveal timer when needed. Accuracy and streaks describe performance in this game, not a diagnosis or a standardized measure of intelligence.</p></details></main><script type="module">
+const EMOJI_POOL = ["🐶","🐱","🦁","🐸","🦋","🐼","🦄","🐙","🦊","🐢","🚀","🌈","⭐","🍎","🍓","🍉","🎈","🎨","⚽","🚗","🌻","🍕","🐝","🌙"];
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 const DIGITS = "0123456789";
 const COLOR_POOL = [
@@ -49,7 +51,7 @@ function ordinal(position) {
   return `${position}th`;
 }
 
-function buildCharacterLine(level) {
+function buildCharacterLine(level, mode = "adult") {\n  if (mode === "child") {\n    const count = Math.min(7, 3 + Math.floor((level - 1) / 2));\n    return shuffle(EMOJI_POOL).slice(0, count).map((value, index) => ({value,kind:"emoji",position:index+1,colorName:"",colorValue:""}));\n  }
   const totalCount = Math.max(3, Math.min(9, 3 + Math.floor((level - 1) / 2)));
   const lettersCount = Math.max(1, Math.floor(totalCount / 2));
   const digitsCount = totalCount - lettersCount;
@@ -74,7 +76,20 @@ function buildCharacterLine(level) {
   });
 }
 
-function buildQuestions(memoryLine) {
+function buildQuestions(memoryLine, mode = "adult") {
+  if (mode === "child") {
+    const selected = [
+      {prompt:"🐣 Which emoji came FIRST?", answer:memoryLine[0].value},
+      {prompt:"🏁 Which emoji came LAST?", answer:memoryLine[memoryLine.length-1].value},
+      {prompt:`🔎 Which emoji was in spot ${ordinal(Math.min(3,memoryLine.length))}?`, answer:memoryLine[Math.min(2,memoryLine.length-1)].value},
+      {prompt:"🧠 Which emoji was in the SECOND spot?",answer:memoryLine[1].value},
+      {prompt:"✨ Which emoji was in the MIDDLE?",answer:memoryLine[Math.floor((memoryLine.length-1)/2)].value}
+    ];
+    return shuffle(selected).map(question => {
+      const distractors = shuffle(EMOJI_POOL.filter(emoji => emoji !== question.answer)).slice(0,2);
+      return {...question,choices:shuffle([question.answer,...distractors])};
+    });
+  }
   const questions = [];
   const byPosition = memoryLine;
   const letters = memoryLine.filter((entry) => entry.kind === "letter");
@@ -130,7 +145,7 @@ function buildQuestions(memoryLine) {
 }
 
 function mountSightGame(container) {
-  let level = 1;
+  let level = 1;\n  let mode = "child";\n  let roundComplete = false;
   let score = 0;
   let attempts = 0;
   let completedRounds = 0;
@@ -145,6 +160,12 @@ function mountSightGame(container) {
   header.append(text("h3", "", "🚀 Sight Memory Challenge"), text("p", "", "👀 See it · 🧠 Remember it · 🎯 Answer it! Memorize identity, order, and color."));
 
   const controls = text("div", "sight-memory-controls");
+  const modePicker = text("div", "mode-picker");
+  const childMode = text("button", "mode-choice active", "🦄 Kids · Emoji");
+  const adultMode = text("button", "mode-choice", "🔤 Adults · Letters & Numbers");
+  childMode.type = adultMode.type = "button";
+  modePicker.append(childMode,adultMode);
+  const modeHint = text("p","mode-hint","🦄 Kids mode: remember emoji order, then slide the marker to choose an answer.");
   const revealSelect = document.createElement("select");
   [3, 4, 5, 7].forEach((seconds) => {
     const option = document.createElement("option");
@@ -156,6 +177,9 @@ function mountSightGame(container) {
   const startBtn = text("button", "", "🎮 Start Round");
   startBtn.type = "button";
   const resetBtn = text("button", "", "↻ Reset");
+  const nextBtn = text("button", "next-round-btn", "➡️ Next Round");
+  nextBtn.type = "button";
+  nextBtn.hidden = true;
   resetBtn.type = "button";
 
   controls.append(text("label", "", "Reveal Timer"), revealSelect, startBtn, resetBtn);
@@ -171,7 +195,7 @@ function mountSightGame(container) {
   const streakNode = text("p", "", "🎯 Round streak 0/4");
   stats.append(levelNode, scoreNode, streakNode, accuracyNode);
 
-  section.append(header, controls, stage, questionPanel, stats, feedback);
+  section.append(header, modePicker, modeHint, controls, stage, questionPanel, stats, feedback, nextBtn);
   container.replaceChildren(section);
 
   function clearRevealTimer() {
@@ -200,7 +224,7 @@ function mountSightGame(container) {
 
     memoryLine.forEach((entry) => {
       const token = text("span", "memory-card__character", entry.value);
-      token.style.color = entry.colorValue;
+      if (mode !== "child") token.style.color = entry.colorValue;
       token.dataset.kind = entry.kind;
       row.append(token);
     });
@@ -214,7 +238,7 @@ function mountSightGame(container) {
     stage.replaceChildren(text("div", "memory-card-placeholder", "🔒 Sequence hidden — recall what you saw!"));
 
     const questionList = text("div", "question-panel__list");
-    const questions = buildQuestions(activeLine); // Fresh random question order each round
+    const questions = buildQuestions(activeLine, mode); // Fresh random question order each round
     let correctCount = 0;
 
     questions.forEach((question) => {
@@ -246,7 +270,7 @@ function mountSightGame(container) {
           updateStats();
 
           if (questionList.querySelectorAll("button:not([disabled])").length === 0) {
-            completedRounds += 1;
+            completedRounds += 1;\n            roundComplete = true;\n            nextBtn.hidden = false;\n            startBtn.disabled = false;
             if (correctCount >= Math.ceil(questions.length * 0.7)) {
               successfulRounds += 1;
               if (successfulRounds >= 4) { level += 1; successfulRounds = 0; }
@@ -261,7 +285,32 @@ function mountSightGame(container) {
         options.append(optionBtn);
       });
 
-      row.append(options);
+      if (mode === "child") {
+        const sliderLabel = text("label","slider-label","👆 Slide the star to your answer");
+        const slider = document.createElement("input");
+        slider.type = "range"; slider.min = "0"; slider.max = String(question.choices.length - 1);
+        slider.step = "1"; slider.value = "1"; slider.className = "answer-slider";
+        slider.setAttribute("aria-label",question.prompt + " — slide to select an emoji");
+        const selection = text("p","slider-selection",`⭐ Selected: ${question.choices[1]}`);
+        const confirm = text("button","confirm-choice","✅ Lock in answer");
+        confirm.type = "button";
+        slider.addEventListener("input", () => {
+          const index = Number(slider.value);
+          selection.textContent = `⭐ Selected: ${question.choices[index]}`;
+          [...options.children].forEach((btn,i) => btn.classList.toggle("is-selected",i===index));
+        });
+        confirm.addEventListener("click", () => {
+          if (confirm.disabled) return;
+          const selected = options.children[Number(slider.value)];
+          selected.click();
+          confirm.disabled = true;
+          slider.disabled = true;
+        });
+        options.children[1].classList.add("is-selected");
+        row.append(options,sliderLabel,slider,selection,confirm);
+      } else {
+        row.append(options);
+      }
       questionList.append(row);
     });
 
@@ -271,7 +320,7 @@ function mountSightGame(container) {
 
   function startRound() {
     invalidateRound();
-    activeLine = buildCharacterLine(level);
+    activeLine = buildCharacterLine(level, mode);
     questionPanel.replaceChildren();
     renderCard(activeLine);
 
@@ -304,6 +353,17 @@ function mountSightGame(container) {
   });
 
   startBtn.addEventListener("click", startRound);
+  nextBtn.addEventListener("click", () => { if (roundComplete) { startRound(); section.scrollIntoView({behavior:"smooth",block:"start"}); } });
+  function switchMode(nextMode) {
+    if (nextMode === mode) return;
+    mode = nextMode;
+    childMode.classList.toggle("active",mode === "child");
+    adultMode.classList.toggle("active",mode === "adult");
+    modeHint.textContent = mode === "child" ? "🦄 Kids mode: remember emoji order, then slide the marker to choose an answer." : "🔤 Adult mode: remember letters, numbers, positions, and colors.";
+    resetAll();
+  }
+  childMode.addEventListener("click",()=>switchMode("child"));
+  adultMode.addEventListener("click",()=>switchMode("adult"));
   resetBtn.addEventListener("click", resetAll);
 
   stage.replaceChildren(text("div", "memory-card-placeholder", "✨ Your memory challenge will appear here."));
