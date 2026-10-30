@@ -35,7 +35,7 @@ test('parent dashboard launches the Youth Development Adaptive route and Gates l
   assert.match(youthRoutes, /id="openAdaptiveV2HubBtn" href="\/youth-development\/adaptive-learning"/);
   assert.match(youthRoutes, /program_context", "youth_development"/);
   assert.match(youthRoutes, /return_url", "\/youth-development\/parent-dashboard"/);
-  assert.match(gates, /href="\/gamehub\/adaptive-v2-hub\.html"/);
+  assert.match(gates, /new URL\('\/gamehub\/adaptive-v2-hub\.html', window\.location\.origin\)/);
 });
 
 test('active GameHub registry navigation opens the cleaned Adaptive V2 hub', () => {
@@ -124,11 +124,10 @@ test('legacy pilot hub presentation and unfiltered Skill World Missions are abse
   assert.match(recognitionPilot, /const PILOT_MAP=\{/);
 });
 
-test('Rite of Passage Adventures do not interrupt grade-to-subject selection', () => {
-  assert.match(hub, /id="otherAdventuresTitle">Other Learning Adventures/);
-  assert.match(hub, /return `<section class="panel" id="learningPanel"[\s\S]+\$\{riteMarkup\}`/);
-  assert.match(hub, /routeContext\.program_context==='youth_development'/);
-  assert.match(hub, /rite-adventures/);
+test('grade-to-subject selection remains separate from youth and rite-of-passage routing', () => {
+  assert.match(hub, /const requestedProgramContext=/);
+  assert.match(hub, /const isSharedLearningContext=/);
+  assert.match(hub, /requestedProgramContext==='rite_of_passage'/);
   assert.match(hub, /state\.subject\?renderLearningMarkup\(\):''/);
   assert.match(hub, /if\(!state\.grade\|\|!state\.subject\) return ''/);
 });

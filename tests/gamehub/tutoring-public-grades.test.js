@@ -1,5 +1,38 @@
-const test=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const path=require('node:path');const root=path.join(__dirname,'../..');const home=fs.readFileSync(path.join(root,'public/tutoring.html'),'utf8');const hub=fs.readFileSync(path.join(root,'public/gamehub/adaptive-v2-hub.html'),'utf8');test('public tutoring offers grades 1–6 and routes to existing learning hub',()=>{for(let n=1;n<=6;n++)assert.match(home,new RegExp('<option value="'+n+'">Grade '+n+'</option>'));assert.match(home,/\/gamehub\/adaptive-v2-hub\.html\?grade=/);assert.match(home,/Math & English/);assert.match(home,/const available=\/\^\[1-6\]\$\/.test\(grade.value\)/);assert.match(home,/link.href=available\?'\/gamehub\/adaptive-v2-hub.html\?grade='/);assert.match(hub,/const requestedGrade=Number\(launchParams\.get\('grade'\)\)/);assert.match(hub,/if\(grades\.includes\(requestedGrade\)\)selectGrade\(requestedGrade\)/);});
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.join(__dirname, '../..');
+const home = fs.readFileSync(path.join(root, 'public/tutoring.html'), 'utf8');
+const hub = fs.readFileSync(path.join(root, 'public/gamehub/adaptive-v2-hub.html'), 'utf8');
 
-test('public route context does not inherit youth-development return paths',()=>{assert.match(hub,/source_registry:\(launchParams\.get\('source_registry'\)\|\|\(launchParams\.get\('program_context'\)==='youth_development'\?'youth_development':'public_learning'\)\)/);assert.match(hub,/return_url:\(launchParams\.get\('return_url'\)\|\|\(launchParams\.get\('program_context'\)==='youth_development'\?'\/youth-development\/parent-dashboard':'\/tutoring.html'\)\)/);});
+test('public tutoring offers grades 1–6 and routes to the existing learning hub', () => {
+  for (let n = 1; n <= 6; n++) assert.match(home, new RegExp('<option value="' + n + '">Grade ' + n + '</option>'));
+  assert.match(home, /\/gamehub\/adaptive-v2-hub\.html\?grade=/);
+  assert.match(home, /Math & English/);
+  assert.match(home, /const available\s*=\s*\/\^\[1-6\]\$\/\.test\(grade\.value\)/);
+  assert.match(home, /link\.href\s*=\s*available\s*\?\s*["']\/gamehub\/adaptive-v2-hub\.html\?grade=/);
+  assert.match(hub, /const requestedGrade=Number\(launchParams\.get\('grade'\)\)/);
+  assert.match(hub, /if\(grades\.includes\(requestedGrade\)\)selectGrade\(requestedGrade\)/);
+});
 
-test('parent links resolve to backend only on production static host',()=>{assert.match(home,/data-parent-route="\/learning-login\.html"/);assert.match(home,/data-parent-route="\/learning-dashboard\.html"/);assert.match(home,/location\.hostname==='garveyfrontend\.onrender\.com'/);assert.match(home,/https:\/\/garveybackend\.onrender\.com/);assert.doesNotMatch(home,/href="https:\/\/garveybackend\.onrender\.com/);});
+test('public route context retains public defaults and separate youth and rite-of-passage return paths', () => {
+  assert.match(hub, /const requestedProgramContext=\(launchParams\.get\('program_context'\)\|\|''\)\.trim\(\)/);
+  assert.match(hub, /isSharedLearningContext\?requestedProgramContext:'public_learning'/);
+  assert.match(hub, /requestedProgramContext==='youth_development'\?'\/youth-development\/parent-dashboard'/);
+  assert.match(hub, /requestedProgramContext==='rite_of_passage'\?'\/gates\/children':'\/tutoring\.html'/);
+});
+
+test('parent links use current public destinations and do not hardcode backend URLs', () => {
+  assert.match(home, /href="\/family-results\.html"/);
+  assert.match(home, /location\.hostname\s*===\s*"garveyfrontend\.onrender\.com"/);
+  assert.match(home, /https:\/\/garveybackend\.onrender\.com/);
+  assert.doesNotMatch(home, /href="https:\/\/garveybackend\.onrender\.com/);
+});
+
+test('restored Sight Memory is linked from the public homepage', () => {
+  const sight = fs.readFileSync(path.join(root, 'public/gamehub/sight-memory.html'), 'utf8');
+  assert.match(home, /href="\/gamehub\/sight-memory\.html"/);
+  assert.match(sight, /mountSightGame\(document\.getElementById\('sight-game'\)\)/);
+  assert.match(sight, /successfulRounds >= 4/);
+});
