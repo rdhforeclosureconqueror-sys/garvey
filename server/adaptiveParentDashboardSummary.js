@@ -36,6 +36,7 @@ async function buildAdaptiveParentDashboardSummary(pool, opts = {}) {
     skill_worlds: journey.history.skill_worlds,
     adaptive_progress: journey.history.completed_lessons,
     recent_activity: journey.recent_activity,
+    learning_rhythm: journey.history.learning_rhythm,
   };
 }
 module.exports = { buildAdaptiveParentDashboardSummary, isFakeLearnerName, normalizeStatus };
