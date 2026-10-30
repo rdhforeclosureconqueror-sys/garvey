@@ -14,7 +14,7 @@ async function startServer(app) {
 
 test("Sight Memory saves one child-owned progress record and one immutable learning event", async (t) => {
   const queries = [];
-  const pool = { query: async (sql, params) => { queries.push({ sql, params }); return { rows: [] }; } };
+  const pool = { query: async (sql, params) => { queries.push({ sql, params }); return { rows: [], rowCount: 1 }; } };
   const app = express();
   app.use(express.json());
   app.use(createAdaptiveV2Router({ pool, listYouthChildProfiles: async () => [{ child_id: "child-1", child_name: "SJ", parent_profile_id: 7 }] }));
@@ -40,7 +40,7 @@ test("Sight Memory saves one child-owned progress record and one immutable learn
 
 test("parent check-in is separately saved to the same child rhythm", async (t) => {
   const queries = [];
-  const pool = { query: async (sql, params) => { queries.push({ sql, params }); return { rows: [] }; } };
+  const pool = { query: async (sql, params) => { queries.push({ sql, params }); return { rows: [], rowCount: 1 }; } };
   const app = express();
   app.use(express.json());
   app.use(createAdaptiveV2Router({ pool, listYouthChildProfiles: async () => [{ child_id: "child-1", child_name: "SJ", parent_profile_id: 7 }] }));
