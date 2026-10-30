@@ -27,4 +27,20 @@ const CURRICULUM_GENIUS_MAP = Object.freeze({
   phonics_word_building: Object.freeze({ activity_type: "academic_lesson", title: "Phonics and Word Building", skill_goal: "Connect sounds, letters, and words.", task_demands: ["hear sound differences", "hold sound order", "blend", "segment", "connect sound to symbol"], practice_tags: ["ordered_recall", "selective_attention", "symbolic_translation", "sequencing"], genius_dimension_codes: ["SR", "RS", "FB"], observable_evidence: ["sound_identification_accuracy", "blend_accuracy", "segment_accuracy", "correction_after_feedback"], parent_extension: "Say a three-sound word; have the child tap each sound, then blend the word." }),
 });
 
-module.exports = Object.freeze({ GENIUS_DIMENSIONS, PRACTICE_TAGS, CURRICULUM_GENIUS_MAP });
+// Stable bindings connect the map to current Garvey content without making the
+// content packages depend on a presentation-specific dashboard.
+const CONTENT_BINDINGS = Object.freeze({
+  "gamehub/sight-memory": Object.freeze({ mapping_id: "sight_memory_kids", route: "/gamehub/sight-memory.html", modes: ["child", "adult"] }),
+  G4M_FR_001: Object.freeze({ mapping_id: "equivalent_fractions", package_path: "public/gamehub/skill-world/content/G4M_FR_001.skill-package.v1.json" }),
+  G5M_FR_001: Object.freeze({ mapping_id: "equivalent_fractions", package_path: "public/gamehub/skill-world/content/G5M_FR_001.skill-package.v1.json" }),
+  G5M_GM_001: Object.freeze({ mapping_id: "coordinate_plotting", package_path: "public/gamehub/skill-world/content/G5M_GM_001.skill-package.v1.json" }),
+  G4M_OA_001: Object.freeze({ mapping_id: "multiplication_arrays", package_path: "public/gamehub/skill-world/content/G4M_OA_001.skill-package.v1.json" }),
+});
+
+function getCurriculumGeniusMapping(contentId) {
+  const binding = CONTENT_BINDINGS[String(contentId || "")];
+  if (!binding) return null;
+  return Object.freeze({ content_id: String(contentId), ...binding, activity: CURRICULUM_GENIUS_MAP[binding.mapping_id] });
+}
+
+module.exports = Object.freeze({ GENIUS_DIMENSIONS, PRACTICE_TAGS, CURRICULUM_GENIUS_MAP, CONTENT_BINDINGS, getCurriculumGeniusMapping });
