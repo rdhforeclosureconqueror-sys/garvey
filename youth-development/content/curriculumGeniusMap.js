@@ -30,7 +30,7 @@ const CURRICULUM_GENIUS_MAP = Object.freeze({
 // Stable bindings connect the map to current Garvey content without making the
 // content packages depend on a presentation-specific dashboard.
 const CONTENT_BINDINGS = Object.freeze({
-  "gamehub/sight-memory": Object.freeze({ mapping_id: "sight_memory_kids", route: "/gamehub/sight-memory.html", modes: ["child", "adult"] }),
+  "gamehub/sight-memory": Object.freeze({ mapping_id: "sight_memory_kids", progress_skill_id: "GAMEHUB_SIGHT_MEMORY", route: "/gamehub/sight-memory.html", modes: ["child", "adult"] }),
   G4M_FR_001: Object.freeze({ mapping_id: "equivalent_fractions", package_path: "public/gamehub/skill-world/content/G4M_FR_001.skill-package.v1.json" }),
   G5M_FR_001: Object.freeze({ mapping_id: "equivalent_fractions", package_path: "public/gamehub/skill-world/content/G5M_FR_001.skill-package.v1.json" }),
   G5M_GM_001: Object.freeze({ mapping_id: "coordinate_plotting", package_path: "public/gamehub/skill-world/content/G5M_GM_001.skill-package.v1.json" }),
