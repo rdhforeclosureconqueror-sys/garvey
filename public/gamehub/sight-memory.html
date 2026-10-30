@@ -1,9 +1,11 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sight Memory | Garvey Learning</title><style>
 :root{font-family:system-ui,sans-serif;color:#f5f7ff;background:#080f23}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,rgba(4,9,26,.58),rgba(7,12,36,.9) 55%,#080f23),url("/adinkra-library/0DFE3FAC-312A-4FC0-BD75-A74D75470324.png") center top / cover fixed}main{max-width:960px;margin:auto;padding:24px}a{color:#b5f3ce}h1{font-size:clamp(2rem,6vw,3.5rem);margin:18px 0 8px}p{line-height:1.5}.intro{color:#cbd5e1}.brain-game-module{background:rgba(9,20,49,.88);border:2px solid #8757ed;box-shadow:0 0 32px rgba(108,67,239,.26);border-radius:24px;padding:clamp(16px,4vw,32px)}.brain-game-module__header h3{font-size:1.6rem;margin:0}.sight-memory-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:20px 0}button,select{font:inherit;border-radius:12px;border:1px solid #7c9cbd;padding:12px 16px}button{background:linear-gradient(135deg,#ffd869,#f5b83d);color:#182039;font-weight:700;cursor:pointer}button:disabled{opacity:.65;cursor:default}select{background:#182e50;color:white}.memory-card-stage{display:grid;place-items:center;min-height:175px;background:linear-gradient(135deg,#13234c,#1b315a);color:#fff;border:1px solid #477ee0;border-radius:18px;margin:20px 0}.memory-card__character-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,3vw,25px);font-size:clamp(2rem,7vw,4rem);font-weight:900;letter-spacing:.04em;padding:12px}.memory-card-placeholder{color:#374151;font-size:1.3rem}.question-panel__list{display:grid;gap:14px}.question-panel__item{background:rgba(24,47,91,.93);padding:18px;border:1px solid #4165ad;border-radius:18px}.question-panel__item p{margin:0 0 10px;font-weight:700}.question-panel__options{display:flex;flex-wrap:wrap;gap:10px}.question-panel__options button{min-width:65px}.is-correct{background:#8ee3aa!important}.is-wrong{background:#f4a1a1!important}.brain-game-module__stats{display:flex;flex-wrap:wrap;gap:12px}.brain-game-module__stats p{background:#223f62;padding:10px 15px;border-radius:10px}.brain-game-module__feedback{font-weight:700;color:#f3d982}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #8ee3aa;outline-offset:3px}
 .skill-strip{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}.skill-strip span{background:rgba(8,23,54,.85);border:1px solid #32c4e2;padding:12px 16px;border-radius:14px;font-weight:700}.parent-insights{margin:22px 0 40px;padding:20px;border-radius:22px;border:1px solid #8b5cf6;background:rgba(11,22,51,.93)}.parent-insights summary{cursor:pointer;font-weight:800;font-size:1.2rem}.parent-insights summary span{font-size:.85rem;color:#88e6fc}.insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px}.insight-grid article{background:#172c54;border-radius:14px;padding:14px}.insight-grid h3{margin:0}.memory-card__character{background:rgba(255,255,255,.94);border-radius:14px;padding:8px 12px;text-shadow:none;box-shadow:0 0 16px #3f87ff55}.question-panel__options button{min-height:52px;min-width:72px}.question-panel__item p{font-size:1.13rem}.brain-game-module__stats p{flex:1;min-width:130px}.memory-card-placeholder{padding:20px;text-align:center;color:#d5eaff}@media(max-width:560px){main{padding:14px}.brain-game-module{padding:16px}.question-panel__options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.question-panel__options button{min-width:0;padding:12px 4px}.skill-strip span{flex:1 1 40%;text-align:center}.memory-card-stage{min-height:145px}} 
-</style></head><body><main><a href="/tutoring.html#brain-games">← Garvey Learning Brain Games</a><h1>🧠 Sight Memory</h1><p class="intro">👀 Look closely at the characters, their order, and colors. 🧠 When they disappear, answer from memory. 🌟 Four consecutive strong rounds unlock a longer sequence.</p><div class="skill-strip" aria-label="Skills practiced"><span>👁️ Visual recall</span><span>🎯 Attention</span><span>🧠 Working memory</span><span>🔎 Detail recognition</span></div><div id="sight-game"></div><details class="parent-insights"><summary>👨‍👩‍👧 For Parents — What does Sight Memory practice? <span>Tap to explore ↗</span></summary><div class="insight-grid"><article><h3>👁️ Visual memory</h3><p>Remembering letters, numbers, positions, and colors after they disappear.</p></article><article><h3>🧠 Working memory</h3><p>Holding a short sequence in mind while choosing an answer.</p></article><article><h3>🎯 Selective attention</h3><p>Noticing relevant details during a brief viewing window.</p></article><article><h3>🔄 Cognitive flexibility</h3><p>Switching between questions about position, identity, and color.</p></article></div><p><strong>How progress works:</strong> Each round asks five questions in a shuffled order. At least four correct answers make a strong round. Four strong rounds in a row unlock the next level. Longer sequences increase difficulty.</p><p><strong>Parent observation:</strong> Notice whether your child remembers the beginning, middle, colors, or numbers more easily. Try a longer reveal timer when needed. Accuracy and streaks describe performance in this game, not a diagnosis or a standardized measure of intelligence.</p></details></main><script type="module">
+.mode-picker{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.mode-picker button{background:#172c54;color:#fff;border:2px solid #5478c1}.mode-picker .mode-selected{background:linear-gradient(135deg,#ffd869,#f5b83d);color:#17213c;border-color:#ffe08a}.slider-answer{display:grid;gap:12px}.slider-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}.slider-choices span{border-radius:12px;padding:12px 3px;background:#304c78;font-size:clamp(1.1rem,4vw,2rem);font-weight:800;transition:background .12s}.slider-choices .slider-active{background:#f6ca54;color:#12213d;box-shadow:0 0 0 3px #8be6fb}.slider-answer input[type=range]{width:100%;height:44px;accent-color:#f6ca54;touch-action:pan-y;cursor:pointer}.slider-selection{margin:0!important;text-align:center}.slider-confirm{justify-self:center;min-height:52px}.answer-correct{color:#a6f4bd}.answer-wrong{color:#ffd3aa}.emoji-token{background:rgba(255,255,255,.13);font-size:clamp(2rem,8vw,4.5rem);padding:8px}.memory-card__character-row{gap:clamp(3px,2vw,18px)}@media(max-width:560px){.mode-picker button{flex:1 1 100%}} 
+</style></head><body><main><a href="/tutoring.html#brain-games">← Garvey Learning Brain Games</a><h1>🧠 Sight Memory</h1><p class="intro">👀 Look closely at the characters, their order, and colors. 🧠 When they disappear, answer from memory. 🌟 Four consecutive strong rounds unlock a longer sequence.</p><div class="skill-strip" aria-label="Skills practiced"><span>👁️ Visual recall</span><span>🎯 Attention</span><span>🧠 Working memory</span><span>🔎 Detail recognition</span></div><div id="sight-game"></div><details class="parent-insights"><summary>👨‍👩‍👧 For Parents — What does Sight Memory practice? <span>Tap to explore ↗</span></summary><div class="insight-grid"><article><h3>👁️ Visual memory</h3><p>Remembering emojis, letters, numbers, positions, or colors after they disappear.</p></article><article><h3>🧠 Working memory</h3><p>Holding a short sequence in mind while choosing an answer.</p></article><article><h3>🎯 Selective attention</h3><p>Noticing relevant details during a brief viewing window.</p></article><article><h3>🔄 Cognitive flexibility</h3><p>Switching between questions about position, identity, and color.</p></article></div><p><strong>How progress works:</strong> Each round asks up to five questions in a shuffled order. Children recall emojis; adults recall letters, numbers, and colors. Slide the marker and tap Lock Answer. At least 70% correct answers make a strong round. Four strong rounds in a row unlock the next level. Longer sequences increase difficulty.</p><p><strong>Parent observation:</strong> Notice whether your child remembers the beginning, middle, colors, or numbers more easily. Try a longer reveal timer when needed. Accuracy and streaks describe performance in this game, not a diagnosis or a standardized measure of intelligence.</p></details></main><script type="module">
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 const DIGITS = "0123456789";
+const EMOJIS = ["🐶","🐱","🦁","🐸","🦋","🐢","🚀","🌈","⭐","🌻","🍎","🍓","🍉","🎈","⚽","🎨","🚗","🦄","🐼","🌙"];
 const COLOR_POOL = [
   { name: "Black", value: "#111827", isDefault: true },
   { name: "Red", value: "#cf2f2f" },
@@ -49,8 +51,9 @@ function ordinal(position) {
   return `${position}th`;
 }
 
-function buildCharacterLine(level) {
+function buildCharacterLine(level, mode = "adult") {
   const totalCount = Math.max(3, Math.min(9, 3 + Math.floor((level - 1) / 2)));
+  if (mode === "child") return shuffle(EMOJIS).slice(0, totalCount).map((value, index) => ({value, kind:"emoji", position:index+1, colorName:"", colorValue:""}));
   const lettersCount = Math.max(1, Math.floor(totalCount / 2));
   const digitsCount = totalCount - lettersCount;
 
@@ -74,7 +77,15 @@ function buildCharacterLine(level) {
   });
 }
 
-function buildQuestions(memoryLine) {
+function buildQuestions(memoryLine, mode = "adult") {
+  if (mode === "child") {
+    const pool = EMOJIS.filter(value => !memoryLine.some(item => item.value === value));
+    const targets = [0, 1, 2, memoryLine.length - 1];
+    const questions = [...new Set(targets)].map(index => ({prompt: `Which emoji was ${index === 0 ? "first" : index === memoryLine.length-1 ? "last" : "in position " + (index+1)}?`, answer:memoryLine[index].value}));
+    const randomTarget = pickRandom(memoryLine);
+    questions.push({prompt:`Did you spot this emoji? Find ${randomTarget.value}!`,answer:randomTarget.value});
+    return shuffle(questions).slice(0,5).map(question=>({...question,choices:shuffle([question.answer,...shuffle(pool).slice(0,2)])}));
+  }
   const questions = [];
   const byPosition = memoryLine;
   const letters = memoryLine.filter((entry) => entry.kind === "letter");
@@ -139,12 +150,21 @@ function mountSightGame(container) {
   let currentRoundId = 0;
   let revealTimeout = null;
   let activeLine = null;
+  let mode = "child";
 
   const section = text("section", "brain-game-module sight-memory-screen");
   const header = text("header", "brain-game-module__header");
-  header.append(text("h3", "", "🚀 Sight Memory Challenge"), text("p", "", "👀 See it · 🧠 Remember it · 🎯 Answer it! Memorize identity, order, and color."));
+  header.append(text("h3", "", "🚀 Sight Memory Challenge"), text("p", "", "👀 See it · 🧠 Remember it · 🎚️ Slide to answer! Choose Kids for emojis or Adults for letters, numbers, and colors."));
 
   const controls = text("div", "sight-memory-controls");
+  const modePicker = text("div", "mode-picker");
+  const childModeBtn = text("button", "mode-selected", "🧒 Kids · Emojis");
+  const adultModeBtn = text("button", "", "🧑 Adults · Letters & Numbers");
+  childModeBtn.type = adultModeBtn.type = "button";
+  modePicker.append(childModeBtn, adultModeBtn);
+  function setMode(next) { mode = next; childModeBtn.classList.toggle("mode-selected",mode==="child"); adultModeBtn.classList.toggle("mode-selected",mode==="adult"); resetAll(); }
+  childModeBtn.addEventListener("click",()=>setMode("child"));
+  adultModeBtn.addEventListener("click",()=>setMode("adult"));
   const revealSelect = document.createElement("select");
   [3, 4, 5, 7].forEach((seconds) => {
     const option = document.createElement("option");
@@ -171,7 +191,7 @@ function mountSightGame(container) {
   const streakNode = text("p", "", "🎯 Round streak 0/4");
   stats.append(levelNode, scoreNode, streakNode, accuracyNode);
 
-  section.append(header, controls, stage, questionPanel, stats, feedback);
+  section.append(header, modePicker, controls, stage, questionPanel, stats, feedback);
   container.replaceChildren(section);
 
   function clearRevealTimer() {
@@ -200,7 +220,8 @@ function mountSightGame(container) {
 
     memoryLine.forEach((entry) => {
       const token = text("span", "memory-card__character", entry.value);
-      token.style.color = entry.colorValue;
+      if (entry.colorValue) token.style.color = entry.colorValue;
+      if (entry.kind === "emoji") token.classList.add("emoji-token");
       token.dataset.kind = entry.kind;
       row.append(token);
     });
@@ -214,53 +235,54 @@ function mountSightGame(container) {
     stage.replaceChildren(text("div", "memory-card-placeholder", "🔒 Sequence hidden — recall what you saw!"));
 
     const questionList = text("div", "question-panel__list");
-    const questions = buildQuestions(activeLine); // Fresh random question order each round
+    const questions = buildQuestions(activeLine, mode); // Fresh random question order each round
     let correctCount = 0;
 
     questions.forEach((question) => {
       const row = text("div", "question-panel__item");
       row.append(text("p", "", question.prompt));
 
-      const options = text("div", "question-panel__options");
-      question.choices.forEach((choice) => {
-        const optionBtn = text("button", "", String(choice));
-        optionBtn.type = "button";
-        optionBtn.addEventListener("click", () => {
-          if (optionBtn.dataset.locked) return;
-          optionBtn.dataset.locked = "true";
-          attempts += 1;
-
-          if (choice === question.answer) {
-            score += 1;
-            correctCount += 1;
-            optionBtn.classList.add("is-correct");
-          } else {
-            optionBtn.classList.add("is-wrong");
-          }
-
-          row.querySelectorAll("button").forEach((button) => {
-            button.disabled = true;
-            if (button.textContent === String(question.answer)) button.classList.add("is-correct");
-          });
-
-          updateStats();
-
-          if (questionList.querySelectorAll("button:not([disabled])").length === 0) {
-            completedRounds += 1;
-            if (correctCount >= Math.ceil(questions.length * 0.7)) {
-              successfulRounds += 1;
-              if (successfulRounds >= 4) { level += 1; successfulRounds = 0; }
-              feedback.textContent = `🌟 Strong recall! ${successfulRounds}/4 consecutive strong rounds toward the next level.`;
-            } else {
-              successfulRounds = 0;
-              feedback.textContent = "💪 Keep practicing! Your streak restarts, but your learning continues.";
-            }
-            updateStats();
-          }
-        });
-        options.append(optionBtn);
+      const options = text("div", "slider-answer");
+      const choices = question.choices;
+      const labels = text("div", "slider-choices");
+      choices.forEach((choice,index)=> {
+        const label = text("span", "", String(choice));
+        label.id = "choice-" + roundId + "-" + questions.indexOf(question) + "-" + index;
+        labels.append(label);
       });
-
+      const slider = document.createElement("input");
+      slider.type = "range"; slider.min = "0"; slider.max = String(choices.length-1); slider.step = "1"; slider.value = "1";
+      slider.setAttribute("aria-label", question.prompt + " — slide to choose an answer");
+      const selection = text("p", "slider-selection", "🎯 Selected: " + choices[1]);
+      const confirm = text("button", "slider-confirm", "✅ Lock Answer");
+      confirm.type = "button";
+      function syncSlider() {
+        const index = Number(slider.value);
+        selection.textContent = "🎯 Selected: " + choices[index];
+        [...labels.children].forEach((label,i)=>label.classList.toggle("slider-active",i===index));
+      }
+      slider.addEventListener("input", syncSlider);
+      syncSlider();
+      confirm.addEventListener("click", () => {
+        if (confirm.disabled || roundId !== currentRoundId) return;
+        const choice = choices[Number(slider.value)];
+        confirm.disabled = true; slider.disabled = true;
+        attempts += 1;
+        if (choice === question.answer) { score += 1; correctCount += 1; selection.classList.add("answer-correct"); }
+        else { selection.classList.add("answer-wrong"); }
+        selection.textContent = (choice === question.answer ? "🌟 Correct! " : "💡 Good try! ") + "Answer: " + question.answer;
+        updateStats();
+        if (questionList.querySelectorAll(".slider-confirm:not([disabled])").length === 0) {
+          completedRounds += 1;
+          if (correctCount >= Math.ceil(questions.length * 0.7)) {
+            successfulRounds += 1;
+            if (successfulRounds >= 4) { level += 1; successfulRounds = 0; feedback.textContent = "🏆 Level up! Ready for a bigger challenge?"; }
+            else feedback.textContent = `🌟 Strong recall! ${successfulRounds}/4 consecutive strong rounds toward the next level.`;
+          } else { successfulRounds = 0; feedback.textContent = "💪 Keep practicing! Your streak restarts, but your learning continues."; }
+          updateStats();
+        }
+      });
+      options.append(labels,slider,selection,confirm);
       row.append(options);
       questionList.append(row);
     });
@@ -271,7 +293,7 @@ function mountSightGame(container) {
 
   function startRound() {
     invalidateRound();
-    activeLine = buildCharacterLine(level);
+    activeLine = buildCharacterLine(level, mode);
     questionPanel.replaceChildren();
     renderCard(activeLine);
 
