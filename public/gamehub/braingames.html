@@ -1297,7 +1297,8 @@
       cleanups.push(() => clearInterval(changeTimer));
     }
 
-    switchGame('freeze');
+    const requestedGame = new URLSearchParams(window.location.search).get('game');
+    switchGame(Object.prototype.hasOwnProperty.call(games, requestedGame) ? requestedGame : 'freeze');
     window.addEventListener('beforeunload', () => endAdapterSession('exit'));
   </script>
 
