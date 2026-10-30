@@ -243,6 +243,25 @@ async function initializeDatabase() {
       updated_at TIMESTAMP DEFAULT NOW(),
       UNIQUE (child_id, skill_id, mode)
     );
+    CREATE TABLE IF NOT EXISTS garvey_learning_activity_events (
+      id BIGSERIAL PRIMARY KEY,
+      child_id TEXT NOT NULL,
+      parent_profile_id BIGINT,
+      auth_user_id INTEGER,
+      event_key TEXT NOT NULL,
+      event_type TEXT NOT NULL,
+      session_id TEXT,
+      activity_id TEXT,
+      skill_id TEXT,
+      duration_seconds INTEGER NOT NULL DEFAULT 0,
+      practice_tags JSONB NOT NULL DEFAULT '[]'::jsonb,
+      genius_dimension_codes JSONB NOT NULL DEFAULT '[]'::jsonb,
+      observation JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (child_id, event_key)
+    );
+    CREATE INDEX IF NOT EXISTS garvey_learning_activity_events_child_time_idx
+      ON garvey_learning_activity_events (child_id, created_at DESC);
   `);
 
   await pool.query(`
