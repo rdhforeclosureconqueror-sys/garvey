@@ -33,4 +33,14 @@ test("Sight Memory exposes a stable content ID and observation event", () => {
   assert.match(html, /data-garvey-content-id="gamehub\/sight-memory"/);
   assert.match(html, /garvey:activity-observation/);
   assert.match(html, /accuracy: questionCount \? correctCount \/ questionCount : 0/);
+  assert.match(html, /SIGHT_MEMORY_PROGRESS_SKILL_ID = "GAMEHUB_SIGHT_MEMORY"/);
+  assert.match(html, /fetch\("\/api\/skill-world\/progress"/);
+  assert.match(html, /context\.program_context !== "youth_development"/);
+});
+
+test("parent dashboard has a child-scoped Sight Memory launch path", () => {
+  const dashboard = fs.readFileSync(path.resolve(__dirname, "../../server/youthDevelopmentRoutes.js"), "utf8");
+  assert.match(dashboard, /function sightMemoryHref\(scopedChild\)/);
+  assert.match(dashboard, /program_context', 'youth_development'/);
+  assert.match(dashboard, /Open Sight Memory practice/);
 });
