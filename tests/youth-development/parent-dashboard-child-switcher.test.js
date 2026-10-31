@@ -29,3 +29,11 @@ test('parent dashboard uses one focused Genius insight and hides developer-facin
   assert.match(dashboard, /developer-diagnostics/);
   assert.doesNotMatch(dashboard, /Profile ID ' \+ esc\(summary\.child_id/);
 });
+
+test('parent dashboard renders a Grade 4 question-practice map without labeling the child', () => {
+  assert.match(dashboard, /function hydrateGrade4QuestionMap\(summary\)/);
+  assert.match(dashboard, /grade4-skill-world\/genius-outline/);
+  assert.match(dashboard, /What this Grade 4 skill practices/);
+  assert.match(dashboard, /View all .* question outlines/);
+  assert.match(dashboard, /This describes the work in the question—not a label for your child/);
+});

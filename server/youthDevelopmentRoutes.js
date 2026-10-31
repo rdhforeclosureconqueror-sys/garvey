@@ -2845,7 +2845,38 @@ function renderLiveYouthParentDashboardPage() {
           });
         }
 
-        function renderAdaptiveSummary(summary, scopedChild) {
+        function grade4SkillIdFromSummary(summary) {
+          const values = [summary?.current_skill_world, summary?.next_recommended_learning_activity]
+            .concat((summary?.recent_activity || []).map((item) => item?.label || item?.skill_id || ''));
+          return values.map((value) => String(value || '').match(/G4[EM]_[A-Z]+_\d{3}/i)?.[0]?.toUpperCase()).find(Boolean) || '';
+        }
+
+        function geniusLabel(code) {
+          return ({ SR: 'Focus & Self-Control', CQ: 'Curiosity & Love of Learning', CR: 'Creativity & Idea Thinking', RS: 'Thinking & Problem Solving', PS: 'Effort & Resilience', FB: 'Learning From Feedback', DE: 'Interests & Passion Areas' })[String(code || '').toUpperCase()] || String(code || '');
+        }
+
+        async function hydrateGrade4QuestionMap(summary) {
+          const host = document.getElementById('grade4QuestionGeniusMap');
+          const skillId = grade4SkillIdFromSummary(summary);
+          if (!host || !skillId) return;
+          const response = await fetch('/api/grade4-skill-world/genius-outline/' + encodeURIComponent(skillId), { credentials: 'same-origin' }).catch(() => null);
+          const data = response && response.ok ? await response.json().catch(() => null) : null;
+          const outline = data?.outline;
+          if (!outline) return;
+          const first = outline.questions?.[0] || {};
+          const dimensions = (first.genius_dimension_codes || []).map(geniusLabel).filter(Boolean);
+          host.innerHTML = [
+            '<section class="callout" aria-label="Grade 4 skill practice map">',
+            '<h3>🧭 What this Grade 4 skill practices</h3>',
+            '<p><strong>' + esc(outline.academic_target || outline.skill_id) + '</strong></p>',
+            '<p>' + esc((first.task_demands || []).slice(0, 3).join(' · ')) + '</p>',
+            '<p class="tiny"><strong>Garvey areas this work can give opportunities to observe:</strong> ' + esc(dimensions.join(' · ')) + '</p>',
+            '<p class="tiny">This describes the work in the question—not a label for your child.</p>',
+            '<details><summary style="cursor:pointer;font-weight:700;padding:8px 0;">View all ' + esc(String(outline.question_count || 0)) + ' question outlines</summary><ul class="activity-list">',
+            (outline.questions || []).map((question) => '<li><strong>' + esc(question.question_prompt) + '</strong><span class="tiny"> · ' + esc(question.question_bank.replace(/_/g, ' ')) + '</span></li>').join(''),
+            '</ul></details></section>'
+          ].join('');
+        }\n\n        function renderAdaptiveSummary(summary, scopedChild) {
           const host = document.getElementById("adaptiveLearningSummary");
           const status = document.getElementById("adaptiveLearningStatus");
           if (!host) return;
@@ -2878,12 +2909,14 @@ function renderLiveYouthParentDashboardPage() {
             '</div>',
             '<p><strong>What to do next:</strong> Open the learning hub and continue the next recommended ' + esc(parentFriendlyLearningArea(summary.next_recommended_learning_activity || summary.current_skill_world)).toLowerCase() + ' activity.</p>',
             '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">🧠 Open Sight Memory practice →</a></p>',
+            '<div id="grade4QuestionGeniusMap"></div>',
             learningRhythmMarkup(summary.learning_rhythm),
             '<h3>Recent learning activity</h3><ul class="activity-list">' + (activityRows || '<li class="muted">No saved learning activity yet.</li>') + '</ul>',
             '<details><summary style="cursor:pointer;font-weight:700;padding:12px 0;">View more saved learning activity</summary><ul class="activity-list">' + ((summary.recent_activity || []).slice(3, 12).map(item => '<li><strong>' + esc(parentActivityTitle(item)) + '</strong><span class="tiny"> · ' + esc(formatAdaptiveStatus(item.status || item.event_type)) + ' · ' + esc(formatDate(item.occurred_at)) + '</span></li>').join('') || '<li class="muted">No additional activity recorded.</li>') + '</ul></details>',
             '</div>'
           ].join('');
           bindLearningRhythmCheckin(scopedChild);
+          hydrateGrade4QuestionMap(summary);
         }
 
         async function hydrateAdaptiveLearning(scopedChild) {
