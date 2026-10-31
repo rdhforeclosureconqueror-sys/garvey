@@ -251,6 +251,61 @@
         padding: 30px;
         margin-top: 30px;
       }
+      .genius-intro {
+        background: linear-gradient(115deg, #152f50, #20224c);
+        border: 1px solid #4d9fa4;
+        border-radius: 24px;
+        padding: 26px;
+        margin-top: 30px;
+      }
+      .genius-intro h3 { margin: 0 0 9px; font-size: 24px; }
+      .genius-intro p { color: #c3d2e5; line-height: 1.65; margin: 8px 0; }
+      .genius-guide {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+      .genius-guide details {
+        background: #101f3b;
+        border: 1px solid #3c6686;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+      .genius-guide summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 19px 48px 19px 20px;
+        font-weight: 800;
+        font-size: 18px;
+        position: relative;
+      }
+      .genius-guide summary::-webkit-details-marker { display: none; }
+      .genius-guide summary::after {
+        content: "+";
+        color: #78efdc;
+        font-size: 26px;
+        line-height: 1;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+      }
+      .genius-guide details[open] summary { border-bottom: 1px solid #345a7e; }
+      .genius-guide details[open] summary::after { content: "–"; }
+      .genius-guide-body { padding: 18px 20px 22px; }
+      .genius-guide-body > p { color: #c5d2e3; line-height: 1.6; margin: 0 0 15px; }
+      .genius-signals { display: grid; gap: 11px; }
+      .genius-signal {
+        background: #ffffff08;
+        border-left: 3px solid #72e3d3;
+        border-radius: 0 10px 10px 0;
+        padding: 10px 12px;
+        color: #d7e2f0;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .genius-signal b { color: #8ff4e1; }
+      .genius-guide summary:focus-visible { outline: 3px solid #7aebdb; outline-offset: -3px; }
       .card {
         background: #ffffff09;
         border: 1px solid #ffffff22;
@@ -522,6 +577,95 @@
                 through repeated interest.
               </p>
             </article>
+          </div>
+          <div class="genius-intro">
+            <h3>Find the genius that is showing up in you.</h3>
+            <p>
+              You are not only one kind of genius. Your strengths can team up.
+              For example, a learner who gets excited about a new topic, imagines
+              different ways to explore it, and keeps working until it makes sense
+              may be using <strong>Curiosity, Creativity, and Problem Solving</strong>
+              together. Open a card below and see what sounds like you.
+            </p>
+          </div>
+          <div class="genius-guide" aria-label="Child-friendly Genius Map guide">
+            <details>
+              <summary>🎯 Focus &amp; Self-Control</summary>
+              <div class="genius-guide-body">
+                <p>Your ability to aim your attention, get started, and stay with a job long enough to finish it.</p>
+                <div class="genius-signals">
+                  <div class="genius-signal"><b>You may notice it in yourself when:</b> “I can come back to my work after a distraction,” or “I know what step to do next.”</div>
+                  <div class="genius-signal"><b>Grow it:</b> Choose one small goal, use a short focus timer, and take a planned movement or water break before your attention is gone.</div>
+                  <div class="genius-signal"><b>It can feel harder when:</b> there are too many directions at once, the task is too long, or you are tired, hungry, worried, or surrounded by distractions.</div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>🔍 Curiosity &amp; Love of Learning</summary>
+              <div class="genius-guide-body">
+                <p>The spark that makes you ask “why?”, look closer, and feel excited to discover something new.</p>
+                <div class="genius-signals">
+                  <div class="genius-signal"><b>You may notice it in yourself when:</b> “Wait—how does that work?”, “Can I try another one?”, or you happily learn about something just because it interests you.</div>
+                  <div class="genius-signal"><b>Grow it:</b> Keep a question list, pick one question each week to investigate, and explain one new thing you learned to someone else.</div>
+                  <div class="genius-signal"><b>It can feel harder when:</b> every answer is given before you can wonder, questions are rushed, or learning feels only like a test.</div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>💡 Creativity &amp; Idea Thinking</summary>
+              <div class="genius-guide-body">
+                <p>Your power to imagine possibilities, make connections, and try more than the first idea.</p>
+                <div class="genius-signals">
+                  <div class="genius-signal"><b>You may notice it in yourself when:</b> “What if we did it this way?”, you invent stories or designs, or you see a new use for something ordinary.</div>
+                  <div class="genius-signal"><b>Grow it:</b> Make a “three ideas” rule before choosing an answer, build or draw your thinking, and let yourself make messy first drafts.</div>
+                  <div class="genius-signal"><b>It can feel harder when:</b> you feel there is only one acceptable way to think, mistakes are embarrassing, or an idea is judged before it gets a chance to grow.</div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>🧩 Thinking &amp; Problem Solving</summary>
+              <div class="genius-guide-body">
+                <p>Your ability to notice patterns, connect clues, and work step by step toward an answer.</p>
+                <div class="genius-signals">
+                  <div class="genius-signal"><b>You may notice it in yourself when:</b> “I see the pattern,” “Let me break this into parts,” or you enjoy figuring out why something happened.</div>
+                  <div class="genius-signal"><b>Grow it:</b> Say your steps out loud, draw a model, look for what is the same and different, and try a second strategy when the first one does not work.</div>
+                  <div class="genius-signal"><b>It can feel harder when:</b> you must rush, skip the visual example, or are made to memorize an answer without being shown how the pieces connect.</div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>🧗 Effort &amp; Resilience</summary>
+              <div class="genius-guide-body">
+                <p>Your ability to meet a challenge, recover from a hard moment, and keep growing instead of giving up.</p>
+                <div class="genius-signals">
+                  <div class="genius-signal"><b>You may notice it in yourself when:</b> “This is hard, but I can try a new way,” or you return to a skill after getting it wrong.</div>
+                  <div class="genius-signal"><b>Grow it:</b> Add the word “yet” to a hard thought, take a reset breath, ask for one helpful hint, then try again yourself.</div>
+                  <div class="genius-signal"><b>It can feel harder when:</b> the work is far too easy or far too hard, effort is ignored, or mistakes feel like proof that you do not belong.</div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>🛠️ Learning From Feedback</summary>
+              <div class="genius-guide-body">
+                <p>Your ability to use a correction, clue, or coaching note as information that helps you improve.</p>
+                <div class="genius-signals">
+                  <div class="genius-signal"><b>You may notice it in yourself when:</b> “Oh, I see what I missed,” or you use a hint to make your next attempt stronger.</div>
+                  <div class="genius-signal"><b>Grow it:</b> After feedback, name one thing you will change, retry one small part, and notice what worked better this time.</div>
+                  <div class="genius-signal"><b>It can feel harder when:</b> feedback sounds like an insult, comes with no example, or you are corrected in a way that feels embarrassing.</div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>🌟 Interests &amp; Passion Areas</summary>
+              <div class="genius-guide-body">
+                <p>The subjects, activities, and real-world problems that naturally pull you in and make you want to keep practicing.</p>
+                <div class="genius-signals">
+                  <div class="genius-signal"><b>You may notice it in yourself when:</b> time moves fast while you are doing it, you remember details about it, or you keep returning to it on your own.</div>
+                  <div class="genius-signal"><b>Grow it:</b> Make a passion project, connect a school skill to what you love, and share what you are learning with a real audience.</div>
+                  <div class="genius-signal"><b>It can feel harder when:</b> your interests are treated as unimportant, you never get to choose, or you only see one narrow picture of what success can look like.</div>
+                </div>
+              </div>
+            </details>
           </div>
           <div class="genius-callout">
             <h3>Your parent dashboard turns observations into next steps.</h3>
