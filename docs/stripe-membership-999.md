@@ -1,12 +1,14 @@
-# Garvey Learning — Stripe monthly membership
+# Garvey Youth Development — Genius Learning monthly membership
 
 Price: **$9.99 USD/month**, recurring. This link is LIVE and charges real money.
 
 Stripe checkout: https://buy.stripe.com/cNiaEQ6Lv66E6sSd7i8bS01
 
+This is the **Youth Development / Genius Learning** area within Garvey, not a separate platform or third subscription.
+
 ## Implementation checklist
 
-- Add a clearly labeled **Join for $9.99/month** link on the existing membership/parent dashboard; preserve free assessments and existing sign-in.
+- Add a clearly labeled **Join for $9.99/month** link on the existing Youth Development / Seven Geniuses parent dashboard; preserve free assessments and existing sign-in.
 - Do not grant membership on link click or redirect. Verify Stripe's signed webhook on the backend and use Stripe subscription ID, customer ID, product/price ID and authenticated user mapping.
 - Handle checkout.session.completed, invoice.paid, invoice.payment_failed, customer.subscription.updated and customer.subscription.deleted idempotently. Check active/trialing status and current entitlement at protected routes.
 - Link Stripe customers to authenticated parent accounts using a server-generated checkout session or a verified enrollment token. A generic static payment link alone cannot securely bind the buyer to a specific signed-in parent.
