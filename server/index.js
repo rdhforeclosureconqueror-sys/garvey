@@ -241,7 +241,10 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Admin-only live membership diagnostics (persisted to Postgres).\napp.use(require("./membershipDiagnosticsRoutes").createMembershipDiagnosticsRouter({ pool, version: buildVersionPayload }));\n\napp.get('/dashboard.html', (req, res) => {
+// Admin-only live membership diagnostics (persisted to Postgres).
+app.use(require("./membershipDiagnosticsRoutes").createMembershipDiagnosticsRouter({ pool, version: buildVersionPayload }));
+
+app.get('/dashboard.html', (req, res) => {
   const actor = deriveActor(req);
   if (actor.role === ROLES.BUSINESS_OWNER && actor.tenantSlug) {
     if (!actor.onboardingComplete) {
