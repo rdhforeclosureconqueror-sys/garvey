@@ -12,6 +12,7 @@ function entitlementFromSubscription(subscription, platform) {
   if (!Object.prototype.hasOwnProperty.call(PRICE_IDS, platform)) return false;
   if (!subscription || !ACTIVE_STATUSES.has(subscription.status)) return false;
   if (!subscription.customer || !subscription.id) return false;
+  // Callers must independently verify the Stripe customer belongs to the authenticated parent.
   const items = subscription.items?.data;
   if (!Array.isArray(items)) return false;
   return items.some((item) => item?.price?.id === PRICE_IDS[platform]);
