@@ -24,7 +24,8 @@ function createMembershipDiagnosticsRouter({ pool, version }) {
   router.post("/api/admin/membership-diagnostics/run",admin,async(req,res)=>{
     // Restrict state-changing requests to same-origin browser sessions.
     const origin=req.get("origin");
-    if (!origin || origin !== `${req.protocol}://${req.get("host")}`) return res.status(403).json({error:"same_origin_required"});
+    const expectedOrigin = new URL(`${req.protocol}://${req.get("host")}`).origin;
+    if (!origin || origin !== expectedOrigin) return res.status(403).json({error:"same_origin_required"});
     if (!req.is("application/json")) return res.status(415).json({error:"json_required"});
     try {
       await ensureTable();
