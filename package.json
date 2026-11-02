@@ -17,7 +17,9 @@
     "production:migrate-princess-nia-progress": "node scripts/production/migrate-princess-nia-progress.mjs",
     "sync:adaptive-runtime": "node scripts/gamehub/sync-adaptive-learning-runtime.mjs",
     "build:websites": "node scripts/build-website-pages.js",
-    "test:websites": "node --test tests/website-builder.test.js"
+    "test:websites": "node --test tests/website-builder.test.js",
+    "test:membership": "node --test tests/subscription-entitlements.test.js tests/membership-acceptance.test.js",
+    "test:membership:button": "node server/membershipAcceptanceLocal.js"
   },
   "dependencies": {
     "express": "^4.18.2",
