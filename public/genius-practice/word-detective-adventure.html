@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Word Detective Teaching Adventure</title>
+<style>
+:root{
+  --ink:#24324a;
+  --purple:#6c4cff;
+  --pink:#ff5fa2;
+  --yellow:#ffd85a;
+  --mint:#63e6be;
+  --sky:#61c7ff;
+  --orange:#ff9f43;
+  --card:#ffffff;
+  --bg1:#eef7ff;
+  --bg2:#fff4fb;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color:var(--ink);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  min-height:100vh;
+}
+button{font:inherit}
+.app{max-width:1100px;margin:0 auto;padding:18px}
+.hero{
+  background:linear-gradient(135deg,#6c4cff,#ff5fa2);
+  color:white;
+  border-radius:28px;
+  padding:28px;
+  box-shadow:0 16px 40px rgba(74,57,143,.25);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{content:"🔎✨📚";position:absolute;right:22px;top:18px;font-size:56px;opacity:.25}
+.hero h1{margin:0 0 8px;font-size:clamp(2rem,5vw,4rem)}
+.hero p{margin:0;max-width:720px;font-size:1.1rem;line-height:1.5}
+.navbar{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.navbar button,.primary,.secondary{
+  border:0;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer;box-shadow:0 6px 14px rgba(0,0,0,.08)
+}
+.navbar button{background:white;color:var(--ink)}
+.navbar button.active{background:var(--yellow)}
+.primary{background:var(--purple);color:white}
+.secondary{background:white;color:var(--purple);border:2px solid var(--purple)}
+.panel{display:none}.panel.active{display:block}
+.card{
+  background:var(--card);
+  border-radius:24px;
+  padding:22px;
+  margin:16px 0;
+  box-shadow:0 12px 28px rgba(42,66,110,.12);
+  border:3px solid rgba(108,76,255,.08)
+}
+.card h2,.card h3{margin-top:0}
+.section-title{font-size:clamp(1.7rem,3vw,2.5rem);margin:8px 0}
+.intro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.mini{padding:18px;border-radius:20px;background:#fff}
+.mini:nth-child(1){border:4px solid var(--sky)}
+.mini:nth-child(2){border:4px solid var(--mint)}
+.mini:nth-child(3){border:4px solid var(--orange)}
+.lesson-wrap{display:grid;grid-template-columns:260px 1fr;gap:18px}
+.lesson-list{background:white;border-radius:22px;padding:12px;box-shadow:0 10px 24px rgba(0,0,0,.08);height:max-content;position:sticky;top:12px}
+.lesson-list button{width:100%;text-align:left;border:0;background:#f5f7ff;margin:5px 0;padding:11px;border-radius:14px;cursor:pointer;font-weight:700}
+.lesson-list button.active{background:var(--yellow)}
+.lesson-card{background:white;border-radius:24px;padding:24px;box-shadow:0 12px 28px rgba(42,66,110,.12)}
+.story{font-size:1.18rem;line-height:1.7;background:#f8fbff;border-left:8px solid var(--sky);padding:18px;border-radius:16px}
+.word{background:var(--yellow);padding:2px 7px;border-radius:8px;font-weight:900}
+.steps{display:grid;gap:12px;margin-top:16px}
+.step{padding:15px;border-radius:16px;background:#fff8db;border:2px dashed #f2c94c}
+.step:nth-child(2){background:#ebfff7;border-color:var(--mint)}
+.step:nth-child(3){background:#f3efff;border-color:#a78bfa}
+.step:nth-child(4){background:#fff0f6;border-color:var(--pink)}
+.tip{background:#24324a;color:white;border-radius:16px;padding:15px;margin-top:16px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.progress{height:16px;background:#e9ecf6;border-radius:999px;overflow:hidden;margin:10px 0 20px}
+.progress > div{height:100%;background:linear-gradient(90deg,var(--mint),var(--purple));width:0%;transition:.3s}
+.practice-card{background:white;border-radius:22px;padding:22px;margin:16px 0;box-shadow:0 10px 24px rgba(0,0,0,.1)}
+.answer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:16px}
+.answer{border:3px solid #dce3ff;background:#fff;border-radius:16px;padding:14px;cursor:pointer;font-weight:800}
+.answer:hover{transform:translateY(-2px)}
+.answer.correct{background:#dffcf2;border-color:#39c99b}.answer.wrong{background:#ffe3ec;border-color:#ff6b9a}
+.feedback{display:none;margin-top:14px;padding:15px;border-radius:15px;background:#eef4ff;line-height:1.5}.feedback.show{display:block}
+.badges{display:flex;gap:12px;flex-wrap:wrap}
+.badge{background:white;padding:12px 16px;border-radius:999px;font-weight:900;box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.footer{text-align:center;padding:28px 8px;color:#60708f}
+@media(max-width:760px){.lesson-wrap{grid-template-columns:1fr}.lesson-list{position:static}.hero:after{display:none}}
+@media print{.navbar,.controls,.lesson-list,.hero p{display:none!important}.panel{display:block!important}.card,.lesson-card{box-shadow:none;page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hero">
+    <h1>Word Detective Adventure</h1>
+    <p>Learn how to understand a word by studying the whole situation. Every lesson explains the clues, the meaning, and why the answer makes sense.</p>
+  </header>
+
+  <div class="navbar">
+    <button class="active" data-panel="home">🏠 Start</button>
+    <button data-panel="context">🔎 Context Clues: 10</button>
+    <button data-panel="synonyms">🤝 Synonyms: 10</button>
+    <button data-panel="antonyms">↔️ Antonyms: 10</button>
+    <button data-panel="practice">🎮 Guided Practice</button>
+  </div>
+
+  <section id="home" class="panel active">
+    <div class="card">
+      <h2 class="section-title">How Word Detectives Think</h2>
+      <div class="intro-grid">
+        <div class="mini"><h3>🔎 Context Clues</h3><p>Details around a word help us understand what the word means.</p></div>
+        <div class="mini"><h3>🤝 Synonyms</h3><p>Synonyms are words with the same or almost the same meaning.</p></div>
+        <div class="mini"><h3>↔️ Antonyms</h3><p>Antonyms are words with opposite meanings.</p></div>
+      </div>
+      <div class="tip"><strong>Important:</strong> First, read the whole situation. Next, collect the clues. Then, explain why the word makes sense.</div>
+      <div class="controls"><button class="primary" onclick="openPanel('context')">Begin the First Lesson</button></div>
+    </div>
+  </section>
+
+  <section id="context" class="panel"><div id="contextRoot"></div></section>
+  <section id="synonyms" class="panel"><div id="synonymRoot"></div></section>
+  <section id="antonyms" class="panel"><div id="antonymRoot"></div></section>
+
+  <section id="practice" class="panel">
+    <div class="card">
+      <h2 class="section-title">Guided Practice</h2>
+      <p>Now the child can apply the same thinking. Every answer still includes an explanation.</p>
+      <div class="progress"><div id="practiceProgress"></div></div>
+      <div id="practiceRoot"></div>
+    </div>
+  </section>
+
+  <div class="footer">Made for curious second-grade word detectives 🌟</div>
+</div>
+<script>
+const contextLessons = [
+{title:'The Gloomy Sky',word:'gloomy',story:'Maya planned to play outside. Then dark clouds covered the sun, a cold wind began to blow, and rain started to fall. The sky looked gloomy.',clues:['dark clouds covered the sun','a cold wind blew','rain began to fall'],meaning:'Gloomy means dark, cloudy, or a little sad-looking.',why:'All of the details describe weather that is not bright or cheerful.'},
+{title:'The Exhausted Runner',word:'exhausted',story:'Luis ran around the track five times. When he finished, he bent over, breathed hard, and said he needed to rest. Luis was exhausted.',clues:['he ran five laps','he was breathing hard','he needed to rest'],meaning:'Exhausted means very tired.',why:'The situation shows that Luis used a lot of energy and had almost none left.'},
+{title:'The Enormous Elephant',word:'enormous',story:'At the zoo, Ava stood beside an elephant. Its legs were taller than she was, and its body was much bigger than a car. The elephant was enormous.',clues:['its legs were taller than Ava','its body was bigger than a car'],meaning:'Enormous means very, very big.',why:'The comparisons help us picture something much larger than normal.'},
+{title:'The Timid Kitten',word:'timid',story:'The kitten hid behind the chair when visitors came in. It peeked out, but it did not walk toward anyone. The kitten was timid.',clues:['it hid behind the chair','it only peeked out','it would not approach'],meaning:'Timid means shy or easily frightened.',why:'The kitten avoids people instead of confidently greeting them.'},
+{title:'The Ancient Tree',word:'ancient',story:'The tree had stood in the park for hundreds of years. Its trunk was thick, and many generations of families had rested under it. The tree was ancient.',clues:['it was hundreds of years old','many generations had seen it'],meaning:'Ancient means very old.',why:'The story tells us the tree has existed for a very long time.'},
+{title:'The Rapid Rabbit',word:'rapid',story:'A rabbit spotted a fox and raced across the field. In only a few seconds, it disappeared into its burrow. The rabbit moved rapidly.',clues:['it raced','it crossed the field in seconds','it disappeared quickly'],meaning:'Rapidly means very quickly.',why:'The rabbit covers distance in a very short amount of time.'},
+{title:'The Generous Friend',word:'generous',story:'Nia had two snacks. Her friend forgot to bring one, so Nia gave her friend a snack without being asked. Nia was generous.',clues:['she had two snacks','her friend had none','she shared willingly'],meaning:'Generous means willing to give or share.',why:'Nia gives something she has to help another person.'},
+{title:'The Damp Towel',word:'damp',story:'After swimming, Jordan wrapped up in a towel. The towel was not dripping, but it still felt a little wet. The towel was damp.',clues:['it was not dripping','it still felt a little wet'],meaning:'Damp means slightly wet.',why:'The towel has some water in it, but not enough to be soaking wet.'},
+{title:'The Silent Library',word:'silent',story:'Everyone in the library was reading. No one was talking, and the room was so quiet that Mia could hear the clock ticking. The library was silent.',clues:['no one was talking','the room was very quiet','the clock could be heard'],meaning:'Silent means making no sound.',why:'The room is described as having almost no noise.'},
+{title:'The Furious Coach',word:'furious',story:'The team ignored the safety rule again. The coach frowned, spoke in a strong voice, and made everyone stop playing. The coach was furious.',clues:['the coach frowned','the coach used a strong voice','the game was stopped'],meaning:'Furious means extremely angry.',why:'The coach’s face, voice, and actions all show very strong anger.'}
+];
+const synonymLessons = [
+{title:'Happy and Joyful',a:'happy',b:'joyful',story:'Ella opened her birthday gift and smiled from ear to ear. She felt happy. She also felt joyful.',explain:'Happy and joyful both describe a good, cheerful feeling.',note:'They are synonyms because their meanings are very similar.'},
+{title:'Big and Large',a:'big',b:'large',story:'The dog needed a big bed. At the store, Dad chose a large bed.',explain:'Big and large both describe something that takes up a lot of space.',note:'The second word changes, but the meaning stays almost the same.'},
+{title:'Fast and Quick',a:'fast',b:'quick',story:'The cheetah is fast. It makes quick movements when it runs.',explain:'Fast and quick both tell us that something moves in a short amount of time.',note:'Writers can switch between them to avoid repeating one word.'},
+{title:'Smart and Clever',a:'smart',b:'clever',story:'Kai solved the puzzle by noticing a hidden pattern. His smart idea was also very clever.',explain:'Smart and clever both describe someone who thinks well.',note:'They are similar, although clever often points to solving a tricky problem.'},
+{title:'Quiet and Silent',a:'quiet',b:'silent',story:'The classroom became quiet during reading time. For one minute, it was completely silent.',explain:'Quiet means little sound. Silent means no sound.',note:'They are close synonyms, but silent is a stronger word.'},
+{title:'Angry and Mad',a:'angry',b:'mad',story:'Zoe was angry when her tower fell. She told her brother that she felt mad.',explain:'Angry and mad both describe an upset feeling.',note:'In this situation, the words have nearly the same meaning.'},
+{title:'Begin and Start',a:'begin',b:'start',story:'The bell rang to begin class. The teacher told everyone to start their work.',explain:'Begin and start both mean to do the first part of something.',note:'Either word can fit this situation.'},
+{title:'Tiny and Small',a:'tiny',b:'small',story:'An ant is small. Compared with a shoe, it looks tiny.',explain:'Small and tiny both describe something that is not big.',note:'Tiny is usually stronger and means very small.'},
+{title:'Brave and Courageous',a:'brave',b:'courageous',story:'Amir was nervous about speaking, but he stood up and tried. He was brave and courageous.',explain:'Brave and courageous both mean facing something difficult even when you feel afraid.',note:'These words share the same main idea.'},
+{title:'Look and See',a:'look',b:'see',story:'The teacher said, “Look at the board.” When Tia turned her eyes toward it, she could see the answer.',explain:'Look and see both involve using your eyes.',note:'They are related synonyms, but look is the action and see is what happens when your eyes notice something.'}
+];
+const antonymLessons = [
+{title:'Hot and Cold',a:'hot',b:'cold',story:'The soup was hot, but the ice water was cold.',explain:'Hot means having a high temperature. Cold means having a low temperature.',note:'They point in opposite temperature directions.'},
+{title:'Big and Small',a:'big',b:'small',story:'The elephant was big, and the mouse was small.',explain:'Big means large in size. Small means little in size.',note:'The two words describe opposite sizes.'},
+{title:'Fast and Slow',a:'fast',b:'slow',story:'The race car moved fast, while the turtle moved slowly.',explain:'Fast means moving quickly. Slow means taking more time to move.',note:'They describe opposite speeds.'},
+{title:'Happy and Sad',a:'happy',b:'sad',story:'Jada felt happy when her friend arrived, but sad when it was time to leave.',explain:'Happy is a cheerful feeling. Sad is an unhappy feeling.',note:'They describe opposite emotions.'},
+{title:'Open and Closed',a:'open',b:'closed',story:'The store was open in the morning, but closed at night.',explain:'Open means people can enter or use it. Closed means they cannot.',note:'The store changes from one opposite condition to the other.'},
+{title:'Up and Down',a:'up',b:'down',story:'The balloon floated up, and the leaf fell down.',explain:'Up means toward a higher place. Down means toward a lower place.',note:'They describe opposite directions.'},
+{title:'Full and Empty',a:'full',b:'empty',story:'One glass was full of juice. The other glass was empty.',explain:'Full means holding all or a lot. Empty means holding nothing.',note:'The amount inside is completely different.'},
+{title:'Day and Night',a:'day',b:'night',story:'The sun shines during the day, and the moon is often seen at night.',explain:'Day is the bright part of the daily cycle. Night is the dark part.',note:'They are opposite times in the daily cycle.'},
+{title:'Young and Old',a:'young',b:'old',story:'The puppy was young, but the grandfather dog was old.',explain:'Young means having lived for a short time. Old means having lived for a long time.',note:'They describe opposite ages.'},
+{title:'Loud and Quiet',a:'loud',b:'quiet',story:'The drum was loud, but the whisper was quiet.',explain:'Loud means making a lot of sound. Quiet means making little sound.',note:'They describe opposite sound levels.'}
+];
+
+function createLessonSection(rootId,title,subtitle,data,type){
+  const root=document.getElementById(rootId);
+  root.innerHTML=`<div class="card"><h2 class="section-title">${title}</h2><p>${subtitle}</p><div class="progress"><div id="${rootId}Progress"></div></div><div class="lesson-wrap"><div class="lesson-list" id="${rootId}List"></div><div class="lesson-card" id="${rootId}Card"></div></div></div>`;
+  const list=document.getElementById(rootId+'List');
+  data.forEach((item,i)=>{const b=document.createElement('button');b.textContent=`${i+1}. ${item.title}`;b.onclick=()=>showLesson(rootId,data,type,i);list.appendChild(b)});
+  showLesson(rootId,data,type,0);
+}
+function showLesson(rootId,data,type,index){
+  const item=data[index], card=document.getElementById(rootId+'Card');
+  [...document.getElementById(rootId+'List').children].forEach((b,i)=>b.classList.toggle('active',i===index));
+  document.getElementById(rootId+'Progress').style.width=((index+1)/data.length*100)+'%';
+  const storyHtml = item.word ? item.story.replaceAll(item.word, '<span class="word">'+item.word+'</span>') : item.story;
+  let html=`<div class="badges"><span class="badge">Lesson ${index+1} of ${data.length}</span></div><h2>${item.title}</h2><div class="story">${storyHtml}</div>`;
+  if(type==='context'){
+    html+=`<div class="steps"><div class="step"><strong>Step 1: Read the whole situation.</strong><br>The mystery word is <span class="word">${item.word}</span>. We do not guess yet. We first study what is happening.</div><div class="step"><strong>Step 2: Collect the clues.</strong><ul>${item.clues.map(c=>'<li>'+c+'</li>').join('')}</ul></div><div class="step"><strong>Step 3: Put the clues together.</strong><br>${item.why}</div><div class="step"><strong>Step 4: State the meaning.</strong><br>${item.meaning}</div></div><div class="tip">Detective Rule: The answer comes from the details in the story—not from guessing.</div>`;
+  } else if(type==='synonym'){
+    html+=`<div class="steps"><div class="step"><strong>Step 1: Notice both words.</strong><br><span class="word">${item.a}</span> and <span class="word">${item.b}</span> are used in the same kind of situation.</div><div class="step"><strong>Step 2: Compare the meanings.</strong><br>${item.explain}</div><div class="step"><strong>Step 3: Decide the relationship.</strong><br>${item.note}</div><div class="step"><strong>What we learned:</strong><br>${item.a} ≈ ${item.b}. The symbol ≈ means “almost the same.”</div></div><div class="tip">Synonym Rule: Synonyms do not always mean exactly the same thing, but they share the same main idea.</div>`;
+  } else {
+    html+=`<div class="steps"><div class="step"><strong>Step 1: Notice both words.</strong><br><span class="word">${item.a}</span> and <span class="word">${item.b}</span> describe different ends of the situation.</div><div class="step"><strong>Step 2: Explain each word.</strong><br>${item.explain}</div><div class="step"><strong>Step 3: Compare them.</strong><br>${item.note}</div><div class="step"><strong>What we learned:</strong><br>${item.a} ↔ ${item.b}. The arrow shows opposite meanings.</div></div><div class="tip">Antonym Rule: If one word means the reverse of another word, they are antonyms.</div>`;
+  }
+  html+=`<div class="controls"><button class="secondary" onclick="speakText(document.getElementById('${rootId}Card').innerText)">🔊 Read This Lesson</button>${index>0?`<button class="secondary" onclick="showLesson('${rootId}',${rootId==='contextRoot'?'contextLessons':rootId==='synonymRoot'?'synonymLessons':'antonymLessons'},'${type}',${index-1})">← Previous</button>`:''}${index<data.length-1?`<button class="primary" onclick="showLesson('${rootId}',${rootId==='contextRoot'?'contextLessons':rootId==='synonymRoot'?'synonymLessons':'antonymLessons'},'${type}',${index+1})">Next Lesson →</button>`:`<button class="primary" onclick="openPanel('${type==='context'?'synonyms':type==='synonym'?'antonyms':'practice'}')">Continue →</button>`}</div>`;
+  card.innerHTML=html;
+}
+
+const practice=[
+{type:'Context Clue',story:'The baby began to yawn, rub her eyes, and rest her head on Dad’s shoulder. She was drowsy.',prompt:'The clues show that drowsy means:',answers:['sleepy','angry','hungry'],correct:0,explain:'Yawning, rubbing eyes, and resting the head are clues that someone is sleepy.'},
+{type:'Synonym',story:'The puppy was little. It was so small that it fit in a basket.',prompt:'Little and small are:',answers:['synonyms','antonyms','names'],correct:0,explain:'Little and small share nearly the same meaning, so they are synonyms.'},
+{type:'Antonym',story:'The hallway was dark before the lights came on. Afterward, it was bright.',prompt:'Dark and bright are:',answers:['synonyms','antonyms','rhyming words'],correct:1,explain:'Dark means having little light, while bright means having a lot of light. They are opposites.'},
+{type:'Context Clue',story:'The plate slipped from Leo’s hands and broke into many pieces. The plate was fragile.',prompt:'The clues show that fragile means:',answers:['easy to break','very heavy','brightly colored'],correct:0,explain:'The plate broke easily, so fragile means easy to break or damage.'},
+{type:'Synonym',story:'The class began the project on Monday. They started by drawing a plan.',prompt:'Began and started are:',answers:['opposites','synonyms','numbers'],correct:1,explain:'Both words mean to do the first part of something.'},
+{type:'Antonym',story:'The bucket was heavy when it was full of water. It became light after the water was poured out.',prompt:'Heavy and light are:',answers:['synonyms','antonyms','actions'],correct:1,explain:'Heavy means difficult to lift, while light means easier to lift. They are opposites.'}
+];
+let pIndex=0,score=0;
+function renderPractice(){
+ const q=practice[pIndex],root=document.getElementById('practiceRoot');
+ document.getElementById('practiceProgress').style.width=(pIndex/practice.length*100)+'%';
+ root.innerHTML=`<div class="practice-card"><div class="badges"><span class="badge">${q.type}</span><span class="badge">${pIndex+1} of ${practice.length}</span><span class="badge">⭐ ${score}</span></div><div class="story">${q.story}</div><h3>${q.prompt}</h3><div class="answer-grid">${q.answers.map((a,i)=>`<button class="answer" onclick="checkAnswer(${i},this)">${a}</button>`).join('')}</div><div id="practiceFeedback" class="feedback"></div></div>`;
+}
+function checkAnswer(i,btn){
+ const q=practice[pIndex],feedback=document.getElementById('practiceFeedback');
+ document.querySelectorAll('.answer').forEach(b=>b.disabled=true);
+ if(i===q.correct){btn.classList.add('correct');score++;feedback.innerHTML=`<strong>Correct!</strong> ${q.explain}`}
+ else{btn.classList.add('wrong');document.querySelectorAll('.answer')[q.correct].classList.add('correct');feedback.innerHTML=`<strong>Let’s study it:</strong> ${q.explain}`}
+ feedback.classList.add('show');
+ const next=document.createElement('button');next.className='primary';next.style.marginTop='12px';next.textContent=pIndex<practice.length-1?'Next Example →':'Finish Adventure';next.onclick=()=>{pIndex++; if(pIndex<practice.length)renderPractice(); else finishPractice()};feedback.appendChild(document.createElement('br'));feedback.appendChild(next);
+}
+function finishPractice(){document.getElementById('practiceProgress').style.width='100%';document.getElementById('practiceRoot').innerHTML=`<div class="practice-card" style="text-align:center"><div style="font-size:70px">🏆</div><h2>Master Word Detective!</h2><p>You completed the teaching lessons and the guided practice.</p><h3>Your score: ${score} out of ${practice.length}</h3><button class="primary" onclick="pIndex=0;score=0;renderPractice()">Play Again</button></div>`}
+function openPanel(id){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.navbar button').forEach(b=>b.classList.toggle('active',b.dataset.panel===id));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.navbar button').forEach(b=>b.onclick=()=>openPanel(b.dataset.panel));
+function speakText(text){if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=.86;u.pitch=1.05;speechSynthesis.speak(u)}}
+createLessonSection('contextRoot','10 Context-Clue Lessons','Each lesson explains how the situation reveals the meaning of a new word.',contextLessons,'context');
+createLessonSection('synonymRoot','10 Synonym Lessons','Each lesson compares two related words and explains why they are synonyms.',synonymLessons,'synonym');
+createLessonSection('antonymRoot','10 Antonym Lessons','Each lesson compares opposite ideas and explains why the words are antonyms.',antonymLessons,'antonym');
+renderPractice();
+</script>
+</body>
+</html>
