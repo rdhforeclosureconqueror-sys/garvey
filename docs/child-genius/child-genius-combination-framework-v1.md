@@ -26,6 +26,28 @@ For every category named in a customer-facing reading, provide five elements:
 4. **Growth edge**: a next capability, never a deficit label.
 5. **Best conditions**: an environment or instructional move that gives the strength productive work to do.
 
+Every report must cover all seven categories, even when there is not enough current evidence to call a strength active. Use one of these evidence states rather than a yes/no trait verdict:
+
+| Evidence state | Meaning | Report response |
+| --- | --- | --- |
+| **Repeated evidence** | The child described or demonstrated the category more than once, or there is evidence from more than one source. | Name the strength, show the evidence, and provide a next growth edge. |
+| **Early signal** | One response, observation, or task suggests the category may be active. | Say “we are beginning to see…” and collect another example before drawing a stronger conclusion. |
+| **Still exploring** | The current conversation or task did not give usable evidence. | Do not call it absent. Explain what the category looks like and offer an activation experience. |
+
+## Activation rule
+
+When a category is still exploring, the platform does not assign a weakness. It offers a small experience designed to make that process visible:
+
+| Category | Activation experience |
+| --- | --- |
+| SR | Choose a first step, use a short plan, and reflect on what helped attention. |
+| CQ | Ask one “why/how” question, make a prediction, and test it. |
+| CR | Generate three possible approaches or representations before choosing one. |
+| RS | Find a pattern, state the rule, then test it on a changed example. |
+| PS | Name the obstacle, take one reset, and try a changed strategy. |
+| FB | Use one hint or example, then make a new attempt and explain what changed. |
+| DE | Connect the skill to a personally meaningful project, person, or real-world problem. |
+
 ## Combination rule
 
 Do not infer combinations from a single score. Create a combination only when at least two dimensions have evidence in the same response, task, or repeated pattern.
@@ -40,6 +62,16 @@ Do not infer combinations from a single score. Create a combination only when at
 | CQ + CR + RS | Inventive investigator | Learner asks questions, generates possibilities, and tests them. | Run a question → prediction → model → test → revision cycle. |
 | CR + RS + DE | Purpose-driven inventor | Learner turns a real need into a solvable design problem. | Define a user, constraint, measurement, and small prototype. |
 | SR + PS + FB | Deliberate mastery loop | Learner plans, uses feedback, and persists with changed strategy. | Use short feedback/retry cycles with reflection. |
+
+## Combination ladder
+
+Do not create a fixed archetype for all possible combinations. Explain the function created by the dimensions that are active in the moment.
+
+1. **One category** identifies a learning process to notice and practice.
+2. **Two categories** identify a paired learning move, such as noticing a pattern and asking why it works.
+3. **Three categories** identify a productive role in a learning situation, such as a conceptual method designer who notices, investigates, and adapts a method.
+4. **Four or more categories** identify a project capability, such as a purpose-driven inventor or systems builder.
+5. The report must name the evidence for each dimension inside the combination. It must not infer a combination only because the labels sound compatible.
 
 ## Evidence boundaries
 

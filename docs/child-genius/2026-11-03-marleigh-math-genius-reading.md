@@ -17,7 +17,7 @@ This is a learner-centered reading based on Marleigh's voluntary Math Genius Dis
 
 | Garvey Genius category | What is showing up now | Evidence from Marleigh's reflection |
 | --- | --- | --- |
-| **Thinking & Problem Solving** | She breaks complex work into understandable pieces, compares methods, and asks when a strategy will work. | “I take the pieces that I understand” and work from there; she asks whether another method works for every problem and whether it is more efficient. |
+| **Thinking, Pattern Recognition & Problem Solving** | She breaks complex work into understandable pieces, sees patterns that make an idea click, compares methods, and asks when a strategy will work. | She described seeing a pattern and then “getting it”; she asks whether another method works for every problem and whether it is more efficient. Her parent has also observed her see a pattern and then use it to work forward. |
 | **Curiosity & Love of Learning** | She wants the why and the steps, not only a correct answer. | When stuck on a new idea, she asks for a deeper explanation of all the steps; she wants to understand a concept through related examples. |
 | **Creativity & Idea Thinking** | She wants to design lessons, create methods, and use mathematics to invent. | She would build a visual Canva math lesson; she wants a toolkit of methods; she connects math to her H.A. robot for seniors. |
 
@@ -27,6 +27,20 @@ This is a learner-centered reading based on Marleigh's voluntary Math Genius Dis
 - **Learning From Feedback:** She traces mistakes, asks for the kind of explanation she needs, and uses a solved example as a guide for a related problem.
 - **Focus & Self-Control:** She protects attention by varying related questions and arranging a clear path from prerequisite work to a valued goal.
 - **Interests & Passion Areas:** Robotics, engineering, visual design, invention, and technology that helps seniors are meaningful engagement anchors.
+
+## How we recognize every Genius Map category
+
+Every child receives feedback across all seven categories. The question is never simply “Does this child have it?” The question is: **What did we look for, what did the child show, what evidence still needs to be gathered, and what experience would help activate or strengthen it?**
+
+| Category | What we look for | What Marleigh showed | Current evidence state | If this signal were not showing yet, how we would activate it |
+| --- | --- | --- | --- | --- |
+| **Focus & Self-Control** | Choosing a next step, organizing attention, managing boredom, and planning a path. | She varies related problems to stay engaged, then deliberately moves to harder ones. She understands that prerequisite steps lead to the rewarding part of a project. | Repeated self-reflection evidence. | Use a visible first step, short work cycles, a choice of varied practice, and a familiar → varied → stretch path. |
+| **Curiosity & Love of Learning** | Asking why/how questions, seeking deeper understanding, and voluntarily investigating beyond the first answer. | She asks for a deeper explanation of all steps and uses related problems to understand a concept more fully. | Repeated self-reflection evidence. | Give a meaningful question, let the child predict, test examples, and keep a “wonder list.” |
+| **Creativity & Idea Thinking** | Generating possibilities, creating representations or methods, and improving an idea. | She wants to design visual Canva lessons, create different methods, and build the H.A. robot. | Repeated self-reflection evidence. | Offer open-ended design prompts, “three ideas before choosing,” and a prototype → test → revise cycle. |
+| **Thinking, Pattern Recognition & Problem Solving** | Noticing repeated structure, breaking work into parts, comparing methods, seeing what changes and what stays the same. | She said patterns help an idea click; she begins with understandable pieces; she compares methods for generalizability and efficiency. Parent observation also confirms that she sees patterns and then uses them to work forward. | Repeated self-reflection plus parent-observation evidence. | Start with visual patterns, sorting, “same/different” comparisons, and one changed example after a familiar one. Ask: “What rule do you notice?” |
+| **Effort & Resilience** | Returning after difficulty, recovering from errors, and changing strategy instead of repeating the same stuck move. | She traces an error, laughs it off, continues, and chooses harder questions after gaining understanding. | Repeated self-reflection evidence. | Give an accessible entry point, name the obstacle, allow a reset, then ask for one changed next attempt. |
+| **Learning From Feedback** | Using an example, hint, or correction to improve the next attempt. | She looks for where the error happened, asks for the explanation she needs, and keeps a solved problem as a guide for the next related problem. | Repeated self-reflection evidence. | Give one specific correction, one worked example, then a near-transfer attempt followed by an explanation in the child's own words. |
+| **Interests & Passion Areas** | Returning to meaningful topics, connecting learning to a real purpose, and voluntarily pursuing prerequisite knowledge. | She returns to robotics, engineering, visual design, invention, and helping seniors; she would identify the required math/science and work up to it. | Repeated self-reflection evidence. | Connect one school skill to a real project, audience, or person helped; capture it in a portfolio. |
 
 ## Her learner statement
 
@@ -38,11 +52,11 @@ That sentence is the most useful starting point for adults planning Marleigh's m
 
 The Garvey Genius Map does not claim a child is one fixed “type.” These categories describe strengths that can appear alone or combine in a situation.
 
-### 1. Thinking & Problem Solving
+### 1. Thinking, Pattern Recognition & Problem Solving
 
 **What this category means:** Seeing structure in a challenge: breaking it apart, noticing patterns, comparing options, and explaining why a method fits.
 
-**How Marleigh fits it now:** She begins with the part she understands; uses a solved problem as a reference; asks whether a new method works for every problem; and considers efficiency.
+**How Marleigh fits it now:** Pattern recognition is explicitly active here. Marleigh described the moment she sees a pattern and then “gets it,” and her parent has observed her see a pattern and use it to work forward. She also begins with the part she understands; uses a solved problem as a reference; asks whether a new method works for every problem; and considers efficiency.
 
 **Strengths to build on:**
 
@@ -202,12 +216,26 @@ The useful unit in this system is not one trait. It is the **combination of stre
 
 | Combination | What it creates in Marleigh's current profile | Example from her reflection | What adults should offer next |
 | --- | --- | --- | --- |
+| **Pattern Recognition + Curiosity** | The **pattern detective**: notices a rule, then asks why it works and whether it will repeat. | A pattern helps her “get it,” and she wants to know whether a method works for every problem. | Use pattern → prediction → test sequences, including one example that changes the surface but keeps the underlying rule. |
 | **Curiosity + Problem Solving** | The **method investigator**: asks why a method works, then tests where it applies. | She wonders whether another method works for every problem and whether it is more efficient. | Compare two solution paths; ask her to predict when each will work; test both on changed problems. |
+| **Pattern Recognition + Curiosity + Creativity** | The **conceptual method designer**: notices a structure, investigates it, then creates or adapts a method to make it clearer. | She sees patterns, asks whether a method generalizes, and wants to create different methods for different problems. | Let her make a method card: “This method works when…,” “It may not fit when…,” and “Here is another method to try.” |
 | **Problem Solving + Feedback Use** | The **example-to-independence learner**: uses a solved problem as a bridge, then needs to explain the underlying principle. | She keeps a solved problem as an example for the next related problem. | Give one worked example, one near-transfer problem, then one problem with a changed surface feature. Ask her to explain the rule without the example. |
 | **Resilience + Focus** | The **self-leveling learner**: avoids boredom by varying work and raises the challenge when ready. | She uses different related problems and moves to harder questions once she understands. | Use a three-level challenge board: familiar, varied, stretch. Let her choose her stretch after meeting a clear readiness check. |
-| **Creativity + Interests + Problem Solving** | The **purpose-driven inventor**: turns a human need into a system to design and test. | Her H.A. robot is intended to help seniors with daily tasks and independence. | Run a design brief: define one task, user need, inputs, outputs, safety constraints, measurement, and one small prototype. |
+| **Pattern Recognition + Curiosity + Creativity + Interests** | The **purpose-driven inventor**: recognizes a meaningful problem, studies the patterns and prerequisites behind it, then creates a possible solution. | Her H.A. robot is intended to help seniors with daily tasks and independence; she would identify the needed math/science and work up to it. | Run a design brief: define one task, user need, inputs, outputs, safety constraints, measurement, and one small prototype. |
 | **Creativity + Curiosity + Feedback Use** | The **method designer**: creates an approach, then improves it based on evidence. | She wants different methods because different problems need different tools. | Let her invent a method for a problem type, compare it to a standard method, and define when each is useful. |
 | **All seven in one project** | The **systems builder**: sees a meaningful problem, learns prerequisites, works through steps, tests methods, handles errors, and returns to the project. | Her plan is to identify the math and science needed for the H.A. robot, study up to them, and apply them to arm length and speech recognition. | Build a long-term H.A. Robot Learning Map with milestones, mini-projects, reflection notes, and visible evidence of what she can now do. |
+
+### How the combinations build upward
+
+For Marleigh, the sequence is not a list of separate labels:
+
+1. **Pattern Recognition** helps her notice that something repeats or follows a rule.
+2. **Pattern Recognition + Curiosity** makes her ask why the rule works and whether it holds in a new situation.
+3. **Pattern Recognition + Curiosity + Creativity** makes her imagine or design a clearer method for the rule.
+4. Adding **Interests & Passion** gives that method a purpose: robotics, design, and helping seniors.
+5. Adding **Focus, Resilience, and Feedback Use** turns the invention from a good idea into a learning process she can actually sustain, correct, and improve.
+
+That is why the report should show both the individual strengths and the live system they create together.
 
 ## Learning plan: evidence-aligned and personalized
 
