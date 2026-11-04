@@ -790,3 +790,20 @@ button,input,select,textarea{font:inherit;max-width:100%}
 
 /* Keep graph-paper line pitch synchronized with the actual grid content box. */
 @media(max-width:600px){.skill-world-shell .coordinate-plane-grid{background-size:calc((100% - 16px) / var(--coord-cols)) calc((100% - 16px) / var(--coord-rows));background-position:8px 8px;}}
+
+
+/* Garvey Genius activation: a small, optional learning choice above each Grade 5 mission. */
+.genius-activation-card{max-width:980px;margin:0 auto 1rem;padding:1rem 1.1rem;border:3px solid #0f766e;border-radius:20px;background:linear-gradient(135deg,#ecfdf5,#eff6ff);box-shadow:0 8px 20px rgba(15,118,110,.12);color:#123b39}
+.genius-activation-card h2{margin:.15rem 0 .65rem;font-size:clamp(1.15rem,3vw,1.55rem);color:#134e4a}
+.genius-eyebrow{font-size:.74rem;font-weight:950;letter-spacing:.09em;color:#0f766e}
+.genius-primary-list{display:flex;flex-wrap:wrap;gap:.45rem;margin:.4rem 0 .9rem;padding:0;list-style:none}
+.genius-primary-list li{padding:.42rem .65rem;border:1px solid #5eead4;border-radius:999px;background:#fff;font-weight:800;font-size:.88rem}
+.genius-invite-title{margin:.6rem 0 .45rem;font-weight:850}
+.genius-choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.55rem}
+.genius-choice{display:grid;gap:.3rem;min-height:74px;padding:.7rem;text-align:left;border:2px solid #99f6e4;border-radius:14px;background:#fff;color:#134e4a;font:inherit;cursor:pointer}
+.genius-choice:hover,.genius-choice:focus-visible{border-color:#0f766e;box-shadow:0 0 0 3px rgba(13,148,136,.2)}
+.genius-choice.is-selected{border-color:#0f766e;background:#ccfbf1}
+.genius-choice strong{font-size:.9rem}.genius-choice span{font-size:.83rem;line-height:1.35}
+.genius-saved{margin:.7rem 0 0;padding:.6rem;border-radius:10px;background:#d1fae5;font-size:.9rem}
+.genius-boundary{margin:.65rem 0 0;color:#476968;font-size:.78rem;line-height:1.35}
+@media(max-width:600px){.genius-activation-card{margin:.25rem 0 .75rem;padding:.85rem;border-radius:16px}.genius-choice-grid{grid-template-columns:1fr}}
