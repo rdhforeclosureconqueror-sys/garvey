@@ -35,7 +35,8 @@
   function planFor(skillId){
     const codes=TYPE_BY_SKILL[String(skillId||"").toUpperCase()];
     if(!codes)return null;
-    const primary=codes.slice(0, codes.findIndex((code)=>["CQ","CR","PS","DE"].includes(code)));
+    const split=codes.findIndex((code)=>["CQ","CR","PS","DE"].includes(code));
+    const primary=codes.slice(0, split===-1?codes.length:split);
     const invitations=codes.slice(primary.length);
     return {primary, invitations};
   }
