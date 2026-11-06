@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "visibility": "internal_only",
+  "purpose": "RDH estimation planning; never send to client or public frontend",
+  "levels": [
+    {
+      "level": 1,
+      "color": "#ed80b9",
+      "label": "Basic Presence"
+    },
+    {
+      "level": 2,
+      "color": "#60b9f4",
+      "label": "Professional Design"
+    },
+    {
+      "level": 3,
+      "color": "#dfb450",
+      "label": "Connected Services"
+    },
+    {
+      "level": 4,
+      "color": "#a78bfa",
+      "label": "Business Management"
+    },
+    {
+      "level": 5,
+      "color": "#48c7a2",
+      "label": "Advanced Automation"
+    },
+    {
+      "level": 6,
+      "color": "#ef8173",
+      "label": "Custom Platform"
+    }
+  ],
+  "implementation_types": [
+    "native_reuse",
+    "third_party",
+    "custom_build"
+  ],
+  "features": [
+    {
+      "id": "contact_buttons",
+      "name": "Contact buttons",
+      "min_level": 1,
+      "source": "website templates",
+      "status": "existing",
+      "implementation": "native_reuse"
+    },
+    {
+      "id": "lead_form",
+      "name": "Lead capture form",
+      "min_level": 1,
+      "source": "site intake and Google Form",
+      "status": "existing_external_workflow",
+      "implementation": "third_party"
+    },
+    {
+      "id": "branded_site",
+      "name": "Branded website templates",
+      "min_level": 2,
+      "source": "site generator",
+      "status": "existing_requires_live_verification",
+      "implementation": "native_reuse"
+    },
+    {
+      "id": "gallery",
+      "name": "Gallery and media sections",
+      "min_level": 2,
+      "source": "website template system",
+      "status": "requires_scope_check",
+      "implementation": "native_reuse"
+    },
+    {
+      "id": "external_booking",
+      "name": "Third-party booking",
+      "min_level": 3,
+      "source": "Tap CRM booking links",
+      "status": "integration_unverified",
+      "implementation": "third_party"
+    },
+    {
+      "id": "hosted_checkout",
+      "name": "Hosted checkout",
+      "min_level": 3,
+      "source": "Stripe-related repository code",
+      "status": "integration_unverified",
+      "implementation": "third_party"
+    },
+    {
+      "id": "owner_dashboard",
+      "name": "Private business dashboard",
+      "min_level": 4,
+      "source": "Tap CRM owner console",
+      "status": "partial_requires_security_review",
+      "implementation": "native_reuse"
+    },
+    {
+      "id": "customer_crm",
+      "name": "Customer records and pipeline",
+      "min_level": 4,
+      "source": "tapCrmDb.js",
+      "status": "existing_requires_live_verification",
+      "implementation": "native_reuse"
+    },
+    {
+      "id": "appointment_management",
+      "name": "Custom appointment management",
+      "min_level": 4,
+      "source": "tapCrmRoutes.js",
+      "status": "partial_requires_e2e",
+      "implementation": "native_reuse"
+    },
+    {
+      "id": "checkin_queue",
+      "name": "Check-in and live queue",
+      "min_level": 4,
+      "source": "Tap CRM customer actions",
+      "status": "not_proven_live",
+      "implementation": "custom_build"
+    },
+    {
+      "id": "automated_followups",
+      "name": "Coordinated automated follow-ups",
+      "min_level": 5,
+      "source": "not established",
+      "status": "not_verified",
+      "implementation": "third_party"
+    },
+    {
+      "id": "subscription_workflows",
+      "name": "Business subscription automation",
+      "min_level": 5,
+      "source": "subscription entitlement components",
+      "status": "requires_separate_billing_design",
+      "implementation": "custom_build"
+    },
+    {
+      "id": "multi_tenant_saas",
+      "name": "Customer-facing multi-business SaaS",
+      "min_level": 6,
+      "source": "existing tenant primitives",
+      "status": "not_production_certified",
+      "implementation": "custom_build"
+    }
+  ],
+  "pricing_policy": {
+    "customer_visible": false,
+    "internal_costs": "not_yet_estimated",
+    "monthly_operating_costs": "not_yet_estimated",
+    "quote_requires_human_review": true
+  },
+  "security_gates": [
+    "server_side_tenant_isolation",
+    "verified_owner_auth",
+    "payment_webhook_validation",
+    "data_export_and_offboarding",
+    "live_e2e_acceptance"
+  ]
+}
