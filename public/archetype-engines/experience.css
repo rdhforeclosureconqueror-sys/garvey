@@ -98,8 +98,48 @@ body {
 .archetype-background-lane img { width: clamp(164px, 24vw, 280px); height: clamp(228px, 34vw, 390px); object-fit: cover; border-radius: 14px; border: 1px solid rgba(248,208,74,.25); box-shadow: 0 14px 36px rgba(0,0,0,.42); opacity: .44; filter: saturate(.72) brightness(.66); }
 @keyframes archetype-marquee { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 9px)); } }
 .assessment-question-stage .assessment-foreground { margin-top: clamp(24px, 6vh, 64px); margin-bottom: clamp(24px, 6vh, 64px); }
+.assessment-consent-stage .assessment-foreground {
+  background: linear-gradient(135deg, rgba(5,5,6,.26), rgba(5,5,6,.12));
+  border-color: rgba(255,255,255,.38);
+  box-shadow: 0 20px 56px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.12);
+  backdrop-filter: blur(1.5px);
+}
+.assessment-consent-stage .assessment-background-shade {
+  background: linear-gradient(90deg, rgba(1,4,4,.42), rgba(5,5,6,.20) 52%, rgba(14,3,3,.38)), linear-gradient(0deg, rgba(0,0,0,.34), transparent 48%);
+}
+.assessment-consent-stage .assessment-background-switch .assessment-background-slide { filter: saturate(.95) brightness(.88); }
+.assessment-consent-stage h1,
+.assessment-consent-stage .muted,
+.assessment-consent-stage .kv,
+.assessment-consent-stage .chip {
+  text-shadow: -1px -1px 0 rgba(0,0,0,.92), 1px 1px 0 rgba(255,255,255,.20), 0 3px 18px rgba(0,0,0,.95);
+}
+.assessment-consent-stage .muted,
+.assessment-consent-stage .kv { color: #f1f1f1; }
+.assessment-question-stage .assessment-foreground {
+  background: linear-gradient(135deg, rgba(7,8,8,.28), rgba(9,6,7,.18));
+  border-color: rgba(255,255,255,.29);
+  box-shadow: 0 22px 62px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.09);
+  backdrop-filter: blur(1px);
+}
+.assessment-question-stage .assessment-background-shade {
+  background: linear-gradient(90deg, rgba(1,4,4,.36), rgba(5,5,6,.12) 52%, rgba(14,3,3,.32)), linear-gradient(0deg, rgba(0,0,0,.26), transparent 46%);
+}
+.assessment-question-stage h1,
+.assessment-question-stage h2,
+.assessment-question-stage h3,
+.assessment-question-stage p,
+.assessment-question-stage .chip,
+.assessment-question-stage .assessment-section-title,
+.assessment-question-stage .assessment-micro-insight,
+.assessment-question-stage .assessment-checkpoint,
+.assessment-question-stage .answer-option-copy {
+  text-shadow: -1px -1px 0 rgba(0,0,0,.94), 1px 1px 0 rgba(255,255,255,.16), 0 3px 16px rgba(0,0,0,.92);
+}
+.assessment-question-stage .answer-option { background: rgba(20,20,20,.48); border-color: rgba(255,255,255,.25); box-shadow: 0 8px 22px rgba(0,0,0,.18); }
+.assessment-question-stage .assessment-section { background: linear-gradient(135deg, rgba(0,208,132,.20), rgba(255,46,46,.14)); }
 @media (prefers-reduced-motion: reduce) { .assessment-background-switch .assessment-background-slide, .archetype-background-lane { animation: none; } .assessment-background-switch .assessment-background-slide:first-child { opacity: .58; } }
-@media (max-width: 640px) { .assessment-stage { min-height: calc(100vh - 112px); border-radius: 16px; } .assessment-foreground { margin: 18px 10px; padding: 16px; background: rgba(10,10,11,.92); } .assessment-background-marquee { gap: 42px; } .archetype-background-lane { gap: 12px; } .archetype-background-lane img { width: 178px; height: 252px; opacity: .39; } }
+@media (max-width: 640px) { .assessment-stage { min-height: calc(100vh - 112px); border-radius: 16px; } .assessment-foreground { margin: 18px 10px; padding: 16px; background: rgba(10,10,11,.92); } .assessment-consent-stage .assessment-foreground { background: linear-gradient(135deg, rgba(5,5,6,.26), rgba(5,5,6,.12)); } .assessment-question-stage .assessment-foreground { background: linear-gradient(135deg, rgba(7,8,8,.28), rgba(9,6,7,.18)); } .assessment-background-marquee { gap: 42px; } .archetype-background-lane { gap: 12px; } .archetype-background-lane img { width: 178px; height: 252px; opacity: .58; filter: saturate(.86) brightness(.80); } }
 .hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 12px; }
 @media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
 .primary { font-size: 1.8rem; margin: 8px 0; }
