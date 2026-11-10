@@ -53,6 +53,55 @@ function safeAssetPath(value) {
   return "";
 }
 
+const PUBLIC_ASSESSMENT_TENANT = "public-archetypes";
+const PUBLIC_LANDING_IMAGES = Object.freeze({
+  love: [
+    "/archetype-card/love/Action_Validator_Goddess.png",
+    "/archetype-card/love/Expression_Connector_God.png",
+    "/archetype-card/love/Autonomous_Lover_Goddess.png",
+    "/archetype-card/love/Reassurance_Seeker_God.png",
+    "/archetype-card/love/Experience_Seeker_goddess.png",
+  ],
+  loyalty: [
+    "/archetype-card/loyalty/Emotional_Commitment.png",
+    "/archetype-card/loyalty/Trust_Dependence.png",
+    "/archetype-card/loyalty/Convenience_Habit.png",
+    "/archetype-card/loyalty/Switching_Friction.png",
+    "/archetype-card/loyalty/Satisfaction_Attatchment.png",
+  ],
+});
+
+const PUBLIC_LANDING_COPY = Object.freeze({
+  love: {
+    eyebrow: "LOVE ARCHETYPE ASSESSMENT",
+    title: "Discover the pattern behind the way you love.",
+    body: "This is not a scorecard for your heart. It is a mirror for how you connect, communicate, seek safety, and show up when love gets real.",
+    cta: "Discover My Love Archetype",
+    outcome: ["Your primary connection pattern", "How you respond when pressure rises", "A practical path toward healthier balance"],
+    time: "About 5 minutes",
+  },
+  loyalty: {
+    eyebrow: "LOYALTY PATTERN ASSESSMENT",
+    title: "Discover what makes you stay, trust, and commit.",
+    body: "Your loyalty is more than a personality trait. See the pattern behind trust, emotional commitment, satisfaction, convenience, and the choices that keep relationships strong.",
+    cta: "Discover My Loyalty Pattern",
+    outcome: ["Your strongest loyalty driver", "What strengthens or strains commitment", "A clear next step for stronger relationships"],
+    time: "About 4 minutes",
+  },
+});
+
+function publicIdentity() {
+  const random = (typeof crypto !== "undefined" && crypto.randomUUID)
+    ? crypto.randomUUID().replace(/-/g, "")
+    : `${Date.now()}${Math.random().toString(36).slice(2)}`;
+  return { name: "Anonymous", email: `anonymous-${random}@private.assessment` };
+}
+
+function landingImage(engine) {
+  const options = PUBLIC_LANDING_IMAGES[engine] || [];
+  return options.length ? options[Math.floor(Math.random() * options.length)] : "";
+}
+
 const LOVE_IMAGE_VARIANT_KEY = "garvey.loveImageVariant";
 const LOVE_IMAGE_VARIANTS = Object.freeze(["masculine", "feminine"]);
 const LOYALTY_IMAGE_BY_CODE = Object.freeze({
@@ -986,17 +1035,29 @@ async function startAssessmentFlow(app, engine, query, consentId) {
 
 function renderConsentStep(app, engine, query, contract) {
   const requiresSignIn = contract?.auth_required && contract?.authenticated === false;
+  const copy = PUBLIC_LANDING_COPY[engine];
+  const privateMode = query.get("private") === "1";
+  const publicLanding = query.get("entry") === "public_landing";
+  const heading = publicLanding && copy ? `Ready to discover your ${engine === "love" ? "Love Archetype" : "Loyalty Pattern"}?` : (contract?.heading || `${titleCase(engine)} Assessment`);
+  const body = publicLanding
+    ? (privateMode
+      ? "You chose the private route. Your answers will create a result for this session without tying it to your name or email."
+      : "Your name and email will help us save this result so it can be connected to you later.")
+    : (contract?.body || []).join(" ");
+  const agreement = publicLanding
+    ? "I agree to the use of my assessment responses to create my archetype result."
+    : (contract?.agreement || "I agree to continue.");
   app.innerHTML = `
     <section class="section">
-      <h1>${esc(contract?.heading || `${titleCase(engine)} Assessment`)}</h1>
-      <p class="muted">${(contract?.body || []).map(esc).join(" ")}</p>
+      <h1>${esc(heading)}</h1>
+      <p class="muted">${esc(body)}</p>
       ${requiresSignIn ? `
         <p id="assessmentStatus" class="muted">${esc(contract?.unauthenticated_message || "This assessment is available to enrolled participants. Sign in to continue.")}</p>
         <a id="signInContinue" class="chip" href="${esc(contract?.sign_in_href || "/index.html")}">${esc("Sign in to continue")}</a>
       ` : `
         <label class="kv">
           <input id="consentCheck" type="checkbox" />
-          <span>${esc(contract?.agreement || "I agree to continue.")}</span>
+          <span>${esc(agreement)}</span>
         </label>
         <button id="consentContinue" class="chip">${esc(contract?.button_label || "Accept and continue")}</button>
         <div id="assessmentStatus" class="muted"></div>
@@ -1038,7 +1099,84 @@ function renderConsentStep(app, engine, query, contract) {
   });
 }
 
+function renderAssessmentLanding(app, engine, query) {
+  const copy = PUBLIC_LANDING_COPY[engine];
+  if (!copy) {
+    renderAssessment(app, engine, query);
+    return;
+  }
+  const image = landingImage(engine);
+  const visualStyle = image ? `style="--landing-image:url('${esc(image)}')"` : "";
+  app.innerHTML = `
+    <section class="assessment-landing" ${visualStyle}>
+      <div class="assessment-landing-scrim"></div>
+      <div class="assessment-landing-content">
+        <div class="landing-eyebrow">${esc(copy.eyebrow)}</div>
+        <h1>${esc(copy.title)}</h1>
+        <p class="landing-lede">${esc(copy.body)}</p>
+        <div class="landing-meta"><span>${esc(copy.time)}</span><span>Private reflection</span><span>No sign-in required</span></div>
+        <form id="publicAssessmentStart" class="public-assessment-form">
+          <div class="form-heading">Want us to save your result?</div>
+          <p>Leave your name and email to help us connect your assessment to you later. Skip both to take it privately.</p>
+          <div class="public-assessment-fields">
+            <label>Name <input id="publicAssessmentName" name="name" autocomplete="name" maxlength="120" placeholder="Your name (optional)" /></label>
+            <label>Email <input id="publicAssessmentEmail" name="email" type="email" autocomplete="email" maxlength="254" placeholder="Email address (optional)" /></label>
+          </div>
+          <button class="landing-cta" type="submit">${esc(copy.cta)} <span aria-hidden="true">→</span></button>
+          <div id="publicAssessmentStatus" class="form-status" aria-live="polite"></div>
+        </form>
+        <div class="landing-outcomes">
+          <div class="landing-outcomes-title">Your results will help you see:</div>
+          ${copy.outcome.map((item) => `<div class="landing-outcome"><span>✦</span>${esc(item)}</div>`).join("")}
+        </div>
+      </div>
+    </section>
+    <section class="landing-explainer section">
+      <div>
+        <span class="landing-eyebrow">A clearer conversation with yourself</span>
+        <h2>Awareness gives you a better choice.</h2>
+        <p>There is no “good” or “bad” result. You will receive language for the patterns already at work—then practical guidance for using them with more intention.</p>
+      </div>
+      <div class="landing-steps">
+        <div><b>01</b><span>Answer honestly</span></div>
+        <div><b>02</b><span>See your pattern</span></div>
+        <div><b>03</b><span>Practice your next step</span></div>
+      </div>
+    </section>`;
+  const form = document.getElementById("publicAssessmentStart");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const status = document.getElementById("publicAssessmentStatus");
+    const name = String(document.getElementById("publicAssessmentName")?.value || "").trim();
+    const email = String(document.getElementById("publicAssessmentEmail")?.value || "").trim().toLowerCase();
+    if ((name && !email) || (!name && email)) {
+      if (status) status.textContent = "For a saved result, please enter both your name and email—or leave both blank to continue privately.";
+      return;
+    }
+    const next = new URL(window.location.href);
+    next.searchParams.set("start", "1");
+    next.searchParams.set("tenant", PUBLIC_ASSESSMENT_TENANT);
+    next.searchParams.set("entry", "public_landing");
+    next.searchParams.set("source_type", "public");
+    if (name && email) {
+      next.searchParams.set("name", name);
+      next.searchParams.set("email", email);
+      next.searchParams.set("tracked", "1");
+    } else {
+      const anonymous = publicIdentity();
+      next.searchParams.set("name", anonymous.name);
+      next.searchParams.set("email", anonymous.email);
+      next.searchParams.set("private", "1");
+    }
+    window.location.assign(`${next.pathname}${next.search}`);
+  });
+}
+
 async function renderAssessment(app, engine, query) {
+  if (query.get("start") !== "1") {
+    renderAssessmentLanding(app, engine, query);
+    return;
+  }
   const contractPath = new URL(`/api/archetype-engines/${engine}/assessment/consent-contract`, window.location.origin);
   for (const [key, value] of stableContextParams(query).entries()) contractPath.searchParams.set(key, value);
   const contract = await jsonFetch(`${contractPath.pathname}${contractPath.search}`);
