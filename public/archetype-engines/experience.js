@@ -1099,22 +1099,38 @@ function renderConsentStep(app, engine, query, contract) {
   });
 }
 
-function renderAssessmentLanding(app, engine, query) {
+function landingDetailHref(engine, archetype) {
+  return `/archetype-engines/${encodeURIComponent(engine)}/archetype/${encodeURIComponent(archetype.slug)}?back=landing`;
+}
+
+function renderAssessmentLanding(app, engine, query, archetypes = []) {
   const copy = PUBLIC_LANDING_COPY[engine];
-  if (!copy) {
-    renderAssessment(app, engine, query);
-    return;
-  }
-  const image = landingImage(engine);
-  const visualStyle = image ? `style="--landing-image:url('${esc(image)}')"` : "";
+  if (!copy) return;
+  const slides = archetypes.filter((archetype) => archetype && archetype.slug);
+  const first = slides[0] || null;
   app.innerHTML = `
-    <section class="assessment-landing" ${visualStyle}>
-      <div class="assessment-landing-scrim"></div>
+    <section class="assessment-landing">
       <div class="assessment-landing-content">
         <div class="landing-eyebrow">${esc(copy.eyebrow)}</div>
         <h1>${esc(copy.title)}</h1>
         <p class="landing-lede">${esc(copy.body)}</p>
         <div class="landing-meta"><span>${esc(copy.time)}</span><span>Private reflection</span><span>No sign-in required</span></div>
+        ${first ? `
+          <section class="archetype-carousel" aria-label="Explore ${esc(engine)} archetypes">
+            <div class="carousel-heading">
+              <div><span class="landing-eyebrow">Explore the archetypes</span><h2>See the full spectrum before you begin.</h2></div>
+              <div class="carousel-count" id="landingCarouselCount">1 of ${slides.length}</div>
+            </div>
+            <div class="carousel-stage">
+              <button class="carousel-arrow" type="button" id="landingCarouselPrevious" aria-label="Previous archetype">←</button>
+              <button class="carousel-card" type="button" id="landingCarouselCard" aria-expanded="false" aria-controls="landingCarouselExpanded">
+                <span id="landingCarouselVisual">${cardVisual(first, { engine })}</span><span class="carousel-card-hint">Tap the card to expand</span>
+              </button>
+              <button class="carousel-arrow" type="button" id="landingCarouselNext" aria-label="Next archetype">→</button>
+            </div>
+            <div class="carousel-caption"><strong id="landingCarouselName">${esc(displayName(engine, first, first.code))}</strong><span id="landingCarouselSubtitle">${esc(displaySubtitle(engine, first, first.code) || first.tagline || "")}</span></div>
+            <div id="landingCarouselExpanded" class="carousel-expanded" hidden><p id="landingCarouselDescription">${esc(first.description || first.tagline || "")}</p><a id="landingCarouselExplore" class="carousel-explore" href="${landingDetailHref(engine, first)}">Explore this archetype in depth <span aria-hidden="true">→</span></a></div>
+          </section>` : ""}
         <form id="publicAssessmentStart" class="public-assessment-form">
           <div class="form-heading">Want us to save your result?</div>
           <p>Leave your name and email to help us connect your assessment to you later. Skip both to take it privately.</p>
@@ -1143,6 +1159,32 @@ function renderAssessmentLanding(app, engine, query) {
         <div><b>03</b><span>Practice your next step</span></div>
       </div>
     </section>`;
+  if (slides.length) {
+    let index = 0;
+    let expanded = false;
+    const syncCarousel = () => {
+      const current = slides[index];
+      const visual = document.getElementById("landingCarouselVisual");
+      const name = document.getElementById("landingCarouselName");
+      const subtitle = document.getElementById("landingCarouselSubtitle");
+      const count = document.getElementById("landingCarouselCount");
+      const details = document.getElementById("landingCarouselExpanded");
+      const description = document.getElementById("landingCarouselDescription");
+      const explore = document.getElementById("landingCarouselExplore");
+      const card = document.getElementById("landingCarouselCard");
+      if (visual) visual.innerHTML = cardVisual(current, { engine });
+      if (name) name.textContent = displayName(engine, current, current.code);
+      if (subtitle) subtitle.textContent = displaySubtitle(engine, current, current.code) || current.tagline || "";
+      if (count) count.textContent = `${index + 1} of ${slides.length}`;
+      if (description) description.textContent = current.description || current.tagline || "";
+      if (explore) explore.href = landingDetailHref(engine, current);
+      if (details) details.hidden = !expanded;
+      if (card) card.setAttribute("aria-expanded", String(expanded));
+    };
+    document.getElementById("landingCarouselPrevious")?.addEventListener("click", () => { index = (index - 1 + slides.length) % slides.length; expanded = false; syncCarousel(); });
+    document.getElementById("landingCarouselNext")?.addEventListener("click", () => { index = (index + 1) % slides.length; expanded = false; syncCarousel(); });
+    document.getElementById("landingCarouselCard")?.addEventListener("click", () => { expanded = !expanded; syncCarousel(); });
+  }
   const form = document.getElementById("publicAssessmentStart");
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -1172,9 +1214,9 @@ function renderAssessmentLanding(app, engine, query) {
   });
 }
 
-async function renderAssessment(app, engine, query) {
-  if (query.get("start") !== "1") {
-    renderAssessmentLanding(app, engine, query);
+async function renderAssessment(app, engine, query, archetypes = []) {
+  if (query.get("start") !== "1" && PUBLIC_LANDING_COPY[engine]) {
+    renderAssessmentLanding(app, engine, query, archetypes);
     return;
   }
   const contractPath = new URL(`/api/archetype-engines/${engine}/assessment/consent-contract`, window.location.origin);
@@ -1416,7 +1458,7 @@ function renderBrowse(app, engine, archetypes, query, options = {}) {
 }
 
 function renderDetail(app, engine, archetype, query, options = {}) {
-  const backHref = query.get("back") || routeTo(engine, "browse", query);
+  const backHref = query.get("back") === "landing" ? `/archetype-engines/${encodeURIComponent(engine)}/assessment` : (query.get("back") || routeTo(engine, "browse", query));
   const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
   const loyaltyPattern = engine === "loyalty" ? buildLoyaltyPatternInAction(archetype) : null;
   const leadershipPattern = engine === "leadership" ? buildLeadershipPatternInAction(archetype) : null;
@@ -2476,7 +2518,7 @@ async function boot() {
     };
 
     if (route.mode === "assessment") {
-      await renderAssessment(app, route.engine, query);
+      await renderAssessment(app, route.engine, query, archetypes);
       return;
     }
     if (route.mode === "browse" || route.mode === "detail") {

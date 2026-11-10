@@ -294,6 +294,46 @@ function cleanPayloadTextArray(...candidates) {
   return out;
 }
 
+function escapeEmailHtml(value) {
+  return String(value || "").replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
+}
+
+function assessmentNotificationRecipient() {
+  const explicit = String(process.env.ASSESSMENT_NOTIFICATION_EMAIL || "").trim();
+  if (explicit) return explicit;
+  return String(process.env.ADMIN_EMAILS || "").split(",").map((email) => email.trim()).find(Boolean) || "";
+}
+
+function assessmentResultUrl(path) {
+  const base = String(process.env.ASSESSMENT_PUBLIC_BASE_URL || "https://garveybackend.onrender.com").trim().replace(/\/+$/, "");
+  return `${base}${String(path || "")}`;
+}
+
+async function sendAssessmentCompletionNotification(completion) {
+  const recipient = assessmentNotificationRecipient();
+  const apiKey = String(process.env.RESEND_API_KEY || "").trim();
+  const from = String(process.env.ASSESSMENT_NOTIFICATION_FROM || process.env.RESEND_FROM_EMAIL || "").trim();
+  const participantEmail = String(completion.email || "").trim().toLowerCase();
+  if (!recipient || !apiKey || !from || !participantEmail || participantEmail.endsWith("@private.assessment")) return { sent: false, skipped: true };
+
+  const resultUrl = assessmentResultUrl(completion.result_url);
+  const participantName = String(completion.participant_name || "Participant").trim();
+  const primary = completion.primary_result || "Result ready";
+  const secondary = completion.secondary_result ? `\nSecondary pattern: ${completion.secondary_result}` : "";
+  const strengths = (completion.strengths || []).slice(0, 3).map((item) => `• ${item}`).join("\n") || "• Available in the full result";
+  const growth = (completion.growth_edges || []).slice(0, 3).map((item) => `• ${item}`).join("\n") || "• Available in the full result";
+  const text = `New ${completion.assessment_name} completed\n\nName: ${participantName}\nEmail: ${participantEmail}\nPrimary result: ${primary}${secondary}\n\nSummary:\n${completion.summary || "Open the complete result for the full breakdown."}\n\nStrengths:\n${strengths}\n\nGrowth edges:\n${growth}\n\nOpen result: ${resultUrl}`;
+  const htmlList = (items) => (items || []).slice(0, 3).map((item) => `<li>${escapeEmailHtml(item)}</li>`).join("") || "<li>Available in the full result</li>";
+  const html = `<!doctype html><html><body style="margin:0;background:#f5f3ee;font-family:Arial,Helvetica,sans-serif;color:#17120f"><table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td style="padding:28px 14px"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:auto;background:#fff;border:1px solid #e7dfd2;border-radius:16px"><tr><td style="padding:28px"><p style="margin:0 0 8px;color:#8a6610;font-size:12px;font-weight:bold;letter-spacing:1.4px">NEW ASSESSMENT COMPLETED</p><h1 style="margin:0 0 18px;font-size:28px;line-height:1.15">${escapeEmailHtml(completion.assessment_name)}</h1><p style="margin:0 0 18px;line-height:1.55"><strong>Name:</strong> ${escapeEmailHtml(participantName)}<br><strong>Email:</strong> ${escapeEmailHtml(participantEmail)}<br><strong>Primary result:</strong> ${escapeEmailHtml(primary)}${completion.secondary_result ? `<br><strong>Secondary pattern:</strong> ${escapeEmailHtml(completion.secondary_result)}` : ""}</p><p style="margin:0 0 18px;line-height:1.55">${escapeEmailHtml(completion.summary || "Open the complete result for the full breakdown.")}</p><h2 style="font-size:16px">Strengths</h2><ul style="line-height:1.55">${htmlList(completion.strengths)}</ul><h2 style="font-size:16px">Growth edges</h2><ul style="line-height:1.55">${htmlList(completion.growth_edges)}</ul><p style="margin:24px 0 0"><a href="${escapeEmailHtml(resultUrl)}" style="display:inline-block;padding:12px 16px;background:#f8d04a;border-radius:999px;color:#1b1603;font-weight:bold;text-decoration:none">Open full result →</a></p></td></tr></table></td></tr></table></body></html>`;
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
+    body: JSON.stringify({ from, to: [recipient], subject: `New ${completion.assessment_name}: ${participantName}`, text, html }),
+  });
+  if (!response.ok) throw new Error(`Assessment notification delivery failed (${response.status})`);
+  return { sent: true };
+}
+
 function normalizePayloadRecommendations(value) {
   if (Array.isArray(value)) return value.map((item) => {
     if (item && typeof item === "object") return { type: String(item.type || "recommendation"), label: String(item.label || item.title || item.value || item.message || "Recommendation"), value: item.value || item.url || item.href || item.text || item.message || item.label || null };
@@ -338,6 +378,7 @@ function displayReadyCompletionPayload({ req, engineType, assessmentId, resultId
     event_type: "assessment.completed",
     member_id: String(req.body?.member_id || req.body?.external_user_id || req.body?.user_id || attribution.rid || attribution.crid || "").trim() || null,
     email: String(req.body?.email || attribution.email || "").trim().toLowerCase() || null,
+    participant_name: String(req.body?.name || attribution.name || "").trim() || null,
     assessment_id: assessmentId,
     assessment_key: engineType,
     assessment_name: `${titleCase(engineType)} Archetype Engine`,
@@ -611,8 +652,10 @@ function createArchetypeEnginesRouter({ pool }) {
       payload: completionPayload,
       pool,
     }).catch((err) => ({ queued: false, reason: err.message }));
+    const notification = await sendAssessmentCompletionNotification(completionPayload)
+      .catch(() => ({ sent: false, skipped: false }));
 
-    return res.json({ resultId, engineType, simba_sync: simbaSync, ...payload });
+    return res.json({ resultId, engineType, simba_sync: simbaSync, assessment_notification: notification, ...payload });
   });
 
   router.get("/:engineType/results/:resultId/summary", async (req, res) => {
