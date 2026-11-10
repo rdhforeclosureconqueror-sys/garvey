@@ -341,7 +341,8 @@ async function sendAssessmentCompletionNotification(completion) {
       signal: AbortSignal.timeout(7000),
     });
     if (!relayResponse.ok) throw new Error(`Assessment notification relay failed (${relayResponse.status})`);
-    return { sent: true, provider: "mufasa_fit" };
+    const relayPayload = await relayResponse.json().catch(() => ({}));
+    return { sent: true, provider: "mufasa_fit", provider_message_id: relayPayload?.data?.providerMessageId || null };
   }
   const apiKey = String(process.env.RESEND_API_KEY || "").trim();
   const from = String(process.env.ASSESSMENT_NOTIFICATION_FROM || process.env.RESEND_FROM_EMAIL || "").trim();
@@ -483,6 +484,27 @@ function createArchetypeEnginesRouter({ pool }) {
 
   router.get("/admin/simba-sync/diagnostics", async (_req, res) => {
     return res.json(await getExternalEventDiagnostics({ pool }));
+  });
+
+  router.post("/admin/assessment-email-test", async (req, res) => {
+    if (req.authActor?.isAdmin !== true) return res.status(403).json({ error: "admin_authentication_required" });
+    const relayUrl = String(process.env.ASSESSMENT_NOTIFICATION_RELAY_URL || "").trim();
+    const relayToken = String(process.env.ASSESSMENT_NOTIFICATION_RELAY_TOKEN || "").trim();
+    if (!relayUrl || !relayToken) return res.status(503).json({ error: "assessment_notification_relay_not_configured" });
+    try {
+      const response = await fetch(`${relayUrl.replace(/\/+$/, "")}/test`, {
+        method: "POST",
+        headers: { "x-garvey-assessment-token": relayToken },
+        signal: AbortSignal.timeout(7000),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data?.ok !== true) throw new Error(`Assessment notification verification failed (${response.status})`);
+      console.info("[assessment-notification] delivery verification passed", { providerMessageId: data?.data?.providerMessageId || null });
+      return res.status(202).json({ ok: true, notification: { sent: true, provider: "mufasa_fit", provider_message_id: data?.data?.providerMessageId || null } });
+    } catch (error) {
+      console.error("[assessment-notification] delivery verification failed", { reason: String(error?.message || error).slice(0, 160) });
+      return res.status(502).json({ ok: false, error: "assessment_notification_delivery_failed" });
+    }
   });
 
   router.get("/:engineType/assessment/consent-contract", (req, res) => {
@@ -677,7 +699,14 @@ function createArchetypeEnginesRouter({ pool }) {
       pool,
     }).catch((err) => ({ queued: false, reason: err.message }));
     const notification = await sendAssessmentCompletionNotification(completionPayload)
-      .catch(() => ({ sent: false, skipped: false }));
+      .catch((error) => {
+        console.error("[assessment-notification] completion delivery failed", {
+          engineType,
+          resultId,
+          reason: String(error?.message || error).slice(0, 160),
+        });
+        return { sent: false, skipped: false, reason: "delivery_failed" };
+      });
 
     return res.json({ resultId, engineType, simba_sync: simbaSync, assessment_notification: notification, ...payload });
   });
