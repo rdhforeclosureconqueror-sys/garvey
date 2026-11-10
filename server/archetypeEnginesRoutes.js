@@ -311,10 +311,8 @@ function assessmentResultUrl(path) {
 
 async function sendAssessmentCompletionNotification(completion) {
   const recipient = assessmentNotificationRecipient();
-  const apiKey = String(process.env.RESEND_API_KEY || "").trim();
-  const from = String(process.env.ASSESSMENT_NOTIFICATION_FROM || process.env.RESEND_FROM_EMAIL || "").trim();
   const participantEmail = String(completion.email || "").trim().toLowerCase();
-  if (!recipient || !apiKey || !from || !participantEmail || participantEmail.endsWith("@private.assessment")) return { sent: false, skipped: true };
+  if (!recipient || !participantEmail || participantEmail.endsWith("@private.assessment")) return { sent: false, skipped: true };
 
   const resultUrl = assessmentResultUrl(completion.result_url);
   const participantName = String(completion.participant_name || "Participant").trim();
@@ -322,6 +320,32 @@ async function sendAssessmentCompletionNotification(completion) {
   const secondary = completion.secondary_result ? `\nSecondary pattern: ${completion.secondary_result}` : "";
   const strengths = (completion.strengths || []).slice(0, 3).map((item) => `• ${item}`).join("\n") || "• Available in the full result";
   const growth = (completion.growth_edges || []).slice(0, 3).map((item) => `• ${item}`).join("\n") || "• Available in the full result";
+  const relayUrl = String(process.env.ASSESSMENT_NOTIFICATION_RELAY_URL || "").trim();
+  const relayToken = String(process.env.ASSESSMENT_NOTIFICATION_RELAY_TOKEN || "").trim();
+  if (relayUrl && relayToken) {
+    const relayResponse = await fetch(relayUrl, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-garvey-assessment-token": relayToken },
+      body: JSON.stringify({
+        resultId: completion.result_id,
+        assessmentName: completion.assessment_name,
+        participantName,
+        participantEmail,
+        primaryResult: primary,
+        secondaryResult: completion.secondary_result || null,
+        summary: completion.summary || null,
+        strengths: completion.strengths || [],
+        growthEdges: completion.growth_edges || [],
+        resultUrl,
+      }),
+      signal: AbortSignal.timeout(7000),
+    });
+    if (!relayResponse.ok) throw new Error(`Assessment notification relay failed (${relayResponse.status})`);
+    return { sent: true, provider: "mufasa_fit" };
+  }
+  const apiKey = String(process.env.RESEND_API_KEY || "").trim();
+  const from = String(process.env.ASSESSMENT_NOTIFICATION_FROM || process.env.RESEND_FROM_EMAIL || "").trim();
+  if (!apiKey || !from) return { sent: false, skipped: true };
   const text = `New ${completion.assessment_name} completed\n\nName: ${participantName}\nEmail: ${participantEmail}\nPrimary result: ${primary}${secondary}\n\nSummary:\n${completion.summary || "Open the complete result for the full breakdown."}\n\nStrengths:\n${strengths}\n\nGrowth edges:\n${growth}\n\nOpen result: ${resultUrl}`;
   const htmlList = (items) => (items || []).slice(0, 3).map((item) => `<li>${escapeEmailHtml(item)}</li>`).join("") || "<li>Available in the full result</li>";
   const html = `<!doctype html><html><body style="margin:0;background:#f5f3ee;font-family:Arial,Helvetica,sans-serif;color:#17120f"><table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td style="padding:28px 14px"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:auto;background:#fff;border:1px solid #e7dfd2;border-radius:16px"><tr><td style="padding:28px"><p style="margin:0 0 8px;color:#8a6610;font-size:12px;font-weight:bold;letter-spacing:1.4px">NEW ASSESSMENT COMPLETED</p><h1 style="margin:0 0 18px;font-size:28px;line-height:1.15">${escapeEmailHtml(completion.assessment_name)}</h1><p style="margin:0 0 18px;line-height:1.55"><strong>Name:</strong> ${escapeEmailHtml(participantName)}<br><strong>Email:</strong> ${escapeEmailHtml(participantEmail)}<br><strong>Primary result:</strong> ${escapeEmailHtml(primary)}${completion.secondary_result ? `<br><strong>Secondary pattern:</strong> ${escapeEmailHtml(completion.secondary_result)}` : ""}</p><p style="margin:0 0 18px;line-height:1.55">${escapeEmailHtml(completion.summary || "Open the complete result for the full breakdown.")}</p><h2 style="font-size:16px">Strengths</h2><ul style="line-height:1.55">${htmlList(completion.strengths)}</ul><h2 style="font-size:16px">Growth edges</h2><ul style="line-height:1.55">${htmlList(completion.growth_edges)}</ul><p style="margin:24px 0 0"><a href="${escapeEmailHtml(resultUrl)}" style="display:inline-block;padding:12px 16px;background:#f8d04a;border-radius:999px;color:#1b1603;font-weight:bold;text-decoration:none">Open full result →</a></p></td></tr></table></td></tr></table></body></html>`;
