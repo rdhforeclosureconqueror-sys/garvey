@@ -102,6 +102,24 @@ function landingImage(engine) {
   return options.length ? options[Math.floor(Math.random() * options.length)] : "";
 }
 
+function assessmentBackground(engine, mode) {
+  const images = PUBLIC_LANDING_IMAGES[engine] || [];
+  if (!images.length) return "";
+  if (mode === "consent") {
+    const duration = images.length * 6;
+    return `<div class="assessment-background assessment-background-switch" aria-hidden="true">
+      ${images.map((src, index) => `<img class="assessment-background-slide" src="${esc(src)}" alt="" style="--slide-delay:${index * 6}s;--slide-duration:${duration}s" />`).join("")}
+      <div class="assessment-background-shade"></div>
+    </div>`;
+  }
+  const cards = [...images, ...images];
+  const lane = (reverse = false) => `<div class="archetype-background-lane${reverse ? " is-reverse" : ""}">${cards.map((src) => `<img src="${esc(src)}" alt="" />`).join("")}</div>`;
+  return `<div class="assessment-background assessment-background-marquee" aria-hidden="true">
+    ${lane(false)}${lane(true)}
+    <div class="assessment-background-shade"></div>
+  </div>`;
+}
+
 const LOVE_IMAGE_VARIANT_KEY = "garvey.loveImageVariant";
 const LOVE_IMAGE_VARIANTS = Object.freeze(["masculine", "feminine"]);
 const LOYALTY_IMAGE_BY_CODE = Object.freeze({
@@ -912,7 +930,9 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
     }).join("");
 
     app.innerHTML = `
-      <section class="section">
+      <div class="assessment-stage assessment-question-stage">
+        ${assessmentBackground(engine, "questions")}
+        <section class="section assessment-foreground">
         <h1>${titleCase(engine)} Assessment</h1>
         <div class="muted" data-voice-diagnostic="question_flow_voice_disabled">Voice controls are disabled during question flow.</div>
         <p class="muted">Assessment started. Bank: ${esc(selectedBankId || "default")}.</p>
@@ -942,7 +962,8 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
           </div>
           <div id="assessmentStatus" class="muted">${esc(state.status)}</div>
         </form>
-      </section>`;
+        </section>
+      </div>`;
     console.info("assessment_voice_diagnostic", {
       mode: "question_flow_voice_disabled",
       route: window.location.pathname,
@@ -1048,7 +1069,9 @@ function renderConsentStep(app, engine, query, contract) {
     ? "I agree to the use of my assessment responses to create my archetype result."
     : (contract?.agreement || "I agree to continue.");
   app.innerHTML = `
-    <section class="section">
+    <div class="assessment-stage assessment-consent-stage">
+      ${publicLanding ? assessmentBackground(engine, "consent") : ""}
+      <section class="section assessment-foreground">
       <h1>${esc(heading)}</h1>
       <p class="muted">${esc(body)}</p>
       ${requiresSignIn ? `
@@ -1062,7 +1085,8 @@ function renderConsentStep(app, engine, query, contract) {
         <button id="consentContinue" class="chip">${esc(contract?.button_label || "Accept and continue")}</button>
         <div id="assessmentStatus" class="muted"></div>
       `}
-    </section>`;
+      </section>
+    </div>`;
   const statusNode = document.getElementById("assessmentStatus");
   const continueBtn = document.getElementById("consentContinue");
   if (requiresSignIn) return;

@@ -86,6 +86,20 @@ body {
   padding: 16px;
   margin-bottom: 14px;
 }
+.assessment-stage { position: relative; isolation: isolate; min-height: min(720px, calc(100vh - 130px)); overflow: hidden; border-radius: 20px; }
+.assessment-foreground { position: relative; z-index: 2; max-width: 760px; margin: clamp(20px, 7vh, 80px) auto; background: rgba(12, 12, 13, .90); border-color: rgba(255,255,255,.24); box-shadow: 0 24px 70px rgba(0,0,0,.45); backdrop-filter: blur(11px); }
+.assessment-background { position: absolute; z-index: 0; inset: 0; overflow: hidden; background: #070809; pointer-events: none; }
+.assessment-background-shade { position: absolute; inset: 0; z-index: 3; background: linear-gradient(90deg, rgba(1,4,4,.82), rgba(5,5,6,.58) 52%, rgba(14,3,3,.76)), linear-gradient(0deg, rgba(0,0,0,.58), transparent 44%); }
+.assessment-background-switch .assessment-background-slide { position: absolute; inset: -3%; z-index: 1; width: 106%; height: 106%; object-fit: cover; object-position: center; opacity: 0; filter: saturate(.8) brightness(.7); animation: assessment-archetype-switch var(--slide-duration) ease-in-out infinite; animation-delay: var(--slide-delay); }
+@keyframes assessment-archetype-switch { 0%, 4% { opacity: 0; transform: scale(1.03); } 8%, 19% { opacity: .62; transform: scale(1); } 23%, 100% { opacity: 0; transform: scale(1.025); } }
+.assessment-background-marquee { display: grid; align-content: space-around; gap: clamp(28px, 8vh, 100px); padding: 28px 0; }
+.archetype-background-lane { display: flex; align-items: center; gap: 18px; width: max-content; animation: archetype-marquee 6s linear infinite; }
+.archetype-background-lane.is-reverse { animation-direction: reverse; animation-delay: -3s; transform: translateX(-24%); }
+.archetype-background-lane img { width: clamp(164px, 24vw, 280px); height: clamp(228px, 34vw, 390px); object-fit: cover; border-radius: 14px; border: 1px solid rgba(248,208,74,.25); box-shadow: 0 14px 36px rgba(0,0,0,.42); opacity: .44; filter: saturate(.72) brightness(.66); }
+@keyframes archetype-marquee { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 9px)); } }
+.assessment-question-stage .assessment-foreground { margin-top: clamp(24px, 6vh, 64px); margin-bottom: clamp(24px, 6vh, 64px); }
+@media (prefers-reduced-motion: reduce) { .assessment-background-switch .assessment-background-slide, .archetype-background-lane { animation: none; } .assessment-background-switch .assessment-background-slide:first-child { opacity: .58; } }
+@media (max-width: 640px) { .assessment-stage { min-height: calc(100vh - 112px); border-radius: 16px; } .assessment-foreground { margin: 18px 10px; padding: 16px; background: rgba(10,10,11,.92); } .assessment-background-marquee { gap: 42px; } .archetype-background-lane { gap: 12px; } .archetype-background-lane img { width: 178px; height: 252px; opacity: .39; } }
 .hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 12px; }
 @media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
 .primary { font-size: 1.8rem; margin: 8px 0; }
