@@ -64,8 +64,11 @@ h1 { color:gold; }
 <a class="btn" id="garveyFallbackBtn">🚀 GARVEY Fallback</a>
 <a class="btn" id="dashboardBtn">📊 Dashboard</a>
 <a class="btn" id="websiteBuilderBtn">🌐 Website Builder</a>
+<button class="btn" id="assessmentEmailTestBtn" type="button">✉️ Test Assessment Email</button>
 
 </div>
+
+<div id="assessmentEmailTestStatus" aria-live="polite"></div>
 
 </div>
 
@@ -118,6 +121,26 @@ function init() {
 
   document.getElementById("websiteBuilderBtn").href =
     `/site_intake.html?tenant=${enc}`;
+
+  const emailTestButton = document.getElementById("assessmentEmailTestBtn");
+  const emailTestStatus = document.getElementById("assessmentEmailTestStatus");
+  emailTestButton.addEventListener("click", async () => {
+    emailTestButton.disabled = true;
+    emailTestStatus.textContent = "Sending a delivery check through the live assessment email path…";
+    try {
+      const response = await fetch("/api/archetype-engines/admin/assessment-email-test", {
+        method: "POST",
+        credentials: "include",
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data?.ok !== true) throw new Error(data?.error || "Delivery check failed");
+      emailTestStatus.textContent = "Verified: the provider accepted the assessment email. Check your inbox for the delivery check.";
+    } catch (error) {
+      emailTestStatus.textContent = `Could not verify delivery: ${error.message || "unknown error"}. Make sure you are signed in as the Garvey admin.`;
+    } finally {
+      emailTestButton.disabled = false;
+    }
+  });
 }
 
 init();
