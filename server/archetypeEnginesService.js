@@ -273,17 +273,18 @@ function resolveLoveQuestionBanks(opts = {}) {
     };
   }
 
-  const generatedBankId = LOVE_GENERATED_SOURCE.bankId || null;
-  const generatedAvailable = generatedQuestions.length === 25 && Boolean(generatedBankId);
+  // Safety fallback: generated retake options can be grammatically stitched together.
+  // Keep the generated bank in LOVE_QUESTIONS for scoring historical submissions,
+  // but serve the authored, reviewed bank until generated copy passes human QA.
   return {
-    selectedBankId: generatedAvailable ? generatedBankId : null,
-    availableBanks: generatedAvailable ? [generatedBankId] : [],
+    selectedBankId: "AUTHORED_BANK_1",
+    availableBanks: ["AUTHORED_BANK_1"],
     retakeAttempt: attempt,
-    questionSource: "generated_validated_bank",
+    questionSource: "authored_bank_1_quality_fallback",
     useGeneratorOnFirstAttempt: false,
-    generatedBankAvailable: generatedAvailable,
-    questionBanks: generatedAvailable ? { [generatedBankId]: generatedQuestions } : {},
-    activeQuestions: generatedAvailable ? generatedQuestions : [],
+    generatedBankAvailable: false,
+    questionBanks: { AUTHORED_BANK_1: authoredQuestions },
+    activeQuestions: authoredQuestions,
   };
 }
 
