@@ -93,3 +93,23 @@ test("uniform-answer simulation reports win-rate imbalance for review", () => {
   assert.ok(Math.max(...Object.values(rates)) / Math.min(...Object.values(rates)) <= 2.5,
     `Uniform-choice win-rate spread exceeds 2.5x: ${JSON.stringify(rates)}`);
 });
+
+test("production Love engine serves authored bank and scores its answers", () => {
+  const { getQuestionBanks, scoreEngineAssessment } = require("../../server/archetypeEnginesService");
+  for (const retakeAttempt of [0, 1, 3]) {
+    const source = getQuestionBanks("love", { retakeAttempt });
+    assert.equal(source.selectedBankId, "AUTHORED_BANK_1");
+    assert.equal(source.activeQuestions.length, 25);
+    const answers = Object.fromEntries(source.activeQuestions.map(q => [q.id, q.options[0].id]));
+    const result = scoreEngineAssessment("love", answers, { bankId: source.selectedBankId });
+    assert.ok(result, "production scoring returned no result");
+    assert.ok(result.normalizedScores && Object.values(result.normalizedScores).some(v => v > 0), "authored answers produced no scores");
+  }
+});
+
+test("production Love scorer ignores invalid answers instead of substituting option C", () => {
+  const { scoreEngineAssessment } = require("../../server/archetypeEnginesService");
+  const invalid = Object.fromEntries(bank.map(q => [q.question_id, "INVALID_OPTION"]));
+  const result = scoreEngineAssessment("love", invalid, { bankId: "AUTHORED_BANK_1" });
+  assert.ok(Object.values(result.normalizedScores || {}).every(v => v === 0), "invalid answers changed scores");
+});
