@@ -430,9 +430,12 @@ function normalizeQuestion(q) {
 }
 
 function pickOption(question, answer) {
-  if (typeof answer === "string") return question.options.find((opt) => opt.id === answer) || question.options[2] || question.options[0];
-  if (typeof answer === "number") return question.options[Math.max(0, Math.min(question.options.length - 1, Math.round(answer) - 1))] || question.options[0];
-  return question.options[2] || question.options[0];
+  // Invalid or missing responses must not silently become option C.
+  if (typeof answer === "string") return question.options.find((opt) => opt.id === answer) || null;
+  if (typeof answer === "number" && Number.isInteger(answer) && answer >= 1 && answer <= question.options.length) {
+    return question.options[answer - 1];
+  }
+  return null;
 }
 
 function resolveQuestionClass(q) {
