@@ -692,7 +692,7 @@ function buildResultInsights(scored, archetypeIndex = {}) {
     balanceInsight: `Current balance state is ${scored?.balanceStates?.overall || "balanced"}. ${overLine} ${underLine}`.trim(),
     stressInsight: `${stressDirection}${stressShiftDirection} You may ${formatBehaviorFragment(primary.outOfBalanceHigh, "shift into visible reactive patterns")} when this activation spikes.`,
     identityGapInsight: `${identityLine} Your biggest desired direction is to move ${underGap?.code ? `away from ${archetypeIndex[underGap.code]?.name || underGap.code}` : "away from lower-value habits"} and toward ${overGap?.code ? `${archetypeIndex[overGap.code]?.name || overGap.code}` : "your growth edge"}.`,
-    consistencyInsight: `Consistency is ${consistency.toFixed(1)}% (${consistencyBand}) and confidence is ${confidence.toFixed(1)}% (${confidenceBand}). ${consistency < 60 ? "Use smaller, repeatable actions to reduce contradiction across contexts." : "Your response pattern is stable enough to trust for daily decisions."}`,
+    consistencyInsight: `Response consistency indicator: ${consistency.toFixed(1)}%; completion-based signal score: ${confidence.toFixed(1)}%. These are internal scoring indicators, not a validated measure of psychological accuracy or certainty. ${consistency < 60 ? "Some answers differ across related situations; consider which context fits you best." : "Use this result as a starting point for reflection, not a fixed identity."}`,
   };
 }
 
