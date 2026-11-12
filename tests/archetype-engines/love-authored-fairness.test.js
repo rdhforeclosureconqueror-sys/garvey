@@ -28,9 +28,9 @@ test("authored Love bank has 25 questions and valid archetype references", () =>
   assert.equal(Object.values(coverage.primary).reduce((a,b)=>a+b,0), 100);
 });
 
-test("audit: published Love bank must offer every archetype as a primary choice", { todo: "Current authored bank offers ES only as a secondary signal; redesign question choices before enabling this gate" }, () => {
+test("published Love bank gives all five archetypes equal primary opportunity", () => {
   const { primary } = auditCoverage(bank);
-  for (const code of CODES) assert.ok(primary[code] > 0, `${code} has zero primary-choice opportunities`);
+  for (const code of CODES) assert.equal(primary[code], 20, `${code} must have 20 primary-choice opportunities`);
 });
 
 test("audit: authored Love bank needs paired questions before claiming response consistency", { todo: "All authored reverse_pair_id fields are null; no contradiction-pair reliability evidence" }, () => {
