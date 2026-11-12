@@ -68,3 +68,28 @@ test("authored Love question choices do not repeat a primary archetype within a 
     assert.equal(new Set(q.options.map(o => o.primary_archetype)).size, 4, `${q.question_id} repeats a primary archetype`);
   }
 });
+
+function seededRandom(seed) {
+  let state = seed >>> 0;
+  return () => {
+    state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+    return state / 4294967296;
+  };
+}
+
+test("uniform-answer simulation reports win-rate imbalance for review", () => {
+  const random = seededRandom(123456789);
+  const wins = Object.fromEntries(CODES.map(code => [code, 0]));
+  const runs = 20000;
+  for (let run = 0; run < runs; run++) {
+    const scores = scoreSelectedAnswers(bank, q => q.options[Math.floor(random() * q.options.length)]);
+    const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+    wins[winner]++;
+  }
+  const rates = Object.fromEntries(CODES.map(code => [code, Number((100 * wins[code] / runs).toFixed(2))]));
+  // Guard against a severe regression, not against legitimate population differences.
+  // A random-choice model is a diagnostic, not a validated population model.
+  for (const code of CODES) assert.ok(rates[code] >= 10, `${code} wins under 10% in uniform-choice simulation: ${JSON.stringify(rates)}`);
+  assert.ok(Math.max(...Object.values(rates)) / Math.min(...Object.values(rates)) <= 2.5,
+    `Uniform-choice win-rate spread exceeds 2.5x: ${JSON.stringify(rates)}`);
+});
