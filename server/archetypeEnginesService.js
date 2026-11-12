@@ -273,17 +273,18 @@ function resolveLoveQuestionBanks(opts = {}) {
     };
   }
 
-  const generatedBankId = LOVE_GENERATED_SOURCE.bankId || null;
-  const generatedAvailable = generatedQuestions.length === 25 && Boolean(generatedBankId);
+  // Safety fallback: generated retake options can be grammatically stitched together.
+  // Keep the generated bank in LOVE_QUESTIONS for scoring historical submissions,
+  // but serve the authored, reviewed bank until generated copy passes human QA.
   return {
-    selectedBankId: generatedAvailable ? generatedBankId : null,
-    availableBanks: generatedAvailable ? [generatedBankId] : [],
+    selectedBankId: "AUTHORED_BANK_1",
+    availableBanks: ["AUTHORED_BANK_1"],
     retakeAttempt: attempt,
-    questionSource: "generated_validated_bank",
+    questionSource: "authored_bank_1_quality_fallback",
     useGeneratorOnFirstAttempt: false,
-    generatedBankAvailable: generatedAvailable,
-    questionBanks: generatedAvailable ? { [generatedBankId]: generatedQuestions } : {},
-    activeQuestions: generatedAvailable ? generatedQuestions : [],
+    generatedBankAvailable: false,
+    questionBanks: { AUTHORED_BANK_1: authoredQuestions },
+    activeQuestions: authoredQuestions,
   };
 }
 
@@ -429,9 +430,12 @@ function normalizeQuestion(q) {
 }
 
 function pickOption(question, answer) {
-  if (typeof answer === "string") return question.options.find((opt) => opt.id === answer) || question.options[2] || question.options[0];
-  if (typeof answer === "number") return question.options[Math.max(0, Math.min(question.options.length - 1, Math.round(answer) - 1))] || question.options[0];
-  return question.options[2] || question.options[0];
+  // Invalid or missing responses must not silently become option C.
+  if (typeof answer === "string") return question.options.find((opt) => opt.id === answer) || null;
+  if (typeof answer === "number" && Number.isInteger(answer) && answer >= 1 && answer <= question.options.length) {
+    return question.options[answer - 1];
+  }
+  return null;
 }
 
 function resolveQuestionClass(q) {
@@ -544,11 +548,14 @@ function scoreCanonicalAssessment(rawQuestions, answers = {}) {
     if (answerIdx[q.id] === undefined || answerIdx[q.reversePairId] === undefined) continue;
     pairDelta.push(Math.abs(answerIdx[q.id] - answerIdx[q.reversePairId]));
   }
-  const contradictionScore = pairDelta.length ? Number(((pairDelta.reduce((a, b) => a + b, 0) / (pairDelta.length * 3)) * 100).toFixed(2)) : 0;
-  const consistencyScore = Number((100 - contradictionScore).toFixed(2));
+  // No paired responses means consistency is unknown, not perfect.
+  const contradictionScore = pairDelta.length ? Number(((pairDelta.reduce((a, b) => a + b, 0) / (pairDelta.length * 3)) * 100).toFixed(2)) : null;
+  const consistencyScore = contradictionScore === null ? null : Number((100 - contradictionScore).toFixed(2));
 
   const completionPct = Number(((answered.length / Math.max(questions.length, 1)) * 100).toFixed(2));
-  const confidence = Number(((completionPct * 0.6) + (consistencyScore * 0.4)).toFixed(2));
+  // Confidence is an internal completion/consistency indicator, not psychological certainty.
+  // When consistency cannot be measured, report completion alone instead of inventing agreement.
+  const confidence = consistencyScore === null ? completionPct : Number(((completionPct * 0.6) + (consistencyScore * 0.4)).toFixed(2));
 
   const summaryBlock = {
     completion: `${answered.length}/${questions.length}`,
@@ -641,7 +648,8 @@ function buildResultInsights(scored, archetypeIndex = {}) {
   const identityGap = scored?.identityBehaviorGap || {};
   const stressProfile = scored?.stressProfile || {};
   const stressShift = scored?.stressShift || {};
-  const consistency = safePct(scored?.contradictionConsistency?.consistency);
+  const consistencyAvailable = scored?.contradictionConsistency?.consistency != null;
+  const consistency = consistencyAvailable ? safePct(scored.contradictionConsistency.consistency) : null;
   const confidence = safePct(scored?.confidence);
 
   const topBehavior = topEntry(behavior);
@@ -682,7 +690,7 @@ function buildResultInsights(scored, archetypeIndex = {}) {
     ? `Your largest identity-behavior gap is ${archetypeIndex[identityTop.code]?.name || identityTop.code} (${identityTop.value > 0 ? "+" : ""}${identityTop.value.toFixed(1)}), a ${magnitudeLabel(identityTop.value)} mismatch between self-image and lived behavior.`
     : "Identity and behavior signals are mostly aligned.";
 
-  const consistencyBand = consistency >= 80 ? "high" : consistency >= 60 ? "moderate" : "low";
+  const consistencyBand = consistency === null ? "unavailable" : consistency >= 80 ? "high" : consistency >= 60 ? "moderate" : "low";
   const confidenceBand = confidence >= 80 ? "high" : confidence >= 60 ? "moderate" : "low";
 
   return {
@@ -691,7 +699,7 @@ function buildResultInsights(scored, archetypeIndex = {}) {
     balanceInsight: `Current balance state is ${scored?.balanceStates?.overall || "balanced"}. ${overLine} ${underLine}`.trim(),
     stressInsight: `${stressDirection}${stressShiftDirection} You may ${formatBehaviorFragment(primary.outOfBalanceHigh, "shift into visible reactive patterns")} when this activation spikes.`,
     identityGapInsight: `${identityLine} Your biggest desired direction is to move ${underGap?.code ? `away from ${archetypeIndex[underGap.code]?.name || underGap.code}` : "away from lower-value habits"} and toward ${overGap?.code ? `${archetypeIndex[overGap.code]?.name || overGap.code}` : "your growth edge"}.`,
-    consistencyInsight: `Consistency is ${consistency.toFixed(1)}% (${consistencyBand}) and confidence is ${confidence.toFixed(1)}% (${confidenceBand}). ${consistency < 60 ? "Use smaller, repeatable actions to reduce contradiction across contexts." : "Your response pattern is stable enough to trust for daily decisions."}`,
+    consistencyInsight: `${consistency === null ? "Response consistency was not measured because this question bank has no linked comparison pairs." : `Response consistency indicator: ${consistency.toFixed(1)}% (${consistencyBand}).`} Completion-based signal score: ${confidence.toFixed(1)}%. These are internal scoring indicators, not a validated measure of psychological accuracy or certainty. ${consistency !== null && consistency < 60 ? "Some answers differ across related situations; consider which context fits you best." : "Use this result as a starting point for reflection, not a fixed identity."}`,
   };
 }
 

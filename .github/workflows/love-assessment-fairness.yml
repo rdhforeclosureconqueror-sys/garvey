@@ -1,0 +1,29 @@
+name: Love Assessment Fairness
+on:
+  pull_request:
+    paths:
+      - 'archetype-engines/question-banks/love.bank1.js'
+      - 'server/archetypeEnginesService.js'
+      - 'tests/archetype-engines/love-authored-fairness.test.js'
+      - '.github/workflows/love-assessment-fairness.yml'
+  push:
+    branches:
+      - 'fix/love-assessment-readable-retakes-20261111'
+    paths:
+      - 'archetype-engines/question-banks/love.bank1.js'
+      - 'server/archetypeEnginesService.js'
+      - 'tests/archetype-engines/love-authored-fairness.test.js'
+      - '.github/workflows/love-assessment-fairness.yml'
+permissions:
+  contents: read
+jobs:
+  fairness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run Love assessment fairness regression suite
+        run: node --test tests/archetype-engines/love-authored-fairness.test.js
