@@ -44,14 +44,14 @@ module.exports = Object.freeze([
   question(1, "ID", "In love, what usually feels most natural to you?", [
     option("A", "I feel most connected when we keep discovering new things together.", "ES", "EC", "ID"),
     option("B", "I feel best when closeness leaves room for independence.", "AL", "ES", "ID"),
-    option("C", "I feel closest when feelings can be talked through clearly.", "EC", "RS", "ID"),
+    option("C", "I feel closest when we openly reassure each other that we matter.", "RS", "EC", "ID"),
     option("D", "I trust love most when it is backed by steady follow-through.", "AV", "AL", "ID"),
   ]),
   question(2, "BH", "When you care about someone, what do you usually do first to stay connected?", [
     option("A", "I check in quickly if something feels off between us.", "RS", "EC", "BH"),
     option("B", "I suggest something new we can experience together.", "ES", "EC", "BH"),
     option("C", "I start a real conversation about how things are going.", "EC", "RS", "BH"),
-    option("D", "I show up consistently and let my actions speak.", "AV", "AL", "BH"),
+    option("D", "I stay connected while giving each of us room to breathe.", "AL", "AV", "BH"),
   ]),
   question(3, "SC", "Your partner gets quieter than usual for a day. What do you do?", [
     option("A", "I invite them into a shared activity when they feel ready.", "ES", "AL", "SC"),
@@ -68,14 +68,14 @@ module.exports = Object.freeze([
   question(5, "BH", "What usually makes you feel most loved over time?", [
     option("A", "Making fresh memories and sharing adventures together.", "ES", "EC", "BH"),
     option("B", "Being trusted without feeling crowded or managed.", "AL", "ES", "BH"),
-    option("C", "Being spoken to openly and honestly.", "EC", "RS", "BH"),
+    option("C", "Being checked on and comforted when I need closeness.", "RS", "EC", "BH"),
     option("D", "Seeing dependable effort again and again.", "AV", "AL", "BH"),
   ]),
   question(6, "ID", "Which kind of relationship rhythm fits you best?", [
     option("A", "Frequent emotional reassurance and clear closeness.", "RS", "EC", "ID"),
     option("B", "A relationship where we keep trying new things together.", "ES", "EC", "ID"),
     option("C", "Open dialogue that keeps things emotionally clear.", "EC", "RS", "ID"),
-    option("D", "Reliable action that builds trust over time.", "AV", "AL", "ID"),
+    option("D", "A steady relationship that respects each person's independence.", "AL", "AV", "ID"),
   ]),
   question(7, "SC", "Your partner says something loving but forgets to follow through. What stands out most?", [
     option("A", "I wonder whether we can reset by doing something meaningful together.", "ES", "AV", "SC"),
@@ -92,14 +92,14 @@ module.exports = Object.freeze([
   question(9, "BH", "During ordinary weeks together, how do you usually keep the bond alive?", [
     option("A", "I plan little surprises or new experiences for us.", "ES", "EC", "BH"),
     option("B", "I make room for both closeness and breathing space.", "AL", "ES", "BH"),
-    option("C", "I keep conversation moving so nothing important stays buried.", "EC", "RS", "BH"),
+    option("C", "I check in warmly so we both feel emotionally connected.", "RS", "EC", "BH"),
     option("D", "I stay dependable in practical ways that build trust.", "AV", "AL", "BH"),
   ]),
   question(10, "SC", "Plans change around something important you were looking forward to. What do you do first?", [
     option("A", "I need reassurance that we still matter.", "RS", "EC", "SC"),
     option("B", "I suggest an alternative activity we can both enjoy.", "ES", "AV", "SC"),
     option("C", "I talk it through so we both understand what happened.", "EC", "RS", "SC"),
-    option("D", "I focus on whether the change was handled responsibly.", "AV", "AL", "SC"),
+    option("D", "I accept the change and make room for each person's priorities.", "AL", "AV", "SC"),
   ]),
   question(11, "ID", "What matters most to you when love is healthy?", [
     option("A", "Keeping curiosity, play, and shared discovery alive.", "ES", "AL", "ID"),
@@ -116,14 +116,14 @@ module.exports = Object.freeze([
   question(13, "SC", "After a rough conversation, what feels most natural to you?", [
     option("A", "Doing something enjoyable together helps me reconnect.", "ES", "EC", "SC"),
     option("B", "I take space first so I do not react too fast.", "AL", "AV", "SC"),
-    option("C", "I circle back quickly to clear up misunderstanding.", "EC", "RS", "SC"),
+    option("C", "I reach out for reassurance that we are still okay.", "RS", "EC", "SC"),
     option("D", "I want repair to show up in behavior, not only words.", "AV", "AL", "SC"),
   ]),
   question(14, "ST", "When someone you love becomes inconsistent, what does stress push you toward?", [
     option("A", "I over-read distance and want immediate reassurance.", "RS", "EC", "ST"),
     option("B", "I want a fresh experience to see whether we can reconnect.", "ES", "RS", "ST"),
     option("C", "I press for clarity so things feel understandable again.", "EC", "RS", "ST"),
-    option("D", "I become more watchful of promises and follow-through.", "AV", "AL", "ST"),
+    option("D", "I take some time to myself before deciding how to respond.", "AL", "AV", "ST"),
   ]),
   question(15, "BH", "How do you most often show commitment?", [
     option("A", "I keep making time for new memories together.", "ES", "AV", "BH"),
@@ -140,7 +140,7 @@ module.exports = Object.freeze([
   question(17, "ST", "When trust feels shaky, where do you go first?", [
     option("A", "I look for a meaningful shared experience that helps rebuild connection.", "ES", "AV", "ST"),
     option("B", "I slow down contact and protect my emotional space.", "AL", "AV", "ST"),
-    option("C", "I ask direct questions until things make sense.", "EC", "RS", "ST"),
+    option("C", "I ask for reassurance that our bond is still secure.", "RS", "EC", "ST"),
     option("D", "I look for consistent action before relaxing.", "AV", "AL", "ST"),
   ]),
   question(18, "ID", "Which statement sounds most like you?", [
