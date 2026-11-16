@@ -1,0 +1,25 @@
+name: Garvey Learning Science Evidence Tests
+on:
+  pull_request:
+    paths:
+      - 'learning-science/**'
+      - 'tests/learning-science-evidence.test.js'
+      - '.github/workflows/garvey-learning-science.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'learning-science/**'
+      - 'tests/learning-science-evidence.test.js'
+      - '.github/workflows/garvey-learning-science.yml'
+jobs:
+  evidence-contract:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test synthetic learning evidence
+        run: node --test tests/learning-science-evidence.test.js
