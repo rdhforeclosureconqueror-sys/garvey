@@ -6,6 +6,7 @@ const { buildAdaptiveParentDashboardSummary } = require("./adaptiveParentDashboa
 const { buildLearningJourney } = require("./learningJourneyService");
 const { getCurriculumGeniusMapping } = require("../youth-development/content/curriculumGeniusMap");
 const { getGrade4SkillWorldGeniusOutline } = require("./grade4QuestionGeniusOutlineService");
+const { getGrade5LearningLanePlan } = require("../youth-development/content/grade5GeniusLearningLanes");
 
 const ALLOWED_MASTERY_BANDS = new Set(["emerging", "developing", "consistent"]);
 
@@ -124,11 +125,20 @@ function normalizeLearningActivityObservation(value, fallback = {}) {
   const observation = value && typeof value === "object" ? value : {};
   const durationSeconds = Math.max(0, Math.min(1800, Math.round(Number(observation.duration_seconds || fallback.duration_seconds || 0))));
   const activityId = String(observation.activity_id || fallback.activity_id || "").trim().slice(0, 160);
-  const mapping = getCurriculumGeniusMapping(activityId);
+  const curriculumMapping = getCurriculumGeniusMapping(activityId);
+  const grade5Plan = !curriculumMapping ? getGrade5LearningLanePlan(activityId) : null;
+  const mapping = curriculumMapping || (grade5Plan ? {
+    content_id: grade5Plan.content_id,
+    progress_skill_id: grade5Plan.content_id,
+    activity: {
+      practice_tags: ["academic_practice", "optional_genius_activation"],
+      genius_dimension_codes: [...grade5Plan.primary_genius_codes],
+    },
+  } : null);
   const submittedSkillId = String(fallback.skill_id || "").trim().slice(0, 160).toUpperCase();
   // Browser telemetry is useful evidence, but it is not an authority for what
-  // was practiced. The registry is the authority for activity, skill, tags,
-  // and Garvey dimension codes.
+  // was practiced. The registered curriculum map or Grade 5 learning-lane
+  // plan determines the skill and approved Genius opportunity.
   const expectedSkillId = mapping
     ? String(mapping.progress_skill_id || mapping.content_id || "").toUpperCase()
     : "";
