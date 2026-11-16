@@ -35,6 +35,8 @@ test('read-only query scopes actor, parent and learner and excludes raw answers'
   assert.equal(output.history[0].support.type, 'other');
   assert.equal(output.history[0].attempt_type, 'baseline');
   assert.ok(output.history[0].learner_ref.startsWith('learner_'));
+  assert.ok(output.history[0].event_id.startsWith('history_'));
+  assert.notEqual(output.history[0].event_id, output.history[1].event_id);
   assert.equal(JSON.stringify(output).includes('301'), false);
 });
 
@@ -54,9 +56,9 @@ test('pseudonyms are stable per child and different across parent or child', () 
 });
 
 test('projection fails closed on unexpected statuses or inconsistent scored flags', () => {
-  assert.throws(() => projectHistoryRows([{ ...row, score_status: 'unknown_item' }], { learnerRef: 'learner_demo123456' }), /unknown score status/);
-  assert.throws(() => projectHistoryRows([{ ...row, score_status: 'correct', scored: false }], { learnerRef: 'learner_demo123456' }), /contradictory/);
-  const skipped = projectHistoryRows([{ ...row, score_status: 'omitted', scored: false }], { learnerRef: 'learner_demo123456' });
+  assert.throws(() => projectHistoryRows([{ ...row, score_status: 'unknown_item' }], { learnerRef: 'learner_demo123456', secret }), /unknown score status/);
+  assert.throws(() => projectHistoryRows([{ ...row, score_status: 'correct', scored: false }], { learnerRef: 'learner_demo123456', secret }), /contradictory/);
+  const skipped = projectHistoryRows([{ ...row, score_status: 'omitted', scored: false }], { learnerRef: 'learner_demo123456', secret });
   assert.deepEqual(skipped[0].result, { completion_status: 'not_completed' });
 });
 
