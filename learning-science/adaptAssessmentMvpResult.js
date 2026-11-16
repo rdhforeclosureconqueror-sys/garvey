@@ -43,7 +43,7 @@ function transformAssessmentMvpResults(completed, context) {
       attempt_type: 'baseline',
       modality: 'other', // MVP result alone cannot prove reading, written or spoken modality.
       source: 'garvey_student_activity',
-      support: { type: 'none', hint_count: 0 }, // Unrecorded: do not infer independent performance.
+      support: { type: 'other', hint_count: 0 }, // Support unknown in MVP output; no independent-performance claim.
       result,
     }, { event_id: 'mvp_' + digest.slice(0, 32), timestamp: needString(context.timestamp, 'timestamp') }));
   }
