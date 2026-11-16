@@ -63,3 +63,17 @@ test('adapts English evidence separately from mathematics', () => {
   assert.equal(events[0].subject, 'literacy');
   assert.equal(events[0].grade_context, 2);
 });
+
+test('rejects contradictory scored status and mismatched assessment version', () => {
+  assert.throws(() => transformAssessmentMvpResults({
+    ...completed,
+    response_results: [{ ...completed.response_results[0], scored: false }],
+  }, context), /scoring status is inconsistent/);
+  assert.throws(() => transformAssessmentMvpResults({
+    ...completed,
+    response_results: [{ ...completed.response_results[2], scored: true }],
+  }, context), /scoring status is inconsistent/);
+  assert.throws(() => transformAssessmentMvpResults(completed, {
+    ...context, assessment_version: 'untrusted-version',
+  }), /assessment_version mismatch/);
+});
