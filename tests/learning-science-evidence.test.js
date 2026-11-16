@@ -57,3 +57,13 @@ test('keeps mathematics and literacy evidence separate for uneven learner profil
   assert.notEqual(math.skill_id, literacy.skill_id);
   assert.notEqual(math.subject, literacy.subject);
 });
+
+test('rejects invalid caller event identifiers and explanation observations', () => {
+  assert.throws(() => buildEvidenceEvent(baseline, { event_id: '', timestamp: '2026-11-16T18:00:00Z' }), /event_id/);
+  assert.throws(() => make({ result: { completion_status: 'complete', explanation_observed: 'yes' } }), /explanation_observed/);
+});
+
+test('rejects unsupported evidence source and missing timezone', () => {
+  assert.throws(() => make({ source: 'unverified_external_source' }), /source/);
+  assert.throws(() => buildEvidenceEvent(baseline, { timestamp: '2026-11-16T18:00:00' }), /timestamp/);
+});
