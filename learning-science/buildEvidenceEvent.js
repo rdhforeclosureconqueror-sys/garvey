@@ -36,6 +36,7 @@ function buildEvidenceEvent(input, options = {}) {
   const completion_status = oneOf(result.completion_status, STATUSES, 'result.completion_status');
   if (result.correct !== undefined && result.correct !== null && typeof result.correct !== 'boolean') throw new TypeError('result.correct must be a boolean or null');
   if (result.score !== undefined && (typeof result.score !== 'number' || !Number.isFinite(result.score) || result.score < 0 || result.score > 1)) throw new RangeError('result.score must be between 0 and 1');
+  if (result.explanation_observed !== undefined && typeof result.explanation_observed !== 'boolean') throw new TypeError('result.explanation_observed must be boolean');
   if (completion_status === 'not_completed' && (result.correct != null || result.score != null)) throw new TypeError('incomplete attempts cannot have a scored outcome');
   const attempt_type = oneOf(input.attempt_type, ROLES, 'attempt_type');
   if (attempt_type === 'independent' && (support_type !== 'none' || hint_count > 0)) throw new TypeError('independent attempts cannot include assistance');
@@ -49,7 +50,7 @@ function buildEvidenceEvent(input, options = {}) {
   if (typeof timestamp !== 'string' || Number.isNaN(Date.parse(timestamp)) || !/(Z|[+-]\d\d:\d\d)$/.test(timestamp)) throw new TypeError('timestamp must be an ISO timestamp with timezone');
   const event = {
     schema_version: '1.0.0',
-    event_id: options.event_id || crypto.randomUUID(),
+    event_id: requiredString(options.event_id ?? crypto.randomUUID(), 'event_id'),
     learner_ref,
     skill_id: requiredString(input.skill_id, 'skill_id'),
     task_id: requiredString(input.task_id, 'task_id'),
