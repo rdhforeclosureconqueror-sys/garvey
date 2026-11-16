@@ -16,7 +16,10 @@ function transformAssessmentMvpResults(completed, context) {
   if (!context || context.authorizedLearner !== true) throw new TypeError('verified learner context required');
   const learnerRef = needString(context.learner_ref, 'learner_ref');
   const sessionId = needString(completed.session_id, 'session_id');
-  const assessmentVersion = needString(context.assessment_version || completed.completed_session?.session_version, 'assessment_version');
+  const assessmentVersion = needString(completed.completed_session?.session_version, 'assessment_version');
+  if (context.assessment_version !== undefined && context.assessment_version !== assessmentVersion) {
+    throw new TypeError('assessment_version mismatch');
+  }
   const subject = completed.subject === 'Math' ? 'mathematics' : completed.subject === 'English' ? 'literacy' : null;
   if (!subject) throw new TypeError('unsupported assessment subject');
   if (completed.assessment_role !== 'baseline') throw new TypeError('baseline sessions only until reassessment support is verified');
@@ -25,6 +28,10 @@ function transformAssessmentMvpResults(completed, context) {
   const events = [];
   for (const item of completed.response_results) {
     if (!item || !SCORE_STATUSES.has(item.status)) throw new TypeError('unknown or unsupported assessment response status');
+    const isScoredStatus = item.status === 'correct' || item.status === 'incorrect';
+    if (typeof item.scored !== 'boolean' || item.scored !== isScoredStatus) {
+      throw new TypeError('assessment response scoring status is inconsistent');
+    }
     const itemId = needString(item.item_identity, 'item_identity');
     const packageId = needString(item.source_package_id, 'source_package_id');
     if (seen.has(itemId)) throw new TypeError('duplicate response item_identity');
