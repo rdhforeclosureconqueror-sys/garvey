@@ -39,7 +39,7 @@ function opaqueLearnerRef({ secret, learnerId, parentId }) {
   return 'learner_' + digest.slice(0, 32);
 }
 
-function projectHistoryRows(rows, { learnerRef }) {
+function projectHistoryRows(rows, { learnerRef, secret }) {
   if (!Array.isArray(rows)) throw new TypeError('database rows required');
   const history = [];
   for (const row of rows) {
@@ -58,7 +58,12 @@ function projectHistoryRows(rows, { learnerRef }) {
     if (!row.completed_at || Number.isNaN(new Date(row.completed_at).getTime())) {
       throw new TypeError('invalid completion timestamp');
     }
+    if (typeof row.session_id !== 'string' || !row.session_id) throw new TypeError('missing session identifier');
+    const eventDigest = crypto.createHmac('sha256', secret)
+      .update(JSON.stringify(['garvey-history-event-v1', row.session_id, row.item_identity, row.session_version]))
+      .digest('hex');
     history.push({
+      event_id: 'history_' + eventDigest.slice(0, 32),
       learner_ref: learnerRef,
       skill_id: row.package_id,
       task_id: row.item_identity,
@@ -93,7 +98,7 @@ async function getLearningHistory({ pool, actor, ownedChild, secret, enabled = f
   if (!Number.isInteger(bounded) || bounded < 1 || bounded > 200) throw new RangeError('limit must be 1..200');
   const learnerRef = opaqueLearnerRef({ secret, learnerId, parentId });
   const result = await pool.query(SQL, [authUserId, parentId, learnerId, bounded]);
-  return { enabled: true, history: projectHistoryRows(result.rows, { learnerRef }) };
+  return { enabled: true, history: projectHistoryRows(result.rows, { learnerRef, secret }) };
 }
 
 module.exports = { getLearningHistory, opaqueLearnerRef, projectHistoryRows };
