@@ -22,4 +22,4 @@ jobs:
         with:
           node-version: '22'
       - name: Test synthetic learning evidence
-        run: node --test tests/learning-science-evidence.test.js tests/learning-science-assessment-adapter.test.js
+        run: node --test tests/learning-science-*.test.js
