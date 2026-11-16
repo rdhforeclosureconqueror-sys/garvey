@@ -57,7 +57,8 @@
 
   function recordChoice(state, skillId, code){
     state.geniusEvidence=state.geniusEvidence||{};
-    state.geniusEvidence[skillId]={genius_code:code,selected_at:new Date().toISOString(),source:"child_optional_activation_move"};
+    const selectedAt=new Date().toISOString();
+    state.geniusEvidence[skillId]={genius_code:code,selected_at:selectedAt,event_key:`g5-genius-activation:${skillId}:${code}:${selectedAt}`,source:"child_optional_activation_move"};
   }
 
   window.GarveyGeniusActivation=Object.freeze({render,recordChoice,planFor});
