@@ -1,10 +1,15 @@
 "use strict";
 
 const { buildLearningJourney, isFakeLearnerName, normalizeStatus } = require("./learningJourneyService");
+const { buildGeniusEvidenceSummary } = require("./geniusEvidenceSummaryService");
 
 async function buildAdaptiveParentDashboardSummary(pool, opts = {}) {
   const journey = await buildLearningJourney(pool, opts);
   if (!journey.ok) return journey;
+  const geniusEvidence = await buildGeniusEvidenceSummary(pool, {
+    childId: journey.child_id,
+    parentProfileId: opts.parentProfileId,
+  });
   return {
     ok: true,
     child_id: journey.child_id,
@@ -37,6 +42,7 @@ async function buildAdaptiveParentDashboardSummary(pool, opts = {}) {
     adaptive_progress: journey.history.completed_lessons,
     recent_activity: journey.recent_activity,
     learning_rhythm: journey.history.learning_rhythm,
+    genius_evidence: geniusEvidence,
   };
 }
 module.exports = { buildAdaptiveParentDashboardSummary, isFakeLearnerName, normalizeStatus };
