@@ -46,6 +46,26 @@ test('PostgreSQL: isolated scoped grant/withdraw/rollback contract', { skip: !(a
     assert.equal(verifyLearningHistoryConsent(stored, { parentId: 201, learnerId: 301 }), false);
     const audit = await client.query('SELECT action FROM garvey_child_learning_consent_audit ORDER BY id ASC');
     assert.deepEqual(audit.rows.map(r => r.action), ['granted','revoked']);
+    // A different parent's attempt to consent for the first child must fail and not write.
+    await assert.rejects(changeChildConsent({
+      ...opts, actor: { authenticated: true, authUserId: 902, parentProfile: { id: 202 } },
+      action: 'grant',
+    }), /ownership mismatch/);
+    // Consent state AND audit must be deleted when the corresponding child is deleted.
+    const otherOpts = {
+      pool: scopedPool,
+      actor: { authenticated: true, authUserId: 902, parentProfile: { id: 202 } },
+      ownedChild: { ok: true, learnerId: '302', row: { id: 302, parent_id: 202 } },
+      caregiverActionVerified: true,
+    };
+    assert.equal((await changeChildConsent({ ...otherOpts, action: 'grant' })).status, 'granted');
+    await client.query('DELETE FROM gates_child_profiles WHERE id = 302');
+    const stateAfterDeletion = await client.query('SELECT id FROM gates_child_profiles WHERE id = 302');
+    const consentAfterDeletion = await client.query('SELECT learner_id FROM garvey_child_learning_consent WHERE learner_id = 302');
+    const auditAfterDeletion = await client.query('SELECT learner_id FROM garvey_child_learning_consent_audit WHERE learner_id = 302');
+    assert.equal(stateAfterDeletion.rowCount, 0);
+    assert.equal(consentAfterDeletion.rowCount, 0);
+    assert.equal(auditAfterDeletion.rowCount, 0);
     // If audit is unavailable, the state change must roll back too.
     await client.query('DROP TABLE garvey_child_learning_consent_audit');
     await assert.rejects(changeChildConsent({ ...opts, action: 'grant' }), /garvey_child_learning_consent_audit/);
