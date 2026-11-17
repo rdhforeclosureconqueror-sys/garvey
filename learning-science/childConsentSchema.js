@@ -19,8 +19,8 @@ const CHILD_LEARNING_CONSENT_SQL = Object.freeze([
   )`,
   `CREATE TABLE IF NOT EXISTS garvey_child_learning_consent_audit (
     id BIGSERIAL PRIMARY KEY,
-    parent_profile_id BIGINT NOT NULL,
-    learner_id BIGINT NOT NULL,
+    parent_profile_id BIGINT NOT NULL REFERENCES gates_parent_profiles(id) ON DELETE CASCADE,
+    learner_id BIGINT NOT NULL REFERENCES gates_child_profiles(id) ON DELETE CASCADE,
     auth_user_id BIGINT NOT NULL,
     purpose TEXT NOT NULL,
     version TEXT NOT NULL,
