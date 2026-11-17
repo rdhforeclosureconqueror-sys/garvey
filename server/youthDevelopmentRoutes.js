@@ -2876,7 +2876,32 @@ function renderLiveYouthParentDashboardPage() {
             (outline.questions || []).map((question) => '<li><strong>' + esc(question.question_prompt) + '</strong><span class="tiny"> · ' + esc(question.question_bank.replace(/_/g, ' ')) + '</span></li>').join(''),
             '</ul></details></section>'
           ].join('');
-        }\n\n        function renderAdaptiveSummary(summary, scopedChild) {
+        }\n\n        function renderAssessmentLearningInsights(insights) {
+          if (!insights || insights.available !== true) {
+            return '<div class="learning-insight-panel"><h3>Assessment strengths &amp; next steps</h3>' +
+              '<p class="muted">Complete a school-skill assessment to see strengths and suggested practice here.</p>' +
+              '<a class="btn btn-secondary" href="/assessment-mvp/">Open School-Skill Assessment</a></div>';
+          }
+          const strengths = Array.isArray(insights.strengths) ? insights.strengths.slice(0, 2) : [];
+          const practice = Array.isArray(insights.practice) ? insights.practice.slice(0, 3) : [];
+          const strengthsMarkup = strengths.length ? strengths.map(function (item) {
+            return '<li><strong>' + esc(item.skill || 'This skill') + '</strong> — ' + esc(item.message || '') + '</li>';
+          }).join('') : '<li>We are still gathering evidence of progress.</li>';
+          const practiceMarkup = practice.length ? practice.map(function (item) {
+            const route = String(item.practice_route || '');
+            const safeRoute = /^\\/skill-world\\/[A-Za-z0-9_-]+\\/drill$/.test(route) ? route : '';
+            return '<li><strong>' + esc(item.skill || 'Next skill') + '</strong> — ' + esc(item.message || '') +
+              (safeRoute ? ' <a class="btn btn-secondary" href="' + esc(safeRoute) + '">Practice this skill</a>' : '') + '</li>';
+          }).join('') : '<li>No additional practice is suggested from this assessment.</li>';
+          return '<div class="learning-insight-panel" aria-labelledby="assessment-learning-insights-title">' +
+            '<h3 id="assessment-learning-insights-title">⭐ Your learning strengths &amp; next steps</h3>' +
+            '<p class="muted">From the latest completed Grade ' + esc(insights.grade) + ' ' + esc(insights.subject) + ' assessment</p>' +
+            '<h4>Promising progress</h4><ul class="activity-list">' + strengthsMarkup + '</ul>' +
+            '<h4>Try next</h4><ul class="activity-list">' + practiceMarkup + '</ul>' +
+            '<p class="muted">' + esc(insights.note || '') + '</p></div>';
+        }
+
+        function renderAdaptiveSummary(summary, scopedChild) {
           const host = document.getElementById("adaptiveLearningSummary");
           const status = document.getElementById("adaptiveLearningStatus");
           if (!host) return;
@@ -2887,7 +2912,7 @@ function renderLiveYouthParentDashboardPage() {
           const childName = String(scopedChild?.child_name || summary.child_name || "Selected child");
           if (status) status.textContent = String(summary.overall_status_label || "Adaptive learning progress") + " for " + childName + ".";
           if (summary.empty_state) {
-            host.innerHTML = '<p class="muted">No saved adaptive learning progress yet for ' + esc(childName) + '. Start with one learning activity and focus on building the weekly rhythm.</p>' + learningRhythmMarkup(summary.learning_rhythm) + '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">🧠 Open Sight Memory practice →</a></p>';
+            host.innerHTML = renderAssessmentLearningInsights(summary.assessment_learning_insights) + '<p class="muted">No saved adaptive learning progress yet for ' + esc(childName) + '. Start with one learning activity and focus on building the weekly rhythm.</p>' + learningRhythmMarkup(summary.learning_rhythm) + '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">🧠 Open Sight Memory practice →</a></p>';
             bindLearningRhythmCheckin(scopedChild);
             return;
           }
@@ -2907,6 +2932,7 @@ function renderLiveYouthParentDashboardPage() {
             metric('Current focus', parentFriendlyLearningArea(summary.current_skill_world)),
             metric('Last learning day', formatDate(summary.last_activity_at)),
             '</div>',
+            renderAssessmentLearningInsights(summary.assessment_learning_insights),
             '<p><strong>What to do next:</strong> Open the learning hub and continue the next recommended ' + esc(parentFriendlyLearningArea(summary.next_recommended_learning_activity || summary.current_skill_world)).toLowerCase() + ' activity.</p>',
             '<p><a class="btn btn-secondary" href="' + esc(sightMemoryHref(scopedChild)) + '">🧠 Open Sight Memory practice →</a></p>',
             '<div id="grade4QuestionGeniusMap"></div>',
