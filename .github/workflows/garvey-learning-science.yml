@@ -23,3 +23,34 @@ jobs:
           node-version: '22'
       - name: Test synthetic learning evidence
         run: node --test tests/learning-science-*.test.js
+
+  postgres-consent-integration:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: garvey_ci
+          POSTGRES_PASSWORD: garvey_ci_only
+          POSTGRES_DB: garvey_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U garvey_ci -d garvey_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      GARVEY_TEST_DATABASE_URL: postgresql://garvey_ci:garvey_ci_only@127.0.0.1:5432/garvey_ci
+      GARVEY_ALLOW_DISPOSABLE_PG_TEST: 'yes'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Verify consent grant, withdrawal and transaction rollback in disposable PostgreSQL
+        run: node --test tests/learning-science-postgres.test.js
