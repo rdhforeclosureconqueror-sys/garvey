@@ -1599,6 +1599,13 @@ function renderLiveYouthParentDashboardPage() {
       .adaptive-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
       .activity-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
       .learning-summary { display: grid; gap: 12px; }
+      .learning-insight-panel { border: 1px solid rgba(75, 217, 162, .55); border-radius: 18px;
+        background: linear-gradient(135deg, rgba(11, 66, 57, .42), rgba(21, 40, 72, .60)); padding: 18px; }
+      .learning-insight-panel h3 { margin: 0 0 12px; color: #b6f7d5; }
+      .learning-insight-panel h4 { margin: 16px 0 8px; }
+      .learning-insight-panel li { margin-bottom: 10px; line-height: 1.55; }
+      .learning-insight-panel .btn { margin-left: 8px; font-size: .87em; }
+
       .learning-summary h3 { margin: 0; }
       .snapshot-card {
         border: 1px solid var(--line);
