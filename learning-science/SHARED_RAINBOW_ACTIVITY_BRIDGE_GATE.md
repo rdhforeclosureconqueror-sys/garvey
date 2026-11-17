@@ -22,7 +22,7 @@ bridge.complete();
 - `genius_exploration`: **opportunity-only** dimension codes (SR, RS, PS, FB, CQ, CR, DE); no permanent labels
 - `reflection_choice`: optional age-appropriate bounded strategy label, not personal free text
 
-The bridge explicitly discards unapproved keys such as learner names, raw text answers, profile identifiers, and scores. Events are held **only in the page memory**, capped per session. An optional `transport(event)` may be supplied by the authenticated Garvey integration **later**. No transport is configured or called by default. Only the server may resolve the authenticated parent and child; never trust a client-provided learner ID.
+The bridge explicitly discards unapproved keys such as learner names, raw text answers, profile identifiers, and scores. Events are held **only in the page memory**, capped per session with the final slot reserved for `activity_completed`. Each emitted event has a stable `session_id:sequence` event key for future server-side deduplication; the event key does **not** authorize or identify a child. An optional `transport(event)` may be supplied by the authenticated Garvey integration **later**. No transport is configured or called by default. Only the server may resolve the authenticated parent and child; never trust a client-provided learner ID.
 
 ## Lessons 1–7 alignment and remaining gaps
 - Lessons 1–2: task-scoped observations rather than claims about neural change
