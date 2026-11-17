@@ -29,3 +29,10 @@ test('expiry and future timestamps fail closed', () => {
   assert.equal(verifyConsentCsrf(withHeader, { secret, now: 1000000 + MAX_AGE_MS + 1 }), false);
   assert.equal(verifyConsentCsrf(withHeader, { secret, now: 1000000 - 31000 }), false);
 });
+
+test('duplicate or malformed session cookies cannot obtain a CSRF token', () => {
+  const duplicated = { headers: { cookie: 'gates_parent_session=A; gates_parent_session=B' } };
+  const malformed = { headers: { cookie: 'gates_parent_session=%badescape' } };
+  assert.throws(() => issueConsentCsrf(duplicated, { secret, now: 1000000 }), /session cookie/);
+  assert.throws(() => issueConsentCsrf(malformed, { secret, now: 1000000 }), /session cookie/);
+});
