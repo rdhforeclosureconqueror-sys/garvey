@@ -24,7 +24,14 @@ function createChildConsentController({
   assertDependency('verifyCsrf', verifyCsrf);
   assertDependency('changeConsent', changeConsent);
   assertDependency('getConsent', getConsent);
-  if (typeof expectedOrigin !== 'string' || !/^https:\/\/[^/]+$/.test(expectedOrigin)) {
+  let canonicalOrigin;
+  try {
+    const parsed = new URL(expectedOrigin);
+    if (parsed.protocol !== 'https:' || parsed.origin !== expectedOrigin ||
+        parsed.username || parsed.password || parsed.search || parsed.hash ||
+        parsed.pathname !== '/') throw new Error('invalid');
+    canonicalOrigin = parsed.origin;
+  } catch (_) {
     throw new TypeError('validated HTTPS origin required');
   }
 
@@ -40,13 +47,16 @@ function createChildConsentController({
     const ownedChild = await resolveOwnedChild({
       pool, parentProfileId: actor.parentProfile.id, childId: req.params.childId,
     });
-    if (!ownedChild || ownedChild.ok !== true) {
+    if (!ownedChild || ownedChild.ok !== true || !ownedChild.row ||
+        safeChildId(ownedChild.learnerId) !== safeChildId(req.params.childId) ||
+        safeChildId(ownedChild.row.id) !== safeChildId(req.params.childId) ||
+        safeChildId(ownedChild.row.parent_id) !== safeChildId(actor.parentProfile.id)) {
       return { status: 403, body: { ok: false, error: 'forbidden' } };
     }
     if (mutation) {
       // SameSite=None is used by the existing Gates cookie in production.
       // These are separate requirements: same HTTPS Origin AND a session-bound CSRF verifier.
-      if (req.headers.origin !== expectedOrigin) {
+      if (req.headers.origin !== canonicalOrigin) {
         return { status: 403, body: { ok: false, error: 'invalid_origin' } };
       }
       if (!/^application\/json(?:;|$)/i.test(String(req.headers['content-type'] || ''))) {
