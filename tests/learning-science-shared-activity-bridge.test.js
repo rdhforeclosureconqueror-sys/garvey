@@ -48,6 +48,29 @@ test("offline/no transport works with retry, reflection and completion, capped a
   assert.throws(() => { snap.events.push("another"); }, TypeError);
 });
 
+test("reserves the last capacity slot for completion and creates idempotent event keys", () => {
+  const activity = bridge.createBridge({ activityId: "mission-planner", maxEvents: 3 });
+  const first = activity.start("route_a");
+  const second = activity.record("rule_changed", { taskId: "route_a", ruleId: "reverse" });
+  assert.equal(activity.record("retry", { taskId: "route_a" }), null);
+  const done = activity.complete({ taskId: "route_a" });
+  assert.ok(done);
+  assert.equal(activity.snapshot().completed, true);
+  assert.equal(activity.snapshot().recorded_event_count, 3);
+  assert.equal(first.event_key, first.session_id + ":1");
+  assert.equal(second.event_key, first.session_id + ":2");
+  assert.equal(done.event_key, first.session_id + ":3");
+  assert.equal(new Set(activity.snapshot().events.map(e => e.event_key)).size, 3);
+});
+
+test("completion is still recorded when the event cap is one", () => {
+  const activity = bridge.createBridge({ activityId: "rainbow-grammar", maxEvents: 1 });
+  assert.equal(activity.start("intro"), null);
+  assert.ok(activity.complete());
+  assert.equal(activity.snapshot().recorded_event_count, 1);
+  assert.equal(activity.snapshot().completed, true);
+});
+
 test("an optional host-provided sink receives only explicit event records", () => {
   const events = [];
   const activity = bridge.createBridge({ activityId: "rainbow-grammar", transport: event => events.push(event) });
