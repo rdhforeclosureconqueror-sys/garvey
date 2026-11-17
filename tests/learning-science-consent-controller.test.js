@@ -113,3 +113,35 @@ test('controller fails configuration without independent CSRF verifier or HTTPS 
   assert.throws(() => createChildConsentController({ resolveParentSession() {}, resolveOwnedChild() {}, expectedOrigin }), /verifyCsrf/);
   assert.throws(() => createChildConsentController({ resolveParentSession() {}, resolveOwnedChild() {}, verifyCsrf() {}, expectedOrigin: 'http://unsafe.test' }), /HTTPS/);
 });
+
+test('controller rejects a resolver claiming success with mismatched child or parent IDs', async () => {
+  for (const owned of [
+    { ok: true, learnerId: '302', row: { id: 302, parent_id: 201 } },
+    { ok: true, learnerId: '301', row: { id: 301, parent_id: 202 } },
+    { ok: true, learnerId: '301', row: { id: 302, parent_id: 201 } },
+    { ok: true, learnerId: '301' },
+  ]) {
+    const r = rig({ owned });
+    const result = await r.controller.mutate(r.request());
+    assert.equal(result.status, 403);
+    assert.equal(result.body.error, 'forbidden');
+    assert.deepEqual(r.calls, ['session', 'child']);
+  }
+});
+
+test('controller rejects unsafe origin configurations before requests', () => {
+  const dependencies = {
+    resolveParentSession: async () => actor,
+    resolveOwnedChild: async () => child,
+    verifyCsrf: async () => true,
+  };
+  for (const origin of [
+    'http://garvey.example.test',
+    'https://garvey.example.test/path',
+    'https://garvey.example.test/?q=1',
+    'https://name:password@garvey.example.test',
+    'https://garvey.example.test#fragment',
+  ]) {
+    assert.throws(() => createChildConsentController({ ...dependencies, expectedOrigin: origin }), /HTTPS origin/);
+  }
+});
