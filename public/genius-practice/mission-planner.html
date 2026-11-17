@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mission Planner | Garvey Genius Learning</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color:#f4f8ff; background:#0a1425; }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; background:radial-gradient(circle at top,#203d63,#0a1425 65%); }
+    main { width:min(850px,calc(100% - 28px)); margin:auto; padding:26px 0 55px; }
+    h1 { font-size:clamp(2rem,7vw,3.4rem); margin:10px 0; }
+    h2 { font-size:clamp(1.35rem,5vw,2rem); }
+    p { line-height:1.55; }
+    a { color:#a5f3fc; }
+    .tag { color:#ffd88a; font-weight:800; letter-spacing:.1em; font-size:.85rem; }
+    .panel { background:#172b48; border:2px solid #416385; border-radius:22px; padding:clamp(18px,4vw,28px); margin-top:18px; }
+    .instruction { background:#223e54; border-left:5px solid #ffd27e; border-radius:12px; padding:16px; font-size:1.1rem; }
+    .options { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr)); gap:12px; }
+    button { min-height:58px; border:2px solid #a5caee; border-radius:16px; background:#264a70; color:white; padding:12px; font-size:1rem; font-weight:750; cursor:pointer; }
+    button:focus-visible, a:focus-visible { outline:4px solid #ffd36a; outline-offset:3px; }
+    button:disabled { opacity:.4; cursor:not-allowed; }
+    button.primary { background:#ffd37e; border-color:#ffd37e; color:#11243c; }
+    button.secondary { background:transparent; border-color:#9ac3e8; }
+    .plan { min-height:85px; border:2px dashed #8cb8df; border-radius:14px; padding:15px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+    .plan span { border:1px solid #8cb8df; border-radius:12px; padding:8px 12px; background:#294d70; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+    .feedback { margin-top:16px; min-height:32px; font-weight:700; }
+    .progress { color:#bde7ff; }
+    fieldset { border:1px solid #81acd2; border-radius:16px; display:grid; gap:12px; padding:18px; }
+    legend { font-weight:800; padding:0 6px; }
+    label { display:flex; gap:10px; align-items:center; padding:8px 0; }
+    input { width:22px; height:22px; }
+    .hidden { display:none; }
+    .note { color:#bed0e3; font-size:.92rem; }
+  </style>
+</head>
+<body>
+<main>
+  <a href="/youth-development/parent-dashboard">← Back to Garvey Learning</a>
+  <p class="tag">GARVEY • GENIUS PRACTICE</p>
+  <h1>🚀 Mission Planner</h1>
+  <p>Help your delivery robot organize supplies. Make a plan, check it, and adjust when the rule changes. Take your time—there is no countdown.</p>
+  <section class="panel" id="play" aria-labelledby="mission-title">
+    <p id="progress" class="progress"></p>
+    <h2 id="mission-title"></h2>
+    <p class="instruction" id="rule"></p>
+    <h3>Tap the deliveries in the order you choose</h3>
+    <div class="options" id="choices"></div>
+    <h3>Your route</h3>
+    <div class="plan" id="plan" aria-live="polite"></div>
+    <div class="actions">
+      <button class="secondary" id="undo" type="button">Undo last choice</button>
+      <button class="primary" id="check" type="button">Check my route</button>
+    </div>
+    <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+  </section>
+  <section class="panel hidden" id="finish" aria-labelledby="finish-title">
+    <h2 id="finish-title">🎉 Mission complete!</h2>
+    <p>You tried different plans and adapted to new rules. Those are useful ways to practice thinking!</p>
+    <p id="session-summary"></p>
+    <fieldset>
+      <legend>What helped you most?</legend>
+      <label><input type="radio" name="reflection" value="read_rule"> Reading the rule carefully</label>
+      <label><input type="radio" name="reflection" value="planned_first"> Making a plan before tapping</label>
+      <label><input type="radio" name="reflection" value="tried_again"> Trying again after feedback</label>
+      <label><input type="radio" name="reflection" value="another_strategy"> Using another strategy</label>
+    </fieldset>
+    <div class="actions"><button class="primary" id="restart" type="button">Play again</button></div>
+  </section>
+  <p class="note">This game practices sequencing, flexible rule use, and reflection. Results describe this activity only—not IQ, a diagnosis, or a fixed measure of talent. No name, account, or personal data is collected by this page.</p>
+</main>
+<script src="/genius-practice/mission-planner-engine.js"></script>
+<script>
+(function () {
+  "use strict";
+  const game = window.GarveyMissionPlanner;
+  let state = game.createState();
+  const el = id => document.getElementById(id);
+  const name = id => (game.ITEMS.find(item => item.id === id) || {}).label || "";
+  function draw(message = "") {
+    const mission = game.currentMission(state);
+    el("play").classList.toggle("hidden", !mission);
+    el("finish").classList.toggle("hidden", Boolean(mission));
+    if (!mission) {
+      const snapshot = game.snapshot(state);
+      el("session-summary").textContent = "Routes completed: " + snapshot.missions_completed +
+        " of " + game.MISSIONS.length + ". Attempts: " + snapshot.attempts +
+        ". Changes to your plan: " + snapshot.revisions + ".";
+      return;
+    }
+    el("progress").textContent = "Mission " + (state.missionIndex + 1) + " of " + game.MISSIONS.length;
+    el("mission-title").textContent = mission.title;
+    el("rule").textContent = mission.rule;
+    const choices = el("choices");
+    choices.replaceChildren();
+    game.ITEMS.forEach(function (item) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "📦 " + item.label;
+      button.disabled = state.selected.includes(item.id);
+      button.addEventListener("click", function () {
+        state = game.choose(state, item.id);
+        draw();
+      });
+      choices.appendChild(button);
+    });
+    const plan = el("plan");
+    plan.replaceChildren();
+    if (!state.selected.length) plan.textContent = "Your plan will appear here.";
+    state.selected.forEach(function (id, index) {
+      const card = document.createElement("span");
+      card.textContent = (index + 1) + ". " + name(id);
+      plan.appendChild(card);
+    });
+    el("check").disabled = state.selected.length !== game.ITEMS.length;
+    el("undo").disabled = state.selected.length === 0;
+    el("feedback").textContent = message;
+  }
+  el("undo").addEventListener("click", () => { state = game.undo(state); draw("You can adjust your plan."); });
+  el("check").addEventListener("click", () => {
+    const result = game.check(state);
+    state = result.state;
+    draw(result.outcome === "retry"
+      ? "Good try! Look at the rule again and choose a new route."
+      : "Great planning! You completed that mission.");
+  });
+  document.querySelectorAll('input[name="reflection"]').forEach(function (input) {
+    input.addEventListener("change", function () { state = game.reflect(state, input.value); });
+  });
+  el("restart").addEventListener("click", function () {
+    state = game.createState();
+    document.querySelectorAll('input[name="reflection"]').forEach(x => { x.checked = false; });
+    draw();
+  });
+  draw();
+}());
+</script>
+</body>
+</html>
