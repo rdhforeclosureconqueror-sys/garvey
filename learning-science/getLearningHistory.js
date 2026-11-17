@@ -4,6 +4,7 @@
 // No DB migration, persistence, raw answers, or real-learner activation.
 // Caller must first resolve an authenticated parent and owned child using gatesAuth.
 const crypto = require('node:crypto');
+const { verifyLearningHistoryConsent } = require('./verifyLearningHistoryConsent');
 const STATUSES = new Set(['correct', 'incorrect', 'omitted', 'not_scorable']);
 const SUBJECTS = { Math: 'mathematics', English: 'literacy' };
 const SQL = `
@@ -91,7 +92,7 @@ function projectHistoryRows(rows, { learnerRef, secret }) {
  * Entry point for a future trusted server integration ONLY. The DB independently
  * scopes rows by user, parent and child, including the child's canonical parent.
  */
-async function getLearningHistory({ pool, actor, ownedChild, secret, enabled = false, limit = 100 } = {}) {
+async function getLearningHistory({ pool, actor, ownedChild, secret, enabled = false, limit = 100, resolveConsent } = {}) {
   if (enabled !== true) return { enabled: false, history: [] };
   if (!pool || typeof pool.query !== 'function') throw new TypeError('database pool required');
   if (!actor || actor.authenticated !== true || !actor.parentProfile) throw new TypeError('authenticated parent required');
@@ -104,6 +105,13 @@ async function getLearningHistory({ pool, actor, ownedChild, secret, enabled = f
   }
   const bounded = Number(limit);
   if (!Number.isInteger(bounded) || bounded < 1 || bounded > 200) throw new RangeError('limit must be 1..200');
+  // The resolver must be injected by a trusted server-only integration. A browser
+  // consent flag or an unrelated business consent record is never sufficient.
+  if (typeof resolveConsent !== 'function') throw new TypeError('trusted caregiver consent resolver required');
+  const consent = await resolveConsent({ parentProfileId: parentId, learnerId, purpose: 'child_learning_history' });
+  if (!verifyLearningHistoryConsent(consent, { parentId, learnerId })) {
+    return { enabled: false, history: [], reason: 'caregiver_consent_required' };
+  }
   const learnerRef = opaqueLearnerRef({ secret, learnerId, parentId });
   const result = await pool.query(SQL, [authUserId, parentId, learnerId, bounded]);
   return { enabled: true, history: projectHistoryRows(result.rows, { learnerRef, secret }) };
