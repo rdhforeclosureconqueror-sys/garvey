@@ -68,7 +68,9 @@
       if (completed) return null;
       if (!observation || typeof observation !== "object" || Array.isArray(observation))
         throw new TypeError("observation must be a structured object");
-      if (observations.length >= maxEvents) return null;
+      // Reserve the last event slot for the actual completion milestone.
+      if (observations.length >= maxEvents ||
+          (eventType !== "activity_completed" && observations.length >= maxEvents - 1)) return null;
       const task_id = id(observation.taskId || "activity", "taskId");
       const rule_id = observation.ruleId == null ? null : id(observation.ruleId, "ruleId");
       const skill_id = observation.skillId == null ? null : id(observation.skillId, "skillId");
@@ -92,7 +94,9 @@
         schema_version: "1",
         event_name: "garvey_activity_event",
         activity_id: activityId,
-        session_id, event_type: eventType, task_id, rule_id,
+        session_id,
+        event_key: session_id + ":" + String(observations.length + 1),
+        event_type: eventType, task_id, rule_id,
         academic: Object.freeze({ skill_area: ACTIVITY_AREA[activityId], skill_id, outcome }),
         executive_practice: Object.freeze({ practice_tags: Object.freeze(practice_tags), attempt_number, support_used: Object.freeze(support_used) }),
         genius_exploration: Object.freeze({ opportunity_codes: Object.freeze(genius_dimension_codes), evidence_level: "opportunity_only" }),
