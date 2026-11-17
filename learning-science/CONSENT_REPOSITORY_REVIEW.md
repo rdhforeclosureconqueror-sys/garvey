@@ -9,7 +9,7 @@
 1. `caregiverActionVerified: true` is a **trusted-caller assertion**, not an authentication or parental-identity verification system. It is unsafe if sourced from an HTTP request body or any browser input. Do not import this repository into public routes until authenticated session/CSRF protection and verified parent action are designed and tested.
 2. No parent-facing consent language, explicit opt-in UI, confirmation/versioning, or withdrawal UI exists yet.
 3. The database schema is a reviewed proposal and has **not been migrated to a test or production database**. Test real transaction behavior and concurrency on disposable staging PostgreSQL before registration.
-4. Audit records carry parent/learner IDs and must have explicit retention and deletion/export policies; consent withdrawal is **not** equivalent to erasure of historical assessment records. Do not conflate these user actions.
+4. Audit records carry parent/learner IDs. Their foreign keys now cascade on canonical parent/child deletion to avoid orphaned identifiers, but existing assessment foreign keys may block canonical deletion; end-to-end retention, export, and erasure workflows still need explicit implementation and legal review. Consent withdrawal is **not** equivalent to erasure of historical assessment records.
 5. Current child lifecycle/deactivation enforcement is incomplete; require valid active child authorization before any live flow.
 6. Determine applicable legal requirements for children's education and privacy records, and ensure the caregiver has authority to consent.
 7. Consent must be withdrawn promptly and revalidated on reads; never cache an old granted state as authorization.
