@@ -344,6 +344,19 @@
       package_ids: Array.isArray(payload && payload.package_ids) ? payload.package_ids.map(text) : [],
       skill_evidence: Array.isArray(payload && payload.skill_evidence) ? payload.skill_evidence.map(publicEvidenceOnly) : [],
       recommendations: Array.isArray(payload && payload.recommendations) ? payload.recommendations.slice(0, 3).map(publicRecommendationOnly) : [],
+      learning_next_steps: payload && payload.learning_next_steps ? {
+        headline: text(payload.learning_next_steps.headline),
+        encouragement: text(payload.learning_next_steps.encouragement),
+        note: text(payload.learning_next_steps.note),
+        strengths: Array.isArray(payload.learning_next_steps.strengths) ? payload.learning_next_steps.strengths.slice(0, 2).map((item) => ({
+          skill: text(item && item.skill), message: text(item && item.message),
+        })) : [],
+        practice: Array.isArray(payload.learning_next_steps.practice) ? payload.learning_next_steps.practice.slice(0, 3).map((item) => ({
+          skill: text(item && item.skill), title: text(item && item.title),
+          message: text(item && item.message),
+          practice_route: text(item && item.practice_route),
+        })) : [],
+      } : null,
       score_summary: payload && payload.score_summary ? {
         raw_score: Math.max(0, Number(payload.score_summary.raw_score) || 0),
         maximum_score: Math.max(0, Number(payload.score_summary.maximum_score) || 0),
@@ -1128,12 +1141,37 @@
     return '<section aria-labelledby="results-title">' +
       '<h2 id="results-title">Supportive skill results</h2>' +
       scoreSummary +
+      renderLearningNextSteps(result.learning_next_steps) +
       '<div class="notice"><strong>Important note</strong><ul class="limitations">' + limitations.map((item) => '<li>' + escapeHtml(item) + '</li>').join('') + '</ul></div>' +
       '<section aria-labelledby="clear-evidence-title"><h2 id="clear-evidence-title">Skills with clear evidence</h2><div class="result-grid">' + (clearEvidence.length ? clearEvidence.map(renderEvidence).join('') : '<p class="helper">No skill has three valid answers yet.</p>') + '</div></section>' +
       renderNotEnoughEvidenceGroup(needsMore) +
       renderRecommendations(result.recommendations) +
       renderReassessmentInvitation() +
       '</section>';
+  }
+
+  function renderLearningNextSteps(feedback) {
+    if (!feedback) return '';
+    const strengths = Array.isArray(feedback.strengths) ? feedback.strengths : [];
+    const practice = Array.isArray(feedback.practice) ? feedback.practice : [];
+    const good = strengths.length
+      ? '<div class="learning-next-step-grid">' + strengths.map((item) =>
+        '<article class="learning-next-step-card strength"><h3>⭐ ' + escapeHtml(item.skill) + '</h3><p>' + escapeHtml(item.message) + '</p></article>').join('') + '</div>'
+      : '<p class="helper">Keep trying — we are still learning where to focus.</p>';
+    const tasks = practice.length
+      ? '<div class="learning-next-step-grid">' + practice.map((item) => {
+        const route = /^\/skill-world\/[A-Za-z0-9_-]+\/drill$/.test(item.practice_route || '') ? item.practice_route : '';
+        return '<article class="learning-next-step-card practice"><h3>' + escapeHtml(item.title) + ': ' + escapeHtml(item.skill) +
+          '</h3><p>' + escapeHtml(item.message) + '</p>' + (route
+            ? '<a class="route-button" href="' + escapeHtml(route) + '">Practice this skill</a>' : '') + '</article>';
+      }).join('') + '</div>'
+      : '<p class="helper">No extra practice is suggested right now.</p>';
+    return '<section class="learning-next-steps" aria-labelledby="learning-next-steps-title">' +
+      '<h2 id="learning-next-steps-title">' + escapeHtml(feedback.headline || 'Your learning journey') + '</h2>' +
+      '<h3>What you are learning well</h3>' + good +
+      '<h3>What to try next</h3>' + tasks +
+      '<p class="helper">' + escapeHtml(feedback.encouragement || '') + '</p>' +
+      '<p class="helper">' + escapeHtml(feedback.note || '') + '</p></section>';
   }
 
   function renderEvidence(item) {

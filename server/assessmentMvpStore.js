@@ -6,6 +6,7 @@ const { createReassessmentSession } = require("../assessment-mvp/createReassessm
 const { REQUIRED_LIMITATIONS } = require("../assessment-mvp/submitAssessmentResponses");
 const { loadSkillPackages, packageIdOf } = require("../assessment-mvp/loadSkillPackages");
 const { recommendSkillPackages } = require("../assessment-mvp/recommendSkillPackages");
+const { makeLearningNextSteps } = require("../assessment-mvp/makeLearningNextSteps");
 const { scoreResponses } = require("../assessment-mvp/scoreResponses");
 const { selectAssessmentItems, stableStringify, isAssessmentItemDeliverable } = require("../assessment-mvp/selectAssessmentItems");
 
@@ -889,6 +890,7 @@ class AssessmentMvpPostgresStore {
       score_summary,
       skill_evidence,
       recommendations,
+      learning_next_steps: makeLearningNextSteps({ skillEvidence: skill_evidence, recommendations }),
       skipped_recommendations,
       exposure: {
         item_ids: toStableUnique(itemRows.map((row) => row.item_identity)),
