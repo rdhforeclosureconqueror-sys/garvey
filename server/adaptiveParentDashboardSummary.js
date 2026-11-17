@@ -2,6 +2,7 @@
 
 const { buildLearningJourney, isFakeLearnerName, normalizeStatus } = require("./learningJourneyService");
 const { buildGeniusEvidenceSummary } = require("./geniusEvidenceSummaryService");
+const { buildDashboardAssessmentInsights } = require("./dashboardAssessmentInsights");
 
 async function buildAdaptiveParentDashboardSummary(pool, opts = {}) {
   const journey = await buildLearningJourney(pool, opts);
@@ -10,6 +11,11 @@ async function buildAdaptiveParentDashboardSummary(pool, opts = {}) {
     childId: journey.child_id,
     parentProfileId: opts.parentProfileId,
   });
+  // Keep existing parent dashboard usable when older assessment tables are missing.
+  const assessmentInsights = await buildDashboardAssessmentInsights(pool, {
+    childId: journey.child_id,
+    parentProfileId: opts.parentProfileId,
+  }).catch(() => ({ available: false, reason: "assessment_insights_unavailable" }));
   return {
     ok: true,
     child_id: journey.child_id,
@@ -43,6 +49,7 @@ async function buildAdaptiveParentDashboardSummary(pool, opts = {}) {
     recent_activity: journey.recent_activity,
     learning_rhythm: journey.history.learning_rhythm,
     genius_evidence: geniusEvidence,
+    assessment_learning_insights: assessmentInsights,
   };
 }
 module.exports = { buildAdaptiveParentDashboardSummary, isFakeLearnerName, normalizeStatus };
