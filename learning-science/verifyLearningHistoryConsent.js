@@ -10,6 +10,13 @@ function positiveId(value) {
   return /^[1-9][0-9]*$/.test(s) ? s : null;
 }
 
+function consentTimestamp(value) {
+  if (typeof value !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$/.test(value)) {
+    return NaN;
+  }
+  return Date.parse(value);
+}
+
 function verifyLearningHistoryConsent(record, { parentId, learnerId, at = new Date() } = {}) {
   if (!record || typeof record !== 'object' || Array.isArray(record)) return false;
   if (record.purpose !== PURPOSE || record.version !== VERSION || record.status !== 'granted') return false;
@@ -18,10 +25,10 @@ function verifyLearningHistoryConsent(record, { parentId, learnerId, at = new Da
       !positiveId(parentId) || !positiveId(learnerId)) return false;
   if (record.revoked_at != null || record.deleted_at != null) return false;
   const checkedAt = new Date(at).getTime();
-  const grantedAt = typeof record.granted_at === 'string' ? Date.parse(record.granted_at) : NaN;
+  const grantedAt = consentTimestamp(record.granted_at);
   if (!Number.isFinite(checkedAt) || !Number.isFinite(grantedAt) || grantedAt > checkedAt) return false;
   if (record.expires_at != null) {
-    const expires = typeof record.expires_at === 'string' ? Date.parse(record.expires_at) : NaN;
+    const expires = consentTimestamp(record.expires_at);
     if (!Number.isFinite(expires) || expires <= checkedAt) return false;
   }
   return true;
