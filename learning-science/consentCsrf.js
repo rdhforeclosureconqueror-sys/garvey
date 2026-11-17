@@ -4,7 +4,7 @@
 // HMAC binds the action token to the active session secret, purpose and lifespan.
 // This helper does NOT issue HTTP responses or activate any feature.
 const crypto = require('node:crypto');
-const { GATES_SESSION_COOKIE, parseCookieHeader } = require('../server/gatesAuth');
+const GATES_SESSION_COOKIE = 'gates_parent_session';
 
 const PURPOSE = 'garvey-child-learning-consent-mutation-v1';
 const MAX_AGE_MS = 10 * 60 * 1000;
@@ -18,8 +18,15 @@ function checkedKey(secret) {
 }
 
 function sessionToken(req) {
-  const raw = parseCookieHeader(String(req?.headers?.cookie || ''))[GATES_SESSION_COOKIE];
-  if (typeof raw !== 'string' || !raw || raw.length > 4096) return null;
+  const header = req?.headers?.cookie;
+  if (typeof header !== 'string' || header.length > 8192) return null;
+  const matches = header.split(';').map(part => part.trim())
+    .filter(part => part.startsWith(GATES_SESSION_COOKIE + '='));
+  if (matches.length !== 1) return null;
+  let raw;
+  try { raw = decodeURIComponent(matches[0].slice(GATES_SESSION_COOKIE.length + 1)); }
+  catch { return null; }
+  if (!raw || raw.length > 4096) return null;
   return raw;
 }
 
