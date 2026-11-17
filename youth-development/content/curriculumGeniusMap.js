@@ -19,6 +19,16 @@ const PRACTICE_TAGS = Object.freeze({
 });
 
 const CURRICULUM_GENIUS_MAP = Object.freeze({
+  mission_planner: Object.freeze({
+    activity_type: "brain_game",
+    title: "Mission Planner — Plan, Check, Change",
+    skill_goal: "Plan an ordered delivery route and adapt when its sorting rule changes.",
+    task_demands: ["read the active rule", "choose a sequence", "check the sequence", "apply a changed rule", "reflect on a strategy"],
+    practice_tags: ["sequencing", "rule_switching", "selective_attention", "persistence", "self_reflection"],
+    genius_dimension_codes: ["SR", "RS", "PS", "FB"],
+    observable_evidence: ["mission_completion_count", "route_attempt_count", "plan_revision_count", "chosen_reflection"],
+    parent_extension: "Sort three household items by size, then reverse the rule. Ask which strategy helped when the rule changed.",
+  }),
   sight_memory_kids: Object.freeze({ activity_type: "brain_game", title: "Sight Memory — Kids", skill_goal: "Recall an emoji sequence and answer varied position questions.", task_demands: ["encode a sequence", "hold it briefly", "retrieve a requested position", "adapt to varied question types"], practice_tags: ["visual_recall", "ordered_recall", "working_hold", "selective_attention", "rule_switching"], genius_dimension_codes: ["SR", "RS", "PS"], observable_evidence: ["accuracy_by_sequence_length", "accuracy_by_position", "response_time_ms", "retry_count", "completion_status"], parent_extension: "Place 3–5 familiar objects in a row, cover them, and ask about a randomized position." }),
   equivalent_fractions: Object.freeze({ activity_type: "academic_lesson", title: "Equivalent Fractions", skill_goal: "Recognize equal quantities represented in different ways.", task_demands: ["compare part-whole relationships", "use a visual model", "connect the model to notation", "explain equivalence"], practice_tags: ["spatial_reasoning", "quantitative_reasoning", "symbolic_translation", "sequencing", "language_explanation"], genius_dimension_codes: ["RS", "SR", "FB"], observable_evidence: ["visual_model_accuracy", "symbolic_item_accuracy", "hint_use", "explanation_attempt", "mastery_on_fresh_items"], parent_extension: "Fold paper into halves and quarters, then ask the child to show why two quarters equal one half." }),
   coordinate_plotting: Object.freeze({ activity_type: "academic_lesson", title: "Coordinate Plotting", skill_goal: "Locate and describe points on a grid.", task_demands: ["hold an ordered pair", "move horizontal then vertical", "orient on a grid", "check the plotted result"], practice_tags: ["spatial_reasoning", "sequencing", "working_hold", "symbolic_translation"], genius_dimension_codes: ["RS", "SR", "FB"], observable_evidence: ["ordered_pair_accuracy", "axis_order_error_rate", "hint_use", "correction_after_feedback"], parent_extension: "Make a floor grid with tape and have the child walk ordered pairs." }),
@@ -30,6 +40,7 @@ const CURRICULUM_GENIUS_MAP = Object.freeze({
 // Stable bindings connect the map to current Garvey content without making the
 // content packages depend on a presentation-specific dashboard.
 const CONTENT_BINDINGS = Object.freeze({
+  "genius-practice/mission-planner": Object.freeze({ mapping_id: "mission_planner", route: "/genius-practice/mission-planner.html", modes: ["child"], storage: "session_only_no_personal_data" }),
   "gamehub/sight-memory": Object.freeze({ mapping_id: "sight_memory_kids", progress_skill_id: "GAMEHUB_SIGHT_MEMORY", route: "/gamehub/sight-memory.html", modes: ["child", "adult"] }),
   G4M_FR_001: Object.freeze({ mapping_id: "equivalent_fractions", package_path: "public/gamehub/skill-world/content/G4M_FR_001.skill-package.v1.json" }),
   G5M_FR_001: Object.freeze({ mapping_id: "equivalent_fractions", package_path: "public/gamehub/skill-world/content/G5M_FR_001.skill-package.v1.json" }),

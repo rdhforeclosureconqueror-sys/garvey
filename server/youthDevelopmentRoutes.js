@@ -1743,6 +1743,7 @@ function renderLiveYouthParentDashboardPage() {
         <p id="adaptiveLearningStatus">Grade 1–6 school-skill lessons, practice, and growth snapshots.</p>
         <div class="actions">
           <a class="btn btn-secondary" id="openAdaptiveV2HubBtn" href="/youth-development/adaptive-learning">Open Adaptive V2 Lesson Hub</a>
+          <a class="btn btn-secondary" href="/genius-practice/mission-planner.html">🚀 Play Mission Planner</a>
         </div>
         <div id="adaptiveLearningSummary" class="adaptive-summary" aria-live="polite">
           <p class="muted">Select a child profile to load saved adaptive learning progress.</p>
