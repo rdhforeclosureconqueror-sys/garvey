@@ -67,3 +67,21 @@ test('history caps result size and requires server-only pseudonymization secret'
   await assert.rejects(getLearningHistory({ pool, actor, ownedChild, secret, enabled: true, limit: 201 }), /limit/);
   await assert.rejects(getLearningHistory({ pool, actor, ownedChild, secret: 'short', enabled: true }), /32 bytes/);
 });
+
+test('history refuses incomplete ownership proof and mismatched canonical child id', async () => {
+  const pool = { query: async () => { throw Error('must not query'); } };
+  await assert.rejects(
+    getLearningHistory({ pool, actor, ownedChild: { ok: true, learnerId: '301' }, secret, enabled: true }),
+    /verified owned child/
+  );
+  await assert.rejects(
+    getLearningHistory({ pool, actor, ownedChild: { ok: true, learnerId: '302', row: { id: 301, parent_id: 201 } }, secret, enabled: true }),
+    /ownership mismatch/
+  );
+});
+
+test('history fails closed on duplicate item entries and missing assessment version', () => {
+  assert.throws(() => projectHistoryRows([row, row], { learnerRef: 'learner_demo123456', secret }), /duplicate history event/);
+  assert.throws(() => projectHistoryRows([{ ...row, session_version: '' }], { learnerRef: 'learner_demo123456', secret }), /missing assessment version/);
+  assert.throws(() => projectHistoryRows([row], { learnerRef: 'learner_demo123456', secret: '' }), /pseudonymization key/);
+});
