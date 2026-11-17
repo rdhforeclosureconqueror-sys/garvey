@@ -5,7 +5,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
-const { Pool } = require('pg');
 const { CHILD_LEARNING_CONSENT_SQL } = require('../learning-science/childConsentSchema');
 const { changeChildConsent, resolveStoredChildConsent } = require('../learning-science/childConsentRepository');
 const { verifyLearningHistoryConsent } = require('../learning-science/verifyLearningHistoryConsent');
@@ -17,6 +16,7 @@ const isLocal = (() => {
   catch { return false; }
 })();
 test('PostgreSQL: isolated scoped grant/withdraw/rollback contract', { skip: !(allow && isLocal) }, async () => {
+  const { Pool } = require('pg');
   const pool = new Pool({ connectionString: url, max: 1, connectionTimeoutMillis: 3000 });
   const client = await pool.connect();
   const schema = 'garvey_consent_ci_' + crypto.randomBytes(6).toString('hex');
