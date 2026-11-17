@@ -98,4 +98,6 @@ test('schema is additive but not registered in runtime migrations', () => {
   assert.ok(CHILD_LEARNING_CONSENT_SQL.every(statement => /CREATE (TABLE|INDEX) IF NOT EXISTS/.test(statement)));
   assert.match(CHILD_LEARNING_CONSENT_SQL[0], /PRIMARY KEY \(parent_profile_id, learner_id, purpose\)/);
   assert.match(CHILD_LEARNING_CONSENT_SQL[1], /auth_user_id/);
+  assert.match(CHILD_LEARNING_CONSENT_SQL[1], /parent_profile_id BIGINT NOT NULL REFERENCES gates_parent_profiles\(id\) ON DELETE CASCADE/);
+  assert.match(CHILD_LEARNING_CONSENT_SQL[1], /learner_id BIGINT NOT NULL REFERENCES gates_child_profiles\(id\) ON DELETE CASCADE/);
 });
