@@ -1160,7 +1160,7 @@
       : '<p class="helper">Keep trying — we are still learning where to focus.</p>';
     const tasks = practice.length
       ? '<div class="learning-next-step-grid">' + practice.map((item) => {
-        const route = /^\\/skill-world\\/[A-Za-z0-9_-]+\\/drill$/.test(item.practice_route || '') ? item.practice_route : '';
+        const route = /^\/skill-world\/[A-Za-z0-9_-]+\/drill$/.test(item.practice_route || '') ? item.practice_route : '';
         return '<article class="learning-next-step-card practice"><h3>' + escapeHtml(item.title) + ': ' + escapeHtml(item.skill) +
           '</h3><p>' + escapeHtml(item.message) + '</p>' + (route
             ? '<a class="route-button" href="' + escapeHtml(route) + '">Practice this skill</a>' : '') + '</article>';
