@@ -1,8 +1,6 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
 const { makeLearningNextSteps } = require('../assessment-mvp/makeLearningNextSteps');
 
 test('gives a short strengths-and-practice summary from assessed skills', () => {
@@ -50,7 +48,20 @@ test('does not expose raw assessment answers or unsupported route destinations',
   assert.equal(JSON.stringify(feedback).includes('private response'), false);
 });
 
-test('new feedback is connected to the assessment-completion result', () => {
-  const source = fs.readFileSync(path.join(__dirname, '../assessment-mvp/submitAssessmentResponses.js'), 'utf8');
-  assert.match(source, /learning_next_steps: makeLearningNextSteps/);
+test('actual assessment completion returns child-friendly feedback in its result', () => {
+  const { createAssessmentSession } = require('../assessment-mvp/createAssessmentSession');
+  const { submitAssessmentResponses } = require('../assessment-mvp/submitAssessmentResponses');
+  const session = createAssessmentSession({
+    grade: 1, subject: 'Math', itemsPerPackage: 1, session_id: 'FEEDBACK_SYNTHETIC',
+  });
+  const submitted = Object.fromEntries(
+    session.internal_scoring_records.map(record => [record.item_identity, 'practice response'])
+  );
+  const result = submitAssessmentResponses(session, submitted);
+  assert.equal(result.status, 'completed');
+  assert.ok(result.learning_next_steps);
+  assert.equal(Array.isArray(result.learning_next_steps.strengths), true);
+  assert.equal(Array.isArray(result.learning_next_steps.practice), true);
+  assert.match(result.learning_next_steps.encouragement, /practice/);
+  assert.equal(JSON.stringify(result.learning_next_steps).includes('practice response'), false);
 });
