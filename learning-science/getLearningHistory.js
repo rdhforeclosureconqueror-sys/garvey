@@ -41,6 +41,8 @@ function opaqueLearnerRef({ secret, learnerId, parentId }) {
 
 function projectHistoryRows(rows, { learnerRef, secret }) {
   if (!Array.isArray(rows)) throw new TypeError('database rows required');
+  if (typeof secret !== 'string' || Buffer.byteLength(secret, 'utf8') < 32) throw new TypeError('server-only pseudonymization key required');
+  const seen = new Set();
   const history = [];
   for (const row of rows) {
     if (!row || row.assessment_role !== 'baseline' || !SUBJECTS[row.subject]) {
@@ -58,7 +60,11 @@ function projectHistoryRows(rows, { learnerRef, secret }) {
     if (!row.completed_at || Number.isNaN(new Date(row.completed_at).getTime())) {
       throw new TypeError('invalid completion timestamp');
     }
-    if (typeof row.session_id !== 'string' || !row.session_id) throw new TypeError('missing session identifier');
+    if (typeof row.session_id !== 'string' || !row.session_id.trim()) throw new TypeError('missing session identifier');
+    if (typeof row.session_version !== 'string' || !row.session_version.trim()) throw new TypeError('missing assessment version');
+    const eventKey = JSON.stringify([row.session_id, row.item_identity, row.session_version]);
+    if (seen.has(eventKey)) throw new TypeError('duplicate history event');
+    seen.add(eventKey);
     const eventDigest = crypto.createHmac('sha256', secret)
       .update(JSON.stringify(['garvey-history-event-v1', row.session_id, row.item_identity, row.session_version]))
       .digest('hex');
@@ -89,11 +95,13 @@ async function getLearningHistory({ pool, actor, ownedChild, secret, enabled = f
   if (enabled !== true) return { enabled: false, history: [] };
   if (!pool || typeof pool.query !== 'function') throw new TypeError('database pool required');
   if (!actor || actor.authenticated !== true || !actor.parentProfile) throw new TypeError('authenticated parent required');
-  if (!ownedChild || ownedChild.ok !== true) throw new TypeError('verified owned child required');
+  if (!ownedChild || ownedChild.ok !== true || !ownedChild.row) throw new TypeError('verified owned child required');
   const authUserId = positiveId(actor.authUserId, 'auth user');
   const parentId = positiveId(actor.parentProfile.id, 'parent');
   const learnerId = positiveId(ownedChild.learnerId, 'learner');
-  if (ownedChild.row && String(ownedChild.row.parent_id) !== parentId) throw new TypeError('child ownership mismatch');
+  if (String(ownedChild.row.parent_id) !== parentId || String(ownedChild.row.id) !== learnerId) {
+    throw new TypeError('child ownership mismatch');
+  }
   const bounded = Number(limit);
   if (!Number.isInteger(bounded) || bounded < 1 || bounded > 200) throw new RangeError('limit must be 1..200');
   const learnerRef = opaqueLearnerRef({ secret, learnerId, parentId });
