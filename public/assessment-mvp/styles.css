@@ -479,3 +479,27 @@ button:disabled { opacity: .58; cursor: not-allowed; box-shadow: none; }
   .clock-number-10 { transform: rotate(300deg) translate(0, -35vw) rotate(-300deg); }
   .clock-number-11 { transform: rotate(330deg) translate(0, -35vw) rotate(-330deg); }
 }
+
+/* Learner-friendly next steps appear above the technical evidence details. */
+.learning-next-steps {
+  margin: 20px 0 28px;
+  padding: clamp(16px, 4vw, 26px);
+  border-radius: 26px;
+  background: linear-gradient(145deg, #f0fdf4, #eaf2ff);
+  border: 3px solid #bbf7d0;
+}
+.learning-next-steps h3 { margin-top: 20px; }
+.learning-next-step-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 14px;
+}
+.learning-next-step-card {
+  padding: 18px;
+  border-radius: 20px;
+  border: 2px solid #cbd5e1;
+  background: #fff;
+}
+.learning-next-step-card.strength { border-color: #86efac; }
+.learning-next-step-card.practice { border-color: #93c5fd; }
+.learning-next-step-card .route-button { margin-top: 8px; }
