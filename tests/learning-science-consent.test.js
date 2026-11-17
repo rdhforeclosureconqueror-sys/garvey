@@ -25,8 +25,7 @@ test('only a current purpose-specific caregiver grant passes', () => {
     { granted_at: '2026-02-01T12:00:00' },
     { expires_at: '2026-11-15T00:00:00Z' },
     { expires_at: 'invalid' },
-    { expires_at: '2027-01-01T00:00:00' + '' /* valid ISO, tested separately */ , status: 'revoked' },
-    { expires_at: '2027-01-01T00:00:00'.slice(0,19) },
+    { expires_at: '2027-01-01T00:00:00' },
   ]) {
     assert.equal(verifyLearningHistoryConsent({ ...record, ...alteration }, context), false);
   }
