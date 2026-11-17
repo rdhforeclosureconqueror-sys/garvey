@@ -1,6 +1,7 @@
 const { loadSkillPackages, packageIdOf } = require('./loadSkillPackages');
 const { scoreResponses } = require('./scoreResponses');
 const { recommendSkillPackages } = require('./recommendSkillPackages');
+const { makeLearningNextSteps } = require('./makeLearningNextSteps');
 const { publicAssessmentSessionView, requireSingle, toStableUnique } = require('./createAssessmentSession');
 
 const REQUIRED_LIMITATIONS = [
@@ -88,6 +89,10 @@ function submitAssessmentResponses(session, responses, options = {}) {
     score_summary: scored.scoreSummary,
     skill_evidence: enrichedSkillEvidence,
     recommendations: recommendationResult.recommendations.slice(0, 3),
+    learning_next_steps: makeLearningNextSteps({
+      skillEvidence: enrichedSkillEvidence,
+      recommendations: recommendationResult.recommendations.slice(0, 3),
+    }),
     skipped_recommendations: recommendationResult.skipped,
     exposure: {
       item_ids: toStableUnique(session.exposed_item_ids || session.public_items.map((item) => item.item_identity)),
