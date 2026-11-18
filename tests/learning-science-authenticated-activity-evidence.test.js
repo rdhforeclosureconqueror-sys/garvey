@@ -48,7 +48,7 @@ test("replayed event idempotent; revoked consent and foreign child never written
   const foreignPool=mockPool({ownerCount:0});
   assert.equal((await saveActivityEvidence({pool:foreignPool,actor,ownedChild,event})).error,"forbidden");
   assert.equal(foreignPool.calls.some(x=>x.sql.startsWith("INSERT INTO")),false);
-  await assert.rejects(saveActivityEvidence({pool:mockPool(),actor,ownedChild:{...ownedChild,row:{id:22,parent_id:99}},event}),/ownership/);
+  await assert.rejects(saveActivityEvidence({pool:mockPool(),actor,ownedChild:{...ownedChild,row:{id:22,parent_id:99}},event}),/canonical parent and child required/);
 });
 test("controller defaults disabled and fails closed without verified auth, child, origin or CSRF",async()=>{
   const config={pool:mockPool(),resolveParentSession:async()=>actor,resolveOwnedChild:async()=>ownedChild,verifyCsrf:async()=>true,expectedOrigin:"https://garvey.example"};
