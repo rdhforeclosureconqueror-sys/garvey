@@ -157,6 +157,7 @@
         await loadContext();
       }
       async function init() {
+        const requestedChildId = new URLSearchParams(window.location.search).get("child_id") || "";
         const { r, d } = await json("/api/garvey-learning/children");
         if (!r.ok) {
           status.textContent =
@@ -172,6 +173,11 @@
                 `<option value="${c.child_id}">${c.child_name || "Child"}${c.child_grade_band ? " · " + c.child_grade_band : ""}</option>`,
             )
             .join("");
+        if (requestedChildId && d.children.some((child) => String(child.child_id) === String(requestedChildId))) {
+          pick.value = String(requestedChildId);
+          await loadContext();
+          return;
+        }
         status.textContent = "Choose a child to begin.";
       }
       pick.addEventListener("change", loadContext);
