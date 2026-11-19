@@ -1565,8 +1565,7 @@ async function initializeDatabase() {
     throw new Error(`gates schema incomplete: missing tables ${gatesSchemaReport.missingTables.join(", ")}; missing indexes ${gatesSchemaReport.missingIndexes.join(", ")}`);
   }
 
-  // Activity evidence remains child-scoped and opt-in. Gates tables are
-  // created above, so these foreign keys are valid on a fresh deployment.
+  // Activity evidence remains child-scoped and opt-in. Gates tables are created above, so these foreign keys are valid on a fresh deployment.
   for (const statement of CHILD_LEARNING_CONSENT_SQL) await pool.query(statement);
 
   const assessmentMvpMigrationResult = await initializeAssessmentMvpDatabase(pool);
