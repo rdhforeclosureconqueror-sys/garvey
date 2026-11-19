@@ -1,61 +1,68 @@
 # G2M_WP_001 — Addition and Subtraction Word Problems Review
 
-## 1. Selected package and sequence rationale
+## 1. Selected package and rationale
 
-`G2M_WP_001` was selected because the repository's Grade 2 Math production sequence places it immediately after the approved `G2M_OP_003` package. No later package was opened for review.
+This publication-quality restart reviewed exactly `G2M_WP_001`, the requested Grade 2 addition and subtraction word-problem package. The review began again from the canonical source after the shared `bar_model` repair; no finding from the stopped review was assumed valid and no other package was reviewed.
 
 ## 2. Executive summary
 
-The review stopped during required visual validation after confirming a reusable defect in the shared `bar_model` renderer. The renderer exposes an unknown answer as a labeled known whole and always appends another unknown segment. For example, `G2M_WP_001_LVL1_Q1` asks learners to find the whole from parts 24 and 18, but the production visual displays **42 — whole**, displays both known parts, and then adds a second **? — unknown** segment.
+All 50 canonical activities in four focused banks and one Mixed bank were individually reviewed. The package now has recomputed answers and structured word-problem metadata; distinct Focus, Strategy, and Verify hints; reasoning-centered explanations; answer-safe visual and audio descriptions; valid production visuals; and authentic Mixed transfer. The focused validation suite exercises all 50 activities through schema validation, the visual registry, the complete production question-card renderer, and production answer evaluation.
 
-This is a publication blocker: it gives away the answer, represents four quantities when the story has three, and makes the accessible mathematical intent unreliable. Per the audit instruction to stop and not change shared infrastructure in this curriculum PR, no curriculum content was modified and the remaining publication-quality audit was not represented as complete.
+The prior publication blocker is resolved. Every authored bar model displays its exact problem structure, all known quantities, and exactly one unknown without displaying the correct answer. No blank, placeholder, fallback, unavailable, or answer-leaking visual was found.
 
 ## 3. Educational review
 
-The canonical inventory contains 50 activities across four focused banks and one Mixed bank. Initial inspection found repeated generic hint ladders, answer-stating explanations, and Mixed prompts copied verbatim from focused banks. These issues remain unresolved because the shared-renderer stop condition took precedence.
+Every canonical prompt was checked for clarity, vocabulary, developmental appropriateness, mathematical meaning, and context duplication. The activities progress from addition, to subtraction, to comparison, to two-step reasoning, and finally transfer across structures. Values and language remain appropriate for Grade 2 work within 100.
+
+All 50 activities now have an activity-specific three-stage ladder labeled `Focus`, `Strategy`, and `Verify`. No hint ladder is duplicated. Focus hints direct attention to the story structure, Strategy hints connect that structure to an equation or inverse operation, and Verify hints require learners to check that their result reconstructs the known relationship.
+
+Each explanation shows the computation, explains why the operation represents the story, and supplies an inverse-operation check where appropriate. Two-step explanations explicitly compute and interpret the intermediate amount, rather than jumping to the final answer.
 
 ## 4. Mathematical review
 
-All 50 canonical authored answers were recomputed as an initial integrity check. Their top-level equations and answer fields are arithmetically consistent. A complete field-by-field publication audit was halted at the shared renderer defect and is not claimed.
+All authored values were recomputed independently from the displayed equations. Each `answer`, `correct_answer`, and sole `acceptable_answers` entry matches the recomputed value. All known quantities, intermediate quantities, and results are nonnegative whole numbers no greater than 100.
+
+Operation metadata matches the focused-bank intent and the actual equation. Every activity includes structured word-problem metadata recording its semantic structure, known quantities, unknown, and equation. Comparison activities identify the larger amount, smaller amount, unknown difference, and computed difference. Start-unknown and change-unknown activities identify the unknown position and known quantities. Two-step activities consistently include the third operand and preserve story order.
 
 ## 5. Mixed transfer review
 
-The ten Mixed activities reuse focused prompts, arithmetic pairs, visual arrangements, and contexts. They are not authentic transfer activities in their current form. Remediation was not begun after the stop condition.
+The ten Mixed activities were rewritten as authentic transfer tasks. None reuses a focused prompt, equation, arithmetic tuple, context, or exact hint ladder. Mixed includes addition, subtraction, comparison, and two-step structures, including result-, start-, and comparison-unknown reasoning. It also distributes activities across equation builders, bar models, number lines, and word-problem models instead of copying focused visual arrangements.
 
-## 6. Visual review — shared defect
+## 6. Visual review
 
-The shared `bar_model` implementation chooses `correct_answer` as its displayed `whole` whenever `total` is absent, then unconditionally appends a missing unknown segment. This cannot correctly represent all problem structures used by this package:
+Every canonical activity was rendered through the production visual registry and the complete production question-card renderer. Each selected renderer is registered, returns substantive markup, and matches the activity's authored `visual_model`. No output contains fallback, unavailable, placeholder, unsupported, or blank-renderer content.
 
-- In result-unknown addition, it reveals the result as the whole and adds a redundant unknown.
-- In subtraction, it labels the difference as the whole rather than the starting quantity and adds another unknown.
-- In comparison, it labels the difference as the whole and does not provide a structurally valid comparison model.
+Every bar-model path was inspected deterministically for its declared semantic structure. Result-unknown addition and subtraction, start-unknown, comparison-more, comparison-less, missing-minuend, and multi-step paths show every known equation quantity exactly as authored and exactly one question-mark unknown. The correct answer never appears as a labeled known quantity.
 
-The focused test reproduces the defect through the production visual registry using `G2M_WP_001_LVL1_Q1`. Shared renderer code was not changed.
+Browser-based screenshot inspection was not available because this environment contains no Playwright, Puppeteer, Chromium, Chrome, or compatible browser executable. In accordance with the fallback requirement, all 50 activities were instead verified through both the visual registry and the full production question-card renderer. The shared bar-model renderer's own fixture suite was also run across every supported path.
 
 ## 7. Accessibility review
 
-Canonical activities do not currently contain both `visual_description` and `accessible_description`. Read Question audio repeats the prompt but omits a description of the rendered visual context. Completion of this review is blocked because the underlying bar representation is mathematically inaccurate.
+Every activity contains both `visual_description` and `accessible_description`; the matching descriptions name the model, known quantities, unknown quantity, and mathematical relationship. They accurately distinguish result unknowns, starting-amount unknowns, change unknowns, comparisons, and two-step relationships without giving the answer.
+
+Every Read Question audio payload begins with the complete visible prompt and then adds natural-language visual context. Audio text does not inject symbolic equations, does not omit the visual relationship, and does not reveal the unknown result.
 
 ## 8. Interaction review
 
-Schema, inventory, ID, and authored arithmetic checks pass. Production visual-registry validation fails on the shared `bar_model` defect. Full question-card interaction validation and production answer-evaluation certification were not completed after the required stop.
+All 50 complete question cards render in production practice mode with their registered visual and expected response control. Production answer evaluation accepts every authored correct answer and rejects an unrelated numeric response.
+
+All 17 multiple-choice activities have four unique options, synchronized `options` and `choices`, and exactly one correct option. Authored answer positions are balanced as evenly as mathematically possible across four positions: 5, 4, 4, and 4.
 
 ## 9. Files changed
 
+- `public/gamehub/skill-world/content/G2M_WP_001.skill-package.v1.json`
 - `tests/gamehub/skill-world/g2m-wp-001-content-quality.test.js`
 - `docs/curriculum-reviews/G2M_WP_001-review.md`
 
-The package JSON was deliberately not changed after discovering the shared defect.
-
 ## 10. Tests executed
 
-- `node --test tests/gamehub/skill-world/g2m-wp-001-content-quality.test.js` — expected failure documenting the shared renderer blocker.
+- `node --test tests/gamehub/skill-world/g2m-wp-001-content-quality.test.js`
+- `node --test tests/gamehub/skill-world/bar-model-renderer.test.js`
 - `node --test tests/gamehub/skill-world/skill-world-generator.test.js`
 - `npm run validate:curriculum-index`
 - `git diff --check`
 - `git status --short --branch`
-
-Chromium availability is checked in the final delivery. Browser inspection cannot supersede the deterministic incorrect renderer output.
+- Browser availability check: `node -e "for(const m of ['playwright','playwright-core','puppeteer'])try{console.log(m,require.resolve(m))}catch{}"; command -v chromium || command -v chromium-browser || command -v google-chrome || true`
 
 ## 11. Branch
 
@@ -63,12 +70,12 @@ Chromium availability is checked in the final delivery. Browser inspection canno
 
 ## 12. Commit SHA
 
-Reported in the final delivery because a commit cannot contain its own immutable SHA.
+Reported in the final delivery because a Git commit cannot contain its own immutable SHA.
 
 ## 13. Pull request title
 
-`Report G2M_WP_001 shared bar-model blocker`
+`Complete publication review for G2M_WP_001`
 
 ## 14. Scope confirmation
 
-Review stopped after exactly `G2M_WP_001`. No second package, shared renderer, infrastructure, approved package, other-grade content, assessment, dashboard, route, persistence, replay, or answer-shuffling file was modified.
+The completed review covers exactly `G2M_WP_001` and every one of its 50 canonical activities. Only the three explicitly allowed files were modified. No shared renderer, infrastructure, previously approved package, Grade 1 or Grade 3 content, assessment, dashboard, route, persistence, replay, or answer-shuffling file was changed. Review stops here; no second package was begun.
