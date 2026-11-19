@@ -7,6 +7,7 @@ const { applyTdeMigrations, verifyTdeSchema } = require("./youthDevelopmentTdeDb
 const { applyGatesMigrations, verifyGatesSchema } = require("./gatesDb");
 const { initializeAssessmentMvpDatabase, verifyAssessmentMvpSchema } = require("./assessmentMvpDb");
 const { applyLeaderWithinMigrations } = require("./leaderWithinDb");
+const { CHILD_LEARNING_CONSENT_SQL } = require("../learning-science/childConsentSchema");
 
 function readEnvTrimmed(name) {
   const value = process.env[name];
@@ -1563,6 +1564,10 @@ async function initializeDatabase() {
   if (!gatesSchemaReport.ok) {
     throw new Error(`gates schema incomplete: missing tables ${gatesSchemaReport.missingTables.join(", ")}; missing indexes ${gatesSchemaReport.missingIndexes.join(", ")}`);
   }
+
+  // Activity evidence remains child-scoped and opt-in. Gates tables are
+  // created above, so these foreign keys are valid on a fresh deployment.
+  for (const statement of CHILD_LEARNING_CONSENT_SQL) await pool.query(statement);
 
   const assessmentMvpMigrationResult = await initializeAssessmentMvpDatabase(pool);
   await applyLeaderWithinMigrations(pool);
