@@ -70,12 +70,19 @@
   </section>
   <p class="note">This game practices sequencing, flexible rule use, and reflection. Results describe this activity only—not IQ, a diagnosis, or a fixed measure of talent. No name, account, or personal data is collected by this page.</p>
 </main>
+<script src="/garvey-learning/garvey-activity-runtime.js"></script>
+<script src="/garvey-learning/garvey-activity-bridge.js"></script>
 <script src="/genius-practice/mission-planner-engine.js"></script>
 <script>
 (function () {
   "use strict";
   const game = window.GarveyMissionPlanner;
   let state = game.createState();
+  let missionStarted = null;
+  let completedObserved = false;
+  const bridge = window.GarveyActivityBridge ? window.GarveyActivityBridge.createBridge({ activityId: "mission-planner", transport: window.GarveyActivityRuntime?.transport }) : null;
+  const observe = (type, detail) => { try { bridge?.record(type, detail); } catch (_) {} };
+  const task = () => "mission_" + String(state.missionIndex + 1);
   const el = id => document.getElementById(id);
   const name = id => (game.ITEMS.find(item => item.id === id) || {}).label || "";
   function draw(message = "") {
@@ -87,7 +94,13 @@
       el("session-summary").textContent = "Routes completed: " + snapshot.missions_completed +
         " of " + game.MISSIONS.length + ". Attempts: " + snapshot.attempts +
         ". Changes to your plan: " + snapshot.revisions + ".";
+      if (!completedObserved) { bridge?.complete({ taskId: "mission_planner", outcome: "not_applicable", practiceTags: ["sequencing", "rule_switching", "self_reflection"], geniusDimensionCodes: ["SR", "RS", "PS", "FB"] }); completedObserved = true; }
       return;
+    }
+    if (missionStarted !== state.missionIndex) {
+      observe("task_started", { taskId: task(), skillId: "sequencing", outcome: "not_applicable", practiceTags: ["sequencing", "working_hold"], geniusDimensionCodes: ["SR", "RS"] });
+      if (state.missionIndex > 0) observe("rule_changed", { taskId: task(), ruleId: "changed_rule", outcome: "not_applicable", practiceTags: ["rule_switching"], geniusDimensionCodes: ["SR", "RS", "FB"] });
+      missionStarted = state.missionIndex;
     }
     el("progress").textContent = "Mission " + (state.missionIndex + 1) + " of " + game.MISSIONS.length;
     el("mission-title").textContent = mission.title;
@@ -117,19 +130,22 @@
     el("undo").disabled = state.selected.length === 0;
     el("feedback").textContent = message;
   }
-  el("undo").addEventListener("click", () => { state = game.undo(state); draw("You can adjust your plan."); });
+  el("undo").addEventListener("click", () => { state = game.undo(state); observe("plan_revised", { taskId: task(), outcome: "not_applicable", practiceTags: ["sequencing", "self_reflection"], geniusDimensionCodes: ["PS", "FB"] }); draw("You can adjust your plan."); });
   el("check").addEventListener("click", () => {
     const result = game.check(state);
+    observe("answer_submitted", { taskId: task(), skillId: "sequencing", attemptNumber: state.attempts + 1, outcome: result.outcome === "retry" ? "incorrect" : "correct", practiceTags: ["sequencing", "rule_switching"], geniusDimensionCodes: ["SR", "RS", "PS", "FB"] });
+    if (result.outcome === "retry") observe("retry", { taskId: task(), outcome: "not_applicable", practiceTags: ["persistence", "rule_switching"], geniusDimensionCodes: ["PS", "FB"] });
     state = result.state;
     draw(result.outcome === "retry"
       ? "Good try! Look at the rule again and choose a new route."
       : "Great planning! You completed that mission.");
   });
   document.querySelectorAll('input[name="reflection"]').forEach(function (input) {
-    input.addEventListener("change", function () { state = game.reflect(state, input.value); });
+    input.addEventListener("change", function () { const choice = input.value === "another_strategy" ? "changed_strategy" : input.value; state = game.reflect(state, input.value); try { bridge?.reflect(choice, "mission_planner"); } catch (_) {} });
   });
   el("restart").addEventListener("click", function () {
     state = game.createState();
+    missionStarted = null; completedObserved = false;
     document.querySelectorAll('input[name="reflection"]').forEach(x => { x.checked = false; });
     draw();
   });
