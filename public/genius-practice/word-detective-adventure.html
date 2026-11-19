@@ -135,7 +135,10 @@ button{font:inherit}
 
   <div class="footer">Made for curious second-grade word detectives 🌟</div>
 </div>
+<script src="/garvey-learning/garvey-activity-runtime.js"></script>
+<script src="/garvey-learning/garvey-activity-bridge.js"></script>
 <script>
+const wordDetectiveBridge=window.GarveyActivityBridge?window.GarveyActivityBridge.createBridge({activityId:'word-detective',transport:window.GarveyActivityRuntime?.transport}):null;
 const contextLessons = [
 {title:'The Gloomy Sky',word:'gloomy',story:'Maya planned to play outside. Then dark clouds covered the sun, a cold wind began to blow, and rain started to fall. The sky looked gloomy.',clues:['dark clouds covered the sun','a cold wind blew','rain began to fall'],meaning:'Gloomy means dark, cloudy, or a little sad-looking.',why:'All of the details describe weather that is not bright or cheerful.'},
 {title:'The Exhausted Runner',word:'exhausted',story:'Luis ran around the track five times. When he finished, he bent over, breathed hard, and said he needed to rest. Luis was exhausted.',clues:['he ran five laps','he was breathing hard','he needed to rest'],meaning:'Exhausted means very tired.',why:'The situation shows that Luis used a lot of energy and had almost none left.'},
@@ -207,6 +210,7 @@ const practice=[
 ];
 let pIndex=0,score=0;
 function renderPractice(){
+ if(pIndex===0)wordDetectiveBridge?.start('context_clue_practice',{skillId:'word_meaning_relationships',practiceTags:['selective_attention'],geniusDimensionCodes:['SR','RS']});
  const q=practice[pIndex],root=document.getElementById('practiceRoot');
  document.getElementById('practiceProgress').style.width=(pIndex/practice.length*100)+'%';
  root.innerHTML=`<div class="practice-card"><div class="badges"><span class="badge">${q.type}</span><span class="badge">${pIndex+1} of ${practice.length}</span><span class="badge">⭐ ${score}</span></div><div class="story">${q.story}</div><h3>${q.prompt}</h3><div class="answer-grid">${q.answers.map((a,i)=>`<button class="answer" onclick="checkAnswer(${i},this)">${a}</button>`).join('')}</div><div id="practiceFeedback" class="feedback"></div></div>`;
@@ -214,12 +218,12 @@ function renderPractice(){
 function checkAnswer(i,btn){
  const q=practice[pIndex],feedback=document.getElementById('practiceFeedback');
  document.querySelectorAll('.answer').forEach(b=>b.disabled=true);
- if(i===q.correct){btn.classList.add('correct');score++;feedback.innerHTML=`<strong>Correct!</strong> ${q.explain}`}
- else{btn.classList.add('wrong');document.querySelectorAll('.answer')[q.correct].classList.add('correct');feedback.innerHTML=`<strong>Let’s study it:</strong> ${q.explain}`}
+ if(i===q.correct){wordDetectiveBridge?.record('answer_submitted',{taskId:'context_clue_practice',skillId:'word_meaning_relationships',outcome:'correct',attemptNumber:1,practiceTags:['language_explanation'],geniusDimensionCodes:['RS','FB']});btn.classList.add('correct');score++;feedback.innerHTML=`<strong>Correct!</strong> ${q.explain}`}
+ else{wordDetectiveBridge?.record('answer_submitted',{taskId:'context_clue_practice',skillId:'word_meaning_relationships',outcome:'incorrect',attemptNumber:1,practiceTags:['selective_attention'],geniusDimensionCodes:['SR','FB']});wordDetectiveBridge?.record('retry',{taskId:'context_clue_practice',skillId:'word_meaning_relationships',practiceTags:['persistence'],geniusDimensionCodes:['PS','FB']});btn.classList.add('wrong');document.querySelectorAll('.answer')[q.correct].classList.add('correct');feedback.innerHTML=`<strong>Let’s study it:</strong> ${q.explain}`}
  feedback.classList.add('show');
  const next=document.createElement('button');next.className='primary';next.style.marginTop='12px';next.textContent=pIndex<practice.length-1?'Next Example →':'Finish Adventure';next.onclick=()=>{pIndex++; if(pIndex<practice.length)renderPractice(); else finishPractice()};feedback.appendChild(document.createElement('br'));feedback.appendChild(next);
 }
-function finishPractice(){document.getElementById('practiceProgress').style.width='100%';document.getElementById('practiceRoot').innerHTML=`<div class="practice-card" style="text-align:center"><div style="font-size:70px">🏆</div><h2>Master Word Detective!</h2><p>You completed the teaching lessons and the guided practice.</p><h3>Your score: ${score} out of ${practice.length}</h3><button class="primary" onclick="pIndex=0;score=0;renderPractice()">Play Again</button></div>`}
+function finishPractice(){wordDetectiveBridge?.complete({taskId:'context_clue_practice',skillId:'word_meaning_relationships',practiceTags:['persistence'],geniusDimensionCodes:['PS','FB']});document.getElementById('practiceProgress').style.width='100%';document.getElementById('practiceRoot').innerHTML=`<div class="practice-card" style="text-align:center"><div style="font-size:70px">🏆</div><h2>Master Word Detective!</h2><p>You completed the teaching lessons and the guided practice.</p><h3>Your score: ${score} out of ${practice.length}</h3><button class="primary" onclick="pIndex=0;score=0;renderPractice()">Play Again</button></div>`}
 function openPanel(id){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.navbar button').forEach(b=>b.classList.toggle('active',b.dataset.panel===id));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('.navbar button').forEach(b=>b.onclick=()=>openPanel(b.dataset.panel));
 function speakText(text){if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=.86;u.pitch=1.05;speechSynthesis.speak(u)}}

@@ -529,7 +529,12 @@
     </section>
   </main>
 
+  <script src="/garvey-learning/garvey-activity-runtime.js"></script>
+  <script src="/garvey-learning/garvey-activity-bridge.js"></script>
   <script>
+    const wordPowerBridge = window.GarveyActivityBridge ? window.GarveyActivityBridge.createBridge({ activityId: 'word-power', transport: window.GarveyActivityRuntime?.transport }) : null;
+    const wordPowerStart = (taskId, observation = {}) => wordPowerBridge?.start(taskId, observation);
+    const wordPowerRecord = (eventType, observation = {}) => wordPowerBridge?.record(eventType, observation);
     let score = 0;
     let quizIndex = 0;
     let quizLocked = false;
@@ -586,6 +591,7 @@
     }
 
     function startQuiz() {
+      wordPowerStart('synonym_antonym_quiz', { skillId: 'synonym_antonym', practiceTags: ['selective_attention'], geniusDimensionCodes: ['SR', 'RS'] });
       quizIndex = 0;
       quizLocked = false;
       showScreen('quiz');
@@ -617,11 +623,14 @@
       const q = quizQuestions[quizIndex];
       const all = [...document.querySelectorAll('.choice')];
       if (choice === q.answer) {
+        wordPowerRecord('answer_submitted', { taskId: 'synonym_antonym_quiz', skillId: 'synonym_antonym', outcome: 'correct', attemptNumber: 1, practiceTags: ['language_explanation'], geniusDimensionCodes: ['RS', 'FB'] });
         button.classList.add('correct');
         addScore(10);
         document.getElementById('feedback').textContent = `🎉 Correct! ${q.word} and ${q.answer} are ${q.type}s.`;
         speak('Correct! Great job!');
       } else {
+        wordPowerRecord('answer_submitted', { taskId: 'synonym_antonym_quiz', skillId: 'synonym_antonym', outcome: 'incorrect', attemptNumber: 1, practiceTags: ['selective_attention'], geniusDimensionCodes: ['SR', 'FB'] });
+        wordPowerRecord('retry', { taskId: 'synonym_antonym_quiz', skillId: 'synonym_antonym', practiceTags: ['persistence'], geniusDimensionCodes: ['PS', 'FB'] });
         button.classList.add('wrong');
         all.find(b => b.textContent === q.answer)?.classList.add('correct');
         document.getElementById('feedback').textContent = `Good try! The answer is ${q.answer}.`;
@@ -636,6 +645,7 @@
       if (quizIndex < quizQuestions.length) renderQuestion();
       else {
         document.getElementById('quizProgress').style.width = '100%';
+        wordPowerBridge?.complete({ taskId: 'synonym_antonym_quiz', skillId: 'synonym_antonym', practiceTags: ['persistence'], geniusDimensionCodes: ['PS', 'FB'] });
         celebrate();
         document.getElementById('finalScore').textContent = score;
         showScreen('finish');
@@ -643,6 +653,7 @@
     }
 
     function startMatch() {
+      wordPowerStart('opposite_pair_match', { skillId: 'antonyms', practiceTags: ['working_hold'], geniusDimensionCodes: ['SR', 'RS'] });
       showScreen('match');
       selectedMatch = null;
       matchedPairs = 0;
@@ -675,6 +686,7 @@
         return;
       }
       if (selectedMatch.dataset.pair === card.dataset.pair) {
+        wordPowerRecord('answer_submitted', { taskId: 'opposite_pair_match', skillId: 'antonyms', outcome: 'correct', practiceTags: ['working_hold'], geniusDimensionCodes: ['RS', 'FB'] });
         selectedMatch.classList.remove('selected');
         selectedMatch.classList.add('matched');
         card.classList.add('matched');
@@ -688,6 +700,8 @@
           celebrate();
         }
       } else {
+        wordPowerRecord('answer_submitted', { taskId: 'opposite_pair_match', skillId: 'antonyms', outcome: 'incorrect', practiceTags: ['working_hold'], geniusDimensionCodes: ['SR', 'FB'] });
+        wordPowerRecord('retry', { taskId: 'opposite_pair_match', skillId: 'antonyms', practiceTags: ['persistence'], geniusDimensionCodes: ['PS', 'FB'] });
         const first = selectedMatch;
         card.classList.add('wrong');
         first.classList.add('wrong');
@@ -701,6 +715,7 @@
     }
 
     function startSort() {
+      wordPowerStart('word_relationship_sort', { skillId: 'synonym_antonym', practiceTags: ['rule_switching'], geniusDimensionCodes: ['SR', 'RS'] });
       showScreen('sort');
       sortIndex = 0;
       document.getElementById('synZone').innerHTML = '';
@@ -724,6 +739,7 @@
       if (sortIndex >= sortPairs.length) return;
       const p = sortPairs[sortIndex];
       if (type === p.type) {
+        wordPowerRecord('answer_submitted', { taskId: 'word_relationship_sort', skillId: 'synonym_antonym', outcome: 'correct', practiceTags: ['rule_switching'], geniusDimensionCodes: ['RS', 'FB'] });
         addScore(10);
         document.getElementById('sortFeedback').textContent = `✅ Correct! They are ${p.type}s.`;
         const chip = document.createElement('span');
@@ -734,6 +750,8 @@
         sortIndex++;
         setTimeout(renderSort, 500);
       } else {
+        wordPowerRecord('answer_submitted', { taskId: 'word_relationship_sort', skillId: 'synonym_antonym', outcome: 'incorrect', practiceTags: ['rule_switching'], geniusDimensionCodes: ['SR', 'FB'] });
+        wordPowerRecord('retry', { taskId: 'word_relationship_sort', skillId: 'synonym_antonym', practiceTags: ['persistence'], geniusDimensionCodes: ['PS', 'FB'] });
         document.getElementById('sortFeedback').textContent = `Try again. Are the meanings alike or opposite?`;
         speak('Try again.');
       }

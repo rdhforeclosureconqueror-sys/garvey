@@ -12,6 +12,8 @@
     "rainbow-syllables": "phonics",
     "rainbow-writing": "writing",
     "rainbow-grammar": "grammar",
+    "word-power": "vocabulary",
+    "word-detective": "vocabulary",
     "mission-planner": "executive_support",
   });
   const TYPES = new Set([
